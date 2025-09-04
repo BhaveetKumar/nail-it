@@ -27,9 +27,11 @@ The Razorpay Lead SDE interview consists of **5 rounds**:
 
 ## 📚 Repository Contents
 
-### 📖 **Main Preparation Guide**
+### 📖 **Main Preparation Guides**
 
 - **[`Razorpay_Lead_SDE_Interview_Preparation_Plan.md`](./Razorpay_Lead_SDE_Interview_Preparation_Plan.md)** - Complete 5-day study plan with detailed examples
+- **[`Advanced_Backend_Engineer_Preparation.md`](./Advanced_Backend_Engineer_Preparation.md)** - Deep technical guide for 10+ years experience
+- **[`Razorpay_Advanced_Interview_Scenarios.md`](./Razorpay_Advanced_Interview_Scenarios.md)** - Real-world interview scenarios and solutions
 
 ### 📄 **Original Materials**
 
@@ -55,49 +57,65 @@ The Razorpay Lead SDE interview consists of **5 rounds**:
 ### **Essential Patterns for Lead SDE Interviews**
 
 #### **1. Two Pointers Pattern**
+
 **Use Case**: Array problems, palindrome checks, finding pairs
+
 - **LeetCode Examples**: [Two Sum](https://leetcode.com/problems/two-sum/), [Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
 - **Visual Guide**: [Two Pointers Technique](https://www.youtube.com/watch?v=On03HWe2tZM)
 - **Go Implementation**: Sliding window, fast/slow pointers
 
 #### **2. Sliding Window Pattern**
+
 **Use Case**: Subarray problems, string problems with fixed/variable window
+
 - **LeetCode Examples**: [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/), [Maximum Sum Subarray of Size K](https://leetcode.com/problems/maximum-sum-subarray-of-size-k/)
 - **Visual Guide**: [Sliding Window Technique](https://www.youtube.com/watch?v=MK-NZ4hN7rs)
 - **Go Implementation**: Hash map + two pointers
 
 #### **3. Fast & Slow Pointers (Floyd's Cycle Detection)**
+
 **Use Case**: Linked list cycle detection, finding middle element
+
 - **LeetCode Examples**: [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/), [Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/)
 - **Visual Guide**: [Floyd's Cycle Detection](https://www.youtube.com/watch?v=LUm2ABqAs1w)
 - **Go Implementation**: Two pointers moving at different speeds
 
 #### **4. Merge Intervals Pattern**
+
 **Use Case**: Overlapping intervals, scheduling problems
+
 - **LeetCode Examples**: [Merge Intervals](https://leetcode.com/problems/merge-intervals/), [Insert Interval](https://leetcode.com/problems/insert-interval/)
 - **Visual Guide**: [Merge Intervals Pattern](https://www.youtube.com/watch?v=2JzRBPFYbKE)
 - **Go Implementation**: Sort + merge logic
 
 #### **5. Tree Traversal Patterns**
+
 **Use Case**: Binary tree problems, path finding
+
 - **LeetCode Examples**: [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/), [Path Sum](https://leetcode.com/problems/path-sum/)
 - **Visual Guide**: [Tree Traversal Techniques](https://www.youtube.com/watch?v=9RHO6jU--GU)
 - **Go Implementation**: DFS (recursive/iterative), BFS with queue
 
 #### **6. Dynamic Programming Patterns**
+
 **Use Case**: Optimization problems, counting problems
+
 - **LeetCode Examples**: [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/), [House Robber](https://leetcode.com/problems/house-robber/)
 - **Visual Guide**: [DP Patterns](https://www.youtube.com/watch?v=oBt53YbR9Kk)
 - **Go Implementation**: Memoization, tabulation
 
 #### **7. Backtracking Pattern**
+
 **Use Case**: Permutations, combinations, constraint satisfaction
+
 - **LeetCode Examples**: [Generate Parentheses](https://leetcode.com/problems/generate-parentheses/), [N-Queens](https://leetcode.com/problems/n-queens/)
 - **Visual Guide**: [Backtracking Explained](https://www.youtube.com/watch?v=Zq4upTEaQyM)
 - **Go Implementation**: Recursive DFS with state management
 
 #### **8. Graph Algorithms**
+
 **Use Case**: Network problems, shortest path, connectivity
+
 - **LeetCode Examples**: [Number of Islands](https://leetcode.com/problems/number-of-islands/), [Course Schedule](https://leetcode.com/problems/course-schedule/)
 - **Visual Guide**: [Graph Algorithms](https://www.youtube.com/watch?v=tWVWeAqZ0WU)
 - **Go Implementation**: DFS, BFS, Union-Find
@@ -105,27 +123,32 @@ The Razorpay Lead SDE interview consists of **5 rounds**:
 ### **High-Frequency DSA Questions for Lead SDE**
 
 #### **Arrays & Strings**
+
 1. **Two Sum** - [LeetCode](https://leetcode.com/problems/two-sum/) | [Solution](https://www.youtube.com/watch?v=KLlXCFG5TnA)
 2. **Longest Substring Without Repeating Characters** - [LeetCode](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [Solution](https://www.youtube.com/watch?v=wiGpQwVHdZE)
 3. **Container With Most Water** - [LeetCode](https://leetcode.com/problems/container-with-most-water/) | [Solution](https://www.youtube.com/watch?v=UuiTKBwPgAo)
 4. **3Sum** - [LeetCode](https://leetcode.com/problems/3sum/) | [Solution](https://www.youtube.com/watch?v=jzZsG8n2R9A)
 
 #### **Linked Lists**
+
 1. **Reverse Linked List** - [LeetCode](https://leetcode.com/problems/reverse-linked-list/) | [Solution](https://www.youtube.com/watch?v=G0_I-ZF0S38)
 2. **Linked List Cycle** - [LeetCode](https://leetcode.com/problems/linked-list-cycle/) | [Solution](https://www.youtube.com/watch?v=gBTe7lFR3vc)
 3. **Merge Two Sorted Lists** - [LeetCode](https://leetcode.com/problems/merge-two-sorted-lists/) | [Solution](https://www.youtube.com/watch?v=XIdigAk956Q)
 
 #### **Trees**
+
 1. **Maximum Depth of Binary Tree** - [LeetCode](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | [Solution](https://www.youtube.com/watch?v=hTM3phVI6YQ)
 2. **Binary Tree Level Order Traversal** - [LeetCode](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [Solution](https://www.youtube.com/watch?v=6ZnyEApgFYg)
 3. **Validate Binary Search Tree** - [LeetCode](https://leetcode.com/problems/validate-binary-search-tree/) | [Solution](https://www.youtube.com/watch?v=s6ATEkipzow)
 
 #### **Dynamic Programming**
+
 1. **Climbing Stairs** - [LeetCode](https://leetcode.com/problems/climbing-stairs/) | [Solution](https://www.youtube.com/watch?v=Y0lT9Fck7qI)
 2. **House Robber** - [LeetCode](https://leetcode.com/problems/house-robber/) | [Solution](https://www.youtube.com/watch?v=73r3KWiEvyk)
 3. **Longest Common Subsequence** - [LeetCode](https://leetcode.com/problems/longest-common-subsequence/) | [Solution](https://www.youtube.com/watch?v=Ua0GhsJSlWM)
 
 #### **Graphs**
+
 1. **Number of Islands** - [LeetCode](https://leetcode.com/problems/number-of-islands/) | [Solution](https://www.youtube.com/watch?v=pV2kpPD66nE)
 2. **Course Schedule** - [LeetCode](https://leetcode.com/problems/course-schedule/) | [Solution](https://www.youtube.com/watch?v=EgI5nU9etnU)
 3. **Word Ladder** - [LeetCode](https://leetcode.com/problems/word-ladder/) | [Solution](https://www.youtube.com/watch?v=h9iTnkgv05E)
@@ -133,17 +156,20 @@ The Razorpay Lead SDE interview consists of **5 rounds**:
 ### **DSA Learning Resources**
 
 #### **Visual Learning Platforms**
+
 - [VisuAlgo](https://visualgo.net/) - Interactive algorithm visualizations
 - [Algorithm Visualizer](https://algorithm-visualizer.org/) - Step-by-step algorithm execution
 - [Data Structure Visualizations](https://www.cs.usfca.edu/~galles/visualization/) - USFCA visualizations
 
 #### **Video Tutorials**
+
 - [NeetCode](https://www.youtube.com/c/NeetCode) - Comprehensive DSA explanations
 - [Back To Back SWE](https://www.youtube.com/c/BackToBackSWE) - In-depth algorithm analysis
 - [Abdul Bari](https://www.youtube.com/c/AbdulBari) - Algorithm fundamentals
 - [Gaurav Sen](https://www.youtube.com/c/GauravSensei) - System design and algorithms
 
 #### **Practice Platforms**
+
 - [LeetCode](https://leetcode.com/) - 2000+ problems with solutions
 - [HackerRank](https://www.hackerrank.com/) - Algorithm challenges
 - [CodeSignal](https://codesignal.com/) - Technical assessments
@@ -156,8 +182,9 @@ The Razorpay Lead SDE interview consists of **5 rounds**:
 Based on insights from [High Scalability](https://highscalability.com/), here are key system design patterns from real-world applications:
 
 #### **1. Apache Kafka Architecture**
+
 - **Scale**: LinkedIn's real-time data streaming platform
-- **Key Learnings**: 
+- **Key Learnings**:
   - Distributed commit log design
   - Partitioning strategies for horizontal scaling
   - Consumer group patterns for load balancing
@@ -165,6 +192,7 @@ Based on insights from [High Scalability](https://highscalability.com/), here ar
 - **Resources**: [Kafka 101 - High Scalability](https://highscalability.com/blog/2024/5/9/kafka-101.html)
 
 #### **2. AWS S3's Massive Scale**
+
 - **Scale**: Trillions of objects, exabytes of data
 - **Key Learnings**:
   - Eventual consistency model
@@ -174,6 +202,7 @@ Based on insights from [High Scalability](https://highscalability.com/), here ar
 - **Resources**: [Behind AWS S3's Massive Scale](https://highscalability.com/blog/2024/3/6/behind-aws-s3s-massive-scale.html)
 
 #### **3. Uber's Scaling Journey**
+
 - **Scale**: Global ride-sharing platform
 - **Key Learnings**:
   - Microservices architecture evolution
@@ -183,6 +212,7 @@ Based on insights from [High Scalability](https://highscalability.com/), here ar
 - **Resources**: [Brief History of Scaling Uber](https://highscalability.com/blog/2024/3/14/brief-history-of-scaling-uber.html)
 
 #### **4. Meta's Presto at Scale**
+
 - **Scale**: Petabyte-scale data analytics
 - **Key Learnings**:
   - Distributed SQL query engine
@@ -194,18 +224,21 @@ Based on insights from [High Scalability](https://highscalability.com/), here ar
 ### **System Design Patterns from High Scalability**
 
 #### **1. Consistent Hashing**
+
 - **Use Case**: Distributed caching, load balancing
 - **Real-world Example**: Memcached, DynamoDB
 - **Visual Guide**: [Consistent Hashing Algorithm](https://highscalability.com/blog/2023/2/22/consistent-hashing-algorithm.html)
 - **Implementation**: Hash ring with virtual nodes
 
 #### **2. Gossip Protocol**
+
 - **Use Case**: Distributed system state synchronization
 - **Real-world Example**: Cassandra, Riak
 - **Visual Guide**: [Gossip Protocol Explained](https://highscalability.com/blog/2023/7/16/gossip-protocol-explained.html)
 - **Implementation**: Peer-to-peer information dissemination
 
 #### **3. Event-Driven Architecture**
+
 - **Use Case**: Microservices communication, real-time processing
 - **Real-world Example**: Netflix, Uber
 - **Key Components**: Event sourcing, CQRS, message queues
@@ -214,18 +247,21 @@ Based on insights from [High Scalability](https://highscalability.com/), here ar
 ### **Fintech-Specific System Design Patterns**
 
 #### **1. Payment Processing Architecture**
+
 - **Components**: Payment gateway, fraud detection, settlement
 - **Scalability**: Horizontal scaling, database sharding
 - **Reliability**: Circuit breakers, retry mechanisms
 - **Security**: Encryption, PCI compliance, audit trails
 
 #### **2. Real-Time Risk Management**
+
 - **Components**: Risk scoring engine, rule engine, ML models
 - **Scalability**: Stream processing, distributed computing
 - **Performance**: Sub-second response times
 - **Implementation**: Apache Storm, Apache Flink
 
 #### **3. Multi-Tenant Architecture**
+
 - **Components**: Tenant isolation, resource sharing
 - **Scalability**: Database per tenant vs shared database
 - **Security**: Data isolation, access control
@@ -271,10 +307,20 @@ Based on insights from [High Scalability](https://highscalability.com/), here ar
 
 ### **Technical Skills**
 
-- **Go Programming** - Idiomatic Go code, concurrency patterns
-- **System Design** - Distributed systems, scalability, reliability
-- **Data Structures** - Arrays, trees, graphs, hash tables
-- **Algorithms** - Sorting, searching, optimization
+- **Go Programming** - Idiomatic Go code, concurrency patterns, runtime optimization
+- **System Design** - Distributed systems, scalability, reliability, microservices
+- **Data Structures** - Arrays, trees, graphs, hash tables, advanced algorithms
+- **Algorithms** - Sorting, searching, optimization, dynamic programming
+- **Performance Engineering** - Profiling, optimization, memory management
+- **Operating Systems** - Process scheduling, memory management, I/O operations
+
+### **Advanced Technical Skills (10+ Years Experience)**
+
+- **Go Runtime Deep Dive** - Scheduler behavior, garbage collection, memory model
+- **Concurrency Patterns** - Lock-free data structures, work stealing, goroutine optimization
+- **System Architecture** - Event-driven architecture, CQRS, event sourcing
+- **Performance Optimization** - Latency optimization, throughput maximization
+- **Infrastructure** - Kubernetes, Docker, monitoring, observability
 
 ### **Leadership Skills**
 
@@ -282,6 +328,8 @@ Based on insights from [High Scalability](https://highscalability.com/), here ar
 - **Communication** - Technical explanations, stakeholder management
 - **Problem Solving** - Complex challenges, trade-off analysis
 - **Culture Fit** - Razorpay values, collaboration, growth mindset
+- **Architecture Decisions** - Technology selection, migration strategies
+- **Incident Management** - Production issues, crisis management
 
 ## 🏢 About Razorpay
 
