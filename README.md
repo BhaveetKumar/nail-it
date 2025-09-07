@@ -27,6 +27,16 @@ The Razorpay Lead SDE interview consists of **5 rounds**:
 
 ## 📚 Repository Contents
 
+### 🎯 **Quick Navigation by Interview Round**
+
+| **Round** | **Focus** | **Primary Guide** | **Supporting Guides** |
+|-----------|-----------|-------------------|----------------------|
+| **Round 1** | Machine Coding | [Go Expertise Guide](./Go_Expertise_Complete_Guide.md) | [DSA Guide](./DSA_Questions_Answers_Guide.md), [OS Concepts](./Operating_System_Concepts_Guide.md) |
+| **Round 2** | System Design | [System Design Guide](./System_Design_Concepts_Guide.md) | [DDIA Summary](./Designing_Data_Intensive_Applications_Summary.md), [DevOps Guide](./DevOps_Tools_Complete_Guide.md) |
+| **Round 3** | Technical Deep Dive | [Advanced Backend Guide](./Advanced_Backend_Engineer_Preparation.md) | [Go Expertise](./Go_Expertise_Complete_Guide.md), [OS Concepts](./Operating_System_Concepts_Guide.md) |
+| **Round 4** | Leadership & Behavioral | [Behavioral Guide](./Behavioral_Questions_Complete_Guide.md) | [Advanced Scenarios](./Razorpay_Advanced_Interview_Scenarios.md) |
+| **Round 5** | HR & Culture Fit | [Behavioral Guide](./Behavioral_Questions_Complete_Guide.md) | [Main Prep Plan](./Razorpay_Lead_SDE_Interview_Preparation_Plan.md) |
+
 ### 📖 **Main Preparation Guides**
 
 - **[`Razorpay_Lead_SDE_Interview_Preparation_Plan.md`](./Razorpay_Lead_SDE_Interview_Preparation_Plan.md)** - Complete 5-day study plan with detailed examples
@@ -35,12 +45,19 @@ The Razorpay Lead SDE interview consists of **5 rounds**:
 
 ### 🎯 **Comprehensive Technical Guides**
 
-- **[`Designing_Data_Intensive_Applications_Summary.md`](./Designing_Data_Intensive_Applications_Summary.md)** - Complete DDIA book concepts with Go implementations and FAANG questions
+#### **Programming & Algorithms**
 - **[`Go_Expertise_Complete_Guide.md`](./Go_Expertise_Complete_Guide.md)** - Deep Go expertise from fundamentals to advanced concepts with debugging and architecture
-- **[`Operating_System_Concepts_Guide.md`](./Operating_System_Concepts_Guide.md)** - Complete OS concepts with Go code examples and real-world implementations
-- **[`System_Design_Concepts_Guide.md`](./System_Design_Concepts_Guide.md)** - Comprehensive system design with LLD questions and Go implementations
 - **[`DSA_Questions_Answers_Guide.md`](./DSA_Questions_Answers_Guide.md)** - Complete DSA problems with optimal Go solutions and complexity analysis
+
+#### **System Design & Architecture**
+- **[`System_Design_Concepts_Guide.md`](./System_Design_Concepts_Guide.md)** - Comprehensive system design with LLD questions and Go implementations
+- **[`Designing_Data_Intensive_Applications_Summary.md`](./Designing_Data_Intensive_Applications_Summary.md)** - Complete DDIA book concepts with Go implementations and FAANG questions
+
+#### **Infrastructure & Operations**
+- **[`Operating_System_Concepts_Guide.md`](./Operating_System_Concepts_Guide.md)** - Complete OS concepts with Go code examples and real-world implementations
 - **[`DevOps_Tools_Complete_Guide.md`](./DevOps_Tools_Complete_Guide.md)** - Deep DevOps tools guide with examples, best practices, and real-world implementations
+
+#### **Soft Skills & Interview Prep**
 - **[`Behavioral_Questions_Complete_Guide.md`](./Behavioral_Questions_Complete_Guide.md)** - Comprehensive behavioral questions with STAR method examples and FAANG insights
 
 ### 📄 **Original Materials**
@@ -48,21 +65,62 @@ The Razorpay Lead SDE interview consists of **5 rounds**:
 - **[`Engineering___Lead_Software_Development_Engineer___Interview_Prep_Guide.md`](./Engineering___Lead_Software_Development_Engineer___Interview_Prep_Guide.md)** - Official Razorpay prep guide
 - **[`Engineering___Lead_Software_Development_Engineer___Interview_Prep_Guide.pdf`](./Engineering___Lead_Software_Development_Engineer___Interview_Prep_Guide.pdf)** - PDF version
 
+## 🔗 **Cross-Reference Guide**
+
+### **Topic-Based Navigation**
+
+| **Topic** | **Primary Guide** | **Related Guides** | **Key Concepts** |
+|-----------|-------------------|-------------------|------------------|
+| **Go Programming** | [Go Expertise Guide](./Go_Expertise_Complete_Guide.md) | [DSA Guide](./DSA_Questions_Answers_Guide.md), [System Design](./System_Design_Concepts_Guide.md) | Concurrency, Interfaces, Error Handling |
+| **Data Structures** | [DSA Guide](./DSA_Questions_Answers_Guide.md) | [Go Expertise](./Go_Expertise_Complete_Guide.md), [OS Concepts](./Operating_System_Concepts_Guide.md) | Arrays, Trees, Graphs, Dynamic Programming |
+| **System Design** | [System Design Guide](./System_Design_Concepts_Guide.md) | [DDIA Summary](./Designing_Data_Intensive_Applications_Summary.md), [DevOps Guide](./DevOps_Tools_Complete_Guide.md) | Scalability, Load Balancing, Caching |
+| **Operating Systems** | [OS Concepts Guide](./Operating_System_Concepts_Guide.md) | [Go Expertise](./Go_Expertise_Complete_Guide.md), [System Design](./System_Design_Concepts_Guide.md) | Process Management, Memory, Scheduling |
+| **Databases** | [DDIA Summary](./Designing_Data_Intensive_Applications_Summary.md) | [System Design](./System_Design_Concepts_Guide.md), [DevOps Guide](./DevOps_Tools_Complete_Guide.md) | ACID, Replication, Partitioning |
+| **DevOps** | [DevOps Guide](./DevOps_Tools_Complete_Guide.md) | [System Design](./System_Design_Concepts_Guide.md), [OS Concepts](./Operating_System_Concepts_Guide.md) | Docker, Kubernetes, CI/CD |
+| **Behavioral** | [Behavioral Guide](./Behavioral_Questions_Complete_Guide.md) | [Advanced Scenarios](./Razorpay_Advanced_Interview_Scenarios.md) | STAR Method, Leadership, Teamwork |
+
 ## 🛠️ Technical Implementations
 
 ### **Round 1: Machine Coding (Go)**
+*Primary Guide: [Go Expertise Complete Guide](./Go_Expertise_Complete_Guide.md)*
 
 - **Messaging API** - Complete implementation with thread-safe operations
 - **Price Comparison System** - OOP design with search and comparison features
 - **Key Features**: Concurrency, error handling, JSON serialization
+- **Supporting**: [DSA Guide](./DSA_Questions_Answers_Guide.md) for algorithm patterns
 
 ### **Round 2: System Design**
+*Primary Guide: [System Design Concepts Guide](./System_Design_Concepts_Guide.md)*
 
 - **Distributed Cache** - Consistent hashing, replication, TTL support
 - **Event Throttling Framework** - Token bucket and sliding window strategies
 - **Key Features**: Scalability, fault tolerance, monitoring
+- **Supporting**: [DDIA Summary](./Designing_Data_Intensive_Applications_Summary.md) for database concepts
+
+## 🗺️ **Study Paths**
+
+### **Beginner to Advanced Path**
+1. **Start Here**: [Main Prep Plan](./Razorpay_Lead_SDE_Interview_Preparation_Plan.md)
+2. **Go Fundamentals**: [Go Expertise Guide](./Go_Expertise_Complete_Guide.md) (Sections 1-3)
+3. **Basic DSA**: [DSA Guide](./DSA_Questions_Answers_Guide.md) (Arrays, Strings, Linked Lists)
+4. **System Design Basics**: [System Design Guide](./System_Design_Concepts_Guide.md) (Sections 1-3)
+5. **OS Concepts**: [OS Concepts Guide](./Operating_System_Concepts_Guide.md) (Sections 1-3)
+6. **Advanced Topics**: Continue with advanced sections in each guide
+
+### **Round-Specific Preparation**
+- **Round 1**: [Go Expertise](./Go_Expertise_Complete_Guide.md) + [DSA Guide](./DSA_Questions_Answers_Guide.md)
+- **Round 2**: [System Design](./System_Design_Concepts_Guide.md) + [DDIA Summary](./Designing_Data_Intensive_Applications_Summary.md)
+- **Round 3**: [Advanced Backend](./Advanced_Backend_Engineer_Preparation.md) + [OS Concepts](./Operating_System_Concepts_Guide.md)
+- **Round 4**: [Behavioral Guide](./Behavioral_Questions_Complete_Guide.md) + [Advanced Scenarios](./Razorpay_Advanced_Interview_Scenarios.md)
+- **Round 5**: [Behavioral Guide](./Behavioral_Questions_Complete_Guide.md) + Company Research
+
+### **Topic-Focused Study**
+- **Concurrency**: [Go Expertise](./Go_Expertise_Complete_Guide.md) → [OS Concepts](./Operating_System_Concepts_Guide.md)
+- **Distributed Systems**: [System Design](./System_Design_Concepts_Guide.md) → [DDIA Summary](./Designing_Data_Intensive_Applications_Summary.md)
+- **Infrastructure**: [DevOps Guide](./DevOps_Tools_Complete_Guide.md) → [OS Concepts](./Operating_System_Concepts_Guide.md)
 
 ## 🧮 Data Structures & Algorithms (DSA)
+*Primary Guide: [DSA Questions Answers Guide](./DSA_Questions_Answers_Guide.md)*
 
 ### **Essential Patterns for Lead SDE Interviews**
 
@@ -423,6 +481,40 @@ Based on insights from [High Scalability](https://highscalability.com/), here ar
 - **System Design Solutions**: 2 detailed designs
 - **Behavioral Examples**: 10+ STAR method examples
 - **Study Hours**: 15-20 hours total
+
+## 📁 **Complete File Index**
+
+### **Core Preparation Files**
+| **File** | **Size** | **Lines** | **Purpose** |
+|----------|----------|-----------|-------------|
+| [`README.md`](./README.md) | 21KB | 489 | Main navigation and overview |
+| [`Razorpay_Lead_SDE_Interview_Preparation_Plan.md`](./Razorpay_Lead_SDE_Interview_Preparation_Plan.md) | 43KB | 1506 | 5-day study plan with Go implementations |
+| [`Advanced_Backend_Engineer_Preparation.md`](./Advanced_Backend_Engineer_Preparation.md) | 29KB | 1147 | Deep technical guide for 10+ years experience |
+| [`Razorpay_Advanced_Interview_Scenarios.md`](./Razorpay_Advanced_Interview_Scenarios.md) | 35KB | 1305 | Real-world interview scenarios and solutions |
+
+### **Technical Expertise Guides**
+| **File** | **Size** | **Lines** | **Focus Area** |
+|----------|----------|-----------|----------------|
+| [`Go_Expertise_Complete_Guide.md`](./Go_Expertise_Complete_Guide.md) | 48KB | 1947 | Go from fundamentals to advanced concepts |
+| [`DSA_Questions_Answers_Guide.md`](./DSA_Questions_Answers_Guide.md) | 23KB | 1012 | Complete DSA with optimal Go solutions |
+| [`System_Design_Concepts_Guide.md`](./System_Design_Concepts_Guide.md) | 27KB | 1084 | System design with LLD questions |
+| [`Operating_System_Concepts_Guide.md`](./Operating_System_Concepts_Guide.md) | 34KB | 1421 | OS concepts with Go implementations |
+| [`Designing_Data_Intensive_Applications_Summary.md`](./Designing_Data_Intensive_Applications_Summary.md) | 29KB | 1313 | DDIA book concepts with Go examples |
+| [`DevOps_Tools_Complete_Guide.md`](./DevOps_Tools_Complete_Guide.md) | 29KB | 1245 | DevOps tools with best practices |
+| [`Behavioral_Questions_Complete_Guide.md`](./Behavioral_Questions_Complete_Guide.md) | 25KB | 477 | Behavioral questions with STAR method |
+
+### **Original Materials**
+| **File** | **Size** | **Lines** | **Source** |
+|----------|----------|-----------|------------|
+| [`Engineering___Lead_Software_Development_Engineer___Interview_Prep_Guide.md`](./Engineering___Lead_Software_Development_Engineer___Interview_Prep_Guide.md) | 12KB | 3126 | Official Razorpay prep guide |
+| [`Engineering___Lead_Software_Development_Engineer___Interview_Prep_Guide.pdf`](./Engineering___Lead_Software_Development_Engineer___Interview_Prep_Guide.pdf) | 979KB | 6892 | PDF version of official guide |
+
+### **Total Repository Statistics**
+- **Total Files**: 12 markdown files + 1 PDF
+- **Total Content**: 300+ KB of detailed technical content
+- **Total Lines**: 15,000+ lines of code and explanations
+- **Go Implementations**: 100+ code examples in Go
+- **FAANG Questions**: 50+ real interview questions with answers
 
 ## 🎯 Success Metrics
 
