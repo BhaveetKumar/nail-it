@@ -502,6 +502,10 @@ Based on insights from [High Scalability](https://highscalability.com/), here ar
 | [`Designing_Data_Intensive_Applications_Summary.md`](./Designing_Data_Intensive_Applications_Summary.md) | 29KB | 1313 | DDIA book concepts with Go examples |
 | [`Databases_Complete_Guide.md`](./Databases_Complete_Guide.md) | 28KB | 1200 | Comprehensive database guide with Go examples |
 | [`Databases_Complete_Guide_Part2.md`](./Databases_Complete_Guide_Part2.md) | 25KB | 1000 | Advanced database concepts & interview questions |
+| [`Google_Interview_Advanced_Topics.md`](./Google_Interview_Advanced_Topics.md) | 32KB | 1328 | Distributed Consensus, Event Sourcing, CQRS, Advanced Patterns |
+| [`Google_Advanced_Algorithms_Guide.md`](./Google_Advanced_Algorithms_Guide.md) | 20KB | 800+ | A* Search, Max Flow, Suffix Arrays, Advanced DSA |
+| [`Google_System_Design_Advanced.md`](./Google_System_Design_Advanced.md) | 15KB | 600+ | Raft, CAP Theorem, Event Sourcing, CQRS, Multi-Level Cache |
+| [`Google_Distributed_Systems_Guide.md`](./Google_Distributed_Systems_Guide.md) | 18KB | 700+ | Paxos, Consistent Hashing, Worker Pools, Circuit Breakers |
 | [`DevOps_Tools_Complete_Guide.md`](./DevOps_Tools_Complete_Guide.md) | 29KB | 1245 | DevOps tools with best practices |
 | [`Behavioral_Questions_Complete_Guide.md`](./Behavioral_Questions_Complete_Guide.md) | 25KB | 477 | Behavioral questions with STAR method |
 
@@ -512,11 +516,12 @@ Based on insights from [High Scalability](https://highscalability.com/), here ar
 | [`Engineering___Lead_Software_Development_Engineer___Interview_Prep_Guide.pdf`](./Engineering___Lead_Software_Development_Engineer___Interview_Prep_Guide.pdf) | 979KB | 6892 | PDF version of official guide |
 
 ### **Total Repository Statistics**
-- **Total Files**: 12 markdown files + 1 PDF
-- **Total Content**: 300+ KB of detailed technical content
-- **Total Lines**: 15,000+ lines of code and explanations
-- **Go Implementations**: 100+ code examples in Go
-- **FAANG Questions**: 50+ real interview questions with answers
+- **Total Files**: 16 markdown files + 1 PDF
+- **Total Content**: 400+ KB of detailed technical content
+- **Total Lines**: 20,000+ lines of code and explanations
+- **Go Implementations**: 150+ code examples in Go
+- **FAANG Questions**: 80+ real interview questions with answers
+- **Advanced Topics**: Distributed Systems, Consensus Algorithms, Event Sourcing, CQRS
 
 ## 🎯 Success Metrics
 
