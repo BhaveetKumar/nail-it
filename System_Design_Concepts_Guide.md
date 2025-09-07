@@ -31,87 +31,106 @@ import (
 )
 
 // Vertical Scaling - Single powerful machine
+// Pros: Simple, no network overhead, consistent performance
+// Cons: Single point of failure, limited by hardware, expensive upgrades
 type VerticalScaler struct {
-    capacity int
-    currentLoad int
-    mutex sync.Mutex
+    capacity int        // Maximum requests this machine can handle
+    currentLoad int     // Current number of active requests
+    mutex sync.Mutex    // Protects concurrent access to currentLoad
 }
 
+// Constructor for vertical scaler
 func NewVerticalScaler(capacity int) *VerticalScaler {
     return &VerticalScaler{capacity: capacity}
 }
 
+// ProcessRequest simulates handling a request on a single machine
 func (vs *VerticalScaler) ProcessRequest() bool {
-    vs.mutex.Lock()
-    defer vs.mutex.Unlock()
+    vs.mutex.Lock()         // Acquire lock for thread safety
+    defer vs.mutex.Unlock() // Ensure lock is released
     
+    // Check if machine has capacity
     if vs.currentLoad < vs.capacity {
-        vs.currentLoad++
-        time.Sleep(100 * time.Millisecond) // Simulate processing
-        vs.currentLoad--
-        return true
+        vs.currentLoad++                    // Increment load
+        time.Sleep(100 * time.Millisecond) // Simulate processing time
+        vs.currentLoad--                    // Decrement load
+        return true                         // Request processed successfully
     }
-    return false
+    return false // Machine at capacity, request rejected
 }
 
 // Horizontal Scaling - Multiple machines
+// Pros: Fault tolerance, cost-effective, unlimited scaling potential
+// Cons: Network overhead, data consistency challenges, complex management
 type HorizontalScaler struct {
-    servers []*Server
-    loadBalancer *LoadBalancer
+    servers []*Server      // Array of server instances
+    loadBalancer *LoadBalancer // Distributes requests across servers
 }
 
+// Server represents a single machine in the horizontal scaling setup
 type Server struct {
-    ID int
-    capacity int
-    currentLoad int
-    mutex sync.Mutex
+    ID int              // Unique identifier for the server
+    capacity int        // Maximum requests this server can handle
+    currentLoad int     // Current number of active requests
+    mutex sync.Mutex    // Protects concurrent access to currentLoad
 }
 
+// Constructor for individual server
 func NewServer(id, capacity int) *Server {
     return &Server{ID: id, capacity: capacity}
 }
 
+// ProcessRequest simulates handling a request on this server
 func (s *Server) ProcessRequest() bool {
-    s.mutex.Lock()
-    defer s.mutex.Unlock()
+    s.mutex.Lock()         // Acquire lock for thread safety
+    defer s.mutex.Unlock() // Ensure lock is released
     
+    // Check if server has capacity
     if s.currentLoad < s.capacity {
-        s.currentLoad++
-        time.Sleep(100 * time.Millisecond) // Simulate processing
-        s.currentLoad--
-        return true
+        s.currentLoad++                    // Increment load
+        time.Sleep(100 * time.Millisecond) // Simulate processing time
+        s.currentLoad--                    // Decrement load
+        return true                        // Request processed successfully
     }
-    return false
+    return false // Server at capacity, request rejected
 }
 
+// LoadBalancer distributes incoming requests across multiple servers
+// Implements Round Robin algorithm for request distribution
 type LoadBalancer struct {
-    servers []*Server
-    current int
-    mutex sync.Mutex
+    servers []*Server  // List of available servers
+    current int        // Index of current server for round robin
+    mutex sync.Mutex   // Protects concurrent access to current index
 }
 
+// Constructor for load balancer
 func NewLoadBalancer(servers []*Server) *LoadBalancer {
     return &LoadBalancer{servers: servers}
 }
 
+// GetServer returns the next server using round robin algorithm
 func (lb *LoadBalancer) GetServer() *Server {
-    lb.mutex.Lock()
-    defer lb.mutex.Unlock()
+    lb.mutex.Lock()         // Acquire lock for thread safety
+    defer lb.mutex.Unlock() // Ensure lock is released
     
+    // Get current server and move to next
     server := lb.servers[lb.current]
-    lb.current = (lb.current + 1) % len(lb.servers)
+    lb.current = (lb.current + 1) % len(lb.servers) // Round robin: cycle through servers
     return server
 }
 
+// ProcessRequest handles a request using horizontal scaling
 func (hs *HorizontalScaler) ProcessRequest() bool {
+    // Get next available server from load balancer
     server := hs.loadBalancer.GetServer()
+    // Process request on the selected server
     return server.ProcessRequest()
 }
 
 func main() {
-    // Vertical scaling example
+    // Vertical scaling example - single machine with capacity 10
     vs := NewVerticalScaler(10)
-    fmt.Println("Vertical Scaling:")
+    fmt.Println("Vertical Scaling (Single Machine):")
     for i := 0; i < 15; i++ {
         if vs.ProcessRequest() {
             fmt.Printf("Request %d processed\n", i)
@@ -120,16 +139,16 @@ func main() {
         }
     }
     
-    // Horizontal scaling example
+    // Horizontal scaling example - 3 machines with capacity 5 each
     servers := []*Server{
-        NewServer(1, 5),
-        NewServer(2, 5),
-        NewServer(3, 5),
+        NewServer(1, 5), // Server 1 with capacity 5
+        NewServer(2, 5), // Server 2 with capacity 5
+        NewServer(3, 5), // Server 3 with capacity 5
     }
     lb := NewLoadBalancer(servers)
     hs := &HorizontalScaler{servers: servers, loadBalancer: lb}
     
-    fmt.Println("\nHorizontal Scaling:")
+    fmt.Println("\nHorizontal Scaling (3 Machines):")
     for i := 0; i < 15; i++ {
         if hs.ProcessRequest() {
             fmt.Printf("Request %d processed\n", i)
@@ -139,6 +158,14 @@ func main() {
     }
 }
 ```
+
+**Key Concepts Explained:**
+- **Vertical Scaling**: Single powerful machine, simple but limited
+- **Horizontal Scaling**: Multiple machines, complex but scalable
+- **Load Balancing**: Distributes requests across multiple servers
+- **Round Robin**: Simple load balancing algorithm
+- **Thread Safety**: Mutex protects shared resources
+- **Capacity Management**: Tracks current load vs maximum capacity
 
 ### **2. CAP Theorem Implementation**
 
