@@ -1061,6 +1061,1090 @@ func main() {
 
 ---
 
+## 🎯 **LLD & HLD Interview Questions (Educative.io Style)**
+
+### **High-Level Design (HLD) Questions**
+
+#### **1. Design a URL Shortener (like bit.ly)**
+
+**Problem Statement**: Design a URL shortener service that can handle millions of URLs and provide analytics.
+
+**Requirements**:
+- Shorten long URLs to short URLs
+- Redirect short URLs to original URLs
+- Handle 100M URLs per day
+- Analytics on URL usage
+- Custom short URLs (optional)
+
+**Solution**:
+
+```go
+package main
+
+import (
+    "crypto/md5"
+    "encoding/hex"
+    "fmt"
+    "math/rand"
+    "sync"
+    "time"
+)
+
+// URLShortener represents the main service
+type URLShortener struct {
+    urlMap    map[string]string  // shortURL -> longURL
+    analytics map[string]*Analytics
+    mutex     sync.RWMutex
+    baseURL   string
+}
+
+// Analytics tracks URL usage statistics
+type Analytics struct {
+    ShortURL     string
+    LongURL      string
+    CreatedAt    time.Time
+    AccessCount  int64
+    LastAccessed time.Time
+    mutex        sync.RWMutex
+}
+
+// NewURLShortener creates a new URL shortener service
+func NewURLShortener(baseURL string) *URLShortener {
+    return &URLShortener{
+        urlMap:    make(map[string]string),
+        analytics: make(map[string]*Analytics),
+        baseURL:   baseURL,
+    }
+}
+
+// ShortenURL creates a short URL from a long URL
+func (us *URLShortener) ShortenURL(longURL string) string {
+    us.mutex.Lock()
+    defer us.mutex.Unlock()
+    
+    // Generate short code using MD5 hash
+    hash := md5.Sum([]byte(longURL + time.Now().String()))
+    shortCode := hex.EncodeToString(hash[:])[:8] // Use first 8 characters
+    
+    // Store mapping
+    us.urlMap[shortCode] = longURL
+    
+    // Initialize analytics
+    us.analytics[shortCode] = &Analytics{
+        ShortURL:  shortCode,
+        LongURL:   longURL,
+        CreatedAt: time.Now(),
+    }
+    
+    return us.baseURL + "/" + shortCode
+}
+
+// Redirect resolves short URL to long URL
+func (us *URLShortener) Redirect(shortCode string) (string, error) {
+    us.mutex.RLock()
+    longURL, exists := us.urlMap[shortCode]
+    us.mutex.RUnlock()
+    
+    if !exists {
+        return "", fmt.Errorf("short URL not found")
+    }
+    
+    // Update analytics
+    us.updateAnalytics(shortCode)
+    
+    return longURL, nil
+}
+
+// updateAnalytics updates access statistics
+func (us *URLShortener) updateAnalytics(shortCode string) {
+    us.mutex.Lock()
+    defer us.mutex.Unlock()
+    
+    if analytics, exists := us.analytics[shortCode]; exists {
+        analytics.mutex.Lock()
+        analytics.AccessCount++
+        analytics.LastAccessed = time.Now()
+        analytics.mutex.Unlock()
+    }
+}
+
+// GetAnalytics returns analytics for a short URL
+func (us *URLShortener) GetAnalytics(shortCode string) (*Analytics, error) {
+    us.mutex.RLock()
+    defer us.mutex.RUnlock()
+    
+    analytics, exists := us.analytics[shortCode]
+    if !exists {
+        return nil, fmt.Errorf("analytics not found")
+    }
+    
+    return analytics, nil
+}
+
+func main() {
+    shortener := NewURLShortener("https://short.ly")
+    
+    // Shorten URLs
+    shortURL1 := shortener.ShortenURL("https://www.google.com/search?q=golang")
+    shortURL2 := shortener.ShortenURL("https://github.com/golang/go")
+    
+    fmt.Printf("Shortened URLs:\n")
+    fmt.Printf("URL 1: %s\n", shortURL1)
+    fmt.Printf("URL 2: %s\n", shortURL2)
+    
+    // Simulate redirects
+    for i := 0; i < 5; i++ {
+        shortCode := shortURL1[len(shortURL1)-8:] // Extract short code
+        longURL, err := shortener.Redirect(shortCode)
+        if err == nil {
+            fmt.Printf("Redirect: %s -> %s\n", shortCode, longURL)
+        }
+    }
+    
+    // Get analytics
+    shortCode := shortURL1[len(shortURL1)-8:]
+    analytics, err := shortener.GetAnalytics(shortCode)
+    if err == nil {
+        fmt.Printf("Analytics for %s: %d accesses\n", shortCode, analytics.AccessCount)
+    }
+}
+```
+
+**Key Design Decisions**:
+- **Hash-based Shortening**: MD5 hash for consistent short codes
+- **In-memory Storage**: Simple map for demonstration (use Redis/DB in production)
+- **Analytics Tracking**: Real-time usage statistics
+- **Thread Safety**: Mutex for concurrent access
+
+**Scalability Considerations**:
+- **Database**: Use distributed database (Cassandra) for URL storage
+- **Caching**: Redis for frequently accessed URLs
+- **Load Balancing**: Multiple instances behind load balancer
+- **CDN**: Cache redirects at edge locations
+
+#### **2. Design a Chat System (like WhatsApp)**
+
+**Problem Statement**: Design a real-time chat system supporting 1M concurrent users.
+
+**Requirements**:
+- Send/receive messages in real-time
+- Support group chats
+- Message history
+- Online/offline status
+- Handle 1M concurrent users
+
+**Solution**:
+
+```go
+package main
+
+import (
+    "fmt"
+    "sync"
+    "time"
+)
+
+// ChatSystem represents the main chat service
+type ChatSystem struct {
+    users      map[string]*User
+    chats      map[string]*Chat
+    connections map[string]*Connection
+    mutex      sync.RWMutex
+}
+
+// User represents a chat user
+type User struct {
+    ID       string
+    Username string
+    Status   UserStatus
+    LastSeen time.Time
+    mutex    sync.RWMutex
+}
+
+// UserStatus represents user online/offline status
+type UserStatus int
+
+const (
+    Online UserStatus = iota
+    Offline
+    Away
+)
+
+// Chat represents a chat room (1-on-1 or group)
+type Chat struct {
+    ID       string
+    Type     ChatType
+    Members  map[string]bool
+    Messages []*Message
+    mutex    sync.RWMutex
+}
+
+// ChatType represents the type of chat
+type ChatType int
+
+const (
+    Direct ChatType = iota
+    Group
+)
+
+// Message represents a chat message
+type Message struct {
+    ID        string
+    ChatID    string
+    SenderID  string
+    Content   string
+    Timestamp time.Time
+    Type      MessageType
+}
+
+// MessageType represents the type of message
+type MessageType int
+
+const (
+    Text MessageType = iota
+    Image
+    File
+)
+
+// Connection represents a WebSocket connection
+type Connection struct {
+    UserID     string
+    Conn       interface{} // WebSocket connection
+    LastPing   time.Time
+    mutex      sync.RWMutex
+}
+
+// NewChatSystem creates a new chat system
+func NewChatSystem() *ChatSystem {
+    return &ChatSystem{
+        users:      make(map[string]*User),
+        chats:      make(map[string]*Chat),
+        connections: make(map[string]*Connection),
+    }
+}
+
+// RegisterUser registers a new user
+func (cs *ChatSystem) RegisterUser(userID, username string) *User {
+    cs.mutex.Lock()
+    defer cs.mutex.Unlock()
+    
+    user := &User{
+        ID:       userID,
+        Username: username,
+        Status:   Offline,
+        LastSeen: time.Now(),
+    }
+    
+    cs.users[userID] = user
+    return user
+}
+
+// CreateChat creates a new chat
+func (cs *ChatSystem) CreateChat(chatID string, chatType ChatType, memberIDs []string) *Chat {
+    cs.mutex.Lock()
+    defer cs.mutex.Unlock()
+    
+    members := make(map[string]bool)
+    for _, memberID := range memberIDs {
+        members[memberID] = true
+    }
+    
+    chat := &Chat{
+        ID:      chatID,
+        Type:    chatType,
+        Members: members,
+        Messages: make([]*Message, 0),
+    }
+    
+    cs.chats[chatID] = chat
+    return chat
+}
+
+// SendMessage sends a message to a chat
+func (cs *ChatSystem) SendMessage(chatID, senderID, content string) (*Message, error) {
+    cs.mutex.RLock()
+    chat, exists := cs.chats[chatID]
+    cs.mutex.RUnlock()
+    
+    if !exists {
+        return nil, fmt.Errorf("chat not found")
+    }
+    
+    // Check if sender is member of chat
+    chat.mutex.RLock()
+    if !chat.Members[senderID] {
+        chat.mutex.RUnlock()
+        return nil, fmt.Errorf("user not member of chat")
+    }
+    chat.mutex.RUnlock()
+    
+    // Create message
+    message := &Message{
+        ID:        fmt.Sprintf("msg_%d", time.Now().UnixNano()),
+        ChatID:    chatID,
+        SenderID:  senderID,
+        Content:   content,
+        Timestamp: time.Now(),
+        Type:      Text,
+    }
+    
+    // Add message to chat
+    chat.mutex.Lock()
+    chat.Messages = append(chat.Messages, message)
+    chat.mutex.Unlock()
+    
+    // Broadcast message to online members
+    cs.broadcastMessage(chat, message)
+    
+    return message, nil
+}
+
+// broadcastMessage sends message to all online members
+func (cs *ChatSystem) broadcastMessage(chat *Chat, message *Message) {
+    chat.mutex.RLock()
+    members := make([]string, 0, len(chat.Members))
+    for memberID := range chat.Members {
+        members = append(members, memberID)
+    }
+    chat.mutex.RUnlock()
+    
+    for _, memberID := range members {
+        if memberID != message.SenderID {
+            cs.sendToUser(memberID, message)
+        }
+    }
+}
+
+// sendToUser sends message to a specific user
+func (cs *ChatSystem) sendToUser(userID string, message *Message) {
+    cs.mutex.RLock()
+    connection, exists := cs.connections[userID]
+    cs.mutex.RUnlock()
+    
+    if exists && connection != nil {
+        // In real implementation, send via WebSocket
+        fmt.Printf("Sending message to user %s: %s\n", userID, message.Content)
+    }
+}
+
+// GetChatHistory returns message history for a chat
+func (cs *ChatSystem) GetChatHistory(chatID string, limit int) ([]*Message, error) {
+    cs.mutex.RLock()
+    chat, exists := cs.chats[chatID]
+    cs.mutex.RUnlock()
+    
+    if !exists {
+        return nil, fmt.Errorf("chat not found")
+    }
+    
+    chat.mutex.RLock()
+    defer chat.mutex.RUnlock()
+    
+    messages := chat.Messages
+    if len(messages) > limit {
+        messages = messages[len(messages)-limit:]
+    }
+    
+    return messages, nil
+}
+
+// UpdateUserStatus updates user online/offline status
+func (cs *ChatSystem) UpdateUserStatus(userID string, status UserStatus) {
+    cs.mutex.Lock()
+    defer cs.mutex.Unlock()
+    
+    if user, exists := cs.users[userID]; exists {
+        user.mutex.Lock()
+        user.Status = status
+        user.LastSeen = time.Now()
+        user.mutex.Unlock()
+    }
+}
+
+func main() {
+    chatSystem := NewChatSystem()
+    
+    // Register users
+    user1 := chatSystem.RegisterUser("user1", "Alice")
+    user2 := chatSystem.RegisterUser("user2", "Bob")
+    user3 := chatSystem.RegisterUser("user3", "Charlie")
+    
+    // Create group chat
+    chat := chatSystem.CreateChat("chat1", Group, []string{"user1", "user2", "user3"})
+    
+    // Update user status
+    chatSystem.UpdateUserStatus("user1", Online)
+    chatSystem.UpdateUserStatus("user2", Online)
+    
+    // Send messages
+    chatSystem.SendMessage("chat1", "user1", "Hello everyone!")
+    chatSystem.SendMessage("chat1", "user2", "Hi Alice!")
+    chatSystem.SendMessage("chat1", "user3", "Hey guys!")
+    
+    // Get chat history
+    history, _ := chatSystem.GetChatHistory("chat1", 10)
+    fmt.Println("Chat History:")
+    for _, msg := range history {
+        fmt.Printf("[%s] %s: %s\n", msg.Timestamp.Format("15:04:05"), msg.SenderID, msg.Content)
+    }
+}
+```
+
+**Key Design Decisions**:
+- **WebSocket Connections**: Real-time bidirectional communication
+- **Message Broadcasting**: Send to all online members
+- **In-memory Storage**: Simple maps (use Redis/DB in production)
+- **Thread Safety**: Mutex for concurrent access
+
+**Scalability Considerations**:
+- **Message Queues**: Use Apache Kafka for message delivery
+- **Database**: Store messages in distributed database
+- **Load Balancing**: Multiple chat servers behind load balancer
+- **Caching**: Redis for active chat sessions
+
+### **Low-Level Design (LLD) Questions**
+
+#### **3. Design a Rate Limiter**
+
+**Problem Statement**: Design a rate limiter that can handle different rate limiting strategies.
+
+**Requirements**:
+- Token bucket algorithm
+- Sliding window algorithm
+- Support multiple rate limiting strategies
+- Thread-safe implementation
+
+**Solution**:
+
+```go
+package main
+
+import (
+    "fmt"
+    "sync"
+    "time"
+)
+
+// RateLimiter interface for different rate limiting strategies
+type RateLimiter interface {
+    Allow(key string) bool
+    GetRemainingTokens(key string) int
+}
+
+// TokenBucket implements token bucket rate limiting
+type TokenBucket struct {
+    capacity     int           // Maximum tokens
+    refillRate   int           // Tokens per second
+    tokens       map[string]*TokenBucketState
+    mutex        sync.RWMutex
+}
+
+// TokenBucketState tracks token bucket state for a key
+type TokenBucketState struct {
+    tokens     int
+    lastRefill time.Time
+    mutex      sync.Mutex
+}
+
+// NewTokenBucket creates a new token bucket rate limiter
+func NewTokenBucket(capacity, refillRate int) *TokenBucket {
+    return &TokenBucket{
+        capacity:   capacity,
+        refillRate: refillRate,
+        tokens:     make(map[string]*TokenBucketState),
+    }
+}
+
+// Allow checks if request is allowed
+func (tb *TokenBucket) Allow(key string) bool {
+    tb.mutex.Lock()
+    defer tb.mutex.Unlock()
+    
+    state, exists := tb.tokens[key]
+    if !exists {
+        state = &TokenBucketState{
+            tokens:     tb.capacity,
+            lastRefill: time.Now(),
+        }
+        tb.tokens[key] = state
+    }
+    
+    state.mutex.Lock()
+    defer state.mutex.Unlock()
+    
+    // Refill tokens based on time elapsed
+    now := time.Now()
+    elapsed := now.Sub(state.lastRefill)
+    tokensToAdd := int(elapsed.Seconds()) * tb.refillRate
+    
+    if tokensToAdd > 0 {
+        state.tokens = min(tb.capacity, state.tokens+tokensToAdd)
+        state.lastRefill = now
+    }
+    
+    // Check if tokens available
+    if state.tokens > 0 {
+        state.tokens--
+        return true
+    }
+    
+    return false
+}
+
+// GetRemainingTokens returns remaining tokens for a key
+func (tb *TokenBucket) GetRemainingTokens(key string) int {
+    tb.mutex.RLock()
+    defer tb.mutex.RUnlock()
+    
+    state, exists := tb.tokens[key]
+    if !exists {
+        return tb.capacity
+    }
+    
+    state.mutex.Lock()
+    defer state.mutex.Unlock()
+    
+    // Refill tokens
+    now := time.Now()
+    elapsed := now.Sub(state.lastRefill)
+    tokensToAdd := int(elapsed.Seconds()) * tb.refillRate
+    
+    if tokensToAdd > 0 {
+        state.tokens = min(tb.capacity, state.tokens+tokensToAdd)
+        state.lastRefill = now
+    }
+    
+    return state.tokens
+}
+
+// SlidingWindow implements sliding window rate limiting
+type SlidingWindow struct {
+    windowSize time.Duration
+    maxRequests int
+    requests    map[string]*SlidingWindowState
+    mutex       sync.RWMutex
+}
+
+// SlidingWindowState tracks sliding window state for a key
+type SlidingWindowState struct {
+    requests []time.Time
+    mutex    sync.Mutex
+}
+
+// NewSlidingWindow creates a new sliding window rate limiter
+func NewSlidingWindow(windowSize time.Duration, maxRequests int) *SlidingWindow {
+    return &SlidingWindow{
+        windowSize:   windowSize,
+        maxRequests:  maxRequests,
+        requests:     make(map[string]*SlidingWindowState),
+    }
+}
+
+// Allow checks if request is allowed
+func (sw *SlidingWindow) Allow(key string) bool {
+    sw.mutex.Lock()
+    defer sw.mutex.Unlock()
+    
+    state, exists := sw.requests[key]
+    if !exists {
+        state = &SlidingWindowState{
+            requests: make([]time.Time, 0),
+        }
+        sw.requests[key] = state
+    }
+    
+    state.mutex.Lock()
+    defer state.mutex.Unlock()
+    
+    now := time.Now()
+    windowStart := now.Add(-sw.windowSize)
+    
+    // Remove old requests outside the window
+    validRequests := make([]time.Time, 0)
+    for _, reqTime := range state.requests {
+        if reqTime.After(windowStart) {
+            validRequests = append(validRequests, reqTime)
+        }
+    }
+    state.requests = validRequests
+    
+    // Check if under limit
+    if len(state.requests) < sw.maxRequests {
+        state.requests = append(state.requests, now)
+        return true
+    }
+    
+    return false
+}
+
+// GetRemainingTokens returns remaining requests for a key
+func (sw *SlidingWindow) GetRemainingTokens(key string) int {
+    sw.mutex.RLock()
+    defer sw.mutex.RUnlock()
+    
+    state, exists := sw.requests[key]
+    if !exists {
+        return sw.maxRequests
+    }
+    
+    state.mutex.Lock()
+    defer state.mutex.Unlock()
+    
+    now := time.Now()
+    windowStart := now.Add(-sw.windowSize)
+    
+    // Count valid requests
+    validCount := 0
+    for _, reqTime := range state.requests {
+        if reqTime.After(windowStart) {
+            validCount++
+        }
+    }
+    
+    return max(0, sw.maxRequests-validCount)
+}
+
+// RateLimiterFactory creates rate limiters
+type RateLimiterFactory struct{}
+
+// CreateRateLimiter creates a rate limiter based on type
+func (rf *RateLimiterFactory) CreateRateLimiter(limiterType string, params map[string]interface{}) RateLimiter {
+    switch limiterType {
+    case "token_bucket":
+        capacity := params["capacity"].(int)
+        refillRate := params["refill_rate"].(int)
+        return NewTokenBucket(capacity, refillRate)
+    case "sliding_window":
+        windowSize := params["window_size"].(time.Duration)
+        maxRequests := params["max_requests"].(int)
+        return NewSlidingWindow(windowSize, maxRequests)
+    default:
+        return nil
+    }
+}
+
+// Helper functions
+func min(a, b int) int {
+    if a < b {
+        return a
+    }
+    return b
+}
+
+func max(a, b int) int {
+    if a > b {
+        return a
+    }
+    return b
+}
+
+func main() {
+    factory := &RateLimiterFactory{}
+    
+    // Create token bucket rate limiter
+    tokenBucketParams := map[string]interface{}{
+        "capacity":    10,
+        "refill_rate": 2,
+    }
+    tokenBucket := factory.CreateRateLimiter("token_bucket", tokenBucketParams)
+    
+    // Create sliding window rate limiter
+    slidingWindowParams := map[string]interface{}{
+        "window_size":   time.Minute,
+        "max_requests":  5,
+    }
+    slidingWindow := factory.CreateRateLimiter("sliding_window", slidingWindowParams)
+    
+    // Test token bucket
+    fmt.Println("Token Bucket Rate Limiter:")
+    for i := 0; i < 15; i++ {
+        allowed := tokenBucket.Allow("user1")
+        remaining := tokenBucket.GetRemainingTokens("user1")
+        fmt.Printf("Request %d: Allowed=%t, Remaining=%d\n", i+1, allowed, remaining)
+        time.Sleep(100 * time.Millisecond)
+    }
+    
+    fmt.Println("\nSliding Window Rate Limiter:")
+    for i := 0; i < 10; i++ {
+        allowed := slidingWindow.Allow("user2")
+        remaining := slidingWindow.GetRemainingTokens("user2")
+        fmt.Printf("Request %d: Allowed=%t, Remaining=%d\n", i+1, allowed, remaining)
+        time.Sleep(200 * time.Millisecond)
+    }
+}
+```
+
+**Key Design Decisions**:
+- **Interface-based Design**: RateLimiter interface for different strategies
+- **Thread Safety**: Mutex for concurrent access
+- **Factory Pattern**: Create rate limiters based on type
+- **State Management**: Track state for each key
+
+**Rate Limiting Strategies**:
+- **Token Bucket**: Refills tokens at fixed rate
+- **Sliding Window**: Tracks requests in time window
+- **Fixed Window**: Simple counter in time window
+- **Leaky Bucket**: Smooths burst traffic
+
+#### **4. Design a Distributed Cache**
+
+**Problem Statement**: Design a distributed cache system with consistent hashing and replication.
+
+**Requirements**:
+- Consistent hashing for key distribution
+- Replication for fault tolerance
+- TTL support for expiration
+- Thread-safe operations
+
+**Solution**:
+
+```go
+package main
+
+import (
+    "crypto/md5"
+    "fmt"
+    "sync"
+    "time"
+)
+
+// DistributedCache represents the main cache system
+type DistributedCache struct {
+    nodes     []*CacheNode
+    replicas  int
+    ring      *ConsistentHashRing
+    mutex     sync.RWMutex
+}
+
+// CacheNode represents a cache node
+type CacheNode struct {
+    ID       string
+    Address  string
+    Data     map[string]*CacheItem
+    mutex    sync.RWMutex
+}
+
+// CacheItem represents a cached item
+type CacheItem struct {
+    Value     interface{}
+    ExpiresAt time.Time
+    mutex     sync.RWMutex
+}
+
+// ConsistentHashRing implements consistent hashing
+type ConsistentHashRing struct {
+    nodes    map[uint32]string
+    sortedKeys []uint32
+    mutex    sync.RWMutex
+}
+
+// NewDistributedCache creates a new distributed cache
+func NewDistributedCache(replicas int) *DistributedCache {
+    return &DistributedCache{
+        nodes:    make([]*CacheNode, 0),
+        replicas: replicas,
+        ring:     NewConsistentHashRing(),
+    }
+}
+
+// AddNode adds a new cache node
+func (dc *DistributedCache) AddNode(nodeID, address string) {
+    dc.mutex.Lock()
+    defer dc.mutex.Unlock()
+    
+    node := &CacheNode{
+        ID:      nodeID,
+        Address: address,
+        Data:    make(map[string]*CacheItem),
+    }
+    
+    dc.nodes = append(dc.nodes, node)
+    dc.ring.AddNode(nodeID, dc.replicas)
+}
+
+// RemoveNode removes a cache node
+func (dc *DistributedCache) RemoveNode(nodeID string) {
+    dc.mutex.Lock()
+    defer dc.mutex.Unlock()
+    
+    // Remove from nodes slice
+    for i, node := range dc.nodes {
+        if node.ID == nodeID {
+            dc.nodes = append(dc.nodes[:i], dc.nodes[i+1:]...)
+            break
+        }
+    }
+    
+    dc.ring.RemoveNode(nodeID, dc.replicas)
+}
+
+// Get retrieves a value from cache
+func (dc *DistributedCache) Get(key string) (interface{}, bool) {
+    dc.mutex.RLock()
+    defer dc.mutex.RUnlock()
+    
+    // Find primary node
+    primaryNodeID := dc.ring.GetNode(key)
+    primaryNode := dc.getNodeByID(primaryNodeID)
+    
+    if primaryNode == nil {
+        return nil, false
+    }
+    
+    // Try primary node first
+    if value, found := dc.getFromNode(primaryNode, key); found {
+        return value, true
+    }
+    
+    // Try replica nodes
+    replicaNodes := dc.ring.GetReplicaNodes(key, dc.replicas-1)
+    for _, nodeID := range replicaNodes {
+        if nodeID != primaryNodeID {
+            node := dc.getNodeByID(nodeID)
+            if node != nil {
+                if value, found := dc.getFromNode(node, key); found {
+                    return value, true
+                }
+            }
+        }
+    }
+    
+    return nil, false
+}
+
+// Set stores a value in cache
+func (dc *DistributedCache) Set(key string, value interface{}, ttl time.Duration) {
+    dc.mutex.RLock()
+    defer dc.mutex.RUnlock()
+    
+    // Find nodes for replication
+    nodes := dc.ring.GetReplicaNodes(key, dc.replicas)
+    
+    for _, nodeID := range nodes {
+        node := dc.getNodeByID(nodeID)
+        if node != nil {
+            dc.setInNode(node, key, value, ttl)
+        }
+    }
+}
+
+// getFromNode retrieves value from a specific node
+func (dc *DistributedCache) getFromNode(node *CacheNode, key string) (interface{}, bool) {
+    node.mutex.RLock()
+    defer node.mutex.RUnlock()
+    
+    item, exists := node.Data[key]
+    if !exists {
+        return nil, false
+    }
+    
+    item.mutex.RLock()
+    defer item.mutex.RUnlock()
+    
+    // Check expiration
+    if time.Now().After(item.ExpiresAt) {
+        // Remove expired item
+        node.mutex.RUnlock()
+        node.mutex.Lock()
+        delete(node.Data, key)
+        node.mutex.Unlock()
+        node.mutex.RLock()
+        return nil, false
+    }
+    
+    return item.Value, true
+}
+
+// setInNode stores value in a specific node
+func (dc *DistributedCache) setInNode(node *CacheNode, key string, value interface{}, ttl time.Duration) {
+    node.mutex.Lock()
+    defer node.mutex.Unlock()
+    
+    item := &CacheItem{
+        Value:     value,
+        ExpiresAt: time.Now().Add(ttl),
+    }
+    
+    node.Data[key] = item
+}
+
+// getNodeByID finds node by ID
+func (dc *DistributedCache) getNodeByID(nodeID string) *CacheNode {
+    for _, node := range dc.nodes {
+        if node.ID == nodeID {
+            return node
+        }
+    }
+    return nil
+}
+
+// NewConsistentHashRing creates a new consistent hash ring
+func NewConsistentHashRing() *ConsistentHashRing {
+    return &ConsistentHashRing{
+        nodes: make(map[uint32]string),
+    }
+}
+
+// AddNode adds a node to the hash ring
+func (chr *ConsistentHashRing) AddNode(nodeID string, replicas int) {
+    chr.mutex.Lock()
+    defer chr.mutex.Unlock()
+    
+    for i := 0; i < replicas; i++ {
+        hash := chr.hash(fmt.Sprintf("%s:%d", nodeID, i))
+        chr.nodes[hash] = nodeID
+    }
+    
+    chr.updateSortedKeys()
+}
+
+// RemoveNode removes a node from the hash ring
+func (chr *ConsistentHashRing) RemoveNode(nodeID string, replicas int) {
+    chr.mutex.Lock()
+    defer chr.mutex.Unlock()
+    
+    for i := 0; i < replicas; i++ {
+        hash := chr.hash(fmt.Sprintf("%s:%d", nodeID, i))
+        delete(chr.nodes, hash)
+    }
+    
+    chr.updateSortedKeys()
+}
+
+// GetNode returns the node for a key
+func (chr *ConsistentHashRing) GetNode(key string) string {
+    chr.mutex.RLock()
+    defer chr.mutex.RUnlock()
+    
+    if len(chr.nodes) == 0 {
+        return ""
+    }
+    
+    hash := chr.hash(key)
+    
+    // Find first node with hash >= key hash
+    for _, nodeHash := range chr.sortedKeys {
+        if nodeHash >= hash {
+            return chr.nodes[nodeHash]
+        }
+    }
+    
+    // Wrap around to first node
+    return chr.nodes[chr.sortedKeys[0]]
+}
+
+// GetReplicaNodes returns replica nodes for a key
+func (chr *ConsistentHashRing) GetReplicaNodes(key string, count int) []string {
+    chr.mutex.RLock()
+    defer chr.mutex.RUnlock()
+    
+    if len(chr.nodes) == 0 {
+        return []string{}
+    }
+    
+    hash := chr.hash(key)
+    nodes := make([]string, 0, count)
+    seen := make(map[string]bool)
+    
+    // Find starting position
+    startIndex := 0
+    for i, nodeHash := range chr.sortedKeys {
+        if nodeHash >= hash {
+            startIndex = i
+            break
+        }
+    }
+    
+    // Collect unique nodes
+    for i := 0; i < len(chr.sortedKeys) && len(nodes) < count; i++ {
+        index := (startIndex + i) % len(chr.sortedKeys)
+        nodeHash := chr.sortedKeys[index]
+        nodeID := chr.nodes[nodeHash]
+        
+        if !seen[nodeID] {
+            nodes = append(nodes, nodeID)
+            seen[nodeID] = true
+        }
+    }
+    
+    return nodes
+}
+
+// hash generates a hash for a key
+func (chr *ConsistentHashRing) hash(key string) uint32 {
+    h := md5.Sum([]byte(key))
+    return uint32(h[0])<<24 | uint32(h[1])<<16 | uint32(h[2])<<8 | uint32(h[3])
+}
+
+// updateSortedKeys updates the sorted keys array
+func (chr *ConsistentHashRing) updateSortedKeys() {
+    chr.sortedKeys = make([]uint32, 0, len(chr.nodes))
+    for hash := range chr.nodes {
+        chr.sortedKeys = append(chr.sortedKeys, hash)
+    }
+    
+    // Sort keys
+    for i := 0; i < len(chr.sortedKeys); i++ {
+        for j := i + 1; j < len(chr.sortedKeys); j++ {
+            if chr.sortedKeys[i] > chr.sortedKeys[j] {
+                chr.sortedKeys[i], chr.sortedKeys[j] = chr.sortedKeys[j], chr.sortedKeys[i]
+            }
+        }
+    }
+}
+
+func main() {
+    // Create distributed cache
+    cache := NewDistributedCache(3) // 3 replicas
+    
+    // Add nodes
+    cache.AddNode("node1", "192.168.1.1:8080")
+    cache.AddNode("node2", "192.168.1.2:8080")
+    cache.AddNode("node3", "192.168.1.3:8080")
+    
+    // Set values
+    cache.Set("key1", "value1", 5*time.Minute)
+    cache.Set("key2", "value2", 10*time.Minute)
+    cache.Set("key3", "value3", 15*time.Minute)
+    
+    // Get values
+    if value, found := cache.Get("key1"); found {
+        fmt.Printf("key1: %v\n", value)
+    }
+    
+    if value, found := cache.Get("key2"); found {
+        fmt.Printf("key2: %v\n", value)
+    }
+    
+    if value, found := cache.Get("key3"); found {
+        fmt.Printf("key3: %v\n", value)
+    }
+    
+    // Test node removal
+    fmt.Println("\nRemoving node2...")
+    cache.RemoveNode("node2")
+    
+    // Try to get values after node removal
+    if value, found := cache.Get("key1"); found {
+        fmt.Printf("key1 after node removal: %v\n", value)
+    }
+}
+```
+
+**Key Design Decisions**:
+- **Consistent Hashing**: Even distribution of keys across nodes
+- **Replication**: Multiple copies for fault tolerance
+- **TTL Support**: Automatic expiration of cached items
+- **Thread Safety**: Mutex for concurrent access
+
+**Scalability Features**:
+- **Horizontal Scaling**: Add/remove nodes dynamically
+- **Load Distribution**: Consistent hashing ensures even load
+- **Fault Tolerance**: Replication handles node failures
+- **Memory Management**: TTL prevents memory leaks
+
+---
+
 ## 📚 Additional Resources
 
 ### **Books**
