@@ -5,6 +5,7 @@
 ## 📋 Table of Contents
 
 ### **Core Patterns**
+
 1. [Arrays](./Arrays/) - Two Pointers, Sliding Window, Prefix Sum
 2. [Strings](./Strings/) - Pattern Matching, String Manipulation
 3. [Linked Lists](./LinkedLists/) - Traversal, Reversal, Cycle Detection
@@ -15,6 +16,7 @@
 8. [Backtracking](./Backtracking/) - N-Queens, Permutations, Combinations
 
 ### **Advanced Patterns**
+
 9. [Bit Manipulation](./BitManipulation/) - XOR, AND, OR operations
 10. [Sliding Window](./SlidingWindow/) - Fixed/Variable window problems
 11. [Stack & Queue](./StackQueue/) - Monotonic stack, BFS with queue
@@ -29,21 +31,25 @@
 ## 🎯 Learning Path
 
 ### **Beginner (Week 1-2)**
+
 - Start with [Arrays](./Arrays/) - Two Sum, Maximum Subarray
 - Move to [Strings](./Strings/) - Valid Parentheses, Longest Substring
 - Practice [Linked Lists](./LinkedLists/) - Reverse List, Merge Lists
 
 ### **Intermediate (Week 3-4)**
+
 - Master [Trees](./Trees/) - Binary Tree Traversals, BST operations
 - Learn [Dynamic Programming](./DynamicProgramming/) - Fibonacci, LCS
 - Practice [Two Pointers](./TwoPointers/) - Container With Most Water
 
 ### **Advanced (Week 5-6)**
+
 - Conquer [Graphs](./Graphs/) - BFS, DFS, Shortest Path algorithms
 - Master [Backtracking](./Backtracking/) - N-Queens, Permutations
 - Learn [Bit Manipulation](./BitManipulation/) - Single Number, Power of Two
 
 ### **Expert (Week 7-8)**
+
 - Advanced [Dynamic Programming](./DynamicProgramming/) - Knapsack, Edit Distance
 - Complex [Graphs](./Graphs/) - Network Flow, Minimum Spanning Tree
 - Contest-level [Math](./Math/) - Combinatorics, Number Theory
@@ -52,22 +58,23 @@
 
 ## 📊 Problem Statistics
 
-| Pattern | Problems | Difficulty | Key Concepts |
-|---------|----------|------------|--------------|
-| Arrays | 50+ | Easy-Medium | Two Pointers, Sliding Window |
-| Strings | 40+ | Easy-Hard | Pattern Matching, DP |
-| Linked Lists | 30+ | Easy-Medium | Pointer Manipulation |
-| Trees | 60+ | Medium-Hard | Recursion, Traversals |
-| Graphs | 50+ | Medium-Hard | BFS, DFS, Shortest Path |
-| Dynamic Programming | 80+ | Medium-Hard | Memoization, Tabulation |
-| Greedy | 30+ | Medium | Activity Selection |
-| Backtracking | 40+ | Medium-Hard | Recursion, Pruning |
+| Pattern             | Problems | Difficulty  | Key Concepts                 |
+| ------------------- | -------- | ----------- | ---------------------------- |
+| Arrays              | 50+      | Easy-Medium | Two Pointers, Sliding Window |
+| Strings             | 40+      | Easy-Hard   | Pattern Matching, DP         |
+| Linked Lists        | 30+      | Easy-Medium | Pointer Manipulation         |
+| Trees               | 60+      | Medium-Hard | Recursion, Traversals        |
+| Graphs              | 50+      | Medium-Hard | BFS, DFS, Shortest Path      |
+| Dynamic Programming | 80+      | Medium-Hard | Memoization, Tabulation      |
+| Greedy              | 30+      | Medium      | Activity Selection           |
+| Backtracking        | 40+      | Medium-Hard | Recursion, Pruning           |
 
 ---
 
 ## 🛠️ Go-Specific Features
 
 ### **Idiomatic Go Patterns**
+
 - **Slices**: Dynamic arrays with `make()`, `append()`, `copy()`
 - **Maps**: Hash tables with `make(map[K]V)`, `delete()`
 - **Structs**: Custom data types with methods
@@ -75,12 +82,14 @@
 - **Goroutines**: Concurrent processing (where applicable)
 
 ### **Performance Tips**
+
 - Use `make()` with capacity for slices when size is known
 - Prefer `range` over index-based loops
 - Use `defer` for cleanup operations
 - Leverage Go's built-in sorting and searching
 
 ### **Common Go Idioms**
+
 ```go
 // Slice initialization with capacity
 result := make([]int, 0, n)
@@ -106,6 +115,7 @@ type Comparable interface {
 ## 🎯 Interview Preparation
 
 ### **FAANG Interview Focus**
+
 - **Google**: Graph algorithms, System design, Go concurrency
 - **Amazon**: Dynamic Programming, Trees, Arrays
 - **Facebook/Meta**: Trees, Graphs, String manipulation
@@ -113,6 +123,7 @@ type Comparable interface {
 - **Netflix**: System design, Scalability, Go microservices
 
 ### **ICPC Contest Focus**
+
 - **Time Complexity**: Optimize for large inputs (10^6+ elements)
 - **Space Complexity**: Memory-efficient solutions
 - **Edge Cases**: Handle boundary conditions
@@ -123,17 +134,20 @@ type Comparable interface {
 ## 📚 Additional Resources
 
 ### **Books**
+
 - [Introduction to Algorithms](https://mitpress.mit.edu/books/introduction-algorithms) - Cormen, Leiserson, Rivest, Stein
 - [Algorithm Design Manual](https://www.algorist.com/) - Steven Skiena
 - [Go Programming Language](https://www.gopl.io/) - Alan Donovan, Brian Kernighan
 
 ### **Online Platforms**
+
 - [LeetCode](https://leetcode.com/) - Practice problems
 - [Codeforces](https://codeforces.com/) - Competitive programming
 - [AtCoder](https://atcoder.jp/) - Japanese contests
 - [HackerRank](https://www.hackerrank.com/) - Algorithm challenges
 
 ### **Go Resources**
+
 - [Go by Example](https://gobyexample.com/) - Interactive Go tutorial
 - [Effective Go](https://golang.org/doc/effective_go.html) - Go best practices
 - [Go Playground](https://play.golang.org/) - Online Go compiler
@@ -150,28 +164,37 @@ type Comparable interface {
 6. Submit a pull request
 
 ### **Solution Template**
-```markdown
+
+````markdown
 # Problem Name
 
 ### Problem
+
 Brief problem statement
 
 ### Explanation
+
 Approach explanation
 
 ### Dry Run
+
 Step-by-step execution
 
 ### Complexity
+
 Time and space complexity
 
 ### Golang Solution
+
 ```go
 // Your solution here
 ```
+````
 
 ### Notes / Variations
+
 Additional insights
+
 ```
 
 ---
@@ -211,3 +234,4 @@ Additional insights
 **Happy Coding! 🚀**
 
 *Remember: The key to mastering DSA is consistent practice and understanding the underlying patterns. Focus on quality over quantity, and always strive to write clean, efficient, and idiomatic Go code.*
+```
