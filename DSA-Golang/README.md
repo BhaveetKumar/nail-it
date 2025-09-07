@@ -29,15 +29,18 @@
 ## 🎯 Pattern Explanations
 
 ### **1. Arrays Pattern**
+
 **When to Use:** When dealing with contiguous elements, subarray problems, or array manipulation.
 
 **Step-by-Step Approach:**
+
 1. **Identify the problem type**: Subarray, rotation, or element manipulation
 2. **Choose the technique**: Two pointers, sliding window, or prefix sum
 3. **Handle edge cases**: Empty arrays, single elements, duplicates
 4. **Optimize space**: Use in-place operations when possible
 
 **Key Problems:**
+
 - Two Sum, 3Sum, 4Sum (Hash maps + Two pointers)
 - Maximum Subarray (Kadane's Algorithm)
 - Container With Most Water (Two pointers)
@@ -45,15 +48,18 @@
 - Rotate Array (Reverse technique)
 
 ### **2. Strings Pattern**
+
 **When to Use:** Text processing, pattern matching, string manipulation.
 
 **Step-by-Step Approach:**
+
 1. **Analyze the string**: Length, character set, case sensitivity
 2. **Choose data structure**: Hash map for frequency, Trie for patterns
 3. **Handle special cases**: Empty strings, single characters, Unicode
 4. **Optimize for space**: Use character arrays for fixed character sets
 
 **Key Problems:**
+
 - Valid Parentheses (Stack)
 - Longest Substring Without Repeating Characters (Sliding window)
 - Group Anagrams (Hash map + Sorting)
@@ -61,15 +67,18 @@
 - Valid Anagram (Character frequency)
 
 ### **3. Linked Lists Pattern**
+
 **When to Use:** Linear data structures, pointer manipulation, cycle detection.
 
 **Step-by-Step Approach:**
+
 1. **Identify the operation**: Traversal, reversal, or cycle detection
 2. **Handle edge cases**: Empty list, single node, null pointers
 3. **Use appropriate pointers**: Fast/slow for cycles, prev/curr for reversal
 4. **Maintain list integrity**: Update pointers carefully
 
 **Key Problems:**
+
 - Reverse Linked List (Iterative/Recursive)
 - Linked List Cycle (Floyd's algorithm)
 - Merge Two Sorted Lists (Two pointers)
@@ -77,15 +86,18 @@
 - Intersection of Two Linked Lists (Two pointers)
 
 ### **4. Trees Pattern**
+
 **When to Use:** Hierarchical data, recursive problems, tree traversals.
 
 **Step-by-Step Approach:**
+
 1. **Identify tree type**: Binary tree, BST, or general tree
 2. **Choose traversal**: Preorder, inorder, postorder, or level-order
 3. **Handle recursion**: Base cases and recursive calls
 4. **Optimize space**: Use iterative approach for large trees
 
 **Key Problems:**
+
 - Binary Tree Traversals (Recursive/Iterative)
 - Validate Binary Search Tree (Inorder traversal)
 - Maximum Depth of Binary Tree (DFS)
@@ -93,15 +105,18 @@
 - Lowest Common Ancestor (DFS)
 
 ### **5. Graphs Pattern**
+
 **When to Use:** Network problems, connectivity, shortest paths.
 
 **Step-by-Step Approach:**
+
 1. **Build the graph**: Adjacency list or matrix
 2. **Choose algorithm**: BFS, DFS, or specialized algorithms
 3. **Handle cycles**: Use visited arrays or sets
 4. **Optimize for large graphs**: Use appropriate data structures
 
 **Key Problems:**
+
 - Number of Islands (DFS)
 - Course Schedule (Topological sort)
 - Clone Graph (DFS + Hash map)
@@ -109,15 +124,18 @@
 - Number of Connected Components (Union-Find)
 
 ### **6. Dynamic Programming Pattern**
+
 **When to Use:** Optimization problems, overlapping subproblems.
 
 **Step-by-Step Approach:**
+
 1. **Identify subproblems**: Break down the problem
 2. **Define state**: What information to store
 3. **Find recurrence relation**: How to build solutions
 4. **Choose approach**: Top-down (memoization) or bottom-up (tabulation)
 
 **Key Problems:**
+
 - Climbing Stairs (Fibonacci pattern)
 - House Robber (Decision making)
 - Longest Common Subsequence (2D DP)
@@ -125,15 +143,18 @@
 - Unique Paths (2D DP)
 
 ### **7. Greedy Pattern**
+
 **When to Use:** Optimization problems with greedy choice property.
 
 **Step-by-Step Approach:**
+
 1. **Identify greedy choice**: What to choose at each step
 2. **Prove correctness**: Show greedy choice leads to optimal solution
 3. **Sort if needed**: Order elements by some criteria
 4. **Make choices**: Select elements greedily
 
 **Key Problems:**
+
 - Activity Selection (Sort by end time)
 - Assign Cookies (Sort both arrays)
 - Non-overlapping Intervals (Sort by end time)
@@ -141,9 +162,11 @@
 - Jump Game (Greedy reachability)
 
 ### **8. Backtracking Pattern**
+
 **When to Use:** Generate all possible solutions, constraint satisfaction.
 
 **Step-by-Step Approach:**
+
 1. **Define the state**: Current partial solution
 2. **Identify choices**: What options are available
 3. **Make choice**: Add to current solution
@@ -151,6 +174,7 @@
 5. **Backtrack**: Remove choice and try next
 
 **Key Problems:**
+
 - N-Queens (Constraint satisfaction)
 - Generate Parentheses (Recursive generation)
 - Permutations (All arrangements)
@@ -158,15 +182,18 @@
 - Subsets (All possible subsets)
 
 ### **9. Bit Manipulation Pattern**
+
 **When to Use:** Efficient operations, set operations, number properties.
 
 **Step-by-Step Approach:**
+
 1. **Understand bit operations**: AND, OR, XOR, NOT, shifts
 2. **Identify patterns**: Power of 2, single number, etc.
 3. **Use bit tricks**: XOR for duplicates, AND for checking bits
 4. **Handle edge cases**: Negative numbers, overflow
 
 **Key Problems:**
+
 - Single Number (XOR property)
 - Number of 1 Bits (Bit counting)
 - Power of Two (Bit manipulation)
@@ -174,15 +201,18 @@
 - Reverse Bits (Bit manipulation)
 
 ### **10. Sliding Window Pattern**
+
 **When to Use:** Subarray/substring problems with constraints.
 
 **Step-by-Step Approach:**
+
 1. **Identify window type**: Fixed or variable size
 2. **Expand window**: Add elements to right
 3. **Contract window**: Remove elements from left
 4. **Update result**: Track optimal solution
 
 **Key Problems:**
+
 - Longest Substring Without Repeating Characters
 - Minimum Window Substring
 - Sliding Window Maximum
@@ -190,15 +220,18 @@
 - Longest Repeating Character Replacement
 
 ### **11. Stack & Queue Pattern**
+
 **When to Use:** LIFO/FIFO operations, monotonic problems.
 
 **Step-by-Step Approach:**
+
 1. **Choose data structure**: Stack for LIFO, Queue for FIFO
 2. **Identify operations**: Push, pop, peek, enqueue, dequeue
 3. **Handle edge cases**: Empty structures, overflow
 4. **Use for specific problems**: Monotonic stack, BFS
 
 **Key Problems:**
+
 - Valid Parentheses (Stack)
 - Daily Temperatures (Monotonic stack)
 - Largest Rectangle in Histogram (Monotonic stack)
@@ -206,15 +239,18 @@
 - Evaluate Reverse Polish Notation (Stack)
 
 ### **12. Heap Pattern**
+
 **When to Use:** Priority-based operations, k-th largest/smallest.
 
 **Step-by-Step Approach:**
+
 1. **Choose heap type**: Min-heap or max-heap
 2. **Maintain size**: Keep heap size optimal
 3. **Extract elements**: Get top element when needed
 4. **Use for optimization**: Priority queues, sorting
 
 **Key Problems:**
+
 - Find Kth Largest Element (Min-heap)
 - Merge k Sorted Lists (Min-heap)
 - Top K Frequent Elements (Max-heap)
@@ -222,15 +258,18 @@
 - Sliding Window Maximum (Deque)
 
 ### **13. Math Pattern**
+
 **When to Use:** Number theory, mathematical computations.
 
 **Step-by-Step Approach:**
+
 1. **Identify mathematical concept**: Number theory, combinatorics
 2. **Use mathematical properties**: Prime numbers, powers, etc.
 3. **Handle edge cases**: Zero, negative numbers, overflow
 4. **Optimize calculations**: Use mathematical formulas
 
 **Key Problems:**
+
 - Pow(x, n) (Fast exponentiation)
 - Sqrt(x) (Binary search)
 - Roman to Integer (String parsing)
@@ -238,15 +277,18 @@
 - Add Two Numbers (Linked list math)
 
 ### **14. Two Pointers Pattern**
+
 **When to Use:** Sorted arrays, palindrome problems, meeting point.
 
 **Step-by-Step Approach:**
+
 1. **Initialize pointers**: Start and end of array
 2. **Move pointers**: Based on condition
 3. **Handle edge cases**: Empty arrays, single elements
 4. **Optimize**: Use for O(n) solutions
 
 **Key Problems:**
+
 - Two Sum (Sorted array)
 - Container With Most Water
 - Valid Palindrome
@@ -254,15 +296,18 @@
 - Move Zeroes
 
 ### **15. Sorting Pattern**
+
 **When to Use:** Ordering elements, preparing for other algorithms.
 
 **Step-by-Step Approach:**
+
 1. **Choose sorting algorithm**: Based on data characteristics
 2. **Handle edge cases**: Empty arrays, single elements
 3. **Consider stability**: Whether order of equal elements matters
 4. **Optimize**: Use built-in sort when possible
 
 **Key Problems:**
+
 - Quick Sort (Divide and conquer)
 - Merge Sort (Divide and conquer)
 - Heap Sort (Heap-based)
@@ -270,15 +315,18 @@
 - Radix Sort (Digit-based)
 
 ### **16. Searching Pattern**
+
 **When to Use:** Finding elements in sorted data, optimization.
 
 **Step-by-Step Approach:**
+
 1. **Identify search space**: Sorted array, range, etc.
 2. **Choose search algorithm**: Binary search, linear search
 3. **Handle edge cases**: Empty arrays, not found
 4. **Optimize**: Use binary search for O(log n)
 
 **Key Problems:**
+
 - Binary Search (Standard)
 - Search in Rotated Sorted Array
 - Find Peak Element
@@ -332,7 +380,7 @@
 | Stack & Queue       | 10+      | Easy-Hard   | Monotonic stack, BFS         |
 | Heap                | 10+      | Medium-Hard | Priority Queue, K-th element |
 | Math                | 10+      | Easy-Medium | Number theory, Combinatorics |
-| Two Pointers        | 10+      | Easy-Medium | Fast/Slow pointers          |
+| Two Pointers        | 10+      | Easy-Medium | Fast/Slow pointers           |
 | Sorting             | 10+      | Easy-Hard   | Quick Sort, Merge Sort       |
 | Searching           | 10+      | Easy-Hard   | Binary Search, Peak finding  |
 
