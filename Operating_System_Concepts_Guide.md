@@ -4,15 +4,16 @@
 
 ## 📋 Table of Contents
 
-1. [Process Management](#process-management)
-2. [Memory Management](#memory-management)
-3. [File Systems](#file-systems)
-4. [Scheduling Algorithms](#scheduling-algorithms)
-5. [Inter-Process Communication](#inter-process-communication)
-6. [Deadlocks & Synchronization](#deadlocks--synchronization)
-7. [System Calls](#system-calls)
-8. [Virtual Memory](#virtual-memory)
-9. [FAANG Interview Questions](#faang-interview-questions)
+1. [🔄 Process Management](#-process-management)
+2. [🧠 Memory Management](#-memory-management)
+3. [📁 File Systems](#-file-systems)
+4. [⏰ Scheduling Algorithms](#-scheduling-algorithms)
+5. [🔗 Inter-Process Communication](#-inter-process-communication)
+6. [🔒 Deadlocks & Synchronization](#-deadlocks--synchronization)
+7. [🔧 System Calls](#-system-calls)
+8. [🧠 Virtual Memory](#-virtual-memory)
+9. [🎯 FAANG Interview Questions](#-faang-interview-questions)
+10. [📚 Additional Resources](#-additional-resources)
 
 ---
 
@@ -1081,6 +1082,343 @@ func main() {
 ```
 
 ---
+
+## 🔧 System Calls
+
+### **11. System Call Interface**
+
+#### **System Call Implementation**
+
+```go
+package main
+
+import (
+    "fmt"
+    "syscall"
+    "unsafe"
+)
+
+// SystemCallExample demonstrates system calls in Go
+type SystemCallExample struct{}
+
+// FileSystemCall demonstrates file system calls
+func (sce *SystemCallExample) FileSystemCall() error {
+    // Open file using system call
+    fd, err := syscall.Open("/tmp/test.txt", syscall.O_CREAT|syscall.O_WRONLY, 0644)
+    if err != nil {
+        return err
+    }
+    defer syscall.Close(fd)
+    
+    // Write data using system call
+    data := []byte("Hello, System Call!")
+    _, err = syscall.Write(fd, data)
+    if err != nil {
+        return err
+    }
+    
+    fmt.Println("File written using system call")
+    return nil
+}
+
+// ProcessSystemCall demonstrates process-related system calls
+func (sce *SystemCallExample) ProcessSystemCall() error {
+    // Get current process ID
+    pid := syscall.Getpid()
+    fmt.Printf("Current Process ID: %d\n", pid)
+    
+    // Get parent process ID
+    ppid := syscall.Getppid()
+    fmt.Printf("Parent Process ID: %d\n", ppid)
+    
+    // Get user ID
+    uid := syscall.Getuid()
+    fmt.Printf("User ID: %d\n", uid)
+    
+    return nil
+}
+
+// MemorySystemCall demonstrates memory-related system calls
+func (sce *SystemCallExample) MemorySystemCall() error {
+    // Allocate memory using mmap
+    size := 4096 // 4KB
+    addr, err := syscall.Mmap(-1, 0, size, syscall.PROT_READ|syscall.PROT_WRITE, syscall.MAP_ANON|syscall.MAP_PRIVATE)
+    if err != nil {
+        return err
+    }
+    defer syscall.Munmap(addr)
+    
+    // Write to allocated memory
+    data := []byte("Hello, Memory!")
+    copy(addr, data)
+    
+    // Read from allocated memory
+    fmt.Printf("Memory content: %s\n", string(addr[:len(data)]))
+    
+    return nil
+}
+
+func main() {
+    sce := &SystemCallExample{}
+    
+    fmt.Println("System Call Examples:")
+    
+    if err := sce.ProcessSystemCall(); err != nil {
+        fmt.Printf("Process system call error: %v\n", err)
+    }
+    
+    if err := sce.MemorySystemCall(); err != nil {
+        fmt.Printf("Memory system call error: %v\n", err)
+    }
+    
+    if err := sce.FileSystemCall(); err != nil {
+        fmt.Printf("File system call error: %v\n", err)
+    }
+}
+```
+
+**System Call Types Explained:**
+
+- **Process Control**: `fork()`, `exec()`, `exit()`, `wait()`
+- **File Management**: `open()`, `read()`, `write()`, `close()`
+- **Device Management**: `ioctl()`, `read()`, `write()`
+- **Information Maintenance**: `getpid()`, `alarm()`, `sleep()`
+- **Communication**: `pipe()`, `shmget()`, `mmap()`
+
+## 🧠 Virtual Memory
+
+### **12. Virtual Memory Management**
+
+#### **Page Table Implementation**
+
+```go
+package main
+
+import (
+    "fmt"
+    "sync"
+)
+
+// PageTableEntry represents an entry in the page table
+type PageTableEntry struct {
+    Valid       bool    // Page is in physical memory
+    FrameNumber int     // Physical frame number
+    Dirty       bool    // Page has been modified
+    Referenced  bool    // Page has been accessed
+    Protection  int     // Read/Write/Execute permissions
+    mutex       sync.RWMutex
+}
+
+// PageTable represents a virtual memory page table
+type PageTable struct {
+    entries map[int]*PageTableEntry // Virtual page number -> PageTableEntry
+    mutex   sync.RWMutex
+}
+
+// NewPageTable creates a new page table
+func NewPageTable() *PageTable {
+    return &PageTable{
+        entries: make(map[int]*PageTableEntry),
+    }
+}
+
+// TranslateAddress translates virtual address to physical address
+func (pt *PageTable) TranslateAddress(virtualAddr int) (int, bool, error) {
+    pt.mutex.RLock()
+    defer pt.mutex.RUnlock()
+    
+    // Extract page number and offset
+    pageNumber := virtualAddr / 4096 // Assuming 4KB pages
+    offset := virtualAddr % 4096
+    
+    entry, exists := pt.entries[pageNumber]
+    if !exists {
+        return 0, false, fmt.Errorf("page fault: page %d not found", pageNumber)
+    }
+    
+    entry.mutex.RLock()
+    defer entry.mutex.RUnlock()
+    
+    if !entry.Valid {
+        return 0, false, fmt.Errorf("page fault: page %d not in memory", pageNumber)
+    }
+    
+    // Calculate physical address
+    physicalAddr := entry.FrameNumber*4096 + offset
+    
+    // Mark as referenced
+    entry.Referenced = true
+    
+    return physicalAddr, true, nil
+}
+
+// LoadPage loads a page into memory
+func (pt *PageTable) LoadPage(pageNumber, frameNumber int) {
+    pt.mutex.Lock()
+    defer pt.mutex.Unlock()
+    
+    pt.entries[pageNumber] = &PageTableEntry{
+        Valid:       true,
+        FrameNumber: frameNumber,
+        Dirty:       false,
+        Referenced:  true,
+        Protection:  7, // Read, Write, Execute
+    }
+}
+
+// MarkDirty marks a page as dirty
+func (pt *PageTable) MarkDirty(pageNumber int) error {
+    pt.mutex.RLock()
+    entry, exists := pt.entries[pageNumber]
+    pt.mutex.RUnlock()
+    
+    if !exists {
+        return fmt.Errorf("page %d not found", pageNumber)
+    }
+    
+    entry.mutex.Lock()
+    defer entry.mutex.Unlock()
+    
+    entry.Dirty = true
+    return nil
+}
+
+// VirtualMemoryManager manages virtual memory
+type VirtualMemoryManager struct {
+    pageTable     *PageTable
+    freeFrames    []int
+    usedFrames    map[int]int // frame -> page mapping
+    mutex         sync.RWMutex
+}
+
+// NewVirtualMemoryManager creates a new virtual memory manager
+func NewVirtualMemoryManager(totalFrames int) *VirtualMemoryManager {
+    freeFrames := make([]int, totalFrames)
+    for i := 0; i < totalFrames; i++ {
+        freeFrames[i] = i
+    }
+    
+    return &VirtualMemoryManager{
+        pageTable:  NewPageTable(),
+        freeFrames: freeFrames,
+        usedFrames: make(map[int]int),
+    }
+}
+
+// AllocatePage allocates a page in virtual memory
+func (vmm *VirtualMemoryManager) AllocatePage(pageNumber int) error {
+    vmm.mutex.Lock()
+    defer vmm.mutex.Unlock()
+    
+    if len(vmm.freeFrames) == 0 {
+        return fmt.Errorf("no free frames available")
+    }
+    
+    // Get a free frame
+    frameNumber := vmm.freeFrames[0]
+    vmm.freeFrames = vmm.freeFrames[1:]
+    
+    // Update mappings
+    vmm.usedFrames[frameNumber] = pageNumber
+    vmm.pageTable.LoadPage(pageNumber, frameNumber)
+    
+    fmt.Printf("Allocated page %d to frame %d\n", pageNumber, frameNumber)
+    return nil
+}
+
+// DeallocatePage deallocates a page from virtual memory
+func (vmm *VirtualMemoryManager) DeallocatePage(pageNumber int) error {
+    vmm.mutex.Lock()
+    defer vmm.mutex.Unlock()
+    
+    // Find the frame for this page
+    var frameNumber int
+    found := false
+    for frame, page := range vmm.usedFrames {
+        if page == pageNumber {
+            frameNumber = frame
+            found = true
+            break
+        }
+    }
+    
+    if !found {
+        return fmt.Errorf("page %d not allocated", pageNumber)
+    }
+    
+    // Free the frame
+    vmm.freeFrames = append(vmm.freeFrames, frameNumber)
+    delete(vmm.usedFrames, frameNumber)
+    
+    // Remove from page table
+    vmm.pageTable.mutex.Lock()
+    delete(vmm.pageTable.entries, pageNumber)
+    vmm.pageTable.mutex.Unlock()
+    
+    fmt.Printf("Deallocated page %d from frame %d\n", pageNumber, frameNumber)
+    return nil
+}
+
+// AccessMemory accesses memory at virtual address
+func (vmm *VirtualMemoryManager) AccessMemory(virtualAddr int) (int, error) {
+    physicalAddr, success, err := vmm.pageTable.TranslateAddress(virtualAddr)
+    if err != nil {
+        // Handle page fault
+        pageNumber := virtualAddr / 4096
+        if err := vmm.AllocatePage(pageNumber); err != nil {
+            return 0, err
+        }
+        
+        // Retry translation
+        physicalAddr, success, err = vmm.pageTable.TranslateAddress(virtualAddr)
+        if err != nil {
+            return 0, err
+        }
+    }
+    
+    if !success {
+        return 0, fmt.Errorf("memory access failed")
+    }
+    
+    fmt.Printf("Virtual address %d -> Physical address %d\n", virtualAddr, physicalAddr)
+    return physicalAddr, nil
+}
+
+func main() {
+    // Create virtual memory manager with 10 frames
+    vmm := NewVirtualMemoryManager(10)
+    
+    fmt.Println("Virtual Memory Management Example:")
+    
+    // Allocate some pages
+    for i := 0; i < 5; i++ {
+        if err := vmm.AllocatePage(i); err != nil {
+            fmt.Printf("Error allocating page %d: %v\n", i, err)
+        }
+    }
+    
+    // Access memory
+    for i := 0; i < 5; i++ {
+        virtualAddr := i * 4096 + 100 // Page + offset
+        if _, err := vmm.AccessMemory(virtualAddr); err != nil {
+            fmt.Printf("Error accessing memory at %d: %v\n", virtualAddr, err)
+        }
+    }
+    
+    // Deallocate a page
+    if err := vmm.DeallocatePage(2); err != nil {
+        fmt.Printf("Error deallocating page 2: %v\n", err)
+    }
+}
+```
+
+**Virtual Memory Concepts Explained:**
+
+- **Page Table**: Maps virtual pages to physical frames
+- **Page Fault**: When a page is not in physical memory
+- **TLB (Translation Lookaside Buffer)**: Cache for page table entries
+- **Demand Paging**: Load pages only when needed
+- **Page Replacement**: Algorithm to select pages to evict
 
 ## 🎯 FAANG Interview Questions
 
