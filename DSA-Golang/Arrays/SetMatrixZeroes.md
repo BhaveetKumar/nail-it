@@ -9,6 +9,9 @@ You must do it in-place.
 ```
 Input: matrix = [[1,1,1],[1,0,1],[1,1,1]]
 Output: [[1,0,1],[0,0,0],[1,0,1]]
+
+Input: matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]
+Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]
 ```
 
 ### Golang Solution
@@ -54,14 +57,14 @@ func setZeroes(matrix [][]int) {
         }
     }
     
-    // Set first row
+    // Handle first row
     if firstRowZero {
         for j := 0; j < n; j++ {
             matrix[0][j] = 0
         }
     }
     
-    // Set first column
+    // Handle first column
     if firstColZero {
         for i := 0; i < m; i++ {
             matrix[i][0] = 0
@@ -70,6 +73,93 @@ func setZeroes(matrix [][]int) {
 }
 ```
 
+### Alternative Solutions
+
+#### **Using Extra Space**
+```go
+func setZeroesExtraSpace(matrix [][]int) {
+    m, n := len(matrix), len(matrix[0])
+    zeroRows := make([]bool, m)
+    zeroCols := make([]bool, n)
+    
+    // Find zeros
+    for i := 0; i < m; i++ {
+        for j := 0; j < n; j++ {
+            if matrix[i][j] == 0 {
+                zeroRows[i] = true
+                zeroCols[j] = true
+            }
+        }
+    }
+    
+    // Set zeros
+    for i := 0; i < m; i++ {
+        for j := 0; j < n; j++ {
+            if zeroRows[i] || zeroCols[j] {
+                matrix[i][j] = 0
+            }
+        }
+    }
+}
+```
+
+#### **Using Sets**
+```go
+func setZeroesSets(matrix [][]int) {
+    m, n := len(matrix), len(matrix[0])
+    zeroRows := make(map[int]bool)
+    zeroCols := make(map[int]bool)
+    
+    // Find zeros
+    for i := 0; i < m; i++ {
+        for j := 0; j < n; j++ {
+            if matrix[i][j] == 0 {
+                zeroRows[i] = true
+                zeroCols[j] = true
+            }
+        }
+    }
+    
+    // Set zeros
+    for i := 0; i < m; i++ {
+        for j := 0; j < n; j++ {
+            if zeroRows[i] || zeroCols[j] {
+                matrix[i][j] = 0
+            }
+        }
+    }
+}
+```
+
+#### **Two Pass Approach**
+```go
+func setZeroesTwoPass(matrix [][]int) {
+    m, n := len(matrix), len(matrix[0])
+    
+    // First pass: mark rows and columns to be zeroed
+    rowsToZero := make([]bool, m)
+    colsToZero := make([]bool, n)
+    
+    for i := 0; i < m; i++ {
+        for j := 0; j < n; j++ {
+            if matrix[i][j] == 0 {
+                rowsToZero[i] = true
+                colsToZero[j] = true
+            }
+        }
+    }
+    
+    // Second pass: set zeros
+    for i := 0; i < m; i++ {
+        for j := 0; j < n; j++ {
+            if rowsToZero[i] || colsToZero[j] {
+                matrix[i][j] = 0
+            }
+        }
+    }
+}
+```
+
 ### Complexity
 - **Time Complexity:** O(m × n)
-- **Space Complexity:** O(1)
+- **Space Complexity:** O(1) for in-place, O(m + n) for extra space

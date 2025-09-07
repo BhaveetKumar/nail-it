@@ -8,6 +8,10 @@ Reverse bits of a given 32 bits unsigned integer.
 Input: n = 00000010100101000001111010011100
 Output:    964176192 (00111001011110000010100101000000)
 Explanation: The input binary string 00000010100101000001111010011100 represents the unsigned integer 43261596, so return 964176192 which its binary representation is 00111001011110000010100101000000.
+
+Input: n = 11111111111111111111111111111101
+Output:   3221225471 (10111111111111111111111111111111)
+Explanation: The input binary string 11111111111111111111111111111101 represents the unsigned integer 4294967293, so return 3221225471 which its binary representation is 10111111111111111111111111111111.
 ```
 
 ### Golang Solution
@@ -27,7 +31,7 @@ func reverseBits(num uint32) uint32 {
 
 ### Alternative Solutions
 
-#### **Lookup Table Approach**
+#### **Using Lookup Table**
 ```go
 var reverseTable = [256]uint32{
     0x00, 0x80, 0x40, 0xC0, 0x20, 0xA0, 0x60, 0xE0,
@@ -65,13 +69,53 @@ var reverseTable = [256]uint32{
 }
 
 func reverseBitsLookup(num uint32) uint32 {
-    return reverseTable[num&0xFF]<<24 |
-           reverseTable[(num>>8)&0xFF]<<16 |
-           reverseTable[(num>>16)&0xFF]<<8 |
+    return (reverseTable[num&0xFF] << 24) |
+           (reverseTable[(num>>8)&0xFF] << 16) |
+           (reverseTable[(num>>16)&0xFF] << 8) |
            reverseTable[(num>>24)&0xFF]
 }
 ```
 
+#### **Divide and Conquer**
+```go
+func reverseBitsDivideConquer(num uint32) uint32 {
+    num = ((num & 0xFFFF0000) >> 16) | ((num & 0x0000FFFF) << 16)
+    num = ((num & 0xFF00FF00) >> 8) | ((num & 0x00FF00FF) << 8)
+    num = ((num & 0xF0F0F0F0) >> 4) | ((num & 0x0F0F0F0F) << 4)
+    num = ((num & 0xCCCCCCCC) >> 2) | ((num & 0x33333333) << 2)
+    num = ((num & 0xAAAAAAAA) >> 1) | ((num & 0x55555555) << 1)
+    return num
+}
+```
+
+#### **String Conversion**
+```go
+import "strconv"
+
+func reverseBitsString(num uint32) uint32 {
+    binary := fmt.Sprintf("%032b", num)
+    reversed := ""
+    
+    for i := len(binary) - 1; i >= 0; i-- {
+        reversed += string(binary[i])
+    }
+    
+    result, _ := strconv.ParseUint(reversed, 2, 32)
+    return uint32(result)
+}
+```
+
+#### **Recursive Approach**
+```go
+func reverseBitsRecursive(num uint32) uint32 {
+    if num == 0 {
+        return 0
+    }
+    
+    return (reverseBitsRecursive(num >> 1) >> 1) | ((num & 1) << 31)
+}
+```
+
 ### Complexity
-- **Time Complexity:** O(1) - constant time for 32 bits
+- **Time Complexity:** O(1) for all approaches (constant 32 operations)
 - **Space Complexity:** O(1)

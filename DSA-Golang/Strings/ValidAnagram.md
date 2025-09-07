@@ -14,23 +14,6 @@ Input: s = "rat", t = "car"
 Output: false
 ```
 
-**Constraints:**
-- 1 ≤ s.length, t.length ≤ 5 × 10⁴
-- s and t consist of lowercase English letters only
-
-### Explanation
-
-#### **Hash Map Approach**
-- Count frequency of each character in both strings
-- Compare the frequency maps
-- Time Complexity: O(n)
-- Space Complexity: O(1) - limited by alphabet size
-
-#### **Sorting Approach**
-- Sort both strings and compare
-- Time Complexity: O(n log n)
-- Space Complexity: O(1)
-
 ### Golang Solution
 
 ```go
@@ -41,12 +24,10 @@ func isAnagram(s string, t string) bool {
     
     charCount := make(map[rune]int)
     
-    // Count characters in s
     for _, char := range s {
         charCount[char]++
     }
     
-    // Decrease count for characters in t
     for _, char := range t {
         charCount[char]--
         if charCount[char] < 0 {
@@ -60,22 +41,22 @@ func isAnagram(s string, t string) bool {
 
 ### Alternative Solutions
 
-#### **Array Approach (for lowercase letters)**
+#### **Using Array for ASCII Characters**
 ```go
 func isAnagramArray(s string, t string) bool {
     if len(s) != len(t) {
         return false
     }
     
-    count := make([]int, 26)
+    charCount := make([]int, 26) // For lowercase letters
     
     for i := 0; i < len(s); i++ {
-        count[s[i]-'a']++
-        count[t[i]-'a']--
+        charCount[s[i]-'a']++
+        charCount[t[i]-'a']--
     }
     
-    for _, c := range count {
-        if c != 0 {
+    for _, count := range charCount {
+        if count != 0 {
             return false
         }
     }
@@ -84,10 +65,83 @@ func isAnagramArray(s string, t string) bool {
 }
 ```
 
-### Notes / Variations
+#### **Using Sorting**
+```go
+import "sort"
 
-#### **Related Problems**
-- **Group Anagrams**: Group strings that are anagrams
-- **Find All Anagrams in a String**: Find all anagram occurrences
-- **Permutation in String**: Check if permutation exists
-- **Valid Palindrome**: Check if string is palindrome
+func isAnagramSort(s string, t string) bool {
+    if len(s) != len(t) {
+        return false
+    }
+    
+    sRunes := []rune(s)
+    tRunes := []rune(t)
+    
+    sort.Slice(sRunes, func(i, j int) bool {
+        return sRunes[i] < sRunes[j]
+    })
+    
+    sort.Slice(tRunes, func(i, j int) bool {
+        return tRunes[i] < tRunes[j]
+    })
+    
+    return string(sRunes) == string(tRunes)
+}
+```
+
+#### **Using Two Maps**
+```go
+func isAnagramTwoMaps(s string, t string) bool {
+    if len(s) != len(t) {
+        return false
+    }
+    
+    sCount := make(map[rune]int)
+    tCount := make(map[rune]int)
+    
+    for _, char := range s {
+        sCount[char]++
+    }
+    
+    for _, char := range t {
+        tCount[char]++
+    }
+    
+    if len(sCount) != len(tCount) {
+        return false
+    }
+    
+    for char, count := range sCount {
+        if tCount[char] != count {
+            return false
+        }
+    }
+    
+    return true
+}
+```
+
+#### **Using XOR (Limited Use Case)**
+```go
+func isAnagramXOR(s string, t string) bool {
+    if len(s) != len(t) {
+        return false
+    }
+    
+    xor := 0
+    sum := 0
+    
+    for i := 0; i < len(s); i++ {
+        xor ^= int(s[i])
+        xor ^= int(t[i])
+        sum += int(s[i])
+        sum -= int(t[i])
+    }
+    
+    return xor == 0 && sum == 0
+}
+```
+
+### Complexity
+- **Time Complexity:** O(n) for hash map, O(n log n) for sorting
+- **Space Complexity:** O(1) for array, O(n) for hash map

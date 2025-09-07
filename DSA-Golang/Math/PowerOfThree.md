@@ -15,6 +15,9 @@ Output: false
 
 Input: n = 9
 Output: true
+
+Input: n = 45
+Output: false
 ```
 
 ### Golang Solution
@@ -37,6 +40,8 @@ func isPowerOfThree(n int) bool {
 
 #### **Mathematical Approach**
 ```go
+import "math"
+
 func isPowerOfThreeMath(n int) bool {
     if n <= 0 {
         return false
@@ -47,7 +52,7 @@ func isPowerOfThreeMath(n int) bool {
 }
 ```
 
-#### **Logarithmic Approach**
+#### **Logarithm Approach**
 ```go
 import "math"
 
@@ -61,6 +66,87 @@ func isPowerOfThreeLog(n int) bool {
 }
 ```
 
+#### **Recursive Approach**
+```go
+func isPowerOfThreeRecursive(n int) bool {
+    if n <= 0 {
+        return false
+    }
+    
+    if n == 1 {
+        return true
+    }
+    
+    if n%3 != 0 {
+        return false
+    }
+    
+    return isPowerOfThreeRecursive(n / 3)
+}
+```
+
+#### **Bit Manipulation**
+```go
+func isPowerOfThreeBit(n int) bool {
+    if n <= 0 {
+        return false
+    }
+    
+    // Powers of 3 in binary have specific patterns
+    // 3^0 = 1 = 1
+    // 3^1 = 3 = 11
+    // 3^2 = 9 = 1001
+    // 3^3 = 27 = 11011
+    // etc.
+    
+    // Check if n is a power of 3 using bit manipulation
+    return n > 0 && 1162261467%n == 0
+}
+```
+
+#### **String Conversion**
+```go
+import "strconv"
+
+func isPowerOfThreeString(n int) bool {
+    if n <= 0 {
+        return false
+    }
+    
+    // Convert to base 3
+    base3 := strconv.FormatInt(int64(n), 3)
+    
+    // Check if it's a 1 followed by all 0s
+    if base3[0] != '1' {
+        return false
+    }
+    
+    for i := 1; i < len(base3); i++ {
+        if base3[i] != '0' {
+            return false
+        }
+    }
+    
+    return true
+}
+```
+
+#### **Iterative with Multiplication**
+```go
+func isPowerOfThreeIterative(n int) bool {
+    if n <= 0 {
+        return false
+    }
+    
+    power := 1
+    for power < n {
+        power *= 3
+    }
+    
+    return power == n
+}
+```
+
 ### Complexity
-- **Time Complexity:** O(log n) for loop, O(1) for mathematical
+- **Time Complexity:** O(log n) for division, O(1) for mathematical approaches
 - **Space Complexity:** O(1)

@@ -121,7 +121,7 @@ func reverseList(head *ListNode) *ListNode {
 }
 ```
 
-#### **Stack Approach**
+#### **Using Stack**
 ```go
 func reverseBetweenStack(head *ListNode, left int, right int) *ListNode {
     if head == nil || left == right {
@@ -154,6 +154,36 @@ func reverseBetweenStack(head *ListNode, left int, right int) *ListNode {
     }
     
     prev.Next = current
+    return dummy.Next
+}
+```
+
+#### **Iterative with Three Pointers**
+```go
+func reverseBetweenThreePointers(head *ListNode, left int, right int) *ListNode {
+    if head == nil || left == right {
+        return head
+    }
+    
+    dummy := &ListNode{Next: head}
+    prev := dummy
+    
+    // Move to the node before left
+    for i := 0; i < left-1; i++ {
+        prev = prev.Next
+    }
+    
+    // Reverse the sublist
+    current := prev.Next
+    var next *ListNode
+    
+    for i := 0; i < right-left; i++ {
+        next = current.Next
+        current.Next = next.Next
+        next.Next = prev.Next
+        prev.Next = next
+    }
+    
     return dummy.Next
 }
 ```
