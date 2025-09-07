@@ -18,6 +18,9 @@ Output: true
 
 Input: s = "(]"
 Output: false
+
+Input: s = "([)]"
+Output: false
 ```
 
 ### Golang Solution
@@ -79,7 +82,7 @@ func isValidSwitch(s string) bool {
 }
 ```
 
-#### **Counter Approach (Only for single type)**
+#### **Using Counter (Limited Use Case)**
 ```go
 func isValidCounter(s string) bool {
     if len(s)%2 != 0 {
@@ -88,17 +91,83 @@ func isValidCounter(s string) bool {
     
     count := 0
     for _, char := range s {
-        if char == '(' {
+        if char == '(' || char == '{' || char == '[' {
             count++
-        } else if char == ')' {
+        } else {
             count--
-            if count < 0 {
-                return false
-            }
+        }
+        if count < 0 {
+            return false
         }
     }
     
     return count == 0
+}
+```
+
+#### **Recursive Approach**
+```go
+func isValidRecursive(s string) bool {
+    if len(s) == 0 {
+        return true
+    }
+    
+    if len(s) == 1 {
+        return false
+    }
+    
+    // Find matching pair
+    for i := 0; i < len(s)-1; i++ {
+        if isMatching(s[i], s[i+1]) {
+            return isValidRecursive(s[:i] + s[i+2:])
+        }
+    }
+    
+    return false
+}
+
+func isMatching(open, close byte) bool {
+    return (open == '(' && close == ')') ||
+           (open == '{' && close == '}') ||
+           (open == '[' && close == ']')
+}
+```
+
+#### **Using Array as Stack**
+```go
+func isValidArray(s string) bool {
+    stack := make([]byte, len(s))
+    top := -1
+    
+    for i := 0; i < len(s); i++ {
+        char := s[i]
+        
+        if char == '(' || char == '{' || char == '[' {
+            top++
+            stack[top] = char
+        } else if char == ')' || char == '}' || char == ']' {
+            if top < 0 {
+                return false
+            }
+            
+            var expected byte
+            switch char {
+            case ')':
+                expected = '('
+            case '}':
+                expected = '{'
+            case ']':
+                expected = '['
+            }
+            
+            if stack[top] != expected {
+                return false
+            }
+            top--
+        }
+    }
+    
+    return top == -1
 }
 ```
 

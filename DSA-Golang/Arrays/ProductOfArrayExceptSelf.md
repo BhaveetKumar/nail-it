@@ -1,7 +1,6 @@
 # Product of Array Except Self
 
 ### Problem
-
 Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`.
 
 The product of any prefix or suffix of `nums` is guaranteed to fit in a 32-bit integer.
@@ -9,7 +8,6 @@ The product of any prefix or suffix of `nums` is guaranteed to fit in a 32-bit i
 You must write an algorithm that runs in O(n) time and without using the division operator.
 
 **Example:**
-
 ```
 Input: nums = [1,2,3,4]
 Output: [24,12,8,6]
@@ -24,94 +22,151 @@ Output: [0,0,9,0,0]
 func productExceptSelf(nums []int) []int {
     n := len(nums)
     result := make([]int, n)
-
-    // First pass: calculate left products
+    
+    // Calculate left products
     result[0] = 1
     for i := 1; i < n; i++ {
         result[i] = result[i-1] * nums[i-1]
     }
-
-    // Second pass: calculate right products and multiply
+    
+    // Calculate right products and multiply
     rightProduct := 1
     for i := n - 1; i >= 0; i-- {
         result[i] = result[i] * rightProduct
         rightProduct *= nums[i]
     }
-
+    
     return result
 }
 ```
 
 ### Alternative Solutions
 
-#### **Using Extra Space**
-
+#### **Using Two Arrays**
 ```go
-func productExceptSelfExtraSpace(nums []int) []int {
+func productExceptSelfTwoArrays(nums []int) []int {
     n := len(nums)
     left := make([]int, n)
     right := make([]int, n)
     result := make([]int, n)
-
+    
     // Calculate left products
     left[0] = 1
     for i := 1; i < n; i++ {
         left[i] = left[i-1] * nums[i-1]
     }
-
+    
     // Calculate right products
     right[n-1] = 1
     for i := n - 2; i >= 0; i-- {
         right[i] = right[i+1] * nums[i+1]
     }
-
+    
     // Calculate result
     for i := 0; i < n; i++ {
         result[i] = left[i] * right[i]
     }
-
+    
     return result
 }
 ```
 
-#### **Handle Zeros**
-
+#### **Using Division (Not Recommended)**
 ```go
-func productExceptSelfWithZeros(nums []int) []int {
+func productExceptSelfDivision(nums []int) []int {
     n := len(nums)
     result := make([]int, n)
-
-    // Count zeros and calculate total product
-    zeroCount := 0
     totalProduct := 1
-
-    for _, num := range nums {
-        if num == 0 {
+    zeroCount := 0
+    zeroIndex := -1
+    
+    // Calculate total product and count zeros
+    for i := 0; i < n; i++ {
+        if nums[i] == 0 {
             zeroCount++
+            zeroIndex = i
         } else {
-            totalProduct *= num
+            totalProduct *= nums[i]
         }
     }
-
-    for i, num := range nums {
-        if zeroCount > 1 {
-            result[i] = 0
-        } else if zeroCount == 1 {
-            if num == 0 {
-                result[i] = totalProduct
-            } else {
-                result[i] = 0
-            }
-        } else {
-            result[i] = totalProduct / num
+    
+    // Handle different cases
+    if zeroCount > 1 {
+        // All elements are 0
+        return result
+    } else if zeroCount == 1 {
+        // Only the zero element is non-zero
+        result[zeroIndex] = totalProduct
+        return result
+    } else {
+        // No zeros
+        for i := 0; i < n; i++ {
+            result[i] = totalProduct / nums[i]
         }
     }
+    
+    return result
+}
+```
 
+#### **Using Prefix and Suffix**
+```go
+func productExceptSelfPrefixSuffix(nums []int) []int {
+    n := len(nums)
+    prefix := make([]int, n)
+    suffix := make([]int, n)
+    result := make([]int, n)
+    
+    // Calculate prefix products
+    prefix[0] = nums[0]
+    for i := 1; i < n; i++ {
+        prefix[i] = prefix[i-1] * nums[i]
+    }
+    
+    // Calculate suffix products
+    suffix[n-1] = nums[n-1]
+    for i := n - 2; i >= 0; i-- {
+        suffix[i] = suffix[i+1] * nums[i]
+    }
+    
+    // Calculate result
+    for i := 0; i < n; i++ {
+        if i == 0 {
+            result[i] = suffix[i+1]
+        } else if i == n-1 {
+            result[i] = prefix[i-1]
+        } else {
+            result[i] = prefix[i-1] * suffix[i+1]
+        }
+    }
+    
+    return result
+}
+```
+
+#### **In-Place with Extra Space**
+```go
+func productExceptSelfInPlace(nums []int) []int {
+    n := len(nums)
+    result := make([]int, n)
+    
+    // First pass: calculate left products
+    result[0] = 1
+    for i := 1; i < n; i++ {
+        result[i] = result[i-1] * nums[i-1]
+    }
+    
+    // Second pass: calculate right products and multiply
+    rightProduct := 1
+    for i := n - 1; i >= 0; i-- {
+        result[i] *= rightProduct
+        rightProduct *= nums[i]
+    }
+    
     return result
 }
 ```
 
 ### Complexity
-
 - **Time Complexity:** O(n)
-- **Space Complexity:** O(1) for optimal, O(n) for extra space
+- **Space Complexity:** O(1) for optimal, O(n) for two arrays

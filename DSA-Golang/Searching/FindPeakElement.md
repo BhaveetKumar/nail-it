@@ -100,6 +100,48 @@ func findAllPeakElements(nums []int) []int {
 }
 ```
 
+#### **Find Global Maximum**
+```go
+func findPeakElementGlobalMax(nums []int) int {
+    maxIndex := 0
+    
+    for i := 1; i < len(nums); i++ {
+        if nums[i] > nums[maxIndex] {
+            maxIndex = i
+        }
+    }
+    
+    return maxIndex
+}
+```
+
+#### **Return Peak Value and Index**
+```go
+type PeakResult struct {
+    Index int
+    Value int
+}
+
+func findPeakElementWithValue(nums []int) PeakResult {
+    left, right := 0, len(nums)-1
+    
+    for left < right {
+        mid := left + (right-left)/2
+        
+        if nums[mid] > nums[mid+1] {
+            right = mid
+        } else {
+            left = mid + 1
+        }
+    }
+    
+    return PeakResult{
+        Index: left,
+        Value: nums[left],
+    }
+}
+```
+
 ### Complexity
 - **Time Complexity:** O(log n) for binary search, O(n) for linear search
 - **Space Complexity:** O(1) for iterative, O(log n) for recursive
