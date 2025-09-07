@@ -48,6 +48,7 @@ func calculateCapacityRequirements(req *SystemRequirements) *CapacityPlan {
 ```
 
 **Key Insights**:
+
 - **Throughput**: 1M TPS means we need to handle 1 million transactions per second, requiring massive horizontal scaling
 - **Availability**: 99.99% means only 52.56 minutes of downtime per year, requiring redundancy and failover mechanisms
 - **Latency**: Sub-100ms p99 means 99% of requests must complete within 100ms, requiring optimized data paths and caching
@@ -92,17 +93,20 @@ func calculateCapacityRequirements(req *SystemRequirements) *CapacityPlan {
 
 **Architecture Layers Explained**:
 
-1. **Load Balancer Layer**: 
+1. **Load Balancer Layer**:
+
    - Distributes incoming traffic across multiple API gateways
    - Provides health checking and failover capabilities
    - Uses algorithms like round-robin, least connections, or weighted distribution
 
 2. **API Gateway Layer**:
+
    - Handles authentication, authorization, and rate limiting
    - Provides API versioning and routing
    - Implements circuit breakers and retry logic
 
 3. **Microservices Layer**:
+
    - **Payment Service**: Core payment processing logic
    - **Fraud Detection**: Real-time fraud analysis
    - **Risk Engine**: Risk assessment and scoring
@@ -121,6 +125,7 @@ func calculateCapacityRequirements(req *SystemRequirements) *CapacityPlan {
 **Explanation**: The Payment Service is the core component that orchestrates the entire payment flow. It implements several critical patterns for high-performance, reliable payment processing.
 
 **Payment Service Implementation**:
+
 ```go
 type PaymentService struct {
     // Core components
@@ -128,12 +133,12 @@ type PaymentService struct {
     cache       *redis.ClusterClient
     queue       *kafka.Producer
     bankClient  *BankAPIClient
-    
+
     // Performance components
     connectionPool *ConnectionPool
     circuitBreaker *CircuitBreaker
     rateLimiter    *RateLimiter
-    
+
     // Monitoring
     metrics    *MetricsCollector
     tracer     *Tracer
@@ -144,54 +149,54 @@ func (ps *PaymentService) ProcessPayment(ctx context.Context, req *PaymentReques
     if err := ps.validateRequest(req); err != nil {
         return nil, err
     }
-    
+
     // 2. Rate limiting (1ms)
     if !ps.rateLimiter.Allow(req.MerchantID) {
         return nil, ErrRateLimitExceeded
     }
-    
+
     // 3. Circuit breaker check (1ms)
     if ps.circuitBreaker.IsOpen(req.Method) {
         return nil, ErrServiceUnavailable
     }
-    
+
     // 4. Cache lookup (5ms)
     if cached, err := ps.cache.Get(req.ID); err == nil {
         return cached, nil
     }
-    
+
     // 5. Database transaction (20ms)
     tx, err := ps.db.BeginTx(ctx, nil)
     if err != nil {
         return nil, err
     }
     defer tx.Rollback()
-    
+
     // 6. Bank API call (50ms)
     bankResp, err := ps.bankClient.ProcessPayment(ctx, req)
     if err != nil {
         return nil, err
     }
-    
+
     // 7. Update database (10ms)
     if err := ps.updateTransaction(tx, req, bankResp); err != nil {
         return nil, err
     }
-    
+
     // 8. Commit transaction (5ms)
     if err := tx.Commit(); err != nil {
         return nil, err
     }
-    
+
     // 9. Cache result (2ms)
     ps.cache.Set(req.ID, bankResp, time.Hour)
-    
+
     // 10. Async notification (1ms)
     ps.queue.ProduceAsync(&NotificationEvent{
         PaymentID: req.ID,
         Status:    bankResp.Status,
     })
-    
+
     return bankResp, nil
 }
 ```
@@ -199,21 +204,25 @@ func (ps *PaymentService) ProcessPayment(ctx context.Context, req *PaymentReques
 **Key Design Patterns Explained**:
 
 1. **Circuit Breaker Pattern**: Prevents cascading failures by stopping calls to failing services
+
    - **Closed State**: Normal operation, calls pass through
    - **Open State**: Failing service, calls are blocked immediately
    - **Half-Open State**: Testing if service has recovered
 
 2. **Rate Limiting**: Protects the system from abuse and ensures fair resource usage
+
    - **Token Bucket**: Allows burst traffic up to bucket capacity
    - **Sliding Window**: More accurate rate limiting over time windows
    - **Per-Merchant Limits**: Different limits for different merchant tiers
 
 3. **Caching Strategy**: Reduces latency and database load
+
    - **Cache-Aside**: Application manages cache population
    - **Write-Through**: Updates both cache and database
    - **TTL Management**: Automatic cache expiration
 
 4. **Async Processing**: Improves response times by offloading non-critical work
+
    - **Event-Driven**: Uses message queues for decoupled processing
    - **Eventual Consistency**: Accepts temporary inconsistency for better performance
    - **Retry Logic**: Handles transient failures gracefully
@@ -228,6 +237,7 @@ func (ps *PaymentService) ProcessPayment(ctx context.Context, req *PaymentReques
 **Explanation**: To handle 1M TPS, we need sophisticated scaling strategies. Database sharding and multi-level caching are critical for achieving the required performance and availability.
 
 **Database Sharding**:
+
 ```go
 type ShardingStrategy struct {
     shards map[string]*sql.DB
@@ -249,6 +259,7 @@ func selectShardKey(payment *PaymentRequest) string {
 ```
 
 **Sharding Strategy Explained**:
+
 - **Consistent Hashing**: Ensures even distribution of data across shards
 - **Shard Key Selection**: Merchant ID provides good distribution and locality
 - **Horizontal Scaling**: Each shard can be scaled independently
@@ -256,6 +267,7 @@ func selectShardKey(payment *PaymentRequest) string {
 - **Geographic Distribution**: Shards can be placed closer to users for lower latency
 
 **Caching Strategy**:
+
 ```go
 type MultiLevelCache struct {
     l1Cache *sync.Map        // In-memory cache (1ms access)
@@ -268,25 +280,26 @@ func (mlc *MultiLevelCache) Get(key string) (interface{}, error) {
     if value, ok := mlc.l1Cache.Load(key); ok {
         return value, nil
     }
-    
+
     // L2 cache lookup
     if value, err := mlc.l2Cache.Get(key).Result(); err == nil {
         mlc.l1Cache.Store(key, value)
         return value, nil
     }
-    
+
     // L3 cache lookup
     if value, err := mlc.l3Cache.Get(key); err == nil {
         mlc.l2Cache.Set(key, value, time.Hour)
         mlc.l1Cache.Store(key, value)
         return value, nil
     }
-    
+
     return nil, ErrNotFound
 }
 ```
 
 **Multi-Level Caching Explained**:
+
 - **L1 Cache (In-Memory)**: Fastest access (1ms), limited capacity, per-instance
 - **L2 Cache (Redis)**: Fast access (5ms), larger capacity, shared across instances
 - **L3 Cache (Database)**: Slower access (20ms), largest capacity, persistent
@@ -311,11 +324,11 @@ type FraudDetectionSystem struct {
     featureExtractor *FeatureExtractor
     mlModel         *MLModel
     rulesEngine     *RulesEngine
-    
+
     // Batch processing
     batchProcessor  *BatchProcessor
     modelTrainer    *ModelTrainer
-    
+
     // Storage
     featureStore    *FeatureStore
     modelStore      *ModelStore
@@ -328,22 +341,22 @@ func (fds *FraudDetectionSystem) ProcessTransaction(tx *Transaction) (*FraudScor
     if err != nil {
         return nil, err
     }
-    
+
     // 2. ML model prediction (3ms)
     mlScore, err := fds.mlModel.Predict(features)
     if err != nil {
         return nil, err
     }
-    
+
     // 3. Rules engine evaluation (2ms)
     ruleScore := fds.rulesEngine.Evaluate(tx, features)
-    
+
     // 4. Score combination (1ms)
     finalScore := fds.combineScores(mlScore, ruleScore)
-    
+
     // 5. Decision (1ms)
     decision := fds.makeDecision(finalScore)
-    
+
     return &FraudScore{
         Score:    finalScore,
         Decision: decision,
@@ -354,22 +367,26 @@ func (fds *FraudDetectionSystem) ProcessTransaction(tx *Transaction) (*FraudScor
 
 **Architecture Components Explained**:
 
-1. **Stream Processing**: 
+1. **Stream Processing**:
+
    - **Kafka Streams**: Handles high-throughput event processing
    - **Real-time Processing**: Sub-10ms latency requirements
    - **Event Sourcing**: Maintains complete audit trail
 
 2. **Feature Extraction**:
+
    - **Real-time Features**: Calculated from current transaction
    - **Historical Features**: Aggregated from past transactions
    - **External Features**: Third-party data sources
 
 3. **ML Model**:
+
    - **Lightweight Models**: Optimized for speed (3ms prediction)
    - **Model Versioning**: A/B testing and gradual rollouts
    - **Online Learning**: Continuous model updates
 
 4. **Rules Engine**:
+
    - **Fast Evaluation**: Rule-based checks (2ms)
    - **Business Logic**: Domain-specific fraud patterns
    - **Configurable**: Easy to update without code changes
@@ -387,10 +404,10 @@ func (fds *FraudDetectionSystem) ProcessTransaction(tx *Transaction) (*FraudScor
 type FeatureExtractor struct {
     // Real-time features
     realTimeFeatures map[string]FeatureCalculator
-    
+
     // Historical features
     historicalFeatures map[string]FeatureCalculator
-    
+
     // External features
     externalFeatures map[string]FeatureCalculator
 }
@@ -405,7 +422,7 @@ func (fe *FeatureExtractor) ExtractRealTime(tx *Transaction) (*Features, error) 
     features := &Features{
         RealTime: make(map[string]float64),
     }
-    
+
     // Calculate real-time features
     for name, calculator := range fe.realTimeFeatures {
         value, err := calculator.Calculate(tx)
@@ -414,7 +431,7 @@ func (fe *FeatureExtractor) ExtractRealTime(tx *Transaction) (*Features, error) 
         }
         features.RealTime[name] = value
     }
-    
+
     return features, nil
 }
 
@@ -423,7 +440,7 @@ func (fe *FeatureExtractor) ExtractHistorical(tx *Transaction) (*Features, error
     features := &Features{
         Historical: make(map[string]float64),
     }
-    
+
     // Calculate historical features
     for name, calculator := range fe.historicalFeatures {
         value, err := calculator.Calculate(tx)
@@ -432,7 +449,7 @@ func (fe *FeatureExtractor) ExtractHistorical(tx *Transaction) (*Features, error
         }
         features.Historical[name] = value
     }
-    
+
     return features, nil
 }
 ```
@@ -440,6 +457,7 @@ func (fe *FeatureExtractor) ExtractHistorical(tx *Transaction) (*Features, error
 **Feature Types Explained**:
 
 1. **Real-time Features** (2ms calculation):
+
    - **Transaction Amount**: Amount-based risk indicators
    - **Time-based Features**: Hour of day, day of week patterns
    - **Device Fingerprinting**: Device characteristics and behavior
@@ -447,6 +465,7 @@ func (fe *FeatureExtractor) ExtractHistorical(tx *Transaction) (*Features, error
    - **Velocity Checks**: Transaction frequency and patterns
 
 2. **Historical Features** (Async calculation):
+
    - **User Behavior**: Historical transaction patterns
    - **Merchant Patterns**: Merchant-specific risk indicators
    - **Aggregated Statistics**: Rolling averages and trends
@@ -454,6 +473,7 @@ func (fe *FeatureExtractor) ExtractHistorical(tx *Transaction) (*Features, error
    - **Network Analysis**: Graph-based relationship features
 
 3. **External Features**:
+
    - **Credit Bureau Data**: Credit scores and history
    - **Device Intelligence**: Device reputation and risk
    - **IP Geolocation**: Location-based risk assessment
@@ -486,20 +506,21 @@ func (fe *FeatureExtractor) ExtractHistorical(tx *Transaction) (*Features, error
 func calculateGoroutineMemory() {
     // Each goroutine starts with 2KB stack
     goroutineSize := 2 * 1024 // 2KB
-    
+
     // Trillions of goroutines
     numGoroutines := 1_000_000_000_000 // 1 trillion
-    
+
     // Total memory required
     totalMemory := goroutineSize * numGoroutines
     totalMemoryGB := totalMemory / (1024 * 1024 * 1024)
-    
+
     fmt.Printf("Memory required: %d GB\n", totalMemoryGB)
     // Output: Memory required: 1862645 GB (1.8 TB)
 }
 ```
 
 **Memory Impact Analysis**:
+
 - **Initial Stack Size**: Each goroutine starts with 2KB stack
 - **Stack Growth**: Stacks grow dynamically as needed (2x growth factor)
 - **Memory Calculation**: 1 trillion goroutines = 1.8 TB of memory
@@ -518,7 +539,7 @@ type SchedulerLimitations struct {
     // M = OS threads (limited by GOMAXPROCS)
     // N = Goroutines (can be millions/billions)
     // P = Logical processors (context for scheduling)
-    
+
     MaxOSThreads    int // Typically 1-8 per CPU core
     MaxGoroutines   int // Practically unlimited
     MaxLogicalProcs int // Equal to GOMAXPROCS
@@ -526,17 +547,17 @@ type SchedulerLimitations struct {
 
 func demonstrateSchedulerBehavior() {
     // With trillions of goroutines:
-    
+
     // 1. Memory pressure
     // - Each goroutine consumes 2KB initially
     // - Stack growth can cause memory fragmentation
     // - GC pressure increases exponentially
-    
+
     // 2. Scheduling overhead
     // - Context switching between goroutines
     // - Work stealing becomes less efficient
     // - Lock contention on global structures
-    
+
     // 3. Performance degradation
     // - Cache locality degradation
     // - Increased GC pause times
@@ -547,11 +568,13 @@ func demonstrateSchedulerBehavior() {
 **Go Scheduler Model Explained**:
 
 1. **M:N Scheduler Model**:
+
    - **M (OS Threads)**: Limited by GOMAXPROCS (typically CPU cores)
    - **N (Goroutines)**: Can be millions, but practically limited by memory
    - **P (Logical Processors)**: Context for scheduling, equal to GOMAXPROCS
 
 2. **Scheduling Components**:
+
    - **Local Run Queue**: Each P has a local queue (256 goroutines max)
    - **Global Run Queue**: Overflow queue for when local queues are full
    - **Network Poller**: Handles I/O operations efficiently
@@ -574,10 +597,10 @@ func demonstrateSchedulerBehavior() {
 type WorkStealingScheduler struct {
     // Each P (processor) has its own run queue
     runQueues []*RunQueue
-    
+
     // Global run queue for overflow
     globalQueue *GlobalQueue
-    
+
     // Network poller for I/O operations
     networkPoller *NetworkPoller
 }
@@ -588,7 +611,7 @@ func (wss *WorkStealingScheduler) StealWork() {
     // 2. Global run queue (unlimited but slower access)
     // 3. Network poller (handles I/O operations)
     // 4. Work stealing from other P's queues
-    
+
     // With trillions of goroutines:
     // - Local queues overflow to global queue
     // - Global queue becomes bottleneck
@@ -600,12 +623,14 @@ func (wss *WorkStealingScheduler) StealWork() {
 **Work Stealing Algorithm Explained**:
 
 1. **Normal Operation**:
+
    - **Local Run Queue**: Each P maintains a local queue (256 goroutines max)
    - **Work Stealing**: When a P's local queue is empty, it steals work from other P's
    - **Global Queue**: Overflow queue for when local queues are full
    - **Network Poller**: Handles I/O operations efficiently
 
 2. **With Extreme Concurrency**:
+
    - **Queue Overflow**: Local queues overflow to global queue
    - **Global Queue Bottleneck**: Global queue becomes the limiting factor
    - **Stealing Inefficiency**: Work stealing becomes less effective
@@ -629,12 +654,12 @@ type PerformanceBottlenecks struct {
     MemoryPressure    bool
     StackFragmentation bool
     GCPressure        bool
-    
+
     // Scheduling issues
     ContextSwitchingOverhead bool
     WorkStealingInefficiency bool
     LockContention          bool
-    
+
     // System issues
     CacheLocalityDegradation bool
     ReducedThroughput        bool
@@ -644,16 +669,16 @@ type PerformanceBottlenecks struct {
 func handleExtremeConcurrency() {
     // 1. Use worker pools instead of unlimited goroutines
     workerPool := NewWorkerPool(1000) // Limit to 1000 workers
-    
+
     // 2. Implement backpressure mechanisms
     semaphore := make(chan struct{}, 1000)
-    
+
     // 3. Use buffered channels for communication
     jobQueue := make(chan Job, 10000)
-    
+
     // 4. Implement circuit breakers
     circuitBreaker := NewCircuitBreaker(100, time.Second)
-    
+
     // 5. Use connection pooling
     connectionPool := NewConnectionPool(100)
 }
@@ -662,16 +687,19 @@ func handleExtremeConcurrency() {
 **Performance Bottlenecks Explained**:
 
 1. **Memory Issues**:
+
    - **Memory Pressure**: Excessive memory usage causes system stress
    - **Stack Fragmentation**: Dynamic stack growth causes memory fragmentation
    - **GC Pressure**: Garbage collector struggles with memory management
 
 2. **Scheduling Issues**:
+
    - **Context Switching Overhead**: Frequent context switches consume CPU cycles
    - **Work Stealing Inefficiency**: Global queue becomes bottleneck
    - **Lock Contention**: Scheduler locks become contended
 
 3. **System Issues**:
+
    - **Cache Locality Degradation**: Poor cache performance due to context switching
    - **Reduced Throughput**: System throughput decreases significantly
 
@@ -698,11 +726,11 @@ type GoMemoryModel struct {
     // Stack allocation
     StackSize    int // 2KB initial, grows as needed
     StackGrowth  int // 2x growth factor
-    
+
     // Heap allocation
     HeapSize     int // Managed by GC
     HeapGrowth   int // 2x growth factor
-    
+
     // Garbage collection
     GCAlgorithm  string // Concurrent, tri-color mark and sweep
     GCPause      time.Duration // Target <10ms
@@ -713,11 +741,11 @@ type GoMemoryModel struct {
 func demonstrateMemoryAllocation() {
     // Stack allocation (fast)
     var stackVar int = 42
-    
+
     // Heap allocation (slower)
     heapVar := new(int)
     *heapVar = 42
-    
+
     // Escape analysis
     // Go compiler determines if variable escapes to heap
     // Variables that escape are allocated on heap
@@ -727,17 +755,20 @@ func demonstrateMemoryAllocation() {
 **Go Memory Model Explained**:
 
 1. **Stack vs Heap Allocation**:
+
    - **Stack Allocation**: Fast, automatic cleanup, limited size
    - **Heap Allocation**: Slower, managed by GC, larger capacity
    - **Escape Analysis**: Compiler determines allocation location
 
 2. **Stack Characteristics**:
+
    - **Initial Size**: 2KB per goroutine
    - **Growth Factor**: 2x growth when needed
    - **Automatic Cleanup**: No garbage collection needed
    - **Performance**: Very fast allocation and deallocation
 
 3. **Heap Characteristics**:
+
    - **Managed by GC**: Automatic memory management
    - **Growth Factor**: 2x growth when needed
    - **GC Trigger**: When heap size doubles
@@ -760,12 +791,12 @@ type GCOptimization struct {
     ObjectPooling    bool
     StringInterning  bool
     SliceReuse       bool
-    
+
     // Reduce GC pressure
     ReducePointers   bool
     UseValueTypes    bool
     AvoidReflection  bool
-    
+
     // Tune GC parameters
     GOGC             int // Default 100
     GOMEMLIMIT       int // Memory limit
@@ -806,14 +837,14 @@ func (si *StringInterner) Intern(s string) string {
         return interned
     }
     si.mutex.RUnlock()
-    
+
     si.mutex.Lock()
     defer si.mutex.Unlock()
-    
+
     if interned, exists := si.strings[s]; exists {
         return interned
     }
-    
+
     si.strings[s] = s
     return s
 }
@@ -822,21 +853,25 @@ func (si *StringInterner) Intern(s string) string {
 **GC Optimization Strategies Explained**:
 
 1. **Reduce Allocations**:
+
    - **Object Pooling**: Reuse objects to reduce GC pressure
    - **String Interning**: Share common strings to reduce memory usage
    - **Slice Reuse**: Reuse slices instead of creating new ones
 
 2. **Reduce GC Pressure**:
+
    - **Reduce Pointers**: Fewer pointers mean less GC work
    - **Use Value Types**: Value types are allocated on stack
    - **Avoid Reflection**: Reflection creates heap allocations
 
 3. **Tune GC Parameters**:
+
    - **GOGC**: Controls when GC runs (default 100)
    - **GOMEMLIMIT**: Sets memory limit for GC
    - **GOMAXPROCS**: Controls number of CPU cores
 
 4. **Object Pooling Benefits**:
+
    - **Reduced Allocations**: Reuse objects instead of creating new ones
    - **Lower GC Pressure**: Fewer objects for GC to manage
    - **Better Performance**: Faster object creation and cleanup
@@ -855,27 +890,27 @@ func (si *StringInterner) Intern(s string) string {
 func setupMemoryProfiling() {
     // Enable memory profiling
     runtime.MemProfileRate = 1
-    
+
     // Force garbage collection
     runtime.GC()
-    
+
     // Get memory statistics
     var m runtime.MemStats
     runtime.ReadMemStats(&m)
-    
+
     fmt.Printf("Alloc = %d KB\n", m.Alloc/1024)
     fmt.Printf("TotalAlloc = %d KB\n", m.TotalAlloc/1024)
     fmt.Printf("Sys = %d KB\n", m.Sys/1024)
     fmt.Printf("NumGC = %d\n", m.NumGC)
     fmt.Printf("GCCPUFraction = %f\n", m.GCCPUFraction)
-    
+
     // Write heap profile
     f, err := os.Create("heap.prof")
     if err != nil {
         panic(err)
     }
     defer f.Close()
-    
+
     pprof.WriteHeapProfile(f)
 }
 ```
@@ -883,6 +918,7 @@ func setupMemoryProfiling() {
 **Memory Profiling Explained**:
 
 1. **Memory Statistics**:
+
    - **Alloc**: Currently allocated memory
    - **TotalAlloc**: Total memory allocated
    - **Sys**: System memory obtained from OS
@@ -890,12 +926,14 @@ func setupMemoryProfiling() {
    - **GCCPUFraction**: Fraction of CPU time spent in GC
 
 2. **Profiling Tools**:
+
    - **pprof**: Built-in profiling tool
    - **Heap Profile**: Shows memory allocation patterns
    - **CPU Profile**: Shows CPU usage patterns
    - **Goroutine Profile**: Shows goroutine usage
 
 3. **Memory Analysis**:
+
    - **Memory Leaks**: Identify objects that aren't being freed
    - **Allocation Patterns**: Understand where memory is allocated
    - **GC Performance**: Monitor garbage collection efficiency
@@ -918,6 +956,7 @@ func setupMemoryProfiling() {
 **Answer Framework**:
 
 #### **1. Latency Analysis**
+
 ```go
 // Latency breakdown analysis
 type LatencyBreakdown struct {
@@ -943,6 +982,7 @@ func (lb *LatencyBreakdown) Total() time.Duration {
 ```
 
 #### **2. Optimization Strategies**
+
 ```go
 // Optimization techniques
 type OptimizationStrategies struct {
@@ -951,17 +991,17 @@ type OptimizationStrategies struct {
     QueryOptimization    bool
     ReadReplicas         bool
     DatabaseSharding     bool
-    
+
     // Caching optimization
     MultiLevelCache      bool
     CacheWarming         bool
     CachePreloading      bool
-    
+
     // Network optimization
     ConnectionReuse      bool
     Compression          bool
     KeepAlive            bool
-    
+
     // Application optimization
     AsyncProcessing      bool
     BatchOperations      bool
@@ -973,63 +1013,63 @@ func (ps *PaymentService) ProcessPaymentOptimized(ctx context.Context, req *Paym
     // 1. Parallel validation and cache lookup
     var validationErr error
     var cachedResp *PaymentResponse
-    
+
     var wg sync.WaitGroup
     wg.Add(2)
-    
+
     go func() {
         defer wg.Done()
         validationErr = ps.validateRequest(req)
     }()
-    
+
     go func() {
         defer wg.Done()
         cachedResp, _ = ps.cache.Get(req.ID)
     }()
-    
+
     wg.Wait()
-    
+
     if validationErr != nil {
         return nil, validationErr
     }
-    
+
     if cachedResp != nil {
         return cachedResp, nil
     }
-    
+
     // 2. Optimized database query with connection pooling
     conn, err := ps.connectionPool.Get()
     if err != nil {
         return nil, err
     }
     defer ps.connectionPool.Put(conn)
-    
+
     // 3. Async bank API call with timeout
     bankRespChan := make(chan *BankResponse, 1)
     go func() {
         resp, _ := ps.bankClient.ProcessPayment(ctx, req)
         bankRespChan <- resp
     }()
-    
+
     select {
     case bankResp := <-bankRespChan:
         // 4. Parallel database update and cache update
         var wg2 sync.WaitGroup
         wg2.Add(2)
-        
+
         go func() {
             defer wg2.Done()
             ps.updateTransactionAsync(req, bankResp)
         }()
-        
+
         go func() {
             defer wg2.Done()
             ps.cache.SetAsync(req.ID, bankResp, time.Hour)
         }()
-        
+
         wg2.Wait()
         return bankResp, nil
-        
+
     case <-time.After(45 * time.Millisecond):
         return nil, ErrTimeout
     }
@@ -1037,6 +1077,7 @@ func (ps *PaymentService) ProcessPaymentOptimized(ctx context.Context, req *Paym
 ```
 
 #### **3. Performance Monitoring**
+
 ```go
 // Performance monitoring setup
 type PerformanceMonitor struct {
@@ -1052,7 +1093,7 @@ func (pm *PerformanceMonitor) TrackLatency(operation string, fn func() error) er
         pm.metrics.GetCounter("operation_duration_seconds").
             WithLabelValues(operation).Add(duration.Seconds())
     }()
-    
+
     return fn()
 }
 
@@ -1070,6 +1111,7 @@ func (pm *PerformanceMonitor) TrackPercentiles(operation string, duration time.D
 **Answer Framework**:
 
 #### **1. Memory Leak Detection**
+
 ```go
 // Memory leak detection tools
 type MemoryLeakDetector struct {
@@ -1090,12 +1132,12 @@ func (mld *MemoryLeakDetector) StartMonitoring() {
 
 func (mld *MemoryLeakDetector) checkMemoryUsage() {
     runtime.ReadMemStats(&mld.current)
-    
+
     // Check for memory growth
     if mld.current.Alloc > mld.baseline.Alloc+mld.threshold {
         mld.alertMemoryLeak()
     }
-    
+
     // Check for goroutine leaks
     if runtime.NumGoroutine() > 1000 {
         mld.alertGoroutineLeak()
@@ -1109,21 +1151,22 @@ func (mld *MemoryLeakDetector) alertMemoryLeak() {
 ```
 
 #### **2. Common Memory Leak Patterns**
+
 ```go
 // Common memory leak patterns in Go
 type MemoryLeakPatterns struct {
     // 1. Goroutine leaks
     GoroutineLeaks bool
-    
+
     // 2. Channel leaks
     ChannelLeaks bool
-    
+
     // 3. Map leaks
     MapLeaks bool
-    
+
     // 4. Slice leaks
     SliceLeaks bool
-    
+
     // 5. Interface leaks
     InterfaceLeaks bool
 }
@@ -1137,11 +1180,11 @@ func goroutineLeakExample() {
             time.Sleep(time.Second)
         }
     }()
-    
+
     // GOOD: Proper goroutine management
     ctx, cancel := context.WithCancel(context.Background())
     defer cancel()
-    
+
     go func() {
         for {
             select {
@@ -1162,7 +1205,7 @@ func channelLeakExample() {
         ch <- 1
         // Channel never closed
     }()
-    
+
     // GOOD: Proper channel management
     ch := make(chan int)
     go func() {
@@ -1173,6 +1216,7 @@ func channelLeakExample() {
 ```
 
 #### **3. Memory Leak Prevention**
+
 ```go
 // Memory leak prevention strategies
 type MemoryLeakPrevention struct {
@@ -1180,12 +1224,12 @@ type MemoryLeakPrevention struct {
     ResourcePooling    bool
     ConnectionPooling  bool
     ObjectPooling      bool
-    
+
     // Lifecycle management
     ProperCleanup      bool
     ContextCancellation bool
     TimeoutHandling    bool
-    
+
     // Monitoring
     MemoryProfiling    bool
     GoroutineTracking  bool
@@ -1201,27 +1245,27 @@ type ResourceManager struct {
 func (rm *ResourceManager) Acquire(id string) (interface{}, error) {
     rm.mutex.Lock()
     defer rm.mutex.Unlock()
-    
+
     if resource, exists := rm.resources[id]; exists {
         return resource, nil
     }
-    
+
     // Create new resource
     resource := rm.createResource(id)
     rm.resources[id] = resource
-    
+
     return resource, nil
 }
 
 func (rm *ResourceManager) Release(id string) error {
     rm.mutex.Lock()
     defer rm.mutex.Unlock()
-    
+
     if resource, exists := rm.resources[id]; exists {
         rm.cleanupResource(resource)
         delete(rm.resources, id)
     }
-    
+
     return nil
 }
 ```
@@ -1237,17 +1281,18 @@ func (rm *ResourceManager) Release(id string) error {
 **Answer Framework**:
 
 #### **1. Migration Strategy**
+
 ```go
 // Migration strategy framework
 type MigrationStrategy struct {
     // Assessment phase
     currentSystem *LegacySystem
     targetSystem  *MicroservicesSystem
-    
+
     // Risk mitigation
     rollbackPlan   *RollbackPlan
     monitoring     *MigrationMonitoring
-    
+
     // Phased approach
     phases []MigrationPhase
 }
@@ -1267,7 +1312,7 @@ func (ms *MigrationStrategy) ExecuteMigration() error {
         if err := ms.preMigrationChecks(phase); err != nil {
             return err
         }
-        
+
         // 2. Execute phase
         if err := ms.executePhase(phase); err != nil {
             // 3. Rollback if needed
@@ -1276,18 +1321,19 @@ func (ms *MigrationStrategy) ExecuteMigration() error {
             }
             return err
         }
-        
+
         // 4. Post-migration validation
         if err := ms.postMigrationValidation(phase); err != nil {
             return err
         }
     }
-    
+
     return nil
 }
 ```
 
 #### **2. Team Management**
+
 ```go
 // Team management during migration
 type TeamManagement struct {
@@ -1296,12 +1342,12 @@ type TeamManagement struct {
     developers    []*Developer
     testers       []*Tester
     devops        []*DevOps
-    
+
     // Communication
     dailyStandups bool
     weeklyReviews bool
     monthlyRetros bool
-    
+
     // Risk management
     riskRegister  *RiskRegister
     mitigationPlans map[string]*MitigationPlan
@@ -1311,16 +1357,16 @@ type TeamManagement struct {
 func (tm *TeamManagement) CoordinateMigration() error {
     // 1. Define roles and responsibilities
     tm.defineRoles()
-    
+
     // 2. Establish communication channels
     tm.establishCommunication()
-    
+
     // 3. Set up monitoring and alerting
     tm.setupMonitoring()
-    
+
     // 4. Implement risk management
     tm.implementRiskManagement()
-    
+
     return nil
 }
 ```
@@ -1332,6 +1378,7 @@ func (tm *TeamManagement) CoordinateMigration() error {
 **Answer Framework**:
 
 #### **1. Incident Response Framework**
+
 ```go
 // Incident response framework
 type IncidentResponse struct {
@@ -1339,12 +1386,12 @@ type IncidentResponse struct {
     severity    IncidentSeverity
     impact      IncidentImpact
     category    IncidentCategory
-    
+
     // Response team
     incidentCommander *IncidentCommander
     technicalLead     *TechnicalLead
     communications    *CommunicationsLead
-    
+
     // Timeline
     detectionTime     time.Time
     responseTime      time.Time
@@ -1358,32 +1405,33 @@ func (ir *IncidentResponse) HandleIncident() error {
     if err := ir.immediateResponse(); err != nil {
         return err
     }
-    
+
     // 2. Assessment and classification
     if err := ir.assessIncident(); err != nil {
         return err
     }
-    
+
     // 3. Communication
     if err := ir.communicateIncident(); err != nil {
         return err
     }
-    
+
     // 4. Resolution
     if err := ir.resolveIncident(); err != nil {
         return err
     }
-    
+
     // 5. Post-mortem
     if err := ir.postMortem(); err != nil {
         return err
     }
-    
+
     return nil
 }
 ```
 
 #### **2. Technical Troubleshooting**
+
 ```go
 // Technical troubleshooting approach
 type TechnicalTroubleshooting struct {
@@ -1391,7 +1439,7 @@ type TechnicalTroubleshooting struct {
     logs        *LogAnalyzer
     metrics     *MetricsAnalyzer
     traces      *TraceAnalyzer
-    
+
     // Common issues
     databaseIssues    bool
     networkIssues     bool
@@ -1405,27 +1453,27 @@ func (tt *TechnicalTroubleshooting) Troubleshoot() error {
     if err := tt.checkSystemHealth(); err != nil {
         return err
     }
-    
+
     // 2. Analyze logs
     if err := tt.analyzeLogs(); err != nil {
         return err
     }
-    
+
     // 3. Check metrics
     if err := tt.checkMetrics(); err != nil {
         return err
     }
-    
+
     // 4. Analyze traces
     if err := tt.analyzeTraces(); err != nil {
         return err
     }
-    
+
     // 5. Identify root cause
     if err := tt.identifyRootCause(); err != nil {
         return err
     }
-    
+
     return nil
 }
 ```
@@ -1441,6 +1489,7 @@ func (tt *TechnicalTroubleshooting) Troubleshoot() error {
 **Answer Framework**:
 
 #### **1. UPI Architecture**
+
 ```go
 // UPI payment processing system
 type UPIPaymentSystem struct {
@@ -1448,12 +1497,12 @@ type UPIPaymentSystem struct {
     upiGateway    *UPIGateway
     bankConnector *BankConnector
     npciConnector *NPCIConnector
-    
+
     // Processing components
     paymentProcessor *PaymentProcessor
     settlementEngine *SettlementEngine
     reconciliation   *Reconciliation
-    
+
     // Monitoring
     monitoring    *Monitoring
     alerting      *Alerting
@@ -1465,46 +1514,47 @@ func (ups *UPIPaymentSystem) ProcessUPIPayment(req *UPIPaymentRequest) (*UPIPaym
     if err := ups.validateUPIRequest(req); err != nil {
         return nil, err
     }
-    
+
     // 2. Check payer account
     payerAccount, err := ups.checkPayerAccount(req.PayerUPI)
     if err != nil {
         return nil, err
     }
-    
+
     // 3. Check payee account
     payeeAccount, err := ups.checkPayeeAccount(req.PayeeUPI)
     if err != nil {
         return nil, err
     }
-    
+
     // 4. Process payment
     paymentResp, err := ups.processPayment(req, payerAccount, payeeAccount)
     if err != nil {
         return nil, err
     }
-    
+
     // 5. Update settlement
     if err := ups.updateSettlement(paymentResp); err != nil {
         return nil, err
     }
-    
+
     return paymentResp, nil
 }
 ```
 
 #### **2. UPI Compliance**
+
 ```go
 // UPI compliance requirements
 type UPICompliance struct {
     // NPCI requirements
     npciCompliance bool
-    
+
     // Security requirements
     encryption     bool
     authentication bool
     authorization  bool
-    
+
     // Audit requirements
     auditTrail     bool
     reporting      bool
@@ -1517,17 +1567,17 @@ func (uc *UPICompliance) ValidateCompliance(req *UPIPaymentRequest) error {
     if err := uc.checkNPCICompliance(req); err != nil {
         return err
     }
-    
+
     // 2. Security validation
     if err := uc.validateSecurity(req); err != nil {
         return err
     }
-    
+
     // 3. Audit trail creation
     if err := uc.createAuditTrail(req); err != nil {
         return err
     }
-    
+
     return nil
 }
 ```
@@ -1539,6 +1589,7 @@ func (uc *UPICompliance) ValidateCompliance(req *UPIPaymentRequest) error {
 **Answer Framework**:
 
 #### **1. Settlement Architecture**
+
 ```go
 // Real-time settlement system
 type SettlementSystem struct {
@@ -1546,11 +1597,11 @@ type SettlementSystem struct {
     settlementEngine *SettlementEngine
     bankConnector    *BankConnector
     ledgerSystem     *LedgerSystem
-    
+
     // Processing components
     batchProcessor   *BatchProcessor
     realTimeProcessor *RealTimeProcessor
-    
+
     // Monitoring
     monitoring       *Monitoring
     alerting         *Alerting
@@ -1562,43 +1613,44 @@ func (ss *SettlementSystem) ProcessSettlement(settlement *Settlement) error {
     if err := ss.validateSettlement(settlement); err != nil {
         return err
     }
-    
+
     // 2. Check account balances
     if err := ss.checkAccountBalances(settlement); err != nil {
         return err
     }
-    
+
     // 3. Process settlement
     if err := ss.processSettlement(settlement); err != nil {
         return err
     }
-    
+
     // 4. Update ledger
     if err := ss.updateLedger(settlement); err != nil {
         return err
     }
-    
+
     // 5. Notify parties
     if err := ss.notifyParties(settlement); err != nil {
         return err
     }
-    
+
     return nil
 }
 ```
 
 #### **2. Settlement Optimization**
+
 ```go
 // Settlement optimization strategies
 type SettlementOptimization struct {
     // Batch processing
     batchSize        int
     batchInterval    time.Duration
-    
+
     // Real-time processing
     realTimeThreshold int64
     realTimeTimeout   time.Duration
-    
+
     // Optimization techniques
     netting          bool
     compression      bool
@@ -1609,12 +1661,12 @@ type SettlementOptimization struct {
 func (so *SettlementOptimization) ProcessSettlementOptimized(settlements []*Settlement) error {
     // 1. Netting optimization
     nettedSettlements := so.netSettlements(settlements)
-    
+
     // 2. Batch processing
     if len(nettedSettlements) > so.batchSize {
         return so.processBatch(nettedSettlements)
     }
-    
+
     // 3. Real-time processing
     return so.processRealTime(nettedSettlements)
 }
@@ -1622,4 +1674,4 @@ func (so *SettlementOptimization) ProcessSettlementOptimized(settlements []*Sett
 
 ---
 
-*This comprehensive guide covers advanced scenarios and deep technical questions that would be asked in a Razorpay Lead SDE interview for experienced backend engineers.*
+_This comprehensive guide covers advanced scenarios and deep technical questions that would be asked in a Razorpay Lead SDE interview for experienced backend engineers._
