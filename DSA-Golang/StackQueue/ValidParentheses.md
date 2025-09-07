@@ -79,7 +79,7 @@ func isValidSwitch(s string) bool {
 }
 ```
 
-#### **Counter Approach (Only for single type)**
+#### **Counter Approach (Single Type Only)**
 ```go
 func isValidCounter(s string) bool {
     if len(s)%2 != 0 {
