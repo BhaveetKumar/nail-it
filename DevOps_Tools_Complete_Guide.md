@@ -22,47 +22,57 @@
 #### **Dockerfile Best Practices**
 ```dockerfile
 # Multi-stage build for Go application
+# Stage 1: Build stage - contains build tools and dependencies
 FROM golang:1.21-alpine AS builder
 
-# Set working directory
+# Set working directory inside container
 WORKDIR /app
 
-# Copy go mod files
+# Copy go mod files first for better layer caching
+# This allows Docker to cache the dependency download layer
 COPY go.mod go.sum ./
 
-# Download dependencies
+# Download dependencies (cached if go.mod/go.sum unchanged)
 RUN go mod download
 
 # Copy source code
 COPY . .
 
-# Build the application
+# Build the application with optimizations
+# CGO_ENABLED=0: Disable CGO for static binary
+# GOOS=linux: Target Linux OS
+# -a -installsuffix cgo: Force rebuild of all packages
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 
-# Final stage
+# Stage 2: Runtime stage - minimal image for production
 FROM alpine:latest
 
-# Install ca-certificates for HTTPS
+# Install ca-certificates for HTTPS connections
 RUN apk --no-cache add ca-certificates
 
-# Create non-root user
+# Create non-root user for security
 RUN adduser -D -s /bin/sh appuser
 
+# Set working directory
 WORKDIR /root/
 
 # Copy binary from builder stage
 COPY --from=builder /app/main .
 
-# Change ownership
+# Change ownership to non-root user
 RUN chown appuser:appuser main
 
-# Switch to non-root user
+# Switch to non-root user for security
 USER appuser
 
-# Expose port
+# Expose port 8080
 EXPOSE 8080
 
-# Health check
+# Health check to monitor application status
+# --interval=30s: Check every 30 seconds
+# --timeout=3s: Wait 3 seconds for response
+# --start-period=5s: Wait 5 seconds before first check
+# --retries=3: Retry 3 times before marking unhealthy
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD wget --no-verbose --tries=1 --spider http://localhost:8080/health || exit 1
 
@@ -70,34 +80,44 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 CMD ["./main"]
 ```
 
+**Key Concepts Explained:**
+- **Multi-stage Build**: Separate build and runtime stages for smaller images
+- **Layer Caching**: Copy dependencies first to leverage Docker layer caching
+- **Security**: Non-root user, minimal base image, static binary
+- **Health Checks**: Built-in monitoring for container health
+- **Optimization**: Static binary, minimal runtime dependencies
+
 #### **Docker Compose for Development**
 ```yaml
+# Docker Compose version
 version: '3.8'
 
 services:
+  # Main application service
   app:
-    build: .
+    build: .                    # Build from current directory Dockerfile
     ports:
-      - "8080:8080"
+      - "8080:8080"            # Map host port 8080 to container port 8080
     environment:
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_NAME=myapp
-      - DB_USER=postgres
-      - DB_PASSWORD=password
+      - DB_HOST=postgres       # Database host (service name)
+      - DB_PORT=5432           # Database port
+      - DB_NAME=myapp          # Database name
+      - DB_USER=postgres       # Database user
+      - DB_PASSWORD=password   # Database password
     depends_on:
-      - postgres
-      - redis
+      - postgres               # Wait for postgres to start
+      - redis                  # Wait for redis to start
     volumes:
-      - ./logs:/app/logs
+      - ./logs:/app/logs       # Mount host logs directory to container
     networks:
-      - app-network
+      - app-network            # Connect to custom network
 
+  # PostgreSQL database service
   postgres:
-    image: postgres:15-alpine
+    image: postgres:15-alpine  # Use PostgreSQL 15 Alpine image
     environment:
-      - POSTGRES_DB=myapp
-      - POSTGRES_USER=postgres
+      - POSTGRES_DB=myapp      # Create database named 'myapp'
+      - POSTGRES_USER=postgres # Create user 'postgres'
       - POSTGRES_PASSWORD=password
     volumes:
       - postgres_data:/var/lib/postgresql/data
