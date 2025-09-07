@@ -25,25 +25,38 @@ package main
 
 import "fmt"
 
+// Optimal Solution: Hash Map Approach
 // Time: O(n), Space: O(n)
 func twoSum(nums []int, target int) []int {
+    // Create a map to store number -> index mapping
     numMap := make(map[int]int)
     
+    // Iterate through the array once
     for i, num := range nums {
+        // Calculate what number we need to reach the target
         complement := target - num
+        
+        // Check if we've seen the complement before
         if index, exists := numMap[complement]; exists {
+            // Found the pair! Return indices
             return []int{index, i}
         }
+        
+        // Store current number and its index for future lookups
         numMap[num] = i
     }
     
+    // No solution found
     return []int{}
 }
 
+// Brute Force Solution: Nested Loops
 // Time: O(n²), Space: O(1)
 func twoSumBruteForce(nums []int, target int) []int {
+    // Check every pair of numbers
     for i := 0; i < len(nums); i++ {
         for j := i + 1; j < len(nums); j++ {
+            // If sum equals target, return indices
             if nums[i] + nums[j] == target {
                 return []int{i, j}
             }
@@ -57,12 +70,23 @@ func main() {
     target := 9
     
     result := twoSum(nums, target)
-    fmt.Printf("Two Sum: %v\n", result) // [0, 1]
+    fmt.Printf("Two Sum: %v\n", result) // [0, 1] - indices of 2 and 7
     
     result2 := twoSumBruteForce(nums, target)
     fmt.Printf("Two Sum (Brute Force): %v\n", result2) // [0, 1]
 }
 ```
+
+**Algorithm Explanation:**
+- **Hash Map Approach**: Store each number and its index as we iterate
+- **Complement Calculation**: For each number, calculate what number we need to reach target
+- **Lookup**: Check if we've seen the complement before
+- **Early Return**: As soon as we find a pair, return the indices
+
+**Complexity Analysis:**
+- **Time**: O(n) - single pass through array
+- **Space**: O(n) - hash map storage
+- **Trade-off**: Uses extra space for O(n) time vs O(n²) time with O(1) space
 
 ### **2. Maximum Subarray (Kadane's Algorithm)**
 **Problem**: Find the contiguous subarray with maximum sum.
@@ -72,23 +96,32 @@ package main
 
 import "fmt"
 
+// Kadane's Algorithm - Optimal Solution
 // Time: O(n), Space: O(1)
 func maxSubArray(nums []int) int {
     if len(nums) == 0 {
         return 0
     }
     
-    maxSum := nums[0]
-    currentSum := nums[0]
+    // Initialize with first element
+    maxSum := nums[0]      // Global maximum sum found so far
+    currentSum := nums[0]  // Sum of current subarray
     
+    // Iterate through remaining elements
     for i := 1; i < len(nums); i++ {
+        // Decision: start new subarray or extend current one
+        // If current element is greater than current sum + element,
+        // start a new subarray from current element
         currentSum = max(nums[i], currentSum + nums[i])
+        
+        // Update global maximum if current sum is greater
         maxSum = max(maxSum, currentSum)
     }
     
     return maxSum
 }
 
+// Helper function to find maximum of two integers
 func max(a, b int) int {
     if a > b {
         return a
@@ -99,9 +132,31 @@ func max(a, b int) int {
 func main() {
     nums := []int{-2, 1, -3, 4, -1, 2, 1, -5, 4}
     result := maxSubArray(nums)
-    fmt.Printf("Maximum Subarray Sum: %d\n", result) // 6
+    fmt.Printf("Maximum Subarray Sum: %d\n", result) // 6 (subarray: [4, -1, 2, 1])
 }
 ```
+
+**Algorithm Explanation:**
+- **Kadane's Algorithm**: Dynamic programming approach
+- **Key Insight**: At each position, decide whether to start a new subarray or extend the current one
+- **Decision Rule**: `max(nums[i], currentSum + nums[i])`
+- **Global Tracking**: Keep track of the maximum sum seen so far
+
+**Step-by-Step Example:**
+```
+Array: [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+i=0: currentSum=-2, maxSum=-2
+i=1: currentSum=max(1, -2+1)=1, maxSum=max(-2, 1)=1
+i=2: currentSum=max(-3, 1-3)=-2, maxSum=max(1, -2)=1
+i=3: currentSum=max(4, -2+4)=4, maxSum=max(1, 4)=4
+i=4: currentSum=max(-1, 4-1)=3, maxSum=max(4, 3)=4
+i=5: currentSum=max(2, 3+2)=5, maxSum=max(4, 5)=5
+i=6: currentSum=max(1, 5+1)=6, maxSum=max(5, 6)=6
+```
+
+**Complexity Analysis:**
+- **Time**: O(n) - single pass through array
+- **Space**: O(1) - only using constant extra space
 
 ### **3. Longest Substring Without Repeating Characters**
 **Problem**: Find the length of the longest substring without repeating characters.
@@ -111,17 +166,26 @@ package main
 
 import "fmt"
 
+// Sliding Window with Hash Map - Optimal Solution
 // Time: O(n), Space: O(min(m,n)) where m is charset size
 func lengthOfLongestSubstring(s string) int {
+    // Map to store character -> last seen index
     charMap := make(map[byte]int)
-    maxLen := 0
-    left := 0
+    maxLen := 0  // Maximum length found so far
+    left := 0    // Left boundary of sliding window
     
+    // Expand right boundary of window
     for right := 0; right < len(s); right++ {
+        // If character exists and is within current window
         if index, exists := charMap[s[right]]; exists && index >= left {
+            // Move left boundary to after the duplicate character
             left = index + 1
         }
+        
+        // Update character's last seen position
         charMap[s[right]] = right
+        
+        // Update maximum length
         maxLen = max(maxLen, right - left + 1)
     }
     
@@ -131,9 +195,33 @@ func lengthOfLongestSubstring(s string) int {
 func main() {
     s := "abcabcbb"
     result := lengthOfLongestSubstring(s)
-    fmt.Printf("Longest Substring Length: %d\n", result) // 3
+    fmt.Printf("Longest Substring Length: %d\n", result) // 3 ("abc")
 }
 ```
+
+**Algorithm Explanation:**
+- **Sliding Window**: Maintain a window of characters without duplicates
+- **Hash Map**: Track the last seen index of each character
+- **Window Expansion**: Move right boundary to include new character
+- **Window Contraction**: Move left boundary when duplicate is found
+- **Length Tracking**: Update maximum length at each step
+
+**Step-by-Step Example:**
+```
+String: "abcabcbb"
+right=0, char='a': charMap={'a':0}, left=0, maxLen=1
+right=1, char='b': charMap={'a':0,'b':1}, left=0, maxLen=2
+right=2, char='c': charMap={'a':0,'b':1,'c':2}, left=0, maxLen=3
+right=3, char='a': duplicate found at index 0, left=1, maxLen=3
+right=4, char='b': duplicate found at index 1, left=2, maxLen=3
+right=5, char='c': duplicate found at index 2, left=3, maxLen=3
+right=6, char='b': duplicate found at index 4, left=5, maxLen=3
+right=7, char='b': duplicate found at index 6, left=7, maxLen=3
+```
+
+**Complexity Analysis:**
+- **Time**: O(n) - each character visited at most twice
+- **Space**: O(min(m,n)) - hash map size limited by charset or string length
 
 ---
 
@@ -147,39 +235,48 @@ package main
 
 import "fmt"
 
+// ListNode represents a node in the linked list
 type ListNode struct {
-    Val  int
-    Next *ListNode
+    Val  int        // Value stored in the node
+    Next *ListNode  // Pointer to the next node
 }
 
+// Iterative Approach - Optimal Solution
 // Time: O(n), Space: O(1)
 func reverseList(head *ListNode) *ListNode {
-    var prev *ListNode
-    current := head
+    var prev *ListNode  // Previous node (initially nil)
+    current := head     // Current node (starts at head)
     
+    // Iterate through the list
     for current != nil {
-        next := current.Next
-        current.Next = prev
-        prev = current
-        current = next
+        next := current.Next  // Store next node before modifying
+        current.Next = prev   // Reverse the link
+        prev = current        // Move prev to current
+        current = next        // Move current to next
     }
     
-    return prev
+    return prev  // prev is now the new head
 }
 
-// Time: O(n), Space: O(n) - Recursive approach
+// Recursive Approach - Alternative Solution
+// Time: O(n), Space: O(n) - due to recursion stack
 func reverseListRecursive(head *ListNode) *ListNode {
+    // Base case: empty list or single node
     if head == nil || head.Next == nil {
         return head
     }
     
+    // Recursively reverse the rest of the list
     newHead := reverseListRecursive(head.Next)
-    head.Next.Next = head
-    head.Next = nil
     
-    return newHead
+    // Reverse the link between current node and next node
+    head.Next.Next = head  // Make next node point to current
+    head.Next = nil        // Make current node point to nil
+    
+    return newHead  // Return the new head
 }
 
+// Helper function to print the linked list
 func printList(head *ListNode) {
     for head != nil {
         fmt.Printf("%d -> ", head.Val)
@@ -204,6 +301,38 @@ func main() {
     printList(reversed)
 }
 ```
+
+**Algorithm Explanation:**
+- **Iterative Approach**: Use three pointers (prev, current, next) to reverse links
+- **Key Steps**: Store next, reverse current link, move pointers forward
+- **Recursive Approach**: Recursively reverse rest of list, then reverse current link
+- **Base Case**: Empty list or single node (already reversed)
+
+**Step-by-Step Example (Iterative):**
+```
+Original: 1 -> 2 -> 3 -> 4 -> 5 -> nil
+
+Step 1: prev=nil, current=1, next=2
+        1 -> 2 -> 3 -> 4 -> 5 -> nil
+        ^
+        current
+
+Step 2: prev=1, current=2, next=3
+        nil <- 1    2 -> 3 -> 4 -> 5 -> nil
+               ^    ^
+               prev current
+
+Step 3: prev=2, current=3, next=4
+        nil <- 1 <- 2    3 -> 4 -> 5 -> nil
+                    ^    ^
+                    prev current
+
+Final: nil <- 1 <- 2 <- 3 <- 4 <- 5
+```
+
+**Complexity Analysis:**
+- **Iterative**: Time O(n), Space O(1)
+- **Recursive**: Time O(n), Space O(n) - recursion stack
 
 ### **5. Merge Two Sorted Lists**
 **Problem**: Merge two sorted linked lists into one sorted list.
