@@ -31,36 +31,43 @@ import (
     "time"
 )
 
+// ProcessState represents the current state of a process
+// These are the fundamental states in process lifecycle
 type ProcessState int
 
 const (
-    New ProcessState = iota
-    Ready
-    Running
-    Waiting
-    Terminated
+    New ProcessState = iota  // Process is being created
+    Ready                    // Process is ready to run, waiting for CPU
+    Running                  // Process is currently executing on CPU
+    Waiting                  // Process is waiting for I/O or event
+    Terminated               // Process has finished execution
 )
 
+// Process represents a process in the operating system
 type Process struct {
-    ID       int
-    State    ProcessState
-    Priority int
-    BurstTime int
-    ArrivalTime time.Time
-    mutex    sync.Mutex
+    ID       int              // Unique process identifier
+    State    ProcessState     // Current state of the process
+    Priority int              // Process priority for scheduling
+    BurstTime int             // CPU time required for execution
+    ArrivalTime time.Time     // When process arrived in the system
+    mutex    sync.Mutex       // Protects concurrent access to process state
 }
 
+// ChangeState safely transitions process from one state to another
+// Thread-safe state transition with logging
 func (p *Process) ChangeState(newState ProcessState) {
-    p.mutex.Lock()
-    defer p.mutex.Unlock()
-
+    p.mutex.Lock()         // Acquire lock for thread safety
+    defer p.mutex.Unlock() // Ensure lock is released
+    
     oldState := p.State
-    p.State = newState
-
+    p.State = newState     // Update process state
+    
+    // Log state transition for debugging/monitoring
     fmt.Printf("Process %d: %s -> %s\n", p.ID,
         getStateName(oldState), getStateName(newState))
 }
 
+// getStateName converts ProcessState enum to human-readable string
 func getStateName(state ProcessState) string {
     switch state {
     case New: return "New"
@@ -73,26 +80,38 @@ func getStateName(state ProcessState) string {
 }
 
 func main() {
+    // Create a new process
     process := &Process{
         ID: 1,
-        State: New,
-        Priority: 5,
-        BurstTime: 10,
-        ArrivalTime: time.Now(),
+        State: New,              // Start in New state
+        Priority: 5,             // Medium priority
+        BurstTime: 10,           // 10 time units of CPU time needed
+        ArrivalTime: time.Now(), // Record arrival time
     }
 
-    // Simulate process lifecycle
-    process.ChangeState(Ready)
+    // Simulate complete process lifecycle
+    process.ChangeState(Ready)   // Process is ready to run
     time.Sleep(100 * time.Millisecond)
-    process.ChangeState(Running)
+    
+    process.ChangeState(Running) // Process starts executing
     time.Sleep(200 * time.Millisecond)
-    process.ChangeState(Waiting)
+    
+    process.ChangeState(Waiting) // Process waits for I/O
     time.Sleep(100 * time.Millisecond)
-    process.ChangeState(Running)
+    
+    process.ChangeState(Running) // Process resumes execution
     time.Sleep(300 * time.Millisecond)
-    process.ChangeState(Terminated)
+    
+    process.ChangeState(Terminated) // Process completes
 }
 ```
+
+**Key Concepts Explained:**
+- **Process States**: New, Ready, Running, Waiting, Terminated
+- **State Transitions**: Processes move between states based on events
+- **Thread Safety**: Mutex protects process state from race conditions
+- **Process Attributes**: ID, priority, burst time, arrival time
+- **Lifecycle Management**: Complete process lifecycle simulation
 
 ### **2. Process Creation & Termination**
 
