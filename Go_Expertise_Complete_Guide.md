@@ -27,31 +27,50 @@ package main
 import "fmt"
 
 func main() {
-    // Variable declarations
-    var name string = "Go"
-    var age int = 10
-    var isAwesome bool = true
+    // Variable declarations - explicit type declaration
+    // var keyword followed by variable name and type
+    var name string = "Go"        // String variable with explicit initialization
+    var age int = 10              // Integer variable
+    var isAwesome bool = true     // Boolean variable
 
-    // Short declaration
-    city := "San Francisco"
+    // Short declaration operator (:=) - Go infers the type
+    // This is the preferred way in Go for local variables
+    city := "San Francisco"       // Type inferred as string
+    count := 42                   // Type inferred as int
+    flag := true                  // Type inferred as bool
 
-    // Multiple declarations
+    // Multiple declarations - useful for grouping related variables
+    // Parentheses allow multiple variable declarations in one statement
     var (
-        firstName = "John"
-        lastName  = "Doe"
+        firstName = "John"        // All variables in this block are strings
+        lastName  = "Doe"         // Go infers type from the first assignment
         email     = "john@example.com"
     )
 
-    // Constants
-    const pi = 3.14159
+    // Constants - values that cannot be changed after declaration
+    // const keyword followed by name and value
+    const pi = 3.14159            // Numeric constant
+    const greeting = "Hello"      // String constant
+    
+    // Multiple constants - grouped for better organization
     const (
-        StatusOK    = 200
-        StatusError = 500
+        StatusOK    = 200         // HTTP status codes
+        StatusError = 500         // Grouped by purpose
     )
 
+    // Printf with format specifiers
+    // %s for strings, %d for integers, %v for any value
     fmt.Printf("Name: %s, Age: %d, City: %s\n", name, age, city)
 }
 ```
+
+**Key Concepts Explained:**
+- **`var` keyword**: Explicit variable declaration with type
+- **`:=` operator**: Short declaration, Go infers type automatically
+- **Multiple declarations**: Group related variables using parentheses
+- **`const` keyword**: Immutable values, must be known at compile time
+- **Type inference**: Go automatically determines type from value
+- **Format specifiers**: `%s` (string), `%d` (integer), `%v` (any value)
 
 #### **Data Types**
 
@@ -61,31 +80,54 @@ package main
 import "fmt"
 
 func main() {
-    // Basic types
-    var i int = 42
-    var f float64 = 3.14
-    var s string = "Hello, Go!"
-    var b bool = true
+    // Basic types - Go's primitive data types
+    var i int = 42              // Integer: 32 or 64 bits depending on platform
+    var f float64 = 3.14        // Floating point: 64-bit precision
+    var s string = "Hello, Go!" // String: immutable sequence of bytes
+    var b bool = true           // Boolean: true or false
 
-    // Complex types
+    // Complex types - composite data structures
+    
+    // Arrays: fixed-size sequence of elements of the same type
+    // [5]int means array of 5 integers, size is part of the type
     var arr [5]int = [5]int{1, 2, 3, 4, 5}
+    
+    // Slices: dynamic arrays, more commonly used than arrays
+    // []int means slice of integers, size can change
     var slice []int = []int{1, 2, 3, 4, 5}
+    
+    // Maps: key-value pairs, similar to hash tables or dictionaries
+    // map[string]int means map with string keys and integer values
     var m map[string]int = map[string]int{"a": 1, "b": 2}
 
-    // Pointers
+    // Pointers: store memory address of a value
+    // &i gets the address of variable i
+    // *int means pointer to an integer
     var ptr *int = &i
-    fmt.Printf("Value: %d, Pointer: %p\n", *ptr, ptr)
+    fmt.Printf("Value: %d, Pointer: %p\n", *ptr, ptr) // *ptr dereferences the pointer
 
-    // Structs
+    // Structs: custom types that group related data
+    // Define a new type called Person
     type Person struct {
-        Name string
-        Age  int
+        Name string  // Field name with type
+        Age  int     // Another field
     }
 
+    // Create an instance of Person struct
+    // Field names can be specified for clarity
     person := Person{Name: "Alice", Age: 30}
-    fmt.Printf("Person: %+v\n", person)
+    fmt.Printf("Person: %+v\n", person) // %+v shows field names
 }
 ```
+
+**Key Concepts Explained:**
+- **Basic types**: `int`, `float64`, `string`, `bool` - Go's primitive types
+- **Arrays**: Fixed-size collections `[size]type`, size is part of type
+- **Slices**: Dynamic arrays `[]type`, most commonly used collection type
+- **Maps**: Key-value pairs `map[keyType]valueType`, like hash tables
+- **Pointers**: Store memory addresses, `&` gets address, `*` dereferences
+- **Structs**: Custom types grouping related fields, similar to classes
+- **Type system**: Go is statically typed, types must be known at compile time
 
 ### **2. Functions & Methods**
 
@@ -96,63 +138,84 @@ package main
 
 import "fmt"
 
-// Basic function
+// Basic function - func keyword, name, parameters, return type
+// func add(a, b int) int means: function named add takes two int parameters, returns int
 func add(a, b int) int {
-    return a + b
+    return a + b  // return statement with expression
 }
 
-// Multiple return values
+// Multiple return values - Go's unique feature for error handling
+// Returns both result and error, following Go's error handling convention
 func divide(a, b int) (int, error) {
     if b == 0 {
+        // fmt.Errorf creates a formatted error message
         return 0, fmt.Errorf("division by zero")
     }
-    return a / b, nil
+    return a / b, nil  // nil means no error
 }
 
-// Named return values
+// Named return values - return variables are declared in function signature
+// This allows "naked return" - just return without specifying values
 func calculate(a, b int) (sum, product int) {
-    sum = a + b
-    product = a * b
-    return // naked return
+    sum = a + b        // Assign to named return variable
+    product = a * b    // Assign to named return variable
+    return             // Naked return - returns sum and product
 }
 
-// Variadic functions
+// Variadic functions - can accept variable number of arguments
+// ...int means zero or more integers
 func sum(numbers ...int) int {
     total := 0
+    // range iterates over the slice of numbers
+    // _ ignores the index, num is the value
     for _, num := range numbers {
         total += num
     }
     return total
 }
 
-// Function as parameter
+// Function as parameter - functions are first-class citizens in Go
+// op is a function that takes two ints and returns an int
 func applyOperation(a, b int, op func(int, int) int) int {
-    return op(a, b)
+    return op(a, b)  // Call the passed function
 }
 
 func main() {
+    // Call basic function
     result := add(5, 3)
     fmt.Printf("Add: %d\n", result)
 
+    // Handle multiple return values
     quotient, err := divide(10, 2)
-    if err != nil {
+    if err != nil {  // Check for error first (Go idiom)
         fmt.Printf("Error: %v\n", err)
     } else {
         fmt.Printf("Divide: %d\n", quotient)
     }
 
+    // Named return values
     s, p := calculate(4, 5)
     fmt.Printf("Sum: %d, Product: %d\n", s, p)
 
+    // Variadic function call - can pass any number of arguments
     total := sum(1, 2, 3, 4, 5)
     fmt.Printf("Sum of variadic: %d\n", total)
 
-    // Anonymous function
+    // Anonymous function (lambda) - function without a name
     multiply := func(x, y int) int { return x * y }
     result = applyOperation(3, 4, multiply)
     fmt.Printf("Apply operation: %d\n", result)
 }
 ```
+
+**Key Concepts Explained:**
+- **Function signature**: `func name(params) returnType` - Go's function syntax
+- **Multiple returns**: Go's idiomatic way to handle errors and results
+- **Named returns**: Variables declared in function signature, enable naked returns
+- **Variadic functions**: `...type` accepts variable number of arguments
+- **First-class functions**: Functions can be passed as parameters and returned
+- **Anonymous functions**: Functions without names, created inline
+- **Error handling**: Go's convention of returning `(result, error)` pairs
 
 #### **Methods**
 
@@ -161,40 +224,61 @@ package main
 
 import "fmt"
 
+// Define a struct type
 type Rectangle struct {
-    Width  float64
-    Height float64
+    Width  float64  // Field with type
+    Height float64  // Another field
 }
 
-// Value receiver method
+// Value receiver method - receives a copy of the struct
+// (r Rectangle) is the receiver - r is the name, Rectangle is the type
+// This method cannot modify the original struct
 func (r Rectangle) Area() float64 {
-    return r.Width * r.Height
+    return r.Width * r.Height  // Access fields using dot notation
 }
 
-// Pointer receiver method
+// Pointer receiver method - receives a pointer to the struct
+// (r *Rectangle) means r is a pointer to Rectangle
+// This method can modify the original struct
 func (r *Rectangle) Scale(factor float64) {
-    r.Width *= factor
-    r.Height *= factor
+    r.Width *= factor   // Modify the original struct through pointer
+    r.Height *= factor  // Changes persist after method call
 }
 
-// Method on non-struct type
+// Method on non-struct type - Go allows methods on any type
+// MyInt is a custom type based on int
 type MyInt int
 
+// Method on custom type - (m MyInt) is the receiver
 func (m MyInt) IsEven() bool {
-    return m%2 == 0
+    return m%2 == 0  // Use modulo operator to check if even
 }
 
 func main() {
+    // Create a Rectangle instance
     rect := Rectangle{Width: 10, Height: 5}
+    
+    // Call value receiver method - cannot modify rect
     fmt.Printf("Area: %.2f\n", rect.Area())
 
-    rect.Scale(2)
+    // Call pointer receiver method - can modify rect
+    rect.Scale(2)  // Go automatically converts &rect to *Rectangle
     fmt.Printf("Scaled area: %.2f\n", rect.Area())
 
-    num := MyInt(4)
+    // Create custom type instance
+    num := MyInt(4)  // Type conversion from int to MyInt
     fmt.Printf("Is even: %t\n", num.IsEven())
 }
 ```
+
+**Key Concepts Explained:**
+- **Methods**: Functions with a receiver - they belong to a type
+- **Value receiver**: `(r Rectangle)` - receives a copy, cannot modify original
+- **Pointer receiver**: `(r *Rectangle)` - receives pointer, can modify original
+- **Receiver syntax**: `func (receiverName Type) methodName() returnType`
+- **Method calls**: `instance.methodName()` - Go handles pointer conversion automatically
+- **Custom types**: Can define methods on any type, not just structs
+- **Encapsulation**: Methods provide a way to associate behavior with data
 
 ### **3. Interfaces**
 
@@ -205,57 +289,68 @@ package main
 
 import "fmt"
 
-// Interface definition
+// Interface definition - defines a set of method signatures
+// Any type that implements these methods automatically satisfies the interface
 type Shape interface {
-    Area() float64
-    Perimeter() float64
+    Area() float64      // Method signature - no implementation
+    Perimeter() float64 // Another method signature
 }
 
+// Circle struct implements Shape interface
 type Circle struct {
-    Radius float64
+    Radius float64  // Field to store radius
 }
 
+// Implement Area method for Circle - satisfies Shape interface
 func (c Circle) Area() float64 {
-    return 3.14159 * c.Radius * c.Radius
+    return 3.14159 * c.Radius * c.Radius  // π * r²
 }
 
+// Implement Perimeter method for Circle - satisfies Shape interface
 func (c Circle) Perimeter() float64 {
-    return 2 * 3.14159 * c.Radius
+    return 2 * 3.14159 * c.Radius  // 2 * π * r
 }
 
+// Square struct also implements Shape interface
 type Square struct {
-    Side float64
+    Side float64  // Field to store side length
 }
 
+// Implement Area method for Square
 func (s Square) Area() float64 {
-    return s.Side * s.Side
+    return s.Side * s.Side  // side²
 }
 
+// Implement Perimeter method for Square
 func (s Square) Perimeter() float64 {
-    return 4 * s.Side
+    return 4 * s.Side  // 4 * side
 }
 
-// Interface usage
+// Function that accepts any Shape - demonstrates polymorphism
+// s Shape means s can be any type that implements Shape interface
 func printShapeInfo(s Shape) {
     fmt.Printf("Area: %.2f, Perimeter: %.2f\n", s.Area(), s.Perimeter())
 }
 
 func main() {
+    // Create instances of concrete types
     circle := Circle{Radius: 5}
     square := Square{Side: 4}
 
-    printShapeInfo(circle)
-    printShapeInfo(square)
+    // Both can be passed to printShapeInfo because they implement Shape
+    printShapeInfo(circle)  // Circle is implicitly converted to Shape
+    printShapeInfo(square)  // Square is implicitly converted to Shape
 
-    // Type assertion
-    if c, ok := circle.(Circle); ok {
+    // Type assertion - check if interface value is of specific type
+    // circle.(Circle) attempts to convert Shape back to Circle
+    if c, ok := circle.(Circle); ok {  // ok is true if assertion succeeds
         fmt.Printf("Circle radius: %.2f\n", c.Radius)
     }
 
-    // Type switch
-    shapes := []Shape{circle, square}
+    // Type switch - switch on the type of interface value
+    shapes := []Shape{circle, square}  // Slice of Shape interface
     for _, shape := range shapes {
-        switch s := shape.(type) {
+        switch s := shape.(type) {  // Type switch syntax
         case Circle:
             fmt.Printf("Circle with radius: %.2f\n", s.Radius)
         case Square:
@@ -264,6 +359,15 @@ func main() {
     }
 }
 ```
+
+**Key Concepts Explained:**
+- **Interface**: Defines method signatures that types must implement
+- **Implicit implementation**: Types automatically satisfy interfaces if they have the required methods
+- **Polymorphism**: Interface values can hold any type that implements the interface
+- **Type assertion**: `value.(Type)` - converts interface back to concrete type
+- **Type switch**: `switch value.(type)` - switches based on the underlying type
+- **Duck typing**: "If it walks like a duck and quacks like a duck, it's a duck"
+- **Interface satisfaction**: No explicit declaration needed - Go checks at compile time
 
 ---
 
@@ -282,36 +386,53 @@ import (
     "time"
 )
 
+// Worker function that processes jobs from a channel
+// id: worker identifier for logging
+// jobs: read-only channel (<-chan) that receives jobs
+// results: write-only channel (chan<-) that sends results
 func worker(id int, jobs <-chan int, results chan<- int) {
+    // Range over jobs channel - blocks until channel is closed
     for j := range jobs {
         fmt.Printf("Worker %d processing job %d\n", id, j)
-        time.Sleep(time.Second)
-        results <- j * 2
+        time.Sleep(time.Second)  // Simulate work
+        results <- j * 2         // Send result back
     }
 }
 
 func main() {
-    jobs := make(chan int, 100)
-    results := make(chan int, 100)
+    // Create buffered channels - can hold 100 items without blocking
+    jobs := make(chan int, 100)    // Channel for sending jobs
+    results := make(chan int, 100) // Channel for receiving results
 
-    // Start workers
+    // Start 3 worker goroutines
+    // go keyword starts a new goroutine (lightweight thread)
     for w := 1; w <= 3; w++ {
-        go worker(w, jobs, results)
+        go worker(w, jobs, results)  // Each worker runs concurrently
     }
 
-    // Send jobs
+    // Send 5 jobs to the jobs channel
     for j := 1; j <= 5; j++ {
-        jobs <- j
+        jobs <- j  // Send job to channel
     }
-    close(jobs)
+    close(jobs)  // Close channel to signal no more jobs
 
-    // Collect results
+    // Collect results from all workers
     for a := 1; a <= 5; a++ {
-        result := <-results
+        result := <-results  // Receive result from channel
         fmt.Printf("Result: %d\n", result)
     }
 }
 ```
+
+**Key Concepts Explained:**
+- **Goroutines**: Lightweight threads managed by Go runtime, not OS threads
+- **`go` keyword**: Starts a new goroutine that runs concurrently
+- **Channels**: Communication mechanism between goroutines
+- **Channel directions**: `<-chan` (receive only), `chan<-` (send only), `chan` (bidirectional)
+- **Buffered channels**: `make(chan int, 100)` - can hold 100 items without blocking
+- **Channel operations**: `<-` for sending/receiving, `close()` to signal completion
+- **Range over channels**: `for item := range channel` - receives until channel is closed
+- **Concurrency**: Multiple goroutines run concurrently, not necessarily in parallel
 
 #### **Channels**
 
@@ -324,41 +445,57 @@ import (
 )
 
 func main() {
-    // Unbuffered channel
+    // Unbuffered channel - synchronous communication
+    // Sender blocks until receiver is ready, and vice versa
     ch := make(chan string)
 
+    // Send in goroutine - prevents deadlock
     go func() {
-        ch <- "Hello from goroutine!"
+        ch <- "Hello from goroutine!"  // Send message to channel
     }()
 
+    // Receive - blocks until value is available
     msg := <-ch
     fmt.Println(msg)
 
-    // Buffered channel
+    // Buffered channel - asynchronous communication
+    // Can hold up to 2 values without blocking
     buffered := make(chan int, 2)
-    buffered <- 1
-    buffered <- 2
-    // buffered <- 3 // This would block
+    buffered <- 1  // Send first value
+    buffered <- 2  // Send second value
+    // buffered <- 3 // This would block - buffer is full
 
-    fmt.Println(<-buffered)
-    fmt.Println(<-buffered)
+    fmt.Println(<-buffered)  // Receive first value
+    fmt.Println(<-buffered)  // Receive second value
 
-    // Channel directions
-    go sendOnly(buffered)
-    go receiveOnly(buffered)
+    // Channel directions - demonstrate send-only and receive-only channels
+    go sendOnly(buffered)    // Function that can only send
+    go receiveOnly(buffered) // Function that can only receive
 
-    time.Sleep(time.Second)
+    time.Sleep(time.Second)  // Wait for goroutines to complete
 }
 
+// Function with send-only channel parameter
+// chan<- int means this function can only send to the channel
 func sendOnly(ch chan<- int) {
-    ch <- 42
+    ch <- 42  // Send value to channel
 }
 
+// Function with receive-only channel parameter
+// <-chan int means this function can only receive from the channel
 func receiveOnly(ch <-chan int) {
-    value := <-ch
+    value := <-ch  // Receive value from channel
     fmt.Printf("Received: %d\n", value)
 }
 ```
+
+**Key Concepts Explained:**
+- **Unbuffered channels**: Synchronous communication, sender and receiver must be ready
+- **Buffered channels**: Asynchronous communication, can hold multiple values
+- **Channel directions**: `chan<-` (send only), `<-chan` (receive only), `chan` (bidirectional)
+- **Deadlock prevention**: Use goroutines to avoid blocking on unbuffered channels
+- **Channel capacity**: Buffered channels have a capacity limit
+- **Function parameters**: Channel directions can be specified in function signatures
 
 ### **5. Select Statement**
 
@@ -371,31 +508,44 @@ import (
 )
 
 func main() {
+    // Create two channels for demonstration
     ch1 := make(chan string)
     ch2 := make(chan string)
 
+    // Start first goroutine - sends message after 1 second
     go func() {
         time.Sleep(1 * time.Second)
-        ch1 <- "from ch1"
+        ch1 <- "from ch1"  // Send message to ch1
     }()
 
+    // Start second goroutine - sends message after 2 seconds
     go func() {
         time.Sleep(2 * time.Second)
-        ch2 <- "from ch2"
+        ch2 <- "from ch2"  // Send message to ch2
     }()
 
+    // Select statement - waits for any case to be ready
+    // This loop will run twice to receive both messages
     for i := 0; i < 2; i++ {
         select {
-        case msg1 := <-ch1:
+        case msg1 := <-ch1:  // Case for ch1 channel
             fmt.Println(msg1)
-        case msg2 := <-ch2:
+        case msg2 := <-ch2:  // Case for ch2 channel
             fmt.Println(msg2)
-        case <-time.After(3 * time.Second):
+        case <-time.After(3 * time.Second):  // Timeout case
             fmt.Println("timeout")
         }
     }
 }
 ```
+
+**Key Concepts Explained:**
+- **Select statement**: Non-blocking channel operations, waits for any case to be ready
+- **Multiple channels**: Can handle multiple channels simultaneously
+- **Timeout handling**: `time.After()` provides timeout functionality
+- **Non-blocking**: Select doesn't block if no case is ready (unless all cases are blocking)
+- **Random selection**: If multiple cases are ready, one is chosen randomly
+- **Default case**: Can add `default:` for non-blocking behavior
 
 ### **6. Context Package**
 
@@ -408,32 +558,46 @@ import (
     "time"
 )
 
+// Function that respects context cancellation
+// ctx context.Context is the first parameter (Go convention)
 func longRunningTask(ctx context.Context) error {
     for {
         select {
-        case <-ctx.Done():
-            return ctx.Err()
+        case <-ctx.Done():  // Check if context is cancelled
+            return ctx.Err()  // Return the error (timeout or cancellation)
         default:
             fmt.Println("Working...")
-            time.Sleep(500 * time.Millisecond)
+            time.Sleep(500 * time.Millisecond)  // Simulate work
         }
     }
 }
 
 func main() {
-    // With timeout
+    // Create context with timeout - automatically cancels after 2 seconds
+    // context.Background() is the root context
     ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
-    defer cancel()
+    defer cancel()  // Always call cancel to free resources
 
+    // Start long-running task in goroutine
     go func() {
         if err := longRunningTask(ctx); err != nil {
             fmt.Printf("Task failed: %v\n", err)
         }
     }()
 
+    // Wait for 3 seconds to see the timeout in action
     time.Sleep(3 * time.Second)
 }
 ```
+
+**Key Concepts Explained:**
+- **Context**: Carries deadlines, cancellation signals, and request-scoped values
+- **Context.Background()**: Root context, never cancelled
+- **WithTimeout**: Creates context that cancels after specified duration
+- **ctx.Done()**: Channel that closes when context is cancelled
+- **ctx.Err()**: Returns the error that caused cancellation
+- **defer cancel()**: Always call cancel to free resources
+- **Context propagation**: Pass context through function calls to enable cancellation
 
 ---
 
@@ -449,30 +613,45 @@ import (
     "sync"
 )
 
+// Singleton struct - only one instance should exist
 type Singleton struct {
-    data string
+    data string  // Some data to demonstrate the pattern
 }
 
+// Package-level variables for singleton implementation
 var (
-    instance *Singleton
-    once     sync.Once
+    instance *Singleton  // Pointer to the single instance
+    once     sync.Once   // Ensures initialization happens only once
 )
 
+// GetInstance returns the singleton instance
+// sync.Once ensures the initialization function runs only once
 func GetInstance() *Singleton {
     once.Do(func() {
+        // This function will only execute once, even if called multiple times
         instance = &Singleton{data: "initialized"}
     })
     return instance
 }
 
 func main() {
+    // Get two references to the singleton
     s1 := GetInstance()
     s2 := GetInstance()
 
-    fmt.Printf("s1 == s2: %t\n", s1 == s2)
-    fmt.Printf("s1.data: %s\n", s1.data)
+    // Both should be the same instance
+    fmt.Printf("s1 == s2: %t\n", s1 == s2)  // Should print true
+    fmt.Printf("s1.data: %s\n", s1.data)    // Access the data
 }
 ```
+
+**Key Concepts Explained:**
+- **Singleton pattern**: Ensures only one instance of a class exists
+- **sync.Once**: Go's mechanism to ensure a function runs only once
+- **Thread-safe**: sync.Once is safe for concurrent access
+- **Lazy initialization**: Instance is created only when first requested
+- **Global access**: Provides a global point of access to the instance
+- **Memory efficiency**: Only one instance exists in memory
 
 ### **8. Factory Pattern**
 
@@ -481,39 +660,56 @@ package main
 
 import "fmt"
 
+// Animal interface defines the contract for all animals
 type Animal interface {
-    Speak() string
+    Speak() string  // Method that all animals must implement
 }
 
+// Dog struct implements Animal interface
 type Dog struct{}
 func (d Dog) Speak() string { return "Woof!" }
 
+// Cat struct implements Animal interface
 type Cat struct{}
 func (c Cat) Speak() string { return "Meow!" }
 
+// AnimalFactory creates animals based on type
 type AnimalFactory struct{}
 
+// CreateAnimal is the factory method that creates animals
+// Returns Animal interface, not concrete type
 func (af AnimalFactory) CreateAnimal(animalType string) Animal {
     switch animalType {
     case "dog":
-        return Dog{}
+        return Dog{}  // Return Dog instance
     case "cat":
-        return Cat{}
+        return Cat{}  // Return Cat instance
     default:
-        return nil
+        return nil    // Return nil for unknown types
     }
 }
 
 func main() {
+    // Create factory instance
     factory := AnimalFactory{}
 
-    dog := factory.CreateAnimal("dog")
-    cat := factory.CreateAnimal("cat")
+    // Use factory to create animals
+    dog := factory.CreateAnimal("dog")  // Returns Dog instance as Animal interface
+    cat := factory.CreateAnimal("cat")  // Returns Cat instance as Animal interface
 
-    fmt.Println(dog.Speak())
-    fmt.Println(cat.Speak())
+    // Call methods through interface
+    fmt.Println(dog.Speak())  // Calls Dog.Speak()
+    fmt.Println(cat.Speak())  // Calls Cat.Speak()
 }
 ```
+
+**Key Concepts Explained:**
+- **Factory pattern**: Creates objects without specifying their exact class
+- **Interface-based**: Returns interface type, not concrete type
+- **Encapsulation**: Hides object creation logic from client code
+- **Polymorphism**: Client code works with interface, not concrete types
+- **Switch statement**: Determines which concrete type to create
+- **Interface implementation**: Both Dog and Cat implement Animal interface
 
 ### **9. Observer Pattern**
 
@@ -522,44 +718,63 @@ package main
 
 import "fmt"
 
+// Observer interface defines the contract for observers
 type Observer interface {
-    Update(message string)
+    Update(message string)  // Method called when subject changes
 }
 
+// Subject struct maintains a list of observers and notifies them
 type Subject struct {
-    observers []Observer
+    observers []Observer  // Slice of observers
 }
 
+// AddObserver adds a new observer to the list
 func (s *Subject) AddObserver(o Observer) {
-    s.observers = append(s.observers, o)
+    s.observers = append(s.observers, o)  // Append observer to slice
 }
 
+// NotifyObservers notifies all observers of a change
 func (s *Subject) NotifyObservers(message string) {
+    // Iterate through all observers and call their Update method
     for _, observer := range s.observers {
-        observer.Update(message)
+        observer.Update(message)  // Call Update method on each observer
     }
 }
 
+// ConcreteObserver implements the Observer interface
 type ConcreteObserver struct {
-    name string
+    name string  // Observer identifier
 }
 
+// Update method implements the Observer interface
 func (co ConcreteObserver) Update(message string) {
     fmt.Printf("%s received: %s\n", co.name, message)
 }
 
 func main() {
+    // Create subject
     subject := &Subject{}
 
+    // Create observers
     observer1 := ConcreteObserver{name: "Observer1"}
     observer2 := ConcreteObserver{name: "Observer2"}
 
+    // Register observers with subject
     subject.AddObserver(observer1)
     subject.AddObserver(observer2)
 
+    // Notify all observers
     subject.NotifyObservers("Hello, observers!")
 }
 ```
+
+**Key Concepts Explained:**
+- **Observer pattern**: Defines a one-to-many dependency between objects
+- **Subject**: Maintains a list of observers and notifies them of changes
+- **Observer**: Interface that observers must implement
+- **Loose coupling**: Subject doesn't know about concrete observer types
+- **Event-driven**: Observers are notified when subject state changes
+- **Dynamic relationships**: Observers can be added/removed at runtime
 
 ---
 
