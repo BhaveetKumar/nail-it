@@ -33,47 +33,65 @@
 #### **Reliability**
 
 ```go
-// Example: Implementing circuit breaker pattern for reliability
+// Circuit Breaker Pattern - Prevents cascading failures
+// Automatically stops calling failing services to allow recovery
 type CircuitBreaker struct {
-    maxFailures int
-    timeout     time.Duration
-    failures    int
-    lastFailure time.Time
-    state       State
+    maxFailures int           // Maximum failures before opening circuit
+    timeout     time.Duration // Time to wait before trying again
+    failures    int           // Current failure count
+    lastFailure time.Time     // Timestamp of last failure
+    state       State         // Current circuit state
 }
 
+// Circuit states represent different operational modes
 type State int
 
 const (
-    Closed State = iota
-    Open
-    HalfOpen
+    Closed State = iota  // Normal operation, calls pass through
+    Open                 // Circuit is open, calls are blocked
+    HalfOpen             // Testing if service has recovered
 )
 
+// Call executes a function with circuit breaker protection
 func (cb *CircuitBreaker) Call(fn func() error) error {
+    // Check if circuit is open
     if cb.state == Open {
+        // If timeout has passed, try half-open state
         if time.Since(cb.lastFailure) > cb.timeout {
             cb.state = HalfOpen
         } else {
+            // Circuit is still open, reject call immediately
             return ErrCircuitOpen
         }
     }
 
+    // Execute the function
     err := fn()
     if err != nil {
+        // Function failed, increment failure count
         cb.failures++
         cb.lastFailure = time.Now()
+        
+        // If we've hit the failure threshold, open the circuit
         if cb.failures >= cb.maxFailures {
             cb.state = Open
         }
         return err
     }
 
+    // Function succeeded, reset circuit to closed state
     cb.failures = 0
     cb.state = Closed
     return nil
 }
 ```
+
+**Key Concepts Explained:**
+- **Circuit Breaker**: Prevents cascading failures by blocking calls to failing services
+- **Three States**: Closed (normal), Open (blocking), HalfOpen (testing)
+- **Failure Threshold**: Opens circuit after specified number of failures
+- **Recovery**: Automatically tries to recover after timeout period
+- **Fast Failure**: Rejects calls immediately when circuit is open
 
 #### **Scalability**
 
