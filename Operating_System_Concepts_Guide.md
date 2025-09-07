@@ -58,10 +58,10 @@ type Process struct {
 func (p *Process) ChangeState(newState ProcessState) {
     p.mutex.Lock()         // Acquire lock for thread safety
     defer p.mutex.Unlock() // Ensure lock is released
-    
+
     oldState := p.State
     p.State = newState     // Update process state
-    
+
     // Log state transition for debugging/monitoring
     fmt.Printf("Process %d: %s -> %s\n", p.ID,
         getStateName(oldState), getStateName(newState))
@@ -92,21 +92,22 @@ func main() {
     // Simulate complete process lifecycle
     process.ChangeState(Ready)   // Process is ready to run
     time.Sleep(100 * time.Millisecond)
-    
+
     process.ChangeState(Running) // Process starts executing
     time.Sleep(200 * time.Millisecond)
-    
+
     process.ChangeState(Waiting) // Process waits for I/O
     time.Sleep(100 * time.Millisecond)
-    
+
     process.ChangeState(Running) // Process resumes execution
     time.Sleep(300 * time.Millisecond)
-    
+
     process.ChangeState(Terminated) // Process completes
 }
 ```
 
 **Key Concepts Explained:**
+
 - **Process States**: New, Ready, Running, Waiting, Terminated
 - **State Transitions**: Processes move between states based on events
 - **Thread Safety**: Mutex protects process state from race conditions

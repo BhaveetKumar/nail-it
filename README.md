@@ -75,7 +75,7 @@ The Razorpay Lead SDE interview consists of **5 rounds**:
 | **Data Structures** | [DSA Guide](./DSA_Questions_Answers_Guide.md) | [Go Expertise](./Go_Expertise_Complete_Guide.md), [OS Concepts](./Operating_System_Concepts_Guide.md) | Arrays, Trees, Graphs, Dynamic Programming |
 | **System Design** | [System Design Guide](./System_Design_Concepts_Guide.md) | [DDIA Summary](./Designing_Data_Intensive_Applications_Summary.md), [DevOps Guide](./DevOps_Tools_Complete_Guide.md) | Scalability, Load Balancing, Caching |
 | **Operating Systems** | [OS Concepts Guide](./Operating_System_Concepts_Guide.md) | [Go Expertise](./Go_Expertise_Complete_Guide.md), [System Design](./System_Design_Concepts_Guide.md) | Process Management, Memory, Scheduling |
-| **Databases** | [DDIA Summary](./Designing_Data_Intensive_Applications_Summary.md) | [System Design](./System_Design_Concepts_Guide.md), [DevOps Guide](./DevOps_Tools_Complete_Guide.md) | ACID, Replication, Partitioning |
+| **Databases** | [Databases Complete Guide](./Databases_Complete_Guide.md) | [Databases Part 2](./Databases_Complete_Guide_Part2.md), [DDIA Summary](./Designing_Data_Intensive_Applications_Summary.md), [System Design](./System_Design_Concepts_Guide.md) | MySQL, PostgreSQL, MongoDB, Redis, Elasticsearch, Vector DBs |
 | **DevOps** | [DevOps Guide](./DevOps_Tools_Complete_Guide.md) | [System Design](./System_Design_Concepts_Guide.md), [OS Concepts](./Operating_System_Concepts_Guide.md) | Docker, Kubernetes, CI/CD |
 | **Behavioral** | [Behavioral Guide](./Behavioral_Questions_Complete_Guide.md) | [Advanced Scenarios](./Razorpay_Advanced_Interview_Scenarios.md) | STAR Method, Leadership, Teamwork |
 
@@ -497,9 +497,11 @@ Based on insights from [High Scalability](https://highscalability.com/), here ar
 |----------|----------|-----------|----------------|
 | [`Go_Expertise_Complete_Guide.md`](./Go_Expertise_Complete_Guide.md) | 48KB | 1947 | Go from fundamentals to advanced concepts |
 | [`DSA_Questions_Answers_Guide.md`](./DSA_Questions_Answers_Guide.md) | 23KB | 1012 | Complete DSA with optimal Go solutions |
-| [`System_Design_Concepts_Guide.md`](./System_Design_Concepts_Guide.md) | 27KB | 1084 | System design with LLD questions |
+| [`System_Design_Concepts_Guide.md`](./System_Design_Concepts_Guide.md) | 35KB | 2739 | System design with LLD/HLD questions & payment gateway |
 | [`Operating_System_Concepts_Guide.md`](./Operating_System_Concepts_Guide.md) | 34KB | 1421 | OS concepts with Go implementations |
 | [`Designing_Data_Intensive_Applications_Summary.md`](./Designing_Data_Intensive_Applications_Summary.md) | 29KB | 1313 | DDIA book concepts with Go examples |
+| [`Databases_Complete_Guide.md`](./Databases_Complete_Guide.md) | 28KB | 1200 | Comprehensive database guide with Go examples |
+| [`Databases_Complete_Guide_Part2.md`](./Databases_Complete_Guide_Part2.md) | 25KB | 1000 | Advanced database concepts & interview questions |
 | [`DevOps_Tools_Complete_Guide.md`](./DevOps_Tools_Complete_Guide.md) | 29KB | 1245 | DevOps tools with best practices |
 | [`Behavioral_Questions_Complete_Guide.md`](./Behavioral_Questions_Complete_Guide.md) | 25KB | 477 | Behavioral questions with STAR method |
 
