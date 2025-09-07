@@ -29,8 +29,8 @@ func climbStairs(n int) int {
         return n
     }
     
-    prev2 := 1 // dp[i-2]
-    prev1 := 2 // dp[i-1]
+    prev2 := 1
+    prev1 := 2
     
     for i := 3; i <= n; i++ {
         current := prev1 + prev2
@@ -65,9 +65,9 @@ func climbStairsHelper(n int, memo map[int]int) int {
 }
 ```
 
-#### **Using Array**
+#### **Using Array DP**
 ```go
-func climbStairsArray(n int) int {
+func climbStairsDP(n int) int {
     if n <= 2 {
         return n
     }
@@ -84,51 +84,139 @@ func climbStairsArray(n int) int {
 }
 ```
 
-#### **Mathematical Formula**
+#### **Return All Paths**
 ```go
-func climbStairsMath(n int) int {
-    if n <= 2 {
-        return n
+func climbStairsPaths(n int) [][]int {
+    var result [][]int
+    
+    var dfs func(int, []int)
+    dfs = func(remaining int, path []int) {
+        if remaining == 0 {
+            resultPath := make([]int, len(path))
+            copy(resultPath, path)
+            result = append(result, resultPath)
+            return
+        }
+        
+        if remaining >= 1 {
+            dfs(remaining-1, append(path, 1))
+        }
+        
+        if remaining >= 2 {
+            dfs(remaining-2, append(path, 2))
+        }
     }
     
-    // Fibonacci sequence: F(n) = F(n-1) + F(n-2)
-    // Using Binet's formula approximation
-    sqrt5 := math.Sqrt(5)
-    phi := (1 + sqrt5) / 2
-    psi := (1 - sqrt5) / 2
-    
-    result := (math.Pow(phi, float64(n+1)) - math.Pow(psi, float64(n+1))) / sqrt5
-    return int(math.Round(result))
+    dfs(n, []int{})
+    return result
 }
 ```
 
-#### **Matrix Exponentiation**
+#### **Generalized for Any Step Sizes**
+```go
+func climbStairsGeneralized(n int, steps []int) int {
+    if n == 0 {
+        return 1
+    }
+    
+    dp := make([]int, n+1)
+    dp[0] = 1
+    
+    for i := 1; i <= n; i++ {
+        for _, step := range steps {
+            if i >= step {
+                dp[i] += dp[i-step]
+            }
+        }
+    }
+    
+    return dp[n]
+}
+```
+
+#### **Return with Statistics**
+```go
+type ClimbingStats struct {
+    TotalWays    int
+    PathsWith1   int
+    PathsWith2   int
+    MinSteps     int
+    MaxSteps     int
+}
+
+func climbStairsStats(n int) ClimbingStats {
+    paths := climbStairsPaths(n)
+    
+    pathsWith1 := 0
+    pathsWith2 := 0
+    minSteps := math.MaxInt32
+    maxSteps := 0
+    
+    for _, path := range paths {
+        has1 := false
+        has2 := false
+        
+        for _, step := range path {
+            if step == 1 {
+                has1 = true
+            } else if step == 2 {
+                has2 = true
+            }
+        }
+        
+        if has1 {
+            pathsWith1++
+        }
+        if has2 {
+            pathsWith2++
+        }
+        
+        if len(path) < minSteps {
+            minSteps = len(path)
+        }
+        if len(path) > maxSteps {
+            maxSteps = len(path)
+        }
+    }
+    
+    return ClimbingStats{
+        TotalWays:  len(paths),
+        PathsWith1: pathsWith1,
+        PathsWith2: pathsWith2,
+        MinSteps:   minSteps,
+        MaxSteps:   maxSteps,
+    }
+}
+```
+
+#### **Using Matrix Exponentiation**
 ```go
 func climbStairsMatrix(n int) int {
     if n <= 2 {
         return n
     }
     
-    // [F(n+1)]   [1 1]^n   [F(1)]
-    // [F(n)  ] = [1 0]   * [F(0)]
+    // Base matrix: [[1, 1], [1, 0]]
+    base := [][]int{{1, 1}, {1, 0}}
     
-    matrix := [][]int{{1, 1}, {1, 0}}
-    result := matrixPower(matrix, n)
+    // Calculate base^(n-1)
+    result := matrixPower(base, n-1)
     
-    return result[0][0]
+    // Result is result[0][0] * 2 + result[0][1] * 1
+    return result[0][0]*2 + result[0][1]*1
 }
 
-func matrixPower(matrix [][]int, n int) [][]int {
-    if n == 1 {
+func matrixPower(matrix [][]int, power int) [][]int {
+    if power == 1 {
         return matrix
     }
     
-    if n%2 == 0 {
-        half := matrixPower(matrix, n/2)
+    if power%2 == 0 {
+        half := matrixPower(matrix, power/2)
         return matrixMultiply(half, half)
     }
     
-    return matrixMultiply(matrix, matrixPower(matrix, n-1))
+    return matrixMultiply(matrix, matrixPower(matrix, power-1))
 }
 
 func matrixMultiply(a, b [][]int) [][]int {
@@ -150,5 +238,5 @@ func matrixMultiply(a, b [][]int) [][]int {
 ```
 
 ### Complexity
-- **Time Complexity:** O(n) for DP, O(log n) for matrix exponentiation
-- **Space Complexity:** O(1) for optimized DP, O(n) for array
+- **Time Complexity:** O(n) for iterative, O(2^n) for naive recursive
+- **Space Complexity:** O(1) for iterative, O(n) for DP array

@@ -3,11 +3,11 @@
 ### Problem
 There is an integer array `nums` sorted in ascending order (with distinct values).
 
-Prior to being passed to your function, `nums` is possibly rotated at an unknown pivot index `k` (1 <= k < nums.length) such that the resulting array is `[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]`.
+Prior to being passed to your function, `nums` is possibly rotated at an unknown pivot index `k` (1 <= k < nums.length) such that the resulting array is `[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]` (0-indexed).
 
 For example, `[0,1,2,4,5,6,7]` might be rotated at pivot index `3` and become `[4,5,6,7,0,1,2]`.
 
-Given the array `nums` after the possible rotation and an integer `target`, return the index of `target` in `nums`, or `-1` if it is not in `nums`.
+Given the array `nums` after the possible rotation and an integer `target`, return the index of `target` if it is in `nums`, or `-1` if it is not in `nums`.
 
 You must write an algorithm with O(log n) runtime complexity.
 
@@ -62,45 +62,37 @@ func search(nums []int, target int) int {
 
 #### **Find Pivot First**
 ```go
-func searchFindPivot(nums []int, target int) int {
+func searchWithPivot(nums []int, target int) int {
+    if len(nums) == 0 {
+        return -1
+    }
+    
     pivot := findPivot(nums)
     
-    if pivot == -1 {
-        return binarySearch(nums, target, 0, len(nums)-1)
+    if target >= nums[0] && target <= nums[pivot] {
+        return binarySearch(nums, 0, pivot, target)
+    } else {
+        return binarySearch(nums, pivot+1, len(nums)-1, target)
     }
-    
-    if nums[pivot] == target {
-        return pivot
-    }
-    
-    if target >= nums[0] {
-        return binarySearch(nums, target, 0, pivot-1)
-    }
-    
-    return binarySearch(nums, target, pivot+1, len(nums)-1)
 }
 
 func findPivot(nums []int) int {
     left, right := 0, len(nums)-1
     
-    for left <= right {
+    for left < right {
         mid := left + (right-left)/2
         
-        if mid < len(nums)-1 && nums[mid] > nums[mid+1] {
-            return mid
-        }
-        
-        if nums[left] <= nums[mid] {
+        if nums[mid] > nums[right] {
             left = mid + 1
         } else {
-            right = mid - 1
+            right = mid
         }
     }
     
-    return -1
+    return left
 }
 
-func binarySearch(nums []int, target, left, right int) int {
+func binarySearch(nums []int, left, right, target int) int {
     for left <= right {
         mid := left + (right-left)/2
         
@@ -117,64 +109,101 @@ func binarySearch(nums []int, target, left, right int) int {
 }
 ```
 
-#### **Recursive Approach**
+#### **Return All Occurrences**
 ```go
-func searchRecursive(nums []int, target int) int {
-    return searchHelper(nums, target, 0, len(nums)-1)
+func searchAll(nums []int, target int) []int {
+    var result []int
+    
+    for i := 0; i < len(nums); i++ {
+        if nums[i] == target {
+            result = append(result, i)
+        }
+    }
+    
+    return result
+}
+```
+
+#### **Return with Rotation Info**
+```go
+type SearchResult struct {
+    Index    int
+    Found    bool
+    Pivot    int
+    Rotation int
 }
 
-func searchHelper(nums []int, target, left, right int) int {
-    if left > right {
-        return -1
+func searchWithInfo(nums []int, target int) SearchResult {
+    if len(nums) == 0 {
+        return SearchResult{Found: false}
     }
     
-    mid := left + (right-left)/2
+    pivot := findPivot(nums)
+    rotation := pivot
     
-    if nums[mid] == target {
-        return mid
-    }
-    
-    if nums[left] <= nums[mid] {
-        if target >= nums[left] && target < nums[mid] {
-            return searchHelper(nums, target, left, mid-1)
-        }
-        return searchHelper(nums, target, mid+1, right)
+    index := -1
+    if target >= nums[0] && target <= nums[pivot] {
+        index = binarySearch(nums, 0, pivot, target)
     } else {
-        if target > nums[mid] && target <= nums[right] {
-            return searchHelper(nums, target, mid+1, right)
-        }
-        return searchHelper(nums, target, left, mid-1)
+        index = binarySearch(nums, pivot+1, len(nums)-1, target)
+    }
+    
+    return SearchResult{
+        Index:    index,
+        Found:    index != -1,
+        Pivot:    pivot,
+        Rotation: rotation,
     }
 }
 ```
 
-#### **Linear Search (Not Recommended)**
+#### **Return Sorted Array**
 ```go
-func searchLinear(nums []int, target int) int {
-    for i, num := range nums {
-        if num == target {
-            return i
-        }
+func restoreSortedArray(nums []int) []int {
+    if len(nums) == 0 {
+        return []int{}
     }
-    return -1
+    
+    pivot := findPivot(nums)
+    
+    // Rotate back to sorted order
+    result := make([]int, len(nums))
+    copy(result, nums[pivot:])
+    copy(result[len(nums)-pivot:], nums[:pivot])
+    
+    return result
 }
 ```
 
-#### **Find All Occurrences**
+#### **Return Rotation Count**
 ```go
-func searchAllOccurrences(nums []int, target int) []int {
-    var indices []int
+func rotationCount(nums []int) int {
+    if len(nums) == 0 {
+        return 0
+    }
     
-    for i, num := range nums {
-        if num == target {
-            indices = append(indices, i)
+    pivot := findPivot(nums)
+    return pivot
+}
+```
+
+#### **Check if Array is Rotated**
+```go
+func isRotated(nums []int) bool {
+    if len(nums) <= 1 {
+        return false
+    }
+    
+    for i := 1; i < len(nums); i++ {
+        if nums[i] < nums[i-1] {
+            return true
         }
     }
     
-    return indices
+    return false
 }
 ```
 
 ### Complexity
-- **Time Complexity:** O(log n) for binary search, O(n) for linear search
-- **Space Complexity:** O(1) for iterative, O(log n) for recursive
+- **Time Complexity:** O(log n)
+- **Space Complexity:** O(1)
