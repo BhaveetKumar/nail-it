@@ -33,6 +33,16 @@ The Razorpay Lead SDE interview consists of **5 rounds**:
 - **[`Advanced_Backend_Engineer_Preparation.md`](./Advanced_Backend_Engineer_Preparation.md)** - Deep technical guide for 10+ years experience
 - **[`Razorpay_Advanced_Interview_Scenarios.md`](./Razorpay_Advanced_Interview_Scenarios.md)** - Real-world interview scenarios and solutions
 
+### 🎯 **Comprehensive Technical Guides**
+
+- **[`Designing_Data_Intensive_Applications_Summary.md`](./Designing_Data_Intensive_Applications_Summary.md)** - Complete DDIA book concepts with Go implementations and FAANG questions
+- **[`Go_Expertise_Complete_Guide.md`](./Go_Expertise_Complete_Guide.md)** - Deep Go expertise from fundamentals to advanced concepts with debugging and architecture
+- **[`Operating_System_Concepts_Guide.md`](./Operating_System_Concepts_Guide.md)** - Complete OS concepts with Go code examples and real-world implementations
+- **[`System_Design_Concepts_Guide.md`](./System_Design_Concepts_Guide.md)** - Comprehensive system design with LLD questions and Go implementations
+- **[`DSA_Questions_Answers_Guide.md`](./DSA_Questions_Answers_Guide.md)** - Complete DSA problems with optimal Go solutions and complexity analysis
+- **[`DevOps_Tools_Complete_Guide.md`](./DevOps_Tools_Complete_Guide.md)** - Deep DevOps tools guide with examples, best practices, and real-world implementations
+- **[`Behavioral_Questions_Complete_Guide.md`](./Behavioral_Questions_Complete_Guide.md)** - Comprehensive behavioral questions with STAR method examples and FAANG insights
+
 ### 📄 **Original Materials**
 
 - **[`Engineering___Lead_Software_Development_Engineer___Interview_Prep_Guide.md`](./Engineering___Lead_Software_Development_Engineer___Interview_Prep_Guide.md)** - Official Razorpay prep guide
