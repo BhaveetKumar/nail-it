@@ -3,7 +3,7 @@
 ### Problem
 Given an unsorted integer array `nums`, return the smallest missing positive integer.
 
-You must implement an algorithm that runs in `O(n)` time and uses constant extra space.
+You must implement an algorithm that runs in O(n) time and uses constant extra space.
 
 **Example:**
 ```
@@ -56,6 +56,56 @@ func abs(x int) int {
 }
 ```
 
+### Alternative Solutions
+
+#### **Using Hash Set**
+```go
+func firstMissingPositiveHashSet(nums []int) int {
+    numSet := make(map[int]bool)
+    
+    for _, num := range nums {
+        if num > 0 {
+            numSet[num] = true
+        }
+    }
+    
+    for i := 1; i <= len(nums)+1; i++ {
+        if !numSet[i] {
+            return i
+        }
+    }
+    
+    return 1
+}
+```
+
+#### **Using Array as Hash Map**
+```go
+func firstMissingPositiveArray(nums []int) int {
+    n := len(nums)
+    
+    // Mark presence of numbers
+    for i := 0; i < n; i++ {
+        if nums[i] > 0 && nums[i] <= n {
+            // Use nums[i]-1 as index
+            index := nums[i] - 1
+            if nums[index] > 0 {
+                nums[index] = -nums[index]
+            }
+        }
+    }
+    
+    // Find first positive
+    for i := 0; i < n; i++ {
+        if nums[i] > 0 {
+            return i + 1
+        }
+    }
+    
+    return n + 1
+}
+```
+
 ### Complexity
 - **Time Complexity:** O(n)
-- **Space Complexity:** O(1)
+- **Space Complexity:** O(1) for in-place, O(n) for hash set
