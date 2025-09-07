@@ -19,38 +19,55 @@ Output: [[],[0]]
 ```go
 func subsets(nums []int) [][]int {
     var result [][]int
-    var backtrack func(int, []int)
+    var current []int
     
-    backtrack = func(start int, current []int) {
-        // Add current subset to result
+    var backtrack func(int)
+    backtrack = func(start int) {
         subset := make([]int, len(current))
         copy(subset, current)
         result = append(result, subset)
         
-        // Try adding each remaining element
         for i := start; i < len(nums); i++ {
             current = append(current, nums[i])
-            backtrack(i+1, current)
-            current = current[:len(current)-1] // backtrack
+            backtrack(i + 1)
+            current = current[:len(current)-1]
         }
     }
     
-    backtrack(0, []int{})
+    backtrack(0)
     return result
 }
 ```
 
 ### Alternative Solutions
 
-#### **Bit Manipulation**
+#### **Iterative Approach**
+```go
+func subsetsIterative(nums []int) [][]int {
+    result := [][]int{{}}
+    
+    for _, num := range nums {
+        size := len(result)
+        for i := 0; i < size; i++ {
+            subset := make([]int, len(result[i]))
+            copy(subset, result[i])
+            subset = append(subset, num)
+            result = append(result, subset)
+        }
+    }
+    
+    return result
+}
+```
+
+#### **Using Bit Manipulation**
 ```go
 func subsetsBitManipulation(nums []int) [][]int {
     n := len(nums)
-    totalSubsets := 1 << n
-    result := make([][]int, 0, totalSubsets)
+    var result [][]int
     
-    for i := 0; i < totalSubsets; i++ {
-        subset := []int{}
+    for i := 0; i < (1 << n); i++ {
+        var subset []int
         for j := 0; j < n; j++ {
             if i&(1<<j) != 0 {
                 subset = append(subset, nums[j])
@@ -63,6 +80,89 @@ func subsetsBitManipulation(nums []int) [][]int {
 }
 ```
 
+#### **Using Recursion**
+```go
+func subsetsRecursive(nums []int) [][]int {
+    if len(nums) == 0 {
+        return [][]int{{}}
+    }
+    
+    first := nums[0]
+    rest := nums[1:]
+    
+    subsetsWithoutFirst := subsetsRecursive(rest)
+    var result [][]int
+    
+    // Add subsets without first element
+    for _, subset := range subsetsWithoutFirst {
+        result = append(result, subset)
+    }
+    
+    // Add subsets with first element
+    for _, subset := range subsetsWithoutFirst {
+        newSubset := make([]int, len(subset))
+        copy(newSubset, subset)
+        newSubset = append(newSubset, first)
+        result = append(result, newSubset)
+    }
+    
+    return result
+}
+```
+
+#### **Return Subsets with Size**
+```go
+func subsetsWithSize(nums []int, k int) [][]int {
+    var result [][]int
+    var current []int
+    
+    var backtrack func(int)
+    backtrack = func(start int) {
+        if len(current) == k {
+            subset := make([]int, len(current))
+            copy(subset, current)
+            result = append(result, subset)
+            return
+        }
+        
+        for i := start; i < len(nums); i++ {
+            current = append(current, nums[i])
+            backtrack(i + 1)
+            current = current[:len(current)-1]
+        }
+    }
+    
+    backtrack(0)
+    return result
+}
+```
+
+#### **Return All Subsets with Counts**
+```go
+func subsetsWithCounts(nums []int) ([][]int, map[int]int) {
+    var result [][]int
+    var current []int
+    sizeCount := make(map[int]int)
+    
+    var backtrack func(int)
+    backtrack = func(start int) {
+        subset := make([]int, len(current))
+        copy(subset, current)
+        result = append(result, subset)
+        sizeCount[len(subset)]++
+        
+        for i := start; i < len(nums); i++ {
+            current = append(current, nums[i])
+            backtrack(i + 1)
+            current = current[:len(current)-1]
+        }
+    }
+    
+    backtrack(0)
+    return result, sizeCount
+}
+```
+
 ### Complexity
-- **Time Complexity:** O(2^n × n)
+- **Time Complexity:** O(2^n × n) where n is the length of nums
 - **Space Complexity:** O(2^n × n)

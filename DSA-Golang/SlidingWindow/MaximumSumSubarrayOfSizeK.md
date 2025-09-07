@@ -1,7 +1,7 @@
 # Maximum Sum Subarray of Size K
 
 ### Problem
-Given an array of positive numbers and a positive number 'k', find the maximum sum of any contiguous subarray of size k.
+Given an array of positive numbers and a positive number `k`, find the maximum sum of any contiguous subarray of size `k`.
 
 **Example:**
 ```
@@ -22,13 +22,15 @@ func maxSumSubarrayOfSizeK(nums []int, k int) int {
         return 0
     }
     
-    // Calculate sum of first window
     windowSum := 0
+    maxSum := 0
+    
+    // Calculate sum of first window
     for i := 0; i < k; i++ {
         windowSum += nums[i]
     }
     
-    maxSum := windowSum
+    maxSum = windowSum
     
     // Slide the window
     for i := k; i < len(nums); i++ {
@@ -49,27 +51,153 @@ func max(a, b int) int {
 
 ### Alternative Solutions
 
-#### **Two Pointers Approach**
+#### **Brute Force**
 ```go
-func maxSumSubarrayTwoPointers(nums []int, k int) int {
+func maxSumSubarrayOfSizeKBruteForce(nums []int, k int) int {
     if len(nums) < k {
         return 0
     }
     
-    left, right := 0, 0
+    maxSum := 0
+    
+    for i := 0; i <= len(nums)-k; i++ {
+        windowSum := 0
+        for j := i; j < i+k; j++ {
+            windowSum += nums[j]
+        }
+        maxSum = max(maxSum, windowSum)
+    }
+    
+    return maxSum
+}
+```
+
+#### **Return Subarray Indices**
+```go
+func maxSumSubarrayOfSizeKWithIndices(nums []int, k int) (int, int, int) {
+    if len(nums) < k {
+        return 0, -1, -1
+    }
+    
+    windowSum := 0
+    maxSum := 0
+    start := 0
+    
+    // Calculate sum of first window
+    for i := 0; i < k; i++ {
+        windowSum += nums[i]
+    }
+    
+    maxSum = windowSum
+    
+    // Slide the window
+    for i := k; i < len(nums); i++ {
+        windowSum = windowSum - nums[i-k] + nums[i]
+        if windowSum > maxSum {
+            maxSum = windowSum
+            start = i - k + 1
+        }
+    }
+    
+    return maxSum, start, start + k - 1
+}
+```
+
+#### **Using Two Pointers**
+```go
+func maxSumSubarrayOfSizeKTwoPointers(nums []int, k int) int {
+    if len(nums) < k {
+        return 0
+    }
+    
+    left := 0
     windowSum := 0
     maxSum := 0
     
-    for right < len(nums) {
+    for right := 0; right < len(nums); right++ {
         windowSum += nums[right]
         
-        if right-left+1 == k {
+        if right >= k-1 {
             maxSum = max(maxSum, windowSum)
             windowSum -= nums[left]
             left++
         }
-        
-        right++
+    }
+    
+    return maxSum
+}
+```
+
+#### **Return All Subarrays of Size K**
+```go
+func findAllSubarraysOfSizeK(nums []int, k int) [][]int {
+    if len(nums) < k {
+        return [][]int{}
+    }
+    
+    var result [][]int
+    
+    for i := 0; i <= len(nums)-k; i++ {
+        subarray := make([]int, k)
+        copy(subarray, nums[i:i+k])
+        result = append(result, subarray)
+    }
+    
+    return result
+}
+```
+
+#### **Return Subarray with Maximum Sum**
+```go
+func maxSumSubarrayOfSizeKReturnSubarray(nums []int, k int) []int {
+    if len(nums) < k {
+        return []int{}
+    }
+    
+    windowSum := 0
+    maxSum := 0
+    start := 0
+    
+    // Calculate sum of first window
+    for i := 0; i < k; i++ {
+        windowSum += nums[i]
+    }
+    
+    maxSum = windowSum
+    
+    // Slide the window
+    for i := k; i < len(nums); i++ {
+        windowSum = windowSum - nums[i-k] + nums[i]
+        if windowSum > maxSum {
+            maxSum = windowSum
+            start = i - k + 1
+        }
+    }
+    
+    return nums[start : start+k]
+}
+```
+
+#### **Using Prefix Sum**
+```go
+func maxSumSubarrayOfSizeKPrefixSum(nums []int, k int) int {
+    if len(nums) < k {
+        return 0
+    }
+    
+    prefixSum := make([]int, len(nums)+1)
+    
+    // Calculate prefix sums
+    for i := 0; i < len(nums); i++ {
+        prefixSum[i+1] = prefixSum[i] + nums[i]
+    }
+    
+    maxSum := 0
+    
+    // Find maximum sum of subarray of size k
+    for i := 0; i <= len(nums)-k; i++ {
+        windowSum := prefixSum[i+k] - prefixSum[i]
+        maxSum = max(maxSum, windowSum)
     }
     
     return maxSum
@@ -77,5 +205,5 @@ func maxSumSubarrayTwoPointers(nums []int, k int) int {
 ```
 
 ### Complexity
-- **Time Complexity:** O(n)
-- **Space Complexity:** O(1)
+- **Time Complexity:** O(n) for sliding window, O(n×k) for brute force
+- **Space Complexity:** O(1) for sliding window, O(n) for prefix sum

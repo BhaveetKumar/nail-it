@@ -14,6 +14,11 @@ Explanation: "amanaplanacanalpanama" is a palindrome.
 Input: s = "race a car"
 Output: false
 Explanation: "raceacar" is not a palindrome.
+
+Input: s = " "
+Output: true
+Explanation: s is an empty string "" after removing non-alphanumeric characters.
+Since an empty string reads the same forward and backward, it is a palindrome.
 ```
 
 ### Golang Solution
@@ -59,24 +64,22 @@ func toLowerCase(c byte) byte {
 
 ### Alternative Solutions
 
-#### **Using strings package**
+#### **Using Built-in Functions**
 ```go
-import "strings"
+import (
+    "regexp"
+    "strings"
+)
 
-func isPalindromeStrings(s string) bool {
-    // Convert to lowercase and remove non-alphanumeric
-    var cleaned strings.Builder
-    for _, char := range s {
-        if (char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z') || (char >= '0' && char <= '9') {
-            cleaned.WriteRune(char)
-        }
-    }
+func isPalindromeBuiltin(s string) bool {
+    // Remove non-alphanumeric characters and convert to lowercase
+    re := regexp.MustCompile(`[^a-zA-Z0-9]`)
+    cleaned := strings.ToLower(re.ReplaceAllString(s, ""))
     
-    cleanedStr := strings.ToLower(cleaned.String())
-    left, right := 0, len(cleanedStr)-1
+    left, right := 0, len(cleaned)-1
     
     for left < right {
-        if cleanedStr[left] != cleanedStr[right] {
+        if cleaned[left] != cleaned[right] {
             return false
         }
         left++
@@ -87,6 +90,131 @@ func isPalindromeStrings(s string) bool {
 }
 ```
 
+#### **Using Stack**
+```go
+func isPalindromeStack(s string) bool {
+    var stack []byte
+    var cleaned []byte
+    
+    // Clean the string
+    for i := 0; i < len(s); i++ {
+        if isAlphanumeric(s[i]) {
+            cleaned = append(cleaned, toLowerCase(s[i]))
+        }
+    }
+    
+    // Push first half to stack
+    for i := 0; i < len(cleaned)/2; i++ {
+        stack = append(stack, cleaned[i])
+    }
+    
+    // Compare second half with stack
+    start := len(cleaned) / 2
+    if len(cleaned)%2 == 1 {
+        start++
+    }
+    
+    for i := start; i < len(cleaned); i++ {
+        if len(stack) == 0 || stack[len(stack)-1] != cleaned[i] {
+            return false
+        }
+        stack = stack[:len(stack)-1]
+    }
+    
+    return len(stack) == 0
+}
+```
+
+#### **Recursive Approach**
+```go
+func isPalindromeRecursive(s string) bool {
+    cleaned := cleanString(s)
+    return isPalindromeHelper(cleaned, 0, len(cleaned)-1)
+}
+
+func cleanString(s string) string {
+    var result []byte
+    for i := 0; i < len(s); i++ {
+        if isAlphanumeric(s[i]) {
+            result = append(result, toLowerCase(s[i]))
+        }
+    }
+    return string(result)
+}
+
+func isPalindromeHelper(s string, left, right int) bool {
+    if left >= right {
+        return true
+    }
+    
+    if s[left] != s[right] {
+        return false
+    }
+    
+    return isPalindromeHelper(s, left+1, right-1)
+}
+```
+
+#### **Return with Details**
+```go
+type PalindromeResult struct {
+    IsPalindrome bool
+    Cleaned      string
+    Length       int
+}
+
+func isPalindromeWithDetails(s string) PalindromeResult {
+    var cleaned []byte
+    
+    for i := 0; i < len(s); i++ {
+        if isAlphanumeric(s[i]) {
+            cleaned = append(cleaned, toLowerCase(s[i]))
+        }
+    }
+    
+    cleanedStr := string(cleaned)
+    left, right := 0, len(cleanedStr)-1
+    isPalindrome := true
+    
+    for left < right {
+        if cleanedStr[left] != cleanedStr[right] {
+            isPalindrome = false
+            break
+        }
+        left++
+        right--
+    }
+    
+    return PalindromeResult{
+        IsPalindrome: isPalindrome,
+        Cleaned:      cleanedStr,
+        Length:       len(cleanedStr),
+    }
+}
+```
+
+#### **Check if String Can Be Made Palindrome**
+```go
+func canMakePalindrome(s string) bool {
+    charCount := make(map[byte]int)
+    
+    for i := 0; i < len(s); i++ {
+        if isAlphanumeric(s[i]) {
+            charCount[toLowerCase(s[i])]++
+        }
+    }
+    
+    oddCount := 0
+    for _, count := range charCount {
+        if count%2 == 1 {
+            oddCount++
+        }
+    }
+    
+    return oddCount <= 1
+}
+```
+
 ### Complexity
-- **Time Complexity:** O(n)
-- **Space Complexity:** O(1)
+- **Time Complexity:** O(n) where n is the length of the string
+- **Space Complexity:** O(1) for two pointers, O(n) for stack/recursive

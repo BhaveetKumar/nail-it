@@ -21,18 +21,13 @@ func subarraySum(nums []int, k int) int {
     count := 0
     sum := 0
     sumCount := make(map[int]int)
-    sumCount[0] = 1 // Empty subarray has sum 0
+    sumCount[0] = 1
     
     for _, num := range nums {
         sum += num
-        
-        // If (sum - k) exists in map, then there are sumCount[sum-k] subarrays
-        // ending at current position with sum k
         if freq, exists := sumCount[sum-k]; exists {
             count += freq
         }
-        
-        // Update the count of current sum
         sumCount[sum]++
     }
     
@@ -61,7 +56,7 @@ func subarraySumBruteForce(nums []int, k int) int {
 }
 ```
 
-#### **Prefix Sum with Array**
+#### **Using Prefix Sum Array**
 ```go
 func subarraySumPrefixArray(nums []int, k int) int {
     n := len(nums)
@@ -74,9 +69,10 @@ func subarraySumPrefixArray(nums []int, k int) int {
     
     count := 0
     
+    // Check all subarrays
     for i := 0; i < n; i++ {
-        for j := i + 1; j <= n; j++ {
-            if prefixSum[j]-prefixSum[i] == k {
+        for j := i; j < n; j++ {
+            if prefixSum[j+1] - prefixSum[i] == k {
                 count++
             }
         }
@@ -86,6 +82,82 @@ func subarraySumPrefixArray(nums []int, k int) int {
 }
 ```
 
+#### **Return Subarray Indices**
+```go
+func subarraySumWithIndices(nums []int, k int) (int, [][]int) {
+    count := 0
+    sum := 0
+    sumIndices := make(map[int][]int)
+    sumIndices[0] = []int{-1}
+    var subarrays [][]int
+    
+    for i, num := range nums {
+        sum += num
+        
+        if indices, exists := sumIndices[sum-k]; exists {
+            count += len(indices)
+            for _, start := range indices {
+                subarrays = append(subarrays, []int{start + 1, i})
+            }
+        }
+        
+        sumIndices[sum] = append(sumIndices[sum], i)
+    }
+    
+    return count, subarrays
+}
+```
+
+#### **Using Sliding Window (Only for Positive Numbers)**
+```go
+func subarraySumSlidingWindow(nums []int, k int) int {
+    count := 0
+    left := 0
+    sum := 0
+    
+    for right := 0; right < len(nums); right++ {
+        sum += nums[right]
+        
+        for sum > k && left <= right {
+            sum -= nums[left]
+            left++
+        }
+        
+        if sum == k {
+            count++
+        }
+    }
+    
+    return count
+}
+```
+
+#### **Return All Subarrays**
+```go
+func findAllSubarraysWithSum(nums []int, k int) [][]int {
+    var result [][]int
+    sum := 0
+    sumIndices := make(map[int][]int)
+    sumIndices[0] = []int{-1}
+    
+    for i, num := range nums {
+        sum += num
+        
+        if indices, exists := sumIndices[sum-k]; exists {
+            for _, start := range indices {
+                subarray := make([]int, i-start)
+                copy(subarray, nums[start+1:i+1])
+                result = append(result, subarray)
+            }
+        }
+        
+        sumIndices[sum] = append(sumIndices[sum], i)
+    }
+    
+    return result
+}
+```
+
 ### Complexity
-- **Time Complexity:** O(n) for hash map, O(n²) for brute force
-- **Space Complexity:** O(n)
+- **Time Complexity:** O(n) for optimal, O(n²) for brute force
+- **Space Complexity:** O(n) for hash map
