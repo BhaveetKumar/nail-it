@@ -7,7 +7,7 @@ Given a 0-indexed integer array `nums`, find a peak element, and return its inde
 
 You may imagine that `nums[-1] = nums[n] = -∞`.
 
-You must write an algorithm that runs in O(log n) time.
+You must write an algorithm that runs in `O(log n)` time.
 
 **Example:**
 ```
@@ -54,30 +54,9 @@ func findPeakElementLinear(nums []int) int {
 }
 ```
 
-#### **Recursive Binary Search**
+#### **Return All Peaks**
 ```go
-func findPeakElementRecursive(nums []int) int {
-    return search(nums, 0, len(nums)-1)
-}
-
-func search(nums []int, left, right int) int {
-    if left == right {
-        return left
-    }
-    
-    mid := left + (right-left)/2
-    
-    if nums[mid] > nums[mid+1] {
-        return search(nums, left, mid)
-    }
-    
-    return search(nums, mid+1, right)
-}
-```
-
-#### **Find All Peaks**
-```go
-func findAllPeakElements(nums []int) []int {
+func findAllPeaks(nums []int) []int {
     var peaks []int
     
     for i := 0; i < len(nums); i++ {
@@ -100,29 +79,29 @@ func findAllPeakElements(nums []int) []int {
 }
 ```
 
-#### **Find Global Maximum**
+#### **Return with Peak Info**
 ```go
-func findPeakElementGlobalMax(nums []int) int {
-    maxIndex := 0
+type PeakInfo struct {
+    Index    int
+    Value    int
+    IsGlobal bool
+    LeftNeighbor int
+    RightNeighbor int
+}
+
+func findPeakWithInfo(nums []int) PeakInfo {
+    if len(nums) == 0 {
+        return PeakInfo{Index: -1}
+    }
     
-    for i := 1; i < len(nums); i++ {
-        if nums[i] > nums[maxIndex] {
-            maxIndex = i
+    if len(nums) == 1 {
+        return PeakInfo{
+            Index:    0,
+            Value:    nums[0],
+            IsGlobal: true,
         }
     }
     
-    return maxIndex
-}
-```
-
-#### **Return Peak Value and Index**
-```go
-type PeakResult struct {
-    Index int
-    Value int
-}
-
-func findPeakElementWithValue(nums []int) PeakResult {
     left, right := 0, len(nums)-1
     
     for left < right {
@@ -135,13 +114,202 @@ func findPeakElementWithValue(nums []int) PeakResult {
         }
     }
     
-    return PeakResult{
-        Index: left,
-        Value: nums[left],
+    peakIndex := left
+    peakValue := nums[peakIndex]
+    
+    // Check if it's a global peak
+    isGlobal := true
+    for _, num := range nums {
+        if num > peakValue {
+            isGlobal = false
+            break
+        }
+    }
+    
+    leftNeighbor := -1
+    if peakIndex > 0 {
+        leftNeighbor = nums[peakIndex-1]
+    }
+    
+    rightNeighbor := -1
+    if peakIndex < len(nums)-1 {
+        rightNeighbor = nums[peakIndex+1]
+    }
+    
+    return PeakInfo{
+        Index:         peakIndex,
+        Value:         peakValue,
+        IsGlobal:      isGlobal,
+        LeftNeighbor:  leftNeighbor,
+        RightNeighbor: rightNeighbor,
+    }
+}
+```
+
+#### **Return Peak Statistics**
+```go
+type PeakStats struct {
+    TotalPeaks    int
+    GlobalPeaks   int
+    LocalPeaks    int
+    MaxPeak       int
+    MinPeak       int
+    AvgPeak       float64
+    PeakIndices   []int
+    PeakValues    []int
+}
+
+func peakStatistics(nums []int) PeakStats {
+    if len(nums) == 0 {
+        return PeakStats{}
+    }
+    
+    var peakIndices []int
+    var peakValues []int
+    
+    for i := 0; i < len(nums); i++ {
+        isPeak := true
+        
+        if i > 0 && nums[i] <= nums[i-1] {
+            isPeak = false
+        }
+        
+        if i < len(nums)-1 && nums[i] <= nums[i+1] {
+            isPeak = false
+        }
+        
+        if isPeak {
+            peakIndices = append(peakIndices, i)
+            peakValues = append(peakValues, nums[i])
+        }
+    }
+    
+    if len(peakValues) == 0 {
+        return PeakStats{PeakIndices: peakIndices, PeakValues: peakValues}
+    }
+    
+    maxPeak := peakValues[0]
+    minPeak := peakValues[0]
+    sum := 0
+    
+    for _, value := range peakValues {
+        if value > maxPeak {
+            maxPeak = value
+        }
+        if value < minPeak {
+            minPeak = value
+        }
+        sum += value
+    }
+    
+    // Count global peaks
+    globalPeaks := 0
+    maxValue := nums[0]
+    for _, num := range nums {
+        if num > maxValue {
+            maxValue = num
+        }
+    }
+    
+    for _, value := range peakValues {
+        if value == maxValue {
+            globalPeaks++
+        }
+    }
+    
+    return PeakStats{
+        TotalPeaks:  len(peakValues),
+        GlobalPeaks: globalPeaks,
+        LocalPeaks:  len(peakValues) - globalPeaks,
+        MaxPeak:     maxPeak,
+        MinPeak:     minPeak,
+        AvgPeak:     float64(sum) / float64(len(peakValues)),
+        PeakIndices: peakIndices,
+        PeakValues:  peakValues,
+    }
+}
+```
+
+#### **Return Peak with Neighbors**
+```go
+type PeakWithNeighbors struct {
+    Index    int
+    Value    int
+    Left     int
+    Right    int
+    Slope    string
+    IsValid  bool
+}
+
+func findPeakWithNeighbors(nums []int) PeakWithNeighbors {
+    if len(nums) == 0 {
+        return PeakWithNeighbors{IsValid: false}
+    }
+    
+    if len(nums) == 1 {
+        return PeakWithNeighbors{
+            Index:   0,
+            Value:   nums[0],
+            Left:    -1,
+            Right:   -1,
+            Slope:   "single",
+            IsValid: true,
+        }
+    }
+    
+    left, right := 0, len(nums)-1
+    
+    for left < right {
+        mid := left + (right-left)/2
+        
+        if nums[mid] > nums[mid+1] {
+            right = mid
+        } else {
+            left = mid + 1
+        }
+    }
+    
+    peakIndex := left
+    peakValue := nums[peakIndex]
+    
+    leftNeighbor := -1
+    if peakIndex > 0 {
+        leftNeighbor = nums[peakIndex-1]
+    }
+    
+    rightNeighbor := -1
+    if peakIndex < len(nums)-1 {
+        rightNeighbor = nums[peakIndex+1]
+    }
+    
+    // Determine slope
+    slope := "peak"
+    if leftNeighbor != -1 && rightNeighbor != -1 {
+        if leftNeighbor < peakValue && peakValue > rightNeighbor {
+            slope = "peak"
+        } else if leftNeighbor < peakValue && peakValue < rightNeighbor {
+            slope = "ascending"
+        } else if leftNeighbor > peakValue && peakValue > rightNeighbor {
+            slope = "descending"
+        }
+    } else if leftNeighbor == -1 {
+        slope = "left_boundary"
+    } else if rightNeighbor == -1 {
+        slope = "right_boundary"
+    }
+    
+    return PeakWithNeighbors{
+        Index:   peakIndex,
+        Value:   peakValue,
+        Left:    leftNeighbor,
+        Right:   rightNeighbor,
+        Slope:   slope,
+        IsValid: true,
     }
 }
 ```
 
 ### Complexity
 - **Time Complexity:** O(log n) for binary search, O(n) for linear search
+- **Space Complexity:** O(1) for binary search, O(n) for storing all peaks
 - **Space Complexity:** O(1) for iterative, O(log n) for recursive

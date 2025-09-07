@@ -31,64 +31,49 @@ func reverseBits(num uint32) uint32 {
 
 ### Alternative Solutions
 
+#### **Using Bit Manipulation**
+```go
+func reverseBitsBitManipulation(num uint32) uint32 {
+    result := uint32(0)
+    
+    for i := 0; i < 32; i++ {
+        if num&(1<<i) != 0 {
+            result |= 1 << (31 - i)
+        }
+    }
+    
+    return result
+}
+```
+
 #### **Using Lookup Table**
 ```go
-var reverseTable = [256]uint32{
-    0x00, 0x80, 0x40, 0xC0, 0x20, 0xA0, 0x60, 0xE0,
-    0x10, 0x90, 0x50, 0xD0, 0x30, 0xB0, 0x70, 0xF0,
-    0x08, 0x88, 0x48, 0xC8, 0x28, 0xA8, 0x68, 0xE8,
-    0x18, 0x98, 0x58, 0xD8, 0x38, 0xB8, 0x78, 0xF8,
-    0x04, 0x84, 0x44, 0xC4, 0x24, 0xA4, 0x64, 0xE4,
-    0x14, 0x94, 0x54, 0xD4, 0x34, 0xB4, 0x74, 0xF4,
-    0x0C, 0x8C, 0x4C, 0xCC, 0x2C, 0xAC, 0x6C, 0xEC,
-    0x1C, 0x9C, 0x5C, 0xDC, 0x3C, 0xBC, 0x7C, 0xFC,
-    0x02, 0x82, 0x42, 0xC2, 0x22, 0xA2, 0x62, 0xE2,
-    0x12, 0x92, 0x52, 0xD2, 0x32, 0xB2, 0x72, 0xF2,
-    0x0A, 0x8A, 0x4A, 0xCA, 0x2A, 0xAA, 0x6A, 0xEA,
-    0x1A, 0x9A, 0x5A, 0xDA, 0x3A, 0xBA, 0x7A, 0xFA,
-    0x06, 0x86, 0x46, 0xC6, 0x26, 0xA6, 0x66, 0xE6,
-    0x16, 0x96, 0x56, 0xD6, 0x36, 0xB6, 0x76, 0xF6,
-    0x0E, 0x8E, 0x4E, 0xCE, 0x2E, 0xAE, 0x6E, 0xEE,
-    0x1E, 0x9E, 0x5E, 0xDE, 0x3E, 0xBE, 0x7E, 0xFE,
-    0x01, 0x81, 0x41, 0xC1, 0x21, 0xA1, 0x61, 0xE1,
-    0x11, 0x91, 0x51, 0xD1, 0x31, 0xB1, 0x71, 0xF1,
-    0x09, 0x89, 0x49, 0xC9, 0x29, 0xA9, 0x69, 0xE9,
-    0x19, 0x99, 0x59, 0xD9, 0x39, 0xB9, 0x79, 0xF9,
-    0x05, 0x85, 0x45, 0xC5, 0x25, 0xA5, 0x65, 0xE5,
-    0x15, 0x95, 0x55, 0xD5, 0x35, 0xB5, 0x75, 0xF5,
-    0x0D, 0x8D, 0x4D, 0xCD, 0x2D, 0xAD, 0x6D, 0xED,
-    0x1D, 0x9D, 0x5D, 0xDD, 0x3D, 0xBD, 0x7D, 0xFD,
-    0x03, 0x83, 0x43, 0xC3, 0x23, 0xA3, 0x63, 0xE3,
-    0x13, 0x93, 0x53, 0xD3, 0x33, 0xB3, 0x73, 0xF3,
-    0x0B, 0x8B, 0x4B, 0xCB, 0x2B, 0xAB, 0x6B, 0xEB,
-    0x1B, 0x9B, 0x5B, 0xDB, 0x3B, 0xBB, 0x7B, 0xFB,
-    0x07, 0x87, 0x47, 0xC7, 0x27, 0xA7, 0x67, 0xE7,
-    0x17, 0x97, 0x57, 0xD7, 0x37, 0xB7, 0x77, 0xF7,
-    0x0F, 0x8F, 0x4F, 0xCF, 0x2F, 0xAF, 0x6F, 0xEF,
-    0x1F, 0x9F, 0x5F, 0xDF, 0x3F, 0xBF, 0x7F, 0xFF,
-}
-
 func reverseBitsLookup(num uint32) uint32 {
-    return (reverseTable[num&0xFF] << 24) |
-           (reverseTable[(num>>8)&0xFF] << 16) |
-           (reverseTable[(num>>16)&0xFF] << 8) |
-           reverseTable[(num>>24)&0xFF]
+    // Precomputed lookup table for 8-bit numbers
+    lookup := []uint32{
+        0, 128, 64, 192, 32, 160, 96, 224, 16, 144, 80, 208, 48, 176, 112, 240,
+        8, 136, 72, 200, 40, 168, 104, 232, 24, 152, 88, 216, 56, 184, 120, 248,
+        4, 132, 68, 196, 36, 164, 100, 228, 20, 148, 84, 212, 52, 180, 116, 244,
+        12, 140, 76, 204, 44, 172, 108, 236, 28, 156, 92, 220, 60, 188, 124, 252,
+        2, 130, 66, 194, 34, 162, 98, 226, 18, 146, 82, 210, 50, 178, 114, 242,
+        10, 138, 74, 202, 42, 170, 106, 234, 26, 154, 90, 218, 58, 186, 122, 250,
+        6, 134, 70, 198, 38, 166, 102, 230, 22, 150, 86, 214, 54, 182, 118, 246,
+        14, 142, 78, 206, 46, 174, 110, 238, 30, 158, 94, 222, 62, 190, 126, 254,
+        1, 129, 65, 193, 33, 161, 97, 225, 17, 145, 81, 209, 49, 177, 113, 241,
+        9, 137, 73, 201, 41, 169, 105, 233, 25, 153, 89, 217, 57, 185, 121, 249,
+        5, 133, 69, 197, 37, 165, 101, 229, 21, 149, 85, 213, 53, 181, 117, 245,
+        13, 141, 77, 205, 45, 173, 109, 237, 29, 157, 93, 221, 61, 189, 125, 253,
+        3, 131, 67, 195, 35, 163, 99, 227, 19, 147, 83, 211, 51, 179, 115, 243,
+        11, 139, 75, 203, 43, 171, 107, 235, 27, 155, 91, 219, 59, 187, 123, 251,
+        7, 135, 71, 199, 39, 167, 103, 231, 23, 151, 87, 215, 55, 183, 119, 247,
+        15, 143, 79, 207, 47, 175, 111, 239, 31, 159, 95, 223, 63, 191, 127, 255,
+    }
+    
+    return (lookup[num&0xFF] << 24) | (lookup[(num>>8)&0xFF] << 16) | (lookup[(num>>16)&0xFF] << 8) | lookup[(num>>24)&0xFF]
 }
 ```
 
-#### **Divide and Conquer**
-```go
-func reverseBitsDivideConquer(num uint32) uint32 {
-    num = ((num & 0xFFFF0000) >> 16) | ((num & 0x0000FFFF) << 16)
-    num = ((num & 0xFF00FF00) >> 8) | ((num & 0x00FF00FF) << 8)
-    num = ((num & 0xF0F0F0F0) >> 4) | ((num & 0x0F0F0F0F) << 4)
-    num = ((num & 0xCCCCCCCC) >> 2) | ((num & 0x33333333) << 2)
-    num = ((num & 0xAAAAAAAA) >> 1) | ((num & 0x55555555) << 1)
-    return num
-}
-```
-
-#### **String Conversion**
+#### **Using String Conversion**
 ```go
 import "strconv"
 
@@ -105,17 +90,122 @@ func reverseBitsString(num uint32) uint32 {
 }
 ```
 
-#### **Recursive Approach**
+#### **Return with Binary Representation**
 ```go
-func reverseBitsRecursive(num uint32) uint32 {
-    if num == 0 {
-        return 0
+type ReverseResult struct {
+    Original     uint32
+    Reversed     uint32
+    OriginalBin  string
+    ReversedBin  string
+    BitCount     int
+}
+
+func reverseBitsWithBinary(num uint32) ReverseResult {
+    reversed := reverseBits(num)
+    
+    return ReverseResult{
+        Original:    num,
+        Reversed:    reversed,
+        OriginalBin: fmt.Sprintf("%032b", num),
+        ReversedBin: fmt.Sprintf("%032b", reversed),
+        BitCount:    32,
+    }
+}
+```
+
+#### **Return All Bit Operations**
+```go
+type BitOperations struct {
+    Original     uint32
+    Reversed     uint32
+    Complement   uint32
+    LeftShift    uint32
+    RightShift   uint32
+    RotateLeft   uint32
+    RotateRight  uint32
+}
+
+func allBitOperations(num uint32) BitOperations {
+    reversed := reverseBits(num)
+    complement := ^num
+    leftShift := num << 1
+    rightShift := num >> 1
+    rotateLeft := (num << 1) | (num >> 31)
+    rotateRight := (num >> 1) | (num << 31)
+    
+    return BitOperations{
+        Original:    num,
+        Reversed:    reversed,
+        Complement:  complement,
+        LeftShift:   leftShift,
+        RightShift:  rightShift,
+        RotateLeft:  rotateLeft,
+        RotateRight: rotateRight,
+    }
+}
+```
+
+#### **Return Bit Statistics**
+```go
+type BitStats struct {
+    Original     uint32
+    Reversed     uint32
+    BitCount     int
+    SetBits      int
+    ClearBits    int
+    LeadingZeros int
+    TrailingZeros int
+    Parity       int
+}
+
+func bitStatistics(num uint32) BitStats {
+    reversed := reverseBits(num)
+    
+    setBits := 0
+    for i := 0; i < 32; i++ {
+        if num&(1<<i) != 0 {
+            setBits++
+        }
     }
     
-    return (reverseBitsRecursive(num >> 1) >> 1) | ((num & 1) << 31)
+    leadingZeros := 0
+    for i := 31; i >= 0; i-- {
+        if num&(1<<i) == 0 {
+            leadingZeros++
+        } else {
+            break
+        }
+    }
+    
+    trailingZeros := 0
+    for i := 0; i < 32; i++ {
+        if num&(1<<i) == 0 {
+            trailingZeros++
+        } else {
+            break
+        }
+    }
+    
+    parity := 0
+    for i := 0; i < 32; i++ {
+        if num&(1<<i) != 0 {
+            parity ^= 1
+        }
+    }
+    
+    return BitStats{
+        Original:      num,
+        Reversed:      reversed,
+        BitCount:      32,
+        SetBits:       setBits,
+        ClearBits:     32 - setBits,
+        LeadingZeros:  leadingZeros,
+        TrailingZeros: trailingZeros,
+        Parity:        parity,
+    }
 }
 ```
 
 ### Complexity
-- **Time Complexity:** O(1) for all approaches (constant 32 operations)
+- **Time Complexity:** O(1) for all approaches (32 bits max)
 - **Space Complexity:** O(1)

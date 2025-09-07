@@ -47,111 +47,242 @@ func findContentChildren(g []int, s []int) int {
 
 ### Alternative Solutions
 
-#### **Using Two Pointers**
+#### **Greedy with Priority**
 ```go
-func findContentChildrenTwoPointers(g []int, s []int) int {
+import "sort"
+
+func findContentChildrenPriority(g []int, s []int) int {
     sort.Ints(g)
     sort.Ints(s)
     
-    i, j := 0, 0
-    count := 0
-    
-    for i < len(g) && j < len(s) {
-        if g[i] <= s[j] {
-            count++
-            i++
-        }
-        j++
-    }
-    
-    return count
-}
-```
-
-#### **Greedy with Priority Queue**
-```go
-import "container/heap"
-
-type IntHeap []int
-
-func (h IntHeap) Len() int           { return len(h) }
-func (h IntHeap) Less(i, j int) bool { return h[i] < h[j] }
-func (h IntHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
-
-func (h *IntHeap) Push(x interface{}) {
-    *h = append(*h, x.(int))
-}
-
-func (h *IntHeap) Pop() interface{} {
-    old := *h
-    n := len(old)
-    x := old[n-1]
-    *h = old[0 : n-1]
-    return x
-}
-
-func findContentChildrenPQ(g []int, s []int) int {
-    // Create min heaps for children and cookies
-    childHeap := &IntHeap{}
-    cookieHeap := &IntHeap{}
-    
-    heap.Init(childHeap)
-    heap.Init(cookieHeap)
+    contentChildren := 0
+    cookieIndex := 0
     
     for _, greed := range g {
-        heap.Push(childHeap, greed)
-    }
-    
-    for _, size := range s {
-        heap.Push(cookieHeap, size)
-    }
-    
-    count := 0
-    
-    for childHeap.Len() > 0 && cookieHeap.Len() > 0 {
-        childGreed := (*childHeap)[0]
-        cookieSize := (*cookieHeap)[0]
+        for cookieIndex < len(s) && s[cookieIndex] < greed {
+            cookieIndex++
+        }
         
-        if cookieSize >= childGreed {
-            heap.Pop(childHeap)
-            heap.Pop(cookieHeap)
-            count++
-        } else {
-            heap.Pop(cookieHeap)
+        if cookieIndex < len(s) {
+            contentChildren++
+            cookieIndex++
         }
     }
     
-    return count
+    return contentChildren
 }
 ```
 
-#### **Brute Force**
+#### **Return Assignment Details**
 ```go
-func findContentChildrenBruteForce(g []int, s []int) int {
-    used := make([]bool, len(s))
-    count := 0
+type AssignmentResult struct {
+    ContentChildren int
+    Assignments     []Assignment
+    UnassignedChildren []int
+    UnusedCookies   []int
+}
+
+type Assignment struct {
+    ChildIndex int
+    CookieIndex int
+    Greed      int
+    CookieSize int
+}
+
+func findContentChildrenWithDetails(g []int, s []int) AssignmentResult {
+    sort.Ints(g)
+    sort.Ints(s)
     
-    for _, greed := range g {
-        bestCookie := -1
-        bestSize := math.MaxInt32
+    var assignments []Assignment
+    var unassignedChildren []int
+    var unusedCookies []int
+    
+    childIndex := 0
+    cookieIndex := 0
+    
+    for childIndex < len(g) && cookieIndex < len(s) {
+        if s[cookieIndex] >= g[childIndex] {
+            assignments = append(assignments, Assignment{
+                ChildIndex:  childIndex,
+                CookieIndex: cookieIndex,
+                Greed:       g[childIndex],
+                CookieSize:  s[cookieIndex],
+            })
+            childIndex++
+        }
+        cookieIndex++
+    }
+    
+    // Add unassigned children
+    for i := childIndex; i < len(g); i++ {
+        unassignedChildren = append(unassignedChildren, g[i])
+    }
+    
+    // Add unused cookies
+    for i := cookieIndex; i < len(s); i++ {
+        unusedCookies = append(unusedCookies, s[i])
+    }
+    
+    return AssignmentResult{
+        ContentChildren:    len(assignments),
+        Assignments:       assignments,
+        UnassignedChildren: unassignedChildren,
+        UnusedCookies:     unusedCookies,
+    }
+}
+```
+
+#### **Return All Possible Assignments**
+```go
+func findAllAssignments(g []int, s []int) [][]Assignment {
+    var allAssignments [][]Assignment
+    
+    var backtrack func(int, []Assignment, []bool)
+    backtrack = func(childIndex int, current []Assignment, used []bool) {
+        if childIndex == len(g) {
+            assignment := make([]Assignment, len(current))
+            copy(assignment, current)
+            allAssignments = append(allAssignments, assignment)
+            return
+        }
         
-        for i, size := range s {
-            if !used[i] && size >= greed && size < bestSize {
-                bestCookie = i
-                bestSize = size
+        for cookieIndex := 0; cookieIndex < len(s); cookieIndex++ {
+            if !used[cookieIndex] && s[cookieIndex] >= g[childIndex] {
+                used[cookieIndex] = true
+                current = append(current, Assignment{
+                    ChildIndex:  childIndex,
+                    CookieIndex: cookieIndex,
+                    Greed:       g[childIndex],
+                    CookieSize:  s[cookieIndex],
+                })
+                
+                backtrack(childIndex+1, current, used)
+                
+                current = current[:len(current)-1]
+                used[cookieIndex] = false
             }
         }
-        
-        if bestCookie != -1 {
-            used[bestCookie] = true
-            count++
-        }
     }
     
-    return count
+    used := make([]bool, len(s))
+    backtrack(0, []Assignment{}, used)
+    
+    return allAssignments
+}
+```
+
+#### **Return Assignment Statistics**
+```go
+type AssignmentStats struct {
+    TotalChildren      int
+    TotalCookies       int
+    ContentChildren    int
+    UnassignedChildren int
+    UnusedCookies      int
+    MinGreed           int
+    MaxGreed           int
+    MinCookieSize      int
+    MaxCookieSize      int
+    AvgGreed           float64
+    AvgCookieSize      float64
+}
+
+func assignmentStatistics(g []int, s []int) AssignmentStats {
+    if len(g) == 0 || len(s) == 0 {
+        return AssignmentStats{}
+    }
+    
+    result := findContentChildrenWithDetails(g, s)
+    
+    minGreed := g[0]
+    maxGreed := g[0]
+    sumGreed := 0
+    
+    for _, greed := range g {
+        if greed < minGreed {
+            minGreed = greed
+        }
+        if greed > maxGreed {
+            maxGreed = greed
+        }
+        sumGreed += greed
+    }
+    
+    minCookieSize := s[0]
+    maxCookieSize := s[0]
+    sumCookieSize := 0
+    
+    for _, size := range s {
+        if size < minCookieSize {
+            minCookieSize = size
+        }
+        if size > maxCookieSize {
+            maxCookieSize = size
+        }
+        sumCookieSize += size
+    }
+    
+    return AssignmentStats{
+        TotalChildren:      len(g),
+        TotalCookies:       len(s),
+        ContentChildren:    result.ContentChildren,
+        UnassignedChildren: len(result.UnassignedChildren),
+        UnusedCookies:      len(result.UnusedCookies),
+        MinGreed:           minGreed,
+        MaxGreed:           maxGreed,
+        MinCookieSize:      minCookieSize,
+        MaxCookieSize:      maxCookieSize,
+        AvgGreed:           float64(sumGreed) / float64(len(g)),
+        AvgCookieSize:      float64(sumCookieSize) / float64(len(s)),
+    }
+}
+```
+
+#### **Return Optimal Assignment**
+```go
+func findOptimalAssignment(g []int, s []int) AssignmentResult {
+    sort.Ints(g)
+    sort.Ints(s)
+    
+    var assignments []Assignment
+    var unassignedChildren []int
+    var unusedCookies []int
+    
+    childIndex := 0
+    cookieIndex := 0
+    
+    for childIndex < len(g) && cookieIndex < len(s) {
+        if s[cookieIndex] >= g[childIndex] {
+            assignments = append(assignments, Assignment{
+                ChildIndex:  childIndex,
+                CookieIndex: cookieIndex,
+                Greed:       g[childIndex],
+                CookieSize:  s[cookieIndex],
+            })
+            childIndex++
+        }
+        cookieIndex++
+    }
+    
+    // Add unassigned children
+    for i := childIndex; i < len(g); i++ {
+        unassignedChildren = append(unassignedChildren, g[i])
+    }
+    
+    // Add unused cookies
+    for i := cookieIndex; i < len(s); i++ {
+        unusedCookies = append(unusedCookies, s[i])
+    }
+    
+    return AssignmentResult{
+        ContentChildren:    len(assignments),
+        Assignments:       assignments,
+        UnassignedChildren: unassignedChildren,
+        UnusedCookies:     unusedCookies,
+    }
 }
 ```
 
 ### Complexity
-- **Time Complexity:** O(n log n + m log m) for sorting, O(n + m) for two pointers
-- **Space Complexity:** O(1) for sorting, O(n + m) for priority queue
+- **Time Complexity:** O(n log n + m log m) where n and m are lengths of arrays
+- **Space Complexity:** O(1) for in-place, O(n + m) for additional arrays

@@ -22,15 +22,15 @@ func isAnagram(s string, t string) bool {
         return false
     }
     
-    charCount := make(map[rune]int)
+    count := make([]int, 26)
     
-    for _, char := range s {
-        charCount[char]++
+    for i := 0; i < len(s); i++ {
+        count[s[i]-'a']++
+        count[t[i]-'a']--
     }
     
-    for _, char := range t {
-        charCount[char]--
-        if charCount[char] < 0 {
+    for _, c := range count {
+        if c != 0 {
             return false
         }
     }
@@ -41,22 +41,22 @@ func isAnagram(s string, t string) bool {
 
 ### Alternative Solutions
 
-#### **Using Array for ASCII Characters**
+#### **Using Hash Map**
 ```go
-func isAnagramArray(s string, t string) bool {
+func isAnagramHashMap(s string, t string) bool {
     if len(s) != len(t) {
         return false
     }
     
-    charCount := make([]int, 26) // For lowercase letters
+    count := make(map[rune]int)
     
-    for i := 0; i < len(s); i++ {
-        charCount[s[i]-'a']++
-        charCount[t[i]-'a']--
+    for _, char := range s {
+        count[char]++
     }
     
-    for _, count := range charCount {
-        if count != 0 {
+    for _, char := range t {
+        count[char]--
+        if count[char] < 0 {
             return false
         }
     }
@@ -89,59 +89,109 @@ func isAnagramSort(s string, t string) bool {
 }
 ```
 
-#### **Using Two Maps**
+#### **Return Character Differences**
 ```go
-func isAnagramTwoMaps(s string, t string) bool {
+type AnagramResult struct {
+    IsAnagram bool
+    Differences map[rune]int
+    MissingChars []rune
+    ExtraChars   []rune
+}
+
+func isAnagramWithDetails(s string, t string) AnagramResult {
     if len(s) != len(t) {
-        return false
-    }
-    
-    sCount := make(map[rune]int)
-    tCount := make(map[rune]int)
-    
-    for _, char := range s {
-        sCount[char]++
-    }
-    
-    for _, char := range t {
-        tCount[char]++
-    }
-    
-    if len(sCount) != len(tCount) {
-        return false
-    }
-    
-    for char, count := range sCount {
-        if tCount[char] != count {
-            return false
+        return AnagramResult{
+            IsAnagram: false,
+            Differences: make(map[rune]int),
         }
     }
     
-    return true
+    count := make(map[rune]int)
+    
+    for _, char := range s {
+        count[char]++
+    }
+    
+    for _, char := range t {
+        count[char]--
+    }
+    
+    var missingChars, extraChars []rune
+    differences := make(map[rune]int)
+    
+    for char, diff := range count {
+        if diff != 0 {
+            differences[char] = diff
+            if diff > 0 {
+                missingChars = append(missingChars, char)
+            } else {
+                extraChars = append(extraChars, char)
+            }
+        }
+    }
+    
+    return AnagramResult{
+        IsAnagram:    len(differences) == 0,
+        Differences:  differences,
+        MissingChars: missingChars,
+        ExtraChars:   extraChars,
+    }
 }
 ```
 
-#### **Using XOR (Limited Use Case)**
+#### **Case Insensitive**
 ```go
-func isAnagramXOR(s string, t string) bool {
-    if len(s) != len(t) {
-        return false
+import "strings"
+
+func isAnagramCaseInsensitive(s string, t string) bool {
+    s = strings.ToLower(s)
+    t = strings.ToLower(t)
+    return isAnagram(s, t)
+}
+```
+
+#### **Return All Anagrams**
+```go
+func findAllAnagrams(s string, wordList []string) []string {
+    var anagrams []string
+    
+    for _, word := range wordList {
+        if isAnagram(s, word) {
+            anagrams = append(anagrams, word)
+        }
     }
     
-    xor := 0
-    sum := 0
+    return anagrams
+}
+```
+
+#### **Return Anagram Groups**
+```go
+func groupAnagrams(words []string) [][]string {
+    groups := make(map[string][]string)
     
-    for i := 0; i < len(s); i++ {
-        xor ^= int(s[i])
-        xor ^= int(t[i])
-        sum += int(s[i])
-        sum -= int(t[i])
+    for _, word := range words {
+        key := sortString(word)
+        groups[key] = append(groups[key], word)
     }
     
-    return xor == 0 && sum == 0
+    var result [][]string
+    for _, group := range groups {
+        result = append(result, group)
+    }
+    
+    return result
+}
+
+func sortString(s string) string {
+    runes := []rune(s)
+    sort.Slice(runes, func(i, j int) bool {
+        return runes[i] < runes[j]
+    })
+    return string(runes)
 }
 ```
 
 ### Complexity
-- **Time Complexity:** O(n) for hash map, O(n log n) for sorting
-- **Space Complexity:** O(1) for array, O(n) for hash map
+- **Time Complexity:** O(n) for counting, O(n log n) for sorting
+- **Space Complexity:** O(1) for fixed character set, O(n) for hash map

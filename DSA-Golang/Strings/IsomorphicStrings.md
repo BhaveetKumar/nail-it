@@ -34,7 +34,6 @@ func isIsomorphic(s string, t string) bool {
         sChar := s[i]
         tChar := t[i]
         
-        // Check if sChar is already mapped
         if mappedT, exists := sToT[sChar]; exists {
             if mappedT != tChar {
                 return false
@@ -43,7 +42,6 @@ func isIsomorphic(s string, t string) bool {
             sToT[sChar] = tChar
         }
         
-        // Check if tChar is already mapped
         if mappedS, exists := tToS[tChar]; exists {
             if mappedS != sChar {
                 return false
@@ -59,30 +57,30 @@ func isIsomorphic(s string, t string) bool {
 
 ### Alternative Solutions
 
-#### **Using Single Map with Set**
+#### **Using Single Map**
 ```go
 func isIsomorphicSingleMap(s string, t string) bool {
     if len(s) != len(t) {
         return false
     }
     
-    charMap := make(map[byte]byte)
-    usedChars := make(map[byte]bool)
+    mapping := make(map[byte]byte)
+    used := make(map[byte]bool)
     
     for i := 0; i < len(s); i++ {
         sChar := s[i]
         tChar := t[i]
         
-        if mappedChar, exists := charMap[sChar]; exists {
-            if mappedChar != tChar {
+        if mapped, exists := mapping[sChar]; exists {
+            if mapped != tChar {
                 return false
             }
         } else {
-            if usedChars[tChar] {
+            if used[tChar] {
                 return false
             }
-            charMap[sChar] = tChar
-            usedChars[tChar] = true
+            mapping[sChar] = tChar
+            used[tChar] = true
         }
     }
     
@@ -90,7 +88,7 @@ func isIsomorphicSingleMap(s string, t string) bool {
 }
 ```
 
-#### **Using Array for ASCII Characters**
+#### **Using Array**
 ```go
 func isIsomorphicArray(s string, t string) bool {
     if len(s) != len(t) {
@@ -107,7 +105,6 @@ func isIsomorphicArray(s string, t string) bool {
         if sToT[sChar] != 0 && sToT[sChar] != tChar {
             return false
         }
-        
         if tToS[tChar] != 0 && tToS[tChar] != sChar {
             return false
         }
@@ -120,70 +117,132 @@ func isIsomorphicArray(s string, t string) bool {
 }
 ```
 
-#### **Using String Transformation**
+#### **Return Mapping**
 ```go
-func isIsomorphicTransform(s string, t string) bool {
-    return transformString(s) == transformString(t)
+type IsomorphicResult struct {
+    IsIsomorphic bool
+    Mapping      map[byte]byte
+    ReverseMapping map[byte]byte
 }
 
-func transformString(s string) string {
-    charMap := make(map[byte]int)
-    result := make([]byte, len(s))
-    nextChar := 0
+func isIsomorphicWithMapping(s string, t string) IsomorphicResult {
+    if len(s) != len(t) {
+        return IsomorphicResult{
+            IsIsomorphic: false,
+            Mapping:      make(map[byte]byte),
+            ReverseMapping: make(map[byte]byte),
+        }
+    }
+    
+    sToT := make(map[byte]byte)
+    tToS := make(map[byte]byte)
     
     for i := 0; i < len(s); i++ {
-        if _, exists := charMap[s[i]]; !exists {
-            charMap[s[i]] = nextChar
-            nextChar++
+        sChar := s[i]
+        tChar := t[i]
+        
+        if mappedT, exists := sToT[sChar]; exists {
+            if mappedT != tChar {
+                return IsomorphicResult{
+                    IsIsomorphic: false,
+                    Mapping:      sToT,
+                    ReverseMapping: tToS,
+                }
+            }
+        } else {
+            sToT[sChar] = tChar
         }
-        result[i] = byte(charMap[s[i]] + 'a')
+        
+        if mappedS, exists := tToS[tChar]; exists {
+            if mappedS != sChar {
+                return IsomorphicResult{
+                    IsIsomorphic: false,
+                    Mapping:      sToT,
+                    ReverseMapping: tToS,
+                }
+            }
+        } else {
+            tToS[tChar] = sChar
+        }
+    }
+    
+    return IsomorphicResult{
+        IsIsomorphic: true,
+        Mapping:      sToT,
+        ReverseMapping: tToS,
+    }
+}
+```
+
+#### **Transform String**
+```go
+func transformString(s string, mapping map[byte]byte) string {
+    result := make([]byte, len(s))
+    
+    for i := 0; i < len(s); i++ {
+        if mapped, exists := mapping[s[i]]; exists {
+            result[i] = mapped
+        } else {
+            result[i] = s[i]
+        }
     }
     
     return string(result)
 }
 ```
 
-#### **Using Index Mapping**
+#### **Find All Isomorphic Strings**
 ```go
-func isIsomorphicIndex(s string, t string) bool {
-    if len(s) != len(t) {
-        return false
-    }
+func findAllIsomorphic(s string, wordList []string) []string {
+    var isomorphic []string
     
-    sIndices := make(map[byte][]int)
-    tIndices := make(map[byte][]int)
-    
-    for i := 0; i < len(s); i++ {
-        sIndices[s[i]] = append(sIndices[s[i]], i)
-        tIndices[t[i]] = append(tIndices[t[i]], i)
-    }
-    
-    if len(sIndices) != len(tIndices) {
-        return false
-    }
-    
-    // Check if the pattern of indices matches
-    sPattern := make([]int, len(s))
-    tPattern := make([]int, len(t))
-    
-    for i, char := range s {
-        sPattern[i] = sIndices[byte(char)][0]
-    }
-    
-    for i, char := range t {
-        tPattern[i] = tIndices[byte(char)][0]
-    }
-    
-    for i := 0; i < len(sPattern); i++ {
-        if sPattern[i] != tPattern[i] {
-            return false
+    for _, word := range wordList {
+        if isIsomorphic(s, word) {
+            isomorphic = append(isomorphic, word)
         }
     }
     
-    return true
+    return isomorphic
+}
+```
+
+#### **Return Isomorphism Groups**
+```go
+func groupIsomorphicStrings(words []string) [][]string {
+    groups := make(map[string][]string)
+    
+    for _, word := range words {
+        key := getIsomorphismKey(word)
+        groups[key] = append(groups[key], word)
+    }
+    
+    var result [][]string
+    for _, group := range groups {
+        result = append(result, group)
+    }
+    
+    return result
+}
+
+func getIsomorphismKey(s string) string {
+    mapping := make(map[byte]int)
+    key := make([]byte, len(s))
+    nextId := 0
+    
+    for i := 0; i < len(s); i++ {
+        if id, exists := mapping[s[i]]; exists {
+            key[i] = byte(id)
+        } else {
+            mapping[s[i]] = nextId
+            key[i] = byte(nextId)
+            nextId++
+        }
+    }
+    
+    return string(key)
 }
 ```
 
 ### Complexity
-- **Time Complexity:** O(n)
-- **Space Complexity:** O(1) for array, O(n) for hash map
+- **Time Complexity:** O(n) where n is the length of the strings
+- **Space Complexity:** O(1) for fixed character set, O(n) for hash maps
