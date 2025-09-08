@@ -7,6 +7,7 @@
 Multi-cloud is the use of multiple cloud computing services from different providers to avoid vendor lock-in, improve reliability, and optimize costs. It involves distributing workloads across AWS, GCP, Azure, and other cloud platforms while maintaining consistent management and security.
 
 ### Key Features
+
 - **Vendor Independence**: Avoid single cloud provider dependency
 - **High Availability**: Distribute workloads across multiple clouds
 - **Cost Optimization**: Leverage best pricing from different providers
@@ -78,7 +79,7 @@ terraform {
 # AWS Provider
 provider "aws" {
   region = var.aws_region
-  
+
   default_tags {
     tags = {
       Environment = var.environment
@@ -93,7 +94,7 @@ provider "aws" {
 provider "google" {
   project = var.gcp_project_id
   region  = var.gcp_region
-  
+
   default_labels = {
     environment = var.environment
     project     = var.project_name
@@ -105,7 +106,7 @@ provider "google" {
 # Azure Provider
 provider "azurerm" {
   features {}
-  
+
   default_tags = {
     Environment = var.environment
     Project     = var.project_name
@@ -588,42 +589,42 @@ spec:
         cloud: aws
     spec:
       containers:
-      - name: my-app
-        image: my-app:latest
-        ports:
-        - containerPort: 8080
-        env:
-        - name: CLOUD_PROVIDER
-          value: "aws"
-        - name: DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: aws-db-secret
-              key: url
-        - name: REDIS_URL
-          valueFrom:
-            secretKeyRef:
-              name: aws-redis-secret
-              key: url
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "250m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: 8080
-          initialDelaySeconds: 5
-          periodSeconds: 5
+        - name: my-app
+          image: my-app:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: CLOUD_PROVIDER
+              value: "aws"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: aws-db-secret
+                  key: url
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: aws-redis-secret
+                  key: url
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -646,42 +647,42 @@ spec:
         cloud: gcp
     spec:
       containers:
-      - name: my-app
-        image: my-app:latest
-        ports:
-        - containerPort: 8080
-        env:
-        - name: CLOUD_PROVIDER
-          value: "gcp"
-        - name: DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: gcp-db-secret
-              key: url
-        - name: REDIS_URL
-          valueFrom:
-            secretKeyRef:
-              name: gcp-redis-secret
-              key: url
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "250m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: 8080
-          initialDelaySeconds: 5
-          periodSeconds: 5
+        - name: my-app
+          image: my-app:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: CLOUD_PROVIDER
+              value: "gcp"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: gcp-db-secret
+                  key: url
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: gcp-redis-secret
+                  key: url
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -704,42 +705,42 @@ spec:
         cloud: azure
     spec:
       containers:
-      - name: my-app
-        image: my-app:latest
-        ports:
-        - containerPort: 8080
-        env:
-        - name: CLOUD_PROVIDER
-          value: "azure"
-        - name: DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: azure-db-secret
-              key: url
-        - name: REDIS_URL
-          valueFrom:
-            secretKeyRef:
-              name: azure-redis-secret
-              key: url
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "250m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: 8080
-          initialDelaySeconds: 5
-          periodSeconds: 5
+        - name: my-app
+          image: my-app:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: CLOUD_PROVIDER
+              value: "azure"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: azure-db-secret
+                  key: url
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: azure-redis-secret
+                  key: url
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
 ---
 apiVersion: v1
 kind: Service
@@ -750,9 +751,9 @@ spec:
   selector:
     app: my-app
   ports:
-  - port: 80
-    targetPort: 8080
-    protocol: TCP
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
   type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
@@ -766,20 +767,20 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   tls:
-  - hosts:
-    - my-app.example.com
-    secretName: my-app-tls
+    - hosts:
+        - my-app.example.com
+      secretName: my-app-tls
   rules:
-  - host: my-app.example.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: my-app-service
-            port:
-              number: 80
+    - host: my-app.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-app-service
+                port:
+                  number: 80
 ```
 
 ### Multi-Cloud Monitoring
@@ -884,30 +885,30 @@ spec:
         app: aws-cloudwatch-exporter
     spec:
       containers:
-      - name: aws-cloudwatch-exporter
-        image: prom/cloudwatch-exporter:latest
-        ports:
-        - containerPort: 9106
-        env:
-        - name: AWS_ACCESS_KEY_ID
-          valueFrom:
-            secretKeyRef:
-              name: aws-credentials
-              key: access-key-id
-        - name: AWS_SECRET_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: aws-credentials
-              key: secret-access-key
-        - name: AWS_REGION
-          value: "us-east-1"
-        volumeMounts:
-        - name: config
-          mountPath: /config
+        - name: aws-cloudwatch-exporter
+          image: prom/cloudwatch-exporter:latest
+          ports:
+            - containerPort: 9106
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: access-key-id
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: secret-access-key
+            - name: AWS_REGION
+              value: "us-east-1"
+          volumeMounts:
+            - name: config
+              mountPath: /config
       volumes:
-      - name: config
-        configMap:
-          name: aws-cloudwatch-config
+        - name: config
+          configMap:
+            name: aws-cloudwatch-config
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -925,20 +926,20 @@ spec:
         app: gcp-stackdriver-exporter
     spec:
       containers:
-      - name: gcp-stackdriver-exporter
-        image: prom/stackdriver-exporter:latest
-        ports:
-        - containerPort: 9107
-        env:
-        - name: GOOGLE_APPLICATION_CREDENTIALS
-          value: "/config/service-account.json"
-        volumeMounts:
-        - name: config
-          mountPath: /config
+        - name: gcp-stackdriver-exporter
+          image: prom/stackdriver-exporter:latest
+          ports:
+            - containerPort: 9107
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: "/config/service-account.json"
+          volumeMounts:
+            - name: config
+              mountPath: /config
       volumes:
-      - name: config
-        secret:
-          secretName: gcp-service-account
+        - name: config
+          secret:
+            secretName: gcp-service-account
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -956,31 +957,31 @@ spec:
         app: azure-monitor-exporter
     spec:
       containers:
-      - name: azure-monitor-exporter
-        image: prom/azure-exporter:latest
-        ports:
-        - containerPort: 9108
-        env:
-        - name: AZURE_CLIENT_ID
-          valueFrom:
-            secretKeyRef:
-              name: azure-credentials
-              key: client-id
-        - name: AZURE_CLIENT_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: azure-credentials
-              key: client-secret
-        - name: AZURE_TENANT_ID
-          valueFrom:
-            secretKeyRef:
-              name: azure-credentials
-              key: tenant-id
-        - name: AZURE_SUBSCRIPTION_ID
-          valueFrom:
-            secretKeyRef:
-              name: azure-credentials
-              key: subscription-id
+        - name: azure-monitor-exporter
+          image: prom/azure-exporter:latest
+          ports:
+            - containerPort: 9108
+          env:
+            - name: AZURE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: azure-credentials
+                  key: client-id
+            - name: AZURE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: azure-credentials
+                  key: client-secret
+            - name: AZURE_TENANT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: azure-credentials
+                  key: tenant-id
+            - name: AZURE_SUBSCRIPTION_ID
+              valueFrom:
+                secretKeyRef:
+                  name: azure-credentials
+                  key: subscription-id
 ```
 
 ### Multi-Cloud Data Synchronization
@@ -1234,6 +1235,7 @@ type Sync struct {
 ## 🚀 Best Practices
 
 ### 1. Cloud Provider Selection
+
 ```hcl
 # Choose providers based on requirements
 provider "aws" {
@@ -1250,6 +1252,7 @@ provider "azurerm" {
 ```
 
 ### 2. Cost Optimization
+
 ```yaml
 # Use spot instances and preemptible VMs
 spec:
@@ -1258,13 +1261,14 @@ spec:
       nodeSelector:
         cloud.google.com/gke-preemptible: "true"
       tolerations:
-      - key: cloud.google.com/gke-preemptible
-        operator: Equal
-        value: "true"
-        effect: NoSchedule
+        - key: cloud.google.com/gke-preemptible
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
 ```
 
 ### 3. Data Consistency
+
 ```go
 // Implement eventual consistency
 func (mcds *MultiCloudDataSync) SyncDataWithRetry(ctx context.Context, sourceCloud, targetCloud, bucket, key string) error {
@@ -1274,7 +1278,7 @@ func (mcds *MultiCloudDataSync) SyncDataWithRetry(ctx context.Context, sourceClo
         if err == nil {
             return nil
         }
-        
+
         if i < maxRetries-1 {
             time.Sleep(time.Duration(i+1) * time.Second)
         }
@@ -1286,12 +1290,14 @@ func (mcds *MultiCloudDataSync) SyncDataWithRetry(ctx context.Context, sourceClo
 ## 🏢 Industry Insights
 
 ### Multi-Cloud Usage Patterns
+
 - **Disaster Recovery**: Cross-cloud backup and failover
 - **Cost Optimization**: Leverage best pricing from different providers
 - **Compliance**: Meet regulatory requirements across regions
 - **Performance**: Optimize for different geographic regions
 
 ### Enterprise Multi-Cloud Strategy
+
 - **Vendor Independence**: Avoid single cloud provider dependency
 - **Risk Mitigation**: Reduce impact of cloud provider outages
 - **Global Reach**: Serve customers in different regions
@@ -1300,13 +1306,16 @@ func (mcds *MultiCloudDataSync) SyncDataWithRetry(ctx context.Context, sourceClo
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is multi-cloud?**
+
    - Use of multiple cloud providers
    - Vendor independence
    - Risk mitigation
    - Cost optimization
 
 2. **What are the benefits of multi-cloud?**
+
    - Avoid vendor lock-in
    - Improve reliability
    - Optimize costs
@@ -1319,13 +1328,16 @@ func (mcds *MultiCloudDataSync) SyncDataWithRetry(ctx context.Context, sourceClo
    - Cost management
 
 ### Intermediate Level
+
 4. **How do you implement multi-cloud?**
+
    - Infrastructure as Code
    - Cross-cloud networking
    - Data synchronization
    - Monitoring and logging
 
 5. **How do you handle data consistency in multi-cloud?**
+
    - Eventual consistency
    - Conflict resolution
    - Data synchronization
@@ -1338,13 +1350,16 @@ func (mcds *MultiCloudDataSync) SyncDataWithRetry(ctx context.Context, sourceClo
    - Reserved instances
 
 ### Advanced Level
+
 7. **How do you implement multi-cloud security?**
+
    - Identity and access management
    - Network security
    - Data encryption
    - Compliance monitoring
 
 8. **How do you handle multi-cloud networking?**
+
    - VPN connections
    - Peering connections
    - Load balancing

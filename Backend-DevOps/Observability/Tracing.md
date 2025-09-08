@@ -7,6 +7,7 @@
 Distributed tracing is a method of tracking requests as they flow through multiple services in a distributed system. It provides visibility into the path of requests, latency at each step, and helps identify bottlenecks and failures across service boundaries.
 
 ### Key Features
+
 - **Request Flow Tracking**: Follow requests across services
 - **Latency Analysis**: Measure performance at each step
 - **Error Propagation**: Track error sources and paths
@@ -285,11 +286,11 @@ type User struct {
 // HTTP handlers
 func setupRoutes(logger *zap.Logger) *gin.Engine {
     r := gin.New()
-    
+
     // Add middleware
     r.Use(tracingMiddleware())
     r.Use(gin.Recovery())
-    
+
     // Health check
     r.GET("/health", func(c *gin.Context) {
         c.JSON(http.StatusOK, gin.H{
@@ -297,13 +298,13 @@ func setupRoutes(logger *zap.Logger) *gin.Engine {
             "timestamp": time.Now().UTC(),
         })
     })
-    
+
     // User endpoints
     userService := NewUserService(logger)
-    
+
     r.GET("/users/:id", func(c *gin.Context) {
         userID := c.Param("id")
-        
+
         user, err := userService.GetUser(c.Request.Context(), userID)
         if err != nil {
             c.JSON(http.StatusInternalServerError, gin.H{
@@ -311,10 +312,10 @@ func setupRoutes(logger *zap.Logger) *gin.Engine {
             })
             return
         }
-        
+
         c.JSON(http.StatusOK, user)
     })
-    
+
     return r
 }
 
@@ -322,25 +323,25 @@ func main() {
     // Initialize tracing
     shutdown := initTracer()
     defer shutdown()
-    
+
     // Setup logger
     logger, _ := zap.NewProduction()
     defer logger.Sync()
-    
+
     // Setup routes
     router := setupRoutes(logger)
-    
+
     // Start server
     port := os.Getenv("PORT")
     if port == "" {
         port = "8080"
     }
-    
+
     logger.Info("Starting server",
         zap.String("port", port),
         zap.String("environment", os.Getenv("ENVIRONMENT")),
     )
-    
+
     if err := router.Run(":" + port); err != nil {
         logger.Fatal("Failed to start server", zap.Error(err))
     }
@@ -351,17 +352,17 @@ func main() {
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
+version: "3.8"
 
 services:
   jaeger:
     image: jaegertracing/all-in-one:latest
     ports:
-      - "16686:16686"  # Jaeger UI
-      - "14268:14268"  # Jaeger collector HTTP
-      - "14250:14250"  # Jaeger collector gRPC
-      - "4317:4317"    # OTLP gRPC
-      - "4318:4318"    # OTLP HTTP
+      - "16686:16686" # Jaeger UI
+      - "14268:14268" # Jaeger collector HTTP
+      - "14250:14250" # Jaeger collector gRPC
+      - "4317:4317" # OTLP gRPC
+      - "4318:4318" # OTLP HTTP
     environment:
       - COLLECTOR_OTLP_ENABLED=true
       - SPAN_STORAGE_TYPE=elasticsearch
@@ -546,52 +547,52 @@ spec:
     spec:
       serviceAccountName: otel-collector
       containers:
-      - name: otel-collector
-        image: otel/opentelemetry-collector-contrib:latest
-        args:
-          - --config=/etc/otel-collector-config.yaml
-        env:
-        - name: NODE_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.nodeName
-        - name: POD_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
-        - name: POD_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        ports:
-        - containerPort: 4317
-          name: otlp-grpc
-        - containerPort: 4318
-          name: otlp-http
-        - containerPort: 14268
-          name: jaeger-thrift-http
-        - containerPort: 14250
-          name: jaeger-grpc
-        - containerPort: 9411
-          name: zipkin
-        volumeMounts:
-        - name: otel-collector-config
-          mountPath: /etc/otel-collector-config.yaml
-          subPath: otel-collector-config.yaml
-        resources:
-          limits:
-            cpu: 500m
-            memory: 512Mi
-          requests:
-            cpu: 100m
-            memory: 128Mi
+        - name: otel-collector
+          image: otel/opentelemetry-collector-contrib:latest
+          args:
+            - --config=/etc/otel-collector-config.yaml
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          ports:
+            - containerPort: 4317
+              name: otlp-grpc
+            - containerPort: 4318
+              name: otlp-http
+            - containerPort: 14268
+              name: jaeger-thrift-http
+            - containerPort: 14250
+              name: jaeger-grpc
+            - containerPort: 9411
+              name: zipkin
+          volumeMounts:
+            - name: otel-collector-config
+              mountPath: /etc/otel-collector-config.yaml
+              subPath: otel-collector-config.yaml
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
       volumes:
-      - name: otel-collector-config
-        configMap:
-          name: otel-collector-config
+        - name: otel-collector-config
+          configMap:
+            name: otel-collector-config
       tolerations:
-      - operator: Exists
-        effect: NoSchedule
+        - operator: Exists
+          effect: NoSchedule
 ```
 
 ### Trace Analysis Queries
@@ -707,6 +708,7 @@ func (s *UserService) processUserData(ctx context.Context, user *User) error {
 ## 🚀 Best Practices
 
 ### 1. Span Naming
+
 ```go
 // Use consistent span naming
 ctx, span := tracer.Start(ctx, "ServiceName.OperationName")
@@ -715,6 +717,7 @@ ctx, span := tracer.Start(ctx, "Database.Select")
 ```
 
 ### 2. Attribute Management
+
 ```go
 // Use meaningful attributes
 span.SetAttributes(
@@ -725,6 +728,7 @@ span.SetAttributes(
 ```
 
 ### 3. Error Handling
+
 ```go
 // Add error information to spans
 if err != nil {
@@ -738,12 +742,14 @@ if err != nil {
 ## 🏢 Industry Insights
 
 ### Tracing Usage Patterns
+
 - **Microservices**: Service-to-service communication
 - **Performance Analysis**: Latency and bottleneck identification
 - **Error Tracking**: Root cause analysis
 - **Dependency Mapping**: Service interaction visualization
 
 ### Enterprise Tracing Strategy
+
 - **Sampling**: Cost-effective tracing
 - **Storage**: Long-term trace retention
 - **Security**: Trace data protection
@@ -752,13 +758,16 @@ if err != nil {
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is distributed tracing?**
+
    - Request flow tracking
    - Performance analysis
    - Error propagation
    - Service dependencies
 
 2. **What is OpenTelemetry?**
+
    - Observability framework
    - Vendor-neutral
    - Multiple languages
@@ -771,7 +780,9 @@ if err != nil {
    - Parent-child relationships
 
 ### Intermediate Level
+
 4. **How do you implement distributed tracing?**
+
    ```go
    ctx, span := tracer.Start(ctx, "OperationName")
    defer span.End()
@@ -779,6 +790,7 @@ if err != nil {
    ```
 
 5. **How do you handle trace context propagation?**
+
    - HTTP headers
    - gRPC metadata
    - Message queues
@@ -791,13 +803,16 @@ if err != nil {
    - Cost optimization
 
 ### Advanced Level
+
 7. **How do you implement trace analysis?**
+
    - Performance profiling
    - Error analysis
    - Dependency mapping
    - SLA monitoring
 
 8. **How do you handle trace storage?**
+
    - Elasticsearch
    - Cassandra
    - S3

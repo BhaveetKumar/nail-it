@@ -7,6 +7,7 @@
 API security involves protecting APIs from various threats including unauthorized access, data breaches, and abuse. It encompasses authentication, authorization, rate limiting, input validation, and monitoring to ensure secure and reliable API operations.
 
 ### Key Features
+
 - **Authentication**: Verify user identity
 - **Authorization**: Control access to resources
 - **Rate Limiting**: Prevent API abuse
@@ -249,7 +250,7 @@ func (as *AuthService) RevokeToken(refreshToken string) error {
 
 func (as *AuthService) getPermissionsForRoles(roles []string) []string {
     permissions := make([]string, 0)
-    
+
     for _, role := range roles {
         switch role {
         case "admin":
@@ -260,7 +261,7 @@ func (as *AuthService) getPermissionsForRoles(roles []string) []string {
             permissions = append(permissions, "read")
         }
     }
-    
+
     return permissions
 }
 ```
@@ -690,7 +691,7 @@ func (sm *SecurityMiddleware) RateLimitMiddleware() gin.HandlerFunc {
     return func(c *gin.Context) {
         // Get client identifier (IP address or user ID)
         clientID := c.ClientIP()
-        
+
         // Check if user is authenticated
         if claims, exists := c.Get("claims"); exists {
             if userClaims, ok := claims.(*Claims); ok {
@@ -778,7 +779,7 @@ func (sm *SecurityMiddleware) ValidationMiddleware() gin.HandlerFunc {
 func (sm *SecurityMiddleware) CORSMiddleware() gin.HandlerFunc {
     return func(c *gin.Context) {
         origin := c.GetHeader("Origin")
-        
+
         // Check if origin is allowed
         allowedOrigins := []string{
             "http://localhost:3000",
@@ -829,13 +830,13 @@ func (sm *SecurityMiddleware) SecurityHeadersMiddleware() gin.HandlerFunc {
 func (sm *SecurityMiddleware) LoggingMiddleware() gin.HandlerFunc {
     return func(c *gin.Context) {
         start := time.Now()
-        
+
         // Process request
         c.Next()
-        
+
         // Log request
         duration := time.Since(start)
-        
+
         sm.logger.Info("API request",
             zap.String("method", c.Request.Method),
             zap.String("path", c.FullPath()),
@@ -1086,16 +1087,16 @@ import (
 
 func setupRoutes(authService *AuthService, rateLimiter *RateLimiter, validator *Validator, authzService *AuthorizationService, logger *zap.Logger) *gin.Engine {
     r := gin.New()
-    
+
     // Create security middleware
     securityMiddleware := NewSecurityMiddleware(authService, rateLimiter, validator, logger)
-    
+
     // Add global middleware
     r.Use(securityMiddleware.LoggingMiddleware())
     r.Use(securityMiddleware.SecurityHeadersMiddleware())
     r.Use(securityMiddleware.CORSMiddleware())
     r.Use(gin.Recovery())
-    
+
     // Public routes
     public := r.Group("/api/v1")
     {
@@ -1106,7 +1107,7 @@ func setupRoutes(authService *AuthService, rateLimiter *RateLimiter, validator *
                 "timestamp": time.Now().UTC(),
             })
         })
-        
+
         // Authentication routes
         auth := public.Group("/auth")
         {
@@ -1116,30 +1117,30 @@ func setupRoutes(authService *AuthService, rateLimiter *RateLimiter, validator *
                     Email    string `json:"email" binding:"required"`
                     Password string `json:"password" binding:"required"`
                 }
-                
+
                 if err := c.ShouldBindJSON(&request); err != nil {
                     c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
                     return
                 }
-                
+
                 // Validate input
                 validator.AddRule("username", Required())
                 validator.AddRule("username", MinLength(3))
                 validator.AddRule("username", MaxLength(20))
                 validator.AddRule("username", Alphanumeric())
-                
+
                 validator.AddRule("email", Required())
                 validator.AddRule("email", Email())
-                
+
                 validator.AddRule("password", Required())
                 validator.AddRule("password", StrongPassword())
-                
+
                 result := validator.Validate(map[string]interface{}{
                     "username": request.Username,
                     "email":    request.Email,
                     "password": request.Password,
                 })
-                
+
                 if !result.IsValid {
                     c.JSON(http.StatusBadRequest, gin.H{
                         "error": "Validation failed",
@@ -1147,69 +1148,69 @@ func setupRoutes(authService *AuthService, rateLimiter *RateLimiter, validator *
                     })
                     return
                 }
-                
+
                 // Register user
                 user, err := authService.RegisterUser(request.Username, request.Email, request.Password, []string{"user"})
                 if err != nil {
                     c.JSON(http.StatusInternalServerError, gin.H{"error": "Registration failed"})
                     return
                 }
-                
+
                 c.JSON(http.StatusCreated, gin.H{
                     "message": "User registered successfully",
                     "user_id": user.ID,
                 })
             })
-            
+
             auth.POST("/login", func(c *gin.Context) {
                 var request struct {
                     Username string `json:"username" binding:"required"`
                     Password string `json:"password" binding:"required"`
                 }
-                
+
                 if err := c.ShouldBindJSON(&request); err != nil {
                     c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
                     return
                 }
-                
+
                 // Authenticate user
                 user, err := authService.AuthenticateUser(request.Username, request.Password)
                 if err != nil {
                     c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid credentials"})
                     return
                 }
-                
+
                 // Generate tokens
                 accessToken, refreshToken, err := authService.GenerateTokenPair(user)
                 if err != nil {
                     c.JSON(http.StatusInternalServerError, gin.H{"error": "Token generation failed"})
                     return
                 }
-                
+
                 c.JSON(http.StatusOK, gin.H{
                     "access_token":  accessToken,
                     "refresh_token": refreshToken,
                     "expires_in":    900, // 15 minutes
                 })
             })
-            
+
             auth.POST("/refresh", func(c *gin.Context) {
                 var request struct {
                     RefreshToken string `json:"refresh_token" binding:"required"`
                 }
-                
+
                 if err := c.ShouldBindJSON(&request); err != nil {
                     c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
                     return
                 }
-                
+
                 // Refresh token
                 newAccessToken, err := authService.RefreshToken(request.RefreshToken)
                 if err != nil {
                     c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid refresh token"})
                     return
                 }
-                
+
                 c.JSON(http.StatusOK, gin.H{
                     "access_token": newAccessToken,
                     "expires_in":   900, // 15 minutes
@@ -1217,7 +1218,7 @@ func setupRoutes(authService *AuthService, rateLimiter *RateLimiter, validator *
             })
         }
     }
-    
+
     // Protected routes
     protected := r.Group("/api/v1")
     protected.Use(securityMiddleware.AuthMiddleware())
@@ -1228,7 +1229,7 @@ func setupRoutes(authService *AuthService, rateLimiter *RateLimiter, validator *
         {
             users.GET("/profile", authzService.RequirePermission("users", "read"), func(c *gin.Context) {
                 claims := c.MustGet("claims").(*Claims)
-                
+
                 c.JSON(http.StatusOK, gin.H{
                     "user_id":   claims.UserID,
                     "username":  claims.Username,
@@ -1237,23 +1238,23 @@ func setupRoutes(authService *AuthService, rateLimiter *RateLimiter, validator *
                     "permissions": claims.Permissions,
                 })
             })
-            
+
             users.PUT("/profile", authzService.RequirePermission("users", "write"), func(c *gin.Context) {
                 var request struct {
                     Email string `json:"email"`
                 }
-                
+
                 if err := c.ShouldBindJSON(&request); err != nil {
                     c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
                     return
                 }
-                
+
                 // Validate email
                 validator.AddRule("email", Email())
                 result := validator.Validate(map[string]interface{}{
                     "email": request.Email,
                 })
-                
+
                 if !result.IsValid {
                     c.JSON(http.StatusBadRequest, gin.H{
                         "error": "Validation failed",
@@ -1261,11 +1262,11 @@ func setupRoutes(authService *AuthService, rateLimiter *RateLimiter, validator *
                     })
                     return
                 }
-                
+
                 c.JSON(http.StatusOK, gin.H{"message": "Profile updated successfully"})
             })
         }
-        
+
         // Admin routes
         admin := protected.Group("/admin")
         admin.Use(authzService.RequirePermission("admin", "admin"))
@@ -1273,13 +1274,13 @@ func setupRoutes(authService *AuthService, rateLimiter *RateLimiter, validator *
             admin.GET("/users", func(c *gin.Context) {
                 c.JSON(http.StatusOK, gin.H{"message": "Admin users endpoint"})
             })
-            
+
             admin.POST("/users", func(c *gin.Context) {
                 c.JSON(http.StatusOK, gin.H{"message": "Create user endpoint"})
             })
         }
     }
-    
+
     return r
 }
 ```
@@ -1287,6 +1288,7 @@ func setupRoutes(authService *AuthService, rateLimiter *RateLimiter, validator *
 ## 🚀 Best Practices
 
 ### 1. Token Security
+
 ```go
 // Use short-lived access tokens
 func (as *AuthService) generateAccessToken(user *User) (string, error) {
@@ -1302,6 +1304,7 @@ func (as *AuthService) generateAccessToken(user *User) (string, error) {
 ```
 
 ### 2. Rate Limiting
+
 ```go
 // Implement different rate limits for different endpoints
 func (sm *SecurityMiddleware) RateLimitMiddleware() gin.HandlerFunc {
@@ -1322,17 +1325,18 @@ func (sm *SecurityMiddleware) RateLimitMiddleware() gin.HandlerFunc {
 ```
 
 ### 3. Input Validation
+
 ```go
 // Validate all inputs
 func (v *Validator) Validate(data map[string]interface{}) ValidationResult {
     result := ValidationResult{IsValid: true, Errors: make([]ValidationError, 0)}
-    
+
     for field, rules := range v.rules {
         value, exists := data[field]
         if !exists {
             continue
         }
-        
+
         for _, rule := range rules {
             if !rule.Check(value) {
                 result.IsValid = false
@@ -1343,7 +1347,7 @@ func (v *Validator) Validate(data map[string]interface{}) ValidationResult {
             }
         }
     }
-    
+
     return result
 }
 ```
@@ -1351,12 +1355,14 @@ func (v *Validator) Validate(data map[string]interface{}) ValidationResult {
 ## 🏢 Industry Insights
 
 ### API Security Usage Patterns
+
 - **Authentication**: JWT, OAuth2, API keys
 - **Authorization**: Role-based access control
 - **Rate Limiting**: Prevent abuse and DoS attacks
 - **Input Validation**: Prevent injection attacks
 
 ### Enterprise API Security Strategy
+
 - **API Gateway**: Centralized security management
 - **Microservices**: Service-to-service authentication
 - **Monitoring**: Real-time threat detection
@@ -1365,13 +1371,16 @@ func (v *Validator) Validate(data map[string]interface{}) ValidationResult {
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is API security?**
+
    - Authentication and authorization
    - Input validation
    - Rate limiting
    - Encryption
 
 2. **What is JWT?**
+
    - JSON Web Token
    - Stateless authentication
    - Self-contained
@@ -1384,7 +1393,9 @@ func (v *Validator) Validate(data map[string]interface{}) ValidationResult {
    - SLA enforcement
 
 ### Intermediate Level
+
 4. **How do you implement JWT authentication?**
+
    ```go
    func (as *AuthService) ValidateToken(tokenString string) (*Claims, error) {
        token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (interface{}, error) {
@@ -1395,6 +1406,7 @@ func (v *Validator) Validate(data map[string]interface{}) ValidationResult {
    ```
 
 5. **How do you implement rate limiting?**
+
    - Token bucket algorithm
    - Sliding window
    - Fixed window
@@ -1407,13 +1419,16 @@ func (v *Validator) Validate(data map[string]interface{}) ValidationResult {
    - Length limits
 
 ### Advanced Level
+
 7. **How do you implement API security at scale?**
+
    - API gateway
    - Microservices security
    - Distributed rate limiting
    - Global policies
 
 8. **How do you handle API security monitoring?**
+
    - Real-time monitoring
    - Threat detection
    - Incident response

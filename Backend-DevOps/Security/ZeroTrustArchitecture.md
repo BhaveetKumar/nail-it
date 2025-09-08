@@ -7,6 +7,7 @@
 Zero Trust Architecture is a security model that assumes no implicit trust based on network location or user identity. It requires continuous verification of every user, device, and network connection, regardless of whether they are inside or outside the corporate network.
 
 ### Key Features
+
 - **Never Trust, Always Verify**: Continuous authentication and authorization
 - **Least Privilege Access**: Minimal necessary permissions
 - **Micro-segmentation**: Network isolation and control
@@ -299,7 +300,7 @@ func (ip *IdentityProvider) generateJWT(userID, deviceID string) (string, error)
 
 func (ip *IdentityProvider) getPermissionsForRoles(roles []string) []string {
     permissions := make([]string, 0)
-    
+
     for _, role := range roles {
         switch role {
         case "admin":
@@ -310,7 +311,7 @@ func (ip *IdentityProvider) getPermissionsForRoles(roles []string) []string {
             permissions = append(permissions, "read")
         }
     }
-    
+
     return permissions
 }
 
@@ -592,21 +593,21 @@ func (nc *NetworkController) CreateRule(name, source, destination, protocol stri
 func (nc *NetworkController) CheckAccess(ctx context.Context, sourceIP, destIP string, protocol string, port int) (bool, error) {
     // Find applicable rules
     applicableRules := make([]*NetworkRule, 0)
-    
+
     for _, rule := range nc.rules {
         if !rule.IsActive {
             continue
         }
-        
+
         if nc.ruleMatches(rule, sourceIP, destIP, protocol, port) {
             applicableRules = append(applicableRules, rule)
         }
     }
-    
+
     if len(applicableRules) == 0 {
         return false, fmt.Errorf("no applicable rules found")
     }
-    
+
     // Sort by priority (higher priority first)
     for i := 0; i < len(applicableRules); i++ {
         for j := i + 1; j < len(applicableRules); j++ {
@@ -615,7 +616,7 @@ func (nc *NetworkController) CheckAccess(ctx context.Context, sourceIP, destIP s
             }
         }
     }
-    
+
     // Apply first matching rule
     rule := applicableRules[0]
     return rule.Action == "allow", nil
@@ -626,22 +627,22 @@ func (nc *NetworkController) ruleMatches(rule *NetworkRule, sourceIP, destIP, pr
     if !nc.ipMatches(rule.Source, sourceIP) {
         return false
     }
-    
+
     // Check destination IP
     if !nc.ipMatches(rule.Destination, destIP) {
         return false
     }
-    
+
     // Check protocol
     if rule.Protocol != "any" && rule.Protocol != protocol {
         return false
     }
-    
+
     // Check port
     if rule.Port != 0 && rule.Port != port {
         return false
     }
-    
+
     return true
 }
 
@@ -649,14 +650,14 @@ func (nc *NetworkController) ipMatches(pattern, ip string) bool {
     if pattern == "any" {
         return true
     }
-    
+
     // Check if pattern is a CIDR
     if _, network, err := net.ParseCIDR(pattern); err == nil {
         if ipAddr := net.ParseIP(ip); ipAddr != nil {
             return network.Contains(ipAddr)
         }
     }
-    
+
     // Check if pattern is an exact IP
     return pattern == ip
 }
@@ -738,7 +739,7 @@ func (sm *SecurityMonitor) LogEvent(eventType, severity, source, destination, us
     }
 
     sm.events = append(sm.events, event)
-    
+
     // Check against security rules
     sm.checkSecurityRules(event)
 }
@@ -748,7 +749,7 @@ func (sm *SecurityMonitor) checkSecurityRules(event SecurityEvent) {
         if !rule.IsActive {
             continue
         }
-        
+
         if sm.ruleMatches(rule, event) {
             sm.executeActions(rule.Actions, event)
         }
@@ -766,7 +767,7 @@ func (sm *SecurityMonitor) ruleMatches(rule SecurityRule, event SecurityEvent) b
 
 func (sm *SecurityMonitor) conditionMatches(condition SecurityCondition, event SecurityEvent) bool {
     var value interface{}
-    
+
     switch condition.Field {
     case "type":
         value = event.Type
@@ -791,7 +792,7 @@ func (sm *SecurityMonitor) conditionMatches(condition SecurityCondition, event S
             return false
         }
     }
-    
+
     switch condition.Operator {
     case "equals":
         return value == condition.Value
@@ -1078,6 +1079,7 @@ func (ztm *ZeroTrustMiddleware) PolicyMiddleware() gin.HandlerFunc {
 ## 🚀 Best Practices
 
 ### 1. Identity Verification
+
 ```go
 // Implement multi-factor authentication
 func (ip *IdentityProvider) EnableMFA(userID string) error {
@@ -1085,7 +1087,7 @@ func (ip *IdentityProvider) EnableMFA(userID string) error {
     if !exists {
         return fmt.Errorf("user not found")
     }
-    
+
     user.MFAEnabled = true
     user.MFASecret = generateMFASecret()
     return nil
@@ -1093,11 +1095,12 @@ func (ip *IdentityProvider) EnableMFA(userID string) error {
 ```
 
 ### 2. Least Privilege Access
+
 ```go
 // Implement role-based access control
 func (ip *IdentityProvider) getPermissionsForRoles(roles []string) []string {
     permissions := make([]string, 0)
-    
+
     for _, role := range roles {
         switch role {
         case "admin":
@@ -1108,12 +1111,13 @@ func (ip *IdentityProvider) getPermissionsForRoles(roles []string) []string {
             permissions = append(permissions, "read")
         }
     }
-    
+
     return permissions
 }
 ```
 
 ### 3. Continuous Monitoring
+
 ```go
 // Monitor all access attempts
 func (ztm *ZeroTrustMiddleware) LogAccess(userID, deviceID, endpoint, result string) {
@@ -1137,12 +1141,14 @@ func (ztm *ZeroTrustMiddleware) LogAccess(userID, deviceID, endpoint, result str
 ## 🏢 Industry Insights
 
 ### Zero Trust Usage Patterns
+
 - **Network Security**: Micro-segmentation and access control
 - **Identity Management**: Multi-factor authentication and device trust
 - **Data Protection**: Encryption and access controls
 - **Security Monitoring**: Real-time threat detection
 
 ### Enterprise Zero Trust Strategy
+
 - **Phased Implementation**: Gradual rollout across organization
 - **Technology Integration**: Multiple security tools and platforms
 - **User Experience**: Seamless authentication and access
@@ -1151,13 +1157,16 @@ func (ztm *ZeroTrustMiddleware) LogAccess(userID, deviceID, endpoint, result str
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is Zero Trust Architecture?**
+
    - Never trust, always verify
    - Continuous authentication
    - Least privilege access
    - Micro-segmentation
 
 2. **What are the key principles of Zero Trust?**
+
    - Verify explicitly
    - Use least privilege access
    - Assume breach
@@ -1170,13 +1179,16 @@ func (ztm *ZeroTrustMiddleware) LogAccess(userID, deviceID, endpoint, result str
    - Traffic inspection
 
 ### Intermediate Level
+
 4. **How do you implement Zero Trust?**
+
    - Identity and access management
    - Network segmentation
    - Policy enforcement
    - Security monitoring
 
 5. **How do you handle device trust?**
+
    - Device registration
    - Device compliance
    - Trust scoring
@@ -1189,13 +1201,16 @@ func (ztm *ZeroTrustMiddleware) LogAccess(userID, deviceID, endpoint, result str
    - Security analytics
 
 ### Advanced Level
+
 7. **How do you implement Zero Trust at scale?**
+
    - Distributed architecture
    - Performance optimization
    - Scalable policies
    - Global deployment
 
 8. **How do you handle Zero Trust compliance?**
+
    - Regulatory requirements
    - Audit trails
    - Data protection

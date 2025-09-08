@@ -7,6 +7,7 @@
 Secrets management is the practice of securely storing, accessing, and rotating sensitive information such as passwords, API keys, certificates, and tokens. It ensures that sensitive data is protected from unauthorized access while providing secure access to authorized applications and users.
 
 ### Key Features
+
 - **Secure Storage**: Encrypted storage of secrets
 - **Access Control**: Role-based access to secrets
 - **Rotation**: Automatic secret rotation
@@ -720,38 +721,38 @@ spec:
         app: my-app
     spec:
       containers:
-      - name: my-app
-        image: my-app:latest
-        ports:
-        - containerPort: 8080
-        env:
-        - name: VAULT_ADDR
-          value: "http://vault:8200"
-        - name: VAULT_ROLE_ID
-          valueFrom:
-            secretKeyRef:
-              name: vault-token
-              key: role-id
-        - name: VAULT_SECRET_ID
-          valueFrom:
-            secretKeyRef:
-              name: vault-token
-              key: secret-id
-        volumeMounts:
-        - name: secrets
-          mountPath: /etc/secrets
-          readOnly: true
+        - name: my-app
+          image: my-app:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: VAULT_ADDR
+              value: "http://vault:8200"
+            - name: VAULT_ROLE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: vault-token
+                  key: role-id
+            - name: VAULT_SECRET_ID
+              valueFrom:
+                secretKeyRef:
+                  name: vault-token
+                  key: secret-id
+          volumeMounts:
+            - name: secrets
+              mountPath: /etc/secrets
+              readOnly: true
       volumes:
-      - name: secrets
-        secret:
-          secretName: my-app-secrets
+        - name: secrets
+          secret:
+            secretName: my-app-secrets
 ```
 
 ### Docker Compose for Secrets Management
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
+version: "3.8"
 
 services:
   vault:
@@ -795,6 +796,7 @@ volumes:
 ## 🚀 Best Practices
 
 ### 1. Secret Rotation
+
 ```go
 // Implement automatic secret rotation
 func (cm *ConfigManager) RotateSecrets() error {
@@ -802,18 +804,19 @@ func (cm *ConfigManager) RotateSecrets() error {
     if err := cm.rotateDatabasePassword(); err != nil {
         return err
     }
-    
+
     // Rotate API keys
     if err := cm.rotateAPIKeys(); err != nil {
         return err
     }
-    
+
     // Reload configuration
     return cm.LoadConfig()
 }
 ```
 
 ### 2. Access Control
+
 ```hcl
 # Use least privilege principle
 path "secret/data/my-app/*" {
@@ -822,6 +825,7 @@ path "secret/data/my-app/*" {
 ```
 
 ### 3. Audit Logging
+
 ```go
 // Log all secret access
 func (cm *ConfigManager) logSecretAccess(secretPath string) {
@@ -835,12 +839,14 @@ func (cm *ConfigManager) logSecretAccess(secretPath string) {
 ## 🏢 Industry Insights
 
 ### Secrets Management Usage Patterns
+
 - **Application Secrets**: Database credentials, API keys
 - **Infrastructure Secrets**: SSL certificates, SSH keys
 - **User Secrets**: Passwords, tokens
 - **Service Secrets**: Inter-service authentication
 
 ### Enterprise Secrets Strategy
+
 - **Centralized Management**: Single source of truth
 - **Automated Rotation**: Regular secret updates
 - **Access Control**: Role-based permissions
@@ -849,13 +855,16 @@ func (cm *ConfigManager) logSecretAccess(secretPath string) {
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is secrets management?**
+
    - Secure storage of sensitive data
    - Access control and permissions
    - Secret rotation and lifecycle
    - Audit logging and compliance
 
 2. **What are common types of secrets?**
+
    - Passwords and credentials
    - API keys and tokens
    - SSL certificates
@@ -868,7 +877,9 @@ func (cm *ConfigManager) logSecretAccess(secretPath string) {
    - Audit logging
 
 ### Intermediate Level
+
 4. **How do you implement secret rotation?**
+
    ```go
    func (cm *ConfigManager) RotateSecrets() error {
        // Generate new secrets
@@ -879,6 +890,7 @@ func (cm *ConfigManager) logSecretAccess(secretPath string) {
    ```
 
 5. **How do you handle secret access control?**
+
    - Role-based access control
    - Policy-based permissions
    - Least privilege principle
@@ -891,13 +903,16 @@ func (cm *ConfigManager) logSecretAccess(secretPath string) {
    - Service mesh integration
 
 ### Advanced Level
+
 7. **How do you implement secret rotation?**
+
    - Automated rotation policies
    - Zero-downtime rotation
    - Rollback mechanisms
    - Monitoring and alerting
 
 8. **How do you handle secret compliance?**
+
    - Audit trails
    - Access logging
    - Compliance reporting
