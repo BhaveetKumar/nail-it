@@ -21,6 +21,7 @@ Modern systems are evaluated by reliability, scalability, and maintainability. A
 > **Figure**: The three pillars of system design – Reliability, Scalability, Maintainability. Source: [Designing Data-Intensive Applications notes[1]].
 
 ### **Data Models & Databases**
+
 - **Relational (SQL) vs. NoSQL**: Relational databases (MySQL, PostgreSQL) use structured schema and ACID transactions. NoSQL databases (key-value, document, graph, column-family) sacrifice schema rigidity or consistency to gain scale[1][2]. Use relational DBs for strong consistency needs (e.g. financial data) and NoSQL for flexibility or massive scale (e.g. user profiles).
 - **Key-Value, Document, Graph**: Key-value stores (Redis) offer simple fast lookups[3]. Document stores (MongoDB) allow JSON-like documents with dynamic fields. Graph DBs (Neo4j) model relationships explicitly. Time-series DBs (InfluxDB) optimize timestamped data.
 - **Choosing a Database**: Guidance suggests using relational DBs for ACID needs and structured queries[2], NoSQL when flexibility or horizontal scale is needed[4]. Columnar/NewSQL (e.g. Google Spanner) aim to combine SQL with distributed scale[5].
@@ -28,7 +29,8 @@ Modern systems are evaluated by reliability, scalability, and maintainability. A
 ### **Storage Engines & Data Structures**
 
 - **B-Trees vs. LSM-Trees**: On disk, data is organized with structures like B-trees (used in MySQL InnoDB) or log-structured merge-trees (LSM, used in Cassandra)[6][7]. B-trees optimize point lookups and range scans, whereas LSM-trees batch writes for high throughput. The trade-offs (write amplification vs. read amplification) are summarized in the diagram below:
-> **Figure**: B-Tree vs LSM-Tree characteristics (performance trade-offs).
+
+  > **Figure**: B-Tree vs LSM-Tree characteristics (performance trade-offs).
 
 - **Indexes and Keys**: Creating proper primary keys and indexes is crucial. A normalized schema with appropriate primary keys ensures uniqueness, while indexes (B-tree or hash) speed up queries[8][9]. During design, follow standard steps: identify entities, define keys, apply normalization to reduce redundancy, and add indexes on query columns[8][9].
 
@@ -72,14 +74,15 @@ Golang (Go) is a statically typed, compiled language with built-in support for c
 ### **Go Fundamentals and Syntax**
 
 - **Basic Syntax**: Go has C-like syntax with garbage collection and no pointer arithmetic. It uses go fmt for formatting. Functions, types (structs, interfaces), slices, and maps are core. Example:
-   type User struct {
-   ID int
-   Name string
-   }
+  type User struct {
+  ID int
+  Name string
+  }
 
-func (u *User) Greet() string {
+func (u \*User) Greet() string {
 return "Hello, " + u.Name
 }
+
 - **Error Handling**: Instead of exceptions, Go uses error values (error). Best practices include returning errors and using defer to clean up resources[22]. For instance:
 
 ```go
@@ -99,6 +102,7 @@ Wrap errors with context rather than using panic except for unrecoverable condit
 Go's standout feature is lightweight concurrency with goroutines and channels. A goroutine is a function executing concurrently; it may run on different OS threads managed by Go's scheduler. Channels enable communication between goroutines.
 
 For example, a simple concurrency pattern:
+
 ```go
 var wg sync.WaitGroup
 count := 0
@@ -128,19 +132,19 @@ Rob Pike's talk "Concurrency Is Not Parallelism" (Google I/O 2012) emphasizes Go
 
 - **Delve Debugger**: Delve (dlv) is the standard debugger for Go; it understands goroutines and types[25]. Use it to set breakpoints, inspect stack traces, and evaluate expressions.
 - **Testing**: Go's testing package makes unit tests easy. Table-driven tests are common. Example:
-func TestAdd(t *testing.T) {
-cases := []struct{ a, b, want int }{
-{1, 2, 3}, {0, 5, 5}, {-1, 1, 0},
-}
-for \_, c := range cases {
-if got := Add(c.a, c.b); got != c.want {
-t.Errorf("Add(%d,%d) = %d; want %d", c.a, c.b, got, c.want)
-}
-}
-}
-• Profiling: go tool pprof analyzes CPU and memory usage. Build performance-conscious code (e.g., reuse buffers, avoid unnecessary allocations).
-Example Code Snippet
-package main
+  func TestAdd(t \*testing.T) {
+  cases := []struct{ a, b, want int }{
+  {1, 2, 3}, {0, 5, 5}, {-1, 1, 0},
+  }
+  for \_, c := range cases {
+  if got := Add(c.a, c.b); got != c.want {
+  t.Errorf("Add(%d,%d) = %d; want %d", c.a, c.b, got, c.want)
+  }
+  }
+  }
+  • Profiling: go tool pprof analyzes CPU and memory usage. Build performance-conscious code (e.g., reuse buffers, avoid unnecessary allocations).
+  Example Code Snippet
+  package main
 
 import (
 "fmt"
@@ -201,6 +205,7 @@ Operating systems (OS) manage hardware and provide abstractions for applications
 - **Process**: An instance of a running program, comprising an execution stream plus process state (code, registers, memory, stack, open files)[28]. In multiprogramming OS, many processes run concurrently, each with its own address space.
 - **Thread**: A lightweight execution unit within a process. Multiple threads in one process share memory and resources but have separate stacks and registers[29]. Threads enable concurrency (e.g. multiple requests in a server).
 - **Scheduling**: The OS scheduler switches between threads/processes based on states (running, ready, blocked)[30]. A context switch saves and restores CPU registers when switching threads[31]. Interrupts and system calls (traps) let the OS regain control (e.g. timer interrupt for preemption[31]).
+
 ### **Example: Spawning Processes in Go**
 
 While Go does not expose raw fork(), it can create OS processes using the os/exec package:
@@ -267,6 +272,7 @@ go worker(i, &wg)
 wg.Wait()
 fmt.Println("All workers done")
 }
+
 ### **OS System Calls**
 
 - **Common Syscalls**: fork(), exec(), read(), write(), open(), etc. Go's syscall package can invoke low-level calls if needed (rarely used in idiomatic Go).
@@ -280,7 +286,7 @@ fmt.Println("All workers done")
 - **Memory**: "How does virtual memory work? What happens on a page fault?"
 - **File I/O**: "How do system calls like open/read work under the hood?"
 - **Synchronization**: "Design a producer-consumer queue." (Implement with channels in Go, for instance.)
-OS topics are common in systems interviews, focusing on understanding of low-level execution and resource management.
+  OS topics are common in systems interviews, focusing on understanding of low-level execution and resource management.
 
 ## 4. 🏗️ **System Design – Fundamentals**
 
@@ -298,6 +304,7 @@ System design covers architecting large-scale systems. Key concepts include load
 - **CAP Theorem**: Systems must trade off Consistency, Availability, Partition-tolerance[13]. For example, Cassandra chooses availability over strict consistency.
 - **Scalability**: Vertical vs. horizontal scaling. Horizontal (adding nodes) often uses stateless services behind a load balancer[37][13].
 - **Resilience Patterns**: Circuit breakers, retries, bulkheads to handle failures gracefully.
+
 ### **Example Architectures**
 
 - **Design an API Service**: A common architecture is client → (DNS) → load balancer → API servers (stateless) → databases/cache. Each layer can scale. Use health checks and auto-scaling for reliability.
@@ -315,9 +322,10 @@ type LRUCache struct {
     list     *list.List
 }
 ```
-   type entry struct {
-   key, value int
-   }
+
+type entry struct {
+key, value int
+}
 
 func NewLRUCache(capacity int) *LRUCache {
 return &LRUCache{
@@ -352,6 +360,7 @@ newEl := c.list.PushFront(&entry{key, value})
 c.cache[key] = newEl
 }
 This snippet shows a thread-safe LRU cache logic in Go (using container/list).
+
 ### **Interview Practice – System Design Questions**
 
 - **High-Level Design**: "Design a URL shortener or social media feed. What components (API, DB, cache) and scaling strategies would you use?"
@@ -383,26 +392,27 @@ A solid understanding of data structures and algorithms is essential. We cover c
 #### **Searching**
 
 - **Binary Search**: On sorted array, repeatedly halve search space. Time O(log N)[42]. Example:
-   func BinarySearch(a []int, target int) int {
-   lo, hi := 0, len(a)-1
-   for lo <= hi {
-   mid := (lo + hi) / 2
-   if a[mid] == target { return mid }
-   if a[mid] < target {
-   lo = mid + 1
-   } else {
-   hi = mid - 1
-   }
-   }
-   return -1 // not found
-   } - Sorting: - QuickSort: Divide-and-conquer. Average/Best: O(N log N)[43]; Worst: O(N²)[43]. In-place and cache-friendly. - MergeSort: Always O(N log N)[44], stable, requires O(N) extra space. Good for linked lists and guaranteed performance. - HeapSort: O(N log N) worst-case, in-place. - (Bubble/Selection/Insertion: O(N²), rarely used in practice.) - Graph Algorithms: - BFS/DFS: Traverse graphs. Both have time complexity O(V + E)[45] (vertices + edges). Use a queue for BFS, recursion/stack for DFS. - Shortest Paths: Dijkstra’s (O(E + V log V) with heap), Bellman-Ford (O(VE)), etc. - Dynamic Programming: Techniques to optimize recursive problems by memoization or tabulation (e.g. Fibonacci in O(N) vs naive O(2^N)). - Greedy Algorithms: Make locally optimal choices (e.g. interval scheduling). - Others: Tries for prefix searches, Union-Find (Disjoint Set), sliding window, two pointers, etc.
-   Complexity Summary
-   Common complexities (average/worst case) include: - Array access: O(1); search/insert/delete: O(N)[40][41].
+  func BinarySearch(a []int, target int) int {
+  lo, hi := 0, len(a)-1
+  for lo <= hi {
+  mid := (lo + hi) / 2
+  if a[mid] == target { return mid }
+  if a[mid] < target {
+  lo = mid + 1
+  } else {
+  hi = mid - 1
+  }
+  }
+  return -1 // not found
+  } - Sorting: - QuickSort: Divide-and-conquer. Average/Best: O(N log N)[43]; Worst: O(N²)[43]. In-place and cache-friendly. - MergeSort: Always O(N log N)[44], stable, requires O(N) extra space. Good for linked lists and guaranteed performance. - HeapSort: O(N log N) worst-case, in-place. - (Bubble/Selection/Insertion: O(N²), rarely used in practice.) - Graph Algorithms: - BFS/DFS: Traverse graphs. Both have time complexity O(V + E)[45] (vertices + edges). Use a queue for BFS, recursion/stack for DFS. - Shortest Paths: Dijkstra’s (O(E + V log V) with heap), Bellman-Ford (O(VE)), etc. - Dynamic Programming: Techniques to optimize recursive problems by memoization or tabulation (e.g. Fibonacci in O(N) vs naive O(2^N)). - Greedy Algorithms: Make locally optimal choices (e.g. interval scheduling). - Others: Tries for prefix searches, Union-Find (Disjoint Set), sliding window, two pointers, etc.
+  Complexity Summary
+  Common complexities (average/worst case) include: - Array access: O(1); search/insert/delete: O(N)[40][41].
 
 - Hash map: O(1) average, O(N) worst[40][41].
 - Balanced BST: O(log N) insert/search.
 - Sorting (Quick/Merge): O(N log N) average; QuickSort worst O(N²)[43][44].
 - Searching (Binary): O(log N)[42]. - BFS/DFS: O(V+E)[45].
+
 ### **Code Examples in Go**
 
 #### **QuickSort (simplified)**
@@ -585,3 +595,4 @@ https://www.strongdm.com/blog/devops-tools
 https://capd.mit.edu/resources/the-star-method-for-behavioral-interviews/
 [54] The 30 most common Software Engineer behavioral interview questions | Tech Interview Handbook
 https://www.techinterviewhandbook.org/behavioral-interview-questions/
+```
