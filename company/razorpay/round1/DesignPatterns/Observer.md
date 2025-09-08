@@ -9,6 +9,7 @@ The Observer pattern establishes a dependency relationship between a subject (ob
 ## When to Use
 
 ### Appropriate Scenarios
+
 - **Event-Driven Systems**: When you need to decouple event producers from consumers
 - **Model-View Architecture**: When views need to update when model changes
 - **Notification Systems**: When multiple components need to be notified of changes
@@ -16,6 +17,7 @@ The Observer pattern establishes a dependency relationship between a subject (ob
 - **Plugin Systems**: When you need to allow dynamic registration of handlers
 
 ### When NOT to Use
+
 - **Simple Callbacks**: When you only need a single callback
 - **Performance Critical**: When notification overhead is too high
 - **Tight Coupling**: When observers need to know about each other
@@ -24,6 +26,7 @@ The Observer pattern establishes a dependency relationship between a subject (ob
 ## Real-World Use Cases (Fintech/Payments)
 
 ### Payment Event System
+
 ```go
 // Event types
 type PaymentEventType string
@@ -87,7 +90,7 @@ func (pem *PaymentEventManager) UnregisterObserver(observerID string) {
 func (pem *PaymentEventManager) NotifyObservers(event *PaymentEvent) {
     pem.mutex.RLock()
     defer pem.mutex.RUnlock()
-    
+
     for _, observer := range pem.observers {
         go observer.OnPaymentEvent(event) // Async notification
     }
@@ -106,7 +109,7 @@ func NewAuditLogger() *AuditLogger {
 }
 
 func (al *AuditLogger) OnPaymentEvent(event *PaymentEvent) {
-    al.logger.Printf("Payment Event: %s - ID: %s, Amount: %.2f %s", 
+    al.logger.Printf("Payment Event: %s - ID: %s, Amount: %.2f %s",
         event.Type, event.PaymentID, event.Amount, event.Currency)
 }
 
@@ -134,6 +137,7 @@ func (ns *NotificationService) GetObserverID() string {
 ```
 
 ### Order Status Updates
+
 ```go
 type OrderStatus string
 
@@ -170,10 +174,10 @@ func (oem *OrderEventManager) NotifyOrderStatusChange(orderID string, status Ord
         UserID:    userID,
         Timestamp: time.Now(),
     }
-    
+
     oem.mutex.RLock()
     defer oem.mutex.RUnlock()
-    
+
     for _, observer := range oem.observers {
         go observer.OnOrderStatusChange(event)
     }
@@ -183,6 +187,7 @@ func (oem *OrderEventManager) NotifyOrderStatusChange(orderID string, status Ord
 ## Go Implementation
 
 ### Generic Observer Pattern
+
 ```go
 package main
 
@@ -244,7 +249,7 @@ func (em *EventManager[T]) UnregisterObserver(observerID string) {
 func (em *EventManager[T]) NotifyObservers(event T) {
     em.mutex.RLock()
     defer em.mutex.RUnlock()
-    
+
     for _, observer := range em.observers {
         go func(obs Observer[T]) {
             select {
@@ -310,6 +315,7 @@ func (uat *UserAnalyticsTracker) GetID() string {
 ```
 
 ### Event Bus Implementation
+
 ```go
 type EventBus struct {
     subscribers map[string][]Observer[Event]
@@ -327,9 +333,9 @@ func NewEventBus() *EventBus {
 func (eb *EventBus) Subscribe(eventType string, observer Observer[Event]) {
     eb.mutex.Lock()
     defer eb.mutex.Unlock()
-    
+
     eb.subscribers[eventType] = append(eb.subscribers[eventType], observer)
-    
+
     // Create channel if it doesn't exist
     if _, exists := eb.channels[eventType]; !exists {
         eb.channels[eventType] = make(chan Event, 100)
@@ -340,7 +346,7 @@ func (eb *EventBus) Subscribe(eventType string, observer Observer[Event]) {
 func (eb *EventBus) Unsubscribe(eventType string, observerID string) {
     eb.mutex.Lock()
     defer eb.mutex.Unlock()
-    
+
     if observers, exists := eb.subscribers[eventType]; exists {
         for i, obs := range observers {
             if obs.GetID() == observerID {
@@ -355,7 +361,7 @@ func (eb *EventBus) Publish(event Event) {
     eb.mutex.RLock()
     channel, exists := eb.channels[event.GetType()]
     eb.mutex.RUnlock()
-    
+
     if exists {
         select {
         case channel <- event:
@@ -368,12 +374,12 @@ func (eb *EventBus) Publish(event Event) {
 
 func (eb *EventBus) processEvents(eventType string) {
     channel := eb.channels[eventType]
-    
+
     for event := range channel {
         eb.mutex.RLock()
         observers := eb.subscribers[eventType]
         eb.mutex.RUnlock()
-        
+
         for _, observer := range observers {
             go observer.OnEvent(event)
         }
@@ -386,6 +392,7 @@ func (eb *EventBus) processEvents(eventType string) {
 ### Variants
 
 #### 1. Push Model
+
 ```go
 type PushObserver interface {
     OnEvent(eventType string, data interface{})
@@ -396,6 +403,7 @@ type PushObserver interface {
 **Cons**: Observers must handle all event types
 
 #### 2. Pull Model
+
 ```go
 type PullObserver interface {
     Update(subject Subject)
@@ -412,6 +420,7 @@ func (obs *PullObserver) Update(subject Subject) {
 **Cons**: More complex, potential performance issues
 
 #### 3. Event Sourcing
+
 ```go
 type EventStore interface {
     AppendEvent(event Event) error
@@ -432,13 +441,13 @@ func (eso *EventSourcedObserver) OnEvent(event Event) {
 
 ### Trade-offs
 
-| Aspect | Pros | Cons |
-|--------|------|------|
-| **Decoupling** | Loose coupling between components | Can become hard to track dependencies |
-| **Flexibility** | Easy to add/remove observers | Can lead to performance issues |
-| **Testing** | Easy to mock observers | Complex event flows hard to test |
-| **Performance** | Async processing possible | Memory overhead for observers |
-| **Maintainability** | Clear separation of concerns | Can become complex with many observers |
+| Aspect              | Pros                              | Cons                                   |
+| ------------------- | --------------------------------- | -------------------------------------- |
+| **Decoupling**      | Loose coupling between components | Can become hard to track dependencies  |
+| **Flexibility**     | Easy to add/remove observers      | Can lead to performance issues         |
+| **Testing**         | Easy to mock observers            | Complex event flows hard to test       |
+| **Performance**     | Async processing possible         | Memory overhead for observers          |
+| **Maintainability** | Clear separation of concerns      | Can become complex with many observers |
 
 ## Testable Example
 
@@ -490,14 +499,14 @@ func (mo *MockObserver) ClearEvents() {
 func TestEventManager_RegisterObserver(t *testing.T) {
     em := NewEventManager[*UserEvent]()
     observer := NewMockObserver("test_observer")
-    
+
     em.RegisterObserver(observer)
-    
+
     // Verify observer is registered
     em.mutex.RLock()
     _, exists := em.observers["test_observer"]
     em.mutex.RUnlock()
-    
+
     if !exists {
         t.Error("Observer should be registered")
     }
@@ -506,26 +515,26 @@ func TestEventManager_RegisterObserver(t *testing.T) {
 func TestEventManager_NotifyObservers(t *testing.T) {
     em := NewEventManager[*UserEvent]()
     observer := NewMockObserver("test_observer")
-    
+
     em.RegisterObserver(observer)
-    
+
     event := &UserEvent{
         Type:      "user_login",
         UserID:    "user_123",
         Timestamp: time.Now(),
         Data:      map[string]interface{}{"ip": "192.168.1.1"},
     }
-    
+
     em.NotifyObservers(event)
-    
+
     // Wait for async processing
     time.Sleep(100 * time.Millisecond)
-    
+
     events := observer.GetEvents()
     if len(events) != 1 {
         t.Errorf("Expected 1 event, got %d", len(events))
     }
-    
+
     if events[0].GetType() != "user_login" {
         t.Errorf("Expected event type 'user_login', got %s", events[0].GetType())
     }
@@ -534,21 +543,21 @@ func TestEventManager_NotifyObservers(t *testing.T) {
 func TestEventManager_UnregisterObserver(t *testing.T) {
     em := NewEventManager[*UserEvent]()
     observer := NewMockObserver("test_observer")
-    
+
     em.RegisterObserver(observer)
     em.UnregisterObserver("test_observer")
-    
+
     event := &UserEvent{
         Type:      "user_login",
         UserID:    "user_123",
         Timestamp: time.Now(),
     }
-    
+
     em.NotifyObservers(event)
-    
+
     // Wait for async processing
     time.Sleep(100 * time.Millisecond)
-    
+
     events := observer.GetEvents()
     if len(events) != 0 {
         t.Errorf("Expected 0 events after unregister, got %d", len(events))
@@ -558,20 +567,20 @@ func TestEventManager_UnregisterObserver(t *testing.T) {
 func TestEventBus_PublishSubscribe(t *testing.T) {
     bus := NewEventBus()
     observer := NewMockObserver("test_observer")
-    
+
     bus.Subscribe("user_event", observer)
-    
+
     event := &UserEvent{
         Type:      "user_event",
         UserID:    "user_123",
         Timestamp: time.Now(),
     }
-    
+
     bus.Publish(event)
-    
+
     // Wait for async processing
     time.Sleep(100 * time.Millisecond)
-    
+
     events := observer.GetEvents()
     if len(events) != 1 {
         t.Errorf("Expected 1 event, got %d", len(events))
@@ -580,29 +589,29 @@ func TestEventBus_PublishSubscribe(t *testing.T) {
 
 func TestMultipleObservers(t *testing.T) {
     em := NewEventManager[*UserEvent]()
-    
+
     observer1 := NewMockObserver("observer_1")
     observer2 := NewMockObserver("observer_2")
-    
+
     em.RegisterObserver(observer1)
     em.RegisterObserver(observer2)
-    
+
     event := &UserEvent{
         Type:      "user_action",
         UserID:    "user_123",
         Timestamp: time.Now(),
     }
-    
+
     em.NotifyObservers(event)
-    
+
     // Wait for async processing
     time.Sleep(100 * time.Millisecond)
-    
+
     events1 := observer1.GetEvents()
     events2 := observer2.GetEvents()
-    
+
     if len(events1) != 1 || len(events2) != 1 {
-        t.Errorf("Expected both observers to receive 1 event, got %d and %d", 
+        t.Errorf("Expected both observers to receive 1 event, got %d and %d",
             len(events1), len(events2))
     }
 }
@@ -611,6 +620,7 @@ func TestMultipleObservers(t *testing.T) {
 ## Integration Tips
 
 ### 1. With Context and Cancellation
+
 ```go
 type ContextualObserver struct {
     ctx    context.Context
@@ -628,6 +638,7 @@ func (co *ContextualObserver) OnEvent(event Event) {
 ```
 
 ### 2. With Error Handling
+
 ```go
 type ErrorHandlingObserver struct {
     observer Observer
@@ -640,7 +651,7 @@ func (eho *ErrorHandlingObserver) OnEvent(event Event) {
             eho.logger.Printf("Observer panic: %v", r)
         }
     }()
-    
+
     if err := eho.observer.OnEvent(event); err != nil {
         eho.logger.Printf("Observer error: %v", err)
     }
@@ -648,6 +659,7 @@ func (eho *ErrorHandlingObserver) OnEvent(event Event) {
 ```
 
 ### 3. With Metrics and Monitoring
+
 ```go
 type MetricsObserver struct {
     observer Observer
@@ -659,7 +671,7 @@ func (mo *MetricsObserver) OnEvent(event Event) {
     defer func() {
         mo.metrics.RecordObserverLatency(event.GetType(), time.Since(start))
     }()
-    
+
     mo.observer.OnEvent(event)
     mo.metrics.IncrementObserverEvents(event.GetType())
 }
@@ -668,16 +680,21 @@ func (mo *MetricsObserver) OnEvent(event Event) {
 ## Common Interview Questions
 
 ### 1. What is the Observer pattern and how does it work?
+
 **Answer**: The Observer pattern defines a one-to-many dependency between objects. When the subject's state changes, it automatically notifies all registered observers. It's implemented using interfaces for observers and a registration/notification mechanism in the subject.
 
 ### 2. How do you implement the Observer pattern in Go?
+
 **Answer**: Define observer interfaces, implement concrete observers, create a subject that maintains a list of observers, and provide methods to register/unregister observers and notify them of changes.
 
 ### 3. What are the benefits and drawbacks of the Observer pattern?
+
 **Answer**: Benefits include loose coupling, dynamic relationships, and support for broadcast communication. Drawbacks include potential memory leaks, unexpected updates, and performance issues with many observers.
 
 ### 4. How do you handle errors in the Observer pattern?
+
 **Answer**: Use error handling wrappers, implement circuit breakers for failing observers, use async processing with proper error handling, and implement retry mechanisms for critical observers.
 
 ### 5. How do you prevent memory leaks with the Observer pattern?
+
 **Answer**: Always unregister observers when they're no longer needed, use weak references where possible, implement proper cleanup in observer destructors, and use context cancellation for long-running observers.

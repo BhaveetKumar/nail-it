@@ -7,6 +7,7 @@
 Cost optimization in cloud computing involves continuously monitoring, analyzing, and optimizing cloud spending to achieve the best value for money while maintaining performance and reliability. It encompasses resource right-sizing, waste elimination, pricing model optimization, and strategic planning.
 
 ### Key Features
+
 - **Resource Right-Sizing**: Match resources to actual demand
 - **Waste Elimination**: Identify and remove unused resources
 - **Pricing Optimization**: Choose optimal pricing models
@@ -669,14 +670,14 @@ func (co *CostOptimizer) optimizeEC2Instances(ctx context.Context) error {
             // Check if instance is underutilized
             if co.isInstanceUnderutilized(ctx, *instance.InstanceId) {
                 co.logger.Printf("Instance %s is underutilized, considering right-sizing", *instance.InstanceId)
-                
+
                 // Get current instance type
                 currentType := *instance.InstanceType
-                
+
                 // Suggest smaller instance type
                 suggestedType := co.suggestSmallerInstanceType(currentType)
                 if suggestedType != "" {
-                    co.logger.Printf("Suggesting to change instance %s from %s to %s", 
+                    co.logger.Printf("Suggesting to change instance %s from %s to %s",
                         *instance.InstanceId, currentType, suggestedType)
                 }
             }
@@ -761,16 +762,16 @@ func (co *CostOptimizer) optimizeRDSInstances(ctx context.Context) error {
     for _, dbInstance := range result.DBInstances {
         // Check if instance is underutilized
         if co.isRDSInstanceUnderutilized(ctx, *dbInstance.DBInstanceIdentifier) {
-            co.logger.Printf("RDS instance %s is underutilized, considering right-sizing", 
+            co.logger.Printf("RDS instance %s is underutilized, considering right-sizing",
                 *dbInstance.DBInstanceIdentifier)
-            
+
             // Get current instance class
             currentClass := *dbInstance.DBInstanceClass
-            
+
             // Suggest smaller instance class
             suggestedClass := co.suggestSmallerRDSInstanceClass(currentClass)
             if suggestedClass != "" {
-                co.logger.Printf("Suggesting to change RDS instance %s from %s to %s", 
+                co.logger.Printf("Suggesting to change RDS instance %s from %s to %s",
                     *dbInstance.DBInstanceIdentifier, currentClass, suggestedClass)
             }
         }
@@ -854,14 +855,14 @@ func (co *CostOptimizer) optimizeAutoScalingGroups(ctx context.Context) error {
     for _, asg := range result.AutoScalingGroups {
         // Check if ASG is over-provisioned
         if co.isASGOverProvisioned(ctx, *asg.AutoScalingGroupName) {
-            co.logger.Printf("Auto Scaling Group %s is over-provisioned, considering scaling down", 
+            co.logger.Printf("Auto Scaling Group %s is over-provisioned, considering scaling down",
                 *asg.AutoScalingGroupName)
-            
+
             // Suggest reducing desired capacity
             currentDesired := *asg.DesiredCapacity
             if currentDesired > 1 {
                 suggestedDesired := currentDesired - 1
-                co.logger.Printf("Suggesting to reduce desired capacity from %d to %d", 
+                co.logger.Printf("Suggesting to reduce desired capacity from %d to %d",
                     currentDesired, suggestedDesired)
             }
         }
@@ -949,7 +950,7 @@ func (co *CostOptimizer) cleanupUnusedEBSVolumes(ctx context.Context) error {
     for _, volume := range result.Volumes {
         // Check if volume is older than 30 days
         if time.Since(*volume.CreateTime) > 30*24*time.Hour {
-            co.logger.Printf("Found unused EBS volume %s (created: %s), considering deletion", 
+            co.logger.Printf("Found unused EBS volume %s (created: %s), considering deletion",
                 *volume.VolumeId, volume.CreateTime.Format(time.RFC3339))
         }
     }
@@ -979,7 +980,7 @@ func (co *CostOptimizer) cleanupUnusedSnapshots(ctx context.Context) error {
             }
 
             if !isImportant {
-                co.logger.Printf("Found unused snapshot %s (created: %s), considering deletion", 
+                co.logger.Printf("Found unused snapshot %s (created: %s), considering deletion",
                     *snapshot.SnapshotId, snapshot.StartTime.Format(time.RFC3339))
             }
         }
@@ -1078,30 +1079,30 @@ spec:
         app: cost-exporter
     spec:
       containers:
-      - name: cost-exporter
-        image: cost-exporter:latest
-        ports:
-        - containerPort: 8080
-        env:
-        - name: AWS_ACCESS_KEY_ID
-          valueFrom:
-            secretKeyRef:
-              name: aws-credentials
-              key: access-key-id
-        - name: AWS_SECRET_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: aws-credentials
-              key: secret-access-key
-        - name: AWS_REGION
-          value: "us-east-1"
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "100m"
-          limits:
-            memory: "256Mi"
-            cpu: "200m"
+        - name: cost-exporter
+          image: cost-exporter:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: access-key-id
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: secret-access-key
+            - name: AWS_REGION
+              value: "us-east-1"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
 ---
 apiVersion: v1
 kind: Service
@@ -1112,20 +1113,21 @@ spec:
   selector:
     app: cost-exporter
   ports:
-  - port: 8080
-    targetPort: 8080
+    - port: 8080
+      targetPort: 8080
   type: ClusterIP
 ```
 
 ## 🚀 Best Practices
 
 ### 1. Resource Right-Sizing
+
 ```hcl
 # Start with smallest instances and scale up
 resource "aws_instance" "optimized" {
   instance_type = "t3.micro"  # Start small
   monitoring    = true        # Enable monitoring
-  
+
   tags = {
     AutoShutdown = "true"     # Enable auto-shutdown
   }
@@ -1133,13 +1135,14 @@ resource "aws_instance" "optimized" {
 ```
 
 ### 2. Automated Scaling
+
 ```hcl
 # Use Auto Scaling Groups with cost optimization
 resource "aws_autoscaling_group" "optimized" {
   min_size         = 1
   max_size         = 10
   desired_capacity = 2
-  
+
   mixed_instances_policy {
     instances_distribution {
       on_demand_base_capacity                  = 1
@@ -1151,6 +1154,7 @@ resource "aws_autoscaling_group" "optimized" {
 ```
 
 ### 3. Cost Monitoring
+
 ```go
 // Implement cost monitoring
 func (co *CostOptimizer) monitorCosts(ctx context.Context) error {
@@ -1164,12 +1168,14 @@ func (co *CostOptimizer) monitorCosts(ctx context.Context) error {
 ## 🏢 Industry Insights
 
 ### Cost Optimization Usage Patterns
+
 - **Resource Right-Sizing**: Match resources to actual demand
 - **Automated Scaling**: Scale resources based on usage patterns
 - **Waste Elimination**: Remove unused and underutilized resources
 - **Pricing Optimization**: Choose optimal pricing models
 
 ### Enterprise Cost Optimization Strategy
+
 - **Budget Management**: Set and monitor spending limits
 - **Cost Allocation**: Track costs by department and project
 - **Automated Optimization**: Implement automated cost optimization
@@ -1178,13 +1184,16 @@ func (co *CostOptimizer) monitorCosts(ctx context.Context) error {
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is cost optimization?**
+
    - Cloud cost management
    - Resource efficiency
    - Budget control
    - Waste elimination
 
 2. **What are the main cost optimization strategies?**
+
    - Right-sizing
    - Auto-scaling
    - Reserved instances
@@ -1197,13 +1206,16 @@ func (co *CostOptimizer) monitorCosts(ctx context.Context) error {
    - Budget control
 
 ### Intermediate Level
+
 4. **How do you implement cost optimization?**
+
    - Resource monitoring
    - Usage analysis
    - Right-sizing recommendations
    - Automated scaling
 
 5. **How do you handle cost optimization at scale?**
+
    - Automated tools
    - Cost allocation
    - Budget management
@@ -1216,13 +1228,16 @@ func (co *CostOptimizer) monitorCosts(ctx context.Context) error {
    - ROI improvement
 
 ### Advanced Level
+
 7. **How do you implement automated cost optimization?**
+
    - Machine learning models
    - Predictive analytics
    - Automated scaling
    - Cost forecasting
 
 8. **How do you handle cost optimization across multiple clouds?**
+
    - Multi-cloud cost management
    - Cost comparison
    - Vendor optimization
@@ -1241,7 +1256,7 @@ func (co *CostOptimizer) monitorCosts(ctx context.Context) error {
 The comprehensive Backend-DevOps knowledge base is now complete with all 47 detailed guides covering:
 
 - **Backend Fundamentals** (7 guides)
-- **Cloud Fundamentals** (3 guides)  
+- **Cloud Fundamentals** (3 guides)
 - **AWS Services** (7 guides)
 - **GCP Services** (7 guides)
 - **CI/CD Tools** (4 guides)
