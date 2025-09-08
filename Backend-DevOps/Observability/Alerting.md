@@ -7,6 +7,7 @@
 Alerting is the process of automatically detecting and notifying about issues in systems, applications, and infrastructure. Effective alerting helps teams respond quickly to problems, maintain system reliability, and meet service level objectives.
 
 ### Key Features
+
 - **Real-time Detection**: Immediate issue identification
 - **Multi-channel Notifications**: Email, SMS, Slack, PagerDuty
 - **Escalation Policies**: Automatic escalation to different teams
@@ -57,144 +58,144 @@ Alerting is the process of automatically detecting and notifying about issues in
 ```yaml
 # alerts.yml
 groups:
-- name: application.rules
-  rules:
-  - alert: HighErrorRate
-    expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.1
-    for: 5m
-    labels:
-      severity: critical
-      team: backend
-      service: api
-    annotations:
-      summary: "High error rate detected in {{ $labels.service }}"
-      description: "Error rate is {{ $value | humanize }} errors per second for {{ $labels.service }}"
-      runbook_url: "https://runbooks.example.com/high-error-rate"
-      dashboard_url: "https://grafana.example.com/d/api-overview"
+  - name: application.rules
+    rules:
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: critical
+          team: backend
+          service: api
+        annotations:
+          summary: "High error rate detected in {{ $labels.service }}"
+          description: "Error rate is {{ $value | humanize }} errors per second for {{ $labels.service }}"
+          runbook_url: "https://runbooks.example.com/high-error-rate"
+          dashboard_url: "https://grafana.example.com/d/api-overview"
 
-  - alert: HighResponseTime
-    expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 1
-    for: 5m
-    labels:
-      severity: warning
-      team: backend
-      service: api
-    annotations:
-      summary: "High response time detected in {{ $labels.service }}"
-      description: "95th percentile response time is {{ $value | humanize }} seconds for {{ $labels.service }}"
-      runbook_url: "https://runbooks.example.com/high-response-time"
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 1
+        for: 5m
+        labels:
+          severity: warning
+          team: backend
+          service: api
+        annotations:
+          summary: "High response time detected in {{ $labels.service }}"
+          description: "95th percentile response time is {{ $value | humanize }} seconds for {{ $labels.service }}"
+          runbook_url: "https://runbooks.example.com/high-response-time"
 
-  - alert: ServiceDown
-    expr: up == 0
-    for: 1m
-    labels:
-      severity: critical
-      team: infrastructure
-    annotations:
-      summary: "Service {{ $labels.instance }} is down"
-      description: "Service {{ $labels.instance }} has been down for more than 1 minute"
-      runbook_url: "https://runbooks.example.com/service-down"
+      - alert: ServiceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+          team: infrastructure
+        annotations:
+          summary: "Service {{ $labels.instance }} is down"
+          description: "Service {{ $labels.instance }} has been down for more than 1 minute"
+          runbook_url: "https://runbooks.example.com/service-down"
 
-  - alert: HighMemoryUsage
-    expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes > 0.9
-    for: 5m
-    labels:
-      severity: warning
-      team: infrastructure
-    annotations:
-      summary: "High memory usage on {{ $labels.instance }}"
-      description: "Memory usage is {{ $value | humanizePercentage }} on {{ $labels.instance }}"
-      runbook_url: "https://runbooks.example.com/high-memory-usage"
+      - alert: HighMemoryUsage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes > 0.9
+        for: 5m
+        labels:
+          severity: warning
+          team: infrastructure
+        annotations:
+          summary: "High memory usage on {{ $labels.instance }}"
+          description: "Memory usage is {{ $value | humanizePercentage }} on {{ $labels.instance }}"
+          runbook_url: "https://runbooks.example.com/high-memory-usage"
 
-  - alert: HighCPUUsage
-    expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
-    for: 5m
-    labels:
-      severity: warning
-      team: infrastructure
-    annotations:
-      summary: "High CPU usage on {{ $labels.instance }}"
-      description: "CPU usage is {{ $value | humanize }}% on {{ $labels.instance }}"
-      runbook_url: "https://runbooks.example.com/high-cpu-usage"
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+          team: infrastructure
+        annotations:
+          summary: "High CPU usage on {{ $labels.instance }}"
+          description: "CPU usage is {{ $value | humanize }}% on {{ $labels.instance }}"
+          runbook_url: "https://runbooks.example.com/high-cpu-usage"
 
-  - alert: DiskSpaceLow
-    expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) < 0.1
-    for: 5m
-    labels:
-      severity: critical
-      team: infrastructure
-    annotations:
-      summary: "Disk space low on {{ $labels.instance }}"
-      description: "Disk space is {{ $value | humanizePercentage }} on {{ $labels.instance }}"
-      runbook_url: "https://runbooks.example.com/disk-space-low"
+      - alert: DiskSpaceLow
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) < 0.1
+        for: 5m
+        labels:
+          severity: critical
+          team: infrastructure
+        annotations:
+          summary: "Disk space low on {{ $labels.instance }}"
+          description: "Disk space is {{ $value | humanizePercentage }} on {{ $labels.instance }}"
+          runbook_url: "https://runbooks.example.com/disk-space-low"
 
-  - alert: DatabaseConnectionsHigh
-    expr: database_connections_active > 80
-    for: 5m
-    labels:
-      severity: warning
-      team: database
-    annotations:
-      summary: "High database connections"
-      description: "Database connections are {{ $value }} (threshold: 80)"
-      runbook_url: "https://runbooks.example.com/high-db-connections"
+      - alert: DatabaseConnectionsHigh
+        expr: database_connections_active > 80
+        for: 5m
+        labels:
+          severity: warning
+          team: database
+        annotations:
+          summary: "High database connections"
+          description: "Database connections are {{ $value }} (threshold: 80)"
+          runbook_url: "https://runbooks.example.com/high-db-connections"
 
-  - alert: BusinessOperationFailure
-    expr: rate(business_operations_total{status="error"}[5m]) > 0.05
-    for: 5m
-    labels:
-      severity: warning
-      team: business
-    annotations:
-      summary: "Business operation failure rate high"
-      description: "Failure rate is {{ $value | humanize }} failures per second"
-      runbook_url: "https://runbooks.example.com/business-operation-failure"
+      - alert: BusinessOperationFailure
+        expr: rate(business_operations_total{status="error"}[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+          team: business
+        annotations:
+          summary: "Business operation failure rate high"
+          description: "Failure rate is {{ $value | humanize }} failures per second"
+          runbook_url: "https://runbooks.example.com/business-operation-failure"
 
-  - alert: QueueDepthHigh
-    expr: queue_depth > 1000
-    for: 5m
-    labels:
-      severity: warning
-      team: backend
-    annotations:
-      summary: "Queue depth is high"
-      description: "Queue depth is {{ $value }} (threshold: 1000)"
-      runbook_url: "https://runbooks.example.com/queue-depth-high"
+      - alert: QueueDepthHigh
+        expr: queue_depth > 1000
+        for: 5m
+        labels:
+          severity: warning
+          team: backend
+        annotations:
+          summary: "Queue depth is high"
+          description: "Queue depth is {{ $value }} (threshold: 1000)"
+          runbook_url: "https://runbooks.example.com/queue-depth-high"
 
-  - alert: CertificateExpiring
-    expr: (ssl_certificate_expiry_timestamp - time()) / 86400 < 30
-    for: 1h
-    labels:
-      severity: warning
-      team: security
-    annotations:
-      summary: "SSL certificate expiring soon"
-      description: "SSL certificate for {{ $labels.instance }} expires in {{ $value | humanize }} days"
-      runbook_url: "https://runbooks.example.com/certificate-expiring"
+      - alert: CertificateExpiring
+        expr: (ssl_certificate_expiry_timestamp - time()) / 86400 < 30
+        for: 1h
+        labels:
+          severity: warning
+          team: security
+        annotations:
+          summary: "SSL certificate expiring soon"
+          description: "SSL certificate for {{ $labels.instance }} expires in {{ $value | humanize }} days"
+          runbook_url: "https://runbooks.example.com/certificate-expiring"
 
-- name: business.rules
-  rules:
-  - alert: RevenueDrop
-    expr: rate(revenue_total[1h]) < 0.8 * rate(revenue_total[1h] offset 1d)
-    for: 30m
-    labels:
-      severity: critical
-      team: business
-    annotations:
-      summary: "Revenue drop detected"
-      description: "Revenue is {{ $value | humanizePercentage }} of yesterday's revenue"
-      runbook_url: "https://runbooks.example.com/revenue-drop"
+  - name: business.rules
+    rules:
+      - alert: RevenueDrop
+        expr: rate(revenue_total[1h]) < 0.8 * rate(revenue_total[1h] offset 1d)
+        for: 30m
+        labels:
+          severity: critical
+          team: business
+        annotations:
+          summary: "Revenue drop detected"
+          description: "Revenue is {{ $value | humanizePercentage }} of yesterday's revenue"
+          runbook_url: "https://runbooks.example.com/revenue-drop"
 
-  - alert: UserRegistrationDrop
-    expr: rate(user_registrations_total[1h]) < 0.5 * rate(user_registrations_total[1h] offset 1d)
-    for: 1h
-    labels:
-      severity: warning
-      team: business
-    annotations:
-      summary: "User registration drop detected"
-      description: "User registrations are {{ $value | humanizePercentage }} of yesterday's registrations"
-      runbook_url: "https://runbooks.example.com/user-registration-drop"
+      - alert: UserRegistrationDrop
+        expr: rate(user_registrations_total[1h]) < 0.5 * rate(user_registrations_total[1h] offset 1d)
+        for: 1h
+        labels:
+          severity: warning
+          team: business
+        annotations:
+          summary: "User registration drop detected"
+          description: "User registrations are {{ $value | humanizePercentage }} of yesterday's registrations"
+          runbook_url: "https://runbooks.example.com/user-registration-drop"
 ```
 
 ### Alertmanager Configuration
@@ -202,250 +203,250 @@ groups:
 ```yaml
 # alertmanager.yml
 global:
-  smtp_smarthost: 'smtp.gmail.com:587'
-  smtp_from: 'alerts@example.com'
-  smtp_auth_username: 'alerts@example.com'
-  smtp_auth_password: 'password'
+  smtp_smarthost: "smtp.gmail.com:587"
+  smtp_from: "alerts@example.com"
+  smtp_auth_username: "alerts@example.com"
+  smtp_auth_password: "password"
   smtp_require_tls: true
 
-  slack_api_url: 'https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK'
-  pagerduty_url: 'https://events.pagerduty.com/v2/enqueue'
+  slack_api_url: "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+  pagerduty_url: "https://events.pagerduty.com/v2/enqueue"
 
 route:
-  group_by: ['alertname', 'cluster', 'service']
+  group_by: ["alertname", "cluster", "service"]
   group_wait: 10s
   group_interval: 10s
   repeat_interval: 1h
-  receiver: 'default'
+  receiver: "default"
   routes:
-  - match:
-      severity: critical
-    receiver: 'critical-alerts'
-    group_wait: 5s
-    repeat_interval: 30m
-    routes:
     - match:
-        team: infrastructure
-      receiver: 'infrastructure-critical'
-    - match:
-        team: database
-      receiver: 'database-critical'
-    - match:
-        team: business
-      receiver: 'business-critical'
+        severity: critical
+      receiver: "critical-alerts"
+      group_wait: 5s
+      repeat_interval: 30m
+      routes:
+        - match:
+            team: infrastructure
+          receiver: "infrastructure-critical"
+        - match:
+            team: database
+          receiver: "database-critical"
+        - match:
+            team: business
+          receiver: "business-critical"
 
-  - match:
-      severity: warning
-    receiver: 'warning-alerts'
-    group_wait: 30s
-    repeat_interval: 2h
+    - match:
+        severity: warning
+      receiver: "warning-alerts"
+      group_wait: 30s
+      repeat_interval: 2h
 
-  - match:
-      team: security
-    receiver: 'security-alerts'
-    group_wait: 5s
-    repeat_interval: 1h
+    - match:
+        team: security
+      receiver: "security-alerts"
+      group_wait: 5s
+      repeat_interval: 1h
 
 inhibit_rules:
-- source_match:
-    severity: 'critical'
-  target_match:
-    severity: 'warning'
-  equal: ['alertname', 'cluster', 'service']
+  - source_match:
+      severity: "critical"
+    target_match:
+      severity: "warning"
+    equal: ["alertname", "cluster", "service"]
 
-- source_match:
-    alertname: 'ServiceDown'
-  target_match:
-    alertname: 'HighResponseTime'
-  equal: ['instance']
+  - source_match:
+      alertname: "ServiceDown"
+    target_match:
+      alertname: "HighResponseTime"
+    equal: ["instance"]
 
 receivers:
-- name: 'default'
-  webhook_configs:
-  - url: 'http://webhook:5001/'
-    send_resolved: true
+  - name: "default"
+    webhook_configs:
+      - url: "http://webhook:5001/"
+        send_resolved: true
 
-- name: 'critical-alerts'
-  email_configs:
-  - to: 'critical@example.com'
-    subject: '🚨 CRITICAL: {{ .GroupLabels.alertname }}'
-    body: |
-      {{ range .Alerts }}
-      **Alert:** {{ .Annotations.summary }}
-      **Description:** {{ .Annotations.description }}
-      **Severity:** {{ .Labels.severity }}
-      **Team:** {{ .Labels.team }}
-      **Service:** {{ .Labels.service }}
-      **Instance:** {{ .Labels.instance }}
-      **Runbook:** {{ .Annotations.runbook_url }}
-      **Dashboard:** {{ .Annotations.dashboard_url }}
-      **Time:** {{ .StartsAt }}
-      {{ end }}
-    headers:
-      X-Priority: '1'
-      X-MSMail-Priority: 'High'
+  - name: "critical-alerts"
+    email_configs:
+      - to: "critical@example.com"
+        subject: "🚨 CRITICAL: {{ .GroupLabels.alertname }}"
+        body: |
+          {{ range .Alerts }}
+          **Alert:** {{ .Annotations.summary }}
+          **Description:** {{ .Annotations.description }}
+          **Severity:** {{ .Labels.severity }}
+          **Team:** {{ .Labels.team }}
+          **Service:** {{ .Labels.service }}
+          **Instance:** {{ .Labels.instance }}
+          **Runbook:** {{ .Annotations.runbook_url }}
+          **Dashboard:** {{ .Annotations.dashboard_url }}
+          **Time:** {{ .StartsAt }}
+          {{ end }}
+        headers:
+          X-Priority: "1"
+          X-MSMail-Priority: "High"
 
-  slack_configs:
-  - api_url: 'https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK'
-    channel: '#critical-alerts'
-    title: '🚨 Critical Alert'
-    text: |
-      {{ range .Alerts }}
-      *Alert:* {{ .Annotations.summary }}
-      *Description:* {{ .Annotations.description }}
-      *Severity:* {{ .Labels.severity }}
-      *Team:* {{ .Labels.team }}
-      *Service:* {{ .Labels.service }}
-      *Instance:* {{ .Labels.instance }}
-      *Runbook:* {{ .Annotations.runbook_url }}
-      *Dashboard:* {{ .Annotations.dashboard_url }}
-      *Time:* {{ .StartsAt }}
-      {{ end }}
-    color: 'danger'
+    slack_configs:
+      - api_url: "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+        channel: "#critical-alerts"
+        title: "🚨 Critical Alert"
+        text: |
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          *Severity:* {{ .Labels.severity }}
+          *Team:* {{ .Labels.team }}
+          *Service:* {{ .Labels.service }}
+          *Instance:* {{ .Labels.instance }}
+          *Runbook:* {{ .Annotations.runbook_url }}
+          *Dashboard:* {{ .Annotations.dashboard_url }}
+          *Time:* {{ .StartsAt }}
+          {{ end }}
+        color: "danger"
 
-  pagerduty_configs:
-  - routing_key: 'YOUR_PAGERDUTY_ROUTING_KEY'
-    description: '{{ .GroupLabels.alertname }}'
-    details:
-      summary: '{{ .Annotations.summary }}'
-      description: '{{ .Annotations.description }}'
-      severity: '{{ .Labels.severity }}'
-      team: '{{ .Labels.team }}'
-      service: '{{ .Labels.service }}'
-      instance: '{{ .Labels.instance }}'
-      runbook_url: '{{ .Annotations.runbook_url }}'
-      dashboard_url: '{{ .Annotations.dashboard_url }}'
+    pagerduty_configs:
+      - routing_key: "YOUR_PAGERDUTY_ROUTING_KEY"
+        description: "{{ .GroupLabels.alertname }}"
+        details:
+          summary: "{{ .Annotations.summary }}"
+          description: "{{ .Annotations.description }}"
+          severity: "{{ .Labels.severity }}"
+          team: "{{ .Labels.team }}"
+          service: "{{ .Labels.service }}"
+          instance: "{{ .Labels.instance }}"
+          runbook_url: "{{ .Annotations.runbook_url }}"
+          dashboard_url: "{{ .Annotations.dashboard_url }}"
 
-- name: 'warning-alerts'
-  email_configs:
-  - to: 'warnings@example.com'
-    subject: '⚠️ WARNING: {{ .GroupLabels.alertname }}'
-    body: |
-      {{ range .Alerts }}
-      **Alert:** {{ .Annotations.summary }}
-      **Description:** {{ .Annotations.description }}
-      **Severity:** {{ .Labels.severity }}
-      **Team:** {{ .Labels.team }}
-      **Service:** {{ .Labels.service }}
-      **Instance:** {{ .Labels.instance }}
-      **Runbook:** {{ .Annotations.runbook_url }}
-      **Dashboard:** {{ .Annotations.dashboard_url }}
-      **Time:** {{ .StartsAt }}
-      {{ end }}
+  - name: "warning-alerts"
+    email_configs:
+      - to: "warnings@example.com"
+        subject: "⚠️ WARNING: {{ .GroupLabels.alertname }}"
+        body: |
+          {{ range .Alerts }}
+          **Alert:** {{ .Annotations.summary }}
+          **Description:** {{ .Annotations.description }}
+          **Severity:** {{ .Labels.severity }}
+          **Team:** {{ .Labels.team }}
+          **Service:** {{ .Labels.service }}
+          **Instance:** {{ .Labels.instance }}
+          **Runbook:** {{ .Annotations.runbook_url }}
+          **Dashboard:** {{ .Annotations.dashboard_url }}
+          **Time:** {{ .StartsAt }}
+          {{ end }}
 
-  slack_configs:
-  - api_url: 'https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK'
-    channel: '#warnings'
-    title: '⚠️ Warning Alert'
-    text: |
-      {{ range .Alerts }}
-      *Alert:* {{ .Annotations.summary }}
-      *Description:* {{ .Annotations.description }}
-      *Severity:* {{ .Labels.severity }}
-      *Team:* {{ .Labels.team }}
-      *Service:* {{ .Labels.service }}
-      *Instance:* {{ .Labels.instance }}
-      *Runbook:* {{ .Annotations.runbook_url }}
-      *Dashboard:* {{ .Annotations.dashboard_url }}
-      *Time:* {{ .StartsAt }}
-      {{ end }}
-    color: 'warning'
+    slack_configs:
+      - api_url: "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+        channel: "#warnings"
+        title: "⚠️ Warning Alert"
+        text: |
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          *Severity:* {{ .Labels.severity }}
+          *Team:* {{ .Labels.team }}
+          *Service:* {{ .Labels.service }}
+          *Instance:* {{ .Labels.instance }}
+          *Runbook:* {{ .Annotations.runbook_url }}
+          *Dashboard:* {{ .Annotations.dashboard_url }}
+          *Time:* {{ .StartsAt }}
+          {{ end }}
+        color: "warning"
 
-- name: 'infrastructure-critical'
-  email_configs:
-  - to: 'infrastructure@example.com'
-    subject: '🚨 INFRASTRUCTURE CRITICAL: {{ .GroupLabels.alertname }}'
-    body: |
-      {{ range .Alerts }}
-      **Alert:** {{ .Annotations.summary }}
-      **Description:** {{ .Annotations.description }}
-      **Instance:** {{ .Labels.instance }}
-      **Runbook:** {{ .Annotations.runbook_url }}
-      **Dashboard:** {{ .Annotations.dashboard_url }}
-      **Time:** {{ .StartsAt }}
-      {{ end }}
+  - name: "infrastructure-critical"
+    email_configs:
+      - to: "infrastructure@example.com"
+        subject: "🚨 INFRASTRUCTURE CRITICAL: {{ .GroupLabels.alertname }}"
+        body: |
+          {{ range .Alerts }}
+          **Alert:** {{ .Annotations.summary }}
+          **Description:** {{ .Annotations.description }}
+          **Instance:** {{ .Labels.instance }}
+          **Runbook:** {{ .Annotations.runbook_url }}
+          **Dashboard:** {{ .Annotations.dashboard_url }}
+          **Time:** {{ .StartsAt }}
+          {{ end }}
 
-  pagerduty_configs:
-  - routing_key: 'YOUR_INFRASTRUCTURE_PAGERDUTY_KEY'
-    description: 'Infrastructure Critical: {{ .GroupLabels.alertname }}'
-    details:
-      summary: '{{ .Annotations.summary }}'
-      description: '{{ .Annotations.description }}'
-      instance: '{{ .Labels.instance }}'
-      runbook_url: '{{ .Annotations.runbook_url }}'
+    pagerduty_configs:
+      - routing_key: "YOUR_INFRASTRUCTURE_PAGERDUTY_KEY"
+        description: "Infrastructure Critical: {{ .GroupLabels.alertname }}"
+        details:
+          summary: "{{ .Annotations.summary }}"
+          description: "{{ .Annotations.description }}"
+          instance: "{{ .Labels.instance }}"
+          runbook_url: "{{ .Annotations.runbook_url }}"
 
-- name: 'database-critical'
-  email_configs:
-  - to: 'database@example.com'
-    subject: '🚨 DATABASE CRITICAL: {{ .GroupLabels.alertname }}'
-    body: |
-      {{ range .Alerts }}
-      **Alert:** {{ .Annotations.summary }}
-      **Description:** {{ .Annotations.description }}
-      **Instance:** {{ .Labels.instance }}
-      **Runbook:** {{ .Annotations.runbook_url }}
-      **Dashboard:** {{ .Annotations.dashboard_url }}
-      **Time:** {{ .StartsAt }}
-      {{ end }}
+  - name: "database-critical"
+    email_configs:
+      - to: "database@example.com"
+        subject: "🚨 DATABASE CRITICAL: {{ .GroupLabels.alertname }}"
+        body: |
+          {{ range .Alerts }}
+          **Alert:** {{ .Annotations.summary }}
+          **Description:** {{ .Annotations.description }}
+          **Instance:** {{ .Labels.instance }}
+          **Runbook:** {{ .Annotations.runbook_url }}
+          **Dashboard:** {{ .Annotations.dashboard_url }}
+          **Time:** {{ .StartsAt }}
+          {{ end }}
 
-  pagerduty_configs:
-  - routing_key: 'YOUR_DATABASE_PAGERDUTY_KEY'
-    description: 'Database Critical: {{ .GroupLabels.alertname }}'
-    details:
-      summary: '{{ .Annotations.summary }}'
-      description: '{{ .Annotations.description }}'
-      instance: '{{ .Labels.instance }}'
-      runbook_url: '{{ .Annotations.runbook_url }}'
+    pagerduty_configs:
+      - routing_key: "YOUR_DATABASE_PAGERDUTY_KEY"
+        description: "Database Critical: {{ .GroupLabels.alertname }}"
+        details:
+          summary: "{{ .Annotations.summary }}"
+          description: "{{ .Annotations.description }}"
+          instance: "{{ .Labels.instance }}"
+          runbook_url: "{{ .Annotations.runbook_url }}"
 
-- name: 'business-critical'
-  email_configs:
-  - to: 'business@example.com'
-    subject: '🚨 BUSINESS CRITICAL: {{ .GroupLabels.alertname }}'
-    body: |
-      {{ range .Alerts }}
-      **Alert:** {{ .Annotations.summary }}
-      **Description:** {{ .Annotations.description }}
-      **Runbook:** {{ .Annotations.runbook_url }}
-      **Dashboard:** {{ .Annotations.dashboard_url }}
-      **Time:** {{ .StartsAt }}
-      {{ end }}
+  - name: "business-critical"
+    email_configs:
+      - to: "business@example.com"
+        subject: "🚨 BUSINESS CRITICAL: {{ .GroupLabels.alertname }}"
+        body: |
+          {{ range .Alerts }}
+          **Alert:** {{ .Annotations.summary }}
+          **Description:** {{ .Annotations.description }}
+          **Runbook:** {{ .Annotations.runbook_url }}
+          **Dashboard:** {{ .Annotations.dashboard_url }}
+          **Time:** {{ .StartsAt }}
+          {{ end }}
 
-  pagerduty_configs:
-  - routing_key: 'YOUR_BUSINESS_PAGERDUTY_KEY'
-    description: 'Business Critical: {{ .GroupLabels.alertname }}'
-    details:
-      summary: '{{ .Annotations.summary }}'
-      description: '{{ .Annotations.description }}'
-      runbook_url: '{{ .Annotations.runbook_url }}'
+    pagerduty_configs:
+      - routing_key: "YOUR_BUSINESS_PAGERDUTY_KEY"
+        description: "Business Critical: {{ .GroupLabels.alertname }}"
+        details:
+          summary: "{{ .Annotations.summary }}"
+          description: "{{ .Annotations.description }}"
+          runbook_url: "{{ .Annotations.runbook_url }}"
 
-- name: 'security-alerts'
-  email_configs:
-  - to: 'security@example.com'
-    subject: '🔒 SECURITY: {{ .GroupLabels.alertname }}'
-    body: |
-      {{ range .Alerts }}
-      **Alert:** {{ .Annotations.summary }}
-      **Description:** {{ .Annotations.description }}
-      **Instance:** {{ .Labels.instance }}
-      **Runbook:** {{ .Annotations.runbook_url }}
-      **Dashboard:** {{ .Annotations.dashboard_url }}
-      **Time:** {{ .StartsAt }}
-      {{ end }}
+  - name: "security-alerts"
+    email_configs:
+      - to: "security@example.com"
+        subject: "🔒 SECURITY: {{ .GroupLabels.alertname }}"
+        body: |
+          {{ range .Alerts }}
+          **Alert:** {{ .Annotations.summary }}
+          **Description:** {{ .Annotations.description }}
+          **Instance:** {{ .Labels.instance }}
+          **Runbook:** {{ .Annotations.runbook_url }}
+          **Dashboard:** {{ .Annotations.dashboard_url }}
+          **Time:** {{ .StartsAt }}
+          {{ end }}
 
-  slack_configs:
-  - api_url: 'https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK'
-    channel: '#security-alerts'
-    title: '🔒 Security Alert'
-    text: |
-      {{ range .Alerts }}
-      *Alert:* {{ .Annotations.summary }}
-      *Description:* {{ .Annotations.description }}
-      *Instance:* {{ .Labels.instance }}
-      *Runbook:* {{ .Annotations.runbook_url }}
-      *Dashboard:* {{ .Annotations.dashboard_url }}
-      *Time:* {{ .StartsAt }}
-      {{ end }}
-    color: 'danger'
+    slack_configs:
+      - api_url: "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+        channel: "#security-alerts"
+        title: "🔒 Security Alert"
+        text: |
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          *Instance:* {{ .Labels.instance }}
+          *Runbook:* {{ .Annotations.runbook_url }}
+          *Dashboard:* {{ .Annotations.dashboard_url }}
+          *Time:* {{ .StartsAt }}
+          {{ end }}
+        color: "danger"
 ```
 
 ### Grafana Alerting Configuration
@@ -735,16 +736,16 @@ func (am *AlertManager) logAlert(alert Alert, group AlertGroup) {
 
 func main() {
     router := gin.Default()
-    
+
     alertManager := NewAlertManager()
-    
+
     router.POST("/alerts", alertManager.HandleAlert)
-    
+
     port := os.Getenv("PORT")
     if port == "" {
         port = "5001"
     }
-    
+
     router.Run(":" + port)
 }
 ```
@@ -753,7 +754,7 @@ func main() {
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
+version: "3.8"
 
 services:
   prometheus:
@@ -765,13 +766,13 @@ services:
       - ./alerts.yml:/etc/prometheus/alerts.yml
       - prometheus_data:/prometheus
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/etc/prometheus/console_libraries'
-      - '--web.console.templates=/etc/prometheus/consoles'
-      - '--storage.tsdb.retention.time=200h'
-      - '--web.enable-lifecycle'
-      - '--web.enable-admin-api'
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/etc/prometheus/console_libraries"
+      - "--web.console.templates=/etc/prometheus/consoles"
+      - "--storage.tsdb.retention.time=200h"
+      - "--web.enable-lifecycle"
+      - "--web.enable-admin-api"
 
   alertmanager:
     image: prom/alertmanager:latest
@@ -781,10 +782,10 @@ services:
       - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
       - alertmanager_data:/alertmanager
     command:
-      - '--config.file=/etc/alertmanager/alertmanager.yml'
-      - '--storage.path=/alertmanager'
-      - '--web.external-url=http://localhost:9093'
-      - '--web.enable-lifecycle'
+      - "--config.file=/etc/alertmanager/alertmanager.yml"
+      - "--storage.path=/alertmanager"
+      - "--web.external-url=http://localhost:9093"
+      - "--web.enable-lifecycle"
 
   grafana:
     image: grafana/grafana:latest
@@ -829,6 +830,7 @@ volumes:
 ## 🚀 Best Practices
 
 ### 1. Alert Rule Design
+
 ```yaml
 # Use appropriate thresholds and time windows
 - alert: HighErrorRate
@@ -839,33 +841,37 @@ volumes:
 ```
 
 ### 2. Alert Grouping
+
 ```yaml
 # Group related alerts
 route:
-  group_by: ['alertname', 'cluster', 'service']
+  group_by: ["alertname", "cluster", "service"]
   group_wait: 10s
   group_interval: 10s
 ```
 
 ### 3. Escalation Policies
+
 ```yaml
 # Implement escalation
 routes:
-- match:
-    severity: critical
-  receiver: 'critical-alerts'
-  repeat_interval: 30m
+  - match:
+      severity: critical
+    receiver: "critical-alerts"
+    repeat_interval: 30m
 ```
 
 ## 🏢 Industry Insights
 
 ### Alerting Usage Patterns
+
 - **Infrastructure Monitoring**: System health and performance
 - **Application Monitoring**: Business logic and errors
 - **Security Monitoring**: Threats and vulnerabilities
 - **Business Monitoring**: KPIs and revenue metrics
 
 ### Enterprise Alerting Strategy
+
 - **Multi-channel**: Email, SMS, Slack, PagerDuty
 - **Escalation**: Automatic escalation policies
 - **Suppression**: Reduce alert fatigue
@@ -874,13 +880,16 @@ routes:
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is alerting?**
+
    - Automatic issue detection
    - Notification systems
    - Escalation policies
    - Response procedures
 
 2. **What are alert rules?**
+
    - Condition definitions
    - Threshold settings
    - Time windows
@@ -893,7 +902,9 @@ routes:
    - Escalation policies
 
 ### Intermediate Level
+
 4. **How do you design alert rules?**
+
    ```yaml
    - alert: HighErrorRate
      expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.1
@@ -903,6 +914,7 @@ routes:
    ```
 
 5. **How do you handle alert grouping?**
+
    - Group by labels
    - Group wait time
    - Group interval
@@ -915,13 +927,16 @@ routes:
    - Channel selection
 
 ### Advanced Level
+
 7. **How do you implement alert suppression?**
+
    - Inhibition rules
    - Time-based suppression
    - Condition-based suppression
    - Manual suppression
 
 8. **How do you handle alert fatigue?**
+
    - Smart grouping
    - Appropriate thresholds
    - Runbook integration
