@@ -18,26 +18,26 @@ This repository contains comprehensive preparation materials for software engine
 
 #### **Programming & Algorithms**
 
-- [**DSA Questions & Answers Guide**](./DSA_Questions_Answers_Guide.md) - Complete data structures and algorithms
+- [**DSA Questions & Answers Guide**](./Technical-Fundamentals/DSA_Questions_Answers_Guide.md) - Complete data structures and algorithms
 - [**DSA-Golang Repository**](./DSA-Golang/) - 500+ LeetCode problems in Go
-- [**Go Expertise Complete Guide**](./Go_Expertise_Complete_Guide.md) - Deep dive into Golang
+- [**Go Expertise Complete Guide**](./Technical-Fundamentals/Go_Expertise_Complete_Guide.md) - Deep dive into Golang
 
 #### **System Design & Architecture**
 
-- [**System Design Concepts Guide**](./System_Design_Concepts_Guide.md) - HLD/LLD, scalability, microservices
-- [**Google System Design Advanced**](./Google_System_Design_Advanced.md) - Advanced system design patterns
-- [**Google Distributed Systems Guide**](./Google_Distributed_Systems_Guide.md) - Distributed systems concepts
+- [**System Design Concepts Guide**](./Technical-Fundamentals/System_Design_Concepts_Guide.md) - HLD/LLD, scalability, microservices
+- [**Google System Design Advanced**](./Company-Specific/Google_System_Design_Advanced.md) - Advanced system design patterns
+- [**Google Distributed Systems Guide**](./Company-Specific/Google_Distributed_Systems_Guide.md) - Distributed systems concepts
 
 #### **Databases & Data Engineering**
 
-- [**Databases Complete Guide**](./Databases_Complete_Guide.md) - Relational, NoSQL, and specialized databases
-- [**Databases Complete Guide Part 2**](./Databases_Complete_Guide_Part2.md) - Advanced database concepts
-- [**Designing Data-Intensive Applications Summary**](./Designing_Data_Intensive_Applications_Summary.md) - DDIA book summary
+- [**Databases Complete Guide**](./Technical-Fundamentals/Databases_Complete_Guide.md) - Relational, NoSQL, and specialized databases
+- [**Databases Complete Guide Part 2**](./Technical-Fundamentals/Databases_Complete_Guide_Part2.md) - Advanced database concepts
+- [**Designing Data-Intensive Applications Summary**](./Technical-Fundamentals/Designing_Data_Intensive_Applications_Summary.md) - DDIA book summary
 
 #### **Operating Systems & DevOps**
 
-- [**Operating System Concepts Guide**](./Operating_System_Concepts_Guide.md) - OS fundamentals with Go examples
-- [**DevOps Tools Complete Guide**](./DevOps_Tools_Complete_Guide.md) - CI/CD, containers, cloud platforms
+- [**Operating System Concepts Guide**](./Technical-Fundamentals/Operating_System_Concepts_Guide.md) - OS fundamentals with Go examples
+- [**DevOps Tools Complete Guide**](./Technical-Fundamentals/DevOps_Tools_Complete_Guide.md) - CI/CD, containers, cloud platforms
 - [**Backend-DevOps Repository**](./Backend-DevOps/) - Comprehensive DevOps and backend fundamentals
 
 ### **🤖 AI/ML & TinyML**
@@ -70,39 +70,39 @@ This repository contains comprehensive preparation materials for software engine
 
 #### **Google Interview Preparation**
 
-- [**Google Interview 3-Month Plan**](./Google_Interview_3_Month_Plan.md) - Structured preparation roadmap
-- [**Google Interview Weekly Schedule**](./Google_Interview_Weekly_Schedule.md) - Daily study schedules
-- [**Google Specific Interview Content**](./Google_Specific_Interview_Content.md) - Google-specific questions
-- [**Google Interview Best Resources**](./Google_Interview_Best_Resources.md) - Curated learning resources
-- [**Google Interview Video Playlists**](./Google_Interview_Video_Playlists.md) - Video content and playlists
-- [**Google Advanced Algorithms Guide**](./Google_Advanced_Algorithms_Guide.md) - Advanced algorithms for Google
-- [**Google Interview Advanced Topics**](./Google_Interview_Advanced_Topics.md) - Advanced technical topics
+- [**Google Interview 3-Month Plan**](./Company-Specific/Google_Interview_3_Month_Plan.md) - Structured preparation roadmap
+- [**Google Interview Weekly Schedule**](./Company-Specific/Google_Interview_Weekly_Schedule.md) - Daily study schedules
+- [**Google Specific Interview Content**](./Company-Specific/Google_Specific_Interview_Content.md) - Google-specific questions
+- [**Google Interview Best Resources**](./Company-Specific/Google_Interview_Best_Resources.md) - Curated learning resources
+- [**Google Interview Video Playlists**](./Company-Specific/Google_Interview_Video_Playlists.md) - Video content and playlists
+- [**Google Advanced Algorithms Guide**](./Company-Specific/Google_Advanced_Algorithms_Guide.md) - Advanced algorithms for Google
+- [**Google Interview Advanced Topics**](./Company-Specific/Google_Interview_Advanced_Topics.md) - Advanced technical topics
 
 #### **Razorpay Interview Preparation**
 
-- [**Razorpay Lead SDE Preparation Plan**](./Razorpay_Lead_SDE_Interview_Preparation_Plan.md) - Complete preparation strategy
-- [**Razorpay Advanced Interview Scenarios**](./Razorpay_Advanced_Interview_Scenarios.md) - Real interview scenarios
+- [**Razorpay Lead SDE Preparation Plan**](./Company-Specific/Razorpay_Lead_SDE_Interview_Preparation_Plan.md) - Complete preparation strategy
+- [**Razorpay Advanced Interview Scenarios**](./Company-Specific/Razorpay_Advanced_Interview_Scenarios.md) - Real interview scenarios
 - [**Company-Specific Problems**](./company/razorpay/) - Razorpay-specific coding problems
 
 ### **💼 Behavioral & Soft Skills**
 
-- [**Behavioral Questions Complete Guide**](./Behavioral_Questions_Complete_Guide.md) - STAR method and common questions
+- [**Behavioral Questions Complete Guide**](./Core-Guides/Behavioral_Questions_Complete_Guide.md) - STAR method and common questions
 
 ## 🚀 **Getting Started**
 
 ### **For Razorpay Interviews**
 
-1. Start with [**Razorpay Lead SDE Preparation Plan**](./Razorpay_Lead_SDE_Interview_Preparation_Plan.md)
-2. Review [**System Design Concepts Guide**](./System_Design_Concepts_Guide.md)
+1. Start with [**Razorpay Lead SDE Preparation Plan**](./Company-Specific/Razorpay_Lead_SDE_Interview_Preparation_Plan.md)
+2. Review [**System Design Concepts Guide**](./Technical-Fundamentals/System_Design_Concepts_Guide.md)
 3. Practice with [**DSA-Golang Repository**](./DSA-Golang/)
-4. Study [**Razorpay Advanced Interview Scenarios**](./Razorpay_Advanced_Interview_Scenarios.md)
+4. Study [**Razorpay Advanced Interview Scenarios**](./Company-Specific/Razorpay_Advanced_Interview_Scenarios.md)
 
 ### **For Google Interviews**
 
-1. Follow [**Google Interview 3-Month Plan**](./Google_Interview_3_Month_Plan.md)
-2. Use [**Google Interview Weekly Schedule**](./Google_Interview_Weekly_Schedule.md)
-3. Study [**Google Specific Interview Content**](./Google_Specific_Interview_Content.md)
-4. Practice with [**Google Advanced Algorithms Guide**](./Google_Advanced_Algorithms_Guide.md)
+1. Follow [**Google Interview 3-Month Plan**](./Company-Specific/Google_Interview_3_Month_Plan.md)
+2. Use [**Google Interview Weekly Schedule**](./Company-Specific/Google_Interview_Weekly_Schedule.md)
+3. Study [**Google Specific Interview Content**](./Company-Specific/Google_Specific_Interview_Content.md)
+4. Practice with [**Google Advanced Algorithms Guide**](./Company-Specific/Google_Advanced_Algorithms_Guide.md)
 
 ### **For AI/ML Roles**
 
