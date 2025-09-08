@@ -7,6 +7,7 @@
 Pulumi is a modern Infrastructure as Code platform that allows you to define infrastructure using real programming languages like TypeScript, Python, Go, and C#. It provides a unified approach to managing cloud resources across multiple providers.
 
 ### Key Features
+
 - **Real Programming Languages**: TypeScript, Python, Go, C#
 - **Multi-Cloud**: Support for AWS, Azure, GCP, Kubernetes
 - **State Management**: Built-in state management
@@ -58,141 +59,143 @@ const projectName = config.get("projectName") || "my-app";
 
 // VPC
 const vpc = new awsx.ec2.Vpc(`${projectName}-vpc`, {
-    cidrBlock: "10.0.0.0/16",
-    numberOfAvailabilityZones: 3,
-    enableDnsHostnames: true,
-    enableDnsSupport: true,
-    tags: {
-        Name: `${projectName}-vpc`,
-        Environment: environment,
-    },
+  cidrBlock: "10.0.0.0/16",
+  numberOfAvailabilityZones: 3,
+  enableDnsHostnames: true,
+  enableDnsSupport: true,
+  tags: {
+    Name: `${projectName}-vpc`,
+    Environment: environment,
+  },
 });
 
 // Security Groups
 const webSecurityGroup = new aws.ec2.SecurityGroup(`${projectName}-web-sg`, {
-    vpcId: vpc.vpcId,
-    description: "Security group for web servers",
-    ingress: [
-        {
-            protocol: "tcp",
-            fromPort: 80,
-            toPort: 80,
-            cidrBlocks: ["0.0.0.0/0"],
-        },
-        {
-            protocol: "tcp",
-            fromPort: 443,
-            toPort: 443,
-            cidrBlocks: ["0.0.0.0/0"],
-        },
-        {
-            protocol: "tcp",
-            fromPort: 22,
-            toPort: 22,
-            cidrBlocks: [vpc.vpc.cidrBlock],
-        },
-    ],
-    egress: [
-        {
-            protocol: "-1",
-            fromPort: 0,
-            toPort: 0,
-            cidrBlocks: ["0.0.0.0/0"],
-        },
-    ],
-    tags: {
-        Name: `${projectName}-web-sg`,
-        Environment: environment,
+  vpcId: vpc.vpcId,
+  description: "Security group for web servers",
+  ingress: [
+    {
+      protocol: "tcp",
+      fromPort: 80,
+      toPort: 80,
+      cidrBlocks: ["0.0.0.0/0"],
     },
+    {
+      protocol: "tcp",
+      fromPort: 443,
+      toPort: 443,
+      cidrBlocks: ["0.0.0.0/0"],
+    },
+    {
+      protocol: "tcp",
+      fromPort: 22,
+      toPort: 22,
+      cidrBlocks: [vpc.vpc.cidrBlock],
+    },
+  ],
+  egress: [
+    {
+      protocol: "-1",
+      fromPort: 0,
+      toPort: 0,
+      cidrBlocks: ["0.0.0.0/0"],
+    },
+  ],
+  tags: {
+    Name: `${projectName}-web-sg`,
+    Environment: environment,
+  },
 });
 
 const dbSecurityGroup = new aws.ec2.SecurityGroup(`${projectName}-db-sg`, {
-    vpcId: vpc.vpcId,
-    description: "Security group for database",
-    ingress: [
-        {
-            protocol: "tcp",
-            fromPort: 5432,
-            toPort: 5432,
-            securityGroups: [webSecurityGroup.id],
-        },
-    ],
-    egress: [
-        {
-            protocol: "-1",
-            fromPort: 0,
-            toPort: 0,
-            cidrBlocks: ["0.0.0.0/0"],
-        },
-    ],
-    tags: {
-        Name: `${projectName}-db-sg`,
-        Environment: environment,
+  vpcId: vpc.vpcId,
+  description: "Security group for database",
+  ingress: [
+    {
+      protocol: "tcp",
+      fromPort: 5432,
+      toPort: 5432,
+      securityGroups: [webSecurityGroup.id],
     },
+  ],
+  egress: [
+    {
+      protocol: "-1",
+      fromPort: 0,
+      toPort: 0,
+      cidrBlocks: ["0.0.0.0/0"],
+    },
+  ],
+  tags: {
+    Name: `${projectName}-db-sg`,
+    Environment: environment,
+  },
 });
 
 // Application Load Balancer
 const alb = new awsx.lb.ApplicationLoadBalancer(`${projectName}-alb`, {
-    vpc: vpc,
-    securityGroups: [webSecurityGroup.id],
-    tags: {
-        Name: `${projectName}-alb`,
-        Environment: environment,
-    },
+  vpc: vpc,
+  securityGroups: [webSecurityGroup.id],
+  tags: {
+    Name: `${projectName}-alb`,
+    Environment: environment,
+  },
 });
 
 // Target Group
 const targetGroup = new aws.lb.TargetGroup(`${projectName}-tg`, {
-    port: 80,
+  port: 80,
+  protocol: "HTTP",
+  vpcId: vpc.vpcId,
+  targetType: "instance",
+  healthCheck: {
+    enabled: true,
+    healthyThreshold: 2,
+    unhealthyThreshold: 3,
+    timeout: 5,
+    interval: 30,
+    path: "/health",
+    matcher: "200",
+    port: "traffic-port",
     protocol: "HTTP",
-    vpcId: vpc.vpcId,
-    targetType: "instance",
-    healthCheck: {
-        enabled: true,
-        healthyThreshold: 2,
-        unhealthyThreshold: 3,
-        timeout: 5,
-        interval: 30,
-        path: "/health",
-        matcher: "200",
-        port: "traffic-port",
-        protocol: "HTTP",
-    },
-    tags: {
-        Name: `${projectName}-tg`,
-        Environment: environment,
-    },
+  },
+  tags: {
+    Name: `${projectName}-tg`,
+    Environment: environment,
+  },
 });
 
 // Load Balancer Listener
 const listener = new aws.lb.Listener(`${projectName}-listener`, {
-    loadBalancerArn: alb.loadBalancer.arn,
-    port: 80,
-    protocol: "HTTP",
-    defaultActions: [
-        {
-            type: "forward",
-            targetGroupArn: targetGroup.arn,
-        },
-    ],
+  loadBalancerArn: alb.loadBalancer.arn,
+  port: 80,
+  protocol: "HTTP",
+  defaultActions: [
+    {
+      type: "forward",
+      targetGroupArn: targetGroup.arn,
+    },
+  ],
 });
 
 // Launch Template
 const launchTemplate = new aws.ec2.LaunchTemplate(`${projectName}-lt`, {
-    imageId: aws.ec2.getAmi({
-        mostRecent: true,
-        owners: ["amazon"],
-        filters: [
-            {
-                name: "name",
-                values: ["amzn2-ami-hvm-*-x86_64-gp2"],
-            },
-        ],
-    }).then(ami => ami.id),
-    instanceType: "t3.micro",
-    keyName: config.require("keyPairName"),
-    vpcSecurityGroupIds: [webSecurityGroup.id],
-    userData: pulumi.interpolate`#!/bin/bash
+  imageId: aws.ec2
+    .getAmi({
+      mostRecent: true,
+      owners: ["amazon"],
+      filters: [
+        {
+          name: "name",
+          values: ["amzn2-ami-hvm-*-x86_64-gp2"],
+        },
+      ],
+    })
+    .then((ami) => ami.id),
+  instanceType: "t3.micro",
+  keyName: config.require("keyPairName"),
+  vpcSecurityGroupIds: [webSecurityGroup.id],
+  userData: pulumi.interpolate`#!/bin/bash
 yum update -y
 yum install -y docker
 systemctl start docker
@@ -220,128 +223,134 @@ services:
       retries: 3
 EOF
 docker-compose up -d`,
-    tagSpecifications: [
-        {
-            resourceType: "instance",
-            tags: {
-                Name: `${projectName}-instance`,
-                Environment: environment,
-            },
-        },
-    ],
-    tags: {
-        Name: `${projectName}-lt`,
+  tagSpecifications: [
+    {
+      resourceType: "instance",
+      tags: {
+        Name: `${projectName}-instance`,
         Environment: environment,
+      },
     },
+  ],
+  tags: {
+    Name: `${projectName}-lt`,
+    Environment: environment,
+  },
 });
 
 // Auto Scaling Group
 const asg = new aws.autoscaling.Group(`${projectName}-asg`, {
-    vpcZoneIdentifiers: vpc.privateSubnetIds,
-    targetGroupArns: [targetGroup.arn],
-    healthCheckType: "ELB",
-    healthCheckGracePeriod: 300,
-    minSize: 2,
-    maxSize: 10,
-    desiredCapacity: 3,
-    launchTemplate: {
-        id: launchTemplate.id,
-        version: "$Latest",
+  vpcZoneIdentifiers: vpc.privateSubnetIds,
+  targetGroupArns: [targetGroup.arn],
+  healthCheckType: "ELB",
+  healthCheckGracePeriod: 300,
+  minSize: 2,
+  maxSize: 10,
+  desiredCapacity: 3,
+  launchTemplate: {
+    id: launchTemplate.id,
+    version: "$Latest",
+  },
+  tags: [
+    {
+      key: "Name",
+      value: `${projectName}-asg`,
+      propagateAtLaunch: true,
     },
-    tags: [
-        {
-            key: "Name",
-            value: `${projectName}-asg`,
-            propagateAtLaunch: true,
-        },
-        {
-            key: "Environment",
-            value: environment,
-            propagateAtLaunch: true,
-        },
-    ],
+    {
+      key: "Environment",
+      value: environment,
+      propagateAtLaunch: true,
+    },
+  ],
 });
 
 // Auto Scaling Policies
 const scaleUpPolicy = new aws.autoscaling.Policy(`${projectName}-scale-up`, {
-    scalingAdjustment: 1,
-    adjustmentType: "ChangeInCapacity",
-    cooldown: 300,
-    autoscalingGroupName: asg.name,
+  scalingAdjustment: 1,
+  adjustmentType: "ChangeInCapacity",
+  cooldown: 300,
+  autoscalingGroupName: asg.name,
 });
 
-const scaleDownPolicy = new aws.autoscaling.Policy(`${projectName}-scale-down`, {
+const scaleDownPolicy = new aws.autoscaling.Policy(
+  `${projectName}-scale-down`,
+  {
     scalingAdjustment: -1,
     adjustmentType: "ChangeInCapacity",
     cooldown: 300,
     autoscalingGroupName: asg.name,
-});
+  }
+);
 
 // CloudWatch Alarms
 const cpuHighAlarm = new aws.cloudwatch.MetricAlarm(`${projectName}-cpu-high`, {
-    alarmName: `${projectName}-cpu-high`,
-    comparisonOperator: "GreaterThanThreshold",
-    evaluationPeriods: 2,
-    metricName: "CPUUtilization",
-    namespace: "AWS/EC2",
-    period: 300,
-    statistic: "Average",
-    threshold: 70,
-    alarmDescription: "This metric monitors ec2 cpu utilization",
-    alarmActions: [scaleUpPolicy.arn],
-    dimensions: {
-        AutoScalingGroupName: asg.name,
-    },
+  alarmName: `${projectName}-cpu-high`,
+  comparisonOperator: "GreaterThanThreshold",
+  evaluationPeriods: 2,
+  metricName: "CPUUtilization",
+  namespace: "AWS/EC2",
+  period: 300,
+  statistic: "Average",
+  threshold: 70,
+  alarmDescription: "This metric monitors ec2 cpu utilization",
+  alarmActions: [scaleUpPolicy.arn],
+  dimensions: {
+    AutoScalingGroupName: asg.name,
+  },
 });
 
 const cpuLowAlarm = new aws.cloudwatch.MetricAlarm(`${projectName}-cpu-low`, {
-    alarmName: `${projectName}-cpu-low`,
-    comparisonOperator: "LessThanThreshold",
-    evaluationPeriods: 2,
-    metricName: "CPUUtilization",
-    namespace: "AWS/EC2",
-    period: 300,
-    statistic: "Average",
-    threshold: 20,
-    alarmDescription: "This metric monitors ec2 cpu utilization",
-    alarmActions: [scaleDownPolicy.arn],
-    dimensions: {
-        AutoScalingGroupName: asg.name,
-    },
+  alarmName: `${projectName}-cpu-low`,
+  comparisonOperator: "LessThanThreshold",
+  evaluationPeriods: 2,
+  metricName: "CPUUtilization",
+  namespace: "AWS/EC2",
+  period: 300,
+  statistic: "Average",
+  threshold: 20,
+  alarmDescription: "This metric monitors ec2 cpu utilization",
+  alarmActions: [scaleDownPolicy.arn],
+  dimensions: {
+    AutoScalingGroupName: asg.name,
+  },
 });
 
 // RDS Database
-const dbSubnetGroup = new aws.rds.SubnetGroup(`${projectName}-db-subnet-group`, {
+const dbSubnetGroup = new aws.rds.SubnetGroup(
+  `${projectName}-db-subnet-group`,
+  {
     subnetIds: vpc.privateSubnetIds,
     tags: {
-        Name: `${projectName}-db-subnet-group`,
-        Environment: environment,
+      Name: `${projectName}-db-subnet-group`,
+      Environment: environment,
     },
-});
+  }
+);
 
 const rds = new aws.rds.Instance(`${projectName}-db`, {
-    identifier: `${projectName}-db`,
-    engine: "postgres",
-    engineVersion: "14.7",
-    instanceClass: "db.t3.micro",
-    allocatedStorage: 20,
-    maxAllocatedStorage: 100,
-    storageType: "gp2",
-    storageEncrypted: true,
-    dbName: "myapp",
-    username: "postgres",
-    password: config.requireSecret("dbPassword"),
-    vpcSecurityGroupIds: [dbSecurityGroup.id],
-    dbSubnetGroupName: dbSubnetGroup.name,
-    backupRetentionPeriod: 7,
-    backupWindow: "03:00-04:00",
-    maintenanceWindow: "sun:04:00-sun:05:00",
-    skipFinalSnapshot: true,
-    deletionProtection: false,
-    tags: {
-        Name: `${projectName}-db`,
-        Environment: environment,
-    },
+  identifier: `${projectName}-db`,
+  engine: "postgres",
+  engineVersion: "14.7",
+  instanceClass: "db.t3.micro",
+  allocatedStorage: 20,
+  maxAllocatedStorage: 100,
+  storageType: "gp2",
+  storageEncrypted: true,
+  dbName: "myapp",
+  username: "postgres",
+  password: config.requireSecret("dbPassword"),
+  vpcSecurityGroupIds: [dbSecurityGroup.id],
+  dbSubnetGroupName: dbSubnetGroup.name,
+  backupRetentionPeriod: 7,
+  backupWindow: "03:00-04:00",
+  maintenanceWindow: "sun:04:00-sun:05:00",
+  skipFinalSnapshot: true,
+  deletionProtection: false,
+  tags: {
+    Name: `${projectName}-db`,
+    Environment: environment,
+  },
 });
 
 // Outputs
@@ -658,6 +667,7 @@ pulumi test --parallel 4
 ## 🚀 Best Practices
 
 ### 1. Project Structure
+
 ```
 my-project/
 ├── Pulumi.yaml
@@ -673,6 +683,7 @@ my-project/
 ```
 
 ### 2. Configuration Management
+
 ```typescript
 // Use configuration for environment-specific values
 const config = new pulumi.Config();
@@ -681,30 +692,41 @@ const dbPassword = config.requireSecret("dbPassword");
 ```
 
 ### 3. Resource Organization
+
 ```typescript
 // Use components for reusable infrastructure
 export class Database extends pulumi.ComponentResource {
-    public readonly instance: aws.rds.Instance;
-    
-    constructor(name: string, args: DatabaseArgs, opts?: pulumi.ComponentResourceOptions) {
-        super("custom:Database", name, args, opts);
-        
-        this.instance = new aws.rds.Instance(`${name}-db`, {
-            // ... configuration
-        }, { parent: this });
-    }
+  public readonly instance: aws.rds.Instance;
+
+  constructor(
+    name: string,
+    args: DatabaseArgs,
+    opts?: pulumi.ComponentResourceOptions
+  ) {
+    super("custom:Database", name, args, opts);
+
+    this.instance = new aws.rds.Instance(
+      `${name}-db`,
+      {
+        // ... configuration
+      },
+      { parent: this }
+    );
+  }
 }
 ```
 
 ## 🏢 Industry Insights
 
 ### Pulumi Usage Patterns
+
 - **Infrastructure as Code**: Modern IaC with real languages
 - **Multi-Cloud**: Cross-cloud deployments
 - **Testing**: Infrastructure testing
 - **Policy**: Governance and compliance
 
 ### Enterprise Pulumi Strategy
+
 - **State Management**: Centralized state
 - **Policy as Code**: CrossGuard policies
 - **Testing**: Automated testing
@@ -713,13 +735,16 @@ export class Database extends pulumi.ComponentResource {
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is Pulumi?**
+
    - Modern Infrastructure as Code platform
    - Real programming languages
    - Multi-cloud support
    - State management
 
 2. **What programming languages does Pulumi support?**
+
    - TypeScript/JavaScript
    - Python
    - Go
@@ -732,7 +757,9 @@ export class Database extends pulumi.ComponentResource {
    - Change detection
 
 ### Intermediate Level
+
 4. **How do you handle Pulumi configuration?**
+
    ```typescript
    const config = new pulumi.Config();
    const environment = config.get("environment");
@@ -740,6 +767,7 @@ export class Database extends pulumi.ComponentResource {
    ```
 
 5. **How do you implement Pulumi components?**
+
    - Component resources
    - Reusable infrastructure
    - Input/output types
@@ -752,13 +780,16 @@ export class Database extends pulumi.ComponentResource {
    - Test automation
 
 ### Advanced Level
+
 7. **How do you implement Pulumi patterns?**
+
    - Component composition
    - Resource dependencies
    - Output handling
    - Error management
 
 8. **How do you handle Pulumi security?**
+
    - Secret management
    - State encryption
    - Access control
