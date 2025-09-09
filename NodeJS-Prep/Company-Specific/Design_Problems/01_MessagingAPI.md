@@ -975,6 +975,7 @@ async function registerUser(username, email) {
 
 **Q: How would you handle 1 million concurrent users?**
 **A:** 
+
 - **Horizontal Scaling**: Deploy multiple server instances behind a load balancer
 - **WebSocket Connection Management**: Use Redis for connection state sharing across servers
 - **Database Sharding**: Partition users and messages by user ID or geographic region
@@ -984,6 +985,7 @@ async function registerUser(username, email) {
 
 **Q: What happens when a server crashes with active WebSocket connections?**
 **A:**
+
 - **Connection Recovery**: Clients implement exponential backoff reconnection logic
 - **State Synchronization**: Use Redis to store connection state and message delivery status
 - **Message Replay**: Implement message acknowledgment and replay mechanism
@@ -994,6 +996,7 @@ async function registerUser(username, email) {
 
 **Q: How do you ensure message delivery guarantees?**
 **A:**
+
 - **Message Acknowledgments**: Implement ACK/NACK mechanism for message delivery
 - **Retry Logic**: Exponential backoff retry for failed message deliveries
 - **Message Persistence**: Store messages in database before sending
@@ -1003,6 +1006,7 @@ async function registerUser(username, email) {
 
 **Q: How do you handle message ordering in group chats?**
 **A:**
+
 - **Sequence Numbers**: Assign incremental sequence numbers to messages
 - **Vector Clocks**: Use vector clocks for distributed message ordering
 - **Client-side Ordering**: Sort messages by timestamp and sequence number
@@ -1013,6 +1017,7 @@ async function registerUser(username, email) {
 
 **Q: How do you implement end-to-end encryption?**
 **A:**
+
 - **Key Exchange**: Use Diffie-Hellman key exchange for group chats
 - **Message Encryption**: Encrypt messages with AES-256 before sending
 - **Key Rotation**: Implement periodic key rotation for security
@@ -1022,6 +1027,7 @@ async function registerUser(username, email) {
 
 **Q: How do you prevent message spoofing and tampering?**
 **A:**
+
 - **Digital Signatures**: Sign messages with sender's private key
 - **Message Integrity**: Use HMAC for message integrity verification
 - **Authentication**: Verify user identity with JWT tokens
@@ -1035,12 +1041,13 @@ async function registerUser(username, email) {
 
 **Q1: How would you implement message search functionality?**
 **A:** 
+
 ```javascript
 // Elasticsearch Integration for Message Search
 class MessageSearchService {
   async searchMessages(query, userId, options = {}) {
     const searchQuery = {
-      index: 'messages',
+      index: "messages",
       body: {
         query: {
           bool: {
@@ -1051,17 +1058,17 @@ class MessageSearchService {
                   should: [
                     { term: { senderId: userId } },
                     { term: { recipientId: userId } },
-                    { term: { 'groupMembers': userId } }
-                  ]
-                }
-              }
-            ]
-          }
+                    { term: { groupMembers: userId } },
+                  ],
+                },
+              },
+            ],
+          },
         },
-        sort: [{ timestamp: { order: 'desc' } }],
+        sort: [{ timestamp: { order: "desc" } }],
         from: options.offset || 0,
-        size: options.limit || 20
-      }
+        size: options.limit || 20,
+      },
     };
     
     return await this.elasticsearch.search(searchQuery);
@@ -1071,6 +1078,7 @@ class MessageSearchService {
 
 **Q2: How do you handle file sharing in messages?**
 **A:**
+
 ```javascript
 // File Upload and Sharing Implementation
 class FileSharingService {
@@ -1089,7 +1097,7 @@ class FileSharingService {
       mimeType: file.mimetype,
       uploaderId: userId,
       uploadUrl: uploadResult.url,
-      createdAt: new Date()
+      createdAt: new Date(),
     };
     
     await this.database.files.insert(fileMetadata);
@@ -1103,7 +1111,7 @@ class FileSharingService {
       fileId,
       messageId,
       recipientIds,
-      sharedAt: new Date()
+      sharedAt: new Date(),
     };
     
     await this.database.fileShares.insert(fileShare);
@@ -1116,6 +1124,7 @@ class FileSharingService {
 
 **Q3: How do you implement message reactions and threading?**
 **A:**
+
 ```javascript
 // Message Reactions and Threading
 class MessageInteractionService {
@@ -1124,7 +1133,7 @@ class MessageInteractionService {
       messageId,
       userId,
       emoji,
-      createdAt: new Date()
+      createdAt: new Date(),
     };
     
     // Store reaction in database
@@ -1140,7 +1149,7 @@ class MessageInteractionService {
     const thread = {
       parentMessageId,
       threadId: this.generateThreadId(),
-      createdAt: new Date()
+      createdAt: new Date(),
     };
     
     // Store thread metadata
@@ -1150,7 +1159,9 @@ class MessageInteractionService {
     const message = await this.sendMessage(replyMessage);
     
     // Link message to thread
-    await this.database.messages.update(message.id, { threadId: thread.threadId });
+    await this.database.messages.update(message.id, {
+      threadId: thread.threadId,
+    });
     
     return { thread, message };
   }
@@ -1161,6 +1172,7 @@ class MessageInteractionService {
 
 **Q4: How do you optimize for mobile clients with poor connectivity?**
 **A:**
+
 ```javascript
 // Mobile Optimization Service
 class MobileOptimizationService {
@@ -1175,7 +1187,7 @@ class MobileOptimizationService {
         await this.localStorage.removeOfflineMessage(message.id);
       } catch (error) {
         // Keep message for retry
-        console.error('Failed to sync offline message:', error);
+        console.error("Failed to sync offline message:", error);
       }
     }
   }
@@ -1184,7 +1196,7 @@ class MobileOptimizationService {
     // Check connection quality
     const connectionQuality = this.assessConnectionQuality(recipientConnection);
     
-    if (connectionQuality === 'poor') {
+    if (connectionQuality === "poor") {
       // Compress message content
       message.content = await this.compressContent(message.content);
       
@@ -1199,6 +1211,7 @@ class MobileOptimizationService {
 
 **Q5: How do you implement message read receipts?**
 **A:**
+
 ```javascript
 // Read Receipts Implementation
 class ReadReceiptService {
@@ -1206,7 +1219,7 @@ class ReadReceiptService {
     const readReceipt = {
       messageId,
       userId,
-      readAt: new Date()
+      readAt: new Date(),
     };
     
     // Store read receipt
@@ -1232,6 +1245,7 @@ class ReadReceiptService {
 
 **Q6: How do you implement message encryption for group chats?**
 **A:**
+
 ```javascript
 // End-to-End Encryption for Group Chats
 class GroupEncryptionService {
@@ -1250,7 +1264,7 @@ class GroupEncryptionService {
     await this.database.groupKeys.insert({
       groupId,
       encryptedKeys,
-      createdAt: new Date()
+      createdAt: new Date(),
     });
     
     return groupKey;
@@ -1263,7 +1277,7 @@ class GroupEncryptionService {
     return {
       ...message,
       content: encryptedContent,
-      encrypted: true
+      encrypted: true,
     };
   }
 }
@@ -1271,6 +1285,7 @@ class GroupEncryptionService {
 
 **Q7: How do you handle message moderation and content filtering?**
 **A:**
+
 ```javascript
 // Message Moderation Service
 class MessageModerationService {
@@ -1284,7 +1299,7 @@ class MessageModerationService {
         messageId: message.id,
         reason: contentCheck.reason,
         confidence: contentCheck.confidence,
-        flaggedAt: new Date()
+        flaggedAt: new Date(),
       });
       
       // Notify moderators
@@ -1306,16 +1321,19 @@ class MessageModerationService {
     if (moderationResult.violation) {
       // Apply automatic actions
       switch (moderationResult.severity) {
-        case 'low':
-          return { action: 'warn', message: 'Content flagged for review' };
-        case 'medium':
-          return { action: 'block', message: 'Message blocked due to policy violation' };
-        case 'high':
-          return { action: 'ban', message: 'User temporarily banned' };
+        case "low":
+          return { action: "warn", message: "Content flagged for review" };
+        case "medium":
+          return {
+            action: "block",
+            message: "Message blocked due to policy violation",
+          };
+        case "high":
+          return { action: "ban", message: "User temporarily banned" };
       }
     }
-    
-    return { action: 'allow' };
+
+    return { action: "allow" };
   }
 }
 ```
@@ -1325,45 +1343,49 @@ class MessageModerationService {
 ### **1. How would you implement message encryption and end-to-end security?**
 
 **Answer:**
+
 ```javascript
 class MessageEncryption {
   constructor() {
     this.encryptionKey = process.env.ENCRYPTION_KEY;
-    this.algorithm = 'aes-256-gcm';
+    this.algorithm = "aes-256-gcm";
   }
 
   async encryptMessage(message, recipientPublicKey) {
     try {
       // Generate random IV for each message
       const iv = crypto.randomBytes(16);
-      
+
       // Create cipher
       const cipher = crypto.createCipher(this.algorithm, this.encryptionKey);
       cipher.setAAD(Buffer.from(message.id)); // Additional authenticated data
-      
+
       // Encrypt message content
-      let encrypted = cipher.update(message.content, 'utf8', 'hex');
-      encrypted += cipher.final('hex');
-      
+      let encrypted = cipher.update(message.content, "utf8", "hex");
+      encrypted += cipher.final("hex");
+
       // Get authentication tag
       const authTag = cipher.getAuthTag();
-      
+
       // Encrypt metadata separately
       const metadata = {
         timestamp: message.timestamp,
         senderId: message.senderId,
-        messageType: message.type
+        messageType: message.type,
       };
-      
-      const encryptedMetadata = await this.encryptMetadata(metadata, recipientPublicKey);
-      
+
+      const encryptedMetadata = await this.encryptMetadata(
+        metadata,
+        recipientPublicKey
+      );
+
       return {
         id: message.id,
         encryptedContent: encrypted,
-        iv: iv.toString('hex'),
-        authTag: authTag.toString('hex'),
+        iv: iv.toString("hex"),
+        authTag: authTag.toString("hex"),
         encryptedMetadata: encryptedMetadata,
-        algorithm: this.algorithm
+        algorithm: this.algorithm,
       };
     } catch (error) {
       throw new Error(`Encryption failed: ${error.message}`);
@@ -1373,26 +1395,30 @@ class MessageEncryption {
   async decryptMessage(encryptedMessage, recipientPrivateKey) {
     try {
       const decipher = crypto.createDecipher(
-        this.algorithm, 
+        this.algorithm,
         this.encryptionKey
       );
-      
+
       decipher.setAAD(Buffer.from(encryptedMessage.id));
-      decipher.setAuthTag(Buffer.from(encryptedMessage.authTag, 'hex'));
-      
-      let decrypted = decipher.update(encryptedMessage.encryptedContent, 'hex', 'utf8');
-      decrypted += decipher.final('utf8');
-      
+      decipher.setAuthTag(Buffer.from(encryptedMessage.authTag, "hex"));
+
+      let decrypted = decipher.update(
+        encryptedMessage.encryptedContent,
+        "hex",
+        "utf8"
+      );
+      decrypted += decipher.final("utf8");
+
       // Decrypt metadata
       const metadata = await this.decryptMetadata(
-        encryptedMessage.encryptedMetadata, 
+        encryptedMessage.encryptedMetadata,
         recipientPrivateKey
       );
-      
+
       return {
         id: encryptedMessage.id,
         content: decrypted,
-        ...metadata
+        ...metadata,
       };
     } catch (error) {
       throw new Error(`Decryption failed: ${error.message}`);
@@ -1401,20 +1427,26 @@ class MessageEncryption {
 
   async encryptMetadata(metadata, publicKey) {
     const metadataString = JSON.stringify(metadata);
-    const encrypted = crypto.publicEncrypt({
-      key: publicKey,
-      padding: crypto.constants.RSA_PKCS1_OAEP_PADDING
-    }, Buffer.from(metadataString));
-    
-    return encrypted.toString('base64');
+    const encrypted = crypto.publicEncrypt(
+      {
+        key: publicKey,
+        padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+      },
+      Buffer.from(metadataString)
+    );
+
+    return encrypted.toString("base64");
   }
 
   async decryptMetadata(encryptedMetadata, privateKey) {
-    const decrypted = crypto.privateDecrypt({
-      key: privateKey,
-      padding: crypto.constants.RSA_PKCS1_OAEP_PADDING
-    }, Buffer.from(encryptedMetadata, 'base64'));
-    
+    const decrypted = crypto.privateDecrypt(
+      {
+        key: privateKey,
+        padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+      },
+      Buffer.from(encryptedMetadata, "base64")
+    );
+
     return JSON.parse(decrypted.toString());
   }
 }
@@ -1430,45 +1462,45 @@ class EndToEndSecurity {
     // Generate ephemeral keys for forward secrecy
     const ephemeralKey1 = this.forwardSecrecy.generateEphemeralKey();
     const ephemeralKey2 = this.forwardSecrecy.generateEphemeralKey();
-    
+
     // Perform key exchange
     const sharedSecret = await this.keyExchange.performKeyExchange(
-      ephemeralKey1, 
+      ephemeralKey1,
       ephemeralKey2
     );
-    
+
     // Store session keys
     await this.storeSessionKey(userId1, userId2, sharedSecret);
-    
+
     return {
       sessionId: uuidv4(),
       establishedAt: new Date(),
-      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
     };
   }
 
   async sendSecureMessage(senderId, recipientId, message) {
     // Get session key
     const sessionKey = await this.getSessionKey(senderId, recipientId);
-    
+
     if (!sessionKey) {
-      throw new Error('No secure channel established');
+      throw new Error("No secure channel established");
     }
-    
+
     // Encrypt message
     const encryptedMessage = await this.messageEncryption.encryptMessage(
-      message, 
+      message,
       sessionKey
     );
-    
+
     // Add security headers
     encryptedMessage.securityHeaders = {
       senderId,
       recipientId,
       timestamp: new Date(),
-      nonce: crypto.randomBytes(16).toString('hex')
+      nonce: crypto.randomBytes(16).toString("hex"),
     };
-    
+
     return encryptedMessage;
   }
 }
@@ -1477,6 +1509,7 @@ class EndToEndSecurity {
 ### **2. How to handle message delivery failures and retry mechanisms?**
 
 **Answer:**
+
 ```javascript
 class MessageDeliveryManager {
   constructor() {
@@ -1494,11 +1527,11 @@ class MessageDeliveryManager {
       attempts: 0,
       maxAttempts: 3,
       nextRetryAt: new Date(),
-      status: 'pending'
+      status: "pending",
     };
 
     this.deliveryQueue.set(deliveryAttempt.id, deliveryAttempt);
-    
+
     try {
       await this.attemptDelivery(deliveryAttempt, message);
     } catch (error) {
@@ -1509,7 +1542,7 @@ class MessageDeliveryManager {
   async attemptDelivery(deliveryAttempt, message) {
     // Check circuit breaker
     if (this.circuitBreaker.isOpen(message.recipientId)) {
-      throw new Error('Circuit breaker is open');
+      throw new Error("Circuit breaker is open");
     }
 
     deliveryAttempt.attempts++;
@@ -1518,9 +1551,9 @@ class MessageDeliveryManager {
     try {
       // Attempt delivery
       const result = await this.deliverToRecipient(message);
-      
+
       if (result.success) {
-        deliveryAttempt.status = 'delivered';
+        deliveryAttempt.status = "delivered";
         deliveryAttempt.deliveredAt = new Date();
         this.deliveryQueue.delete(deliveryAttempt.id);
         this.circuitBreaker.recordSuccess(message.recipientId);
@@ -1537,14 +1570,14 @@ class MessageDeliveryManager {
     if (deliveryAttempt.attempts >= deliveryAttempt.maxAttempts) {
       // Move to dead letter queue
       await this.dlq.addMessage(deliveryAttempt, error);
-      deliveryAttempt.status = 'failed';
+      deliveryAttempt.status = "failed";
       this.deliveryQueue.delete(deliveryAttempt.id);
     } else {
       // Schedule retry
       const retryDelay = this.calculateRetryDelay(deliveryAttempt.attempts);
       deliveryAttempt.nextRetryAt = new Date(Date.now() + retryDelay);
-      deliveryAttempt.status = 'retrying';
-      
+      deliveryAttempt.status = "retrying";
+
       // Schedule retry
       setTimeout(() => {
         this.retryDelivery(deliveryAttempt);
@@ -1557,12 +1590,12 @@ class MessageDeliveryManager {
     const baseDelay = 1000; // 1 second
     const maxDelay = 30000; // 30 seconds
     const jitter = Math.random() * 0.1; // 10% jitter
-    
+
     const delay = Math.min(
       baseDelay * Math.pow(2, attemptNumber - 1),
       maxDelay
     );
-    
+
     return delay * (1 + jitter);
   }
 
@@ -1591,12 +1624,12 @@ class CircuitBreaker {
   }
 
   isOpen(recipientId) {
-    const state = this.states.get(recipientId) || 'closed';
-    return state === 'open';
+    const state = this.states.get(recipientId) || "closed";
+    return state === "open";
   }
 
   recordSuccess(recipientId) {
-    this.states.set(recipientId, 'closed');
+    this.states.set(recipientId, "closed");
     this.failureCounts.set(recipientId, 0);
   }
 
@@ -1606,10 +1639,10 @@ class CircuitBreaker {
     this.lastFailureTimes.set(recipientId, Date.now());
 
     if (count >= this.threshold) {
-      this.states.set(recipientId, 'open');
+      this.states.set(recipientId, "open");
       // Auto-close after timeout
       setTimeout(() => {
-        this.states.set(recipientId, 'half-open');
+        this.states.set(recipientId, "half-open");
       }, this.timeout);
     }
   }
@@ -1619,20 +1652,21 @@ class CircuitBreaker {
 ### **3. How to implement message reactions and replies?**
 
 **Answer:**
+
 ```javascript
 class MessageReactions {
   constructor() {
     this.reactions = new Map(); // messageId -> reactions
-    this.reactionTypes = ['like', 'love', 'laugh', 'angry', 'sad', 'wow'];
+    this.reactionTypes = ["like", "love", "laugh", "angry", "sad", "wow"];
   }
 
   async addReaction(messageId, userId, reactionType) {
     if (!this.reactionTypes.includes(reactionType)) {
-      throw new Error('Invalid reaction type');
+      throw new Error("Invalid reaction type");
     }
 
     const messageReactions = this.reactions.get(messageId) || new Map();
-    
+
     // Remove existing reaction from user
     for (const [type, users] of messageReactions) {
       const userIndex = users.indexOf(userId);
@@ -1660,7 +1694,7 @@ class MessageReactions {
       reactionType,
       userId,
       timestamp: new Date(),
-      totalReactions: this.getTotalReactions(messageId)
+      totalReactions: this.getTotalReactions(messageId),
     };
   }
 
@@ -1690,25 +1724,25 @@ class MessageReactions {
   getReactions(messageId) {
     const messageReactions = this.reactions.get(messageId) || new Map();
     const result = {};
-    
+
     for (const [type, users] of messageReactions) {
       result[type] = {
         count: users.length,
-        users: users
+        users: users,
       };
     }
-    
+
     return result;
   }
 
   getTotalReactions(messageId) {
     const messageReactions = this.reactions.get(messageId) || new Map();
     let total = 0;
-    
+
     for (const [type, users] of messageReactions) {
       total += users.length;
     }
-    
+
     return total;
   }
 }
@@ -1726,7 +1760,7 @@ class MessageReplies {
       content: replyMessage.content,
       senderId: replyMessage.senderId,
       timestamp: new Date(),
-      threadId: this.getThreadId(parentMessageId)
+      threadId: this.getThreadId(parentMessageId),
     };
 
     // Add to replies
@@ -1739,9 +1773,9 @@ class MessageReplies {
       id: reply.threadId,
       messageCount: 0,
       lastActivity: new Date(),
-      participants: new Set()
+      participants: new Set(),
     };
-    
+
     threadInfo.messageCount++;
     threadInfo.lastActivity = new Date();
     threadInfo.participants.add(reply.senderId);
@@ -1774,13 +1808,14 @@ class MessageReplies {
 ### **4. How to handle file attachments in messages?**
 
 **Answer:**
+
 ```javascript
 class MessageAttachments {
   constructor() {
     this.attachments = new Map(); // messageId -> attachments
     this.fileStorage = new FileStorage();
     this.maxFileSize = 10 * 1024 * 1024; // 10MB
-    this.allowedTypes = ['image', 'video', 'audio', 'document'];
+    this.allowedTypes = ["image", "video", "audio", "document"];
   }
 
   async addAttachment(messageId, fileData) {
@@ -1803,7 +1838,7 @@ class MessageAttachments {
       mimeType: fileData.mimeType,
       fileType: this.getFileType(fileData.mimeType),
       uploadedAt: new Date(),
-      metadata: await this.extractMetadata(fileData)
+      metadata: await this.extractMetadata(fileData),
     };
 
     // Add to message attachments
@@ -1817,44 +1852,44 @@ class MessageAttachments {
   async validateFile(fileData) {
     // Check file size
     if (fileData.size > this.maxFileSize) {
-      throw new Error('File size exceeds limit');
+      throw new Error("File size exceeds limit");
     }
 
     // Check file type
     const fileType = this.getFileType(fileData.mimeType);
     if (!this.allowedTypes.includes(fileType)) {
-      throw new Error('File type not allowed');
+      throw new Error("File type not allowed");
     }
 
     // Scan for malware
     const scanResult = await this.scanFile(fileData.buffer);
     if (scanResult.threats.length > 0) {
-      throw new Error('File contains threats');
+      throw new Error("File contains threats");
     }
   }
 
   getFileType(mimeType) {
-    if (mimeType.startsWith('image/')) return 'image';
-    if (mimeType.startsWith('video/')) return 'video';
-    if (mimeType.startsWith('audio/')) return 'audio';
-    if (mimeType.startsWith('application/')) return 'document';
-    return 'unknown';
+    if (mimeType.startsWith("image/")) return "image";
+    if (mimeType.startsWith("video/")) return "video";
+    if (mimeType.startsWith("audio/")) return "audio";
+    if (mimeType.startsWith("application/")) return "document";
+    return "unknown";
   }
 
   async extractMetadata(fileData) {
     const metadata = {
       size: fileData.size,
       mimeType: fileData.mimeType,
-      uploadedAt: new Date()
+      uploadedAt: new Date(),
     };
 
     // Extract image metadata
-    if (fileData.mimeType.startsWith('image/')) {
+    if (fileData.mimeType.startsWith("image/")) {
       metadata.imageInfo = await this.extractImageMetadata(fileData.buffer);
     }
 
     // Extract video metadata
-    if (fileData.mimeType.startsWith('video/')) {
+    if (fileData.mimeType.startsWith("video/")) {
       metadata.videoInfo = await this.extractVideoMetadata(fileData.buffer);
     }
 
@@ -1866,8 +1901,8 @@ class MessageAttachments {
     return {
       width: 1920,
       height: 1080,
-      format: 'jpeg',
-      colorSpace: 'sRGB'
+      format: "jpeg",
+      colorSpace: "sRGB",
     };
   }
 
@@ -1877,8 +1912,8 @@ class MessageAttachments {
       duration: 120,
       width: 1920,
       height: 1080,
-      format: 'mp4',
-      bitrate: 5000000
+      format: "mp4",
+      bitrate: 5000000,
     };
   }
 
@@ -1887,7 +1922,7 @@ class MessageAttachments {
     return {
       threats: [],
       scanTime: new Date(),
-      engine: 'clamav'
+      engine: "clamav",
     };
   }
 
@@ -1897,17 +1932,19 @@ class MessageAttachments {
 
   async deleteAttachment(messageId, attachmentId) {
     const messageAttachments = this.attachments.get(messageId) || [];
-    const attachmentIndex = messageAttachments.findIndex(a => a.id === attachmentId);
-    
+    const attachmentIndex = messageAttachments.findIndex(
+      (a) => a.id === attachmentId
+    );
+
     if (attachmentIndex === -1) {
-      throw new Error('Attachment not found');
+      throw new Error("Attachment not found");
     }
 
     const attachment = messageAttachments[attachmentIndex];
-    
+
     // Delete from storage
     await this.fileStorage.delete(attachment.fileUrl);
-    
+
     // Remove from message
     messageAttachments.splice(attachmentIndex, 1);
     this.attachments.set(messageId, messageAttachments);
@@ -1920,6 +1957,7 @@ class MessageAttachments {
 ### **5. How to implement message search and filtering?**
 
 **Answer:**
+
 ```javascript
 class MessageSearch {
   constructor() {
@@ -1936,22 +1974,22 @@ class MessageSearch {
       recipientId: message.recipientId,
       timestamp: message.timestamp,
       messageType: message.type,
-      tags: this.extractTags(message.content)
+      tags: this.extractTags(message.content),
     };
 
     // Index for sender
     await this.addToIndex(message.senderId, searchableContent);
-    
+
     // Index for recipient
     await this.addToIndex(message.recipientId, searchableContent);
   }
 
   async addToIndex(userId, content) {
     const userIndex = this.searchIndex.get(userId) || new Map();
-    
+
     // Add to full-text search
     await this.fullTextSearch.index(content.id, content.content);
-    
+
     // Add to user index
     userIndex.set(content.id, content);
     this.searchIndex.set(userId, userIndex);
@@ -1964,33 +2002,38 @@ class MessageSearch {
     // Apply text search
     if (query.text) {
       const textResults = await this.fullTextSearch.search(query.text);
-      const textResultIds = new Set(textResults.map(r => r.id));
-      results = results.filter(msg => textResultIds.has(msg.id));
+      const textResultIds = new Set(textResults.map((r) => r.id));
+      results = results.filter((msg) => textResultIds.has(msg.id));
     }
 
     // Apply filters
     if (filters.senderId) {
-      results = results.filter(msg => msg.senderId === filters.senderId);
+      results = results.filter((msg) => msg.senderId === filters.senderId);
     }
 
     if (filters.recipientId) {
-      results = results.filter(msg => msg.recipientId === filters.recipientId);
+      results = results.filter(
+        (msg) => msg.recipientId === filters.recipientId
+      );
     }
 
     if (filters.messageType) {
-      results = results.filter(msg => msg.messageType === filters.messageType);
+      results = results.filter(
+        (msg) => msg.messageType === filters.messageType
+      );
     }
 
     if (filters.dateRange) {
-      results = results.filter(msg => 
-        msg.timestamp >= filters.dateRange.start &&
-        msg.timestamp <= filters.dateRange.end
+      results = results.filter(
+        (msg) =>
+          msg.timestamp >= filters.dateRange.start &&
+          msg.timestamp <= filters.dateRange.end
       );
     }
 
     if (filters.tags) {
-      results = results.filter(msg => 
-        filters.tags.some(tag => msg.tags.includes(tag))
+      results = results.filter((msg) =>
+        filters.tags.some((tag) => msg.tags.includes(tag))
       );
     }
 
@@ -2007,7 +2050,7 @@ class MessageSearch {
       total: results.length,
       page,
       limit,
-      hasMore: offset + limit < results.length
+      hasMore: offset + limit < results.length,
     };
   }
 
@@ -2015,19 +2058,20 @@ class MessageSearch {
     // Extract hashtags and mentions
     const hashtags = content.match(/#\w+/g) || [];
     const mentions = content.match(/@\w+/g) || [];
-    
+
     return [
-      ...hashtags.map(tag => tag.substring(1)),
-      ...mentions.map(mention => mention.substring(1))
+      ...hashtags.map((tag) => tag.substring(1)),
+      ...mentions.map((mention) => mention.substring(1)),
     ];
   }
 
   async getConversationHistory(userId1, userId2, limit = 50) {
     const userIndex = this.searchIndex.get(userId1) || new Map();
     const results = Array.from(userIndex.values())
-      .filter(msg => 
-        (msg.senderId === userId1 && msg.recipientId === userId2) ||
-        (msg.senderId === userId2 && msg.recipientId === userId1)
+      .filter(
+        (msg) =>
+          (msg.senderId === userId1 && msg.recipientId === userId2) ||
+          (msg.senderId === userId2 && msg.recipientId === userId1)
       )
       .sort((a, b) => a.timestamp - b.timestamp)
       .slice(-limit);
@@ -2037,21 +2081,23 @@ class MessageSearch {
 
   async getMessageStats(userId, timeRange) {
     const userIndex = this.searchIndex.get(userId) || new Map();
-    const messages = Array.from(userIndex.values())
-      .filter(msg => 
-        msg.timestamp >= timeRange.start &&
-        msg.timestamp <= timeRange.end
-      );
+    const messages = Array.from(userIndex.values()).filter(
+      (msg) =>
+        msg.timestamp >= timeRange.start && msg.timestamp <= timeRange.end
+    );
 
     const stats = {
       totalMessages: messages.length,
-      sentMessages: messages.filter(msg => msg.senderId === userId).length,
-      receivedMessages: messages.filter(msg => msg.recipientId === userId).length,
-      uniqueContacts: new Set(messages.map(msg => 
-        msg.senderId === userId ? msg.recipientId : msg.senderId
-      )).size,
+      sentMessages: messages.filter((msg) => msg.senderId === userId).length,
+      receivedMessages: messages.filter((msg) => msg.recipientId === userId)
+        .length,
+      uniqueContacts: new Set(
+        messages.map((msg) =>
+          msg.senderId === userId ? msg.recipientId : msg.senderId
+        )
+      ).size,
       messageTypes: this.groupByType(messages),
-      dailyActivity: this.getDailyActivity(messages)
+      dailyActivity: this.getDailyActivity(messages),
     };
 
     return stats;
@@ -2059,7 +2105,7 @@ class MessageSearch {
 
   groupByType(messages) {
     const types = {};
-    messages.forEach(msg => {
+    messages.forEach((msg) => {
       types[msg.messageType] = (types[msg.messageType] || 0) + 1;
     });
     return types;
@@ -2067,8 +2113,8 @@ class MessageSearch {
 
   getDailyActivity(messages) {
     const daily = {};
-    messages.forEach(msg => {
-      const date = msg.timestamp.toISOString().split('T')[0];
+    messages.forEach((msg) => {
+      const date = msg.timestamp.toISOString().split("T")[0];
       daily[date] = (daily[date] || 0) + 1;
     });
     return daily;
@@ -2078,13 +2124,28 @@ class MessageSearch {
 class FullTextSearch {
   constructor() {
     this.index = new Map(); // term -> messageIds
-    this.stopWords = new Set(['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by']);
+    this.stopWords = new Set([
+      "the",
+      "a",
+      "an",
+      "and",
+      "or",
+      "but",
+      "in",
+      "on",
+      "at",
+      "to",
+      "for",
+      "of",
+      "with",
+      "by",
+    ]);
   }
 
   async index(messageId, content) {
     const terms = this.tokenize(content);
-    
-    terms.forEach(term => {
+
+    terms.forEach((term) => {
       if (!this.index.has(term)) {
         this.index.set(term, new Set());
       }
@@ -2096,9 +2157,9 @@ class FullTextSearch {
     const terms = this.tokenize(query);
     const results = new Map(); // messageId -> score
 
-    terms.forEach(term => {
+    terms.forEach((term) => {
       if (this.index.has(term)) {
-        this.index.get(term).forEach(messageId => {
+        this.index.get(term).forEach((messageId) => {
           results.set(messageId, (results.get(messageId) || 0) + 1);
         });
       }
@@ -2111,10 +2172,470 @@ class FullTextSearch {
   }
 
   tokenize(text) {
-    return text.toLowerCase()
-      .replace(/[^\w\s]/g, ' ')
+    return text
+      .toLowerCase()
+      .replace(/[^\w\s]/g, " ")
       .split(/\s+/)
-      .filter(term => term.length > 2 && !this.stopWords.has(term));
+      .filter((term) => term.length > 2 && !this.stopWords.has(term));
+  }
+}
+```
+
+### **6. How to handle 1 trillion users and extreme scale messaging?**
+
+**Answer:**
+```javascript
+class ExtremeScaleMessagingSystem {
+  constructor() {
+    this.shardManager = new ShardManager();
+    this.regionManager = new RegionManager();
+    this.messageRouter = new MessageRouter();
+    this.cacheManager = new CacheManager();
+    this.compressionEngine = new CompressionEngine();
+    this.analyticsEngine = new AnalyticsEngine();
+  }
+
+  async sendMessage(message) {
+    // 1. Determine user shard
+    const userShard = this.shardManager.getShard(message.senderId);
+    const recipientShard = this.shardManager.getShard(message.recipientId);
+    
+    // 2. Compress message for storage efficiency
+    const compressedMessage = await this.compressionEngine.compress(message);
+    
+    // 3. Route message based on shard location
+    if (userShard === recipientShard) {
+      return await this.sendLocalMessage(compressedMessage, userShard);
+    } else {
+      return await this.sendCrossShardMessage(compressedMessage, userShard, recipientShard);
+    }
+  }
+
+  async sendLocalMessage(message, shardId) {
+    const shard = this.shardManager.getShardInstance(shardId);
+    
+    // Store in shard-local database
+    await shard.storeMessage(message);
+    
+    // Update recipient's message queue
+    await shard.addToRecipientQueue(message.recipientId, message.id);
+    
+    // Real-time delivery if user is online
+    const isOnline = await this.checkUserOnlineStatus(message.recipientId);
+    if (isOnline) {
+      await this.deliverRealtimeMessage(message);
+    }
+    
+    return { success: true, shardId, local: true };
+  }
+
+  async sendCrossShardMessage(message, senderShard, recipientShard) {
+    // Use message queue for cross-shard communication
+    const routingKey = `shard.${recipientShard}.messages`;
+    
+    await this.messageRouter.routeMessage(routingKey, {
+      message,
+      senderShard,
+      recipientShard,
+      timestamp: Date.now()
+    });
+    
+    return { success: true, crossShard: true, routingKey };
+  }
+}
+
+class ShardManager {
+  constructor() {
+    this.totalShards = 1000000; // 1 million shards
+    this.shardsPerRegion = 10000; // 10k shards per region
+    this.regions = ['us-east', 'us-west', 'eu-west', 'ap-south', 'ap-northeast'];
+    this.shardInstances = new Map();
+  }
+
+  getShard(userId) {
+    // Consistent hashing for shard assignment
+    const hash = this.hashUserId(userId);
+    return hash % this.totalShards;
+  }
+
+  getShardInstance(shardId) {
+    if (!this.shardInstances.has(shardId)) {
+      const region = this.getRegionForShard(shardId);
+      const shard = new ShardInstance(shardId, region);
+      this.shardInstances.set(shardId, shard);
+    }
+    return this.shardInstances.get(shardId);
+  }
+
+  getRegionForShard(shardId) {
+    const regionIndex = Math.floor(shardId / this.shardsPerRegion);
+    return this.regions[regionIndex % this.regions.length];
+  }
+
+  hashUserId(userId) {
+    // Use xxHash for fast, consistent hashing
+    return this.xxHash(userId);
+  }
+
+  xxHash(input) {
+    // Simplified xxHash implementation
+    let hash = 0;
+    for (let i = 0; i < input.length; i++) {
+      hash = ((hash << 5) - hash + input.charCodeAt(i)) & 0xffffffff;
+    }
+    return Math.abs(hash);
+  }
+}
+
+class ShardInstance {
+  constructor(shardId, region) {
+    this.shardId = shardId;
+    this.region = region;
+    this.database = new ShardDatabase(shardId);
+    this.cache = new ShardCache(shardId);
+    this.messageQueues = new Map(); // userId -> message queue
+  }
+
+  async storeMessage(message) {
+    // Store in shard-specific database
+    await this.database.insertMessage(message);
+    
+    // Update recipient's message queue
+    await this.addToRecipientQueue(message.recipientId, message.id);
+  }
+
+  async addToRecipientQueue(userId, messageId) {
+    if (!this.messageQueues.has(userId)) {
+      this.messageQueues.set(userId, []);
+    }
+    
+    const queue = this.messageQueues.get(userId);
+    queue.push({
+      messageId,
+      timestamp: Date.now(),
+      priority: this.calculatePriority(messageId)
+    });
+    
+    // Keep queue size manageable
+    if (queue.length > 1000) {
+      queue.splice(0, queue.length - 1000);
+    }
+  }
+
+  calculatePriority(messageId) {
+    // Priority based on message type, sender importance, etc.
+    return Math.random(); // Simplified
+  }
+}
+
+class MessageRouter {
+  constructor() {
+    this.messageQueues = new Map();
+    this.routingRules = new Map();
+    this.loadBalancer = new LoadBalancer();
+  }
+
+  async routeMessage(routingKey, message) {
+    // Get target shard from routing key
+    const targetShard = this.extractShardFromKey(routingKey);
+    
+    // Route to appropriate shard instance
+    const shardInstance = this.shardManager.getShardInstance(targetShard);
+    
+    // Process message in target shard
+    await shardInstance.processIncomingMessage(message);
+  }
+
+  extractShardFromKey(routingKey) {
+    const match = routingKey.match(/shard\.(\d+)\.messages/);
+    return match ? parseInt(match[1]) : 0;
+  }
+}
+
+class CompressionEngine {
+  constructor() {
+    this.compressionAlgorithms = {
+      'lz4': new LZ4Compressor(),
+      'zstd': new ZstdCompressor(),
+      'brotli': new BrotliCompressor()
+    };
+    this.defaultAlgorithm = 'zstd';
+  }
+
+  async compress(message) {
+    const algorithm = this.selectAlgorithm(message);
+    const compressor = this.compressionAlgorithms[algorithm];
+    
+    const compressed = await compressor.compress(JSON.stringify(message));
+    
+    return {
+      ...message,
+      content: compressed,
+      compression: {
+        algorithm,
+        originalSize: JSON.stringify(message).length,
+        compressedSize: compressed.length,
+        ratio: compressed.length / JSON.stringify(message).length
+      }
+    };
+  }
+
+  selectAlgorithm(message) {
+    // Select compression algorithm based on message characteristics
+    const contentSize = JSON.stringify(message).length;
+    
+    if (contentSize < 1024) return 'lz4';      // Fast for small messages
+    if (contentSize < 10240) return 'zstd';    // Balanced for medium messages
+    return 'brotli';                           // Best compression for large messages
+  }
+}
+
+class CacheManager {
+  constructor() {
+    this.redisCluster = new RedisCluster();
+    this.localCache = new Map();
+    this.cacheLayers = [
+      new L1Cache(), // In-memory cache
+      new L2Cache(), // Redis cluster
+      new L3Cache()  // Persistent cache
+    ];
+  }
+
+  async get(key) {
+    // Try each cache layer
+    for (const layer of this.cacheLayers) {
+      const value = await layer.get(key);
+      if (value) {
+        // Populate higher layers
+        await this.populateHigherLayers(key, value);
+        return value;
+      }
+    }
+    
+    return null;
+  }
+
+  async set(key, value, ttl = 3600) {
+    // Set in all cache layers
+    const promises = this.cacheLayers.map(layer => 
+      layer.set(key, value, ttl)
+    );
+    
+    await Promise.all(promises);
+  }
+
+  async populateHigherLayers(key, value) {
+    // Populate L1 and L2 caches when L3 hit occurs
+    await this.cacheLayers[0].set(key, value, 300); // 5 min TTL
+    await this.cacheLayers[1].set(key, value, 1800); // 30 min TTL
+  }
+}
+
+class AnalyticsEngine {
+  constructor() {
+    this.metricsCollector = new MetricsCollector();
+    this.aggregator = new MetricsAggregator();
+    this.storage = new TimeSeriesStorage();
+  }
+
+  async trackMessage(message) {
+    const metrics = {
+      timestamp: Date.now(),
+      messageId: message.id,
+      senderId: message.senderId,
+      recipientId: message.recipientId,
+      messageType: message.type,
+      size: JSON.stringify(message).length,
+      shardId: this.shardManager.getShard(message.senderId)
+    };
+    
+    // Collect metrics
+    await this.metricsCollector.collect(metrics);
+    
+    // Aggregate for real-time dashboards
+    await this.aggregator.aggregate(metrics);
+    
+    // Store for historical analysis
+    await this.storage.store(metrics);
+  }
+
+  async getSystemMetrics() {
+    return {
+      totalMessages: await this.getTotalMessageCount(),
+      activeUsers: await this.getActiveUserCount(),
+      messagesPerSecond: await this.getMessagesPerSecond(),
+      averageLatency: await this.getAverageLatency(),
+      errorRate: await this.getErrorRate(),
+      shardDistribution: await this.getShardDistribution()
+    };
+  }
+}
+
+class DatabaseSharding {
+  constructor() {
+    this.shardConfigs = new Map();
+    this.connectionPools = new Map();
+  }
+
+  async getShardConnection(shardId) {
+    if (!this.connectionPools.has(shardId)) {
+      const config = this.getShardConfig(shardId);
+      const pool = new ConnectionPool(config);
+      this.connectionPools.set(shardId, pool);
+    }
+    
+    return this.connectionPools.get(shardId);
+  }
+
+  getShardConfig(shardId) {
+    return {
+      host: `shard-${shardId}.database.internal`,
+      port: 5432,
+      database: `messages_shard_${shardId}`,
+      maxConnections: 100,
+      minConnections: 10
+    };
+  }
+}
+
+class LoadBalancer {
+  constructor() {
+    this.healthChecker = new HealthChecker();
+    this.loadBalancingAlgorithm = 'round_robin';
+    this.instances = new Map();
+  }
+
+  async selectInstance(serviceType) {
+    const healthyInstances = await this.healthChecker.getHealthyInstances(serviceType);
+    
+    if (healthyInstances.length === 0) {
+      throw new Error('No healthy instances available');
+    }
+    
+    return this.selectUsingAlgorithm(healthyInstances);
+  }
+
+  selectUsingAlgorithm(instances) {
+    switch (this.loadBalancingAlgorithm) {
+      case 'round_robin':
+        return this.roundRobin(instances);
+      case 'least_connections':
+        return this.leastConnections(instances);
+      case 'weighted_round_robin':
+        return this.weightedRoundRobin(instances);
+      default:
+        return instances[0];
+    }
+  }
+}
+
+// Performance optimizations for 1 trillion users
+class PerformanceOptimizations {
+  constructor() {
+    this.connectionPooling = new ConnectionPooling();
+    this.batchProcessing = new BatchProcessing();
+    this.asyncProcessing = new AsyncProcessing();
+    this.memoryOptimization = new MemoryOptimization();
+  }
+
+  async optimizeForScale() {
+    // 1. Connection pooling
+    await this.connectionPooling.optimize();
+    
+    // 2. Batch processing
+    await this.batchProcessing.configure();
+    
+    // 3. Async processing
+    await this.asyncProcessing.setup();
+    
+    // 4. Memory optimization
+    await this.memoryOptimization.optimize();
+  }
+}
+
+class ConnectionPooling {
+  async optimize() {
+    // Configure connection pools for each shard
+    const poolConfig = {
+      min: 10,
+      max: 100,
+      acquireTimeoutMillis: 30000,
+      createTimeoutMillis: 30000,
+      destroyTimeoutMillis: 5000,
+      idleTimeoutMillis: 30000,
+      reapIntervalMillis: 1000,
+      createRetryIntervalMillis: 200
+    };
+    
+    // Apply to all shards
+    for (let i = 0; i < 1000000; i++) {
+      await this.configurePool(i, poolConfig);
+    }
+  }
+}
+
+class BatchProcessing {
+  async configure() {
+    // Configure batch processing for message operations
+    this.batchSize = 1000;
+    this.flushInterval = 100; // ms
+    this.maxWaitTime = 1000; // ms
+    
+    // Start batch processors
+    this.startMessageBatchProcessor();
+    this.startUserBatchProcessor();
+    this.startAnalyticsBatchProcessor();
+  }
+}
+
+class AsyncProcessing {
+  async setup() {
+    // Set up async processing queues
+    this.messageQueue = new Queue('messages', {
+      redis: { host: 'redis-cluster.internal' },
+      defaultJobOptions: {
+        removeOnComplete: 100,
+        removeOnFail: 50,
+        attempts: 3,
+        backoff: {
+          type: 'exponential',
+          delay: 2000
+        }
+      }
+    });
+    
+    // Process messages asynchronously
+    this.messageQueue.process('send-message', 100, this.processMessage);
+  }
+}
+
+class MemoryOptimization {
+  async optimize() {
+    // Optimize memory usage for massive scale
+    this.enableMemoryCompression();
+    this.configureGarbageCollection();
+    this.optimizeDataStructures();
+  }
+  
+  enableMemoryCompression() {
+    // Enable memory compression for large data structures
+    process.env.NODE_OPTIONS = '--max-old-space-size=8192 --gc-interval=100';
+  }
+  
+  configureGarbageCollection() {
+    // Configure aggressive garbage collection
+    if (global.gc) {
+      setInterval(() => {
+        global.gc();
+      }, 30000); // GC every 30 seconds
+    }
+  }
+  
+  optimizeDataStructures() {
+    // Use more memory-efficient data structures
+    // Replace Map with WeakMap where appropriate
+    // Use typed arrays for numeric data
+    // Implement object pooling for frequently created objects
   }
 }
 ```
