@@ -66,10 +66,10 @@ func demonstrateSchedulerBehavior() {
     // 2. Context switching overhead
     // 3. Work stealing efficiency
     // 4. Garbage collection pressure
-    
+
     var wg sync.WaitGroup
     numGoroutines := 1000000 // Simulating high concurrency
-    
+
     for i := 0; i < numGoroutines; i++ {
         wg.Add(1)
         go func(id int) {
@@ -78,7 +78,7 @@ func demonstrateSchedulerBehavior() {
             time.Sleep(time.Millisecond)
         }(i)
     }
-    
+
     wg.Wait()
     fmt.Printf("GOMAXPROCS: %d\n", runtime.GOMAXPROCS(0))
     fmt.Printf("NumGoroutine: %d\n", runtime.NumGoroutine())
@@ -102,6 +102,7 @@ func demonstrateSchedulerBehavior() {
 **Q4: What are the performance implications of having too many goroutines?**
 
 **Answer:** Too many goroutines can lead to:
+
 - Increased memory usage and GC pressure
 - Higher context switching overhead
 - Reduced cache locality
@@ -111,6 +112,7 @@ func demonstrateSchedulerBehavior() {
 **Q5: How would you optimize a system that needs to handle millions of concurrent operations?**
 
 **Answer:** Several optimization strategies:
+
 1. Use worker pools instead of creating unlimited goroutines
 2. Implement backpressure mechanisms to limit concurrency
 3. Use channels for communication instead of shared memory
@@ -125,18 +127,21 @@ func demonstrateSchedulerBehavior() {
 The work stealing algorithm is a key component of Go's scheduler that ensures efficient load balancing across processors. Here's how it works:
 
 **Core Components:**
+
 1. **Local Run Queues**: Each P (processor) has its own run queue that can hold up to 256 goroutines
 2. **Global Run Queue**: A shared queue for overflow situations and newly created goroutines
 3. **Network Poller**: Handles I/O operations without blocking processors
 4. **Work Stealing**: When a P's local queue is empty, it steals work from other P's queues
 
 **Algorithm Steps:**
+
 1. Check local run queue first
 2. If empty, check global run queue
 3. If still empty, steal from other P's queues
 4. If no work found, park the M (OS thread) until work becomes available
 
 **Benefits:**
+
 - **Load Balancing**: Work is distributed evenly across all processors
 - **Cache Locality**: Goroutines tend to run on the same processor
 - **Scalability**: Works efficiently with any number of processors
@@ -172,6 +177,7 @@ type WorkStealingScheduler struct {
 **Q3: How does the 256 goroutine limit per local queue affect performance?**
 
 **Answer:** The 256 goroutine limit per local queue is a balance between memory usage and performance. It ensures that:
+
 - Each processor has a reasonable amount of work to process
 - Memory usage is bounded per processor
 - Work stealing remains efficient (not too many goroutines to steal from)
@@ -188,18 +194,21 @@ type WorkStealingScheduler struct {
 #### **Performance Bottlenecks with Extreme Concurrency**
 
 **Memory Issues:**
+
 - Each goroutine: ~2KB initial stack
 - Trillions of goroutines = ~2TB+ memory
 - Stack growth can cause memory fragmentation
 - GC pressure increases exponentially
 
 **Scheduling Overhead:**
+
 - Context switching between goroutines
 - Work stealing becomes less efficient
 - Lock contention on global structures
 - Cache locality degradation
 
 **Solutions:**
+
 ```go
 // 1. Use worker pools instead of unlimited goroutines
 type WorkerPool struct {
@@ -232,6 +241,7 @@ func (bl *BackpressureLimiter) Release() {
 ### **Advanced Concurrency Patterns**
 
 #### **Lock-Free Data Structures**
+
 ```go
 // Implementing lock-free operations for high-performance scenarios
 import "sync/atomic"
@@ -266,6 +276,7 @@ func (s *LockFreeStack) Push(value interface{}) {
 ```
 
 #### **Advanced Channel Patterns**
+
 ```go
 // Fan-out/Fan-in pattern for processing large datasets
 func fanOutFanIn(input <-chan int, numWorkers int) <-chan int {
@@ -274,7 +285,7 @@ func fanOutFanIn(input <-chan int, numWorkers int) <-chan int {
     for i := 0; i < numWorkers; i++ {
         workers[i] = worker(input)
     }
-    
+
     // Fan-in: Collect results from all workers
     return fanIn(workers...)
 }
@@ -310,11 +321,13 @@ A payment gateway is a critical financial infrastructure that processes transact
 **Architecture Components:**
 
 **Client Layer:**
+
 - Mobile apps, web applications, and merchant dashboards
 - Handles user authentication and transaction initiation
 - Implements secure communication protocols
 
 **API Gateway:**
+
 - Single entry point for all client requests
 - Rate limiting to prevent abuse
 - Authentication and authorization
@@ -322,6 +335,7 @@ A payment gateway is a critical financial infrastructure that processes transact
 - API versioning and documentation
 
 **Microservices Layer:**
+
 - **Payment Service**: Core transaction processing
 - **User Service**: Customer and merchant management
 - **Notification Service**: Real-time updates and alerts
@@ -329,12 +343,14 @@ A payment gateway is a critical financial infrastructure that processes transact
 - **Settlement Service**: T+1 settlement processing
 
 **Data Layer:**
+
 - **MySQL**: Primary database for transactional data
 - **Redis**: Caching layer for frequently accessed data
 - **Kafka**: Message queue for event streaming
 - **Data Warehouse**: Analytics and reporting
 
 #### **High-Level Architecture**
+
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   Client Apps   │    │   Web Portal    │    │   Admin Panel   │
@@ -368,6 +384,7 @@ A payment gateway is a critical financial infrastructure that processes transact
 **Q1: How would you handle a sudden spike in transaction volume (e.g., during Black Friday)?**
 
 **Answer:** Several strategies to handle traffic spikes:
+
 1. **Auto-scaling**: Implement horizontal pod autoscaling based on CPU/memory metrics
 2. **Circuit Breakers**: Prevent cascade failures by temporarily disabling failing services
 3. **Rate Limiting**: Implement per-merchant rate limits to ensure fair resource allocation
@@ -379,6 +396,7 @@ A payment gateway is a critical financial infrastructure that processes transact
 **Q2: How do you ensure data consistency across multiple microservices?**
 
 **Answer:** Use the Saga pattern for distributed transactions:
+
 1. **Choreography**: Each service publishes events that other services consume
 2. **Orchestration**: A central orchestrator coordinates the transaction flow
 3. **Compensation**: Implement compensating actions for rollback scenarios
@@ -389,6 +407,7 @@ A payment gateway is a critical financial infrastructure that processes transact
 **Q3: What security measures would you implement for a payment gateway?**
 
 **Answer:** Comprehensive security strategy:
+
 1. **Encryption**: TLS 1.3 for data in transit, AES-256 for data at rest
 2. **PCI DSS Compliance**: Secure handling of card data, tokenization
 3. **Authentication**: Multi-factor authentication, OAuth 2.0, JWT tokens
@@ -401,6 +420,7 @@ A payment gateway is a critical financial infrastructure that processes transact
 **Q4: How would you design the database schema for a payment gateway?**
 
 **Answer:** Database design considerations:
+
 1. **Normalization**: Separate tables for users, merchants, transactions, settlements
 2. **Partitioning**: Partition transaction table by date or merchant ID
 3. **Indexing**: Composite indexes on frequently queried columns
@@ -412,6 +432,7 @@ A payment gateway is a critical financial infrastructure that processes transact
 **Q5: How do you handle payment failures and retries?**
 
 **Answer:** Robust failure handling:
+
 1. **Exponential Backoff**: Gradually increase retry intervals
 2. **Circuit Breaker**: Stop retrying after consecutive failures
 3. **Dead Letter Queue**: Store permanently failed transactions
@@ -421,6 +442,7 @@ A payment gateway is a critical financial infrastructure that processes transact
 7. **Monitoring**: Real-time alerts for failure rate spikes
 
 #### **Payment Processing Service Design**
+
 ```go
 // Core payment processing service
 type PaymentService struct {
@@ -446,18 +468,18 @@ func (ps *PaymentService) ProcessPayment(ctx context.Context, req *PaymentReques
     if err := ps.validateRequest(req); err != nil {
         return nil, err
     }
-    
+
     // 2. Risk assessment
     riskScore, err := ps.riskEngine.AssessRisk(req)
     if err != nil {
         return nil, err
     }
-    
+
     // 3. Check limits and compliance
     if err := ps.checkLimits(req, riskScore); err != nil {
         return nil, err
     }
-    
+
     // 4. Process payment based on method
     switch req.Method {
     case "card":
@@ -473,6 +495,7 @@ func (ps *PaymentService) ProcessPayment(ctx context.Context, req *PaymentReques
 ```
 
 #### **Database Sharding Strategy**
+
 ```go
 // Sharding strategy for payment data
 type ShardingStrategy struct {
@@ -490,7 +513,7 @@ func consistentHash(key string, shards []string) string {
     hash := fnv.New32a()
     hash.Write([]byte(key))
     hashValue := hash.Sum32()
-    
+
     shardIndex := hashValue % uint32(len(shards))
     return shards[shardIndex]
 }
@@ -499,6 +522,7 @@ func consistentHash(key string, shards []string) string {
 ### **Real-Time Risk Management System**
 
 #### **Stream Processing Architecture**
+
 ```go
 // Real-time risk assessment using stream processing
 type RiskAssessmentService struct {
@@ -518,19 +542,19 @@ type RiskEvent struct {
 func (ras *RiskAssessmentService) ProcessRiskEvent(event *RiskEvent) (*RiskScore, error) {
     // 1. Extract features
     features := ras.extractFeatures(event)
-    
+
     // 2. Apply ML model
     mlScore, err := ras.mlModel.Predict(features)
     if err != nil {
         return nil, err
     }
-    
+
     // 3. Apply business rules
     ruleScore := ras.rulesEngine.Evaluate(event)
-    
+
     // 4. Combine scores
     finalScore := ras.combineScores(mlScore, ruleScore)
-    
+
     return &RiskScore{
         Score:     finalScore,
         Reason:    ras.getReason(finalScore),
@@ -546,6 +570,7 @@ func (ras *RiskAssessmentService) ProcessRiskEvent(event *RiskEvent) (*RiskScore
 ### **Memory Management**
 
 #### **Virtual Memory and Paging**
+
 ```go
 // Understanding memory management in Go applications
 package main
@@ -561,26 +586,26 @@ func demonstrateMemoryManagement() {
     // 1. Garbage collection (concurrent, low-latency)
     // 2. Memory pooling
     // 3. Stack vs heap allocation
-    
+
     // Force garbage collection
     runtime.GC()
-    
+
     // Get memory statistics
     var m runtime.MemStats
     runtime.ReadMemStats(&m)
-    
+
     fmt.Printf("Alloc = %d KB\n", m.Alloc/1024)
     fmt.Printf("TotalAlloc = %d KB\n", m.TotalAlloc/1024)
     fmt.Printf("Sys = %d KB\n", m.Sys/1024)
     fmt.Printf("NumGC = %d\n", m.NumGC)
-    
+
     // Memory pooling for high-performance scenarios
     pool := &sync.Pool{
         New: func() interface{} {
             return make([]byte, 1024)
         },
     }
-    
+
     // Use pooled memory
     buf := pool.Get().([]byte)
     defer pool.Put(buf)
@@ -588,6 +613,7 @@ func demonstrateMemoryManagement() {
 ```
 
 #### **Process Scheduling**
+
 ```go
 // Understanding OS-level process scheduling
 // Go's runtime scheduler vs OS scheduler
@@ -598,7 +624,7 @@ type ProcessScheduling struct {
     // - Time quantum (typically 10-100ms)
     // - Priority-based scheduling
     // - Context switching overhead
-    
+
     // Go Runtime Level:
     // - Cooperative scheduling
     // - Goroutine preemption points
@@ -610,14 +636,14 @@ type ProcessScheduling struct {
 func demonstratePreemption() {
     // Go 1.14+ has preemptive scheduling
     // Goroutines can be preempted at function calls
-    
+
     go func() {
         for {
             // This loop can be preempted
             runtime.Gosched() // Voluntary yield
         }
     }()
-    
+
     // CPU-intensive work without preemption points
     go func() {
         for i := 0; i < 1000000000; i++ {
@@ -631,6 +657,7 @@ func demonstratePreemption() {
 ### **I/O Operations and System Calls**
 
 #### **Non-blocking I/O**
+
 ```go
 // Understanding I/O operations in Go
 package main
@@ -644,18 +671,18 @@ import (
 func demonstrateNonBlockingIO() {
     // Go's netpoller handles non-blocking I/O
     // Uses epoll (Linux), kqueue (BSD), or IOCP (Windows)
-    
+
     listener, err := net.Listen("tcp", ":8080")
     if err != nil {
         panic(err)
     }
-    
+
     for {
         conn, err := listener.Accept()
         if err != nil {
             continue
         }
-        
+
         // Handle connection in goroutine
         go handleConnection(conn)
     }
@@ -674,6 +701,7 @@ func handleConnectionWithContext(ctx context.Context, conn net.Conn) {
 ```
 
 #### **System Call Optimization**
+
 ```go
 // Minimizing system call overhead
 type SystemCallOptimizer struct {
@@ -689,7 +717,7 @@ func (sco *SystemCallOptimizer) WriteBatch(data []byte) error {
             return err
         }
     }
-    
+
     sco.buffer = append(sco.buffer, data...)
     return nil
 }
@@ -709,19 +737,20 @@ func (sco *SystemCallOptimizer) flush() error {
 ### **Payment Gateway Scalability**
 
 #### **Handling Peak Load**
+
 ```go
 // Strategies for handling payment gateway peak loads
 type PaymentGatewayScaler struct {
     // 1. Horizontal scaling
     loadBalancer *LoadBalancer
     instances    []*PaymentInstance
-    
+
     // 2. Circuit breakers
     circuitBreakers map[string]*CircuitBreaker
-    
+
     // 3. Rate limiting
     rateLimiters map[string]*RateLimiter
-    
+
     // 4. Caching layers
     cache *redis.ClusterClient
 }
@@ -731,21 +760,22 @@ func (pgs *PaymentGatewayScaler) HandlePaymentRequest(req *PaymentRequest) (*Pay
     if !pgs.rateLimiters[req.MerchantID].Allow() {
         return nil, ErrRateLimitExceeded
     }
-    
+
     // 2. Circuit breaker check
     if pgs.circuitBreakers[req.Method].IsOpen() {
         return nil, ErrServiceUnavailable
     }
-    
+
     // 3. Load balancing
     instance := pgs.loadBalancer.GetInstance()
-    
+
     // 4. Process payment
     return instance.ProcessPayment(req)
 }
 ```
 
 #### **Data Consistency in Distributed Systems**
+
 ```go
 // Implementing distributed transactions for payment processing
 type DistributedTransaction struct {
@@ -762,7 +792,7 @@ func (dt *DistributedTransaction) ExecutePayment(payment *Payment) error {
             return err
         }
     }
-    
+
     // Phase 2: Commit
     for _, participant := range dt.participants {
         if err := participant.Commit(payment); err != nil {
@@ -771,7 +801,7 @@ func (dt *DistributedTransaction) ExecutePayment(payment *Payment) error {
             return err
         }
     }
-    
+
     return nil
 }
 ```
@@ -779,6 +809,7 @@ func (dt *DistributedTransaction) ExecutePayment(payment *Payment) error {
 ### **Fraud Detection System**
 
 #### **Real-Time ML Pipeline**
+
 ```go
 // Real-time fraud detection using ML
 type FraudDetectionService struct {
@@ -803,19 +834,19 @@ func (fds *FraudDetectionService) DetectFraud(payment *Payment) (*FraudScore, er
     if err != nil {
         return nil, err
     }
-    
+
     // 2. Apply ML model
     mlScore, err := fds.mlModel.Predict(features)
     if err != nil {
         return nil, err
     }
-    
+
     // 3. Apply business rules
     ruleScore := fds.rulesEngine.Evaluate(payment, features)
-    
+
     // 4. Combine scores
     finalScore := fds.combineScores(mlScore, ruleScore)
-    
+
     return &FraudScore{
         Score:     finalScore,
         RiskLevel: fds.getRiskLevel(finalScore),
@@ -831,6 +862,7 @@ func (fds *FraudDetectionService) DetectFraud(payment *Payment) (*FraudScore, er
 ### **Advanced Graph Algorithms**
 
 #### **Minimum Spanning Tree for Network Optimization**
+
 ```go
 // Kruskal's algorithm for network optimization
 type Edge struct {
@@ -856,7 +888,7 @@ func (uf *UnionFind) Union(x, y int) {
     if px == py {
         return
     }
-    
+
     if uf.rank[px] < uf.rank[py] {
         uf.parent[px] = py
     } else if uf.rank[px] > uf.rank[py] {
@@ -871,16 +903,16 @@ func kruskalMST(edges []Edge, numVertices int) []Edge {
     sort.Slice(edges, func(i, j int) bool {
         return edges[i].Weight < edges[j].Weight
     })
-    
+
     uf := &UnionFind{
         parent: make([]int, numVertices),
         rank:   make([]int, numVertices),
     }
-    
+
     for i := 0; i < numVertices; i++ {
         uf.parent[i] = i
     }
-    
+
     var mst []Edge
     for _, edge := range edges {
         if uf.Find(edge.From) != uf.Find(edge.To) {
@@ -888,21 +920,22 @@ func kruskalMST(edges []Edge, numVertices int) []Edge {
             uf.Union(edge.From, edge.To)
         }
     }
-    
+
     return mst
 }
 ```
 
 #### **Dynamic Programming for Optimization**
+
 ```go
 // Advanced DP: Longest Common Subsequence with space optimization
 func lcsOptimized(s1, s2 string) int {
     m, n := len(s1), len(s2)
-    
+
     // Space-optimized DP using only 2 rows
     prev := make([]int, n+1)
     curr := make([]int, n+1)
-    
+
     for i := 1; i <= m; i++ {
         for j := 1; j <= n; j++ {
             if s1[i-1] == s2[j-1] {
@@ -913,14 +946,14 @@ func lcsOptimized(s1, s2 string) int {
         }
         prev, curr = curr, prev
     }
-    
+
     return prev[n]
 }
 
 // Knapsack with multiple constraints
 func knapsackMultipleConstraints(weights, values []int, capacity int, maxItems int) int {
     n := len(weights)
-    
+
     // DP[i][w][k] = max value with first i items, weight w, k items
     dp := make([][][]int, n+1)
     for i := range dp {
@@ -929,12 +962,12 @@ func knapsackMultipleConstraints(weights, values []int, capacity int, maxItems i
             dp[i][j] = make([]int, maxItems+1)
         }
     }
-    
+
     for i := 1; i <= n; i++ {
         for w := 0; w <= capacity; w++ {
             for k := 0; k <= maxItems; k++ {
                 dp[i][w][k] = dp[i-1][w][k] // Don't take item i
-                
+
                 if w >= weights[i-1] && k > 0 {
                     take := dp[i-1][w-weights[i-1]][k-1] + values[i-1]
                     dp[i][w][k] = max(dp[i][w][k], take)
@@ -942,7 +975,7 @@ func knapsackMultipleConstraints(weights, values []int, capacity int, maxItems i
             }
         }
     }
-    
+
     return dp[n][capacity][maxItems]
 }
 ```
@@ -950,25 +983,26 @@ func knapsackMultipleConstraints(weights, values []int, capacity int, maxItems i
 ### **Advanced String Algorithms**
 
 #### **Suffix Array and LCP Array**
+
 ```go
 // Suffix array construction for string processing
 func buildSuffixArray(s string) []int {
     n := len(s)
     suffixes := make([]Suffix, n)
-    
+
     for i := 0; i < n; i++ {
         suffixes[i] = Suffix{i, s[i:]}
     }
-    
+
     sort.Slice(suffixes, func(i, j int) bool {
         return suffixes[i].suffix < suffixes[j].suffix
     })
-    
+
     result := make([]int, n)
     for i, suffix := range suffixes {
         result[i] = suffix.index
     }
-    
+
     return result
 }
 
@@ -982,29 +1016,29 @@ func buildLCPArray(s string, suffixArray []int) []int {
     n := len(s)
     lcp := make([]int, n)
     rank := make([]int, n)
-    
+
     for i := 0; i < n; i++ {
         rank[suffixArray[i]] = i
     }
-    
+
     k := 0
     for i := 0; i < n; i++ {
         if rank[i] == n-1 {
             k = 0
             continue
         }
-        
+
         j := suffixArray[rank[i]+1]
         for i+k < n && j+k < n && s[i+k] == s[j+k] {
             k++
         }
-        
+
         lcp[rank[i]] = k
         if k > 0 {
             k--
         }
     }
-    
+
     return lcp
 }
 ```
@@ -1016,6 +1050,7 @@ func buildLCPArray(s string, suffixArray []int) []int {
 ### **Profiling and Optimization**
 
 #### **Go Profiling Tools**
+
 ```go
 // Comprehensive profiling setup
 package main
@@ -1035,10 +1070,10 @@ func setupProfiling() {
         panic(err)
     }
     defer f.Close()
-    
+
     pprof.StartCPUProfile(f)
     defer pprof.StopCPUProfile()
-    
+
     // Memory profiling
     runtime.GC()
     f2, err := os.Create("mem.prof")
@@ -1046,9 +1081,9 @@ func setupProfiling() {
         panic(err)
     }
     defer f2.Close()
-    
+
     pprof.WriteHeapProfile(f2)
-    
+
     // HTTP profiling endpoint
     go func() {
         log.Println(http.ListenAndServe("localhost:6060", nil))
@@ -1063,7 +1098,7 @@ func BenchmarkPaymentProcessing(b *testing.B) {
         Currency: "INR",
         Method:   "card",
     }
-    
+
     b.ResetTimer()
     for i := 0; i < b.N; i++ {
         _, err := service.ProcessPayment(context.Background(), payment)
@@ -1075,6 +1110,7 @@ func BenchmarkPaymentProcessing(b *testing.B) {
 ```
 
 #### **Memory Optimization Techniques**
+
 ```go
 // Memory pooling for high-performance scenarios
 type ObjectPool struct {
@@ -1110,14 +1146,14 @@ func (si *StringInterner) Intern(s string) string {
         return interned
     }
     si.mutex.RUnlock()
-    
+
     si.mutex.Lock()
     defer si.mutex.Unlock()
-    
+
     if interned, exists := si.strings[s]; exists {
         return interned
     }
-    
+
     si.strings[s] = s
     return s
 }
@@ -1126,6 +1162,7 @@ func (si *StringInterner) Intern(s string) string {
 ### **Concurrency Optimization**
 
 #### **Lock-Free Data Structures**
+
 ```go
 // Lock-free hash table for high-concurrency scenarios
 type LockFreeHashMap struct {
@@ -1142,17 +1179,17 @@ type HashNode struct {
 func (lfhm *LockFreeHashMap) Set(key string, value interface{}) {
     hash := lfhm.hash(key)
     bucket := lfhm.buckets[hash%len(lfhm.buckets)]
-    
+
     newNode := &HashNode{
         key:   key,
         value: value,
         next:  &atomic.Pointer{},
     }
-    
+
     for {
         oldHead := bucket.Load()
         newNode.next.Store(oldHead)
-        
+
         if bucket.CompareAndSwap(oldHead, unsafe.Pointer(newNode)) {
             return
         }
@@ -1162,7 +1199,7 @@ func (lfhm *LockFreeHashMap) Set(key string, value interface{}) {
 func (lfhm *LockFreeHashMap) Get(key string) (interface{}, bool) {
     hash := lfhm.hash(key)
     bucket := lfhm.buckets[hash%len(lfhm.buckets)]
-    
+
     node := (*HashNode)(bucket.Load())
     for node != nil {
         if node.key == key {
@@ -1170,7 +1207,7 @@ func (lfhm *LockFreeHashMap) Get(key string) (interface{}, bool) {
         }
         node = (*HashNode)(node.next.Load())
     }
-    
+
     return nil, false
 }
 ```
@@ -1182,17 +1219,18 @@ func (lfhm *LockFreeHashMap) Get(key string) (interface{}, bool) {
 ### **Technical Leadership Scenarios**
 
 #### **System Migration Strategy**
+
 ```go
 // Leading a complex system migration
 type MigrationStrategy struct {
     // 1. Assessment phase
     currentSystem *LegacySystem
     targetSystem  *ModernSystem
-    
+
     // 2. Risk mitigation
     rollbackPlan   *RollbackPlan
     monitoring     *MigrationMonitoring
-    
+
     // 3. Phased approach
     phases []MigrationPhase
 }
@@ -1211,7 +1249,7 @@ func (ms *MigrationStrategy) ExecuteMigration() error {
         if err := ms.preMigrationChecks(phase); err != nil {
             return err
         }
-        
+
         // 2. Execute phase
         if err := ms.executePhase(phase); err != nil {
             // 3. Rollback if needed
@@ -1220,18 +1258,19 @@ func (ms *MigrationStrategy) ExecuteMigration() error {
             }
             return err
         }
-        
+
         // 4. Post-migration validation
         if err := ms.postMigrationValidation(phase); err != nil {
             return err
         }
     }
-    
+
     return nil
 }
 ```
 
 #### **Team Mentoring and Code Review**
+
 ```go
 // Code review framework for technical leadership
 type CodeReviewFramework struct {
@@ -1239,11 +1278,11 @@ type CodeReviewFramework struct {
     codeQuality    *CodeQualityMetrics
     performance    *PerformanceMetrics
     security       *SecurityChecklist
-    
+
     // 2. Architecture aspects
     designPatterns *DesignPatternReview
     scalability    *ScalabilityReview
-    
+
     // 3. Team aspects
     knowledgeSharing *KnowledgeSharingPlan
     mentoring       *MentoringPlan
@@ -1262,10 +1301,10 @@ func (crf *CodeReviewFramework) ReviewCode(pr *PullRequest) *ReviewResult {
         ArchitectureScore: crf.evaluateArchitecture(pr),
         TeamImpact:     crf.evaluateTeamImpact(pr),
     }
-    
+
     // Provide constructive feedback
     result.Feedback = crf.generateFeedback(result)
-    
+
     return result
 }
 ```
@@ -1273,6 +1312,7 @@ func (crf *CodeReviewFramework) ReviewCode(pr *PullRequest) *ReviewResult {
 ### **Architecture Decision Records (ADRs)**
 
 #### **Technology Selection Framework**
+
 ```go
 // Framework for making architecture decisions
 type ArchitectureDecision struct {
@@ -1331,20 +1371,23 @@ func evaluateMicroservicesVsMonolith() *ArchitectureDecision {
 ## 📚 Additional Resources
 
 ### **Advanced Go Resources**
+
 - [Go Memory Model](https://golang.org/ref/mem)
 - [Go Scheduler Design](https://docs.google.com/document/d/1TTj4T2JO42uD5ID9e89oa0sLKhJYD0Y_kqxDv3I3XMw/edit)
 - [Go Performance Optimization](https://github.com/golang/go/wiki/Performance)
 
 ### **System Design Resources**
+
 - [Designing Data-Intensive Applications](https://dataintensive.net/)
 - [High Scalability Case Studies](https://highscalability.com/)
 - [Microservices Patterns](https://microservices.io/)
 
 ### **Interview Preparation**
+
 - [System Design Interview](https://github.com/checkcheckzz/system-design-interview)
 - [LeetCode Advanced Problems](https://leetcode.com/problemset/all/?difficulty=HARD)
 - [Go Interview Questions](https://github.com/kevinyan815/gocookbook)
 
 ---
 
-*This guide provides comprehensive preparation for advanced backend engineering roles at Razorpay, covering deep technical knowledge, system design expertise, and leadership capabilities.*
+_This guide provides comprehensive preparation for advanced backend engineering roles at Razorpay, covering deep technical knowledge, system design expertise, and leadership capabilities._

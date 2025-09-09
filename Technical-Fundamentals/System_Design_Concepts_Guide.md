@@ -27,6 +27,7 @@
 Scalability is the ability of a system to handle increased load by adding resources. There are two primary approaches to scaling:
 
 **Vertical Scaling (Scale Up):**
+
 - Adding more power to existing machines (CPU, RAM, storage)
 - Simpler architecture and management
 - No network communication overhead
@@ -35,6 +36,7 @@ Scalability is the ability of a system to handle increased load by adding resour
 - More expensive per unit of performance
 
 **Horizontal Scaling (Scale Out):**
+
 - Adding more machines to the system
 - Better fault tolerance and availability
 - Can scale beyond single machine limits
@@ -45,18 +47,21 @@ Scalability is the ability of a system to handle increased load by adding resour
 **When to Use Each Approach:**
 
 **Vertical Scaling is ideal for:**
+
 - Small to medium applications
 - When simplicity is more important than scalability
 - Applications with single-threaded bottlenecks
 - Legacy systems that are difficult to distribute
 
 **Horizontal Scaling is ideal for:**
+
 - High-traffic applications
 - Systems requiring high availability
 - Applications that need to scale beyond single machine limits
 - Modern cloud-native applications
 
 **Key Considerations:**
+
 - **Cost**: Horizontal scaling can be more cost-effective at scale
 - **Complexity**: Vertical scaling is simpler to implement
 - **Fault Tolerance**: Horizontal scaling provides better resilience
@@ -217,18 +222,21 @@ func main() {
 The CAP theorem, formulated by Eric Brewer, states that in a distributed system, you can only guarantee two out of three properties:
 
 **Consistency (C):**
+
 - All nodes see the same data at the same time
 - After an update, all subsequent reads return the updated value
 - Strong consistency ensures data integrity
 - Examples: ACID databases, financial systems
 
 **Availability (A):**
+
 - The system remains operational and responsive
 - Every request receives a response (success or failure)
 - No downtime or service unavailability
 - Examples: CDNs, web services
 
 **Partition Tolerance (P):**
+
 - The system continues to operate despite network failures
 - Handles network splits and communication failures
 - Essential for distributed systems
@@ -237,16 +245,19 @@ The CAP theorem, formulated by Eric Brewer, states that in a distributed system,
 **CAP Trade-offs in Practice:**
 
 **CP Systems (Consistency + Partition Tolerance):**
+
 - Prioritize data consistency over availability
 - Examples: MongoDB, HBase, traditional RDBMS
 - Use case: Financial systems, inventory management
 
 **AP Systems (Availability + Partition Tolerance):**
+
 - Prioritize availability over consistency
 - Examples: Cassandra, DynamoDB, CouchDB
 - Use case: Social media, content delivery
 
 **CA Systems (Consistency + Availability):**
+
 - Only possible in non-distributed systems
 - Single-node systems or systems with perfect network
 - Examples: Single-server databases
@@ -429,6 +440,7 @@ func main() {
 **Q1: How do you choose between consistency and availability in a distributed system?**
 
 **Answer:** The choice depends on your application's requirements:
+
 - **Choose Consistency (CP)**: When data integrity is critical (financial systems, inventory management, user authentication)
 - **Choose Availability (AP)**: When system uptime is more important than perfect consistency (social media feeds, content delivery, real-time analytics)
 - **Consider Eventual Consistency**: A compromise that provides availability with eventual data consistency
@@ -436,6 +448,7 @@ func main() {
 **Q2: Can you have all three properties (CAP) in a distributed system?**
 
 **Answer:** No, the CAP theorem proves that you cannot have all three properties simultaneously in a distributed system. However, you can:
+
 - Have all three in non-distributed systems (CA systems)
 - Use different consistency levels for different operations
 - Implement eventual consistency as a compromise
@@ -444,6 +457,7 @@ func main() {
 **Q3: How does the CAP theorem apply to modern cloud systems?**
 
 **Answer:** Modern cloud systems often use:
+
 - **Multi-region deployments** with eventual consistency
 - **Consistency levels** (strong, eventual, session, bounded staleness)
 - **Conflict resolution** mechanisms for eventual consistency
@@ -453,6 +467,7 @@ func main() {
 **Q4: What are the practical implications of choosing AP over CP?**
 
 **Answer:** Choosing AP (Availability + Partition Tolerance) means:
+
 - **Benefits**: High availability, better user experience, handles network failures gracefully
 - **Trade-offs**: Data may be temporarily inconsistent, requires conflict resolution, more complex application logic
 - **Use Cases**: Social media, content delivery, real-time systems, analytics platforms
@@ -460,6 +475,7 @@ func main() {
 **Q5: How do you handle data consistency in an AP system?**
 
 **Answer:** Several strategies for handling consistency in AP systems:
+
 - **Eventual Consistency**: Data becomes consistent over time
 - **Conflict Resolution**: Use timestamps, vector clocks, or application logic
 - **Read Repair**: Fix inconsistencies during read operations
@@ -487,30 +503,35 @@ Load balancing is a critical component of scalable systems that distributes inco
 **Load Balancing Algorithms:**
 
 **Round Robin:**
+
 - Distributes requests sequentially across servers
 - Simple and fair distribution
 - Good for servers with similar capacity
 - May not consider server load or response time
 
 **Weighted Round Robin:**
+
 - Assigns different weights to servers based on capacity
 - Servers with higher weights receive more requests
 - Better for heterogeneous server environments
 - More complex than simple round robin
 
 **Least Connections:**
+
 - Routes requests to the server with the fewest active connections
 - Good for long-lived connections
 - Considers current server load
 - May not account for server capacity differences
 
 **IP Hash:**
+
 - Uses client IP to determine server assignment
 - Ensures same client always goes to same server
 - Good for session affinity requirements
 - May cause uneven distribution
 
 **Health Checks:**
+
 - Monitors server health and availability
 - Removes unhealthy servers from rotation
 - Adds servers back when they recover
@@ -519,12 +540,14 @@ Load balancing is a critical component of scalable systems that distributes inco
 **Load Balancing Strategies:**
 
 **Layer 4 (Transport Layer):**
+
 - Routes based on IP and port
 - Faster processing
 - Less intelligent routing
 - Examples: HAProxy, F5
 
 **Layer 7 (Application Layer):**
+
 - Routes based on HTTP headers, content
 - More intelligent routing
 - Slower processing
@@ -709,6 +732,7 @@ func main() {
 **Q1: How do you choose the right load balancing algorithm for your system?**
 
 **Answer:** Consider these factors:
+
 - **Server Capacity**: Use weighted algorithms for heterogeneous servers
 - **Connection Type**: Use least connections for long-lived connections
 - **Session Requirements**: Use IP hash for session affinity
@@ -718,13 +742,15 @@ func main() {
 
 **Q2: What are the trade-offs between Layer 4 and Layer 7 load balancing?**
 
-**Answer:** 
+**Answer:**
 **Layer 4 (Transport Layer):**
+
 - **Pros**: Faster processing, lower latency, simpler configuration
 - **Cons**: Less intelligent routing, no content-based decisions
 - **Use Cases**: High-throughput applications, simple routing needs
 
 **Layer 7 (Application Layer):**
+
 - **Pros**: Intelligent routing, content-based decisions, better security
 - **Cons**: Higher latency, more complex configuration, higher resource usage
 - **Use Cases**: Complex routing requirements, API gateways, microservices
@@ -732,6 +758,7 @@ func main() {
 **Q3: How do you handle server failures in a load balancer?**
 
 **Answer:** Implement comprehensive failure handling:
+
 - **Health Checks**: Regular monitoring of server health
 - **Circuit Breakers**: Temporarily remove failing servers
 - **Graceful Degradation**: Reduce load on failing servers
@@ -742,6 +769,7 @@ func main() {
 **Q4: What are the challenges of load balancing in a microservices architecture?**
 
 **Answer:** Key challenges include:
+
 - **Service Discovery**: Finding available service instances
 - **Health Monitoring**: Tracking health of many small services
 - **Load Balancing**: Distributing load across service instances
@@ -752,6 +780,7 @@ func main() {
 **Q5: How do you implement sticky sessions in a load balancer?**
 
 **Answer:** Several approaches for session affinity:
+
 - **IP Hash**: Route based on client IP address
 - **Cookie-based**: Use application cookies to track sessions
 - **Session ID**: Include session identifier in requests
@@ -780,23 +809,27 @@ Caching is a fundamental technique for improving system performance by storing f
 **Cache Types:**
 
 **In-Memory Cache:**
+
 - Stored in application memory (Redis, Memcached)
 - Fastest access but limited by memory size
 - Lost when application restarts
 - Good for frequently accessed data
 
 **Distributed Cache:**
+
 - Shared across multiple application instances
 - Survives application restarts
 - Can be scaled independently
 - Examples: Redis Cluster, Hazelcast
 
 **CDN Cache:**
+
 - Caches static content at edge locations
 - Reduces latency for global users
 - Examples: CloudFlare, AWS CloudFront
 
 **Database Cache:**
+
 - Caches query results
 - Reduces database load
 - Examples: MySQL Query Cache, PostgreSQL Buffer Cache
@@ -804,24 +837,28 @@ Caching is a fundamental technique for improving system performance by storing f
 **Cache Strategies:**
 
 **Cache-Aside (Lazy Loading):**
+
 - Application checks cache first
 - Loads from database if cache miss
 - Updates cache after loading
 - Most common pattern
 
 **Write-Through:**
+
 - Writes to both cache and database
 - Ensures data consistency
 - Higher write latency
 - Good for critical data
 
 **Write-Behind (Write-Back):**
+
 - Writes to cache immediately
 - Writes to database asynchronously
 - Fastest writes
 - Risk of data loss
 
 **Refresh-Ahead:**
+
 - Refreshes cache before expiration
 - Reduces cache misses
 - More complex implementation
@@ -830,21 +867,25 @@ Caching is a fundamental technique for improving system performance by storing f
 **Cache Eviction Policies:**
 
 **LRU (Least Recently Used):**
+
 - Evicts least recently accessed items
 - Good for temporal locality
 - Simple to implement
 
 **LFU (Least Frequently Used):**
+
 - Evicts least frequently accessed items
 - Good for frequency-based access
 - More complex to implement
 
 **TTL (Time To Live):**
+
 - Evicts items after fixed time
 - Simple and predictable
 - May evict still-useful data
 
 **Random:**
+
 - Evicts random items
 - Simple implementation
 - May evict important data
@@ -999,6 +1040,7 @@ func main() {
 **Q1: How do you choose the right caching strategy for your application?**
 
 **Answer:** Consider these factors:
+
 - **Data Access Patterns**: Use cache-aside for read-heavy, write-through for write-heavy
 - **Consistency Requirements**: Use write-through for strong consistency, write-behind for eventual consistency
 - **Performance Needs**: Use write-behind for fastest writes, cache-aside for balanced performance
@@ -1009,16 +1051,19 @@ func main() {
 
 **Answer:**
 **LRU (Least Recently Used):**
+
 - **Pros**: Good for temporal locality, simple to implement
 - **Cons**: May evict frequently used items if not accessed recently
 - **Use Cases**: Web applications, user sessions
 
 **LFU (Least Frequently Used):**
+
 - **Pros**: Good for frequency-based access patterns
 - **Cons**: More complex implementation, may keep old popular items
 - **Use Cases**: Content recommendation systems, popular items
 
 **TTL (Time To Live):**
+
 - **Pros**: Simple and predictable, good for time-sensitive data
 - **Cons**: May evict still-useful data, requires tuning
 - **Use Cases**: API responses, temporary data
@@ -1026,6 +1071,7 @@ func main() {
 **Q3: How do you handle cache invalidation in a distributed system?**
 
 **Answer:** Several strategies for cache invalidation:
+
 - **TTL-based**: Let items expire naturally
 - **Event-driven**: Invalidate on data changes
 - **Version-based**: Use version numbers to detect stale data
@@ -1036,6 +1082,7 @@ func main() {
 **Q4: What are the challenges of caching in a microservices architecture?**
 
 **Answer:** Key challenges include:
+
 - **Cache Consistency**: Keeping caches in sync across services
 - **Cache Dependencies**: Managing cache dependencies between services
 - **Cache Warming**: Preloading caches after service restarts
@@ -1046,6 +1093,7 @@ func main() {
 **Q5: How do you implement cache warming strategies?**
 
 **Answer:** Several approaches for cache warming:
+
 - **Lazy Loading**: Load data on first access
 - **Eager Loading**: Preload data during startup
 - **Scheduled Warming**: Refresh cache at regular intervals
@@ -1074,12 +1122,14 @@ Database sharding is a horizontal partitioning technique that splits a large dat
 **Sharding Strategies:**
 
 **Horizontal Sharding:**
+
 - Split tables by rows
 - Each shard contains different rows
 - Most common approach
 - Good for large tables
 
 **Vertical Sharding:**
+
 - Split tables by columns
 - Each shard contains different columns
 - Less common
@@ -1088,24 +1138,28 @@ Database sharding is a horizontal partitioning technique that splits a large dat
 **Sharding Keys:**
 
 **Hash-based Sharding:**
+
 - Use hash function on shard key
 - Even distribution of data
 - Difficult to add/remove shards
 - Examples: User ID, Order ID
 
 **Range-based Sharding:**
+
 - Split data by ranges
 - Easy to add/remove shards
 - May cause uneven distribution
 - Examples: Date ranges, ID ranges
 
 **Directory-based Sharding:**
+
 - Use lookup table for shard mapping
 - Flexible and easy to change
 - Single point of failure
 - Examples: Geographic regions
 
 **Consistent Hashing:**
+
 - Distribute data in a ring
 - Easy to add/remove shards
 - Minimal data movement
@@ -1114,24 +1168,28 @@ Database sharding is a horizontal partitioning technique that splits a large dat
 **Sharding Challenges:**
 
 **Cross-shard Queries:**
+
 - Queries spanning multiple shards
 - Complex to implement
 - May require application-level joins
 - Consider denormalization
 
 **Data Rebalancing:**
+
 - Moving data when adding/removing shards
 - Expensive operation
 - May require downtime
 - Plan for data migration
 
 **Transaction Management:**
+
 - ACID properties across shards
 - Two-phase commit for consistency
 - Eventual consistency for performance
 - Consider distributed transactions
 
 **Shard Monitoring:**
+
 - Track performance per shard
 - Monitor data distribution
 - Alert on shard failures
@@ -1264,6 +1322,7 @@ func main() {
 **Q1: How do you choose the right sharding strategy for your database?**
 
 **Answer:** Consider these factors:
+
 - **Data Distribution**: Use hash-based for even distribution, range-based for sequential data
 - **Query Patterns**: Use range-based for range queries, hash-based for point queries
 - **Scalability Needs**: Use consistent hashing for easy scaling, hash-based for fixed shards
@@ -1273,6 +1332,7 @@ func main() {
 **Q2: What are the challenges of maintaining ACID properties across shards?**
 
 **Answer:** Key challenges include:
+
 - **Distributed Transactions**: Use two-phase commit for consistency
 - **Performance Impact**: Distributed transactions are slower than local ones
 - **Failure Handling**: Partial failures can leave system in inconsistent state
@@ -1283,6 +1343,7 @@ func main() {
 **Q3: How do you handle cross-shard queries efficiently?**
 
 **Answer:** Several strategies for cross-shard queries:
+
 - **Denormalization**: Duplicate data across shards to avoid joins
 - **Application-level Joins**: Fetch data from multiple shards and join in application
 - **Read Replicas**: Use read replicas for cross-shard queries
@@ -1294,16 +1355,19 @@ func main() {
 
 **Answer:**
 **Hash-based Sharding:**
+
 - **Pros**: Even distribution, good for point queries
 - **Cons**: Difficult to add/remove shards, poor for range queries
 - **Use Cases**: User data, order data
 
 **Range-based Sharding:**
+
 - **Pros**: Easy to add/remove shards, good for range queries
 - **Cons**: Uneven distribution, hot spots
 - **Use Cases**: Time-series data, sequential data
 
 **Consistent Hashing:**
+
 - **Pros**: Easy scaling, minimal data movement
 - **Cons**: Complex implementation, may cause uneven distribution
 - **Use Cases**: Distributed caches, content delivery
@@ -1311,6 +1375,7 @@ func main() {
 **Q5: How do you monitor and maintain a sharded database?**
 
 **Answer:** Comprehensive monitoring strategy:
+
 - **Shard Health**: Monitor each shard's performance and availability
 - **Data Distribution**: Track data distribution across shards
 - **Query Performance**: Monitor query performance per shard

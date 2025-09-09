@@ -748,6 +748,7 @@ for optimizer, results in optimizer_results.items():
 #### **Q9: What is the mathematical foundation of backpropagation?**
 
 **Answer:** Backpropagation is based on the chain rule of calculus:
+
 - **Forward Pass**: Compute activations layer by layer
 - **Loss Computation**: Calculate the loss between predictions and targets
 - **Backward Pass**: Compute gradients using the chain rule
@@ -758,6 +759,7 @@ for optimizer, results in optimizer_results.items():
 #### **Q10: How do you handle the exploding gradient problem?**
 
 **Answer:** Several strategies for exploding gradients:
+
 - **Gradient Clipping**: Limit gradient magnitudes to a threshold
 - **Weight Initialization**: Use proper initialization schemes
 - **Learning Rate**: Use smaller learning rates
@@ -769,21 +771,25 @@ for optimizer, results in optimizer_results.items():
 
 **Answer:**
 **Sigmoid:**
+
 - **Pros**: Smooth, bounded output, good for binary classification
 - **Cons**: Vanishing gradients, not zero-centered
 - **Use Cases**: Output layer for binary classification
 
 **Tanh:**
+
 - **Pros**: Zero-centered, smooth, bounded
 - **Cons**: Vanishing gradients, slower convergence
 - **Use Cases**: Hidden layers in some architectures
 
 **ReLU:**
+
 - **Pros**: Simple, fast, no vanishing gradients
 - **Cons**: Dead neurons, not bounded
 - **Use Cases**: Most common for hidden layers
 
 **Leaky ReLU:**
+
 - **Pros**: Addresses dead neuron problem
 - **Cons**: Additional hyperparameter
 - **Use Cases**: Alternative to ReLU
@@ -791,6 +797,7 @@ for optimizer, results in optimizer_results.items():
 #### **Q12: How do you implement efficient neural network training?**
 
 **Answer:** Efficient training strategies:
+
 - **Vectorization**: Use matrix operations instead of loops
 - **GPU Acceleration**: Use CUDA or other GPU frameworks
 - **Batch Processing**: Process multiple samples simultaneously
@@ -801,6 +808,7 @@ for optimizer, results in optimizer_results.items():
 #### **Q13: What is the mathematical intuition behind dropout?**
 
 **Answer:** Dropout is a regularization technique:
+
 - **Random Masking**: Randomly set some neurons to zero during training
 - **Ensemble Effect**: Creates an ensemble of smaller networks
 - **Prevents Overfitting**: Reduces co-adaptation between neurons
@@ -811,6 +819,7 @@ for optimizer, results in optimizer_results.items():
 #### **Q14: How do you handle imbalanced datasets in neural networks?**
 
 **Answer:** Several strategies for imbalanced datasets:
+
 - **Class Weighting**: Assign higher weights to minority classes
 - **Focal Loss**: Focus on hard examples
 - **SMOTE**: Generate synthetic samples for minority classes
@@ -821,10 +830,11 @@ for optimizer, results in optimizer_results.items():
 #### **Q15: What are the mathematical foundations of batch normalization?**
 
 **Answer:** Batch normalization normalizes inputs to each layer:
+
 - **Normalization**: Subtract mean and divide by standard deviation
 - **Scale and Shift**: Learnable parameters γ and β
 - **Benefits**: Reduces internal covariate shift, allows higher learning rates
-- **Mathematical Formula**: BN(x) = γ * (x - μ) / σ + β
+- **Mathematical Formula**: BN(x) = γ \* (x - μ) / σ + β
 - **Training**: Use batch statistics
 - **Inference**: Use running averages of statistics
 
