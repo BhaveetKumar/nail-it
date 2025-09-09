@@ -1,0 +1,126 @@
+server:
+  port: ":8080"
+  read_timeout: 30s
+  write_timeout: 30s
+  idle_timeout: 120s
+
+database:
+  mysql:
+    host: "localhost"
+    port: 3306
+    username: "root"
+    password: "password"
+    database: "cqrs_db"
+    max_idle_conns: 10
+    max_open_conns: 100
+    conn_max_lifetime: 3600
+  mongodb:
+    uri: "mongodb://localhost:27017"
+    database: "cqrs_db"
+    max_pool_size: 100
+    min_pool_size: 10
+    max_idle_time: 30s
+
+kafka:
+  brokers:
+    - "localhost:9092"
+  group_id: "cqrs-group"
+  topic: "cqrs-events"
+  consumer_timeout: 10s
+  producer_timeout: 10s
+
+websocket:
+  read_buffer_size: 1024
+  write_buffer_size: 1024
+  handshake_timeout: 10s
+  ping_period: 54s
+  pong_wait: 60s
+  write_wait: 10s
+
+cqrs:
+  name: "CQRS Service"
+  version: "1.0.0"
+  description: "CQRS (Command Query Responsibility Segregation) service for handling commands, queries, and events"
+  max_commands: 1000
+  max_queries: 1000
+  max_events: 10000
+  max_read_models: 10000
+  cleanup_interval: "1h"
+  validation_enabled: true
+  caching_enabled: true
+  monitoring_enabled: true
+  auditing_enabled: true
+  supported_command_types:
+    - "CreateUser"
+    - "UpdateUser"
+    - "DeleteUser"
+    - "CreateOrder"
+    - "UpdateOrder"
+    - "CancelOrder"
+    - "ProcessPayment"
+    - "RefundPayment"
+  supported_query_types:
+    - "GetUser"
+    - "ListUsers"
+    - "GetOrder"
+    - "ListOrders"
+    - "GetPayment"
+    - "ListPayments"
+    - "GetUserOrders"
+    - "GetOrderPayments"
+  supported_event_types:
+    - "UserCreated"
+    - "UserUpdated"
+    - "UserDeleted"
+    - "OrderCreated"
+    - "OrderUpdated"
+    - "OrderCancelled"
+    - "PaymentProcessed"
+    - "PaymentRefunded"
+  supported_read_model_types:
+    - "UserReadModel"
+    - "OrderReadModel"
+    - "PaymentReadModel"
+    - "UserOrderReadModel"
+    - "OrderPaymentReadModel"
+  validation_rules:
+    user:
+      name:
+        required: true
+        min_length: 2
+        max_length: 100
+      email:
+        required: true
+        format: "email"
+      age:
+        required: true
+        min: 18
+        max: 120
+    order:
+      user_id:
+        required: true
+        format: "uuid"
+      amount:
+        required: true
+        min: 0.01
+      currency:
+        required: true
+        enum: ["USD", "EUR", "GBP", "INR"]
+    payment:
+      order_id:
+        required: true
+        format: "uuid"
+      amount:
+        required: true
+        min: 0.01
+      currency:
+        required: true
+        enum: ["USD", "EUR", "GBP", "INR"]
+      method:
+        required: true
+        enum: ["credit_card", "debit_card", "net_banking", "upi", "wallet"]
+  metadata:
+    environment: "development"
+    region: "us-east-1"
+    team: "backend"
+    project: "cqrs-service"
