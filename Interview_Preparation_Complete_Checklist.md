@@ -9,6 +9,7 @@ This checklist covers all aspects of technical interview preparation, from codin
 ## 🎯 Preparation Timeline
 
 ### **12 Weeks Before Interview**
+
 - [ ] **Week 1-2**: Foundation building (DSA basics, system design fundamentals)
 - [ ] **Week 3-4**: Advanced algorithms and data structures
 - [ ] **Week 5-6**: System design patterns and architectures
@@ -19,7 +20,9 @@ This checklist covers all aspects of technical interview preparation, from codin
 ## 💻 Coding Interview Preparation
 
 ### **Data Structures & Algorithms**
+
 - [ ] **Arrays & Strings**
+
   - [ ] Two pointers technique
   - [ ] Sliding window
   - [ ] String manipulation
@@ -27,6 +30,7 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Practice: 20+ problems
 
 - [ ] **Linked Lists**
+
   - [ ] Singly and doubly linked lists
   - [ ] List reversal and manipulation
   - [ ] Cycle detection
@@ -34,6 +38,7 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Practice: 15+ problems
 
 - [ ] **Trees**
+
   - [ ] Binary trees and BST
   - [ ] Tree traversal (pre, in, post)
   - [ ] Tree construction
@@ -41,6 +46,7 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Practice: 25+ problems
 
 - [ ] **Graphs**
+
   - [ ] BFS and DFS
   - [ ] Shortest path algorithms
   - [ ] Topological sorting
@@ -48,6 +54,7 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Practice: 20+ problems
 
 - [ ] **Dynamic Programming**
+
   - [ ] 1D and 2D DP
   - [ ] Knapsack problems
   - [ ] Longest common subsequence
@@ -55,6 +62,7 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Practice: 30+ problems
 
 - [ ] **Greedy Algorithms**
+
   - [ ] Activity selection
   - [ ] Huffman coding
   - [ ] Minimum spanning tree
@@ -67,13 +75,16 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Practice: 20+ problems
 
 ### **Coding Skills**
+
 - [ ] **Language Proficiency**
+
   - [ ] Master your chosen language (Go, Python, Java, C++)
   - [ ] Know language-specific optimizations
   - [ ] Understand memory management
   - [ ] Practice: 100+ problems in your language
 
 - [ ] **Problem Solving**
+
   - [ ] Pattern recognition
   - [ ] Time and space complexity analysis
   - [ ] Edge case handling
@@ -89,13 +100,16 @@ This checklist covers all aspects of technical interview preparation, from codin
 ## 🏗️ System Design Preparation
 
 ### **Fundamental Concepts**
+
 - [ ] **Scalability**
+
   - [ ] Horizontal vs vertical scaling
   - [ ] Load balancing strategies
   - [ ] Database sharding
   - [ ] Caching strategies
 
 - [ ] **Reliability**
+
   - [ ] Fault tolerance
   - [ ] Circuit breakers
   - [ ] Retry mechanisms
@@ -108,19 +122,23 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Monitoring and alerting
 
 ### **System Design Patterns**
+
 - [ ] **Load Balancing**
+
   - [ ] Round robin
   - [ ] Weighted round robin
   - [ ] Least connections
   - [ ] Consistent hashing
 
 - [ ] **Caching**
+
   - [ ] Cache-aside
   - [ ] Write-through
   - [ ] Write-behind
   - [ ] Refresh-ahead
 
 - [ ] **Database Patterns**
+
   - [ ] Database sharding
   - [ ] Read replicas
   - [ ] Database partitioning
@@ -133,13 +151,16 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Request-response
 
 ### **System Design Scenarios**
+
 - [ ] **Basic Systems**
+
   - [ ] URL shortener
   - [ ] Chat system
   - [ ] News feed
   - [ ] Search engine
 
 - [ ] **Advanced Systems**
+
   - [ ] Video streaming platform
   - [ ] Social media platform
   - [ ] E-commerce system
@@ -154,19 +175,23 @@ This checklist covers all aspects of technical interview preparation, from codin
 ## ☁️ Cloud & DevOps Knowledge
 
 ### **AWS Services**
+
 - [ ] **Compute**
+
   - [ ] EC2 (Virtual Machines)
   - [ ] Lambda (Serverless)
   - [ ] ECS (Container Service)
   - [ ] EKS (Kubernetes Service)
 
 - [ ] **Storage**
+
   - [ ] S3 (Object Storage)
   - [ ] EBS (Block Storage)
   - [ ] EFS (File Storage)
   - [ ] Glacier (Archive Storage)
 
 - [ ] **Database**
+
   - [ ] RDS (Relational Database)
   - [ ] DynamoDB (NoSQL)
   - [ ] ElastiCache (In-Memory)
@@ -179,13 +204,16 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] API Gateway
 
 ### **GCP Services**
+
 - [ ] **Compute**
+
   - [ ] Compute Engine
   - [ ] Cloud Functions
   - [ ] Cloud Run
   - [ ] GKE (Kubernetes)
 
 - [ ] **Storage**
+
   - [ ] Cloud Storage
   - [ ] Cloud SQL
   - [ ] BigQuery
@@ -198,13 +226,16 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Cloud Natural Language
 
 ### **DevOps Tools**
+
 - [ ] **CI/CD**
+
   - [ ] GitHub Actions
   - [ ] Jenkins
   - [ ] GitLab CI
   - [ ] ArgoCD
 
 - [ ] **Containers**
+
   - [ ] Docker
   - [ ] Kubernetes
   - [ ] Helm
@@ -219,23 +250,28 @@ This checklist covers all aspects of technical interview preparation, from codin
 ## 🎭 Behavioral Interview Preparation
 
 ### **STAR Method**
+
 - [ ] **Situation**: Set the context clearly
 - [ ] **Task**: Describe your responsibility
 - [ ] **Action**: Explain what you did
 - [ ] **Result**: Share the outcome
 
 ### **Common Behavioral Questions**
+
 - [ ] **Leadership**
+
   - [ ] "Tell me about a time you led a project"
   - [ ] "Describe a situation where you had to influence without authority"
   - [ ] "How do you handle conflicts in your team?"
 
 - [ ] **Problem Solving**
+
   - [ ] "Tell me about a time you solved a complex problem"
   - [ ] "Describe a situation where you had to learn something new quickly"
   - [ ] "How do you handle ambiguity?"
 
 - [ ] **Collaboration**
+
   - [ ] "Tell me about a time you worked with a difficult team member"
   - [ ] "Describe a situation where you had to collaborate across teams"
   - [ ] "How do you handle disagreements?"
@@ -246,6 +282,7 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] "How do you measure success?"
 
 ### **Company-Specific Values**
+
 - [ ] **Google**: Innovation, user focus, technical excellence
 - [ ] **Meta**: Move fast, be bold, focus on impact
 - [ ] **Amazon**: Customer obsession, ownership, invent and simplify
@@ -256,7 +293,9 @@ This checklist covers all aspects of technical interview preparation, from codin
 ## 🏢 Company-Specific Preparation
 
 ### **Google**
+
 - [ ] **Technical Focus**
+
   - [ ] Advanced algorithms
   - [ ] System design at scale
   - [ ] Distributed systems
@@ -269,7 +308,9 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Googleyness assessment
 
 ### **Meta (Facebook)**
+
 - [ ] **Technical Focus**
+
   - [ ] Graph algorithms
   - [ ] Social media systems
   - [ ] Real-time systems
@@ -282,7 +323,9 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Culture fit assessment
 
 ### **Amazon**
+
 - [ ] **Technical Focus**
+
   - [ ] AWS services
   - [ ] E-commerce systems
   - [ ] Scalability patterns
@@ -295,7 +338,9 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Bar raiser round
 
 ### **Microsoft**
+
 - [ ] **Technical Focus**
+
   - [ ] Azure services
   - [ ] Productivity systems
   - [ ] System architecture
@@ -308,7 +353,9 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Technical deep dive
 
 ### **Netflix**
+
 - [ ] **Technical Focus**
+
   - [ ] Streaming systems
   - [ ] Recommendation engines
   - [ ] Real-time data processing
@@ -321,7 +368,9 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Culture fit assessment
 
 ### **Razorpay**
+
 - [ ] **Technical Focus**
+
   - [ ] Payment systems
   - [ ] Fintech architecture
   - [ ] Backend engineering
@@ -336,6 +385,7 @@ This checklist covers all aspects of technical interview preparation, from codin
 ## 📚 Study Resources
 
 ### **Books**
+
 - [ ] "Cracking the Coding Interview" by Gayle McDowell
 - [ ] "System Design Interview" by Alex Xu
 - [ ] "Designing Data-Intensive Applications" by Martin Kleppmann
@@ -343,6 +393,7 @@ This checklist covers all aspects of technical interview preparation, from codin
 - [ ] "System Design Interview" by Alex Xu
 
 ### **Online Platforms**
+
 - [ ] LeetCode (200+ problems)
 - [ ] HackerRank (Algorithm practice)
 - [ ] CodeSignal (Technical assessments)
@@ -350,6 +401,7 @@ This checklist covers all aspects of technical interview preparation, from codin
 - [ ] InterviewBit (Company-specific problems)
 
 ### **Video Resources**
+
 - [ ] System Design Interview videos
 - [ ] Algorithm explanation videos
 - [ ] Company-specific interview prep
@@ -359,7 +411,9 @@ This checklist covers all aspects of technical interview preparation, from codin
 ## 🎯 Mock Interview Practice
 
 ### **Coding Mock Interviews**
+
 - [ ] **Practice Sessions**
+
   - [ ] 20+ mock coding interviews
   - [ ] Time management (45 minutes)
   - [ ] Communication while coding
@@ -374,7 +428,9 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Error handling
 
 ### **System Design Mock Interviews**
+
 - [ ] **Practice Sessions**
+
   - [ ] 15+ mock system design interviews
   - [ ] Requirements clarification
   - [ ] High-level design
@@ -389,7 +445,9 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Technical depth
 
 ### **Behavioral Mock Interviews**
+
 - [ ] **Practice Sessions**
+
   - [ ] 10+ mock behavioral interviews
   - [ ] STAR method practice
   - [ ] Company-specific questions
@@ -406,6 +464,7 @@ This checklist covers all aspects of technical interview preparation, from codin
 ## 📊 Progress Tracking
 
 ### **Weekly Goals**
+
 - [ ] **Week 1**: Complete 20 coding problems
 - [ ] **Week 2**: Complete 20 coding problems
 - [ ] **Week 3**: Study 5 system design patterns
@@ -420,11 +479,13 @@ This checklist covers all aspects of technical interview preparation, from codin
 - [ ] **Week 12**: Interview preparation
 
 ### **Daily Practice**
+
 - [ ] **Morning**: 1 coding problem (45 minutes)
 - [ ] **Afternoon**: System design study (1 hour)
 - [ ] **Evening**: Behavioral question practice (30 minutes)
 
 ### **Weekly Practice**
+
 - [ ] **Monday**: Arrays and Strings
 - [ ] **Tuesday**: Trees and Graphs
 - [ ] **Wednesday**: Dynamic Programming
@@ -435,7 +496,9 @@ This checklist covers all aspects of technical interview preparation, from codin
 ## 🎯 Interview Day Checklist
 
 ### **Before the Interview**
+
 - [ ] **Preparation**
+
   - [ ] Review your resume
   - [ ] Prepare questions about the role
   - [ ] Get a good night's sleep
@@ -449,7 +512,9 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Bring any required documents
 
 ### **During the Interview**
+
 - [ ] **Communication**
+
   - [ ] Think out loud while coding
   - [ ] Ask clarifying questions
   - [ ] Explain your approach
@@ -464,6 +529,7 @@ This checklist covers all aspects of technical interview preparation, from codin
   - [ ] Analyze time and space complexity
 
 ### **After the Interview**
+
 - [ ] **Follow-up**
   - [ ] Send thank you notes
   - [ ] Follow up on next steps
@@ -474,6 +540,7 @@ This checklist covers all aspects of technical interview preparation, from codin
 ## 🏆 Success Metrics
 
 ### **Coding Interview**
+
 - [ ] **Target**: Solve 2 medium problems in 45 minutes
 - [ ] **Communication**: Clear explanation of approach
 - [ ] **Code Quality**: Clean, readable code
@@ -481,6 +548,7 @@ This checklist covers all aspects of technical interview preparation, from codin
 - [ ] **Optimization**: Optimal time and space complexity
 
 ### **System Design**
+
 - [ ] **Requirements**: Clear understanding of requirements
 - [ ] **Design**: Scalable and fault-tolerant design
 - [ ] **Trade-offs**: Clear analysis of trade-offs
@@ -488,6 +556,7 @@ This checklist covers all aspects of technical interview preparation, from codin
 - [ ] **Communication**: Clear explanation of design
 
 ### **Behavioral**
+
 - [ ] **STAR Method**: Use STAR method effectively
 - [ ] **Examples**: Specific and quantified examples
 - [ ] **Leadership**: Demonstrate leadership qualities

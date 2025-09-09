@@ -22,6 +22,7 @@ This comprehensive guide covers the most important system design patterns used i
 ## ⚖️ Load Balancing Patterns
 
 ### **1. Round Robin**
+
 Distributes requests evenly across servers in a circular manner.
 
 ```go
@@ -34,7 +35,7 @@ type RoundRobinBalancer struct {
 func (rb *RoundRobinBalancer) GetServer() string {
     rb.mutex.Lock()
     defer rb.mutex.Unlock()
-    
+
     server := rb.servers[rb.current]
     rb.current = (rb.current + 1) % len(rb.servers)
     return server
@@ -42,11 +43,13 @@ func (rb *RoundRobinBalancer) GetServer() string {
 ```
 
 **Use Cases:**
+
 - Stateless applications
 - Equal server capacity
 - Simple load distribution
 
 ### **2. Weighted Round Robin**
+
 Distributes requests based on server capacity or performance.
 
 ```go
@@ -65,7 +68,7 @@ type WeightedRoundRobinBalancer struct {
 func (wrb *WeightedRoundRobinBalancer) GetServer() string {
     wrb.mutex.Lock()
     defer wrb.mutex.Unlock()
-    
+
     for {
         wrb.current = (wrb.current + 1) % len(wrb.servers)
         if wrb.current == 0 {
@@ -74,7 +77,7 @@ func (wrb *WeightedRoundRobinBalancer) GetServer() string {
                 wrb.cw = wrb.maxWeight()
             }
         }
-        
+
         if wrb.servers[wrb.current].Weight >= wrb.cw {
             return wrb.servers[wrb.current].Server
         }
@@ -83,6 +86,7 @@ func (wrb *WeightedRoundRobinBalancer) GetServer() string {
 ```
 
 ### **3. Least Connections**
+
 Routes requests to the server with the fewest active connections.
 
 ```go
@@ -94,23 +98,24 @@ type LeastConnectionsBalancer struct {
 func (lcb *LeastConnectionsBalancer) GetServer() string {
     lcb.mutex.Lock()
     defer lcb.mutex.Unlock()
-    
+
     minConnections := math.MaxInt32
     selectedServer := ""
-    
+
     for server, connections := range lcb.servers {
         if connections < minConnections {
             minConnections = connections
             selectedServer = server
         }
     }
-    
+
     lcb.servers[selectedServer]++
     return selectedServer
 }
 ```
 
 ### **4. Consistent Hashing**
+
 Distributes requests based on hash values, minimizing redistribution when servers are added/removed.
 
 ```go
@@ -123,7 +128,7 @@ type ConsistentHash struct {
 func (ch *ConsistentHash) AddServer(server string) {
     ch.mutex.Lock()
     defer ch.mutex.Unlock()
-    
+
     hash := ch.hash(server)
     ch.ring[hash] = server
     ch.sortedKeys = append(ch.sortedKeys, hash)
@@ -135,15 +140,15 @@ func (ch *ConsistentHash) AddServer(server string) {
 func (ch *ConsistentHash) GetServer(key string) string {
     ch.mutex.RLock()
     defer ch.mutex.RUnlock()
-    
+
     hash := ch.hash(key)
-    
+
     for _, serverHash := range ch.sortedKeys {
         if serverHash >= hash {
             return ch.ring[serverHash]
         }
     }
-    
+
     // Wrap around to first server
     return ch.ring[ch.sortedKeys[0]]
 }
@@ -152,6 +157,7 @@ func (ch *ConsistentHash) GetServer(key string) string {
 ## 🗄️ Caching Patterns
 
 ### **1. Cache-Aside (Lazy Loading)**
+
 Application manages cache directly.
 
 ```go
@@ -169,23 +175,24 @@ func (ca *CacheAside) Get(key string) (interface{}, error) {
         return value, nil
     }
     ca.mutex.RUnlock()
-    
+
     // Cache miss - load from database
     value, err := ca.db.Get(key)
     if err != nil {
         return nil, err
     }
-    
+
     // Store in cache
     ca.mutex.Lock()
     ca.cache[key] = value
     ca.mutex.Unlock()
-    
+
     return value, nil
 }
 ```
 
 ### **2. Write-Through**
+
 Data is written to both cache and database simultaneously.
 
 ```go
@@ -200,17 +207,18 @@ func (wt *WriteThrough) Set(key string, value interface{}) error {
     if err := wt.db.Set(key, value); err != nil {
         return err
     }
-    
+
     // Then write to cache
     wt.mutex.Lock()
     wt.cache[key] = value
     wt.mutex.Unlock()
-    
+
     return nil
 }
 ```
 
 ### **3. Write-Behind (Write-Back)**
+
 Data is written to cache immediately and to database asynchronously.
 
 ```go
@@ -231,7 +239,7 @@ func (wb *WriteBehind) Set(key string, value interface{}) error {
     wb.mutex.Lock()
     wb.cache[key] = value
     wb.mutex.Unlock()
-    
+
     // Queue for database write
     select {
     case wb.writeQueue <- WriteOperation{Key: key, Value: value}:
@@ -249,6 +257,7 @@ func (wb *WriteBehind) processWrites() {
 ```
 
 ### **4. Refresh-Ahead**
+
 Cache is refreshed before expiration.
 
 ```go
@@ -269,20 +278,20 @@ func (ra *RefreshAhead) Get(key string) (interface{}, error) {
     ra.mutex.RLock()
     entry, exists := ra.cache[key]
     ra.mutex.RUnlock()
-    
+
     if !exists {
         return ra.loadAndCache(key)
     }
-    
+
     // Check if refresh is needed
     if time.Until(entry.ExpiresAt) < ra.refreshTTL && !entry.Refreshed {
         go ra.refreshInBackground(key)
     }
-    
+
     if time.Now().After(entry.ExpiresAt) {
         return ra.loadAndCache(key)
     }
-    
+
     return entry.Value, nil
 }
 ```
@@ -290,6 +299,7 @@ func (ra *RefreshAhead) Get(key string) (interface{}, error) {
 ## 🗃️ Database Patterns
 
 ### **1. Database Sharding**
+
 Distributes data across multiple database instances.
 
 ```go
@@ -316,6 +326,7 @@ func (sd *ShardedDatabase) Set(key string, value interface{}) error {
 ```
 
 ### **2. Read Replicas**
+
 Separates read and write operations.
 
 ```go
@@ -331,7 +342,7 @@ func (rrd *ReadReplicaDatabase) Read(key string) (interface{}, error) {
     replica := rrd.replicas[rrd.current]
     rrd.current = (rrd.current + 1) % len(rrd.replicas)
     rrd.mutex.Unlock()
-    
+
     return replica.Get(key)
 }
 
@@ -341,6 +352,7 @@ func (rrd *ReadReplicaDatabase) Write(key string, value interface{}) error {
 ```
 
 ### **3. Database Partitioning**
+
 Splits large tables into smaller, manageable pieces.
 
 ```go
@@ -362,6 +374,7 @@ func (pt *PartitionedTable) Insert(record Record) error {
 ## 📨 Messaging Patterns
 
 ### **1. Publisher-Subscriber**
+
 Decouples message producers from consumers.
 
 ```go
@@ -378,7 +391,7 @@ type Message struct {
 func (ps *PubSub) Subscribe(topic string) <-chan Message {
     ps.mutex.Lock()
     defer ps.mutex.Unlock()
-    
+
     ch := make(chan Message, 100)
     ps.subscribers[topic] = append(ps.subscribers[topic], ch)
     return ch
@@ -387,7 +400,7 @@ func (ps *PubSub) Subscribe(topic string) <-chan Message {
 func (ps *PubSub) Publish(topic string, payload interface{}) {
     ps.mutex.RLock()
     defer ps.mutex.RUnlock()
-    
+
     message := Message{Topic: topic, Payload: payload}
     for _, ch := range ps.subscribers[topic] {
         select {
@@ -400,6 +413,7 @@ func (ps *PubSub) Publish(topic string, payload interface{}) {
 ```
 
 ### **2. Message Queue**
+
 Provides reliable message delivery.
 
 ```go
@@ -428,6 +442,7 @@ func (mq *MessageQueue) Dequeue() (Message, error) {
 ```
 
 ### **3. Event Sourcing**
+
 Stores events instead of current state.
 
 ```go
@@ -446,14 +461,14 @@ type Event struct {
 func (es *EventStore) AppendEvent(event Event) {
     es.mutex.Lock()
     defer es.mutex.Unlock()
-    
+
     es.events = append(es.events, event)
 }
 
 func (es *EventStore) GetEvents(aggregateID string) []Event {
     es.mutex.RLock()
     defer es.mutex.RUnlock()
-    
+
     var result []Event
     for _, event := range es.events {
         if event.ID == aggregateID {
@@ -467,6 +482,7 @@ func (es *EventStore) GetEvents(aggregateID string) []Event {
 ## 🔧 Microservices Patterns
 
 ### **1. API Gateway**
+
 Single entry point for all client requests.
 
 ```go
@@ -487,13 +503,13 @@ func (gw *APIGateway) proxyHandler(service Service) gin.HandlerFunc {
             c.JSON(401, gin.H{"error": "unauthorized"})
             return
         }
-        
+
         // Rate limiting
         if !gw.rateLimit(c) {
             c.JSON(429, gin.H{"error": "rate limit exceeded"})
             return
         }
-        
+
         // Proxy to service
         gw.forwardRequest(c, service)
     }
@@ -501,6 +517,7 @@ func (gw *APIGateway) proxyHandler(service Service) gin.HandlerFunc {
 ```
 
 ### **2. Circuit Breaker**
+
 Prevents cascading failures.
 
 ```go
@@ -523,7 +540,7 @@ const (
 func (cb *CircuitBreaker) Call(fn func() error) error {
     cb.mutex.Lock()
     defer cb.mutex.Unlock()
-    
+
     if cb.state == Open {
         if time.Since(cb.lastFailure) > cb.timeout {
             cb.state = HalfOpen
@@ -531,18 +548,18 @@ func (cb *CircuitBreaker) Call(fn func() error) error {
             return errors.New("circuit breaker open")
         }
     }
-    
+
     err := fn()
     if err != nil {
         cb.failureCount++
         cb.lastFailure = time.Now()
-        
+
         if cb.failureCount >= cb.threshold {
             cb.state = Open
         }
         return err
     }
-    
+
     cb.failureCount = 0
     cb.state = Closed
     return nil
@@ -550,6 +567,7 @@ func (cb *CircuitBreaker) Call(fn func() error) error {
 ```
 
 ### **3. Service Discovery**
+
 Automatically discovers and registers services.
 
 ```go
@@ -569,7 +587,7 @@ type ServiceInstance struct {
 func (sr *ServiceRegistry) Register(serviceName string, instance ServiceInstance) {
     sr.mutex.Lock()
     defer sr.mutex.Unlock()
-    
+
     instance.LastSeen = time.Now()
     sr.services[serviceName] = append(sr.services[serviceName], instance)
 }
@@ -577,16 +595,16 @@ func (sr *ServiceRegistry) Register(serviceName string, instance ServiceInstance
 func (sr *ServiceRegistry) Discover(serviceName string) []ServiceInstance {
     sr.mutex.RLock()
     defer sr.mutex.RUnlock()
-    
+
     instances := sr.services[serviceName]
     var healthy []ServiceInstance
-    
+
     for _, instance := range instances {
         if instance.Health && time.Since(instance.LastSeen) < 30*time.Second {
             healthy = append(healthy, instance)
         }
     }
-    
+
     return healthy
 }
 ```
@@ -594,6 +612,7 @@ func (sr *ServiceRegistry) Discover(serviceName string) []ServiceInstance {
 ## 🔒 Security Patterns
 
 ### **1. OAuth 2.0**
+
 Authorization framework for secure API access.
 
 ```go
@@ -621,15 +640,15 @@ func (op *OAuth2Provider) Authorize(clientID, redirectURI, scope string) string 
     op.mutex.RLock()
     client, exists := op.clients[clientID]
     op.mutex.RUnlock()
-    
+
     if !exists || client.RedirectURI != redirectURI {
         return ""
     }
-    
+
     // Generate authorization code
     code := op.generateCode()
     op.storeAuthorizationCode(code, clientID, scope)
-    
+
     return code
 }
 
@@ -638,23 +657,24 @@ func (op *OAuth2Provider) ExchangeCode(code string) (*Token, error) {
     if authCode == nil {
         return nil, errors.New("invalid authorization code")
     }
-    
+
     token := &Token{
         AccessToken:  op.generateAccessToken(),
         RefreshToken: op.generateRefreshToken(),
         ExpiresAt:    time.Now().Add(1 * time.Hour),
         Scopes:       authCode.Scopes,
     }
-    
+
     op.mutex.Lock()
     op.tokens[token.AccessToken] = *token
     op.mutex.Unlock()
-    
+
     return token, nil
 }
 ```
 
 ### **2. JWT (JSON Web Token)**
+
 Stateless authentication mechanism.
 
 ```go
@@ -677,7 +697,7 @@ func (jp *JWTProvider) GenerateToken(userID, email string) (string, error) {
             IssuedAt:  time.Now().Unix(),
         },
     }
-    
+
     token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
     return token.SignedString(jp.secretKey)
 }
@@ -686,15 +706,15 @@ func (jp *JWTProvider) ValidateToken(tokenString string) (*Claims, error) {
     token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (interface{}, error) {
         return jp.secretKey, nil
     })
-    
+
     if err != nil {
         return nil, err
     }
-    
+
     if claims, ok := token.Claims.(*Claims); ok && token.Valid {
         return claims, nil
     }
-    
+
     return nil, errors.New("invalid token")
 }
 ```
@@ -702,6 +722,7 @@ func (jp *JWTProvider) ValidateToken(tokenString string) (*Claims, error) {
 ## 📊 Monitoring Patterns
 
 ### **1. Health Checks**
+
 Monitors service health and availability.
 
 ```go
@@ -731,7 +752,7 @@ func (hc *HealthChecker) Register(name string, check HealthCheck) {
 func (hc *HealthChecker) CheckAll() map[string]error {
     hc.mutex.RLock()
     defer hc.mutex.RUnlock()
-    
+
     results := make(map[string]error)
     for name, check := range hc.checks {
         results[name] = check.Check()
@@ -741,6 +762,7 @@ func (hc *HealthChecker) CheckAll() map[string]error {
 ```
 
 ### **2. Metrics Collection**
+
 Collects and aggregates system metrics.
 
 ```go
@@ -772,7 +794,7 @@ func (mc *MetricsCollector) RecordHistogram(name string, value float64) {
 func (mc *MetricsCollector) GetMetrics() map[string]interface{} {
     mc.mutex.RLock()
     defer mc.mutex.RUnlock()
-    
+
     return map[string]interface{}{
         "counters":    mc.counters,
         "gauges":      mc.gauges,
@@ -784,6 +806,7 @@ func (mc *MetricsCollector) GetMetrics() map[string]interface{} {
 ## 🔄 Data Processing Patterns
 
 ### **1. Map-Reduce**
+
 Distributed data processing pattern.
 
 ```go
@@ -806,18 +829,19 @@ func (mr *MapReduce) Process(data []interface{}) map[string]interface{} {
             intermediate[kv.Key] = append(intermediate[kv.Key], kv.Value)
         }
     }
-    
+
     // Reduce phase
     result := make(map[string]interface{})
     for key, values := range intermediate {
         result[key] = mr.reducer(key, values)
     }
-    
+
     return result
 }
 ```
 
 ### **2. Stream Processing**
+
 Real-time data processing.
 
 ```go
@@ -845,17 +869,20 @@ func (sp *StreamProcessor) Start() {
 ## 🎯 Best Practices
 
 ### **1. Pattern Selection**
+
 - Choose patterns based on requirements
 - Consider trade-offs and complexity
 - Start simple and evolve
 
 ### **2. Implementation Guidelines**
+
 - Use appropriate concurrency primitives
 - Handle errors gracefully
 - Implement proper logging and monitoring
 - Test thoroughly
 
 ### **3. Performance Considerations**
+
 - Monitor resource usage
 - Optimize for your use case
 - Consider caching strategies
@@ -864,16 +891,19 @@ func (sp *StreamProcessor) Start() {
 ## 🏢 Industry Examples
 
 ### **Netflix**
+
 - **Circuit Breaker**: Hystrix for fault tolerance
 - **Service Discovery**: Eureka for service registration
 - **Caching**: Redis for session management
 
 ### **Uber**
+
 - **Event Sourcing**: For trip and payment events
 - **CQRS**: Separate read/write models
 - **Microservices**: Domain-driven design
 
 ### **Airbnb**
+
 - **API Gateway**: Kong for request routing
 - **Database Sharding**: By geographic region
 - **Caching**: Multi-level caching strategy
