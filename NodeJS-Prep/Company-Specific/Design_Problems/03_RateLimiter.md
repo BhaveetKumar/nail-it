@@ -795,3 +795,552 @@ module.exports = { RateLimiterAPI };
 3. **Integration**: Webhook notifications for violations
 4. **Compliance**: Audit trails and compliance reporting
 5. **Custom Algorithms**: Plugin system for custom rate limiting logic
+
+## **Follow-up Questions**
+
+### **1. How would you implement adaptive rate limiting based on system load?**
+
+**Answer:**
+```javascript
+class AdaptiveRateLimiter {
+  constructor() {
+    this.systemMetrics = new SystemMetricsCollector();
+    this.adaptiveRules = new Map();
+    this.loadThresholds = {
+      low: 0.3,
+      medium: 0.6,
+      high: 0.8,
+      critical: 0.95
+    };
+  }
+
+  async adjustRateLimits() {
+    const systemLoad = await this.systemMetrics.getCurrentLoad();
+    const loadLevel = this.determineLoadLevel(systemLoad);
+    
+    // Adjust rate limits based on system load
+    for (const [ruleId, rule] of this.adaptiveRules) {
+      const adjustedRule = await this.adjustRuleForLoad(rule, loadLevel);
+      await this.updateRule(ruleId, adjustedRule);
+    }
+    
+    return {
+      loadLevel,
+      adjustedRules: this.adaptiveRules.size,
+      timestamp: new Date()
+    };
+  }
+
+  determineLoadLevel(load) {
+    if (load >= this.loadThresholds.critical) return 'critical';
+    if (load >= this.loadThresholds.high) return 'high';
+    if (load >= this.loadThresholds.medium) return 'medium';
+    if (load >= this.loadThresholds.low) return 'low';
+    return 'minimal';
+  }
+
+  async adjustRuleForLoad(rule, loadLevel) {
+    const adjustmentFactors = {
+      minimal: 1.5,  // Increase limits by 50%
+      low: 1.2,      // Increase limits by 20%
+      medium: 1.0,   // Keep original limits
+      high: 0.7,     // Reduce limits by 30%
+      critical: 0.4  // Reduce limits by 60%
+    };
+
+    const factor = adjustmentFactors[loadLevel];
+    
+    return {
+      ...rule,
+      limit: Math.floor(rule.originalLimit * factor),
+      burst: rule.burst ? Math.floor(rule.burst * factor) : undefined,
+      adjustedAt: new Date(),
+      loadLevel
+    };
+  }
+
+  async getCurrentLoad() {
+    const metrics = await this.systemMetrics.collect();
+    
+    // Calculate weighted system load
+    const cpuWeight = 0.4;
+    const memoryWeight = 0.3;
+    const networkWeight = 0.2;
+    const diskWeight = 0.1;
+    
+    const load = (
+      metrics.cpu * cpuWeight +
+      metrics.memory * memoryWeight +
+      metrics.network * networkWeight +
+      metrics.disk * diskWeight
+    );
+    
+    return Math.min(load, 1.0);
+  }
+}
+
+class SystemMetricsCollector {
+  constructor() {
+    this.metrics = {
+      cpu: 0,
+      memory: 0,
+      network: 0,
+      disk: 0,
+      activeConnections: 0
+    };
+  }
+
+  async collect() {
+    // Collect CPU usage
+    this.metrics.cpu = await this.getCPUUsage();
+    
+    // Collect memory usage
+    this.metrics.memory = await this.getMemoryUsage();
+    
+    // Collect network usage
+    this.metrics.network = await this.getNetworkUsage();
+    
+    // Collect disk usage
+    this.metrics.disk = await this.getDiskUsage();
+    
+    // Collect active connections
+    this.metrics.activeConnections = await this.getActiveConnections();
+    
+    return this.metrics;
+  }
+
+  async getCPUUsage() {
+    // Use os.cpus() or process.cpuUsage()
+    const cpus = require('os').cpus();
+    let totalIdle = 0;
+    let totalTick = 0;
+    
+    cpus.forEach(cpu => {
+      for (const type in cpu.times) {
+        totalTick += cpu.times[type];
+      }
+      totalIdle += cpu.times.idle;
+    });
+    
+    return 1 - (totalIdle / totalTick);
+  }
+
+  async getMemoryUsage() {
+    const memUsage = process.memoryUsage();
+    const totalMem = require('os').totalmem();
+    return memUsage.heapUsed / totalMem;
+  }
+
+  async getNetworkUsage() {
+    // Simplified network usage calculation
+    return 0.1; // Placeholder
+  }
+
+  async getDiskUsage() {
+    // Use fs.stat or similar to get disk usage
+    return 0.2; // Placeholder
+  }
+
+  async getActiveConnections() {
+    // Get active HTTP connections
+    return 100; // Placeholder
+  }
+}
+```
+
+### **2. How to implement geographic rate limiting and location-based rules?**
+
+**Answer:**
+```javascript
+class GeographicRateLimiter {
+  constructor() {
+    this.geoRules = new Map();
+    this.locationCache = new Map();
+    this.geoIPService = new GeoIPService();
+    this.countryRules = new Map();
+  }
+
+  async checkGeographicLimit(key, request) {
+    // Get user location
+    const location = await this.getUserLocation(request.ip);
+    
+    // Get applicable rules for location
+    const rules = await this.getLocationRules(location);
+    
+    // Apply location-specific rate limiting
+    const result = await this.applyGeographicRules(key, rules, location);
+    
+    return {
+      ...result,
+      location,
+      appliedRules: rules.map(r => r.id)
+    };
+  }
+
+  async getUserLocation(ip) {
+    // Check cache first
+    if (this.locationCache.has(ip)) {
+      const cached = this.locationCache.get(ip);
+      if (!this.isLocationExpired(cached)) {
+        return cached.location;
+      }
+    }
+
+    // Get location from GeoIP service
+    const location = await this.geoIPService.getLocation(ip);
+    
+    // Cache location
+    this.locationCache.set(ip, {
+      location,
+      timestamp: new Date()
+    });
+    
+    return location;
+  }
+
+  async getLocationRules(location) {
+    const rules = [];
+    
+    // Country-level rules
+    const countryRules = this.countryRules.get(location.country);
+    if (countryRules) {
+      rules.push(...countryRules);
+    }
+    
+    // Region-level rules
+    const regionKey = `${location.country}_${location.region}`;
+    const regionRules = this.geoRules.get(regionKey);
+    if (regionRules) {
+      rules.push(...regionRules);
+    }
+    
+    // City-level rules
+    const cityKey = `${location.country}_${location.region}_${location.city}`;
+    const cityRules = this.geoRules.get(cityKey);
+    if (cityRules) {
+      rules.push(...cityRules);
+    }
+    
+    return rules;
+  }
+
+  async applyGeographicRules(key, rules, location) {
+    let allowed = true;
+    let remaining = Infinity;
+    let resetTime = Date.now() + 3600000; // Default 1 hour
+    
+    for (const rule of rules) {
+      const result = await this.checkRule(key, rule);
+      
+      if (!result.allowed) {
+        allowed = false;
+        remaining = Math.min(remaining, result.remaining);
+        resetTime = Math.min(resetTime, result.resetTime);
+      }
+    }
+    
+    return {
+      allowed,
+      remaining: allowed ? Math.min(remaining, 1000) : remaining,
+      resetTime,
+      location: {
+        country: location.country,
+        region: location.region,
+        city: location.city
+      }
+    };
+  }
+
+  async addCountryRule(country, rule) {
+    if (!this.countryRules.has(country)) {
+      this.countryRules.set(country, []);
+    }
+    
+    this.countryRules.get(country).push({
+      ...rule,
+      id: uuidv4(),
+      type: 'country',
+      country,
+      createdAt: new Date()
+    });
+  }
+
+  async addRegionRule(country, region, rule) {
+    const key = `${country}_${region}`;
+    if (!this.geoRules.has(key)) {
+      this.geoRules.set(key, []);
+    }
+    
+    this.geoRules.get(key).push({
+      ...rule,
+      id: uuidv4(),
+      type: 'region',
+      country,
+      region,
+      createdAt: new Date()
+    });
+  }
+
+  async addCityRule(country, region, city, rule) {
+    const key = `${country}_${region}_${city}`;
+    if (!this.geoRules.has(key)) {
+      this.geoRules.set(key, []);
+    }
+    
+    this.geoRules.get(key).push({
+      ...rule,
+      id: uuidv4(),
+      type: 'city',
+      country,
+      region,
+      city,
+      createdAt: new Date()
+    });
+  }
+
+  isLocationExpired(cached) {
+    const maxAge = 24 * 60 * 60 * 1000; // 24 hours
+    return Date.now() - cached.timestamp.getTime() > maxAge;
+  }
+}
+
+class GeoIPService {
+  constructor() {
+    this.providers = [
+      new MaxMindProvider(),
+      new IPStackProvider(),
+      new IPGeolocationProvider()
+    ];
+  }
+
+  async getLocation(ip) {
+    for (const provider of this.providers) {
+      try {
+        const location = await provider.getLocation(ip);
+        if (location) {
+          return location;
+        }
+      } catch (error) {
+        console.error(`GeoIP provider ${provider.name} failed:`, error);
+      }
+    }
+    
+    // Fallback to default location
+    return {
+      country: 'US',
+      region: 'Unknown',
+      city: 'Unknown',
+      latitude: 0,
+      longitude: 0,
+      timezone: 'UTC'
+    };
+  }
+}
+```
+
+### **3. How to implement priority-based rate limiting for different user tiers?**
+
+**Answer:**
+```javascript
+class PriorityBasedRateLimiter {
+  constructor() {
+    this.userTiers = new Map();
+    this.tierRules = new Map();
+    this.priorityQueues = new Map();
+    this.tierLimits = {
+      free: { requests: 100, window: 60, priority: 1 },
+      premium: { requests: 1000, window: 60, priority: 2 },
+      enterprise: { requests: 10000, window: 60, priority: 3 },
+      vip: { requests: 50000, window: 60, priority: 4 }
+    };
+  }
+
+  async checkPriorityLimit(userId, request) {
+    const userTier = await this.getUserTier(userId);
+    const tierConfig = this.tierLimits[userTier];
+    
+    if (!tierConfig) {
+      throw new Error(`Invalid user tier: ${userTier}`);
+    }
+
+    // Check if user has exceeded tier limits
+    const tierUsage = await this.getTierUsage(userId, userTier);
+    
+    if (tierUsage.requests >= tierConfig.requests) {
+      // Check if user can use priority queue
+      if (await this.canUsePriorityQueue(userId, userTier)) {
+        return await this.handlePriorityQueue(userId, request, userTier);
+      }
+      
+      return {
+        allowed: false,
+        reason: 'tier_limit_exceeded',
+        tier: userTier,
+        remaining: 0,
+        resetTime: tierUsage.resetTime
+      };
+    }
+
+    // Allow request and update usage
+    await this.updateTierUsage(userId, userTier);
+    
+    return {
+      allowed: true,
+      tier: userTier,
+      remaining: tierConfig.requests - tierUsage.requests - 1,
+      resetTime: tierUsage.resetTime
+    };
+  }
+
+  async getUserTier(userId) {
+    if (this.userTiers.has(userId)) {
+      return this.userTiers.get(userId);
+    }
+    
+    // Default to free tier
+    const tier = 'free';
+    this.userTiers.set(userId, tier);
+    return tier;
+  }
+
+  async getTierUsage(userId, tier) {
+    const key = `tier_usage:${tier}:${userId}`;
+    const usage = await this.redis.hgetall(key);
+    
+    if (!usage.requests) {
+      return {
+        requests: 0,
+        resetTime: Date.now() + (this.tierLimits[tier].window * 1000)
+      };
+    }
+    
+    return {
+      requests: parseInt(usage.requests),
+      resetTime: parseInt(usage.resetTime)
+    };
+  }
+
+  async updateTierUsage(userId, tier) {
+    const key = `tier_usage:${tier}:${userId}`;
+    const window = this.tierLimits[tier].window * 1000;
+    const resetTime = Date.now() + window;
+    
+    await this.redis.hincrby(key, 'requests', 1);
+    await this.redis.hset(key, 'resetTime', resetTime);
+    await this.redis.expire(key, this.tierLimits[tier].window);
+  }
+
+  async canUsePriorityQueue(userId, tier) {
+    const tierConfig = this.tierLimits[tier];
+    
+    // Only premium and above can use priority queue
+    if (tierConfig.priority < 2) {
+      return false;
+    }
+    
+    // Check if priority queue has capacity
+    const queueSize = await this.getPriorityQueueSize();
+    const maxQueueSize = 1000; // Configurable
+    
+    return queueSize < maxQueueSize;
+  }
+
+  async handlePriorityQueue(userId, request, tier) {
+    const priority = this.tierLimits[tier].priority;
+    const queueItem = {
+      id: uuidv4(),
+      userId,
+      request,
+      tier,
+      priority,
+      queuedAt: new Date(),
+      estimatedWaitTime: await this.estimateWaitTime(priority)
+    };
+    
+    // Add to priority queue
+    await this.addToPriorityQueue(queueItem);
+    
+    return {
+      allowed: false,
+      reason: 'queued_for_processing',
+      queueId: queueItem.id,
+      estimatedWaitTime: queueItem.estimatedWaitTime,
+      position: await this.getQueuePosition(queueItem.id)
+    };
+  }
+
+  async addToPriorityQueue(queueItem) {
+    const key = `priority_queue:${queueItem.priority}`;
+    await this.redis.lpush(key, JSON.stringify(queueItem));
+    
+    // Set expiration for queue item
+    await this.redis.expire(key, 3600); // 1 hour
+  }
+
+  async estimateWaitTime(priority) {
+    const queueSizes = await this.getQueueSizesByPriority();
+    let waitTime = 0;
+    
+    // Calculate wait time based on higher priority queues
+    for (let p = priority + 1; p <= 4; p++) {
+      const queueSize = queueSizes[p] || 0;
+      waitTime += queueSize * 100; // 100ms per request
+    }
+    
+    return waitTime;
+  }
+
+  async getQueuePosition(queueId) {
+    // Find position in priority queue
+    const queueItem = await this.findQueueItem(queueId);
+    if (!queueItem) return -1;
+    
+    const key = `priority_queue:${queueItem.priority}`;
+    const items = await this.redis.lrange(key, 0, -1);
+    
+    for (let i = 0; i < items.length; i++) {
+      const item = JSON.parse(items[i]);
+      if (item.id === queueId) {
+        return i + 1;
+      }
+    }
+    
+    return -1;
+  }
+
+  async processPriorityQueue() {
+    // Process queues in priority order (highest first)
+    for (let priority = 4; priority >= 1; priority--) {
+      const key = `priority_queue:${priority}`;
+      const item = await this.redis.rpop(key);
+      
+      if (item) {
+        const queueItem = JSON.parse(item);
+        await this.processQueuedRequest(queueItem);
+        break; // Process one item at a time
+      }
+    }
+  }
+
+  async processQueuedRequest(queueItem) {
+    try {
+      // Process the queued request
+      const result = await this.processRequest(queueItem.request);
+      
+      // Notify user that request was processed
+      await this.notifyUser(queueItem.userId, {
+        queueId: queueItem.id,
+        status: 'processed',
+        result
+      });
+    } catch (error) {
+      // Handle processing error
+      await this.notifyUser(queueItem.userId, {
+        queueId: queueItem.id,
+        status: 'failed',
+        error: error.message
+      });
+    }
+  }
+}
+```
