@@ -1,6 +1,7 @@
 # 🚀 Apache Kafka Complete Guide - Theory, Practice & Production
 
 ## Table of Contents
+
 1. [Kafka Fundamentals](#kafka-fundamentals)
 2. [Core Concepts & Architecture](#core-concepts--architecture)
 3. [Node.js Kafka Integration](#nodejs-kafka-integration)
@@ -17,6 +18,7 @@
 ### What is Apache Kafka?
 
 Apache Kafka is a distributed streaming platform that can:
+
 - **Publish and subscribe** to streams of records
 - **Store** streams of records in a fault-tolerant way
 - **Process** streams of records as they occur
@@ -31,20 +33,20 @@ const kafkaCharacteristics = {
   highThroughput: "Handles millions of messages per second",
   lowLatency: "Sub-millisecond latency for real-time processing",
   durable: "Persists data to disk",
-  scalable: "Horizontal scaling by adding more brokers"
+  scalable: "Horizontal scaling by adding more brokers",
 };
 ```
 
 ### Kafka vs Other Messaging Systems
 
-| Feature | Kafka | RabbitMQ | ActiveMQ | Redis Pub/Sub |
-|---------|-------|----------|----------|---------------|
-| **Throughput** | Very High | Medium | Medium | High |
-| **Latency** | Low | Low | Medium | Very Low |
-| **Durability** | High | Medium | High | Low |
-| **Scalability** | Excellent | Good | Good | Limited |
-| **Message Ordering** | Per-partition | No | No | No |
-| **Message Retention** | Configurable | No | No | No |
+| Feature               | Kafka         | RabbitMQ | ActiveMQ | Redis Pub/Sub |
+| --------------------- | ------------- | -------- | -------- | ------------- |
+| **Throughput**        | Very High     | Medium   | Medium   | High          |
+| **Latency**           | Low           | Low      | Medium   | Very Low      |
+| **Durability**        | High          | Medium   | High     | Low           |
+| **Scalability**       | Excellent     | Good     | Good     | Limited       |
+| **Message Ordering**  | Per-partition | No       | No       | No            |
+| **Message Retention** | Configurable  | No       | No       | No            |
 
 ---
 
@@ -62,7 +64,7 @@ class KafkaTopic {
     this.config = {
       retention: "7 days",
       segmentSize: "1GB",
-      compression: "snappy"
+      compression: "snappy",
     };
   }
 }
@@ -71,7 +73,7 @@ class KafkaTopic {
 const topics = {
   userEvents: new KafkaTopic("user-events", 12, 3),
   orderProcessing: new KafkaTopic("order-processing", 6, 3),
-  analytics: new KafkaTopic("analytics", 24, 3)
+  analytics: new KafkaTopic("analytics", 24, 3),
 };
 ```
 
@@ -88,7 +90,7 @@ const producerConfig = {
   lingerMs: 5,
   compressionType: "snappy",
   maxInFlightRequests: 5,
-  enableIdempotence: true
+  enableIdempotence: true,
 };
 
 // Consumer Configuration
@@ -100,7 +102,7 @@ const consumerConfig = {
   maxPollRecords: 500,
   sessionTimeoutMs: 30000,
   heartbeatIntervalMs: 3000,
-  maxPollIntervalMs: 300000
+  maxPollIntervalMs: 300000,
 };
 ```
 
@@ -122,8 +124,8 @@ const rebalancingStrategies = {
   benefits: {
     faster: "No downtime during rebalancing",
     efficient: "Only affected partitions are reassigned",
-    stable: "Reduces partition movement"
-  }
+    stable: "Reduces partition movement",
+  },
 };
 ```
 
@@ -143,16 +145,16 @@ class KafkaProducer {
       brokers: config.brokers,
       retry: {
         initialRetryTime: 100,
-        retries: 8
-      }
+        retries: 8,
+      },
     });
-    
+
     this.producer = this.kafka.producer({
       maxInFlightRequests: 1,
       idempotent: true,
-      transactionTimeout: 30000
+      transactionTimeout: 30000,
     });
-    
+
     this.isConnected = false;
   }
 
@@ -174,13 +176,15 @@ class KafkaProducer {
 
     const messagePayload = {
       topic,
-      messages: [{
-        key: options.key || null,
-        value: JSON.stringify(message),
-        partition: options.partition,
-        timestamp: options.timestamp || Date.now().toString(),
-        headers: options.headers || {}
-      }]
+      messages: [
+        {
+          key: options.key || null,
+          value: JSON.stringify(message),
+          partition: options.partition,
+          timestamp: options.timestamp || Date.now().toString(),
+          headers: options.headers || {},
+        },
+      ],
     };
 
     try {
@@ -200,13 +204,13 @@ class KafkaProducer {
 
     const messagePayload = {
       topic,
-      messages: messages.map(msg => ({
+      messages: messages.map((msg) => ({
         key: msg.key || null,
         value: JSON.stringify(msg.value),
         partition: msg.partition,
         timestamp: msg.timestamp || Date.now().toString(),
-        headers: msg.headers || {}
-      }))
+        headers: msg.headers || {},
+      })),
     };
 
     try {
@@ -235,25 +239,29 @@ class KafkaProducer {
 async function producerExample() {
   const producer = new KafkaProducer({
     brokers: ["localhost:9092"],
-    clientId: "example-producer"
+    clientId: "example-producer",
   });
 
   await producer.connect();
 
   // Send single message
-  await producer.sendMessage("user-events", {
-    userId: "123",
-    action: "login",
-    timestamp: new Date().toISOString()
-  }, {
-    key: "user-123",
-    headers: { source: "web-app" }
-  });
+  await producer.sendMessage(
+    "user-events",
+    {
+      userId: "123",
+      action: "login",
+      timestamp: new Date().toISOString(),
+    },
+    {
+      key: "user-123",
+      headers: { source: "web-app" },
+    }
+  );
 
   // Send batch
   const messages = [
     { key: "user-1", value: { userId: "1", action: "view" } },
-    { key: "user-2", value: { userId: "2", action: "click" } }
+    { key: "user-2", value: { userId: "2", action: "click" } },
   ];
   await producer.sendBatch("user-events", messages);
 
@@ -271,18 +279,18 @@ class KafkaConsumer {
       brokers: config.brokers,
       retry: {
         initialRetryTime: 100,
-        retries: 8
-      }
+        retries: 8,
+      },
     });
-    
+
     this.consumer = this.kafka.consumer({
       groupId: config.groupId,
       sessionTimeout: config.sessionTimeout || 30000,
       heartbeatInterval: config.heartbeatInterval || 3000,
       maxBytesPerPartition: config.maxBytesPerPartition || 1048576,
-      allowAutoTopicCreation: false
+      allowAutoTopicCreation: false,
     });
-    
+
     this.isRunning = false;
     this.messageHandlers = new Map();
   }
@@ -299,9 +307,9 @@ class KafkaConsumer {
 
   async subscribe(topics) {
     try {
-      await this.consumer.subscribe({ 
+      await this.consumer.subscribe({
         topics: Array.isArray(topics) ? topics : [topics],
-        fromBeginning: false
+        fromBeginning: false,
       });
       console.log(`Subscribed to topics: ${topics}`);
     } catch (error) {
@@ -316,13 +324,13 @@ class KafkaConsumer {
     }
 
     this.isRunning = true;
-    
+
     await this.consumer.run({
       eachMessage: async ({ topic, partition, message, heartbeat, pause }) => {
         try {
           // Process heartbeat
           await heartbeat();
-          
+
           const messageData = {
             topic,
             partition,
@@ -330,7 +338,7 @@ class KafkaConsumer {
             key: message.key?.toString(),
             value: JSON.parse(message.value.toString()),
             timestamp: message.timestamp,
-            headers: message.headers
+            headers: message.headers,
           };
 
           // Find and execute handler
@@ -340,20 +348,19 @@ class KafkaConsumer {
           } else {
             console.warn(`No handler found for topic: ${topic}`);
           }
-
         } catch (error) {
           console.error("Error processing message:", error);
           // Implement retry logic or dead letter queue
           await this.handleMessageError(error, { topic, partition, message });
         }
       },
-      
+
       eachBatch: async ({ batch, heartbeat, isRunning, isStale }) => {
         try {
           // Process batch of messages
           for (const message of batch.messages) {
             if (!isRunning() || isStale()) break;
-            
+
             const messageData = {
               topic: batch.topic,
               partition: batch.partition,
@@ -361,7 +368,7 @@ class KafkaConsumer {
               key: message.key?.toString(),
               value: JSON.parse(message.value.toString()),
               timestamp: message.timestamp,
-              headers: message.headers
+              headers: message.headers,
             };
 
             const handler = this.messageHandlers.get(batch.topic);
@@ -369,12 +376,12 @@ class KafkaConsumer {
               await handler(messageData);
             }
           }
-          
+
           await heartbeat();
         } catch (error) {
           console.error("Error processing batch:", error);
         }
-      }
+      },
     });
   }
 
@@ -386,9 +393,9 @@ class KafkaConsumer {
     // Implement error handling strategy
     console.error("Message processing failed:", {
       error: error.message,
-      context: messageContext
+      context: messageContext,
     });
-    
+
     // Options:
     // 1. Retry with exponential backoff
     // 2. Send to dead letter queue
@@ -421,7 +428,7 @@ async function consumerExample() {
   const consumer = new KafkaConsumer({
     brokers: ["localhost:9092"],
     groupId: "example-consumer-group",
-    clientId: "example-consumer"
+    clientId: "example-consumer",
   });
 
   await consumer.connect();
@@ -449,15 +456,15 @@ class TransactionalProducer {
   constructor(config) {
     this.kafka = new Kafka({
       clientId: config.clientId || "transactional-producer",
-      brokers: config.brokers
+      brokers: config.brokers,
     });
-    
+
     this.producer = this.kafka.producer({
       maxInFlightRequests: 5,
       idempotent: true,
-      transactionTimeout: 30000
+      transactionTimeout: 30000,
     });
-    
+
     this.transactionalId = config.transactionalId;
     this.isConnected = false;
   }
@@ -492,12 +499,14 @@ class TransactionalProducer {
     try {
       await this.producer.send({
         topic,
-        messages: [{
-          key: options.key || null,
-          value: JSON.stringify(message),
-          partition: options.partition,
-          headers: options.headers || {}
-        }]
+        messages: [
+          {
+            key: options.key || null,
+            value: JSON.stringify(message),
+            partition: options.partition,
+            headers: options.headers || {},
+          },
+        ],
       });
       console.log("Transactional message sent");
     } catch (error) {
@@ -510,7 +519,7 @@ class TransactionalProducer {
     try {
       await this.producer.sendOffsets({
         consumerGroupId: this.consumerGroupId,
-        topics: this.consumerOffsets
+        topics: this.consumerOffsets,
       });
       await this.producer.commitTransaction();
       console.log("Transaction committed");
@@ -543,57 +552,63 @@ class ExactlyOnceProcessor {
   constructor(config) {
     this.kafka = new Kafka({
       clientId: config.clientId,
-      brokers: config.brokers
+      brokers: config.brokers,
     });
-    
+
     this.producer = this.kafka.producer({
       maxInFlightRequests: 5,
       idempotent: true,
-      transactionTimeout: 30000
+      transactionTimeout: 30000,
     });
-    
+
     this.consumer = this.kafka.consumer({
       groupId: config.groupId,
-      isolationLevel: "read_committed"
+      isolationLevel: "read_committed",
     });
-    
+
     this.transactionalId = config.transactionalId;
   }
 
   async processWithExactlyOnce(topic, processor) {
     await this.producer.transaction();
-    
+
     try {
       await this.consumer.run({
         eachMessage: async ({ topic, partition, message }) => {
           const messageData = JSON.parse(message.value.toString());
-          
+
           // Process message
           const result = await processor(messageData);
-          
+
           // Send result to output topic
           await this.producer.send({
             topic: "processed-events",
-            messages: [{
-              key: message.key,
-              value: JSON.stringify(result)
-            }]
+            messages: [
+              {
+                key: message.key,
+                value: JSON.stringify(result),
+              },
+            ],
           });
-          
+
           // Commit consumer offset
           await this.producer.sendOffsets({
             consumerGroupId: this.consumer.groupId,
-            topics: [{
-              topic,
-              partitions: [{
-                partition,
-                offset: message.offset
-              }]
-            }]
+            topics: [
+              {
+                topic,
+                partitions: [
+                  {
+                    partition,
+                    offset: message.offset,
+                  },
+                ],
+              },
+            ],
           });
-        }
+        },
       });
-      
+
       await this.producer.commitTransaction();
     } catch (error) {
       await this.producer.abortTransaction();
@@ -618,13 +633,17 @@ class DeadLetterQueueHandler {
     if (retryCount < this.maxRetries) {
       // Retry with exponential backoff
       const delay = this.retryDelay * Math.pow(2, retryCount);
-      await new Promise(resolve => setTimeout(resolve, delay));
-      
+      await new Promise((resolve) => setTimeout(resolve, delay));
+
       try {
         // Retry processing
         return await this.retryProcessing(originalMessage);
       } catch (retryError) {
-        return await this.handleFailedMessage(originalMessage, retryError, retryCount + 1);
+        return await this.handleFailedMessage(
+          originalMessage,
+          retryError,
+          retryCount + 1
+        );
       }
     } else {
       // Send to dead letter queue
@@ -638,22 +657,24 @@ class DeadLetterQueueHandler {
       error: {
         message: error.message,
         stack: error.stack,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       },
       metadata: {
         topic: originalMessage.topic,
         partition: originalMessage.partition,
         offset: originalMessage.offset,
-        retryCount: this.maxRetries
-      }
+        retryCount: this.maxRetries,
+      },
     };
 
     await this.kafka.producer().send({
       topic: this.dlqTopic,
-      messages: [{
-        key: originalMessage.key,
-        value: JSON.stringify(dlqMessage)
-      }]
+      messages: [
+        {
+          key: originalMessage.key,
+          value: JSON.stringify(dlqMessage),
+        },
+      ],
     });
   }
 }
@@ -678,7 +699,7 @@ class OrderedMessageProcessor {
           partition,
           offset: parseInt(message.offset),
           key: message.key?.toString(),
-          value: JSON.parse(message.value.toString())
+          value: JSON.parse(message.value.toString()),
         };
 
         // Add to buffer
@@ -689,24 +710,24 @@ class OrderedMessageProcessor {
 
         // Process in order
         await this.processPartitionInOrder(partition, processor);
-      }
+      },
     });
   }
 
   async processPartitionInOrder(partition, processor) {
     const messages = this.buffer.get(partition) || [];
     const lastProcessed = this.processedOffsets.get(partition) || -1;
-    
+
     // Sort by offset
     messages.sort((a, b) => a.offset - b.offset);
-    
+
     // Process consecutive messages
     for (const message of messages) {
       if (message.offset === lastProcessed + 1) {
         try {
           await processor(message);
           this.processedOffsets.set(partition, message.offset);
-          
+
           // Remove processed message from buffer
           const index = messages.indexOf(message);
           messages.splice(index, 1);
@@ -749,7 +770,7 @@ class PartitionStrategy {
   static rangeBased(key, totalPartitions) {
     if (!key) return 0;
     const ranges = this.calculateRanges(totalPartitions);
-    
+
     for (let i = 0; i < ranges.length; i++) {
       if (key >= ranges[i].start && key <= ranges[i].end) {
         return i;
@@ -761,14 +782,14 @@ class PartitionStrategy {
   static calculateRanges(totalPartitions) {
     const ranges = [];
     const rangeSize = Math.floor(256 / totalPartitions);
-    
+
     for (let i = 0; i < totalPartitions; i++) {
       ranges.push({
         start: i * rangeSize,
-        end: (i + 1) * rangeSize - 1
+        end: (i + 1) * rangeSize - 1,
       });
     }
-    
+
     return ranges;
   }
 }
@@ -807,16 +828,18 @@ class ConsumerScaler {
     const partitions = await this.getTopicPartitions();
     const groupInfo = await this.getConsumerGroupInfo();
     const activeConsumers = groupInfo.members.length;
-    
+
     const utilization = activeConsumers / partitions;
-    return utilization > this.scaleUpThreshold && activeConsumers < this.maxConsumers;
+    return (
+      utilization > this.scaleUpThreshold && activeConsumers < this.maxConsumers
+    );
   }
 
   async shouldScaleDown() {
     const partitions = await this.getTopicPartitions();
     const groupInfo = await this.getConsumerGroupInfo();
     const activeConsumers = groupInfo.members.length;
-    
+
     const utilization = activeConsumers / partitions;
     return utilization < this.scaleDownThreshold && activeConsumers > 1;
   }
@@ -850,7 +873,7 @@ class KafkaPerformanceOptimizer {
     this.metrics = {
       messagesPerSecond: 0,
       averageLatency: 0,
-      errorRate: 0
+      errorRate: 0,
     };
   }
 
@@ -860,24 +883,24 @@ class KafkaPerformanceOptimizer {
       // Batch settings
       batchSize: 16384, // 16KB
       lingerMs: 5, // Wait 5ms to batch messages
-      
+
       // Compression
       compressionType: "snappy", // or "lz4", "gzip"
-      
+
       // Retry settings
       retries: 3,
       retryBackoffMs: 100,
-      
+
       // Idempotence
       enableIdempotence: true,
-      
+
       // In-flight requests
       maxInFlightRequests: 5,
-      
+
       // Buffer settings
       bufferMemory: 33554432, // 32MB
       sendBufferBytes: 131072, // 128KB
-      receiveBufferBytes: 32768 // 32KB
+      receiveBufferBytes: 32768, // 32KB
     };
   }
 
@@ -888,20 +911,20 @@ class KafkaPerformanceOptimizer {
       maxBytesPerPartition: 1048576, // 1MB
       maxBytes: 52428800, // 50MB
       maxWaitTimeInMs: 500,
-      
+
       // Session settings
       sessionTimeoutMs: 30000,
       heartbeatIntervalMs: 3000,
-      
+
       // Poll settings
       maxPollRecords: 500,
       maxPollIntervalMs: 300000,
-      
+
       // Auto commit
       enableAutoCommit: false, // Manual commit for better control
-      
+
       // Isolation level
-      isolationLevel: "read_committed"
+      isolationLevel: "read_committed",
     };
   }
 
@@ -911,20 +934,20 @@ class KafkaPerformanceOptimizer {
       // Retention
       retentionMs: 604800000, // 7 days
       retentionBytes: -1, // Unlimited
-      
+
       // Segment settings
       segmentMs: 604800000, // 7 days
       segmentBytes: 1073741824, // 1GB
-      
+
       // Compression
       compressionType: "snappy",
-      
+
       // Cleanup policy
       cleanupPolicy: "delete", // or "compact"
-      
+
       // Replication
       minInSyncReplicas: 2,
-      uncleanLeaderElectionEnable: false
+      uncleanLeaderElectionEnable: false,
     };
   }
 
@@ -946,7 +969,7 @@ class KafkaPerformanceOptimizer {
     if (this.metrics.errorRate > 0.01) {
       console.warn("High error rate detected:", this.metrics.errorRate);
     }
-    
+
     if (this.metrics.averageLatency > 100) {
       console.warn("High latency detected:", this.metrics.averageLatency);
     }
@@ -965,7 +988,7 @@ class KafkaClusterManager {
   constructor(config) {
     this.kafka = new Kafka({
       clientId: "cluster-manager",
-      brokers: config.brokers
+      brokers: config.brokers,
     });
     this.admin = this.kafka.admin();
   }
@@ -979,8 +1002,8 @@ class KafkaClusterManager {
         "cleanup.policy": config.cleanupPolicy || "delete",
         "retention.ms": config.retentionMs || "604800000", // 7 days
         "compression.type": config.compressionType || "snappy",
-        "min.insync.replicas": config.minInSyncReplicas || "2"
-      }
+        "min.insync.replicas": config.minInSyncReplicas || "2",
+      },
     };
 
     try {
@@ -1007,7 +1030,9 @@ class KafkaClusterManager {
 
   async getTopicMetadata(topicName) {
     try {
-      const metadata = await this.admin.fetchTopicMetadata({ topics: [topicName] });
+      const metadata = await this.admin.fetchTopicMetadata({
+        topics: [topicName],
+      });
       return metadata.topics[0];
     } catch (error) {
       console.error(`Failed to get metadata for topic ${topicName}:`, error);
@@ -1040,7 +1065,10 @@ class KafkaClusterManager {
       const details = await this.admin.describeGroups([groupId]);
       return details.groups[0];
     } catch (error) {
-      console.error(`Failed to get details for consumer group ${groupId}:`, error);
+      console.error(
+        `Failed to get details for consumer group ${groupId}:`,
+        error
+      );
       throw error;
     }
   }
@@ -1050,9 +1078,11 @@ class KafkaClusterManager {
       await this.admin.setOffsets({
         groupId,
         topic,
-        partitions: [{ partition, offset }]
+        partitions: [{ partition, offset }],
       });
-      console.log(`Reset offset for group ${groupId}, topic ${topic}, partition ${partition} to ${offset}`);
+      console.log(
+        `Reset offset for group ${groupId}, topic ${topic}, partition ${partition} to ${offset}`
+      );
     } catch (error) {
       console.error("Failed to reset consumer group offsets:", error);
       throw error;
@@ -1068,13 +1098,13 @@ class KafkaMonitor {
   constructor(config) {
     this.kafka = new Kafka({
       clientId: "kafka-monitor",
-      brokers: config.brokers
+      brokers: config.brokers,
     });
     this.admin = this.kafka.admin();
     this.metrics = {
       topics: new Map(),
       consumerGroups: new Map(),
-      brokers: new Map()
+      brokers: new Map(),
     };
   }
 
@@ -1082,17 +1112,17 @@ class KafkaMonitor {
     try {
       const metadata = await this.getTopicMetadata(topicName);
       const partitions = metadata.partitions;
-      
+
       const topicMetrics = {
         name: topicName,
         partitions: partitions.length,
         replicationFactor: partitions[0]?.replicas?.length || 0,
-        partitionDetails: partitions.map(p => ({
+        partitionDetails: partitions.map((p) => ({
           id: p.partitionId,
           leader: p.leader,
           replicas: p.replicas,
-          isr: p.isr
-        }))
+          isr: p.isr,
+        })),
       };
 
       this.metrics.topics.set(topicName, topicMetrics);
@@ -1106,24 +1136,27 @@ class KafkaMonitor {
   async collectConsumerGroupMetrics(groupId) {
     try {
       const groupDetails = await this.getConsumerGroupDetails(groupId);
-      
+
       const groupMetrics = {
         groupId,
         state: groupDetails.state,
         members: groupDetails.members.length,
         protocol: groupDetails.protocol,
-        memberDetails: groupDetails.members.map(member => ({
+        memberDetails: groupDetails.members.map((member) => ({
           memberId: member.memberId,
           clientId: member.clientId,
           clientHost: member.clientHost,
-          assignments: member.memberAssignment
-        }))
+          assignments: member.memberAssignment,
+        })),
       };
 
       this.metrics.consumerGroups.set(groupId, groupMetrics);
       return groupMetrics;
     } catch (error) {
-      console.error(`Failed to collect metrics for consumer group ${groupId}:`, error);
+      console.error(
+        `Failed to collect metrics for consumer group ${groupId}:`,
+        error
+      );
       throw error;
     }
   }
@@ -1131,8 +1164,8 @@ class KafkaMonitor {
   async getTopicOffsets(topicName) {
     try {
       const metadata = await this.getTopicMetadata(topicName);
-      const partitions = metadata.partitions.map(p => p.partitionId);
-      
+      const partitions = metadata.partitions.map((p) => p.partitionId);
+
       const offsets = await this.admin.fetchTopicOffsets(topicName);
       return offsets;
     } catch (error) {
@@ -1145,7 +1178,7 @@ class KafkaMonitor {
     try {
       const offsets = await this.admin.fetchOffsets({
         groupId,
-        topic: topicName
+        topic: topicName,
       });
       return offsets;
     } catch (error) {
@@ -1158,17 +1191,19 @@ class KafkaMonitor {
     try {
       const [topicOffsets, consumerOffsets] = await Promise.all([
         this.getTopicOffsets(topicName),
-        this.getConsumerGroupOffsets(groupId, topicName)
+        this.getConsumerGroupOffsets(groupId, topicName),
       ]);
 
       const lag = {};
       for (const partition of topicOffsets) {
-        const consumerOffset = consumerOffsets.find(co => co.partition === partition.partition);
+        const consumerOffset = consumerOffsets.find(
+          (co) => co.partition === partition.partition
+        );
         if (consumerOffset) {
           lag[partition.partition] = {
             highWatermark: partition.offset,
             consumerOffset: consumerOffset.offset,
-            lag: partition.offset - consumerOffset.offset
+            lag: partition.offset - consumerOffset.offset,
           };
         }
       }
@@ -1185,7 +1220,7 @@ class KafkaMonitor {
       timestamp: new Date().toISOString(),
       topics: {},
       consumerGroups: {},
-      alerts: []
+      alerts: [],
     };
 
     try {
@@ -1209,12 +1244,13 @@ class KafkaMonitor {
 
           // Check for high lag
           for (const [partition, lagInfo] of Object.entries(lag)) {
-            if (lagInfo.lag > 10000) { // Alert if lag > 10k messages
+            if (lagInfo.lag > 10000) {
+              // Alert if lag > 10k messages
               report.alerts.push({
                 type: "HIGH_LAG",
                 severity: "WARNING",
                 message: `High lag detected: ${lagInfo.lag} messages in group ${group.groupId}, topic ${topic}, partition ${partition}`,
-                details: lagInfo
+                details: lagInfo,
               });
             }
           }
@@ -1233,7 +1269,7 @@ class KafkaMonitor {
       try {
         const report = await this.generateHealthReport();
         console.log("Kafka Health Report:", JSON.stringify(report, null, 2));
-        
+
         // Send alerts if any
         if (report.alerts.length > 0) {
           await this.sendAlerts(report.alerts);
@@ -1264,11 +1300,11 @@ class EventSourcingService {
   constructor(config) {
     this.kafka = new Kafka({
       clientId: "event-sourcing-service",
-      brokers: config.brokers
+      brokers: config.brokers,
     });
     this.producer = this.kafka.producer();
     this.consumer = this.kafka.consumer({
-      groupId: "event-sourcing-consumer"
+      groupId: "event-sourcing-consumer",
     });
     this.eventStore = new Map(); // In-memory store for demo
   }
@@ -1283,16 +1319,18 @@ class EventSourcingService {
       timestamp: new Date().toISOString(),
       metadata: {
         source: "event-sourcing-service",
-        correlationId: this.generateCorrelationId()
-      }
+        correlationId: this.generateCorrelationId(),
+      },
     };
 
     await this.producer.send({
       topic: "events",
-      messages: [{
-        key: aggregateId,
-        value: JSON.stringify(event)
-      }]
+      messages: [
+        {
+          key: aggregateId,
+          value: JSON.stringify(event),
+        },
+      ],
     });
 
     return event;
@@ -1301,7 +1339,7 @@ class EventSourcingService {
   async replayEvents(aggregateId, fromVersion = 0) {
     const consumer = this.kafka.consumer({
       groupId: `replay-${aggregateId}-${Date.now()}`,
-      fromBeginning: true
+      fromBeginning: true,
     });
 
     await consumer.connect();
@@ -1313,13 +1351,13 @@ class EventSourcingService {
     await consumer.run({
       eachMessage: async ({ message }) => {
         const event = JSON.parse(message.value.toString());
-        
+
         if (event.aggregateId === aggregateId) {
           if (event.version >= fromVersion) {
             events.push(event);
           }
         }
-      }
+      },
     });
 
     await consumer.disconnect();
@@ -1333,11 +1371,11 @@ class EventSourcingService {
 
   applyEvents(events) {
     let state = {};
-    
+
     for (const event of events) {
       state = this.applyEvent(state, event);
     }
-    
+
     return state;
   }
 
@@ -1345,7 +1383,12 @@ class EventSourcingService {
     // Implement event application logic based on event type
     switch (event.eventType) {
       case "UserCreated":
-        return { ...state, id: event.aggregateId, name: event.eventData.name, email: event.eventData.email };
+        return {
+          ...state,
+          id: event.aggregateId,
+          name: event.eventData.name,
+          email: event.eventData.email,
+        };
       case "UserUpdated":
         return { ...state, ...event.eventData };
       case "UserDeleted":
@@ -1372,11 +1415,11 @@ class CQRSService {
   constructor(config) {
     this.kafka = new Kafka({
       clientId: "cqrs-service",
-      brokers: config.brokers
+      brokers: config.brokers,
     });
     this.commandProducer = this.kafka.producer();
     this.queryConsumer = this.kafka.consumer({
-      groupId: "cqrs-query-consumer"
+      groupId: "cqrs-query-consumer",
     });
     this.readModels = new Map();
   }
@@ -1388,15 +1431,17 @@ class CQRSService {
       type: command.type,
       data: command.data,
       timestamp: new Date().toISOString(),
-      correlationId: command.correlationId
+      correlationId: command.correlationId,
     };
 
     await this.commandProducer.send({
       topic: "commands",
-      messages: [{
-        key: command.aggregateId,
-        value: JSON.stringify(commandEvent)
-      }]
+      messages: [
+        {
+          key: command.aggregateId,
+          value: JSON.stringify(commandEvent),
+        },
+      ],
     });
 
     return commandEvent;
@@ -1411,7 +1456,7 @@ class CQRSService {
       eachMessage: async ({ message }) => {
         const event = JSON.parse(message.value.toString());
         await this.updateReadModel(event);
-      }
+      },
     });
   }
 
@@ -1434,7 +1479,7 @@ class CQRSService {
       name: event.eventData.name,
       email: event.eventData.email,
       createdAt: event.timestamp,
-      lastUpdated: event.timestamp
+      lastUpdated: event.timestamp,
     };
 
     this.readModels.set(`user_${event.aggregateId}`, userModel);
@@ -1447,7 +1492,7 @@ class CQRSService {
       items: event.eventData.items,
       total: event.eventData.total,
       status: "placed",
-      createdAt: event.timestamp
+      createdAt: event.timestamp,
     };
 
     this.readModels.set(`order_${event.aggregateId}`, orderModel);
@@ -1485,11 +1530,11 @@ class MicroserviceCommunication {
   constructor(config) {
     this.kafka = new Kafka({
       clientId: config.serviceName,
-      brokers: config.brokers
+      brokers: config.brokers,
     });
     this.producer = this.kafka.producer();
     this.consumer = this.kafka.consumer({
-      groupId: config.serviceName
+      groupId: config.serviceName,
     });
     this.serviceName = config.serviceName;
     this.requestTimeout = config.requestTimeout || 30000;
@@ -1504,13 +1549,13 @@ class MicroserviceCommunication {
       to: targetService,
       type: requestType,
       data,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
 
     // Set up response handler
     const responsePromise = new Promise((resolve, reject) => {
       this.pendingRequests.set(requestId, { resolve, reject });
-      
+
       // Timeout handler
       setTimeout(() => {
         if (this.pendingRequests.has(requestId)) {
@@ -1523,10 +1568,12 @@ class MicroserviceCommunication {
     // Send request
     await this.producer.send({
       topic: `${targetService}.requests`,
-      messages: [{
-        key: requestId,
-        value: JSON.stringify(request)
-      }]
+      messages: [
+        {
+          key: requestId,
+          value: JSON.stringify(request),
+        },
+      ],
     });
 
     return responsePromise;
@@ -1537,41 +1584,46 @@ class MicroserviceCommunication {
       id: requestId,
       success,
       data: responseData,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
 
     await this.producer.send({
       topic: `${this.serviceName}.responses`,
-      messages: [{
-        key: requestId,
-        value: JSON.stringify(response)
-      }]
+      messages: [
+        {
+          key: requestId,
+          value: JSON.stringify(response),
+        },
+      ],
     });
   }
 
   async startListening() {
     await this.consumer.connect();
-    await this.consumer.subscribe({ 
-      topics: [`${this.serviceName}.requests`, `${this.serviceName}.responses`] 
+    await this.consumer.subscribe({
+      topics: [`${this.serviceName}.requests`, `${this.serviceName}.responses`],
     });
 
     await this.consumer.run({
       eachMessage: async ({ topic, message }) => {
         const data = JSON.parse(message.value.toString());
-        
+
         if (topic.endsWith(".requests")) {
           await this.handleRequest(data);
         } else if (topic.endsWith(".responses")) {
           await this.handleResponse(data);
         }
-      }
+      },
     });
   }
 
   async handleRequest(request) {
     try {
       // Process the request based on type
-      const responseData = await this.processRequest(request.type, request.data);
+      const responseData = await this.processRequest(
+        request.type,
+        request.data
+      );
       await this.sendResponse(request.id, responseData, true);
     } catch (error) {
       await this.sendResponse(request.id, { error: error.message }, false);
@@ -1582,7 +1634,7 @@ class MicroserviceCommunication {
     const pendingRequest = this.pendingRequests.get(response.id);
     if (pendingRequest) {
       this.pendingRequests.delete(response.id);
-      
+
       if (response.success) {
         pendingRequest.resolve(response.data);
       } else {
@@ -1634,7 +1686,7 @@ class KafkaTroubleshooter {
   constructor(config) {
     this.kafka = new Kafka({
       clientId: "troubleshooter",
-      brokers: config.brokers
+      brokers: config.brokers,
     });
     this.admin = this.kafka.admin();
   }
@@ -1643,47 +1695,54 @@ class KafkaTroubleshooter {
     try {
       const groups = await this.admin.describeGroups([groupId]);
       const group = groups.groups[0];
-      
+
       if (group.state !== "Stable") {
         return {
           issue: "Consumer group not stable",
           state: group.state,
-          solution: "Check for failed consumers or network issues"
+          solution: "Check for failed consumers or network issues",
         };
       }
 
       // Check for partition assignment issues
-      const assignments = group.members.map(member => member.memberAssignment);
-      const totalPartitions = assignments.reduce((sum, assignment) => sum + assignment.length, 0);
-      
+      const assignments = group.members.map(
+        (member) => member.memberAssignment
+      );
+      const totalPartitions = assignments.reduce(
+        (sum, assignment) => sum + assignment.length,
+        0
+      );
+
       if (totalPartitions === 0) {
         return {
           issue: "No partitions assigned",
-          solution: "Check topic exists and has partitions"
+          solution: "Check topic exists and has partitions",
         };
       }
 
       return {
         status: "healthy",
         members: group.members.length,
-        totalPartitions
+        totalPartitions,
       };
     } catch (error) {
       return {
         issue: "Failed to describe consumer group",
         error: error.message,
-        solution: "Check if consumer group exists and is accessible"
+        solution: "Check if consumer group exists and is accessible",
       };
     }
   }
 
   async diagnoseTopicIssues(topicName) {
     try {
-      const metadata = await this.admin.fetchTopicMetadata({ topics: [topicName] });
+      const metadata = await this.admin.fetchTopicMetadata({
+        topics: [topicName],
+      });
       const topic = metadata.topics[0];
-      
+
       const issues = [];
-      
+
       // Check for under-replicated partitions
       for (const partition of topic.partitions) {
         if (partition.isr.length < partition.replicas.length) {
@@ -1692,16 +1751,16 @@ class KafkaTroubleshooter {
             partition: partition.partitionId,
             replicas: partition.replicas.length,
             isr: partition.isr.length,
-            solution: "Check broker health and network connectivity"
+            solution: "Check broker health and network connectivity",
           });
         }
-        
+
         // Check for no leader
         if (partition.leader === -1) {
           issues.push({
             type: "NO_LEADER",
             partition: partition.partitionId,
-            solution: "Trigger leader election or restart brokers"
+            solution: "Trigger leader election or restart brokers",
           });
         }
       }
@@ -1709,13 +1768,13 @@ class KafkaTroubleshooter {
       return {
         topic: topicName,
         issues,
-        healthy: issues.length === 0
+        healthy: issues.length === 0,
       };
     } catch (error) {
       return {
         issue: "Failed to fetch topic metadata",
         error: error.message,
-        solution: "Check if topic exists and is accessible"
+        solution: "Check if topic exists and is accessible",
       };
     }
   }
@@ -1728,14 +1787,14 @@ class KafkaTroubleshooter {
           "Broker connectivity issues",
           "Topic doesn't exist",
           "Authentication/authorization problems",
-          "Network timeouts"
+          "Network timeouts",
         ],
         solutions: [
           "Check broker connectivity",
           "Verify topic exists",
           "Check credentials and permissions",
-          "Increase timeout settings"
-        ]
+          "Increase timeout settings",
+        ],
       },
       {
         issue: "High producer latency",
@@ -1743,28 +1802,28 @@ class KafkaTroubleshooter {
           "Network latency",
           "Broker overload",
           "Large batch sizes",
-          "Compression overhead"
+          "Compression overhead",
         ],
         solutions: [
           "Optimize network configuration",
           "Scale brokers",
           "Reduce batch size",
-          "Use faster compression (lz4 vs gzip)"
-        ]
+          "Use faster compression (lz4 vs gzip)",
+        ],
       },
       {
         issue: "Message ordering issues",
         causes: [
           "Multiple partitions",
           "Retries enabled without idempotence",
-          "Concurrent producers"
+          "Concurrent producers",
         ],
         solutions: [
           "Use single partition for ordering",
           "Enable idempotence",
-          "Use transactional producer"
-        ]
-      }
+          "Use transactional producer",
+        ],
+      },
     ];
 
     return commonIssues;
@@ -1776,20 +1835,26 @@ class KafkaTroubleshooter {
       brokers: await this.checkBrokerHealth(),
       topics: await this.checkTopicHealth(),
       consumerGroups: await this.checkConsumerGroupHealth(),
-      recommendations: []
+      recommendations: [],
     };
 
     // Generate recommendations
-    if (report.brokers.some(b => !b.healthy)) {
-      report.recommendations.push("Some brokers are unhealthy - check broker logs and restart if necessary");
+    if (report.brokers.some((b) => !b.healthy)) {
+      report.recommendations.push(
+        "Some brokers are unhealthy - check broker logs and restart if necessary"
+      );
     }
 
-    if (report.topics.some(t => t.issues.length > 0)) {
-      report.recommendations.push("Some topics have issues - check replication and leader assignment");
+    if (report.topics.some((t) => t.issues.length > 0)) {
+      report.recommendations.push(
+        "Some topics have issues - check replication and leader assignment"
+      );
     }
 
-    if (report.consumerGroups.some(g => g.state !== "Stable")) {
-      report.recommendations.push("Some consumer groups are not stable - check consumer health");
+    if (report.consumerGroups.some((g) => g.state !== "Stable")) {
+      report.recommendations.push(
+        "Some consumer groups are not stable - check consumer health"
+      );
     }
 
     return report;
@@ -1827,7 +1892,7 @@ class KafkaPerformanceTuner {
       duration: 60000, // 1 minute
       messageSize: 1024, // 1KB
       topics: ["perf-test"],
-      partitions: 12
+      partitions: 12,
     };
 
     // Create test topic
@@ -1835,13 +1900,13 @@ class KafkaPerformanceTuner {
 
     // Run producer test
     const producerResults = await this.runProducerTest(testConfig);
-    
+
     // Run consumer test
     const consumerResults = await this.runConsumerTest(testConfig);
 
     // Analyze results
     const analysis = this.analyzeResults(producerResults, consumerResults);
-    
+
     // Generate recommendations
     const recommendations = this.generateRecommendations(analysis);
 
@@ -1849,7 +1914,7 @@ class KafkaPerformanceTuner {
       producerResults,
       consumerResults,
       analysis,
-      recommendations
+      recommendations,
     };
   }
 
@@ -1857,7 +1922,7 @@ class KafkaPerformanceTuner {
     const producer = this.kafka.producer({
       batchSize: 16384,
       lingerMs: 5,
-      compressionType: "snappy"
+      compressionType: "snappy",
     });
 
     await producer.connect();
@@ -1873,17 +1938,19 @@ class KafkaPerformanceTuner {
       try {
         await producer.send({
           topic: config.topics[0],
-          messages: [{
-            key: `key-${messageCount}`,
-            value: this.generateTestMessage(config.messageSize)
-          }]
+          messages: [
+            {
+              key: `key-${messageCount}`,
+              value: this.generateTestMessage(config.messageSize),
+            },
+          ],
         });
         messageCount++;
       } catch (error) {
         errorCount++;
       }
 
-      await new Promise(resolve => setTimeout(resolve, messageInterval));
+      await new Promise((resolve) => setTimeout(resolve, messageInterval));
     }
 
     await producer.disconnect();
@@ -1894,14 +1961,14 @@ class KafkaPerformanceTuner {
       errorCount,
       duration,
       throughput: (messageCount / duration) * 1000, // messages per second
-      errorRate: errorCount / messageCount
+      errorRate: errorCount / messageCount,
     };
   }
 
   async runConsumerTest(config) {
     const consumer = this.kafka.consumer({
       groupId: "perf-test-consumer",
-      fromBeginning: true
+      fromBeginning: true,
     });
 
     await consumer.connect();
@@ -1919,11 +1986,11 @@ class KafkaPerformanceTuner {
         } catch (error) {
           errorCount++;
         }
-      }
+      },
     });
 
     // Wait for test duration
-    await new Promise(resolve => setTimeout(resolve, config.duration));
+    await new Promise((resolve) => setTimeout(resolve, config.duration));
     await consumer.disconnect();
 
     const duration = Date.now() - startTime;
@@ -1932,7 +1999,7 @@ class KafkaPerformanceTuner {
       errorCount,
       duration,
       throughput: (messageCount / duration) * 1000,
-      errorRate: errorCount / messageCount
+      errorRate: errorCount / messageCount,
     };
   }
 
@@ -1943,7 +2010,7 @@ class KafkaPerformanceTuner {
       producerErrorRate: producerResults.errorRate,
       consumerErrorRate: consumerResults.errorRate,
       endToEndLatency: this.calculateLatency(producerResults, consumerResults),
-      bottlenecks: this.identifyBottlenecks(producerResults, consumerResults)
+      bottlenecks: this.identifyBottlenecks(producerResults, consumerResults),
     };
   }
 
@@ -1954,7 +2021,7 @@ class KafkaPerformanceTuner {
       recommendations.push({
         type: "PRODUCER_ERRORS",
         message: "High producer error rate detected",
-        action: "Check broker connectivity and increase retry settings"
+        action: "Check broker connectivity and increase retry settings",
       });
     }
 
@@ -1962,7 +2029,7 @@ class KafkaPerformanceTuner {
       recommendations.push({
         type: "CONSUMER_ERRORS",
         message: "High consumer error rate detected",
-        action: "Check consumer configuration and message processing logic"
+        action: "Check consumer configuration and message processing logic",
       });
     }
 
@@ -1970,7 +2037,8 @@ class KafkaPerformanceTuner {
       recommendations.push({
         type: "LOW_THROUGHPUT",
         message: "Low producer throughput",
-        action: "Increase batch size, enable compression, or add more partitions"
+        action:
+          "Increase batch size, enable compression, or add more partitions",
       });
     }
 
@@ -1978,7 +2046,8 @@ class KafkaPerformanceTuner {
       recommendations.push({
         type: "HIGH_LATENCY",
         message: "High end-to-end latency",
-        action: "Optimize network settings, reduce batch size, or use faster compression"
+        action:
+          "Optimize network settings, reduce batch size, or use faster compression",
       });
     }
 
@@ -2026,13 +2095,13 @@ class KafkaEdgeCases {
         causes: [
           "Multiple partitions",
           "Retries without idempotence",
-          "Network partitions"
+          "Network partitions",
         ],
         solutions: [
           "Use single partition for strict ordering",
           "Enable idempotent producer",
-          "Implement sequence numbers in message payload"
-        ]
+          "Implement sequence numbers in message payload",
+        ],
       },
 
       // Consumer Rebalancing Edge Cases
@@ -2041,13 +2110,13 @@ class KafkaEdgeCases {
         causes: [
           "Slow consumers",
           "Network timeouts",
-          "Session timeout too low"
+          "Session timeout too low",
         ],
         solutions: [
           "Increase session timeout",
           "Optimize consumer processing",
-          "Use cooperative rebalancing"
-        ]
+          "Use cooperative rebalancing",
+        ],
       },
 
       // Data Loss Edge Cases
@@ -2056,29 +2125,25 @@ class KafkaEdgeCases {
         causes: [
           "Consumer crashes before commit",
           "Producer acks=0",
-          "Topic retention too short"
+          "Topic retention too short",
         ],
         solutions: [
           "Use manual commit after processing",
           "Set acks=all for producers",
-          "Increase retention period"
-        ]
+          "Increase retention period",
+        ],
       },
 
       // Duplicate Messages Edge Cases
       duplicates: {
         issue: "Duplicate messages processed",
-        causes: [
-          "Consumer rebalancing",
-          "Producer retries",
-          "Network issues"
-        ],
+        causes: ["Consumer rebalancing", "Producer retries", "Network issues"],
         solutions: [
           "Implement idempotent processing",
           "Use message deduplication",
-          "Enable idempotent producer"
-        ]
-      }
+          "Enable idempotent producer",
+        ],
+      },
     };
   }
 
@@ -2094,7 +2159,7 @@ class KafkaEdgeCases {
       "Set appropriate acks": "Use acks=all for durability",
       "Use compression": "Reduce network overhead",
       "Batch messages": "Improve throughput",
-      "Handle errors gracefully": "Implement retry logic"
+      "Handle errors gracefully": "Implement retry logic",
     },
 
     // Consumer Best Practices
@@ -2103,7 +2168,7 @@ class KafkaEdgeCases {
       "Handle rebalancing": "Implement rebalance listeners",
       "Process messages idempotently": "Handle duplicates",
       "Monitor consumer lag": "Set up alerting",
-      "Use appropriate isolation level": "read_committed for transactions"
+      "Use appropriate isolation level": "read_committed for transactions",
     },
 
     // Topic Design Best Practices
@@ -2112,7 +2177,7 @@ class KafkaEdgeCases {
       "Set appropriate retention": "Balance storage vs. replay needs",
       "Use meaningful names": "Follow naming conventions",
       "Configure replication": "Ensure fault tolerance",
-      "Monitor topic health": "Set up monitoring"
+      "Monitor topic health": "Set up monitoring",
     },
 
     // Cluster Best Practices
@@ -2121,8 +2186,8 @@ class KafkaEdgeCases {
       "Monitor broker health": "Set up health checks",
       "Plan for capacity": "Monitor disk and CPU usage",
       "Backup configurations": "Version control configs",
-      "Test disaster recovery": "Regular DR drills"
-    }
+      "Test disaster recovery": "Regular DR drills",
+    },
   };
 
   static getBestPractices(category) {
@@ -2144,7 +2209,7 @@ class KafkaSecurity {
       clientId: config.clientId,
       brokers: config.brokers,
       ssl: config.ssl,
-      sasl: config.sasl
+      sasl: config.sasl,
     });
   }
 
@@ -2155,8 +2220,8 @@ class KafkaSecurity {
         rejectUnauthorized: true,
         ca: [fs.readFileSync("ca-cert", "utf8")],
         cert: fs.readFileSync("client-cert", "utf8"),
-        key: fs.readFileSync("client-key", "utf8")
-      }
+        key: fs.readFileSync("client-key", "utf8"),
+      },
     };
   }
 
@@ -2166,19 +2231,25 @@ class KafkaSecurity {
       sasl: {
         mechanism: "plain",
         username: username,
-        password: password
-      }
+        password: password,
+      },
     };
   }
 
   // ACL Management
-  async createACL(principal, resourceType, resourceName, operation, permission) {
+  async createACL(
+    principal,
+    resourceType,
+    resourceName,
+    operation,
+    permission
+  ) {
     const acl = {
       principal: principal,
       resourceType: resourceType,
       resourceName: resourceName,
       operation: operation,
-      permission: permission
+      permission: permission,
     };
 
     // Implementation would use Kafka Admin API
@@ -2190,7 +2261,7 @@ class KafkaSecurity {
     return {
       "log.cleaner.enable": "true",
       "log.cleanup.policy": "compact",
-      "compression.type": "snappy"
+      "compression.type": "snappy",
     };
   }
 }
@@ -2203,11 +2274,11 @@ class KafkaStreamProcessor {
   constructor(config) {
     this.kafka = new Kafka({
       clientId: "stream-processor",
-      brokers: config.brokers
+      brokers: config.brokers,
     });
     this.producer = this.kafka.producer();
     this.consumer = this.kafka.consumer({
-      groupId: "stream-processor-group"
+      groupId: "stream-processor-group",
     });
   }
 
@@ -2219,61 +2290,66 @@ class KafkaStreamProcessor {
       eachMessage: async ({ topic, partition, message }) => {
         try {
           const inputData = JSON.parse(message.value.toString());
-          
+
           // Process the data
           const outputData = await processor(inputData);
-          
+
           // Send to output topic
           await this.producer.send({
             topic: outputTopic,
-            messages: [{
-              key: message.key,
-              value: JSON.stringify(outputData)
-            }]
+            messages: [
+              {
+                key: message.key,
+                value: JSON.stringify(outputData),
+              },
+            ],
           });
         } catch (error) {
           console.error("Stream processing error:", error);
         }
-      }
+      },
     });
   }
 
   // Windowed Aggregations
   async windowedAggregation(topic, windowSizeMs, aggregator) {
     const windows = new Map();
-    
+
     await this.consumer.run({
       eachMessage: async ({ message }) => {
         const data = JSON.parse(message.value.toString());
         const timestamp = data.timestamp;
         const windowKey = Math.floor(timestamp / windowSizeMs) * windowSizeMs;
-        
+
         if (!windows.has(windowKey)) {
           windows.set(windowKey, []);
         }
-        
+
         windows.get(windowKey).push(data);
-        
+
         // Process completed windows
         const currentTime = Date.now();
-        const completedWindows = Array.from(windows.keys())
-          .filter(key => key < currentTime - windowSizeMs);
-        
+        const completedWindows = Array.from(windows.keys()).filter(
+          (key) => key < currentTime - windowSizeMs
+        );
+
         for (const windowKey of completedWindows) {
           const windowData = windows.get(windowKey);
           const aggregated = aggregator(windowData);
-          
+
           await this.producer.send({
             topic: "aggregated-data",
-            messages: [{
-              key: windowKey.toString(),
-              value: JSON.stringify(aggregated)
-            }]
+            messages: [
+              {
+                key: windowKey.toString(),
+                value: JSON.stringify(aggregated),
+              },
+            ],
           });
-          
+
           windows.delete(windowKey);
         }
-      }
+      },
     });
   }
 }
@@ -2297,6 +2373,7 @@ This comprehensive Kafka guide covers:
 The guide provides production-ready code examples, best practices, and covers edge cases that you'll encounter in real-world Kafka deployments. Each section includes practical implementations that you can use directly in your Node.js applications.
 
 **Key Takeaways:**
+
 - Always use idempotent producers for critical applications
 - Implement proper error handling and retry logic
 - Monitor consumer lag and set up alerting
