@@ -5,14 +5,49 @@
 ## 🏗️ **Google System Design Questions**
 
 ### **1. Design Google Search**
-**Requirements**: Handle 8.5 billion searches per day, sub-200ms response time
+
+**Detailed Explanation:**
+
+Google Search is one of the most complex and scalable systems in the world, handling billions of queries daily with sub-200ms response times. The system must be highly available, globally distributed, and capable of processing massive amounts of data.
+
+**System Requirements:**
+- **Scale**: 8.5 billion searches per day (100,000 queries per second)
+- **Latency**: Sub-200ms response time globally
+- **Availability**: 99.99% uptime
+- **Accuracy**: Highly relevant search results
+- **Global**: Serve users worldwide with low latency
 
 **Key Components**:
-- **Web Crawler**: Distributed crawling system
-- **Indexer**: Build and maintain search index
-- **Ranker**: PageRank and relevance algorithms
-- **Query Processor**: Parse and optimize queries
-- **Result Aggregator**: Combine results from multiple sources
+
+**Web Crawler**: Distributed crawling system
+- **Purpose**: Discover and download web pages from the internet
+- **Scale**: Crawls billions of pages continuously
+- **Challenges**: Respect robots.txt, handle dynamic content, avoid overloading servers
+- **Architecture**: Distributed crawlers with politeness policies
+
+**Indexer**: Build and maintain search index
+- **Purpose**: Create searchable index from crawled content
+- **Scale**: Indexes trillions of web pages
+- **Challenges**: Handle duplicate content, extract meaningful information
+- **Architecture**: Distributed indexing with sharding
+
+**Ranker**: PageRank and relevance algorithms
+- **Purpose**: Rank search results by relevance and authority
+- **Scale**: Processes millions of documents per query
+- **Challenges**: Balance relevance with authority, handle spam
+- **Architecture**: Distributed ranking with machine learning models
+
+**Query Processor**: Parse and optimize queries
+- **Purpose**: Understand user intent and optimize search
+- **Scale**: Processes 100,000 queries per second
+- **Challenges**: Handle typos, synonyms, natural language
+- **Architecture**: Real-time query processing with caching
+
+**Result Aggregator**: Combine results from multiple sources
+- **Purpose**: Merge results from different index shards
+- **Scale**: Aggregates results from thousands of shards
+- **Challenges**: Maintain ranking consistency, handle partial results
+- **Architecture**: Distributed aggregation with fault tolerance
 
 **Architecture**:
 ```

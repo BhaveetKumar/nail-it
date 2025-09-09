@@ -1059,6 +1059,84 @@ func main() {
 
 ### **5. Database Sharding**
 
+**Detailed Explanation:**
+
+Database sharding is a horizontal partitioning technique that splits a large database into smaller, more manageable pieces called shards. Each shard contains a subset of the data and can be stored on different servers.
+
+**Why Sharding is Important:**
+
+1. **Scalability**: Distribute data across multiple servers
+2. **Performance**: Reduce query response time by accessing smaller datasets
+3. **Availability**: Isolate failures to specific shards
+4. **Maintenance**: Easier to manage smaller databases
+5. **Cost**: Use smaller, cheaper servers instead of one large server
+
+**Sharding Strategies:**
+
+**Horizontal Sharding:**
+- Split tables by rows
+- Each shard contains different rows
+- Most common approach
+- Good for large tables
+
+**Vertical Sharding:**
+- Split tables by columns
+- Each shard contains different columns
+- Less common
+- Good for wide tables
+
+**Sharding Keys:**
+
+**Hash-based Sharding:**
+- Use hash function on shard key
+- Even distribution of data
+- Difficult to add/remove shards
+- Examples: User ID, Order ID
+
+**Range-based Sharding:**
+- Split data by ranges
+- Easy to add/remove shards
+- May cause uneven distribution
+- Examples: Date ranges, ID ranges
+
+**Directory-based Sharding:**
+- Use lookup table for shard mapping
+- Flexible and easy to change
+- Single point of failure
+- Examples: Geographic regions
+
+**Consistent Hashing:**
+- Distribute data in a ring
+- Easy to add/remove shards
+- Minimal data movement
+- Examples: Distributed caches
+
+**Sharding Challenges:**
+
+**Cross-shard Queries:**
+- Queries spanning multiple shards
+- Complex to implement
+- May require application-level joins
+- Consider denormalization
+
+**Data Rebalancing:**
+- Moving data when adding/removing shards
+- Expensive operation
+- May require downtime
+- Plan for data migration
+
+**Transaction Management:**
+- ACID properties across shards
+- Two-phase commit for consistency
+- Eventual consistency for performance
+- Consider distributed transactions
+
+**Shard Monitoring:**
+- Track performance per shard
+- Monitor data distribution
+- Alert on shard failures
+- Plan for capacity growth
+
 ```go
 package main
 
@@ -1180,6 +1258,65 @@ func main() {
     }
 }
 ```
+
+**Discussion Questions & Answers:**
+
+**Q1: How do you choose the right sharding strategy for your database?**
+
+**Answer:** Consider these factors:
+- **Data Distribution**: Use hash-based for even distribution, range-based for sequential data
+- **Query Patterns**: Use range-based for range queries, hash-based for point queries
+- **Scalability Needs**: Use consistent hashing for easy scaling, hash-based for fixed shards
+- **Data Relationships**: Consider how related data is accessed together
+- **Maintenance Complexity**: Balance between performance and operational complexity
+
+**Q2: What are the challenges of maintaining ACID properties across shards?**
+
+**Answer:** Key challenges include:
+- **Distributed Transactions**: Use two-phase commit for consistency
+- **Performance Impact**: Distributed transactions are slower than local ones
+- **Failure Handling**: Partial failures can leave system in inconsistent state
+- **Deadlocks**: More complex deadlock detection across shards
+- **Network Latency**: Communication between shards adds latency
+- **Consider Eventual Consistency**: May be acceptable for some use cases
+
+**Q3: How do you handle cross-shard queries efficiently?**
+
+**Answer:** Several strategies for cross-shard queries:
+- **Denormalization**: Duplicate data across shards to avoid joins
+- **Application-level Joins**: Fetch data from multiple shards and join in application
+- **Read Replicas**: Use read replicas for cross-shard queries
+- **Materialized Views**: Pre-compute cross-shard aggregations
+- **Event Sourcing**: Use events to maintain cross-shard relationships
+- **CQRS**: Separate read and write models
+
+**Q4: What are the trade-offs between different sharding key strategies?**
+
+**Answer:**
+**Hash-based Sharding:**
+- **Pros**: Even distribution, good for point queries
+- **Cons**: Difficult to add/remove shards, poor for range queries
+- **Use Cases**: User data, order data
+
+**Range-based Sharding:**
+- **Pros**: Easy to add/remove shards, good for range queries
+- **Cons**: Uneven distribution, hot spots
+- **Use Cases**: Time-series data, sequential data
+
+**Consistent Hashing:**
+- **Pros**: Easy scaling, minimal data movement
+- **Cons**: Complex implementation, may cause uneven distribution
+- **Use Cases**: Distributed caches, content delivery
+
+**Q5: How do you monitor and maintain a sharded database?**
+
+**Answer:** Comprehensive monitoring strategy:
+- **Shard Health**: Monitor each shard's performance and availability
+- **Data Distribution**: Track data distribution across shards
+- **Query Performance**: Monitor query performance per shard
+- **Capacity Planning**: Plan for shard capacity and growth
+- **Automated Alerts**: Set up alerts for shard failures and performance issues
+- **Regular Maintenance**: Plan for data rebalancing and shard maintenance
 
 ---
 
