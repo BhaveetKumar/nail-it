@@ -5,8 +5,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gorilla/websocket"
 	"singleton-service/internal/logger"
+
+	"github.com/gorilla/websocket"
 )
 
 // Hub implements Singleton pattern for WebSocket hub
@@ -37,7 +38,7 @@ type Message struct {
 }
 
 var (
-	wsHub *Hub
+	wsHub   *Hub
 	hubOnce sync.Once
 )
 

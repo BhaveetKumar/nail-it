@@ -84,11 +84,11 @@ type UserEvent struct {
 
 // PaymentEvent represents a payment-related event
 type PaymentEvent struct {
-	Type       string      `json:"type"`
-	PaymentID  string      `json:"payment_id"`
-	Data       interface{} `json:"data"`
-	Timestamp  int64       `json:"timestamp"`
-	Source     string      `json:"source"`
+	Type      string      `json:"type"`
+	PaymentID string      `json:"payment_id"`
+	Data      interface{} `json:"data"`
+	Timestamp int64       `json:"timestamp"`
+	Source    string      `json:"source"`
 }
 
 // HealthCheckResponse represents the health check response

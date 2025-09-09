@@ -142,11 +142,11 @@ func (sg *StripeGateway) RefundPayment(ctx context.Context, request *models.Refu
 	log.Info("Processing refund with Stripe", "payment_id", request.PaymentID, "amount", request.Amount)
 
 	response := &models.RefundResponse{
-		RefundID:      fmt.Sprintf("re_%s", request.PaymentID),
-		Status:        "success",
-		Amount:        request.Amount,
-		PaymentID:     request.PaymentID,
-		Gateway:       "stripe",
+		RefundID:  fmt.Sprintf("re_%s", request.PaymentID),
+		Status:    "success",
+		Amount:    request.Amount,
+		PaymentID: request.PaymentID,
+		Gateway:   "stripe",
 		GatewayData: map[string]interface{}{
 			"stripe_refund_id": fmt.Sprintf("re_%s", request.PaymentID),
 		},
@@ -220,11 +220,11 @@ func (ppg *PayPalGateway) RefundPayment(ctx context.Context, request *models.Ref
 	log.Info("Processing refund with PayPal", "payment_id", request.PaymentID, "amount", request.Amount)
 
 	response := &models.RefundResponse{
-		RefundID:      fmt.Sprintf("paypal_refund_%s", request.PaymentID),
-		Status:        "success",
-		Amount:        request.Amount,
-		PaymentID:     request.PaymentID,
-		Gateway:       "paypal",
+		RefundID:  fmt.Sprintf("paypal_refund_%s", request.PaymentID),
+		Status:    "success",
+		Amount:    request.Amount,
+		PaymentID: request.PaymentID,
+		Gateway:   "paypal",
 		GatewayData: map[string]interface{}{
 			"paypal_refund_id": fmt.Sprintf("PAYPAL_REFUND_%s", request.PaymentID),
 		},
@@ -295,11 +295,11 @@ func (rg *RazorpayGateway) RefundPayment(ctx context.Context, request *models.Re
 	log.Info("Processing refund with Razorpay", "payment_id", request.PaymentID, "amount", request.Amount)
 
 	response := &models.RefundResponse{
-		RefundID:      fmt.Sprintf("razorpay_refund_%s", request.PaymentID),
-		Status:        "success",
-		Amount:        request.Amount,
-		PaymentID:     request.PaymentID,
-		Gateway:       "razorpay",
+		RefundID:  fmt.Sprintf("razorpay_refund_%s", request.PaymentID),
+		Status:    "success",
+		Amount:    request.Amount,
+		PaymentID: request.PaymentID,
+		Gateway:   "razorpay",
 		GatewayData: map[string]interface{}{
 			"razorpay_refund_id": fmt.Sprintf("rfnd_%s", request.PaymentID),
 		},
@@ -367,11 +367,11 @@ func (btg *BankTransferGateway) RefundPayment(ctx context.Context, request *mode
 	log.Info("Processing refund with Bank Transfer", "payment_id", request.PaymentID, "amount", request.Amount)
 
 	response := &models.RefundResponse{
-		RefundID:      fmt.Sprintf("bank_refund_%s", request.PaymentID),
-		Status:        "pending",
-		Amount:        request.Amount,
-		PaymentID:     request.PaymentID,
-		Gateway:       "bank_transfer",
+		RefundID:  fmt.Sprintf("bank_refund_%s", request.PaymentID),
+		Status:    "pending",
+		Amount:    request.Amount,
+		PaymentID: request.PaymentID,
+		Gateway:   "bank_transfer",
 		GatewayData: map[string]interface{}{
 			"bank_refund_reference": fmt.Sprintf("BANK_REFUND_%s", request.PaymentID),
 		},
@@ -445,11 +445,11 @@ func (dwg *DigitalWalletGateway) RefundPayment(ctx context.Context, request *mod
 	log.Info("Processing refund with Digital Wallet", "payment_id", request.PaymentID, "amount", request.Amount)
 
 	response := &models.RefundResponse{
-		RefundID:      fmt.Sprintf("wallet_refund_%s", request.PaymentID),
-		Status:        "success",
-		Amount:        request.Amount,
-		PaymentID:     request.PaymentID,
-		Gateway:       "digital_wallet",
+		RefundID:  fmt.Sprintf("wallet_refund_%s", request.PaymentID),
+		Status:    "success",
+		Amount:    request.Amount,
+		PaymentID: request.PaymentID,
+		Gateway:   "digital_wallet",
 		GatewayData: map[string]interface{}{
 			"wallet_refund_id": fmt.Sprintf("WALLET_REFUND_%s", request.PaymentID),
 		},

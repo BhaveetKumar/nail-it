@@ -7,9 +7,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/segmentio/kafka-go"
 	"singleton-service/internal/config"
 	"singleton-service/internal/logger"
+
+	"github.com/segmentio/kafka-go"
 )
 
 // KafkaConsumer implements Singleton pattern for Kafka consumer

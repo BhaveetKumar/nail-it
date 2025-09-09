@@ -5,6 +5,7 @@ This is a complete microservice implementation demonstrating the Singleton desig
 ## Architecture Overview
 
 The service implements the Singleton pattern for:
+
 - **Configuration Management**: Global application configuration
 - **Database Connections**: MySQL and MongoDB connection pools
 - **Redis Client**: Caching and session management
@@ -15,6 +16,7 @@ The service implements the Singleton pattern for:
 ## Features
 
 ### Core Functionality
+
 - **User Management**: Create, read, update users
 - **Payment Processing**: Create, read, update payments
 - **Real-time Notifications**: WebSocket-based updates
@@ -25,6 +27,7 @@ The service implements the Singleton pattern for:
 ### Singleton Implementations
 
 #### 1. Configuration Manager
+
 ```go
 // Thread-safe singleton for application configuration
 config := config.GetConfigManager()
@@ -32,6 +35,7 @@ serverConfig := config.GetServerConfig()
 ```
 
 #### 2. Database Managers
+
 ```go
 // MySQL singleton
 mysqlDB := database.GetMySQLManager()
@@ -41,12 +45,14 @@ mongoDB := database.GetMongoManager()
 ```
 
 #### 3. Redis Manager
+
 ```go
 // Redis singleton for caching
 redisClient := redis.GetRedisManager()
 ```
 
 #### 4. Kafka Components
+
 ```go
 // Kafka producer singleton
 kafkaProducer := kafka.GetKafkaProducer()
@@ -56,12 +62,14 @@ kafkaConsumer := kafka.GetKafkaConsumer()
 ```
 
 #### 5. WebSocket Hub
+
 ```go
 // WebSocket hub singleton
 wsHub := websocket.GetWebSocketHub()
 ```
 
 #### 6. Logger
+
 ```go
 // Centralized logging singleton
 logger := logger.GetLogger()
@@ -70,35 +78,42 @@ logger := logger.GetLogger()
 ## API Endpoints
 
 ### Users
+
 - `POST /api/v1/users` - Create user
 - `GET /api/v1/users/:id` - Get user by ID
 - `PUT /api/v1/users/:id` - Update user
 - `GET /api/v1/users/:user_id/payments` - Get user payments
 
 ### Payments
+
 - `POST /api/v1/payments` - Create payment
 - `GET /api/v1/payments/:id` - Get payment by ID
 - `PUT /api/v1/payments/:id/status` - Update payment status
 
 ### WebSocket
+
 - `GET /ws?user_id=:user_id&client_id=:client_id` - WebSocket connection
 
 ### Health Check
+
 - `GET /health` - Service health status
 
 ## WebSocket Events
 
 ### User Events
+
 - `user_created` - User created
 - `user_updated` - User updated
 
 ### Payment Events
+
 - `payment_created` - Payment created
 - `payment_updated` - Payment status updated
 
 ## Kafka Events
 
 ### Event Types
+
 - `user_created` - User creation event
 - `user_updated` - User update event
 - `payment_created` - Payment creation event
@@ -108,6 +123,7 @@ logger := logger.GetLogger()
 ## Setup Instructions
 
 ### Prerequisites
+
 - Go 1.21+
 - MySQL 8.0+
 - MongoDB 4.4+
@@ -117,12 +133,14 @@ logger := logger.GetLogger()
 ### Installation
 
 1. **Clone and setup**:
+
 ```bash
 cd singleton
 go mod tidy
 ```
 
 2. **Start dependencies**:
+
 ```bash
 # Start MySQL
 docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 mysql:8.0
@@ -138,11 +156,13 @@ docker-compose up -d kafka zookeeper
 ```
 
 3. **Create database**:
+
 ```sql
 CREATE DATABASE singleton_db;
 ```
 
 4. **Run the service**:
+
 ```bash
 go run main.go
 ```
@@ -160,16 +180,19 @@ The service uses a YAML configuration file (`configs/config.yaml`) with the foll
 ## Testing
 
 ### Unit Tests
+
 ```bash
 go test ./...
 ```
 
 ### Integration Tests
+
 ```bash
 go test -tags=integration ./...
 ```
 
 ### Load Testing
+
 ```bash
 # Install hey
 go install github.com/rakyll/hey@latest
@@ -184,19 +207,24 @@ hey -n 1000 -c 10 -m POST -H "Content-Type: application/json" -d '{"user_id":"us
 ## Monitoring
 
 ### Health Check
+
 ```bash
 curl http://localhost:8080/health
 ```
 
 ### WebSocket Connection
+
 ```javascript
-const ws = new WebSocket('ws://localhost:8080/ws?user_id=user123&client_id=client456');
-ws.onmessage = function(event) {
-    console.log('Received:', JSON.parse(event.data));
+const ws = new WebSocket(
+  "ws://localhost:8080/ws?user_id=user123&client_id=client456"
+);
+ws.onmessage = function (event) {
+  console.log("Received:", JSON.parse(event.data));
 };
 ```
 
 ### Kafka Events
+
 ```bash
 # Consume events
 kafka-console-consumer --bootstrap-server localhost:9092 --topic singleton-events --from-beginning
@@ -205,12 +233,14 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic singleton-event
 ## Performance Considerations
 
 ### Singleton Benefits
+
 - **Memory Efficiency**: Single instance per component
 - **Resource Sharing**: Shared connection pools
 - **Configuration Consistency**: Single source of truth
 - **Thread Safety**: Mutex-protected access
 
 ### Optimization Strategies
+
 - **Connection Pooling**: Database connection reuse
 - **Caching**: Redis-based response caching
 - **Async Processing**: Non-blocking WebSocket and Kafka operations
@@ -219,6 +249,7 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic singleton-event
 ## Error Handling
 
 The service implements comprehensive error handling:
+
 - **Database Errors**: Connection failures, query errors
 - **Network Errors**: Timeout handling, retry logic
 - **Validation Errors**: Input validation, business rule enforcement
@@ -234,12 +265,14 @@ The service implements comprehensive error handling:
 ## Scalability
 
 ### Horizontal Scaling
+
 - **Stateless Design**: No server-side session storage
 - **Load Balancer Ready**: Multiple instance support
 - **Database Sharding**: User-based sharding strategy
 - **Cache Distribution**: Redis cluster support
 
 ### Vertical Scaling
+
 - **Connection Pool Tuning**: Database connection optimization
 - **Memory Management**: Efficient resource utilization
 - **CPU Optimization**: Concurrent request processing
@@ -249,16 +282,19 @@ The service implements comprehensive error handling:
 ### Common Issues
 
 1. **Database Connection Failed**
+
    - Check database service status
    - Verify connection parameters
    - Check network connectivity
 
 2. **Redis Connection Failed**
+
    - Verify Redis service status
    - Check Redis configuration
    - Monitor Redis memory usage
 
 3. **Kafka Connection Failed**
+
    - Check Kafka broker status
    - Verify topic configuration
    - Monitor Kafka logs
@@ -269,6 +305,7 @@ The service implements comprehensive error handling:
    - Monitor connection limits
 
 ### Logs
+
 ```bash
 # View application logs
 tail -f logs/app.log

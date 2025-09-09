@@ -8,15 +8,16 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
 	"singleton-service/internal/kafka"
 	"singleton-service/internal/logger"
 	"singleton-service/internal/models"
 	"singleton-service/internal/redis"
 	"singleton-service/internal/websocket"
+
+	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // Handlers contains all HTTP handlers
@@ -448,9 +449,9 @@ func (h *Handlers) HealthCheck(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"status":              "healthy",
-		"connected_clients":   h.wsHub.GetConnectedClients(),
-		"connected_users":     h.wsHub.GetConnectedUsers(),
-		"timestamp":           time.Now().Unix(),
+		"status":            "healthy",
+		"connected_clients": h.wsHub.GetConnectedClients(),
+		"connected_users":   h.wsHub.GetConnectedUsers(),
+		"timestamp":         time.Now().Unix(),
 	})
 }

@@ -8,6 +8,7 @@ import (
 
 	"factory-service/internal/config"
 	"factory-service/internal/logger"
+
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -382,7 +383,7 @@ func (mdc *MongoDBConnection) ExecuteQuery(ctx context.Context, query string, ar
 	// For MongoDB, we'll implement a simple collection query
 	// In a real implementation, you'd parse the query and execute accordingly
 	collection := mdc.database.Collection("test")
-	
+
 	cursor, err := collection.Find(ctx, map[string]interface{}{})
 	if err != nil {
 		return nil, fmt.Errorf("failed to execute MongoDB query: %w", err)

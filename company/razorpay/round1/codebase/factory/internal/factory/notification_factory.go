@@ -129,10 +129,10 @@ func (ec *EmailChannel) SendNotification(ctx context.Context, request *models.No
 
 	// Simulate email sending
 	response := &models.NotificationResponse{
-		MessageID:   fmt.Sprintf("email_%s", request.ID),
-		Status:      "sent",
-		Channel:     "email",
-		Recipient:   request.Recipient,
+		MessageID: fmt.Sprintf("email_%s", request.ID),
+		Status:    "sent",
+		Channel:   "email",
+		Recipient: request.Recipient,
 		ChannelData: map[string]interface{}{
 			"smtp_host": ec.smtpHost,
 			"smtp_port": ec.smtpPort,
@@ -186,12 +186,12 @@ func (sc *SMSChannel) SendNotification(ctx context.Context, request *models.Noti
 
 	// Simulate SMS sending
 	response := &models.NotificationResponse{
-		MessageID:   fmt.Sprintf("sms_%s", request.ID),
-		Status:      "sent",
-		Channel:     "sms",
-		Recipient:   request.Recipient,
+		MessageID: fmt.Sprintf("sms_%s", request.ID),
+		Status:    "sent",
+		Channel:   "sms",
+		Recipient: request.Recipient,
 		ChannelData: map[string]interface{}{
-			"sms_provider": "twilio",
+			"sms_provider":   "twilio",
 			"message_length": len(request.Message),
 		},
 	}
@@ -240,10 +240,10 @@ func (pc *PushChannel) SendNotification(ctx context.Context, request *models.Not
 
 	// Simulate push notification sending
 	response := &models.NotificationResponse{
-		MessageID:   fmt.Sprintf("push_%s", request.ID),
-		Status:      "sent",
-		Channel:     "push",
-		Recipient:   request.Recipient,
+		MessageID: fmt.Sprintf("push_%s", request.ID),
+		Status:    "sent",
+		Channel:   "push",
+		Recipient: request.Recipient,
 		ChannelData: map[string]interface{}{
 			"push_provider": "firebase",
 			"device_token":  request.Recipient,
@@ -296,10 +296,10 @@ func (wc *WhatsAppChannel) SendNotification(ctx context.Context, request *models
 
 	// Simulate WhatsApp sending
 	response := &models.NotificationResponse{
-		MessageID:   fmt.Sprintf("whatsapp_%s", request.ID),
-		Status:      "sent",
-		Channel:     "whatsapp",
-		Recipient:   request.Recipient,
+		MessageID: fmt.Sprintf("whatsapp_%s", request.ID),
+		Status:    "sent",
+		Channel:   "whatsapp",
+		Recipient: request.Recipient,
 		ChannelData: map[string]interface{}{
 			"whatsapp_provider": "twilio",
 			"message_type":      "text",
@@ -349,10 +349,10 @@ func (slc *SlackChannel) SendNotification(ctx context.Context, request *models.N
 
 	// Simulate Slack sending
 	response := &models.NotificationResponse{
-		MessageID:   fmt.Sprintf("slack_%s", request.ID),
-		Status:      "sent",
-		Channel:     "slack",
-		Recipient:   request.Recipient,
+		MessageID: fmt.Sprintf("slack_%s", request.ID),
+		Status:    "sent",
+		Channel:   "slack",
+		Recipient: request.Recipient,
 		ChannelData: map[string]interface{}{
 			"slack_channel": slc.channel,
 			"webhook_url":   slc.webhookURL,
