@@ -9,6 +9,7 @@ The Repository pattern provides an abstraction layer between the business logic 
 ## When to Use
 
 ### Appropriate Scenarios
+
 - **Data Access Abstraction**: When you need to abstract data access logic
 - **Testing**: When you need to mock data access for unit testing
 - **Multiple Data Sources**: When data might come from different sources
@@ -16,6 +17,7 @@ The Repository pattern provides an abstraction layer between the business logic 
 - **Caching**: When you need to implement caching strategies
 
 ### When NOT to Use
+
 - **Simple CRUD**: When you only need basic CRUD operations
 - **Performance Critical**: When abstraction adds unnecessary overhead
 - **Tight Coupling**: When the repository becomes tightly coupled to specific entities
@@ -23,6 +25,7 @@ The Repository pattern provides an abstraction layer between the business logic 
 ## Real-World Use Cases (Fintech/Payments)
 
 ### Payment Transaction Repository
+
 ```go
 // Domain entity
 type Payment struct {
@@ -62,7 +65,7 @@ func (r *DatabasePaymentRepository) Create(ctx context.Context, payment *Payment
         INSERT INTO payments (id, amount, currency, status, user_id, merchant_id, created_at, updated_at)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
     `
-    _, err := r.db.ExecContext(ctx, query, 
+    _, err := r.db.ExecContext(ctx, query,
         payment.ID, payment.Amount, payment.Currency, payment.Status,
         payment.UserID, payment.MerchantID, payment.CreatedAt, payment.UpdatedAt)
     return err
@@ -74,23 +77,24 @@ func (r *DatabasePaymentRepository) GetByID(ctx context.Context, id string) (*Pa
         FROM payments WHERE id = $1
     `
     row := r.db.QueryRowContext(ctx, query, id)
-    
+
     payment := &Payment{}
     err := row.Scan(&payment.ID, &payment.Amount, &payment.Currency, &payment.Status,
         &payment.UserID, &payment.MerchantID, &payment.CreatedAt, &payment.UpdatedAt)
-    
+
     if err != nil {
         if err == sql.ErrNoRows {
             return nil, ErrPaymentNotFound
         }
         return nil, err
     }
-    
+
     return payment, nil
 }
 ```
 
 ### User Account Repository
+
 ```go
 type User struct {
     ID        string    `json:"id"`
@@ -118,17 +122,17 @@ type DatabaseUserRepository struct {
 func (r *DatabaseUserRepository) GetByEmail(ctx context.Context, email string) (*User, error) {
     query := `SELECT id, email, name, status, created_at, updated_at FROM users WHERE email = $1`
     row := r.db.QueryRowContext(ctx, query, email)
-    
+
     user := &User{}
     err := row.Scan(&user.ID, &user.Email, &user.Name, &user.Status, &user.CreatedAt, &user.UpdatedAt)
-    
+
     if err != nil {
         if err == sql.ErrNoRows {
             return nil, ErrUserNotFound
         }
         return nil, err
     }
-    
+
     return user, nil
 }
 ```
@@ -136,6 +140,7 @@ func (r *DatabaseUserRepository) GetByEmail(ctx context.Context, email string) (
 ## Go Implementation
 
 ### Generic Repository Interface
+
 ```go
 package main
 
@@ -185,6 +190,7 @@ func (r *BaseRepository[T]) Exists(ctx context.Context, id string) (bool, error)
 ```
 
 ### Cached Repository Implementation
+
 ```go
 type CachedRepository[T any] struct {
     repository Repository[T]
@@ -218,13 +224,13 @@ func (r *CachedRepository[T]) GetByID(ctx context.Context, id string) (*T, error
         delete(r.cache, id)
     }
     r.mutex.RUnlock()
-    
+
     // Get from repository
     data, err := r.repository.GetByID(ctx, id)
     if err != nil {
         return nil, err
     }
-    
+
     // Cache the result
     r.mutex.Lock()
     r.cache[id] = &CacheEntry[T]{
@@ -232,7 +238,7 @@ func (r *CachedRepository[T]) GetByID(ctx context.Context, id string) (*T, error
         expiresAt: time.Now().Add(r.ttl),
     }
     r.mutex.Unlock()
-    
+
     return data, nil
 }
 
@@ -241,18 +247,19 @@ func (r *CachedRepository[T]) Update(ctx context.Context, entity *T) error {
     if err != nil {
         return err
     }
-    
+
     // Invalidate cache
     r.mutex.Lock()
     // Assuming entity has an ID field - this would need reflection or interface
     delete(r.cache, "some_id") // This is simplified
     r.mutex.Unlock()
-    
+
     return nil
 }
 ```
 
 ### Repository with Unit of Work
+
 ```go
 type UnitOfWork interface {
     PaymentRepository() PaymentRepository
@@ -275,15 +282,15 @@ func NewUnitOfWork(db *sql.DB) (UnitOfWork, error) {
     if err != nil {
         return nil, err
     }
-    
+
     uow := &DatabaseUnitOfWork{
         db:  db,
         tx:  tx,
     }
-    
+
     uow.paymentRepo = NewDatabasePaymentRepository(tx)
     uow.userRepo = NewDatabaseUserRepository(tx)
-    
+
     return uow, nil
 }
 
@@ -299,7 +306,7 @@ func (uow *DatabaseUnitOfWork) Commit() error {
     if uow.committed || uow.rolledBack {
         return fmt.Errorf("transaction already completed")
     }
-    
+
     err := uow.tx.Commit()
     if err == nil {
         uow.committed = true
@@ -311,7 +318,7 @@ func (uow *DatabaseUnitOfWork) Rollback() error {
     if uow.committed || uow.rolledBack {
         return fmt.Errorf("transaction already completed")
     }
-    
+
     err := uow.tx.Rollback()
     if err == nil {
         uow.rolledBack = true
@@ -325,6 +332,7 @@ func (uow *DatabaseUnitOfWork) Rollback() error {
 ### Variants
 
 #### 1. Generic Repository
+
 ```go
 type GenericRepository[T any] interface {
     Create(ctx context.Context, entity *T) error
@@ -338,6 +346,7 @@ type GenericRepository[T any] interface {
 **Cons**: Less type safety, harder to implement entity-specific logic
 
 #### 2. Specification Pattern
+
 ```go
 type Specification interface {
     IsSatisfiedBy(entity interface{}) bool
@@ -368,6 +377,7 @@ type PaymentRepository interface {
 **Cons**: More complex, potential performance issues
 
 #### 3. Repository with Caching
+
 ```go
 type CachedRepository struct {
     repository Repository
@@ -381,13 +391,13 @@ type CachedRepository struct {
 
 ### Trade-offs
 
-| Aspect | Pros | Cons |
-|--------|------|------|
-| **Abstraction** | Clean separation of concerns | Additional layer of complexity |
-| **Testing** | Easy to mock and test | More interfaces to maintain |
-| **Performance** | Can implement caching easily | Abstraction overhead |
-| **Flexibility** | Easy to change data sources | Can become over-engineered |
-| **Maintainability** | Centralized data access logic | More code to maintain |
+| Aspect              | Pros                          | Cons                           |
+| ------------------- | ----------------------------- | ------------------------------ |
+| **Abstraction**     | Clean separation of concerns  | Additional layer of complexity |
+| **Testing**         | Easy to mock and test         | More interfaces to maintain    |
+| **Performance**     | Can implement caching easily  | Abstraction overhead           |
+| **Flexibility**     | Easy to change data sources   | Can become over-engineered     |
+| **Maintainability** | Centralized data access logic | More code to maintain          |
 
 ## Testable Example
 
@@ -481,7 +491,7 @@ func (m *MockPaymentRepository) GetByDateRange(ctx context.Context, start, end t
 func TestPaymentRepository_Create(t *testing.T) {
     repo := NewMockPaymentRepository()
     ctx := context.Background()
-    
+
     payment := &Payment{
         ID:         "payment_123",
         Amount:     100.50,
@@ -492,18 +502,18 @@ func TestPaymentRepository_Create(t *testing.T) {
         CreatedAt:  time.Now(),
         UpdatedAt:  time.Now(),
     }
-    
+
     err := repo.Create(ctx, payment)
     if err != nil {
         t.Fatalf("Create() error = %v", err)
     }
-    
+
     // Verify payment was created
     retrieved, err := repo.GetByID(ctx, payment.ID)
     if err != nil {
         t.Fatalf("GetByID() error = %v", err)
     }
-    
+
     if retrieved.Amount != payment.Amount {
         t.Errorf("Expected amount %v, got %v", payment.Amount, retrieved.Amount)
     }
@@ -512,22 +522,22 @@ func TestPaymentRepository_Create(t *testing.T) {
 func TestPaymentRepository_GetByUserID(t *testing.T) {
     repo := NewMockPaymentRepository()
     ctx := context.Background()
-    
+
     // Create test payments
     payment1 := &Payment{ID: "1", UserID: "user_123", Amount: 100}
     payment2 := &Payment{ID: "2", UserID: "user_123", Amount: 200}
     payment3 := &Payment{ID: "3", UserID: "user_456", Amount: 300}
-    
+
     repo.Create(ctx, payment1)
     repo.Create(ctx, payment2)
     repo.Create(ctx, payment3)
-    
+
     // Get payments for user_123
     payments, err := repo.GetByUserID(ctx, "user_123", 10, 0)
     if err != nil {
         t.Fatalf("GetByUserID() error = %v", err)
     }
-    
+
     if len(payments) != 2 {
         t.Errorf("Expected 2 payments, got %d", len(payments))
     }
@@ -536,28 +546,28 @@ func TestPaymentRepository_GetByUserID(t *testing.T) {
 func TestPaymentRepository_Update(t *testing.T) {
     repo := NewMockPaymentRepository()
     ctx := context.Background()
-    
+
     payment := &Payment{
         ID:     "payment_123",
         Amount: 100.50,
         Status: "pending",
     }
-    
+
     repo.Create(ctx, payment)
-    
+
     // Update payment
     payment.Status = "completed"
     err := repo.Update(ctx, payment)
     if err != nil {
         t.Fatalf("Update() error = %v", err)
     }
-    
+
     // Verify update
     updated, err := repo.GetByID(ctx, payment.ID)
     if err != nil {
         t.Fatalf("GetByID() error = %v", err)
     }
-    
+
     if updated.Status != "completed" {
         t.Errorf("Expected status 'completed', got %s", updated.Status)
     }
@@ -566,16 +576,16 @@ func TestPaymentRepository_Update(t *testing.T) {
 func TestPaymentRepository_Delete(t *testing.T) {
     repo := NewMockPaymentRepository()
     ctx := context.Background()
-    
+
     payment := &Payment{ID: "payment_123", Amount: 100.50}
     repo.Create(ctx, payment)
-    
+
     // Delete payment
     err := repo.Delete(ctx, payment.ID)
     if err != nil {
         t.Fatalf("Delete() error = %v", err)
     }
-    
+
     // Verify deletion
     _, err = repo.GetByID(ctx, payment.ID)
     if err != ErrPaymentNotFound {
@@ -587,6 +597,7 @@ func TestPaymentRepository_Delete(t *testing.T) {
 ## Integration Tips
 
 ### 1. With Dependency Injection
+
 ```go
 type PaymentService struct {
     paymentRepo PaymentRepository
@@ -607,19 +618,21 @@ func (s *PaymentService) ProcessPayment(ctx context.Context, payment *Payment) e
 ```
 
 ### 2. With Context and Timeouts
+
 ```go
 func (r *DatabasePaymentRepository) GetByID(ctx context.Context, id string) (*Payment, error) {
     ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
     defer cancel()
-    
+
     query := `SELECT id, amount, currency, status FROM payments WHERE id = $1`
     row := r.db.QueryRowContext(ctx, query, id)
-    
+
     // ... rest of implementation
 }
 ```
 
 ### 3. With Error Handling
+
 ```go
 var (
     ErrPaymentNotFound = errors.New("payment not found")
@@ -631,7 +644,7 @@ func (r *DatabasePaymentRepository) Create(ctx context.Context, payment *Payment
     if payment.ID == "" {
         return ErrInvalidPayment
     }
-    
+
     // Check for duplicates
     exists, err := r.Exists(ctx, payment.ID)
     if err != nil {
@@ -640,7 +653,7 @@ func (r *DatabasePaymentRepository) Create(ctx context.Context, payment *Payment
     if exists {
         return ErrDuplicatePayment
     }
-    
+
     // Create payment
     return r.createPayment(ctx, payment)
 }
@@ -649,16 +662,21 @@ func (r *DatabasePaymentRepository) Create(ctx context.Context, payment *Payment
 ## Common Interview Questions
 
 ### 1. What is the Repository pattern and when would you use it?
+
 **Answer**: The Repository pattern abstracts data access logic, providing a collection-like interface for domain objects. Use it when you need to separate business logic from data access, enable testing with mocks, or support multiple data sources.
 
 ### 2. How do you implement the Repository pattern in Go?
+
 **Answer**: Define interfaces for data access operations, implement concrete repositories for specific data sources (database, cache, API), and use dependency injection to provide repositories to business logic.
 
 ### 3. What are the benefits and drawbacks of the Repository pattern?
+
 **Answer**: Benefits include testability, separation of concerns, and flexibility to change data sources. Drawbacks include additional complexity, potential over-engineering, and abstraction overhead.
 
 ### 4. How do you handle transactions with the Repository pattern?
+
 **Answer**: Use the Unit of Work pattern to coordinate multiple repository operations within a single transaction, ensuring data consistency across multiple entities.
 
 ### 5. How do you implement caching in a Repository?
+
 **Answer**: Create a cached repository wrapper that checks cache first, falls back to the underlying repository, and updates cache on writes. Implement cache invalidation strategies for data consistency.

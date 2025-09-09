@@ -9,6 +9,7 @@ The Singleton pattern ensures that a class has only one instance throughout the 
 ## When to Use
 
 ### Appropriate Scenarios
+
 - **Configuration Management**: Global application configuration
 - **Logging Systems**: Centralized logging across the application
 - **Database Connections**: Single connection pool manager
@@ -16,6 +17,7 @@ The Singleton pattern ensures that a class has only one instance throughout the 
 - **Service Locators**: Centralized service discovery
 
 ### When NOT to Use
+
 - **Stateless Services**: When multiple instances are beneficial
 - **High Concurrency**: When singleton becomes a bottleneck
 - **Testing**: Makes unit testing more difficult
@@ -24,6 +26,7 @@ The Singleton pattern ensures that a class has only one instance throughout the 
 ## Real-World Use Cases (Fintech/Payments)
 
 ### Payment Gateway Configuration
+
 ```go
 // Global payment gateway configuration
 type PaymentGatewayConfig struct {
@@ -60,6 +63,7 @@ func GetPaymentConfigManager() *PaymentConfigManager {
 ```
 
 ### Audit Logger
+
 ```go
 // Centralized audit logging for financial transactions
 type AuditLogger struct {
@@ -77,7 +81,7 @@ func GetAuditLogger() *AuditLogger {
         if err != nil {
             panic(err)
         }
-        
+
         auditLogger = &AuditLogger{
             logger: log.New(file, "AUDIT: ", log.LstdFlags|log.Lshortfile),
             file:   file,
@@ -89,8 +93,8 @@ func GetAuditLogger() *AuditLogger {
 func (al *AuditLogger) LogTransaction(transactionID, userID, action string, amount float64) {
     al.mutex.Lock()
     defer al.mutex.Unlock()
-    
-    al.logger.Printf("Transaction: %s, User: %s, Action: %s, Amount: %.2f", 
+
+    al.logger.Printf("Transaction: %s, User: %s, Action: %s, Amount: %.2f",
         transactionID, userID, action, amount)
 }
 ```
@@ -98,6 +102,7 @@ func (al *AuditLogger) LogTransaction(transactionID, userID, action string, amou
 ## Go Implementation
 
 ### Thread-Safe Singleton with sync.Once
+
 ```go
 package main
 
@@ -152,7 +157,7 @@ func (dm *DatabaseManager) IsConnected() bool {
 func (dm *DatabaseManager) Reconnect() error {
     dm.mutex.Lock()
     defer dm.mutex.Unlock()
-    
+
     // Simulate reconnection
     dm.connection.isConnected = true
     dm.connection.connectedAt = time.Now()
@@ -164,7 +169,7 @@ func main() {
     // Get singleton instances
     db1 := GetDatabaseManager()
     db2 := GetDatabaseManager()
-    
+
     // Both references point to the same instance
     fmt.Printf("Same instance: %t\n", db1 == db2)
     fmt.Printf("Connected: %t\n", db1.IsConnected())
@@ -172,6 +177,7 @@ func main() {
 ```
 
 ### Configuration Manager Singleton
+
 ```go
 type AppConfig struct {
     DatabaseURL    string
@@ -246,6 +252,7 @@ func getEnvAsInt(key string, defaultValue int) int {
 ### Variants
 
 #### 1. Eager Initialization
+
 ```go
 type EagerSingleton struct {
     data string
@@ -262,6 +269,7 @@ func GetEagerSingleton() *EagerSingleton {
 **Cons**: Always initialized, even if not used
 
 #### 2. Lazy Initialization with Mutex
+
 ```go
 type LazySingleton struct {
     data string
@@ -288,6 +296,7 @@ func GetLazySingleton() *LazySingleton {
 **Cons**: Double-checked locking complexity
 
 #### 3. sync.Once (Recommended)
+
 ```go
 type OnceSingleton struct {
     data string
@@ -311,13 +320,13 @@ func GetOnceSingleton() *OnceSingleton {
 
 ### Trade-offs
 
-| Aspect | Pros | Cons |
-|--------|------|------|
-| **Memory** | Single instance saves memory | Global state can grow large |
-| **Performance** | Fast access, no object creation | Can become bottleneck |
-| **Testing** | Consistent state across tests | Hard to mock, global state issues |
-| **Concurrency** | Shared resource access | Requires synchronization |
-| **Flexibility** | Simple global access | Hard to extend or modify |
+| Aspect          | Pros                            | Cons                              |
+| --------------- | ------------------------------- | --------------------------------- |
+| **Memory**      | Single instance saves memory    | Global state can grow large       |
+| **Performance** | Fast access, no object creation | Can become bottleneck             |
+| **Testing**     | Consistent state across tests   | Hard to mock, global state issues |
+| **Concurrency** | Shared resource access          | Requires synchronization          |
+| **Flexibility** | Simple global access            | Hard to extend or modify          |
 
 ## Testable Example
 
@@ -384,7 +393,7 @@ func TestSingleton(t *testing.T) {
     // Test that we get the same instance
     cm1 := GetCacheManager()
     cm2 := GetCacheManager()
-    
+
     if cm1 != cm2 {
         t.Error("Expected same instance")
     }
@@ -392,15 +401,15 @@ func TestSingleton(t *testing.T) {
 
 func TestCacheOperations(t *testing.T) {
     cm := GetCacheManager()
-    
+
     // Test cache operations
     cm.Set("key1", "value1")
-    
+
     value, exists := cm.Get("key1")
     if !exists {
         t.Error("Expected key to exist")
     }
-    
+
     if value != "value1" {
         t.Errorf("Expected 'value1', got %v", value)
     }
@@ -411,14 +420,14 @@ func TestSingletonWithMock(t *testing.T) {
     mockCache := &MockCacheManager{
         cache: make(map[string]interface{}),
     }
-    
+
     // Inject mock
     SetCacheManager(mockCache)
-    
+
     // Test with mock
     cm := GetCacheManager()
     cm.Set("test", "value")
-    
+
     value, exists := cm.Get("test")
     if !exists || value != "value" {
         t.Error("Mock cache not working")
@@ -446,6 +455,7 @@ func (m *MockCacheManager) Clear() {
 ## Integration Tips
 
 ### 1. With Dependency Injection
+
 ```go
 // Instead of global singleton, use DI container
 type Container struct {
@@ -466,6 +476,7 @@ func (c *Container) GetConfigManager() *ConfigManager {
 ```
 
 ### 2. With Context
+
 ```go
 // Pass singleton through context
 type contextKey string
@@ -485,6 +496,7 @@ func GetConfigManagerFromContext(ctx context.Context) *ConfigManager {
 ```
 
 ### 3. With Interfaces
+
 ```go
 // Use interfaces for better testability
 type LoggerInterface interface {
@@ -515,16 +527,21 @@ func GetLogger() LoggerInterface {
 ## Common Interview Questions
 
 ### 1. How do you implement a thread-safe singleton in Go?
+
 **Answer**: Use `sync.Once` for thread-safe lazy initialization. It ensures the initialization function runs only once, even in concurrent environments. Example: `once.Do(func() { instance = &Singleton{} })`
 
 ### 2. What are the drawbacks of the Singleton pattern?
+
 **Answer**: Makes testing difficult due to global state, can become a bottleneck in concurrent systems, violates single responsibility principle, and makes code tightly coupled to the singleton instance.
 
 ### 3. How would you make a Singleton testable?
+
 **Answer**: Use dependency injection, implement interfaces, or provide a way to reset the singleton instance in tests. Consider using a factory function that can return different implementations.
 
 ### 4. When should you avoid using Singleton?
+
 **Answer**: Avoid when you need multiple instances, when testing is important, when you need dependency injection, or when the singleton might become a performance bottleneck.
 
 ### 5. How does Go's sync.Once work internally?
+
 **Answer**: `sync.Once` uses atomic operations and a mutex to ensure the function is called exactly once. It's more efficient than double-checked locking and is the recommended approach for singletons in Go.

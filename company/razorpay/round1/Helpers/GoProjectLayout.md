@@ -5,6 +5,7 @@ This guide provides recommended project layouts for Go applications, with a focu
 ## Standard Go Project Layout
 
 ### Basic Structure
+
 ```
 project/
 ├── cmd/                    # Main applications
@@ -47,6 +48,7 @@ project/
 ## Backend Service Layout
 
 ### Microservice Structure
+
 ```
 payment-service/
 ├── cmd/
@@ -117,6 +119,7 @@ payment-service/
 ## Domain-Driven Design Layout
 
 ### DDD Structure
+
 ```
 payment-domain/
 ├── cmd/
@@ -191,6 +194,7 @@ payment-domain/
 ## Clean Architecture Layout
 
 ### Clean Architecture Structure
+
 ```
 clean-payment-service/
 ├── cmd/
@@ -247,6 +251,7 @@ clean-payment-service/
 ## Monorepo Layout
 
 ### Monorepo Structure
+
 ```
 payment-platform/
 ├── services/
@@ -295,30 +300,35 @@ payment-platform/
 ## Key Directories Explained
 
 ### cmd/
+
 - **Purpose**: Main applications for the project
 - **Structure**: One subdirectory per main application
 - **Example**: `cmd/server/main.go`, `cmd/worker/main.go`
 - **Best Practice**: Keep main.go files small, delegate to internal packages
 
 ### internal/
+
 - **Purpose**: Private application code that cannot be imported by other projects
 - **Structure**: Organized by feature or layer
 - **Example**: `internal/handlers/`, `internal/services/`
 - **Best Practice**: Use this for all application-specific code
 
 ### pkg/
+
 - **Purpose**: Library code that can be imported by other projects
 - **Structure**: Organized by functionality
 - **Example**: `pkg/logger/`, `pkg/validator/`
 - **Best Practice**: Only put code here that others might want to import
 
 ### api/
+
 - **Purpose**: API definitions and contracts
 - **Structure**: Organized by API type
 - **Example**: `api/openapi/`, `api/proto/`
 - **Best Practice**: Keep API definitions separate from implementation
 
 ### deployments/
+
 - **Purpose**: Deployment configurations
 - **Structure**: Organized by deployment target
 - **Example**: `deployments/docker/`, `deployments/k8s/`
@@ -327,16 +337,19 @@ payment-platform/
 ## File Naming Conventions
 
 ### Go Files
+
 - **Packages**: Use lowercase, single word
 - **Files**: Use snake_case for multi-word names
 - **Examples**: `payment_service.go`, `user_repository.go`
 
 ### Configuration Files
+
 - **Environment**: `.env`, `.env.local`, `.env.production`
 - **Docker**: `Dockerfile`, `docker-compose.yml`
 - **Kubernetes**: `deployment.yaml`, `service.yaml`
 
 ### Documentation
+
 - **Main**: `README.md`
 - **API**: `API.md`
 - **Deployment**: `DEPLOYMENT.md`
@@ -345,6 +358,7 @@ payment-platform/
 ## Go Module Best Practices
 
 ### go.mod Structure
+
 ```go
 module github.com/company/payment-service
 
@@ -362,6 +376,7 @@ require (
 ```
 
 ### Version Management
+
 - Use semantic versioning
 - Pin major versions for stability
 - Use `go mod tidy` regularly
@@ -370,6 +385,7 @@ require (
 ## Build and Deployment
 
 ### Makefile Example
+
 ```makefile
 .PHONY: build test clean docker
 
@@ -408,6 +424,7 @@ migrate-down:
 ```
 
 ### Dockerfile Example
+
 ```dockerfile
 # Build stage
 FROM golang:1.21-alpine AS builder
@@ -435,6 +452,7 @@ CMD ["./main"]
 ## Testing Structure
 
 ### Test Organization
+
 ```
 test/
 ├── unit/                 # Unit tests
@@ -457,6 +475,7 @@ test/
 ```
 
 ### Test File Naming
+
 - **Unit tests**: `*_test.go` in the same package
 - **Integration tests**: `*_integration_test.go`
 - **Benchmark tests**: `*_benchmark_test.go`
@@ -464,6 +483,7 @@ test/
 ## Environment Configuration
 
 ### Configuration Structure
+
 ```
 config/
 ├── config.go            # Configuration struct
@@ -475,6 +495,7 @@ config/
 ```
 
 ### Configuration Example
+
 ```go
 type Config struct {
     Server   ServerConfig   `yaml:"server"`
@@ -502,30 +523,35 @@ type DatabaseConfig struct {
 ## Best Practices
 
 ### 1. Package Organization
+
 - Keep packages focused and cohesive
 - Use meaningful package names
 - Avoid circular dependencies
 - Group related functionality
 
 ### 2. Import Management
+
 - Use absolute imports
 - Group imports (standard, third-party, local)
 - Use `goimports` for formatting
 - Remove unused imports
 
 ### 3. Error Handling
+
 - Use custom error types
 - Wrap errors with context
 - Handle errors at appropriate levels
 - Log errors with sufficient context
 
 ### 4. Testing
+
 - Write tests for all public functions
 - Use table-driven tests
 - Mock external dependencies
 - Test error conditions
 
 ### 5. Documentation
+
 - Document all public APIs
 - Use meaningful variable names
 - Write clear commit messages
