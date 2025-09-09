@@ -55,6 +55,7 @@ The Flyweight Pattern is used to minimize memory usage by sharing as much data a
 ## Features
 
 ### Core Flyweight Types
+
 - **Product Flyweight**: Shared product information (name, description, category, brand)
 - **User Flyweight**: Shared user profiles and preferences
 - **Order Flyweight**: Shared order templates and metadata
@@ -62,6 +63,7 @@ The Flyweight Pattern is used to minimize memory usage by sharing as much data a
 - **Configuration Flyweight**: Shared configuration settings
 
 ### Factory Management
+
 - **Flyweight Creation**: Creates and manages flyweight instances
 - **Cache Management**: In-memory and persistent caching
 - **Memory Optimization**: Automatic cleanup of unused flyweights
@@ -69,6 +71,7 @@ The Flyweight Pattern is used to minimize memory usage by sharing as much data a
 - **Type Safety**: Type-specific flyweight creation
 
 ### Service Layer
+
 - **High-Level Operations**: Simplified API for flyweight operations
 - **Database Integration**: Fallback to database when flyweights not found
 - **Caching Strategy**: Multi-level caching for optimal performance
@@ -77,36 +80,42 @@ The Flyweight Pattern is used to minimize memory usage by sharing as much data a
 ## API Endpoints
 
 ### Product Operations
+
 ```bash
 # Get product information
 GET /api/v1/products/{id}
 ```
 
 ### User Operations
+
 ```bash
 # Get user information
 GET /api/v1/users/{id}
 ```
 
 ### Order Operations
+
 ```bash
 # Get order information
 GET /api/v1/orders/{id}
 ```
 
 ### Notification Template Operations
+
 ```bash
 # Get notification template
 GET /api/v1/notifications/templates/{id}
 ```
 
 ### Configuration Operations
+
 ```bash
 # Get configuration
 GET /api/v1/configurations/{key}
 ```
 
 ### Factory Management
+
 ```bash
 # Get factory statistics
 GET /api/v1/factory/stats
@@ -116,12 +125,14 @@ POST /api/v1/factory/cleanup
 ```
 
 ### Health Check
+
 ```bash
 # Health check with statistics
 GET /health
 ```
 
 ### WebSocket
+
 ```bash
 # Connect for real-time updates
 WS /ws
@@ -165,34 +176,37 @@ require (
 ## Running the Service
 
 1. **Start dependencies**:
+
    ```bash
    # Start MySQL
    docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=flyweight_db -p 3306:3306 mysql:8.0
-   
+
    # Start MongoDB
    docker run -d --name mongodb -p 27017:27017 mongo:6.0
-   
+
    # Start Redis
    docker run -d --name redis -p 6379:6379 redis:7.0
-   
+
    # Start Kafka
    docker run -d --name kafka -p 9092:9092 apache/kafka:3.4.0
    ```
 
 2. **Run the service**:
+
    ```bash
    go mod tidy
    go run main.go
    ```
 
 3. **Test the service**:
+
    ```bash
    # Health check
    curl http://localhost:8080/health
-   
+
    # Get product
    curl http://localhost:8080/api/v1/products/prod_123
-   
+
    # Get factory stats
    curl http://localhost:8080/api/v1/factory/stats
    ```
@@ -200,6 +214,7 @@ require (
 ## Design Patterns Used
 
 ### Flyweight Pattern
+
 - **Flyweight Interface**: Defines common flyweight operations
 - **Concrete Flyweights**: Product, User, Order, Notification, Configuration
 - **Flyweight Factory**: Manages flyweight creation and sharing
@@ -207,6 +222,7 @@ require (
 - **Extrinsic State**: Context-specific data
 
 ### Additional Patterns
+
 - **Factory Pattern**: Flyweight creation and management
 - **Cache Pattern**: Multi-level caching strategy
 - **Service Layer Pattern**: High-level business operations
@@ -236,6 +252,7 @@ require (
 ## Memory Optimization Examples
 
 ### Before Flyweight Pattern
+
 ```go
 // Each product instance stores all data
 type Product struct {
@@ -252,6 +269,7 @@ type Product struct {
 ```
 
 ### After Flyweight Pattern
+
 ```go
 // Shared intrinsic state
 type ProductFlyweight struct {
@@ -276,16 +294,19 @@ type ProductContext struct {
 ## Performance Characteristics
 
 ### Memory Usage
+
 - **Shared Flyweights**: ~90% memory reduction for similar objects
 - **Cache Efficiency**: High hit rates for frequently accessed objects
 - **Cleanup**: Automatic removal of unused flyweights
 
 ### Access Patterns
+
 - **Cache Hit**: ~1ms response time
 - **Memory Hit**: ~5ms response time
 - **Database Fallback**: ~50ms response time
 
 ### Scalability
+
 - **Concurrent Access**: Thread-safe flyweight operations
 - **Memory Management**: Automatic cleanup and garbage collection
 - **Cache Warming**: Pre-loading of frequently used flyweights
