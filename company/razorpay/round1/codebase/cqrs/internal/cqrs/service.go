@@ -7,27 +7,27 @@ import (
 
 // Service implements the Service interface
 type Service struct {
-	config        *CQRSConfig
-	commandBus    CommandBus
-	queryBus      QueryBus
-	eventBus      EventBus
+	config         *CQRSConfig
+	commandBus     CommandBus
+	queryBus       QueryBus
+	eventBus       EventBus
 	readModelStore ReadModelStore
-	createdAt     time.Time
-	updatedAt     time.Time
-	active        bool
+	createdAt      time.Time
+	updatedAt      time.Time
+	active         bool
 }
 
 // NewService creates a new CQRS service
 func NewService(config *CQRSConfig) *Service {
 	return &Service{
-		config:        config,
-		commandBus:    nil,
-		queryBus:      nil,
-		eventBus:      nil,
+		config:         config,
+		commandBus:     nil,
+		queryBus:       nil,
+		eventBus:       nil,
 		readModelStore: nil,
-		createdAt:     time.Now(),
-		updatedAt:     time.Now(),
-		active:        true,
+		createdAt:      time.Now(),
+		updatedAt:      time.Now(),
+		active:         true,
 	}
 }
 
@@ -216,17 +216,17 @@ func (s *Service) DeleteReadModel(ctx context.Context, id string) error {
 // GetServiceStats returns service statistics
 func (s *Service) GetServiceStats(ctx context.Context) map[string]interface{} {
 	stats := map[string]interface{}{
-		"id":                    s.GetID(),
-		"name":                  s.GetName(),
-		"description":           s.GetDescription(),
-		"active":                s.IsActive(),
-		"created_at":            s.GetCreatedAt(),
-		"updated_at":            s.GetUpdatedAt(),
-		"command_bus_stats":     make(map[string]interface{}),
-		"query_bus_stats":       make(map[string]interface{}),
-		"event_bus_stats":       make(map[string]interface{}),
+		"id":                     s.GetID(),
+		"name":                   s.GetName(),
+		"description":            s.GetDescription(),
+		"active":                 s.IsActive(),
+		"created_at":             s.GetCreatedAt(),
+		"updated_at":             s.GetUpdatedAt(),
+		"command_bus_stats":      make(map[string]interface{}),
+		"query_bus_stats":        make(map[string]interface{}),
+		"event_bus_stats":        make(map[string]interface{}),
 		"read_model_store_stats": make(map[string]interface{}),
-		"metadata":              s.GetMetadata(),
+		"metadata":               s.GetMetadata(),
 	}
 
 	// Get command bus stats
@@ -320,24 +320,24 @@ func (s *Service) GetDescription() string {
 // GetMetadata returns the service metadata
 func (s *Service) GetMetadata() map[string]interface{} {
 	return map[string]interface{}{
-		"name":                    s.config.Name,
-		"version":                 s.config.Version,
-		"description":             s.config.Description,
-		"max_commands":            s.config.MaxCommands,
-		"max_queries":             s.config.MaxQueries,
-		"max_events":              s.config.MaxEvents,
-		"max_read_models":         s.config.MaxReadModels,
-		"cleanup_interval":        s.config.CleanupInterval,
-		"validation_enabled":      s.config.ValidationEnabled,
-		"caching_enabled":         s.config.CachingEnabled,
-		"monitoring_enabled":      s.config.MonitoringEnabled,
-		"auditing_enabled":        s.config.AuditingEnabled,
-		"supported_command_types": s.config.SupportedCommandTypes,
-		"supported_query_types":   s.config.SupportedQueryTypes,
-		"supported_event_types":   s.config.SupportedEventTypes,
+		"name":                       s.config.Name,
+		"version":                    s.config.Version,
+		"description":                s.config.Description,
+		"max_commands":               s.config.MaxCommands,
+		"max_queries":                s.config.MaxQueries,
+		"max_events":                 s.config.MaxEvents,
+		"max_read_models":            s.config.MaxReadModels,
+		"cleanup_interval":           s.config.CleanupInterval,
+		"validation_enabled":         s.config.ValidationEnabled,
+		"caching_enabled":            s.config.CachingEnabled,
+		"monitoring_enabled":         s.config.MonitoringEnabled,
+		"auditing_enabled":           s.config.AuditingEnabled,
+		"supported_command_types":    s.config.SupportedCommandTypes,
+		"supported_query_types":      s.config.SupportedQueryTypes,
+		"supported_event_types":      s.config.SupportedEventTypes,
 		"supported_read_model_types": s.config.SupportedReadModelTypes,
-		"validation_rules":        s.config.ValidationRules,
-		"metadata":                s.config.Metadata,
+		"validation_rules":           s.config.ValidationRules,
+		"metadata":                   s.config.Metadata,
 	}
 }
 

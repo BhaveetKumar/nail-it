@@ -149,11 +149,11 @@ func (duc *DeleteUserCommand) GetReason() string {
 // CreateOrderCommand represents a create order command
 type CreateOrderCommand struct {
 	*ConcreteCommand
-	OrderID     string  `json:"order_id"`
-	UserID      string  `json:"user_id"`
-	OrderNumber string  `json:"order_number"`
-	TotalAmount float64 `json:"total_amount"`
-	Currency    string  `json:"currency"`
+	OrderID     string      `json:"order_id"`
+	UserID      string      `json:"user_id"`
+	OrderNumber string      `json:"order_number"`
+	TotalAmount float64     `json:"total_amount"`
+	Currency    string      `json:"currency"`
 	Items       []OrderItem `json:"items"`
 }
 
@@ -225,11 +225,11 @@ func (coc *CreateOrderCommand) GetItems() []OrderItem {
 // UpdateOrderStatusCommand represents an update order status command
 type UpdateOrderStatusCommand struct {
 	*ConcreteCommand
-	OrderID      string `json:"order_id"`
-	OldStatus    string `json:"old_status"`
-	NewStatus    string `json:"new_status"`
-	UpdatedBy    string `json:"updated_by"`
-	Reason       string `json:"reason"`
+	OrderID   string `json:"order_id"`
+	OldStatus string `json:"old_status"`
+	NewStatus string `json:"new_status"`
+	UpdatedBy string `json:"updated_by"`
+	Reason    string `json:"reason"`
 }
 
 // NewUpdateOrderStatusCommand creates a new update order status command
@@ -248,11 +248,11 @@ func NewUpdateOrderStatusCommand(aggregateID, orderID, oldStatus, newStatus, upd
 			Processed:     false,
 			ProcessedAt:   time.Time{},
 		},
-		OrderID:      orderID,
-		OldStatus:    oldStatus,
-		NewStatus:    newStatus,
-		UpdatedBy:    updatedBy,
-		Reason:       reason,
+		OrderID:   orderID,
+		OldStatus: oldStatus,
+		NewStatus: newStatus,
+		UpdatedBy: updatedBy,
+		Reason:    reason,
 	}
 }
 
@@ -651,13 +651,13 @@ func (urm *UserReadModel) GetStatus() string {
 // OrderReadModel represents an order read model
 type OrderReadModel struct {
 	*ConcreteReadModel
-	OrderID     string  `json:"order_id"`
-	UserID      string  `json:"user_id"`
-	OrderNumber string  `json:"order_number"`
-	TotalAmount float64 `json:"total_amount"`
-	Currency    string  `json:"currency"`
-	Status      string  `json:"status"`
-	OrderDate   time.Time `json:"order_date"`
+	OrderID     string      `json:"order_id"`
+	UserID      string      `json:"user_id"`
+	OrderNumber string      `json:"order_number"`
+	TotalAmount float64     `json:"total_amount"`
+	Currency    string      `json:"currency"`
+	Status      string      `json:"status"`
+	OrderDate   time.Time   `json:"order_date"`
 	Items       []OrderItem `json:"items"`
 }
 
@@ -729,15 +729,15 @@ func (orm *OrderReadModel) GetItems() []OrderItem {
 // PaymentReadModel represents a payment read model
 type PaymentReadModel struct {
 	*ConcreteReadModel
-	PaymentID     string  `json:"payment_id"`
-	OrderID       string  `json:"order_id"`
-	UserID        string  `json:"user_id"`
-	Amount        float64 `json:"amount"`
-	Currency      string  `json:"currency"`
-	PaymentMethod string  `json:"payment_method"`
-	Status        string  `json:"status"`
-	TransactionID string  `json:"transaction_id"`
-	Gateway       string  `json:"gateway"`
+	PaymentID     string    `json:"payment_id"`
+	OrderID       string    `json:"order_id"`
+	UserID        string    `json:"user_id"`
+	Amount        float64   `json:"amount"`
+	Currency      string    `json:"currency"`
+	PaymentMethod string    `json:"payment_method"`
+	Status        string    `json:"status"`
+	TransactionID string    `json:"transaction_id"`
+	Gateway       string    `json:"gateway"`
 	PaymentDate   time.Time `json:"payment_date"`
 }
 

@@ -51,6 +51,7 @@ The Memento pattern provides the ability to restore an object to its previous st
 ## Memento Types
 
 ### 1. Document Memento
+
 Saves and restores document states.
 
 ```go
@@ -68,6 +69,7 @@ originator.RestoreMemento(memento)
 ```
 
 ### 2. Database Memento
+
 Saves and restores database states.
 
 ```go
@@ -93,6 +95,7 @@ originator.RestoreMemento(memento)
 ```
 
 ### 3. File Memento
+
 Saves and restores file states.
 
 ```go
@@ -110,6 +113,7 @@ originator.RestoreMemento(memento)
 ```
 
 ### 4. Configuration Memento
+
 Saves and restores configuration states.
 
 ```go
@@ -149,6 +153,7 @@ originator.RestoreMemento(memento)
 ### Caretaker Management
 
 #### Create Caretaker
+
 ```http
 POST /api/v1/mementos/caretakers
 Content-Type: application/json
@@ -159,16 +164,19 @@ Content-Type: application/json
 ```
 
 #### Get Caretaker
+
 ```http
 GET /api/v1/mementos/caretakers/{name}
 ```
 
 #### List Caretakers
+
 ```http
 GET /api/v1/mementos/caretakers
 ```
 
 #### Remove Caretaker
+
 ```http
 DELETE /api/v1/mementos/caretakers/{name}
 ```
@@ -176,6 +184,7 @@ DELETE /api/v1/mementos/caretakers/{name}
 ### Memento Operations
 
 #### Save Memento
+
 ```http
 POST /api/v1/mementos/caretakers/{name}/mementos
 Content-Type: application/json
@@ -196,31 +205,37 @@ Content-Type: application/json
 ```
 
 #### Get Memento
+
 ```http
 GET /api/v1/mementos/caretakers/{name}/mementos/{id}
 ```
 
 #### List Mementos
+
 ```http
 GET /api/v1/mementos/caretakers/{name}/mementos?originator_id=originator1&type=document
 ```
 
 #### Delete Memento
+
 ```http
 DELETE /api/v1/mementos/caretakers/{name}/mementos/{id}
 ```
 
 #### Get Caretaker Statistics
+
 ```http
 GET /api/v1/mementos/caretakers/{name}/stats
 ```
 
 #### Cleanup Caretaker
+
 ```http
 POST /api/v1/mementos/caretakers/{name}/cleanup
 ```
 
 ### Health Check
+
 ```http
 GET /health
 ```
@@ -228,11 +243,13 @@ GET /health
 ## WebSocket Events
 
 ### Connection
+
 ```javascript
-const ws = new WebSocket('ws://localhost:8080/ws');
+const ws = new WebSocket("ws://localhost:8080/ws");
 ```
 
 ### Events
+
 - `memento_created`: When a new memento is created
 - `memento_restored`: When a memento is restored
 - `memento_deleted`: When a memento is deleted
@@ -254,7 +271,7 @@ The service is configured via `configs/config.yaml`:
 name: "Memento Service"
 version: "1.0.0"
 max_mementos: 10000
-max_memento_size: 1048576  # 1MB
+max_memento_size: 1048576 # 1MB
 max_memento_age: "24h"
 cleanup_interval: "1h"
 backup_interval: "6h"
@@ -278,11 +295,11 @@ database:
     username: "root"
     password: "password"
     database: "memento_db"
-  
+
   mongodb:
     uri: "mongodb://localhost:27017"
     database: "memento_db"
-  
+
   redis:
     host: "localhost"
     port: 6379
@@ -329,6 +346,7 @@ logging:
 ## Usage Examples
 
 ### Basic Document Memento
+
 ```go
 // Create document originator
 originator := NewDocumentOriginator("doc1", "My Document")
@@ -350,6 +368,7 @@ originator.RestoreMemento(savedMemento)
 ```
 
 ### Database Memento with Version Control
+
 ```go
 // Create database originator
 originator := NewDatabaseOriginator("db1", "User Database", "users", "public")
@@ -382,6 +401,7 @@ originator.RestoreMemento(savedMemento1)
 ```
 
 ### File Memento with Metadata
+
 ```go
 // Create file originator
 originator := NewFileOriginator("file1", "config.txt", "/path/to/config.txt")
@@ -411,6 +431,7 @@ originator.RestoreMemento(savedMemento)
 ```
 
 ### Configuration Memento with Validation
+
 ```go
 // Create configuration originator
 originator := NewConfigurationOriginator("config1", "App Configuration")
@@ -461,6 +482,7 @@ originator.RestoreMemento(savedMemento)
 ```
 
 ### Memento with Compression and Encryption
+
 ```go
 // Create memento with compression
 memento := &BaseMemento{
@@ -495,16 +517,19 @@ caretaker.SaveMemento(memento)
 ## Testing
 
 ### Unit Tests
+
 ```bash
 go test ./internal/memento/...
 ```
 
 ### Integration Tests
+
 ```bash
 go test -tags=integration ./...
 ```
 
 ### Benchmark Tests
+
 ```bash
 go test -bench=. ./internal/memento/...
 ```
@@ -537,17 +562,20 @@ go test -bench=. ./internal/memento/...
 ## Deployment
 
 ### Docker
+
 ```bash
 docker build -t memento-service .
 docker run -p 8080:8080 memento-service
 ```
 
 ### Kubernetes
+
 ```bash
 kubectl apply -f k8s/
 ```
 
 ### Environment Variables
+
 ```bash
 export MYSQL_HOST=localhost
 export MYSQL_PORT=3306
@@ -577,6 +605,7 @@ MIT License - see LICENSE file for details.
 ## Support
 
 For support and questions:
+
 - Create an issue in the repository
 - Check the documentation
 - Review the examples
@@ -584,6 +613,7 @@ For support and questions:
 ## Changelog
 
 ### v1.0.0
+
 - Initial release
 - Basic memento types
 - REST API

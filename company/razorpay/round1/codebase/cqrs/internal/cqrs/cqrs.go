@@ -7,27 +7,27 @@ import (
 
 // CQRSService implements the CQRSService interface
 type CQRSService struct {
-	config        *CQRSConfig
-	commandBus    CommandBus
-	queryBus      QueryBus
-	eventBus      EventBus
+	config         *CQRSConfig
+	commandBus     CommandBus
+	queryBus       QueryBus
+	eventBus       EventBus
 	readModelStore ReadModelStore
-	createdAt     time.Time
-	updatedAt     time.Time
-	active        bool
+	createdAt      time.Time
+	updatedAt      time.Time
+	active         bool
 }
 
 // NewCQRSService creates a new CQRS service
 func NewCQRSService(config *CQRSConfig) *CQRSService {
 	return &CQRSService{
-		config:        config,
-		commandBus:    nil,
-		queryBus:      nil,
-		eventBus:      nil,
+		config:         config,
+		commandBus:     nil,
+		queryBus:       nil,
+		eventBus:       nil,
 		readModelStore: nil,
-		createdAt:     time.Now(),
-		updatedAt:     time.Now(),
-		active:        true,
+		createdAt:      time.Now(),
+		updatedAt:      time.Now(),
+		active:         true,
 	}
 }
 
@@ -216,17 +216,17 @@ func (cs *CQRSService) DeleteReadModel(ctx context.Context, id string) error {
 // GetServiceStats returns service statistics
 func (cs *CQRSService) GetServiceStats(ctx context.Context) map[string]interface{} {
 	stats := map[string]interface{}{
-		"id":                    cs.GetID(),
-		"name":                  cs.GetName(),
-		"description":           cs.GetDescription(),
-		"active":                cs.IsActive(),
-		"created_at":            cs.GetCreatedAt(),
-		"updated_at":            cs.GetUpdatedAt(),
-		"command_bus_stats":     make(map[string]interface{}),
-		"query_bus_stats":       make(map[string]interface{}),
-		"event_bus_stats":       make(map[string]interface{}),
+		"id":                     cs.GetID(),
+		"name":                   cs.GetName(),
+		"description":            cs.GetDescription(),
+		"active":                 cs.IsActive(),
+		"created_at":             cs.GetCreatedAt(),
+		"updated_at":             cs.GetUpdatedAt(),
+		"command_bus_stats":      make(map[string]interface{}),
+		"query_bus_stats":        make(map[string]interface{}),
+		"event_bus_stats":        make(map[string]interface{}),
 		"read_model_store_stats": make(map[string]interface{}),
-		"metadata":              cs.GetMetadata(),
+		"metadata":               cs.GetMetadata(),
 	}
 
 	// Get command bus stats
@@ -320,24 +320,24 @@ func (cs *CQRSService) GetDescription() string {
 // GetMetadata returns the service metadata
 func (cs *CQRSService) GetMetadata() map[string]interface{} {
 	return map[string]interface{}{
-		"name":                    cs.config.Name,
-		"version":                 cs.config.Version,
-		"description":             cs.config.Description,
-		"max_commands":            cs.config.MaxCommands,
-		"max_queries":             cs.config.MaxQueries,
-		"max_events":              cs.config.MaxEvents,
-		"max_read_models":         cs.config.MaxReadModels,
-		"cleanup_interval":        cs.config.CleanupInterval,
-		"validation_enabled":      cs.config.ValidationEnabled,
-		"caching_enabled":         cs.config.CachingEnabled,
-		"monitoring_enabled":      cs.config.MonitoringEnabled,
-		"auditing_enabled":        cs.config.AuditingEnabled,
-		"supported_command_types": cs.config.SupportedCommandTypes,
-		"supported_query_types":   cs.config.SupportedQueryTypes,
-		"supported_event_types":   cs.config.SupportedEventTypes,
+		"name":                       cs.config.Name,
+		"version":                    cs.config.Version,
+		"description":                cs.config.Description,
+		"max_commands":               cs.config.MaxCommands,
+		"max_queries":                cs.config.MaxQueries,
+		"max_events":                 cs.config.MaxEvents,
+		"max_read_models":            cs.config.MaxReadModels,
+		"cleanup_interval":           cs.config.CleanupInterval,
+		"validation_enabled":         cs.config.ValidationEnabled,
+		"caching_enabled":            cs.config.CachingEnabled,
+		"monitoring_enabled":         cs.config.MonitoringEnabled,
+		"auditing_enabled":           cs.config.AuditingEnabled,
+		"supported_command_types":    cs.config.SupportedCommandTypes,
+		"supported_query_types":      cs.config.SupportedQueryTypes,
+		"supported_event_types":      cs.config.SupportedEventTypes,
 		"supported_read_model_types": cs.config.SupportedReadModelTypes,
-		"validation_rules":        cs.config.ValidationRules,
-		"metadata":                cs.config.Metadata,
+		"validation_rules":           cs.config.ValidationRules,
+		"metadata":                   cs.config.Metadata,
 	}
 }
 

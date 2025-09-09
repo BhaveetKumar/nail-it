@@ -512,15 +512,15 @@ func (essm *EventSourcingServiceManager) GetHealthStatus() map[string]interface{
 // GetServiceInfo returns service information
 func (essm *EventSourcingServiceManager) GetServiceInfo() map[string]interface{} {
 	return map[string]interface{}{
-		"name":                  essm.config.Name,
-		"version":               essm.config.Version,
-		"description":           essm.config.Description,
-		"aggregate_count":       essm.service.GetAggregateCount(),
-		"aggregate_types":       essm.service.GetAggregateTypes(),
-		"created_at":            essm.service.GetCreatedAt(),
-		"updated_at":            essm.service.GetUpdatedAt(),
-		"active":                essm.service.IsActive(),
-		"metadata":              essm.service.GetMetadata(),
+		"name":            essm.config.Name,
+		"version":         essm.config.Version,
+		"description":     essm.config.Description,
+		"aggregate_count": essm.service.GetAggregateCount(),
+		"aggregate_types": essm.service.GetAggregateTypes(),
+		"created_at":      essm.service.GetCreatedAt(),
+		"updated_at":      essm.service.GetUpdatedAt(),
+		"active":          essm.service.IsActive(),
+		"metadata":        essm.service.GetMetadata(),
 	}
 }
 

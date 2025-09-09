@@ -56,6 +56,7 @@ Event Sourcing is a pattern that stores the state of an application as a sequenc
 ## Event Sourcing Pattern Structure
 
 ### Event Interface
+
 ```go
 type Event interface {
     GetID() string
@@ -78,6 +79,7 @@ type Event interface {
 ```
 
 ### Aggregate Interface
+
 ```go
 type Aggregate interface {
     GetID() string
@@ -99,6 +101,7 @@ type Aggregate interface {
 ```
 
 ### Event Store Interface
+
 ```go
 type EventStore interface {
     SaveEvents(ctx context.Context, aggregateID string, events []Event, expectedVersion int) error
@@ -115,6 +118,7 @@ type EventStore interface {
 ```
 
 ### Event Bus Interface
+
 ```go
 type EventBus interface {
     Publish(ctx context.Context, event Event) error
@@ -129,6 +133,7 @@ type EventBus interface {
 ```
 
 ### Snapshot Store Interface
+
 ```go
 type SnapshotStore interface {
     SaveSnapshot(ctx context.Context, aggregateID string, snapshot Snapshot) error
@@ -142,6 +147,7 @@ type SnapshotStore interface {
 ```
 
 ### Concrete Events
+
 - **User Created Event**: User account creation with email, name, and role
 - **User Updated Event**: User profile updates with change tracking
 - **User Deleted Event**: User account deletion with reason and audit trail
@@ -150,6 +156,7 @@ type SnapshotStore interface {
 - **Payment Processed Event**: Payment processing with transaction details
 
 ### Concrete Aggregates
+
 - **User Aggregate**: Manages user state and user-related events
 - **Order Aggregate**: Manages order state and order-related events
 - **Payment Aggregate**: Manages payment state and payment-related events
@@ -157,11 +164,13 @@ type SnapshotStore interface {
 ## API Endpoints
 
 ### Aggregate Management
+
 - `POST /api/v1/aggregates/` - Create a new aggregate
 - `GET /api/v1/aggregates/:id` - Get aggregate details
 - `PUT /api/v1/aggregates/:id` - Save aggregate changes
 
 ### Event Management
+
 - `GET /api/v1/events/aggregate/:id` - Get events for an aggregate
 - `GET /api/v1/events/type/:type` - Get events by type
 - `GET /api/v1/events/aggregate-type/:type` - Get events by aggregate type
@@ -169,16 +178,19 @@ type SnapshotStore interface {
 - `POST /api/v1/events/publish` - Publish an event
 
 ### Snapshot Management
+
 - `POST /api/v1/snapshots/` - Create a snapshot
 - `GET /api/v1/snapshots/:aggregate_id` - Get snapshot for an aggregate
 - `GET /api/v1/snapshots/:aggregate_id/latest` - Get latest snapshot for an aggregate
 
 ### Statistics and Information
+
 - `GET /api/v1/stats` - Get service statistics
 - `GET /api/v1/info` - Get service information
 - `GET /health` - Health check endpoint
 
 ### WebSocket
+
 - `GET /ws` - WebSocket endpoint for real-time event streaming
 
 ## Configuration
@@ -217,7 +229,7 @@ supported_aggregate_types:
   - "custom"
 
 validation_rules:
-  max_event_data_size: 1048576  # 1MB
+  max_event_data_size: 1048576 # 1MB
   max_aggregate_events: 10000
 
 metadata:
@@ -286,6 +298,7 @@ logging:
 ## Usage Examples
 
 ### Creating a User Aggregate
+
 ```bash
 curl -X POST http://localhost:8080/api/v1/aggregates/ \
   -H "Content-Type: application/json" \
@@ -302,6 +315,7 @@ curl -X POST http://localhost:8080/api/v1/aggregates/ \
 ```
 
 ### Publishing a User Created Event
+
 ```bash
 curl -X POST http://localhost:8080/api/v1/events/publish \
   -H "Content-Type: application/json" \
@@ -325,11 +339,13 @@ curl -X POST http://localhost:8080/api/v1/events/publish \
 ```
 
 ### Getting Events for an Aggregate
+
 ```bash
 curl http://localhost:8080/api/v1/events/aggregate/user-123
 ```
 
 ### Creating a Snapshot
+
 ```bash
 curl -X POST http://localhost:8080/api/v1/snapshots/ \
   -H "Content-Type: application/json" \
@@ -347,6 +363,7 @@ curl -X POST http://localhost:8080/api/v1/snapshots/ \
 ```
 
 ### Getting Service Statistics
+
 ```bash
 curl http://localhost:8080/api/v1/stats
 ```
@@ -363,6 +380,7 @@ curl http://localhost:8080/api/v1/stats
 ## Real-World Use Cases
 
 ### Fintech Applications
+
 - **User Management**: User registration, profile updates, and account changes
 - **Order Processing**: Order creation, status changes, and fulfillment tracking
 - **Payment Processing**: Payment initiation, processing, and completion
@@ -371,6 +389,7 @@ curl http://localhost:8080/api/v1/stats
 - **Fraud Detection**: Event pattern analysis for fraud detection
 
 ### Other Applications
+
 - **E-commerce**: Order management, inventory tracking, and customer behavior
 - **Healthcare**: Patient record changes, treatment history, and medical events
 - **Education**: Student enrollment, grade changes, and academic progress

@@ -1,33 +1,33 @@
-# Abstract Factory Pattern Implementation
+# Builder Pattern Implementation
 
-This microservice demonstrates the Abstract Factory pattern, which provides an interface for creating families of related objects without specifying their concrete classes. This pattern is particularly useful when you need to create objects that belong to the same family but have different implementations.
+This microservice demonstrates the Builder pattern, which provides a way to construct complex objects step by step. This pattern is particularly useful when you need to create objects with many optional parameters or when the construction process is complex.
 
 ## Architecture Overview
 
-The Abstract Factory pattern provides:
+The Builder pattern provides:
 
-- **Abstract Factory Interface**: Defines methods for creating products
-- **Concrete Factories**: Implement the abstract factory interface
-- **Abstract Products**: Define interfaces for products
-- **Concrete Products**: Implement the abstract product interfaces
-- **Client Code**: Uses the abstract factory to create products
+- **Builder Interface**: Defines methods for building parts of the product
+- **Concrete Builder**: Implements the builder interface and constructs the product
+- **Product**: The complex object being built
+- **Director**: Optional class that orchestrates the building process
+- **Client**: Uses the builder to create products
 
 ### Key Components
 
-1. **Abstract Factory**: Interface for creating families of related objects
-2. **Concrete Factories**: Specific implementations of the abstract factory
-3. **Abstract Products**: Interfaces for products
-4. **Concrete Products**: Specific implementations of products
-5. **Factory Registry**: Manages factory registration and retrieval
+1. **Builder Interface**: Defines methods for building parts of the product
+2. **Concrete Builder**: Implements the builder interface
+3. **Product**: The complex object being built
+4. **Director**: Orchestrates the building process
+5. **Builder Registry**: Manages builder registration and retrieval
 6. **Product Registry**: Manages product registration and retrieval
 
 ## Features
 
-- **Factory Management**: Create, destroy, and manage factories
-- **Product Creation**: Create products using registered factories
-- **Product Management**: Manage product lifecycle and statistics
-- **Registry Management**: Register and unregister factories and products
-- **Validation**: Input validation for factories and products
+- **Builder Management**: Create, destroy, and manage builders
+- **Product Creation**: Create products using builders
+- **Director Management**: Manage directors for orchestrating builds
+- **Step-by-Step Building**: Build products step by step
+- **Validation**: Input validation for builders and products
 - **Caching**: Optional caching for products
 - **Monitoring**: Health checks and service statistics
 - **Auditing**: Track all operations for compliance
@@ -46,15 +46,15 @@ The Abstract Factory pattern provides:
 ## Project Structure
 
 ```
-abstract_factory/
+builder/
 ├── cmd/
 │   └── server/
 │       └── main.go
 ├── internal/
-│   ├── abstract_factory/
+│   ├── builder/
 │   │   ├── interfaces.go
 │   │   ├── models.go
-│   │   ├── abstract_factory.go
+│   │   ├── builder.go
 │   │   └── service.go
 │   ├── handlers/
 │   │   ├── handlers.go
@@ -87,7 +87,7 @@ abstract_factory/
 
 ```bash
 git clone <repository-url>
-cd abstract_factory
+cd builder
 ```
 
 2. Install dependencies:
@@ -100,10 +100,10 @@ go mod tidy
 
 ```bash
 # MySQL
-mysql -u root -p -e "CREATE DATABASE abstract_factory_db;"
+mysql -u root -p -e "CREATE DATABASE builder_db;"
 
 # MongoDB
-mongosh --eval "use abstract_factory_db"
+mongosh --eval "use builder_db"
 ```
 
 4. Start Kafka:
@@ -116,7 +116,7 @@ bin/zookeeper-server-start.sh config/zookeeper.properties
 bin/kafka-server-start.sh config/server.properties
 
 # Create topic
-bin/kafka-topics.sh --create --topic abstract-factory-events --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
+bin/kafka-topics.sh --create --topic builder-events --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
 ```
 
 5. Update configuration in `configs/config.yaml`:
@@ -128,15 +128,15 @@ database:
     port: 3306
     username: "your_username"
     password: "your_password"
-    database: "abstract_factory_db"
+    database: "builder_db"
   mongodb:
     uri: "mongodb://localhost:27017"
-    database: "abstract_factory_db"
+    database: "builder_db"
 kafka:
   brokers:
     - "localhost:9092"
-  group_id: "abstract-factory-group"
-  topic: "abstract-factory-events"
+  group_id: "builder-group"
+  topic: "builder-events"
 ```
 
 6. Run the service:
@@ -151,31 +151,41 @@ go run main.go
 
 - `GET /health` - Service health status
 
-### Factory Management
+### Builder Management
 
-- `POST /api/v1/abstract-factory/factories` - Create a factory
-- `DELETE /api/v1/abstract-factory/factories/:type` - Destroy a factory
-- `GET /api/v1/abstract-factory/factories/:type` - Get factory by type
-- `GET /api/v1/abstract-factory/factories` - List all factories
-- `GET /api/v1/abstract-factory/factories/:type/stats` - Get factory statistics
-- `GET /api/v1/abstract-factory/factories/stats` - Get all factory statistics
-- `PUT /api/v1/abstract-factory/factories/:type/active` - Set factory active status
+- `POST /api/v1/builder/builders` - Create a builder
+- `DELETE /api/v1/builder/builders/:type` - Destroy a builder
+- `GET /api/v1/builder/builders/:type` - Get builder by type
+- `GET /api/v1/builder/builders` - List all builders
+- `GET /api/v1/builder/builders/:type/stats` - Get builder statistics
+- `GET /api/v1/builder/builders/stats` - Get all builder statistics
+- `PUT /api/v1/builder/builders/:type/active` - Set builder active status
 
 ### Product Management
 
-- `POST /api/v1/abstract-factory/products` - Create a product
-- `DELETE /api/v1/abstract-factory/products/:id` - Destroy a product
-- `GET /api/v1/abstract-factory/products/:id` - Get product by ID
-- `GET /api/v1/abstract-factory/products` - List all products
-- `GET /api/v1/abstract-factory/products/:id/stats` - Get product statistics
-- `GET /api/v1/abstract-factory/products/stats` - Get all product statistics
-- `PUT /api/v1/abstract-factory/products/:id/active` - Set product active status
+- `POST /api/v1/builder/products` - Create a product
+- `DELETE /api/v1/builder/products/:id` - Destroy a product
+- `GET /api/v1/builder/products/:id` - Get product by ID
+- `GET /api/v1/builder/products` - List all products
+- `GET /api/v1/builder/products/:id/stats` - Get product statistics
+- `GET /api/v1/builder/products/stats` - Get all product statistics
+- `PUT /api/v1/builder/products/:id/active` - Set product active status
+
+### Director Management
+
+- `POST /api/v1/builder/directors` - Create a director
+- `DELETE /api/v1/builder/directors/:id` - Destroy a director
+- `GET /api/v1/builder/directors/:id` - Get director by ID
+- `GET /api/v1/builder/directors` - List all directors
+- `GET /api/v1/builder/directors/:id/stats` - Get director statistics
+- `GET /api/v1/builder/directors/stats` - Get all director statistics
+- `PUT /api/v1/builder/directors/:id/active` - Set director active status
 
 ### Service Management
 
-- `GET /api/v1/abstract-factory/stats` - Get service statistics
-- `POST /api/v1/abstract-factory/cleanup` - Perform cleanup
-- `GET /api/v1/abstract-factory/health` - Get detailed health status
+- `GET /api/v1/builder/stats` - Get service statistics
+- `POST /api/v1/builder/cleanup` - Perform cleanup
+- `GET /api/v1/builder/health` - Get detailed health status
 
 ### WebSocket
 
@@ -183,18 +193,18 @@ go run main.go
 
 ## Usage Examples
 
-### Creating a Factory
+### Creating a Builder
 
 ```bash
-curl -X POST http://localhost:8080/api/v1/abstract-factory/factories \
+curl -X POST http://localhost:8080/api/v1/builder/builders \
   -H "Content-Type: application/json" \
   -d '{
-    "type": "ConcreteFactory1",
-    "name": "Payment Factory",
-    "description": "Factory for creating payment-related products",
+    "type": "ConcreteBuilder",
+    "name": "Product Builder",
+    "description": "Builder for creating products",
     "version": "1.0.0",
     "metadata": {
-      "category": "payment",
+      "category": "product",
       "region": "us-east-1"
     }
   }'
@@ -203,29 +213,52 @@ curl -X POST http://localhost:8080/api/v1/abstract-factory/factories \
 ### Creating a Product
 
 ```bash
-curl -X POST http://localhost:8080/api/v1/abstract-factory/products \
+curl -X POST http://localhost:8080/api/v1/builder/products \
   -H "Content-Type: application/json" \
   -d '{
-    "factory_type": "ConcreteFactory1",
-    "product_type": "ProductA",
+    "builder_type": "ConcreteBuilder",
     "config": {
-      "name": "Credit Card Payment",
-      "description": "Credit card payment product",
-      "price": 100.0
+      "name": "Laptop",
+      "description": "High-performance laptop",
+      "price": 1500.0,
+      "category": "Electronics",
+      "tags": ["laptop", "computer", "electronics"],
+      "metadata": {
+        "brand": "TechCorp",
+        "model": "TC-2023"
+      },
+      "active": true
     }
   }'
 ```
 
-### Getting Factory Statistics
+### Creating a Director
 
 ```bash
-curl -X GET http://localhost:8080/api/v1/abstract-factory/factories/ConcreteFactory1/stats
+curl -X POST http://localhost:8080/api/v1/builder/directors \
+  -H "Content-Type: application/json" \
+  -d '{
+    "id": "product-director",
+    "name": "Product Director",
+    "description": "Director for building products",
+    "version": "1.0.0",
+    "metadata": {
+      "category": "product",
+      "region": "us-east-1"
+    }
+  }'
+```
+
+### Getting Builder Statistics
+
+```bash
+curl -X GET http://localhost:8080/api/v1/builder/builders/ConcreteBuilder/stats
 ```
 
 ### Getting Product Statistics
 
 ```bash
-curl -X GET http://localhost:8080/api/v1/abstract-factory/products/product-a-1/stats
+curl -X GET http://localhost:8080/api/v1/builder/products/product-123/stats
 ```
 
 ## Configuration
@@ -245,13 +278,13 @@ database:
     port: 3306
     username: "root"
     password: "password"
-    database: "abstract_factory_db"
+    database: "builder_db"
     max_idle_conns: 10
     max_open_conns: 100
     conn_max_lifetime: 3600
   mongodb:
     uri: "mongodb://localhost:27017"
-    database: "abstract_factory_db"
+    database: "builder_db"
     max_pool_size: 100
     min_pool_size: 10
     max_idle_time: 30s
@@ -259,39 +292,39 @@ database:
 kafka:
   brokers:
     - "localhost:9092"
-  group_id: "abstract-factory-group"
-  topic: "abstract-factory-events"
+  group_id: "builder-group"
+  topic: "builder-events"
   consumer_timeout: 10s
   producer_timeout: 10s
 
-abstract_factory:
-  name: "Abstract Factory Service"
+builder:
+  name: "Builder Service"
   version: "1.0.0"
-  description: "Abstract Factory pattern service for creating families of related objects"
-  max_factories: 100
+  description: "Builder pattern service for constructing complex objects step by step"
+  max_builders: 100
   max_products: 1000
+  max_directors: 50
   cleanup_interval: "1h"
   validation_enabled: true
   caching_enabled: true
   monitoring_enabled: true
   auditing_enabled: true
-  supported_factory_types:
-    - "ConcreteFactory1"
-    - "ConcreteFactory2"
-    - "PaymentFactory"
-    - "OrderFactory"
-    - "UserFactory"
-    - "NotificationFactory"
+  supported_builder_types:
+    - "ConcreteBuilder"
+    - "PaymentBuilder"
+    - "OrderBuilder"
+    - "UserBuilder"
+    - "NotificationBuilder"
+    - "ReportBuilder"
   supported_product_types:
-    - "ProductA"
-    - "ProductB"
-    - "ProductC"
+    - "ConcreteProduct"
     - "PaymentProduct"
     - "OrderProduct"
     - "UserProduct"
     - "NotificationProduct"
+    - "ReportProduct"
   validation_rules:
-    factory:
+    builder:
       name:
         required: true
         min_length: 2
@@ -316,11 +349,27 @@ abstract_factory:
         required: true
         min: 0.01
         max: 1000000
+      category:
+        required: true
+        min_length: 2
+        max_length: 50
+    director:
+      name:
+        required: true
+        min_length: 2
+        max_length: 100
+      description:
+        required: true
+        min_length: 10
+        max_length: 500
+      version:
+        required: true
+        format: "semver"
   metadata:
     environment: "development"
     region: "us-east-1"
     team: "backend"
-    project: "abstract-factory-service"
+    project: "builder-service"
 ```
 
 ## Testing
@@ -335,7 +384,7 @@ go test ./...
 go test -cover ./...
 
 # Run specific test
-go test -run TestAbstractFactory ./internal/abstract_factory/
+go test -run TestBuilder ./internal/builder/
 
 # Run benchmarks
 go test -bench=. ./...
@@ -346,8 +395,8 @@ go test -bench=. ./...
 The service provides several monitoring endpoints:
 
 - **Health Check**: `GET /health` - Basic health status
-- **Detailed Health**: `GET /api/v1/abstract-factory/health` - Detailed health status with component checks
-- **Service Stats**: `GET /api/v1/abstract-factory/stats` - Service statistics and metrics
+- **Detailed Health**: `GET /api/v1/builder/health` - Detailed health status with component checks
+- **Service Stats**: `GET /api/v1/builder/stats` - Service statistics and metrics
 
 ## WebSocket Support
 
@@ -444,7 +493,7 @@ CMD ["./main"]
 version: "3.8"
 
 services:
-  abstract-factory-service:
+  builder-service:
     build: .
     ports:
       - "8080:8080"
@@ -453,9 +502,9 @@ services:
       - DB_PORT=3306
       - DB_USER=root
       - DB_PASSWORD=password
-      - DB_NAME=abstract_factory_db
+      - DB_NAME=builder_db
       - MONGODB_URI=mongodb://mongodb:27017
-      - MONGODB_DB=abstract_factory_db
+      - MONGODB_DB=builder_db
       - KAFKA_BROKERS=kafka:9092
     depends_on:
       - mysql
@@ -466,7 +515,7 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: abstract_factory_db
+      MYSQL_DATABASE: builder_db
     ports:
       - "3306:3306"
 
@@ -517,8 +566,9 @@ For support, please open an issue in the repository or contact the development t
 ### v1.0.0
 
 - Initial release
-- Basic Abstract Factory implementation
-- Factory and Product management
+- Basic Builder pattern implementation
+- Builder and Product management
+- Director management
 - Registry management
 - WebSocket support
 - Kafka integration

@@ -55,6 +55,7 @@ The Visitor pattern allows you to define new operations on existing object struc
 ## Visitor Pattern Structure
 
 ### Element Interface
+
 ```go
 type Element interface {
     Accept(visitor Visitor) error
@@ -72,6 +73,7 @@ type Element interface {
 ```
 
 ### Visitor Interface
+
 ```go
 type Visitor interface {
     VisitElement(element Element) error
@@ -88,11 +90,13 @@ type Visitor interface {
 ```
 
 ### Concrete Elements
+
 - **Document Element**: Handles document content, type, size, language, and encoding
 - **Data Element**: Manages data values, types, formats, and constraints
 - **Service Element**: Manages service endpoints, methods, headers, parameters, and timeouts
 
 ### Concrete Visitors
+
 - **Validation Visitor**: Validates elements based on configurable rules
 - **Processing Visitor**: Processes elements with batch operations and error handling
 - **Analytics Visitor**: Analyzes elements and generates reports
@@ -100,35 +104,41 @@ type Visitor interface {
 ## API Endpoints
 
 ### Visitor Management
+
 - `POST /api/v1/visitors/` - Create a new visitor
 - `GET /api/v1/visitors/:id` - Get visitor details
 - `DELETE /api/v1/visitors/:id` - Remove a visitor
 - `GET /api/v1/visitors/` - List all visitors
 
 ### Element Management
+
 - `POST /api/v1/elements/` - Create a new element
 - `GET /api/v1/elements/:id` - Get element details
 - `DELETE /api/v1/elements/:id` - Remove an element
 - `GET /api/v1/elements/` - List all elements
 
 ### Element Collection Management
+
 - `POST /api/v1/collections/` - Create a new element collection
 - `GET /api/v1/collections/:id` - Get collection details
 - `DELETE /api/v1/collections/:id` - Remove a collection
 - `GET /api/v1/collections/` - List all collections
 
 ### Visit Operations
+
 - `POST /api/v1/visits/element` - Visit an element
 - `POST /api/v1/visits/collection` - Visit an element collection
 - `GET /api/v1/visits/history` - Get visit history
 - `DELETE /api/v1/visits/history` - Clear visit history
 
 ### Statistics and Information
+
 - `GET /api/v1/stats` - Get visitor statistics
 - `GET /api/v1/info` - Get service information
 - `GET /health` - Health check endpoint
 
 ### WebSocket
+
 - `GET /ws` - WebSocket endpoint for real-time updates
 
 ## Configuration
@@ -237,6 +247,7 @@ logging:
 ## Usage Examples
 
 ### Creating a Validation Visitor
+
 ```bash
 curl -X POST http://localhost:8080/api/v1/visitors/ \
   -H "Content-Type: application/json" \
@@ -248,6 +259,7 @@ curl -X POST http://localhost:8080/api/v1/visitors/ \
 ```
 
 ### Creating a Document Element
+
 ```bash
 curl -X POST http://localhost:8080/api/v1/elements/ \
   -H "Content-Type: application/json" \
@@ -259,6 +271,7 @@ curl -X POST http://localhost:8080/api/v1/elements/ \
 ```
 
 ### Performing a Visit
+
 ```bash
 curl -X POST http://localhost:8080/api/v1/visits/element \
   -H "Content-Type: application/json" \
@@ -269,6 +282,7 @@ curl -X POST http://localhost:8080/api/v1/visits/element \
 ```
 
 ### Getting Visitor Statistics
+
 ```bash
 curl http://localhost:8080/api/v1/stats
 ```
@@ -284,12 +298,14 @@ curl http://localhost:8080/api/v1/stats
 ## Real-World Use Cases
 
 ### Fintech Applications
+
 - **Document Processing**: KYC document validation, invoice processing, contract analysis
 - **Data Validation**: Customer data validation, transaction data verification, compliance checks
 - **Analytics**: Transaction analysis, risk assessment, fraud detection
 - **Service Integration**: Third-party API validation, webhook processing, data synchronization
 
 ### Other Applications
+
 - **E-commerce**: Product validation, order processing, inventory analysis
 - **Healthcare**: Patient data validation, medical record analysis, treatment planning
 - **Education**: Student data validation, grade analysis, course evaluation

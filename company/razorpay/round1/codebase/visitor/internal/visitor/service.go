@@ -117,7 +117,7 @@ func (vsm *VisitorServiceManager) RemoveVisitor(visitorID string) error {
 // ListVisitors returns all visitors with filtering
 func (vsm *VisitorServiceManager) ListVisitors() []Visitor {
 	visitors := vsm.service.ListVisitors()
-	
+
 	// Filter active visitors if needed
 	if vsm.config.ValidationEnabled {
 		activeVisitors := make([]Visitor, 0)
@@ -213,7 +213,7 @@ func (vsm *VisitorServiceManager) RemoveElement(elementID string) error {
 // ListElements returns all elements with filtering
 func (vsm *VisitorServiceManager) ListElements() []Element {
 	elements := vsm.service.ListElements()
-	
+
 	// Filter active elements if needed
 	if vsm.config.ValidationEnabled {
 		activeElements := make([]Element, 0)
@@ -299,7 +299,7 @@ func (vsm *VisitorServiceManager) RemoveElementCollection(collectionID string) e
 // ListElementCollections returns all element collections with filtering
 func (vsm *VisitorServiceManager) ListElementCollections() []ElementCollection {
 	collections := vsm.service.ListElementCollections()
-	
+
 	// Filter active collections if needed
 	if vsm.config.ValidationEnabled {
 		activeCollections := make([]ElementCollection, 0)
@@ -444,24 +444,24 @@ func (vsm *VisitorServiceManager) GetElementCollectionCount() int {
 // GetServiceInfo returns service information
 func (vsm *VisitorServiceManager) GetServiceInfo() map[string]interface{} {
 	return map[string]interface{}{
-		"name":                    vsm.config.Name,
-		"version":                 vsm.config.Version,
-		"description":             vsm.config.Description,
-		"visitor_count":           vsm.service.GetVisitorCount(),
-		"element_count":           vsm.service.GetElementCount(),
+		"name":                     vsm.config.Name,
+		"version":                  vsm.config.Version,
+		"description":              vsm.config.Description,
+		"visitor_count":            vsm.service.GetVisitorCount(),
+		"element_count":            vsm.service.GetElementCount(),
 		"element_collection_count": vsm.service.GetElementCollectionCount(),
-		"visit_history_count":     len(vsm.service.GetVisitHistory()),
-		"created_at":              vsm.service.GetCreatedAt(),
-		"updated_at":              vsm.service.GetUpdatedAt(),
-		"active":                  vsm.service.IsActive(),
-		"metadata":                vsm.service.GetMetadata(),
+		"visit_history_count":      len(vsm.service.GetVisitHistory()),
+		"created_at":               vsm.service.GetCreatedAt(),
+		"updated_at":               vsm.service.GetUpdatedAt(),
+		"active":                   vsm.service.IsActive(),
+		"metadata":                 vsm.service.GetMetadata(),
 	}
 }
 
 // GetHealthStatus returns the health status of the service
 func (vsm *VisitorServiceManager) GetHealthStatus() map[string]interface{} {
 	stats := vsm.service.GetVisitorStats()
-	
+
 	healthStatus := map[string]interface{}{
 		"status": "healthy",
 		"checks": map[string]interface{}{

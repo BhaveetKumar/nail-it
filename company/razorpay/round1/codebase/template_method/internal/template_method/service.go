@@ -8,26 +8,26 @@ import (
 
 // TemplateMethodServiceProvider provides template method services
 type TemplateMethodServiceProvider struct {
-	service    *TemplateMethodService
-	manager    *ConcreteTemplateMethodManager
-	executor   *ConcreteTemplateMethodExecutor
-	cache      *TemplateMethodCache
-	validator  *TemplateMethodValidator
-	monitor    *TemplateMethodMonitor
-	auditor    *TemplateMethodAuditor
-	mutex      sync.RWMutex
+	service   *TemplateMethodService
+	manager   *ConcreteTemplateMethodManager
+	executor  *ConcreteTemplateMethodExecutor
+	cache     *TemplateMethodCache
+	validator *TemplateMethodValidator
+	monitor   *TemplateMethodMonitor
+	auditor   *TemplateMethodAuditor
+	mutex     sync.RWMutex
 }
 
 // NewTemplateMethodServiceProvider creates a new template method service provider
 func NewTemplateMethodServiceProvider(config *TemplateMethodConfig) *TemplateMethodServiceProvider {
 	return &TemplateMethodServiceProvider{
-		service:    NewTemplateMethodService(config),
-		manager:    NewConcreteTemplateMethodManager(config),
-		executor:   NewConcreteTemplateMethodExecutor(NewConcreteTemplateMethodManager(config), config),
-		cache:      NewTemplateMethodCache(config.GetCache().GetTTL()),
-		validator:  NewTemplateMethodValidator(config),
-		monitor:    NewTemplateMethodMonitor(config),
-		auditor:    NewTemplateMethodAuditor(config),
+		service:   NewTemplateMethodService(config),
+		manager:   NewConcreteTemplateMethodManager(config),
+		executor:  NewConcreteTemplateMethodExecutor(NewConcreteTemplateMethodManager(config), config),
+		cache:     NewTemplateMethodCache(config.GetCache().GetTTL()),
+		validator: NewTemplateMethodValidator(config),
+		monitor:   NewTemplateMethodMonitor(config),
+		auditor:   NewTemplateMethodAuditor(config),
 	}
 }
 
@@ -86,7 +86,7 @@ func (tmh *TemplateMethodHandler) HandleCreateTemplateMethod(ctx context.Context
 	if err := tmh.provider.GetValidator().ValidateTemplateMethod(template); err != nil {
 		return err
 	}
-	
+
 	// Create template method
 	return tmh.provider.GetService().CreateTemplateMethod(name, template)
 }
@@ -97,16 +97,16 @@ func (tmh *TemplateMethodHandler) HandleGetTemplateMethod(ctx context.Context, n
 	if cached, exists := tmh.provider.GetCache().Get(name); exists {
 		return cached, nil
 	}
-	
+
 	// Get from service
 	template, err := tmh.provider.GetService().GetTemplateMethod(name)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// Cache the template method
 	tmh.provider.GetCache().Set(name, template, tmh.config.GetCache().GetTTL())
-	
+
 	return template, nil
 }
 
@@ -114,7 +114,7 @@ func (tmh *TemplateMethodHandler) HandleGetTemplateMethod(ctx context.Context, n
 func (tmh *TemplateMethodHandler) HandleRemoveTemplateMethod(ctx context.Context, name string) error {
 	// Remove from cache
 	tmh.provider.GetCache().Delete(name)
-	
+
 	// Remove from service
 	return tmh.provider.GetService().RemoveTemplateMethod(name)
 }
@@ -131,7 +131,7 @@ func (tmh *TemplateMethodHandler) HandleExecuteTemplateMethod(ctx context.Contex
 	if err != nil {
 		return err
 	}
-	
+
 	// Execute template method
 	return tmh.provider.GetService().ExecuteTemplateMethod(template)
 }
@@ -143,7 +143,7 @@ func (tmh *TemplateMethodHandler) HandleExecuteStep(ctx context.Context, templat
 	if err != nil {
 		return err
 	}
-	
+
 	// Find step
 	var step Step
 	for _, s := range template.GetSteps() {
@@ -152,11 +152,11 @@ func (tmh *TemplateMethodHandler) HandleExecuteStep(ctx context.Context, templat
 			break
 		}
 	}
-	
+
 	if step == nil {
 		return ErrStepNotFound
 	}
-	
+
 	// Execute step
 	return tmh.provider.GetService().ExecuteStep(step)
 }
@@ -168,7 +168,7 @@ func (tmh *TemplateMethodHandler) HandleGetTemplateMethodStats(ctx context.Conte
 	if err != nil {
 		return nil, err
 	}
-	
+
 	stats := map[string]interface{}{
 		"name":         template.GetName(),
 		"description":  template.GetDescription(),
@@ -184,7 +184,7 @@ func (tmh *TemplateMethodHandler) HandleGetTemplateMethodStats(ctx context.Conte
 		"error":        template.GetError(),
 		"metadata":     template.GetMetadata(),
 	}
-	
+
 	return stats, nil
 }
 
@@ -229,12 +229,12 @@ func (tmp *TemplateMethodProcessor) ProcessTemplateMethod(ctx context.Context, n
 	if err != nil {
 		return err
 	}
-	
+
 	// Validate template method
 	if err := tmp.handler.provider.GetValidator().ValidateTemplateMethod(template); err != nil {
 		return err
 	}
-	
+
 	// Process template method
 	return processor(template)
 }
@@ -246,7 +246,7 @@ func (tmp *TemplateMethodProcessor) ProcessStep(ctx context.Context, templateNam
 	if err != nil {
 		return err
 	}
-	
+
 	// Find step
 	var step Step
 	for _, s := range template.GetSteps() {
@@ -255,16 +255,16 @@ func (tmp *TemplateMethodProcessor) ProcessStep(ctx context.Context, templateNam
 			break
 		}
 	}
-	
+
 	if step == nil {
 		return ErrStepNotFound
 	}
-	
+
 	// Validate step
 	if err := tmp.handler.provider.GetValidator().ValidateStep(step); err != nil {
 		return err
 	}
-	
+
 	// Process step
 	return processor(step)
 }
@@ -276,12 +276,12 @@ func (tmp *TemplateMethodProcessor) ProcessSteps(ctx context.Context, templateNa
 	if err != nil {
 		return err
 	}
-	
+
 	// Validate steps
 	if err := tmp.handler.provider.GetValidator().ValidateSteps(template.GetSteps()); err != nil {
 		return err
 	}
-	
+
 	// Process steps
 	return processor(template.GetSteps())
 }
@@ -308,9 +308,9 @@ func NewTemplateMethodScheduler(config *TemplateMethodConfig) *TemplateMethodSch
 func (tms *TemplateMethodScheduler) Start() {
 	tms.mutex.Lock()
 	defer tms.mutex.Unlock()
-	
+
 	tms.ticker = time.NewTicker(tms.config.GetMonitoring().GetCollectInterval())
-	
+
 	go func() {
 		for {
 			select {
@@ -327,11 +327,11 @@ func (tms *TemplateMethodScheduler) Start() {
 func (tms *TemplateMethodScheduler) Stop() {
 	tms.mutex.Lock()
 	defer tms.mutex.Unlock()
-	
+
 	if tms.ticker != nil {
 		tms.ticker.Stop()
 	}
-	
+
 	close(tms.stop)
 }
 
@@ -339,10 +339,10 @@ func (tms *TemplateMethodScheduler) Stop() {
 func (tms *TemplateMethodScheduler) processScheduledTasks() {
 	// Process template method cleanup
 	ctx := context.Background()
-	
+
 	// Get all template methods
 	templates := tms.processor.handler.HandleListTemplateMethods(ctx)
-	
+
 	// Process each template method
 	for _, name := range templates {
 		tms.processor.handler.HandleCleanup(ctx)
@@ -370,11 +370,11 @@ func NewTemplateMethodMonitor(config *TemplateMethodConfig) *TemplateMethodMonit
 func (tmm *TemplateMethodMonitor) RecordTemplateMethodExecution(template TemplateMethod) error {
 	tmm.mutex.Lock()
 	defer tmm.mutex.Unlock()
-	
+
 	// Update metrics
 	tmm.metrics["total_executions"] = tmm.metrics["total_executions"].(int) + 1
 	tmm.metrics["last_execution"] = time.Now()
-	
+
 	return nil
 }
 
@@ -382,11 +382,11 @@ func (tmm *TemplateMethodMonitor) RecordTemplateMethodExecution(template Templat
 func (tmm *TemplateMethodMonitor) RecordStepExecution(step Step) error {
 	tmm.mutex.Lock()
 	defer tmm.mutex.Unlock()
-	
+
 	// Update metrics
 	tmm.metrics["total_step_executions"] = tmm.metrics["total_step_executions"].(int) + 1
 	tmm.metrics["last_step_execution"] = time.Now()
-	
+
 	return nil
 }
 
@@ -394,7 +394,7 @@ func (tmm *TemplateMethodMonitor) RecordStepExecution(step Step) error {
 func (tmm *TemplateMethodMonitor) GetTemplateMethodMetrics() map[string]interface{} {
 	tmm.mutex.RLock()
 	defer tmm.mutex.RUnlock()
-	
+
 	return tmm.metrics
 }
 
@@ -402,7 +402,7 @@ func (tmm *TemplateMethodMonitor) GetTemplateMethodMetrics() map[string]interfac
 func (tmm *TemplateMethodMonitor) GetStepMetrics() map[string]interface{} {
 	tmm.mutex.RLock()
 	defer tmm.mutex.RUnlock()
-	
+
 	return tmm.metrics
 }
 
@@ -410,7 +410,7 @@ func (tmm *TemplateMethodMonitor) GetStepMetrics() map[string]interface{} {
 func (tmm *TemplateMethodMonitor) GetExecutionMetrics() map[string]interface{} {
 	tmm.mutex.RLock()
 	defer tmm.mutex.RUnlock()
-	
+
 	return tmm.metrics
 }
 
@@ -418,7 +418,7 @@ func (tmm *TemplateMethodMonitor) GetExecutionMetrics() map[string]interface{} {
 func (tmm *TemplateMethodMonitor) GetPerformanceMetrics() map[string]interface{} {
 	tmm.mutex.RLock()
 	defer tmm.mutex.RUnlock()
-	
+
 	return tmm.metrics
 }
 
@@ -426,7 +426,7 @@ func (tmm *TemplateMethodMonitor) GetPerformanceMetrics() map[string]interface{}
 func (tmm *TemplateMethodMonitor) GetErrorMetrics() map[string]interface{} {
 	tmm.mutex.RLock()
 	defer tmm.mutex.RUnlock()
-	
+
 	return tmm.metrics
 }
 
@@ -434,7 +434,7 @@ func (tmm *TemplateMethodMonitor) GetErrorMetrics() map[string]interface{} {
 func (tmm *TemplateMethodMonitor) GetResourceMetrics() map[string]interface{} {
 	tmm.mutex.RLock()
 	defer tmm.mutex.RUnlock()
-	
+
 	return tmm.metrics
 }
 
@@ -442,7 +442,7 @@ func (tmm *TemplateMethodMonitor) GetResourceMetrics() map[string]interface{} {
 func (tmm *TemplateMethodMonitor) GetHealthMetrics() map[string]interface{} {
 	tmm.mutex.RLock()
 	defer tmm.mutex.RUnlock()
-	
+
 	return tmm.metrics
 }
 
@@ -450,7 +450,7 @@ func (tmm *TemplateMethodMonitor) GetHealthMetrics() map[string]interface{} {
 func (tmm *TemplateMethodMonitor) GetAlertMetrics() []Alert {
 	tmm.mutex.RLock()
 	defer tmm.mutex.RUnlock()
-	
+
 	return []Alert{}
 }
 
@@ -458,7 +458,7 @@ func (tmm *TemplateMethodMonitor) GetAlertMetrics() []Alert {
 func (tmm *TemplateMethodMonitor) ResetMetrics() error {
 	tmm.mutex.Lock()
 	defer tmm.mutex.Unlock()
-	
+
 	tmm.metrics = make(map[string]interface{})
 	return nil
 }
@@ -484,7 +484,7 @@ func NewTemplateMethodAuditor(config *TemplateMethodConfig) *TemplateMethodAudit
 func (tma *TemplateMethodAuditor) AuditTemplateMethodExecution(template TemplateMethod, userID string) error {
 	tma.mutex.Lock()
 	defer tma.mutex.Unlock()
-	
+
 	log := &BaseAuditLog{
 		ID:           generateID(),
 		UserID:       userID,
@@ -502,7 +502,7 @@ func (tma *TemplateMethodAuditor) AuditTemplateMethodExecution(template Template
 		Error:        "",
 		Metadata:     make(map[string]interface{}),
 	}
-	
+
 	tma.logs = append(tma.logs, log)
 	return nil
 }
@@ -511,7 +511,7 @@ func (tma *TemplateMethodAuditor) AuditTemplateMethodExecution(template Template
 func (tma *TemplateMethodAuditor) AuditStepExecution(step Step, userID string) error {
 	tma.mutex.Lock()
 	defer tma.mutex.Unlock()
-	
+
 	log := &BaseAuditLog{
 		ID:           generateID(),
 		UserID:       userID,
@@ -529,7 +529,7 @@ func (tma *TemplateMethodAuditor) AuditStepExecution(step Step, userID string) e
 		Error:        "",
 		Metadata:     make(map[string]interface{}),
 	}
-	
+
 	tma.logs = append(tma.logs, log)
 	return nil
 }
@@ -538,7 +538,7 @@ func (tma *TemplateMethodAuditor) AuditStepExecution(step Step, userID string) e
 func (tma *TemplateMethodAuditor) GetAuditLogs() ([]AuditLog, error) {
 	tma.mutex.RLock()
 	defer tma.mutex.RUnlock()
-	
+
 	return tma.logs, nil
 }
 
@@ -546,14 +546,14 @@ func (tma *TemplateMethodAuditor) GetAuditLogs() ([]AuditLog, error) {
 func (tma *TemplateMethodAuditor) GetAuditLogsByUser(userID string) ([]AuditLog, error) {
 	tma.mutex.RLock()
 	defer tma.mutex.RUnlock()
-	
+
 	var userLogs []AuditLog
 	for _, log := range tma.logs {
 		if log.GetUserID() == userID {
 			userLogs = append(userLogs, log)
 		}
 	}
-	
+
 	return userLogs, nil
 }
 
@@ -561,14 +561,14 @@ func (tma *TemplateMethodAuditor) GetAuditLogsByUser(userID string) ([]AuditLog,
 func (tma *TemplateMethodAuditor) GetAuditLogsByTemplateMethod(templateMethodName string) ([]AuditLog, error) {
 	tma.mutex.RLock()
 	defer tma.mutex.RUnlock()
-	
+
 	var templateLogs []AuditLog
 	for _, log := range tma.logs {
 		if log.GetResource() == templateMethodName {
 			templateLogs = append(templateLogs, log)
 		}
 	}
-	
+
 	return templateLogs, nil
 }
 
@@ -576,14 +576,14 @@ func (tma *TemplateMethodAuditor) GetAuditLogsByTemplateMethod(templateMethodNam
 func (tma *TemplateMethodAuditor) GetAuditLogsByDateRange(start, end time.Time) ([]AuditLog, error) {
 	tma.mutex.RLock()
 	defer tma.mutex.RUnlock()
-	
+
 	var dateLogs []AuditLog
 	for _, log := range tma.logs {
 		if log.GetTimestamp().After(start) && log.GetTimestamp().Before(end) {
 			dateLogs = append(dateLogs, log)
 		}
 	}
-	
+
 	return dateLogs, nil
 }
 
@@ -591,14 +591,14 @@ func (tma *TemplateMethodAuditor) GetAuditLogsByDateRange(start, end time.Time) 
 func (tma *TemplateMethodAuditor) GetAuditLogsByAction(action string) ([]AuditLog, error) {
 	tma.mutex.RLock()
 	defer tma.mutex.RUnlock()
-	
+
 	var actionLogs []AuditLog
 	for _, log := range tma.logs {
 		if log.GetAction() == action {
 			actionLogs = append(actionLogs, log)
 		}
 	}
-	
+
 	return actionLogs, nil
 }
 
@@ -606,28 +606,28 @@ func (tma *TemplateMethodAuditor) GetAuditLogsByAction(action string) ([]AuditLo
 func (tma *TemplateMethodAuditor) GetAuditStats() map[string]interface{} {
 	tma.mutex.RLock()
 	defer tma.mutex.RUnlock()
-	
+
 	stats := map[string]interface{}{
 		"total_logs": len(tma.logs),
 		"actions":    make(map[string]int),
 		"users":      make(map[string]int),
 		"resources":  make(map[string]int),
 	}
-	
+
 	for _, log := range tma.logs {
 		// Count actions
 		action := log.GetAction()
 		stats["actions"].(map[string]int)[action]++
-		
+
 		// Count users
 		userID := log.GetUserID()
 		stats["users"].(map[string]int)[userID]++
-		
+
 		// Count resources
 		resource := log.GetResource()
 		stats["resources"].(map[string]int)[resource]++
 	}
-	
+
 	return stats
 }
 
@@ -635,7 +635,7 @@ func (tma *TemplateMethodAuditor) GetAuditStats() map[string]interface{} {
 func (tma *TemplateMethodAuditor) ClearAuditLogs() error {
 	tma.mutex.Lock()
 	defer tma.mutex.Unlock()
-	
+
 	tma.logs = make([]AuditLog, 0)
 	return nil
 }
@@ -644,7 +644,7 @@ func (tma *TemplateMethodAuditor) ClearAuditLogs() error {
 func (tma *TemplateMethodAuditor) ExportAuditLogs(format string) ([]byte, error) {
 	tma.mutex.RLock()
 	defer tma.mutex.RUnlock()
-	
+
 	// Mock implementation
 	return []byte("audit logs"), nil
 }

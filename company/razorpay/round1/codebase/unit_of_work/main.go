@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -14,9 +13,7 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/patrickmn/go-cache"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.uber.org/zap"
-	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
 	"unit_of_work/internal/unit_of_work"
@@ -46,21 +43,21 @@ func main() {
 
 	// Initialize configuration
 	config := &unit_of_work.UnitOfWorkConfig{
-		Name:                    "Unit of Work Service",
-		Version:                 "1.0.0",
-		Description:             "Unit of Work pattern implementation with microservice architecture",
-		MaxEntities:             10000,
-		MaxRepositories:         100,
-		TransactionTimeout:      30 * time.Second,
-		CleanupInterval:         1 * time.Hour,
-		ValidationEnabled:       true,
-		CachingEnabled:          true,
-		MonitoringEnabled:       true,
-		AuditingEnabled:         true,
-		SupportedEntityTypes:    []string{"user", "order", "product", "payment", "custom"},
-		DefaultEntityType:       "custom",
+		Name:                 "Unit of Work Service",
+		Version:              "1.0.0",
+		Description:          "Unit of Work pattern implementation with microservice architecture",
+		MaxEntities:          10000,
+		MaxRepositories:      100,
+		TransactionTimeout:   30 * time.Second,
+		CleanupInterval:      1 * time.Hour,
+		ValidationEnabled:    true,
+		CachingEnabled:       true,
+		MonitoringEnabled:    true,
+		AuditingEnabled:      true,
+		SupportedEntityTypes: []string{"user", "order", "product", "payment", "custom"},
+		DefaultEntityType:    "custom",
 		ValidationRules: map[string]interface{}{
-			"max_name_length": 100,
+			"max_name_length":        100,
 			"max_description_length": 500,
 		},
 		Metadata: map[string]interface{}{
@@ -99,11 +96,11 @@ func main() {
 			Topics:  []string{"unit-of-work-events"},
 		},
 		WebSocket: unit_of_work.WebSocketConfig{
-			Enabled:           true,
-			Port:              8080,
-			ReadBufferSize:    1024,
-			WriteBufferSize:   1024,
-			HandshakeTimeout:  10 * time.Second,
+			Enabled:          true,
+			Port:             8080,
+			ReadBufferSize:   1024,
+			WriteBufferSize:  1024,
+			HandshakeTimeout: 10 * time.Second,
 		},
 		Security: unit_of_work.SecurityConfig{
 			Enabled:           true,
@@ -136,12 +133,12 @@ func main() {
 	// Health check endpoint
 	router.GET("/health", func(c *gin.Context) {
 		healthChecks := map[string]interface{}{
-			"mysql":    checkMySQLHealth(mysqlDB),
-			"mongodb":  checkMongoDBHealth(mongoDB),
-			"redis":    checkRedisHealth(redisClient),
-			"cache":    checkCacheHealth(cacheClient),
+			"mysql":     checkMySQLHealth(mysqlDB),
+			"mongodb":   checkMongoDBHealth(mongoDB),
+			"redis":     checkRedisHealth(redisClient),
+			"cache":     checkCacheHealth(cacheClient),
 			"websocket": checkWebSocketHealth(hub),
-			"kafka":    checkKafkaHealth(kafkaProducer),
+			"kafka":     checkKafkaHealth(kafkaProducer),
 		}
 
 		status := http.StatusOK
@@ -573,8 +570,8 @@ type MockWebSocketHub struct {
 	broadcast chan []byte
 }
 
-func (mwh *MockWebSocketHub) Run() {}
-func (mwh *MockWebSocketHub) Register(client *websocket.Conn) {}
+func (mwh *MockWebSocketHub) Run()                              {}
+func (mwh *MockWebSocketHub) Register(client *websocket.Conn)   {}
 func (mwh *MockWebSocketHub) Unregister(client *websocket.Conn) {}
 func (mwh *MockWebSocketHub) Broadcast(message []byte) {
 	mwh.broadcast <- message

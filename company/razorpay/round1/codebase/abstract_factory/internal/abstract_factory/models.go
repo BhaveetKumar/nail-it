@@ -1,6 +1,7 @@
 package abstract_factory
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"time"
@@ -8,19 +9,19 @@ import (
 
 // Common errors
 var (
-	ErrFactoryNotFound         = errors.New("factory not found")
-	ErrFactoryAlreadyExists    = errors.New("factory already exists")
-	ErrFactoryInactive         = errors.New("factory is inactive")
-	ErrProductNotFound         = errors.New("product not found")
-	ErrProductAlreadyExists    = errors.New("product already exists")
-	ErrProductInactive         = errors.New("product is inactive")
-	ErrInvalidFactoryType      = errors.New("invalid factory type")
-	ErrInvalidProductType      = errors.New("invalid product type")
-	ErrInvalidConfiguration    = errors.New("invalid configuration")
-	ErrValidationFailed        = errors.New("validation failed")
-	ErrServiceInactive         = errors.New("service is inactive")
-	ErrRegistryNotFound        = errors.New("registry not found")
-	ErrRegistryInactive        = errors.New("registry is inactive")
+	ErrFactoryNotFound      = errors.New("factory not found")
+	ErrFactoryAlreadyExists = errors.New("factory already exists")
+	ErrFactoryInactive      = errors.New("factory is inactive")
+	ErrProductNotFound      = errors.New("product not found")
+	ErrProductAlreadyExists = errors.New("product already exists")
+	ErrProductInactive      = errors.New("product is inactive")
+	ErrInvalidFactoryType   = errors.New("invalid factory type")
+	ErrInvalidProductType   = errors.New("invalid product type")
+	ErrInvalidConfiguration = errors.New("invalid configuration")
+	ErrValidationFailed     = errors.New("validation failed")
+	ErrServiceInactive      = errors.New("service is inactive")
+	ErrRegistryNotFound     = errors.New("registry not found")
+	ErrRegistryInactive     = errors.New("registry is inactive")
 )
 
 // BaseProduct represents a base product implementation
@@ -176,8 +177,8 @@ func (p *ConcreteProductA) GetStats() map[string]interface{} {
 // ConcreteProductB represents a concrete implementation of ProductB
 type ConcreteProductB struct {
 	BaseProduct
-	Brand       string `json:"brand" yaml:"brand"`
-	Model       string `json:"model" yaml:"model"`
+	Brand string `json:"brand" yaml:"brand"`
+	Model string `json:"model" yaml:"model"`
 }
 
 // NewConcreteProductB creates a new ConcreteProductB

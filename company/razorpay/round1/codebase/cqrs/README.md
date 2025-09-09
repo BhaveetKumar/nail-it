@@ -5,6 +5,7 @@ This microservice demonstrates the CQRS (Command Query Responsibility Segregatio
 ## Architecture Overview
 
 The CQRS pattern separates the system into two distinct parts:
+
 - **Command Side**: Handles write operations (create, update, delete)
 - **Query Side**: Handles read operations (get, list, search)
 
@@ -81,17 +82,20 @@ cqrs/
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd cqrs
 ```
 
 2. Install dependencies:
+
 ```bash
 go mod tidy
 ```
 
 3. Set up the databases:
+
 ```bash
 # MySQL
 mysql -u root -p -e "CREATE DATABASE cqrs_db;"
@@ -101,6 +105,7 @@ mongosh --eval "use cqrs_db"
 ```
 
 4. Start Kafka:
+
 ```bash
 # Start Zookeeper
 bin/zookeeper-server-start.sh config/zookeeper.properties
@@ -113,6 +118,7 @@ bin/kafka-topics.sh --create --topic cqrs-events --bootstrap-server localhost:90
 ```
 
 5. Update configuration in `configs/config.yaml`:
+
 ```yaml
 database:
   mysql:
@@ -132,6 +138,7 @@ kafka:
 ```
 
 6. Run the service:
+
 ```bash
 go run main.go
 ```
@@ -139,30 +146,36 @@ go run main.go
 ## API Endpoints
 
 ### Health Check
+
 - `GET /health` - Service health status
 
 ### Commands
+
 - `POST /api/v1/cqrs/commands` - Send a command
 - `GET /api/v1/cqrs/commands/:id` - Get command by ID
 - `GET /api/v1/cqrs/commands` - List commands
 
 ### Queries
+
 - `POST /api/v1/cqrs/queries` - Send a query
 - `GET /api/v1/cqrs/queries/:id` - Get query by ID
 - `GET /api/v1/cqrs/queries` - List queries
 
 ### Events
+
 - `POST /api/v1/cqrs/events` - Publish an event
 - `GET /api/v1/cqrs/events/:id` - Get event by ID
 - `GET /api/v1/cqrs/events` - List events
 
 ### Read Models
+
 - `POST /api/v1/cqrs/read-models` - Save a read model
 - `GET /api/v1/cqrs/read-models/:id` - Get read model by ID
 - `GET /api/v1/cqrs/read-models` - List read models
 - `DELETE /api/v1/cqrs/read-models/:id` - Delete read model
 
 ### Handler Management
+
 - `POST /api/v1/cqrs/handlers/commands` - Register command handler
 - `POST /api/v1/cqrs/handlers/queries` - Register query handler
 - `POST /api/v1/cqrs/handlers/events` - Register event handler
@@ -171,11 +184,13 @@ go run main.go
 - `DELETE /api/v1/cqrs/handlers/events/:type` - Unregister event handler
 
 ### Service Management
+
 - `GET /api/v1/cqrs/stats` - Get service statistics
 - `POST /api/v1/cqrs/cleanup` - Perform cleanup
 - `GET /api/v1/cqrs/health` - Get detailed health status
 
 ### WebSocket
+
 - `GET /ws` - WebSocket connection for real-time updates
 
 ## Usage Examples
@@ -398,19 +413,19 @@ The service provides several monitoring endpoints:
 The service supports WebSocket connections for real-time updates:
 
 ```javascript
-const ws = new WebSocket('ws://localhost:8080/ws');
+const ws = new WebSocket("ws://localhost:8080/ws");
 
-ws.onopen = function(event) {
-    console.log('Connected to WebSocket');
+ws.onopen = function (event) {
+  console.log("Connected to WebSocket");
 };
 
-ws.onmessage = function(event) {
-    const data = JSON.parse(event.data);
-    console.log('Received:', data);
+ws.onmessage = function (event) {
+  const data = JSON.parse(event.data);
+  console.log("Received:", data);
 };
 
-ws.onclose = function(event) {
-    console.log('WebSocket connection closed');
+ws.onclose = function (event) {
+  console.log("WebSocket connection closed");
 };
 ```
 
@@ -485,7 +500,7 @@ CMD ["./main"]
 ### Docker Compose
 
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   cqrs-service:
@@ -559,6 +574,7 @@ For support, please open an issue in the repository or contact the development t
 ## Changelog
 
 ### v1.0.0
+
 - Initial release
 - Basic CQRS implementation
 - Command, Query, and Event handling

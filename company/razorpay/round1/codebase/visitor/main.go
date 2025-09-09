@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -14,9 +13,7 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/patrickmn/go-cache"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.uber.org/zap"
-	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
 	"visitor/internal/visitor"
@@ -46,25 +43,25 @@ func main() {
 
 	// Initialize configuration
 	config := &visitor.VisitorConfig{
-		Name:                    "Visitor Service",
-		Version:                 "1.0.0",
-		Description:             "Visitor pattern implementation with microservice architecture",
-		MaxVisitors:             1000,
-		MaxElements:             10000,
-		MaxElementCollections:   1000,
-		MaxVisitHistory:         10000,
-		VisitTimeout:            30 * time.Second,
-		CleanupInterval:         1 * time.Hour,
-		ValidationEnabled:       true,
-		CachingEnabled:          true,
-		MonitoringEnabled:       true,
-		AuditingEnabled:         true,
-		SupportedVisitorTypes:   []string{"validation", "processing", "analytics", "custom"},
-		SupportedElementTypes:   []string{"document", "data", "service", "custom"},
-		DefaultVisitorType:      "custom",
-		DefaultElementType:      "custom",
+		Name:                  "Visitor Service",
+		Version:               "1.0.0",
+		Description:           "Visitor pattern implementation with microservice architecture",
+		MaxVisitors:           1000,
+		MaxElements:           10000,
+		MaxElementCollections: 1000,
+		MaxVisitHistory:       10000,
+		VisitTimeout:          30 * time.Second,
+		CleanupInterval:       1 * time.Hour,
+		ValidationEnabled:     true,
+		CachingEnabled:        true,
+		MonitoringEnabled:     true,
+		AuditingEnabled:       true,
+		SupportedVisitorTypes: []string{"validation", "processing", "analytics", "custom"},
+		SupportedElementTypes: []string{"document", "data", "service", "custom"},
+		DefaultVisitorType:    "custom",
+		DefaultElementType:    "custom",
 		ValidationRules: map[string]interface{}{
-			"max_name_length": 100,
+			"max_name_length":        100,
 			"max_description_length": 500,
 		},
 		Metadata: map[string]interface{}{
@@ -103,11 +100,11 @@ func main() {
 			Topics:  []string{"visitor-events"},
 		},
 		WebSocket: visitor.WebSocketConfig{
-			Enabled:           true,
-			Port:              8080,
-			ReadBufferSize:    1024,
-			WriteBufferSize:   1024,
-			HandshakeTimeout:  10 * time.Second,
+			Enabled:          true,
+			Port:             8080,
+			ReadBufferSize:   1024,
+			WriteBufferSize:  1024,
+			HandshakeTimeout: 10 * time.Second,
 		},
 		Security: visitor.SecurityConfig{
 			Enabled:           true,
@@ -140,12 +137,12 @@ func main() {
 	// Health check endpoint
 	router.GET("/health", func(c *gin.Context) {
 		healthChecks := map[string]interface{}{
-			"mysql":    checkMySQLHealth(mysqlDB),
-			"mongodb":  checkMongoDBHealth(mongoDB),
-			"redis":    checkRedisHealth(redisClient),
-			"cache":    checkCacheHealth(cacheClient),
+			"mysql":     checkMySQLHealth(mysqlDB),
+			"mongodb":   checkMongoDBHealth(mongoDB),
+			"redis":     checkRedisHealth(redisClient),
+			"cache":     checkCacheHealth(cacheClient),
 			"websocket": checkWebSocketHealth(hub),
-			"kafka":    checkKafkaHealth(kafkaProducer),
+			"kafka":     checkKafkaHealth(kafkaProducer),
 		}
 
 		status := http.StatusOK
@@ -554,8 +551,8 @@ type MockWebSocketHub struct {
 	broadcast chan []byte
 }
 
-func (mwh *MockWebSocketHub) Run() {}
-func (mwh *MockWebSocketHub) Register(client *websocket.Conn) {}
+func (mwh *MockWebSocketHub) Run()                              {}
+func (mwh *MockWebSocketHub) Register(client *websocket.Conn)   {}
 func (mwh *MockWebSocketHub) Unregister(client *websocket.Conn) {}
 func (mwh *MockWebSocketHub) Broadcast(message []byte) {
 	mwh.broadcast <- message

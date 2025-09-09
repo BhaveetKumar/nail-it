@@ -136,11 +136,11 @@ func (r *FactoryRegistryImpl) GetRegistryStats() map[string]interface{} {
 	defer r.mutex.RUnlock()
 
 	return map[string]interface{}{
-		"active":       r.active,
-		"created_at":   r.createdAt,
-		"updated_at":   r.updatedAt,
+		"active":          r.active,
+		"created_at":      r.createdAt,
+		"updated_at":      r.updatedAt,
 		"factories_count": len(r.factories),
-		"factories":    r.ListFactories(),
+		"factories":       r.ListFactories(),
 	}
 }
 
@@ -167,20 +167,20 @@ func (r *FactoryRegistryImpl) Cleanup(ctx context.Context) error {
 
 // ProductRegistryImpl implements the ProductRegistry interface
 type ProductRegistryImpl struct {
-	products map[string]interface{}
-	mutex    sync.RWMutex
+	products  map[string]interface{}
+	mutex     sync.RWMutex
 	createdAt time.Time
 	updatedAt time.Time
-	active   bool
+	active    bool
 }
 
 // NewProductRegistry creates a new product registry
 func NewProductRegistry() *ProductRegistryImpl {
 	return &ProductRegistryImpl{
-		products: make(map[string]interface{}),
+		products:  make(map[string]interface{}),
 		createdAt: time.Now(),
 		updatedAt: time.Now(),
-		active:   true,
+		active:    true,
 	}
 }
 
@@ -310,11 +310,11 @@ func (r *ProductRegistryImpl) GetRegistryStats() map[string]interface{} {
 	defer r.mutex.RUnlock()
 
 	return map[string]interface{}{
-		"active":       r.active,
-		"created_at":   r.createdAt,
-		"updated_at":   r.updatedAt,
+		"active":         r.active,
+		"created_at":     r.createdAt,
+		"updated_at":     r.updatedAt,
 		"products_count": len(r.products),
-		"products":     r.ListProducts(),
+		"products":       r.ListProducts(),
 	}
 }
 

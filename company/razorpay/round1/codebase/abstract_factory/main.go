@@ -19,11 +19,11 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
+	"github.com/razorpay/round1/codebase/abstract_factory/configs"
 	"github.com/razorpay/round1/codebase/abstract_factory/internal/abstract_factory"
 	"github.com/razorpay/round1/codebase/abstract_factory/internal/handlers"
 	"github.com/razorpay/round1/codebase/abstract_factory/internal/kafka"
 	"github.com/razorpay/round1/codebase/abstract_factory/internal/websocket"
-	"github.com/razorpay/round1/codebase/abstract_factory/configs"
 )
 
 func main() {
@@ -63,20 +63,20 @@ func main() {
 
 	// Initialize Abstract Factory service
 	factoryConfig := &abstract_factory.ServiceConfig{
-		Name:                    config.AbstractFactory.Name,
-		Version:                 config.AbstractFactory.Version,
-		Description:             config.AbstractFactory.Description,
-		MaxFactories:            config.AbstractFactory.MaxFactories,
-		MaxProducts:             config.AbstractFactory.MaxProducts,
-		CleanupInterval:         config.AbstractFactory.CleanupInterval,
-		ValidationEnabled:       config.AbstractFactory.ValidationEnabled,
-		CachingEnabled:          config.AbstractFactory.CachingEnabled,
-		MonitoringEnabled:       config.AbstractFactory.MonitoringEnabled,
-		AuditingEnabled:         config.AbstractFactory.AuditingEnabled,
-		SupportedFactoryTypes:   config.AbstractFactory.SupportedFactoryTypes,
-		SupportedProductTypes:   config.AbstractFactory.SupportedProductTypes,
-		ValidationRules:         config.AbstractFactory.ValidationRules,
-		Metadata:                config.AbstractFactory.Metadata,
+		Name:                  config.AbstractFactory.Name,
+		Version:               config.AbstractFactory.Version,
+		Description:           config.AbstractFactory.Description,
+		MaxFactories:          config.AbstractFactory.MaxFactories,
+		MaxProducts:           config.AbstractFactory.MaxProducts,
+		CleanupInterval:       config.AbstractFactory.CleanupInterval,
+		ValidationEnabled:     config.AbstractFactory.ValidationEnabled,
+		CachingEnabled:        config.AbstractFactory.CachingEnabled,
+		MonitoringEnabled:     config.AbstractFactory.MonitoringEnabled,
+		AuditingEnabled:       config.AbstractFactory.AuditingEnabled,
+		SupportedFactoryTypes: config.AbstractFactory.SupportedFactoryTypes,
+		SupportedProductTypes: config.AbstractFactory.SupportedProductTypes,
+		ValidationRules:       config.AbstractFactory.ValidationRules,
+		Metadata:              config.AbstractFactory.Metadata,
 	}
 
 	factoryService := abstract_factory.NewFactoryService(factoryConfig)

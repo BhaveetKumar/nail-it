@@ -252,17 +252,17 @@ func (ess *EventSourcingService) GetLatestSnapshot(ctx context.Context, aggregat
 // GetServiceStats returns service statistics
 func (ess *EventSourcingService) GetServiceStats(ctx context.Context) map[string]interface{} {
 	stats := map[string]interface{}{
-		"id":                    ess.GetID(),
-		"name":                  ess.GetName(),
-		"description":           ess.GetDescription(),
-		"active":                ess.IsActive(),
-		"created_at":            ess.GetCreatedAt(),
-		"updated_at":            ess.GetUpdatedAt(),
-		"aggregate_count":       len(ess.aggregates),
-		"event_store_stats":     make(map[string]interface{}),
-		"event_bus_stats":       make(map[string]interface{}),
-		"snapshot_store_stats":  make(map[string]interface{}),
-		"metadata":              ess.GetMetadata(),
+		"id":                   ess.GetID(),
+		"name":                 ess.GetName(),
+		"description":          ess.GetDescription(),
+		"active":               ess.IsActive(),
+		"created_at":           ess.GetCreatedAt(),
+		"updated_at":           ess.GetUpdatedAt(),
+		"aggregate_count":      len(ess.aggregates),
+		"event_store_stats":    make(map[string]interface{}),
+		"event_bus_stats":      make(map[string]interface{}),
+		"snapshot_store_stats": make(map[string]interface{}),
+		"metadata":             ess.GetMetadata(),
 	}
 
 	// Get event store stats
@@ -346,22 +346,22 @@ func (ess *EventSourcingService) GetDescription() string {
 // GetMetadata returns the service metadata
 func (ess *EventSourcingService) GetMetadata() map[string]interface{} {
 	return map[string]interface{}{
-		"name":                    ess.config.Name,
-		"version":                 ess.config.Version,
-		"description":             ess.config.Description,
-		"max_events":              ess.config.MaxEvents,
-		"max_aggregates":          ess.config.MaxAggregates,
-		"max_snapshots":           ess.config.MaxSnapshots,
-		"snapshot_interval":       ess.config.SnapshotInterval,
-		"cleanup_interval":        ess.config.CleanupInterval,
-		"validation_enabled":      ess.config.ValidationEnabled,
-		"caching_enabled":         ess.config.CachingEnabled,
-		"monitoring_enabled":      ess.config.MonitoringEnabled,
-		"auditing_enabled":        ess.config.AuditingEnabled,
-		"supported_event_types":   ess.config.SupportedEventTypes,
+		"name":                      ess.config.Name,
+		"version":                   ess.config.Version,
+		"description":               ess.config.Description,
+		"max_events":                ess.config.MaxEvents,
+		"max_aggregates":            ess.config.MaxAggregates,
+		"max_snapshots":             ess.config.MaxSnapshots,
+		"snapshot_interval":         ess.config.SnapshotInterval,
+		"cleanup_interval":          ess.config.CleanupInterval,
+		"validation_enabled":        ess.config.ValidationEnabled,
+		"caching_enabled":           ess.config.CachingEnabled,
+		"monitoring_enabled":        ess.config.MonitoringEnabled,
+		"auditing_enabled":          ess.config.AuditingEnabled,
+		"supported_event_types":     ess.config.SupportedEventTypes,
 		"supported_aggregate_types": ess.config.SupportedAggregateTypes,
-		"validation_rules":        ess.config.ValidationRules,
-		"metadata":                ess.config.Metadata,
+		"validation_rules":          ess.config.ValidationRules,
+		"metadata":                  ess.config.Metadata,
 	}
 }
 

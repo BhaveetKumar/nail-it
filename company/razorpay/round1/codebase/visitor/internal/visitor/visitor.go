@@ -1,19 +1,18 @@
 package visitor
 
 import (
-	"context"
 	"time"
 )
 
 // VisitorService implements the VisitorManager interface
 type VisitorService struct {
-	config           *VisitorConfig
-	visitors         map[string]Visitor
-	elements         map[string]Element
+	config             *VisitorConfig
+	visitors           map[string]Visitor
+	elements           map[string]Element
 	elementCollections map[string]ElementCollection
-	visitHistory     []VisitRecord
-	createdAt        time.Time
-	updatedAt        time.Time
+	visitHistory       []VisitRecord
+	createdAt          time.Time
+	updatedAt          time.Time
 }
 
 // NewVisitorService creates a new visitor service
@@ -335,16 +334,16 @@ func (vs *VisitorService) ClearVisitHistory() error {
 // GetVisitorStats returns visitor statistics
 func (vs *VisitorService) GetVisitorStats() map[string]interface{} {
 	stats := map[string]interface{}{
-		"total_visitors":           len(vs.visitors),
-		"total_elements":           len(vs.elements),
+		"total_visitors":            len(vs.visitors),
+		"total_elements":            len(vs.elements),
 		"total_element_collections": len(vs.elementCollections),
-		"total_visits":             len(vs.visitHistory),
-		"successful_visits":        0,
-		"failed_visits":            0,
-		"average_visit_duration":   0,
-		"visitors":                 make(map[string]interface{}),
-		"elements":                 make(map[string]interface{}),
-		"element_collections":      make(map[string]interface{}),
+		"total_visits":              len(vs.visitHistory),
+		"successful_visits":         0,
+		"failed_visits":             0,
+		"average_visit_duration":    0,
+		"visitors":                  make(map[string]interface{}),
+		"elements":                  make(map[string]interface{}),
+		"element_collections":       make(map[string]interface{}),
 	}
 
 	// Calculate visit statistics
@@ -400,11 +399,11 @@ func (vs *VisitorService) GetVisitorStats() map[string]interface{} {
 	collectionDetails := make(map[string]interface{})
 	for _, collection := range vs.elementCollections {
 		collectionDetails[collection.GetID()] = map[string]interface{}{
-			"name":        collection.GetName(),
-			"description": collection.GetDescription(),
-			"active":      collection.IsActive(),
-			"created_at":  collection.GetCreatedAt(),
-			"updated_at":  collection.GetUpdatedAt(),
+			"name":          collection.GetName(),
+			"description":   collection.GetDescription(),
+			"active":        collection.IsActive(),
+			"created_at":    collection.GetCreatedAt(),
+			"updated_at":    collection.GetUpdatedAt(),
 			"element_count": collection.GetElementCount(),
 		}
 	}

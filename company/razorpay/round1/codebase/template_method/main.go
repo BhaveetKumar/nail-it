@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -14,9 +13,7 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/patrickmn/go-cache"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.uber.org/zap"
-	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
 	"template_method/internal/template_method"
@@ -46,26 +43,26 @@ func main() {
 
 	// Initialize configuration
 	config := &template_method.TemplateMethodConfig{
-		Name:        "Template Method Service",
-		Version:     "1.0.0",
-		Description: "Template Method pattern implementation with microservice architecture",
+		Name:               "Template Method Service",
+		Version:            "1.0.0",
+		Description:        "Template Method pattern implementation with microservice architecture",
 		MaxTemplateMethods: 1000,
-		MaxSteps: 100,
-		MaxExecutionTime: 30 * time.Minute,
-		MaxRetries: 3,
-		RetryDelay: 1 * time.Second,
-		RetryBackoff: 2.0,
-		ValidationEnabled: true,
-		CachingEnabled: true,
-		MonitoringEnabled: true,
-		AuditingEnabled: true,
-		SchedulingEnabled: true,
-		SupportedTypes: []string{"document_processing", "data_validation", "workflow", "api_request", "database_operation"},
-		DefaultType: "workflow",
+		MaxSteps:           100,
+		MaxExecutionTime:   30 * time.Minute,
+		MaxRetries:         3,
+		RetryDelay:         1 * time.Second,
+		RetryBackoff:       2.0,
+		ValidationEnabled:  true,
+		CachingEnabled:     true,
+		MonitoringEnabled:  true,
+		AuditingEnabled:    true,
+		SchedulingEnabled:  true,
+		SupportedTypes:     []string{"document_processing", "data_validation", "workflow", "api_request", "database_operation"},
+		DefaultType:        "workflow",
 		ValidationRules: map[string]interface{}{
-			"max_steps": 100,
+			"max_steps":          100,
 			"max_execution_time": 30 * time.Minute,
-			"max_retries": 3,
+			"max_retries":        3,
 		},
 		Metadata: map[string]interface{}{
 			"environment": "production",
@@ -103,11 +100,11 @@ func main() {
 			Topics:  []string{"template-method-events"},
 		},
 		WebSocket: template_method.WebSocketConfig{
-			Enabled:           true,
-			Port:              8080,
-			ReadBufferSize:    1024,
-			WriteBufferSize:   1024,
-			HandshakeTimeout:  10 * time.Second,
+			Enabled:          true,
+			Port:             8080,
+			ReadBufferSize:   1024,
+			WriteBufferSize:  1024,
+			HandshakeTimeout: 10 * time.Second,
 		},
 		Security: template_method.SecurityConfig{
 			Enabled:           true,
@@ -140,12 +137,12 @@ func main() {
 	// Health check endpoint
 	router.GET("/health", func(c *gin.Context) {
 		healthChecks := map[string]interface{}{
-			"mysql":    checkMySQLHealth(mysqlDB),
-			"mongodb":  checkMongoDBHealth(mongoDB),
-			"redis":    checkRedisHealth(redisClient),
-			"cache":    checkCacheHealth(cacheClient),
+			"mysql":     checkMySQLHealth(mysqlDB),
+			"mongodb":   checkMongoDBHealth(mongoDB),
+			"redis":     checkRedisHealth(redisClient),
+			"cache":     checkCacheHealth(cacheClient),
 			"websocket": checkWebSocketHealth(hub),
-			"kafka":    checkKafkaHealth(kafkaProducer),
+			"kafka":     checkKafkaHealth(kafkaProducer),
 		}
 
 		status := http.StatusOK
@@ -228,18 +225,18 @@ func main() {
 			}
 
 			c.JSON(http.StatusOK, gin.H{
-				"name":        template.GetName(),
-				"description": template.GetDescription(),
-				"status":      template.GetStatus(),
-				"steps":       stepInfo,
-				"count":       len(steps),
+				"name":         template.GetName(),
+				"description":  template.GetDescription(),
+				"status":       template.GetStatus(),
+				"steps":        stepInfo,
+				"count":        len(steps),
 				"current_step": template.GetCurrentStep(),
-				"start_time":  template.GetStartTime(),
-				"end_time":    template.GetEndTime(),
-				"duration":    template.GetDuration(),
-				"completed":   template.IsCompleted(),
-				"failed":      template.IsFailed(),
-				"running":     template.IsRunning(),
+				"start_time":   template.GetStartTime(),
+				"end_time":     template.GetEndTime(),
+				"duration":     template.GetDuration(),
+				"completed":    template.IsCompleted(),
+				"failed":       template.IsFailed(),
+				"running":      template.IsRunning(),
 			})
 		})
 
@@ -527,8 +524,8 @@ type MockWebSocketHub struct {
 	broadcast chan []byte
 }
 
-func (mwh *MockWebSocketHub) Run() {}
-func (mwh *MockWebSocketHub) Register(client *websocket.Conn) {}
+func (mwh *MockWebSocketHub) Run()                              {}
+func (mwh *MockWebSocketHub) Register(client *websocket.Conn)   {}
 func (mwh *MockWebSocketHub) Unregister(client *websocket.Conn) {}
 func (mwh *MockWebSocketHub) Broadcast(message []byte) {
 	mwh.broadcast <- message

@@ -7,15 +7,15 @@ import (
 
 // UnitOfWorkService implements the UnitOfWork interface
 type UnitOfWorkService struct {
-	config           *UnitOfWorkConfig
-	repositories     map[string]Repository
-	newEntities      []Entity
-	dirtyEntities    []Entity
-	deletedEntities  []Entity
-	cleanEntities    []Entity
-	createdAt        time.Time
-	updatedAt        time.Time
-	active           bool
+	config          *UnitOfWorkConfig
+	repositories    map[string]Repository
+	newEntities     []Entity
+	dirtyEntities   []Entity
+	deletedEntities []Entity
+	cleanEntities   []Entity
+	createdAt       time.Time
+	updatedAt       time.Time
+	active          bool
 }
 
 // NewUnitOfWorkService creates a new unit of work service
@@ -244,21 +244,21 @@ func (uows *UnitOfWorkService) GetDescription() string {
 // GetMetadata returns the unit of work metadata
 func (uows *UnitOfWorkService) GetMetadata() map[string]interface{} {
 	return map[string]interface{}{
-		"name":                    uows.config.Name,
-		"version":                 uows.config.Version,
-		"description":             uows.config.Description,
-		"max_entities":            uows.config.MaxEntities,
-		"max_repositories":        uows.config.MaxRepositories,
-		"transaction_timeout":     uows.config.TransactionTimeout,
-		"cleanup_interval":        uows.config.CleanupInterval,
-		"validation_enabled":      uows.config.ValidationEnabled,
-		"caching_enabled":         uows.config.CachingEnabled,
-		"monitoring_enabled":      uows.config.MonitoringEnabled,
-		"auditing_enabled":        uows.config.AuditingEnabled,
+		"name":                   uows.config.Name,
+		"version":                uows.config.Version,
+		"description":            uows.config.Description,
+		"max_entities":           uows.config.MaxEntities,
+		"max_repositories":       uows.config.MaxRepositories,
+		"transaction_timeout":    uows.config.TransactionTimeout,
+		"cleanup_interval":       uows.config.CleanupInterval,
+		"validation_enabled":     uows.config.ValidationEnabled,
+		"caching_enabled":        uows.config.CachingEnabled,
+		"monitoring_enabled":     uows.config.MonitoringEnabled,
+		"auditing_enabled":       uows.config.AuditingEnabled,
 		"supported_entity_types": uows.config.SupportedEntityTypes,
-		"default_entity_type":     uows.config.DefaultEntityType,
-		"validation_rules":        uows.config.ValidationRules,
-		"metadata":                uows.config.Metadata,
+		"default_entity_type":    uows.config.DefaultEntityType,
+		"validation_rules":       uows.config.ValidationRules,
+		"metadata":               uows.config.Metadata,
 	}
 }
 
@@ -360,21 +360,21 @@ func (uows *UnitOfWorkService) GetEntityTypes() []string {
 // GetStats returns unit of work statistics
 func (uows *UnitOfWorkService) GetStats() map[string]interface{} {
 	return map[string]interface{}{
-		"id":                    uows.GetID(),
-		"name":                  uows.GetName(),
-		"description":           uows.GetDescription(),
-		"active":                uows.IsActive(),
-		"created_at":            uows.GetCreatedAt(),
-		"updated_at":            uows.GetUpdatedAt(),
-		"repository_count":      uows.GetRepositoryCount(),
-		"entity_count":          uows.GetEntityCount(),
-		"new_entity_count":      uows.GetNewEntityCount(),
-		"dirty_entity_count":    uows.GetDirtyEntityCount(),
-		"deleted_entity_count":  uows.GetDeletedEntityCount(),
-		"clean_entity_count":    uows.GetCleanEntityCount(),
-		"repository_types":      uows.GetRepositoryTypes(),
-		"entity_types":          uows.GetEntityTypes(),
-		"metadata":              uows.GetMetadata(),
+		"id":                   uows.GetID(),
+		"name":                 uows.GetName(),
+		"description":          uows.GetDescription(),
+		"active":               uows.IsActive(),
+		"created_at":           uows.GetCreatedAt(),
+		"updated_at":           uows.GetUpdatedAt(),
+		"repository_count":     uows.GetRepositoryCount(),
+		"entity_count":         uows.GetEntityCount(),
+		"new_entity_count":     uows.GetNewEntityCount(),
+		"dirty_entity_count":   uows.GetDirtyEntityCount(),
+		"deleted_entity_count": uows.GetDeletedEntityCount(),
+		"clean_entity_count":   uows.GetCleanEntityCount(),
+		"repository_types":     uows.GetRepositoryTypes(),
+		"entity_types":         uows.GetEntityTypes(),
+		"metadata":             uows.GetMetadata(),
 	}
 }
 

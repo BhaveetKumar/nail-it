@@ -226,12 +226,12 @@ func (oce *OrderCreatedEvent) GetStatus() string {
 // OrderStatusChangedEvent represents an order status changed event
 type OrderStatusChangedEvent struct {
 	*ConcreteEvent
-	OrderID      string `json:"order_id"`
-	OldStatus    string `json:"old_status"`
-	NewStatus    string `json:"new_status"`
-	ChangedBy    string `json:"changed_by"`
-	Reason       string `json:"reason"`
-	ChangedAt    time.Time `json:"changed_at"`
+	OrderID   string    `json:"order_id"`
+	OldStatus string    `json:"old_status"`
+	NewStatus string    `json:"new_status"`
+	ChangedBy string    `json:"changed_by"`
+	Reason    string    `json:"reason"`
+	ChangedAt time.Time `json:"changed_at"`
 }
 
 // NewOrderStatusChangedEvent creates a new order status changed event
@@ -251,12 +251,12 @@ func NewOrderStatusChangedEvent(aggregateID, orderID, oldStatus, newStatus, chan
 			Processed:     false,
 			ProcessedAt:   time.Time{},
 		},
-		OrderID:      orderID,
-		OldStatus:    oldStatus,
-		NewStatus:    newStatus,
-		ChangedBy:    changedBy,
-		Reason:       reason,
-		ChangedAt:    time.Now(),
+		OrderID:   orderID,
+		OldStatus: oldStatus,
+		NewStatus: newStatus,
+		ChangedBy: changedBy,
+		Reason:    reason,
+		ChangedAt: time.Now(),
 	}
 }
 
@@ -476,12 +476,12 @@ func (ua *UserAggregate) SetStatus(status string) {
 // OrderAggregate represents an order aggregate
 type OrderAggregate struct {
 	*ConcreteAggregate
-	OrderID     string  `json:"order_id"`
-	UserID      string  `json:"user_id"`
-	OrderNumber string  `json:"order_number"`
-	TotalAmount float64 `json:"total_amount"`
-	Currency    string  `json:"currency"`
-	Status      string  `json:"status"`
+	OrderID     string    `json:"order_id"`
+	UserID      string    `json:"user_id"`
+	OrderNumber string    `json:"order_number"`
+	TotalAmount float64   `json:"total_amount"`
+	Currency    string    `json:"currency"`
+	Status      string    `json:"status"`
 	OrderDate   time.Time `json:"order_date"`
 }
 
@@ -560,15 +560,15 @@ func (oa *OrderAggregate) GetOrderDate() time.Time {
 // PaymentAggregate represents a payment aggregate
 type PaymentAggregate struct {
 	*ConcreteAggregate
-	PaymentID     string  `json:"payment_id"`
-	OrderID       string  `json:"order_id"`
-	UserID        string  `json:"user_id"`
-	Amount        float64 `json:"amount"`
-	Currency      string  `json:"currency"`
-	PaymentMethod string  `json:"payment_method"`
-	Status        string  `json:"status"`
-	TransactionID string  `json:"transaction_id"`
-	Gateway       string  `json:"gateway"`
+	PaymentID     string    `json:"payment_id"`
+	OrderID       string    `json:"order_id"`
+	UserID        string    `json:"user_id"`
+	Amount        float64   `json:"amount"`
+	Currency      string    `json:"currency"`
+	PaymentMethod string    `json:"payment_method"`
+	Status        string    `json:"status"`
+	TransactionID string    `json:"transaction_id"`
+	Gateway       string    `json:"gateway"`
 	PaymentDate   time.Time `json:"payment_date"`
 }
 

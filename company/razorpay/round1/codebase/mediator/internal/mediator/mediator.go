@@ -25,11 +25,11 @@ func NewConcreteMediator(config *MediatorConfig) *ConcreteMediator {
 func (cm *ConcreteMediator) RegisterColleague(colleague Colleague) error {
 	cm.mutex.Lock()
 	defer cm.mutex.Unlock()
-	
+
 	if len(cm.colleagues) >= cm.config.MaxColleagues {
 		return ErrMaxColleaguesReached
 	}
-	
+
 	colleague.SetMediator(cm)
 	cm.colleagues[colleague.GetID()] = colleague
 	return nil
@@ -39,12 +39,12 @@ func (cm *ConcreteMediator) RegisterColleague(colleague Colleague) error {
 func (cm *ConcreteMediator) UnregisterColleague(colleagueID string) error {
 	cm.mutex.Lock()
 	defer cm.mutex.Unlock()
-	
+
 	colleague, exists := cm.colleagues[colleagueID]
 	if !exists {
 		return ErrColleagueNotFound
 	}
-	
+
 	colleague.SetActive(false)
 	delete(cm.colleagues, colleagueID)
 	return nil
@@ -54,21 +54,21 @@ func (cm *ConcreteMediator) UnregisterColleague(colleagueID string) error {
 func (cm *ConcreteMediator) SendMessage(senderID string, recipientID string, message interface{}) error {
 	cm.mutex.RLock()
 	defer cm.mutex.RUnlock()
-	
+
 	sender, exists := cm.colleagues[senderID]
 	if !exists {
 		return ErrSenderNotFound
 	}
-	
+
 	recipient, exists := cm.colleagues[recipientID]
 	if !exists {
 		return ErrRecipientNotFound
 	}
-	
+
 	if !sender.IsActive() || !recipient.IsActive() {
 		return ErrColleagueNotActive
 	}
-	
+
 	return recipient.ReceiveMessage(senderID, message)
 }
 
@@ -76,16 +76,16 @@ func (cm *ConcreteMediator) SendMessage(senderID string, recipientID string, mes
 func (cm *ConcreteMediator) BroadcastMessage(senderID string, message interface{}) error {
 	cm.mutex.RLock()
 	defer cm.mutex.RUnlock()
-	
+
 	sender, exists := cm.colleagues[senderID]
 	if !exists {
 		return ErrSenderNotFound
 	}
-	
+
 	if !sender.IsActive() {
 		return ErrColleagueNotActive
 	}
-	
+
 	for id, colleague := range cm.colleagues {
 		if id != senderID && colleague.IsActive() {
 			if err := colleague.ReceiveMessage(senderID, message); err != nil {
@@ -94,7 +94,7 @@ func (cm *ConcreteMediator) BroadcastMessage(senderID string, message interface{
 			}
 		}
 	}
-	
+
 	return nil
 }
 
@@ -102,12 +102,12 @@ func (cm *ConcreteMediator) BroadcastMessage(senderID string, message interface{
 func (cm *ConcreteMediator) GetColleagues() []Colleague {
 	cm.mutex.RLock()
 	defer cm.mutex.RUnlock()
-	
+
 	colleagues := make([]Colleague, 0, len(cm.colleagues))
 	for _, colleague := range cm.colleagues {
 		colleagues = append(colleagues, colleague)
 	}
-	
+
 	return colleagues
 }
 
@@ -115,12 +115,12 @@ func (cm *ConcreteMediator) GetColleagues() []Colleague {
 func (cm *ConcreteMediator) GetColleague(colleagueID string) (Colleague, error) {
 	cm.mutex.RLock()
 	defer cm.mutex.RUnlock()
-	
+
 	colleague, exists := cm.colleagues[colleagueID]
 	if !exists {
 		return nil, ErrColleagueNotFound
 	}
-	
+
 	return colleague, nil
 }
 
@@ -187,11 +187,11 @@ func NewMediatorManager(config *MediatorConfig) *MediatorManager {
 func (mm *MediatorManager) CreateMediator(name string) (Mediator, error) {
 	mm.mutex.Lock()
 	defer mm.mutex.Unlock()
-	
+
 	if len(mm.mediators) >= mm.config.MaxMediators {
 		return nil, ErrMaxMediatorsReached
 	}
-	
+
 	mediator := NewConcreteMediator(mm.config)
 	mm.mediators[name] = mediator
 	return mediator, nil
@@ -201,12 +201,12 @@ func (mm *MediatorManager) CreateMediator(name string) (Mediator, error) {
 func (mm *MediatorManager) GetMediator(name string) (Mediator, error) {
 	mm.mutex.RLock()
 	defer mm.mutex.RUnlock()
-	
+
 	mediator, exists := mm.mediators[name]
 	if !exists {
 		return nil, ErrMediatorNotFound
 	}
-	
+
 	return mediator, nil
 }
 
@@ -214,18 +214,18 @@ func (mm *MediatorManager) GetMediator(name string) (Mediator, error) {
 func (mm *MediatorManager) RemoveMediator(name string) error {
 	mm.mutex.Lock()
 	defer mm.mutex.Unlock()
-	
+
 	mediator, exists := mm.mediators[name]
 	if !exists {
 		return ErrMediatorNotFound
 	}
-	
+
 	// Unregister all colleagues from the mediator
 	colleagues := mediator.GetColleagues()
 	for _, colleague := range colleagues {
 		mediator.UnregisterColleague(colleague.GetID())
 	}
-	
+
 	delete(mm.mediators, name)
 	return nil
 }
@@ -234,12 +234,12 @@ func (mm *MediatorManager) RemoveMediator(name string) error {
 func (mm *MediatorManager) ListMediators() []string {
 	mm.mutex.RLock()
 	defer mm.mutex.RUnlock()
-	
+
 	names := make([]string, 0, len(mm.mediators))
 	for name := range mm.mediators {
 		names = append(names, name)
 	}
-	
+
 	return names
 }
 
@@ -262,7 +262,7 @@ func NewMediatorCache(ttl time.Duration) *MediatorCache {
 func (mc *MediatorCache) Set(key string, value interface{}) {
 	mc.mutex.Lock()
 	defer mc.mutex.Unlock()
-	
+
 	mc.cache[key] = value
 }
 
@@ -270,7 +270,7 @@ func (mc *MediatorCache) Set(key string, value interface{}) {
 func (mc *MediatorCache) Get(key string) (interface{}, bool) {
 	mc.mutex.RLock()
 	defer mc.mutex.RUnlock()
-	
+
 	value, exists := mc.cache[key]
 	return value, exists
 }
@@ -279,7 +279,7 @@ func (mc *MediatorCache) Get(key string) (interface{}, bool) {
 func (mc *MediatorCache) Delete(key string) {
 	mc.mutex.Lock()
 	defer mc.mutex.Unlock()
-	
+
 	delete(mc.cache, key)
 }
 
@@ -287,7 +287,7 @@ func (mc *MediatorCache) Delete(key string) {
 func (mc *MediatorCache) Clear() {
 	mc.mutex.Lock()
 	defer mc.mutex.Unlock()
-	
+
 	mc.cache = make(map[string]interface{})
 }
 
@@ -295,23 +295,23 @@ func (mc *MediatorCache) Clear() {
 func (mc *MediatorCache) Size() int {
 	mc.mutex.RLock()
 	defer mc.mutex.RUnlock()
-	
+
 	return len(mc.cache)
 }
 
 // MediatorMetrics provides metrics for mediators
 type MediatorMetrics struct {
-	TotalMediators    int64
-	ActiveMediators   int64
-	TotalColleagues   int64
-	ActiveColleagues  int64
-	TotalMessages     int64
+	TotalMediators     int64
+	ActiveMediators    int64
+	TotalColleagues    int64
+	ActiveColleagues   int64
+	TotalMessages      int64
 	SuccessfulMessages int64
-	FailedMessages    int64
-	AverageLatency    float64
-	MaxLatency        float64
-	MinLatency        float64
-	LastUpdate        time.Time
+	FailedMessages     int64
+	AverageLatency     float64
+	MaxLatency         float64
+	MinLatency         float64
+	LastUpdate         time.Time
 }
 
 // GetMetrics returns current metrics
@@ -323,16 +323,16 @@ func (mm *MediatorMetrics) GetMetrics() *MediatorMetrics {
 func (mm *MediatorMetrics) UpdateMetrics(mediator Mediator) {
 	mm.TotalMediators++
 	mm.ActiveMediators++
-	
+
 	colleagues := mediator.GetColleagues()
 	mm.TotalColleagues += int64(len(colleagues))
-	
+
 	for _, colleague := range colleagues {
 		if colleague.IsActive() {
 			mm.ActiveColleagues++
 		}
 	}
-	
+
 	mm.LastUpdate = time.Now()
 }
 
@@ -353,12 +353,12 @@ func (mv *MediatorValidator) ValidateMediator(mediator Mediator) error {
 	if mediator == nil {
 		return ErrInvalidMediator
 	}
-	
+
 	colleagues := mediator.GetColleagues()
 	if len(colleagues) > mv.config.MaxColleagues {
 		return ErrTooManyColleagues
 	}
-	
+
 	return nil
 }
 
@@ -367,15 +367,15 @@ func (mv *MediatorValidator) ValidateColleague(colleague Colleague) error {
 	if colleague == nil {
 		return ErrInvalidColleague
 	}
-	
+
 	if colleague.GetID() == "" {
 		return ErrEmptyColleagueID
 	}
-	
+
 	if colleague.GetName() == "" {
 		return ErrEmptyColleagueName
 	}
-	
+
 	return nil
 }
 

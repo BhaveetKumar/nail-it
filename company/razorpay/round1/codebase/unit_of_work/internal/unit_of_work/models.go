@@ -101,12 +101,12 @@ func (ue *UserEntity) SetStatus(status string) {
 // OrderEntity represents an order entity
 type OrderEntity struct {
 	*ConcreteEntity
-	UserID      string    `json:"user_id"`
-	OrderNumber string    `json:"order_number"`
-	TotalAmount float64   `json:"total_amount"`
-	Currency    string    `json:"currency"`
-	Status      string    `json:"status"`
-	OrderDate   time.Time `json:"order_date"`
+	UserID      string      `json:"user_id"`
+	OrderNumber string      `json:"order_number"`
+	TotalAmount float64     `json:"total_amount"`
+	Currency    string      `json:"currency"`
+	Status      string      `json:"status"`
+	OrderDate   time.Time   `json:"order_date"`
 	Items       []OrderItem `json:"items"`
 }
 

@@ -8,24 +8,24 @@ import (
 
 // FactoryServiceImpl implements the FactoryService interface
 type FactoryServiceImpl struct {
-	config        *ServiceConfig
+	config          *ServiceConfig
 	factoryRegistry FactoryRegistry
 	productRegistry ProductRegistry
-	createdAt     time.Time
-	updatedAt     time.Time
-	active        bool
-	mutex         sync.RWMutex
+	createdAt       time.Time
+	updatedAt       time.Time
+	active          bool
+	mutex           sync.RWMutex
 }
 
 // NewFactoryService creates a new factory service
 func NewFactoryService(config *ServiceConfig) *FactoryServiceImpl {
 	return &FactoryServiceImpl{
-		config:        config,
+		config:          config,
 		factoryRegistry: NewFactoryRegistry(),
 		productRegistry: NewProductRegistry(),
-		createdAt:     time.Now(),
-		updatedAt:     time.Now(),
-		active:        true,
+		createdAt:       time.Now(),
+		updatedAt:       time.Now(),
+		active:          true,
 	}
 }
 
@@ -287,24 +287,24 @@ func (s *FactoryServiceImpl) Cleanup(ctx context.Context) error {
 
 // ProductServiceImpl implements the ProductService interface
 type ProductServiceImpl struct {
-	config        *ServiceConfig
+	config          *ServiceConfig
 	factoryRegistry FactoryRegistry
 	productRegistry ProductRegistry
-	createdAt     time.Time
-	updatedAt     time.Time
-	active        bool
-	mutex         sync.RWMutex
+	createdAt       time.Time
+	updatedAt       time.Time
+	active          bool
+	mutex           sync.RWMutex
 }
 
 // NewProductService creates a new product service
 func NewProductService(config *ServiceConfig) *ProductServiceImpl {
 	return &ProductServiceImpl{
-		config:        config,
+		config:          config,
 		factoryRegistry: NewFactoryRegistry(),
 		productRegistry: NewProductRegistry(),
-		createdAt:     time.Now(),
-		updatedAt:     time.Now(),
-		active:        true,
+		createdAt:       time.Now(),
+		updatedAt:       time.Now(),
+		active:          true,
 	}
 }
 

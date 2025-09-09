@@ -88,9 +88,9 @@ func (de *DocumentElement) SetEncoding(encoding string) {
 // DataElement represents a data element
 type DataElement struct {
 	*ConcreteElement
-	Value       interface{} `json:"value"`
-	DataType    string      `json:"data_type"`
-	Format      string      `json:"format"`
+	Value       interface{}            `json:"value"`
+	DataType    string                 `json:"data_type"`
+	Format      string                 `json:"format"`
 	Constraints map[string]interface{} `json:"constraints"`
 }
 
@@ -161,12 +161,12 @@ func (de *DataElement) SetConstraints(constraints map[string]interface{}) {
 // ServiceElement represents a service element
 type ServiceElement struct {
 	*ConcreteElement
-	Endpoint    string            `json:"endpoint"`
-	Method      string            `json:"method"`
-	Headers     map[string]string `json:"headers"`
-	Parameters  map[string]interface{} `json:"parameters"`
-	Timeout     time.Duration     `json:"timeout"`
-	RetryCount  int               `json:"retry_count"`
+	Endpoint   string                 `json:"endpoint"`
+	Method     string                 `json:"method"`
+	Headers    map[string]string      `json:"headers"`
+	Parameters map[string]interface{} `json:"parameters"`
+	Timeout    time.Duration          `json:"timeout"`
+	RetryCount int                    `json:"retry_count"`
 }
 
 // NewServiceElement creates a new service element
@@ -182,12 +182,12 @@ func NewServiceElement(name, description, endpoint, method string) *ServiceEleme
 			UpdatedAt:   time.Now(),
 			Active:      true,
 		},
-		Endpoint:    endpoint,
-		Method:      method,
-		Headers:     make(map[string]string),
-		Parameters:  make(map[string]interface{}),
-		Timeout:     30 * time.Second,
-		RetryCount:  3,
+		Endpoint:   endpoint,
+		Method:     method,
+		Headers:    make(map[string]string),
+		Parameters: make(map[string]interface{}),
+		Timeout:    30 * time.Second,
+		RetryCount: 3,
 	}
 }
 
@@ -529,10 +529,10 @@ func (pv *ProcessingVisitor) SetFailureCount(count int) {
 // AnalyticsVisitor represents a visitor for analytics operations
 type AnalyticsVisitor struct {
 	*ConcreteVisitor
-	AnalyticsRules map[string]interface{} `json:"analytics_rules"`
-	Metrics        map[string]interface{} `json:"metrics"`
-	ReportFormat   string                 `json:"report_format"`
-	ReportGenerated bool                  `json:"report_generated"`
+	AnalyticsRules  map[string]interface{} `json:"analytics_rules"`
+	Metrics         map[string]interface{} `json:"metrics"`
+	ReportFormat    string                 `json:"report_format"`
+	ReportGenerated bool                   `json:"report_generated"`
 }
 
 // NewAnalyticsVisitor creates a new analytics visitor
@@ -548,9 +548,9 @@ func NewAnalyticsVisitor(name, description string) *AnalyticsVisitor {
 			UpdatedAt:   time.Now(),
 			Active:      true,
 		},
-		AnalyticsRules: make(map[string]interface{}),
-		Metrics:        make(map[string]interface{}),
-		ReportFormat:   "json",
+		AnalyticsRules:  make(map[string]interface{}),
+		Metrics:         make(map[string]interface{}),
+		ReportFormat:    "json",
 		ReportGenerated: false,
 	}
 }

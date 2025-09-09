@@ -158,20 +158,20 @@ type ProductConfig struct {
 
 // ServiceConfig holds configuration for the service
 type ServiceConfig struct {
-	Name                    string                 `json:"name" yaml:"name"`
-	Version                 string                 `json:"version" yaml:"version"`
-	Description             string                 `json:"description" yaml:"description"`
-	MaxFactories            int                    `json:"max_factories" yaml:"max_factories"`
-	MaxProducts             int                    `json:"max_products" yaml:"max_products"`
-	CleanupInterval         time.Duration          `json:"cleanup_interval" yaml:"cleanup_interval"`
-	ValidationEnabled       bool                   `json:"validation_enabled" yaml:"validation_enabled"`
-	CachingEnabled          bool                   `json:"caching_enabled" yaml:"caching_enabled"`
-	MonitoringEnabled       bool                   `json:"monitoring_enabled" yaml:"monitoring_enabled"`
-	AuditingEnabled         bool                   `json:"auditing_enabled" yaml:"auditing_enabled"`
-	SupportedFactoryTypes   []string               `json:"supported_factory_types" yaml:"supported_factory_types"`
-	SupportedProductTypes   []string               `json:"supported_product_types" yaml:"supported_product_types"`
-	ValidationRules         map[string]interface{} `json:"validation_rules" yaml:"validation_rules"`
-	Metadata                map[string]interface{} `json:"metadata" yaml:"metadata"`
+	Name                  string                 `json:"name" yaml:"name"`
+	Version               string                 `json:"version" yaml:"version"`
+	Description           string                 `json:"description" yaml:"description"`
+	MaxFactories          int                    `json:"max_factories" yaml:"max_factories"`
+	MaxProducts           int                    `json:"max_products" yaml:"max_products"`
+	CleanupInterval       time.Duration          `json:"cleanup_interval" yaml:"cleanup_interval"`
+	ValidationEnabled     bool                   `json:"validation_enabled" yaml:"validation_enabled"`
+	CachingEnabled        bool                   `json:"caching_enabled" yaml:"caching_enabled"`
+	MonitoringEnabled     bool                   `json:"monitoring_enabled" yaml:"monitoring_enabled"`
+	AuditingEnabled       bool                   `json:"auditing_enabled" yaml:"auditing_enabled"`
+	SupportedFactoryTypes []string               `json:"supported_factory_types" yaml:"supported_factory_types"`
+	SupportedProductTypes []string               `json:"supported_product_types" yaml:"supported_product_types"`
+	ValidationRules       map[string]interface{} `json:"validation_rules" yaml:"validation_rules"`
+	Metadata              map[string]interface{} `json:"metadata" yaml:"metadata"`
 }
 
 // FactoryStats holds statistics for a factory
@@ -198,14 +198,14 @@ type ProductStats struct {
 
 // ServiceStats holds statistics for the service
 type ServiceStats struct {
-	ServiceName      string                 `json:"service_name" yaml:"service_name"`
-	Version          string                 `json:"version" yaml:"version"`
-	Active           bool                   `json:"active" yaml:"active"`
-	CreatedAt        time.Time              `json:"created_at" yaml:"created_at"`
-	UpdatedAt        time.Time              `json:"updated_at" yaml:"updated_at"`
-	FactoriesCount   int                    `json:"factories_count" yaml:"factories_count"`
-	ProductsCount    int                    `json:"products_count" yaml:"products_count"`
-	Metadata         map[string]interface{} `json:"metadata" yaml:"metadata"`
+	ServiceName    string                 `json:"service_name" yaml:"service_name"`
+	Version        string                 `json:"version" yaml:"version"`
+	Active         bool                   `json:"active" yaml:"active"`
+	CreatedAt      time.Time              `json:"created_at" yaml:"created_at"`
+	UpdatedAt      time.Time              `json:"updated_at" yaml:"updated_at"`
+	FactoriesCount int                    `json:"factories_count" yaml:"factories_count"`
+	ProductsCount  int                    `json:"products_count" yaml:"products_count"`
+	Metadata       map[string]interface{} `json:"metadata" yaml:"metadata"`
 }
 
 // HealthStatus holds health status information

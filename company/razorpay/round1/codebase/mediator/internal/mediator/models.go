@@ -77,14 +77,14 @@ func (bc *BaseColleague) BroadcastMessage(message interface{}) error {
 
 // BaseMessage provides common functionality for all messages
 type BaseMessage struct {
-	ID         string      `json:"id"`
-	Type       string      `json:"type"`
-	Content    interface{} `json:"content"`
-	SenderID   string      `json:"sender_id"`
-	RecipientID string     `json:"recipient_id"`
-	Timestamp  time.Time   `json:"timestamp"`
-	Priority   int         `json:"priority"`
-	Broadcast  bool        `json:"broadcast"`
+	ID          string      `json:"id"`
+	Type        string      `json:"type"`
+	Content     interface{} `json:"content"`
+	SenderID    string      `json:"sender_id"`
+	RecipientID string      `json:"recipient_id"`
+	Timestamp   time.Time   `json:"timestamp"`
+	Priority    int         `json:"priority"`
+	Broadcast   bool        `json:"broadcast"`
 }
 
 // GetID returns the message ID
@@ -558,16 +558,16 @@ func (bs *BaseService) GetDependents() []string {
 
 // BaseResource provides common functionality for all resources
 type BaseResource struct {
-	ID           string  `json:"id"`
-	Name         string  `json:"name"`
-	Type         string  `json:"type"`
-	Status       string  `json:"status"`
-	Capacity     int     `json:"capacity"`
-	Used         int     `json:"used"`
-	Available    int     `json:"available"`
-	Utilization  float64 `json:"utilization"`
-	WaitTime     time.Duration `json:"wait_time"`
-	LastAccess   time.Time     `json:"last_access"`
+	ID          string        `json:"id"`
+	Name        string        `json:"name"`
+	Type        string        `json:"type"`
+	Status      string        `json:"status"`
+	Capacity    int           `json:"capacity"`
+	Used        int           `json:"used"`
+	Available   int           `json:"available"`
+	Utilization float64       `json:"utilization"`
+	WaitTime    time.Duration `json:"wait_time"`
+	LastAccess  time.Time     `json:"last_access"`
 }
 
 // GetID returns the resource ID
@@ -808,15 +808,15 @@ func (bj *BaseJob) GetProgress() float64 {
 
 // BaseAlert provides common functionality for all alerts
 type BaseAlert struct {
-	ID        string                 `json:"id"`
-	Type      string                 `json:"type"`
-	Severity  string                 `json:"severity"`
-	Message   string                 `json:"message"`
-	Timestamp time.Time              `json:"timestamp"`
-	Status    string                 `json:"status"`
-	Source    string                 `json:"source"`
-	Data      map[string]interface{} `json:"data"`
-	ResolvedAt time.Time             `json:"resolved_at"`
+	ID         string                 `json:"id"`
+	Type       string                 `json:"type"`
+	Severity   string                 `json:"severity"`
+	Message    string                 `json:"message"`
+	Timestamp  time.Time              `json:"timestamp"`
+	Status     string                 `json:"status"`
+	Source     string                 `json:"source"`
+	Data       map[string]interface{} `json:"data"`
+	ResolvedAt time.Time              `json:"resolved_at"`
 }
 
 // GetID returns the alert ID

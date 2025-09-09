@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -14,9 +13,7 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/patrickmn/go-cache"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.uber.org/zap"
-	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
 	"mediator/internal/mediator"
@@ -46,14 +43,14 @@ func main() {
 
 	// Initialize configuration
 	config := &mediator.MediatorConfig{
-		Name:        "Mediator Service",
-		Version:     "1.0.0",
-		Description: "Mediator pattern implementation with microservice architecture",
-		MaxMediators: 100,
+		Name:          "Mediator Service",
+		Version:       "1.0.0",
+		Description:   "Mediator pattern implementation with microservice architecture",
+		MaxMediators:  100,
 		MaxColleagues: 1000,
-		Timeout:     30 * time.Minute,
-		RetryCount:  3,
-		Types:       []string{"message", "event", "command", "query", "notification", "workflow", "service", "resource", "task", "job"},
+		Timeout:       30 * time.Minute,
+		RetryCount:    3,
+		Types:         []string{"message", "event", "command", "query", "notification", "workflow", "service", "resource", "task", "job"},
 		Database: mediator.DatabaseConfig{
 			MySQL: mediator.MySQLConfig{
 				Host:     "localhost",
@@ -86,11 +83,11 @@ func main() {
 			Topics:  []string{"mediator-events"},
 		},
 		WebSocket: mediator.WebSocketConfig{
-			Enabled:           true,
-			Port:              8080,
-			ReadBufferSize:    1024,
-			WriteBufferSize:   1024,
-			HandshakeTimeout:  10 * time.Second,
+			Enabled:          true,
+			Port:             8080,
+			ReadBufferSize:   1024,
+			WriteBufferSize:  1024,
+			HandshakeTimeout: 10 * time.Second,
 		},
 		Security: mediator.SecurityConfig{
 			Enabled:           true,
@@ -123,12 +120,12 @@ func main() {
 	// Health check endpoint
 	router.GET("/health", func(c *gin.Context) {
 		healthChecks := map[string]interface{}{
-			"mysql":    checkMySQLHealth(mysqlDB),
-			"mongodb":  checkMongoDBHealth(mongoDB),
-			"redis":    checkRedisHealth(redisClient),
-			"cache":    checkCacheHealth(cacheClient),
+			"mysql":     checkMySQLHealth(mysqlDB),
+			"mongodb":   checkMongoDBHealth(mongoDB),
+			"redis":     checkRedisHealth(redisClient),
+			"cache":     checkCacheHealth(cacheClient),
 			"websocket": checkWebSocketHealth(hub),
-			"kafka":    checkKafkaHealth(kafkaProducer),
+			"kafka":     checkKafkaHealth(kafkaProducer),
 		}
 
 		status := http.StatusOK
@@ -388,8 +385,8 @@ type MockWebSocketHub struct {
 	broadcast chan []byte
 }
 
-func (mwh *MockWebSocketHub) Run() {}
-func (mwh *MockWebSocketHub) Register(client *websocket.Conn) {}
+func (mwh *MockWebSocketHub) Run()                              {}
+func (mwh *MockWebSocketHub) Register(client *websocket.Conn)   {}
 func (mwh *MockWebSocketHub) Unregister(client *websocket.Conn) {}
 func (mwh *MockWebSocketHub) Broadcast(message []byte) {
 	mwh.broadcast <- message

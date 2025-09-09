@@ -1,7 +1,6 @@
 package memento
 
 import (
-	"context"
 	"time"
 )
 

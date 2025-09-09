@@ -1,7 +1,6 @@
 package template_method
 
 import (
-	"context"
 	"time"
 )
 

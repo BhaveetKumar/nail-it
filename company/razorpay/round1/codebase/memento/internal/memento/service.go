@@ -8,24 +8,24 @@ import (
 
 // MementoServiceProvider provides memento services
 type MementoServiceProvider struct {
-	service    *MementoService
-	manager    *MementoManager
-	cache      *MementoCache
-	validator  *MementoValidator
-	pool       *MementoPool
-	metrics    *MementoMetrics
-	mutex      sync.RWMutex
+	service   *MementoService
+	manager   *MementoManager
+	cache     *MementoCache
+	validator *MementoValidator
+	pool      *MementoPool
+	metrics   *MementoMetrics
+	mutex     sync.RWMutex
 }
 
 // NewMementoServiceProvider creates a new memento service provider
 func NewMementoServiceProvider(config *MementoConfig) *MementoServiceProvider {
 	return &MementoServiceProvider{
-		service:    NewMementoService(config),
-		manager:    NewMementoManager(config),
-		cache:      NewMementoCache(config.GetCache().GetTTL()),
-		validator:  NewMementoValidator(config),
-		pool:       NewMementoPool(config),
-		metrics:    &MementoMetrics{},
+		service:   NewMementoService(config),
+		manager:   NewMementoManager(config),
+		cache:     NewMementoCache(config.GetCache().GetTTL()),
+		validator: NewMementoValidator(config),
+		pool:      NewMementoPool(config),
+		metrics:   &MementoMetrics{},
 	}
 }
 
@@ -81,16 +81,16 @@ func (mh *MementoHandler) HandleCreateCaretaker(ctx context.Context, name string
 			return caretaker, nil
 		}
 	}
-	
+
 	// Create new caretaker
 	caretaker, err := mh.provider.GetManager().CreateCaretaker(name)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// Cache the caretaker
 	mh.provider.GetCache().Set(name, caretaker, mh.config.GetCache().GetTTL())
-	
+
 	return caretaker, nil
 }
 
@@ -102,16 +102,16 @@ func (mh *MementoHandler) HandleGetCaretaker(ctx context.Context, name string) (
 			return caretaker, nil
 		}
 	}
-	
+
 	// Get from manager
 	caretaker, err := mh.provider.GetManager().GetCaretaker(name)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// Cache the caretaker
 	mh.provider.GetCache().Set(name, caretaker, mh.config.GetCache().GetTTL())
-	
+
 	return caretaker, nil
 }
 
@@ -119,7 +119,7 @@ func (mh *MementoHandler) HandleGetCaretaker(ctx context.Context, name string) (
 func (mh *MementoHandler) HandleRemoveCaretaker(ctx context.Context, name string) error {
 	// Remove from cache
 	mh.provider.GetCache().Delete(name)
-	
+
 	// Remove from manager
 	return mh.provider.GetManager().RemoveCaretaker(name)
 }
@@ -135,13 +135,13 @@ func (mh *MementoHandler) HandleSaveMemento(ctx context.Context, caretakerName s
 	if err := mh.provider.GetValidator().Validate(memento); err != nil {
 		return err
 	}
-	
+
 	// Get caretaker
 	caretaker, err := mh.provider.GetManager().GetCaretaker(caretakerName)
 	if err != nil {
 		return err
 	}
-	
+
 	// Save memento
 	return caretaker.SaveMemento(memento)
 }
@@ -153,7 +153,7 @@ func (mh *MementoHandler) HandleGetMemento(ctx context.Context, caretakerName st
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// Get memento
 	return caretaker.GetMemento(mementoID)
 }
@@ -165,7 +165,7 @@ func (mh *MementoHandler) HandleGetMementosByOriginator(ctx context.Context, car
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// Get mementos
 	return caretaker.GetMementosByOriginator(originatorID)
 }
@@ -177,7 +177,7 @@ func (mh *MementoHandler) HandleGetMementosByType(ctx context.Context, caretaker
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// Get mementos
 	return caretaker.GetMementosByType(mementoType)
 }
@@ -189,7 +189,7 @@ func (mh *MementoHandler) HandleGetMementosByDateRange(ctx context.Context, care
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// Get mementos
 	return caretaker.GetMementosByDateRange(start, end)
 }
@@ -201,7 +201,7 @@ func (mh *MementoHandler) HandleDeleteMemento(ctx context.Context, caretakerName
 	if err != nil {
 		return err
 	}
-	
+
 	// Delete memento
 	return caretaker.DeleteMemento(mementoID)
 }
@@ -213,7 +213,7 @@ func (mh *MementoHandler) HandleDeleteMementosByOriginator(ctx context.Context, 
 	if err != nil {
 		return err
 	}
-	
+
 	// Delete mementos
 	return caretaker.DeleteMementosByOriginator(originatorID)
 }
@@ -225,7 +225,7 @@ func (mh *MementoHandler) HandleDeleteMementosByType(ctx context.Context, careta
 	if err != nil {
 		return err
 	}
-	
+
 	// Delete mementos
 	return caretaker.DeleteMementosByType(mementoType)
 }
@@ -237,7 +237,7 @@ func (mh *MementoHandler) HandleDeleteMementosByDateRange(ctx context.Context, c
 	if err != nil {
 		return err
 	}
-	
+
 	// Delete mementos
 	return caretaker.DeleteMementosByDateRange(start, end)
 }
@@ -249,7 +249,7 @@ func (mh *MementoHandler) HandleGetMementoCount(ctx context.Context, caretakerNa
 	if err != nil {
 		return 0, err
 	}
-	
+
 	// Get count
 	return caretaker.GetMementoCount(), nil
 }
@@ -261,7 +261,7 @@ func (mh *MementoHandler) HandleGetMementoSize(ctx context.Context, caretakerNam
 	if err != nil {
 		return 0, err
 	}
-	
+
 	// Get size
 	return caretaker.GetMementoSize(), nil
 }
@@ -273,7 +273,7 @@ func (mh *MementoHandler) HandleGetCaretakerStats(ctx context.Context, caretaker
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// Get stats
 	return caretaker.GetStats(), nil
 }
@@ -285,7 +285,7 @@ func (mh *MementoHandler) HandleCleanup(ctx context.Context, caretakerName strin
 	if err != nil {
 		return err
 	}
-	
+
 	// Cleanup
 	return caretaker.Cleanup()
 }
@@ -310,7 +310,7 @@ func (mp *MementoProcessor) ProcessMemento(ctx context.Context, caretakerName st
 	if err := mp.handler.provider.GetValidator().Validate(memento); err != nil {
 		return err
 	}
-	
+
 	// Process memento
 	return processor(memento)
 }
@@ -323,7 +323,7 @@ func (mp *MementoProcessor) ProcessMementos(ctx context.Context, caretakerName s
 			return err
 		}
 	}
-	
+
 	// Process mementos
 	return processor(mementos)
 }
@@ -335,7 +335,7 @@ func (mp *MementoProcessor) ProcessCaretaker(ctx context.Context, caretakerName 
 	if err != nil {
 		return err
 	}
-	
+
 	// Process caretaker
 	return processor(caretaker)
 }
@@ -346,7 +346,7 @@ func (mp *MementoProcessor) ProcessOriginator(ctx context.Context, originator Or
 	if originator == nil {
 		return ErrInvalidOriginator
 	}
-	
+
 	// Process originator
 	return processor(originator)
 }
@@ -373,9 +373,9 @@ func NewMementoScheduler(config *MementoConfig) *MementoScheduler {
 func (ms *MementoScheduler) Start() {
 	ms.mutex.Lock()
 	defer ms.mutex.Unlock()
-	
+
 	ms.ticker = time.NewTicker(ms.config.GetCleanupInterval())
-	
+
 	go func() {
 		for {
 			select {
@@ -392,11 +392,11 @@ func (ms *MementoScheduler) Start() {
 func (ms *MementoScheduler) Stop() {
 	ms.mutex.Lock()
 	defer ms.mutex.Unlock()
-	
+
 	if ms.ticker != nil {
 		ms.ticker.Stop()
 	}
-	
+
 	close(ms.stop)
 }
 
@@ -404,10 +404,10 @@ func (ms *MementoScheduler) Stop() {
 func (ms *MementoScheduler) processScheduledTasks() {
 	// Process memento cleanup
 	ctx := context.Background()
-	
+
 	// Get all caretakers
 	caretakers := ms.processor.handler.HandleListCaretakers(ctx)
-	
+
 	// Process each caretaker
 	for _, name := range caretakers {
 		ms.processor.handler.HandleCleanup(ctx, name)
@@ -435,10 +435,10 @@ func NewMementoMonitor(config *MementoConfig) *MementoMonitor {
 func (mm *MementoMonitor) MonitorMemento(ctx context.Context, memento Memento) error {
 	mm.mutex.Lock()
 	defer mm.mutex.Unlock()
-	
+
 	// Update metrics
 	mm.metrics.UpdateMetrics(memento)
-	
+
 	return nil
 }
 
@@ -446,7 +446,7 @@ func (mm *MementoMonitor) MonitorMemento(ctx context.Context, memento Memento) e
 func (mm *MementoMonitor) GetMetrics() *MementoMetrics {
 	mm.mutex.RLock()
 	defer mm.mutex.RUnlock()
-	
+
 	return mm.metrics
 }
 
@@ -454,7 +454,7 @@ func (mm *MementoMonitor) GetMetrics() *MementoMetrics {
 func (mm *MementoMonitor) ResetMetrics() {
 	mm.mutex.Lock()
 	defer mm.mutex.Unlock()
-	
+
 	mm.metrics = &MementoMetrics{}
 }
 
@@ -479,7 +479,7 @@ func NewMementoAuditor(config *MementoConfig) *MementoAuditor {
 func (ma *MementoAuditor) AuditOperation(ctx context.Context, userID string, action string, resource string, details map[string]interface{}) {
 	ma.mutex.Lock()
 	defer ma.mutex.Unlock()
-	
+
 	log := &BaseAuditLog{
 		ID:           generateID(),
 		UserID:       userID,
@@ -497,7 +497,7 @@ func (ma *MementoAuditor) AuditOperation(ctx context.Context, userID string, act
 		Error:        "",
 		Metadata:     make(map[string]interface{}),
 	}
-	
+
 	ma.logs = append(ma.logs, log)
 }
 
@@ -505,7 +505,7 @@ func (ma *MementoAuditor) AuditOperation(ctx context.Context, userID string, act
 func (ma *MementoAuditor) GetAuditLogs() []AuditLog {
 	ma.mutex.RLock()
 	defer ma.mutex.RUnlock()
-	
+
 	return ma.logs
 }
 
@@ -513,7 +513,7 @@ func (ma *MementoAuditor) GetAuditLogs() []AuditLog {
 func (ma *MementoAuditor) ClearAuditLogs() {
 	ma.mutex.Lock()
 	defer ma.mutex.Unlock()
-	
+
 	ma.logs = make([]AuditLog, 0)
 }
 

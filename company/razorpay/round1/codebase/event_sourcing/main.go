@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -14,9 +13,7 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/patrickmn/go-cache"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.uber.org/zap"
-	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
 	"event_sourcing/internal/event_sourcing"
@@ -61,7 +58,7 @@ func main() {
 		SupportedEventTypes:     []string{"user_created", "user_updated", "user_deleted", "order_created", "order_status_changed", "payment_processed", "custom"},
 		SupportedAggregateTypes: []string{"user", "order", "payment", "custom"},
 		ValidationRules: map[string]interface{}{
-			"max_event_data_size": 1024 * 1024, // 1MB
+			"max_event_data_size":  1024 * 1024, // 1MB
 			"max_aggregate_events": 10000,
 		},
 		Metadata: map[string]interface{}{
@@ -100,11 +97,11 @@ func main() {
 			Topics:  []string{"event-sourcing-events"},
 		},
 		WebSocket: event_sourcing.WebSocketConfig{
-			Enabled:           true,
-			Port:              8080,
-			ReadBufferSize:    1024,
-			WriteBufferSize:   1024,
-			HandshakeTimeout:  10 * time.Second,
+			Enabled:          true,
+			Port:             8080,
+			ReadBufferSize:   1024,
+			WriteBufferSize:  1024,
+			HandshakeTimeout: 10 * time.Second,
 		},
 		Security: event_sourcing.SecurityConfig{
 			Enabled:           true,
@@ -137,12 +134,12 @@ func main() {
 	// Health check endpoint
 	router.GET("/health", func(c *gin.Context) {
 		healthChecks := map[string]interface{}{
-			"mysql":    checkMySQLHealth(mysqlDB),
-			"mongodb":  checkMongoDBHealth(mongoDB),
-			"redis":    checkRedisHealth(redisClient),
-			"cache":    checkCacheHealth(cacheClient),
+			"mysql":     checkMySQLHealth(mysqlDB),
+			"mongodb":   checkMongoDBHealth(mongoDB),
+			"redis":     checkRedisHealth(redisClient),
+			"cache":     checkCacheHealth(cacheClient),
 			"websocket": checkWebSocketHealth(hub),
-			"kafka":    checkKafkaHealth(kafkaProducer),
+			"kafka":     checkKafkaHealth(kafkaProducer),
 		}
 
 		status := http.StatusOK
@@ -165,8 +162,8 @@ func main() {
 	{
 		aggregateGroup.POST("/", func(c *gin.Context) {
 			var req struct {
-				Type        string                 `json:"type"`
-				ID          string                 `json:"id"`
+				Type         string                 `json:"type"`
+				ID           string                 `json:"id"`
 				InitialState map[string]interface{} `json:"initial_state"`
 			}
 			if err := c.ShouldBindJSON(&req); err != nil {
@@ -196,14 +193,14 @@ func main() {
 			}
 
 			c.JSON(http.StatusOK, gin.H{
-				"id":          aggregate.GetID(),
-				"type":        aggregate.GetType(),
-				"version":     aggregate.GetVersion(),
-				"state":       aggregate.GetState(),
-				"created_at":  aggregate.GetCreatedAt(),
-				"updated_at":  aggregate.GetUpdatedAt(),
-				"active":      aggregate.IsActive(),
-				"metadata":    aggregate.GetMetadata(),
+				"id":         aggregate.GetID(),
+				"type":       aggregate.GetType(),
+				"version":    aggregate.GetVersion(),
+				"state":      aggregate.GetState(),
+				"created_at": aggregate.GetCreatedAt(),
+				"updated_at": aggregate.GetUpdatedAt(),
+				"active":     aggregate.IsActive(),
+				"metadata":   aggregate.GetMetadata(),
 			})
 		})
 
@@ -366,16 +363,16 @@ func main() {
 			}
 
 			c.JSON(http.StatusOK, gin.H{
-				"id":            snapshot.GetID(),
-				"aggregate_id":  snapshot.GetAggregateID(),
+				"id":             snapshot.GetID(),
+				"aggregate_id":   snapshot.GetAggregateID(),
 				"aggregate_type": snapshot.GetAggregateType(),
-				"version":       snapshot.GetVersion(),
-				"data":          snapshot.GetData(),
-				"metadata":      snapshot.GetMetadata(),
-				"timestamp":     snapshot.GetTimestamp(),
-				"created_at":    snapshot.GetCreatedAt(),
-				"updated_at":    snapshot.GetUpdatedAt(),
-				"active":        snapshot.IsActive(),
+				"version":        snapshot.GetVersion(),
+				"data":           snapshot.GetData(),
+				"metadata":       snapshot.GetMetadata(),
+				"timestamp":      snapshot.GetTimestamp(),
+				"created_at":     snapshot.GetCreatedAt(),
+				"updated_at":     snapshot.GetUpdatedAt(),
+				"active":         snapshot.IsActive(),
 			})
 		})
 
@@ -388,16 +385,16 @@ func main() {
 			}
 
 			c.JSON(http.StatusOK, gin.H{
-				"id":            snapshot.GetID(),
-				"aggregate_id":  snapshot.GetAggregateID(),
+				"id":             snapshot.GetID(),
+				"aggregate_id":   snapshot.GetAggregateID(),
 				"aggregate_type": snapshot.GetAggregateType(),
-				"version":       snapshot.GetVersion(),
-				"data":          snapshot.GetData(),
-				"metadata":      snapshot.GetMetadata(),
-				"timestamp":     snapshot.GetTimestamp(),
-				"created_at":    snapshot.GetCreatedAt(),
-				"updated_at":    snapshot.GetUpdatedAt(),
-				"active":        snapshot.IsActive(),
+				"version":        snapshot.GetVersion(),
+				"data":           snapshot.GetData(),
+				"metadata":       snapshot.GetMetadata(),
+				"timestamp":      snapshot.GetTimestamp(),
+				"created_at":     snapshot.GetCreatedAt(),
+				"updated_at":     snapshot.GetUpdatedAt(),
+				"active":         snapshot.IsActive(),
 			})
 		})
 	}
@@ -516,8 +513,8 @@ type MockWebSocketHub struct {
 	broadcast chan []byte
 }
 
-func (mwh *MockWebSocketHub) Run() {}
-func (mwh *MockWebSocketHub) Register(client *websocket.Conn) {}
+func (mwh *MockWebSocketHub) Run()                              {}
+func (mwh *MockWebSocketHub) Register(client *websocket.Conn)   {}
 func (mwh *MockWebSocketHub) Unregister(client *websocket.Conn) {}
 func (mwh *MockWebSocketHub) Broadcast(message []byte) {
 	mwh.broadcast <- message

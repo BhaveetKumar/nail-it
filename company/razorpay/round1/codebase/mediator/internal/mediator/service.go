@@ -8,24 +8,24 @@ import (
 
 // MediatorServiceProvider provides mediator services
 type MediatorServiceProvider struct {
-	service    *MediatorService
-	manager    *MediatorManager
-	cache      *MediatorCache
-	validator  *MediatorValidator
-	pool       *MediatorPool
-	metrics    *MediatorMetrics
-	mutex      sync.RWMutex
+	service   *MediatorService
+	manager   *MediatorManager
+	cache     *MediatorCache
+	validator *MediatorValidator
+	pool      *MediatorPool
+	metrics   *MediatorMetrics
+	mutex     sync.RWMutex
 }
 
 // NewMediatorServiceProvider creates a new mediator service provider
 func NewMediatorServiceProvider(config *MediatorConfig) *MediatorServiceProvider {
 	return &MediatorServiceProvider{
-		service:    NewMediatorService(config),
-		manager:    NewMediatorManager(config),
-		cache:      NewMediatorCache(config.Cache.TTL),
-		validator:  NewMediatorValidator(config),
-		pool:       NewMediatorPool(config),
-		metrics:    &MediatorMetrics{},
+		service:   NewMediatorService(config),
+		manager:   NewMediatorManager(config),
+		cache:     NewMediatorCache(config.Cache.TTL),
+		validator: NewMediatorValidator(config),
+		pool:      NewMediatorPool(config),
+		metrics:   &MediatorMetrics{},
 	}
 }
 
@@ -81,16 +81,16 @@ func (mh *MediatorHandler) HandleCreateMediator(ctx context.Context, name string
 			return mediator, nil
 		}
 	}
-	
+
 	// Create new mediator
 	mediator, err := mh.provider.GetManager().CreateMediator(name)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// Cache the mediator
 	mh.provider.GetCache().Set(name, mediator)
-	
+
 	return mediator, nil
 }
 
@@ -102,16 +102,16 @@ func (mh *MediatorHandler) HandleGetMediator(ctx context.Context, name string) (
 			return mediator, nil
 		}
 	}
-	
+
 	// Get from manager
 	mediator, err := mh.provider.GetManager().GetMediator(name)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// Cache the mediator
 	mh.provider.GetCache().Set(name, mediator)
-	
+
 	return mediator, nil
 }
 
@@ -119,7 +119,7 @@ func (mh *MediatorHandler) HandleGetMediator(ctx context.Context, name string) (
 func (mh *MediatorHandler) HandleRemoveMediator(ctx context.Context, name string) error {
 	// Remove from cache
 	mh.provider.GetCache().Delete(name)
-	
+
 	// Remove from manager
 	return mh.provider.GetManager().RemoveMediator(name)
 }
@@ -135,13 +135,13 @@ func (mh *MediatorHandler) HandleRegisterColleague(ctx context.Context, mediator
 	if err := mh.provider.GetValidator().ValidateColleague(colleague); err != nil {
 		return err
 	}
-	
+
 	// Get mediator
 	mediator, err := mh.provider.GetManager().GetMediator(mediatorName)
 	if err != nil {
 		return err
 	}
-	
+
 	// Register colleague
 	return mediator.RegisterColleague(colleague)
 }
@@ -153,7 +153,7 @@ func (mh *MediatorHandler) HandleUnregisterColleague(ctx context.Context, mediat
 	if err != nil {
 		return err
 	}
-	
+
 	// Unregister colleague
 	return mediator.UnregisterColleague(colleagueID)
 }
@@ -165,7 +165,7 @@ func (mh *MediatorHandler) HandleSendMessage(ctx context.Context, mediatorName s
 	if err != nil {
 		return err
 	}
-	
+
 	// Send message
 	return mediator.SendMessage(senderID, recipientID, message)
 }
@@ -177,7 +177,7 @@ func (mh *MediatorHandler) HandleBroadcastMessage(ctx context.Context, mediatorN
 	if err != nil {
 		return err
 	}
-	
+
 	// Broadcast message
 	return mediator.BroadcastMessage(senderID, message)
 }
@@ -189,7 +189,7 @@ func (mh *MediatorHandler) HandleGetColleagues(ctx context.Context, mediatorName
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// Get colleagues
 	return mediator.GetColleagues(), nil
 }
@@ -201,7 +201,7 @@ func (mh *MediatorHandler) HandleGetColleague(ctx context.Context, mediatorName 
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// Get colleague
 	return mediator.GetColleague(colleagueID)
 }
@@ -226,12 +226,12 @@ func (mp *MediatorProcessor) ProcessMediator(ctx context.Context, name string, p
 	if err != nil {
 		return err
 	}
-	
+
 	// Validate mediator
 	if err := mp.handler.provider.GetValidator().ValidateMediator(mediator); err != nil {
 		return err
 	}
-	
+
 	// Process mediator
 	return processor(mediator)
 }
@@ -242,12 +242,12 @@ func (mp *MediatorProcessor) ProcessColleague(ctx context.Context, mediatorName 
 	if err != nil {
 		return err
 	}
-	
+
 	// Validate colleague
 	if err := mp.handler.provider.GetValidator().ValidateColleague(colleague); err != nil {
 		return err
 	}
-	
+
 	// Process colleague
 	return processor(colleague)
 }
@@ -258,7 +258,7 @@ func (mp *MediatorProcessor) ProcessMessage(ctx context.Context, mediatorName st
 	if err := mp.handler.HandleSendMessage(ctx, mediatorName, senderID, recipientID, message); err != nil {
 		return err
 	}
-	
+
 	// Process message
 	return processor(message)
 }
@@ -269,7 +269,7 @@ func (mp *MediatorProcessor) ProcessBroadcast(ctx context.Context, mediatorName 
 	if err := mp.handler.HandleBroadcastMessage(ctx, mediatorName, senderID, message); err != nil {
 		return err
 	}
-	
+
 	// Process broadcast
 	return processor(message)
 }
@@ -296,9 +296,9 @@ func NewMediatorScheduler(config *MediatorConfig) *MediatorScheduler {
 func (ms *MediatorScheduler) Start() {
 	ms.mutex.Lock()
 	defer ms.mutex.Unlock()
-	
+
 	ms.ticker = time.NewTicker(ms.config.Monitoring.CollectInterval)
-	
+
 	go func() {
 		for {
 			select {
@@ -315,11 +315,11 @@ func (ms *MediatorScheduler) Start() {
 func (ms *MediatorScheduler) Stop() {
 	ms.mutex.Lock()
 	defer ms.mutex.Unlock()
-	
+
 	if ms.ticker != nil {
 		ms.ticker.Stop()
 	}
-	
+
 	close(ms.stop)
 }
 
@@ -327,17 +327,17 @@ func (ms *MediatorScheduler) Stop() {
 func (ms *MediatorScheduler) processScheduledTasks() {
 	// Process mediator cleanup
 	ctx := context.Background()
-	
+
 	// Get all mediators
 	mediators := ms.processor.handler.HandleListMediators(ctx)
-	
+
 	// Process each mediator
 	for _, name := range mediators {
 		mediator, err := ms.processor.handler.HandleGetMediator(ctx, name)
 		if err != nil {
 			continue
 		}
-		
+
 		// Check if mediator needs cleanup
 		colleagues := mediator.GetColleagues()
 		for _, colleague := range colleagues {
@@ -371,13 +371,13 @@ func (mm *MediatorMonitor) MonitorMediator(ctx context.Context, name string) err
 	if err != nil {
 		return err
 	}
-	
+
 	mm.mutex.Lock()
 	defer mm.mutex.Unlock()
-	
+
 	// Update metrics
 	mm.metrics.UpdateMetrics(mediator)
-	
+
 	return nil
 }
 
@@ -385,7 +385,7 @@ func (mm *MediatorMonitor) MonitorMediator(ctx context.Context, name string) err
 func (mm *MediatorMonitor) GetMetrics() *MediatorMetrics {
 	mm.mutex.RLock()
 	defer mm.mutex.RUnlock()
-	
+
 	return mm.metrics
 }
 
@@ -393,7 +393,7 @@ func (mm *MediatorMonitor) GetMetrics() *MediatorMetrics {
 func (mm *MediatorMonitor) ResetMetrics() {
 	mm.mutex.Lock()
 	defer mm.mutex.Unlock()
-	
+
 	mm.metrics = &MediatorMetrics{}
 }
 
@@ -418,7 +418,7 @@ func NewMediatorAuditor(config *MediatorConfig) *MediatorAuditor {
 func (ma *MediatorAuditor) AuditOperation(ctx context.Context, userID string, action string, resource string, details map[string]interface{}) {
 	ma.mutex.Lock()
 	defer ma.mutex.Unlock()
-	
+
 	log := AuditLog{
 		ID:        generateID(),
 		UserID:    userID,
@@ -427,7 +427,7 @@ func (ma *MediatorAuditor) AuditOperation(ctx context.Context, userID string, ac
 		Details:   details,
 		Timestamp: time.Now(),
 	}
-	
+
 	ma.logs = append(ma.logs, log)
 }
 
@@ -435,7 +435,7 @@ func (ma *MediatorAuditor) AuditOperation(ctx context.Context, userID string, ac
 func (ma *MediatorAuditor) GetAuditLogs() []AuditLog {
 	ma.mutex.RLock()
 	defer ma.mutex.RUnlock()
-	
+
 	return ma.logs
 }
 
@@ -443,7 +443,7 @@ func (ma *MediatorAuditor) GetAuditLogs() []AuditLog {
 func (ma *MediatorAuditor) ClearAuditLogs() {
 	ma.mutex.Lock()
 	defer ma.mutex.Unlock()
-	
+
 	ma.logs = make([]AuditLog, 0)
 }
 

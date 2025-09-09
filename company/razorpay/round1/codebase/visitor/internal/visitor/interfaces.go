@@ -1,7 +1,6 @@
 package visitor
 
 import (
-	"context"
 	"time"
 )
 
@@ -270,14 +269,14 @@ func (cec *ConcreteElementCollection) Accept(visitor Visitor) error {
 	if err := visitor.VisitElement(cec); err != nil {
 		return err
 	}
-	
+
 	// Visit all elements in the collection
 	for _, element := range cec.Elements {
 		if err := element.Accept(visitor); err != nil {
 			return err
 		}
 	}
-	
+
 	return nil
 }
 
@@ -375,32 +374,32 @@ type VisitRecord struct {
 
 // VisitorConfig represents the configuration for the visitor service
 type VisitorConfig struct {
-	Name                    string                 `json:"name"`
-	Version                 string                 `json:"version"`
-	Description             string                 `json:"description"`
-	MaxVisitors             int                    `json:"max_visitors"`
-	MaxElements             int                    `json:"max_elements"`
-	MaxElementCollections   int                    `json:"max_element_collections"`
-	MaxVisitHistory         int                    `json:"max_visit_history"`
-	VisitTimeout            time.Duration          `json:"visit_timeout"`
-	CleanupInterval         time.Duration          `json:"cleanup_interval"`
-	ValidationEnabled       bool                   `json:"validation_enabled"`
-	CachingEnabled          bool                   `json:"caching_enabled"`
-	MonitoringEnabled       bool                   `json:"monitoring_enabled"`
-	AuditingEnabled         bool                   `json:"auditing_enabled"`
-	SupportedVisitorTypes   []string               `json:"supported_visitor_types"`
-	SupportedElementTypes   []string               `json:"supported_element_types"`
-	DefaultVisitorType      string                 `json:"default_visitor_type"`
-	DefaultElementType      string                 `json:"default_element_type"`
-	ValidationRules         map[string]interface{} `json:"validation_rules"`
-	Metadata                map[string]interface{} `json:"metadata"`
-	Database                DatabaseConfig         `json:"database"`
-	Cache                   CacheConfig            `json:"cache"`
-	MessageQueue            MessageQueueConfig     `json:"message_queue"`
-	WebSocket               WebSocketConfig        `json:"websocket"`
-	Security                SecurityConfig         `json:"security"`
-	Monitoring              MonitoringConfig       `json:"monitoring"`
-	Logging                 LoggingConfig          `json:"logging"`
+	Name                  string                 `json:"name"`
+	Version               string                 `json:"version"`
+	Description           string                 `json:"description"`
+	MaxVisitors           int                    `json:"max_visitors"`
+	MaxElements           int                    `json:"max_elements"`
+	MaxElementCollections int                    `json:"max_element_collections"`
+	MaxVisitHistory       int                    `json:"max_visit_history"`
+	VisitTimeout          time.Duration          `json:"visit_timeout"`
+	CleanupInterval       time.Duration          `json:"cleanup_interval"`
+	ValidationEnabled     bool                   `json:"validation_enabled"`
+	CachingEnabled        bool                   `json:"caching_enabled"`
+	MonitoringEnabled     bool                   `json:"monitoring_enabled"`
+	AuditingEnabled       bool                   `json:"auditing_enabled"`
+	SupportedVisitorTypes []string               `json:"supported_visitor_types"`
+	SupportedElementTypes []string               `json:"supported_element_types"`
+	DefaultVisitorType    string                 `json:"default_visitor_type"`
+	DefaultElementType    string                 `json:"default_element_type"`
+	ValidationRules       map[string]interface{} `json:"validation_rules"`
+	Metadata              map[string]interface{} `json:"metadata"`
+	Database              DatabaseConfig         `json:"database"`
+	Cache                 CacheConfig            `json:"cache"`
+	MessageQueue          MessageQueueConfig     `json:"message_queue"`
+	WebSocket             WebSocketConfig        `json:"websocket"`
+	Security              SecurityConfig         `json:"security"`
+	Monitoring            MonitoringConfig       `json:"monitoring"`
+	Logging               LoggingConfig          `json:"logging"`
 }
 
 // DatabaseConfig represents database configuration

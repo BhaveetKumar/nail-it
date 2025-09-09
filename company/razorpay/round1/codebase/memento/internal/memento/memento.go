@@ -25,11 +25,11 @@ func NewConcreteCaretaker(config *MementoConfig) *ConcreteCaretaker {
 func (cc *ConcreteCaretaker) SaveMemento(memento Memento) error {
 	cc.mutex.Lock()
 	defer cc.mutex.Unlock()
-	
+
 	if len(cc.mementos) >= cc.config.GetMaxMementos() {
 		return ErrMaxMementosReached
 	}
-	
+
 	cc.mementos[memento.GetID()] = memento
 	return nil
 }
@@ -38,12 +38,12 @@ func (cc *ConcreteCaretaker) SaveMemento(memento Memento) error {
 func (cc *ConcreteCaretaker) GetMemento(id string) (Memento, error) {
 	cc.mutex.RLock()
 	defer cc.mutex.RUnlock()
-	
+
 	memento, exists := cc.mementos[id]
 	if !exists {
 		return nil, ErrMementoNotFound
 	}
-	
+
 	return memento, nil
 }
 
@@ -51,14 +51,14 @@ func (cc *ConcreteCaretaker) GetMemento(id string) (Memento, error) {
 func (cc *ConcreteCaretaker) GetMementosByOriginator(originatorID string) ([]Memento, error) {
 	cc.mutex.RLock()
 	defer cc.mutex.RUnlock()
-	
+
 	var mementos []Memento
 	for _, memento := range cc.mementos {
 		if memento.GetOriginatorID() == originatorID {
 			mementos = append(mementos, memento)
 		}
 	}
-	
+
 	return mementos, nil
 }
 
@@ -66,14 +66,14 @@ func (cc *ConcreteCaretaker) GetMementosByOriginator(originatorID string) ([]Mem
 func (cc *ConcreteCaretaker) GetMementosByType(mementoType string) ([]Memento, error) {
 	cc.mutex.RLock()
 	defer cc.mutex.RUnlock()
-	
+
 	var mementos []Memento
 	for _, memento := range cc.mementos {
 		if memento.GetType() == mementoType {
 			mementos = append(mementos, memento)
 		}
 	}
-	
+
 	return mementos, nil
 }
 
@@ -81,7 +81,7 @@ func (cc *ConcreteCaretaker) GetMementosByType(mementoType string) ([]Memento, e
 func (cc *ConcreteCaretaker) GetMementosByDateRange(start, end time.Time) ([]Memento, error) {
 	cc.mutex.RLock()
 	defer cc.mutex.RUnlock()
-	
+
 	var mementos []Memento
 	for _, memento := range cc.mementos {
 		timestamp := memento.GetTimestamp()
@@ -89,7 +89,7 @@ func (cc *ConcreteCaretaker) GetMementosByDateRange(start, end time.Time) ([]Mem
 			mementos = append(mementos, memento)
 		}
 	}
-	
+
 	return mementos, nil
 }
 
@@ -97,12 +97,12 @@ func (cc *ConcreteCaretaker) GetMementosByDateRange(start, end time.Time) ([]Mem
 func (cc *ConcreteCaretaker) DeleteMemento(id string) error {
 	cc.mutex.Lock()
 	defer cc.mutex.Unlock()
-	
+
 	_, exists := cc.mementos[id]
 	if !exists {
 		return ErrMementoNotFound
 	}
-	
+
 	delete(cc.mementos, id)
 	return nil
 }
@@ -111,13 +111,13 @@ func (cc *ConcreteCaretaker) DeleteMemento(id string) error {
 func (cc *ConcreteCaretaker) DeleteMementosByOriginator(originatorID string) error {
 	cc.mutex.Lock()
 	defer cc.mutex.Unlock()
-	
+
 	for id, memento := range cc.mementos {
 		if memento.GetOriginatorID() == originatorID {
 			delete(cc.mementos, id)
 		}
 	}
-	
+
 	return nil
 }
 
@@ -125,13 +125,13 @@ func (cc *ConcreteCaretaker) DeleteMementosByOriginator(originatorID string) err
 func (cc *ConcreteCaretaker) DeleteMementosByType(mementoType string) error {
 	cc.mutex.Lock()
 	defer cc.mutex.Unlock()
-	
+
 	for id, memento := range cc.mementos {
 		if memento.GetType() == mementoType {
 			delete(cc.mementos, id)
 		}
 	}
-	
+
 	return nil
 }
 
@@ -139,14 +139,14 @@ func (cc *ConcreteCaretaker) DeleteMementosByType(mementoType string) error {
 func (cc *ConcreteCaretaker) DeleteMementosByDateRange(start, end time.Time) error {
 	cc.mutex.Lock()
 	defer cc.mutex.Unlock()
-	
+
 	for id, memento := range cc.mementos {
 		timestamp := memento.GetTimestamp()
 		if timestamp.After(start) && timestamp.Before(end) {
 			delete(cc.mementos, id)
 		}
 	}
-	
+
 	return nil
 }
 
@@ -154,7 +154,7 @@ func (cc *ConcreteCaretaker) DeleteMementosByDateRange(start, end time.Time) err
 func (cc *ConcreteCaretaker) GetMementoCount() int {
 	cc.mutex.RLock()
 	defer cc.mutex.RUnlock()
-	
+
 	return len(cc.mementos)
 }
 
@@ -162,14 +162,14 @@ func (cc *ConcreteCaretaker) GetMementoCount() int {
 func (cc *ConcreteCaretaker) GetMementoCountByOriginator(originatorID string) int {
 	cc.mutex.RLock()
 	defer cc.mutex.RUnlock()
-	
+
 	count := 0
 	for _, memento := range cc.mementos {
 		if memento.GetOriginatorID() == originatorID {
 			count++
 		}
 	}
-	
+
 	return count
 }
 
@@ -177,14 +177,14 @@ func (cc *ConcreteCaretaker) GetMementoCountByOriginator(originatorID string) in
 func (cc *ConcreteCaretaker) GetMementoCountByType(mementoType string) int {
 	cc.mutex.RLock()
 	defer cc.mutex.RUnlock()
-	
+
 	count := 0
 	for _, memento := range cc.mementos {
 		if memento.GetType() == mementoType {
 			count++
 		}
 	}
-	
+
 	return count
 }
 
@@ -192,7 +192,7 @@ func (cc *ConcreteCaretaker) GetMementoCountByType(mementoType string) int {
 func (cc *ConcreteCaretaker) GetMementoCountByDateRange(start, end time.Time) int {
 	cc.mutex.RLock()
 	defer cc.mutex.RUnlock()
-	
+
 	count := 0
 	for _, memento := range cc.mementos {
 		timestamp := memento.GetTimestamp()
@@ -200,7 +200,7 @@ func (cc *ConcreteCaretaker) GetMementoCountByDateRange(start, end time.Time) in
 			count++
 		}
 	}
-	
+
 	return count
 }
 
@@ -208,12 +208,12 @@ func (cc *ConcreteCaretaker) GetMementoCountByDateRange(start, end time.Time) in
 func (cc *ConcreteCaretaker) GetMementoSize() int64 {
 	cc.mutex.RLock()
 	defer cc.mutex.RUnlock()
-	
+
 	var totalSize int64
 	for _, memento := range cc.mementos {
 		totalSize += memento.GetSize()
 	}
-	
+
 	return totalSize
 }
 
@@ -221,14 +221,14 @@ func (cc *ConcreteCaretaker) GetMementoSize() int64 {
 func (cc *ConcreteCaretaker) GetMementoSizeByOriginator(originatorID string) int64 {
 	cc.mutex.RLock()
 	defer cc.mutex.RUnlock()
-	
+
 	var totalSize int64
 	for _, memento := range cc.mementos {
 		if memento.GetOriginatorID() == originatorID {
 			totalSize += memento.GetSize()
 		}
 	}
-	
+
 	return totalSize
 }
 
@@ -236,14 +236,14 @@ func (cc *ConcreteCaretaker) GetMementoSizeByOriginator(originatorID string) int
 func (cc *ConcreteCaretaker) GetMementoSizeByType(mementoType string) int64 {
 	cc.mutex.RLock()
 	defer cc.mutex.RUnlock()
-	
+
 	var totalSize int64
 	for _, memento := range cc.mementos {
 		if memento.GetType() == mementoType {
 			totalSize += memento.GetSize()
 		}
 	}
-	
+
 	return totalSize
 }
 
@@ -251,7 +251,7 @@ func (cc *ConcreteCaretaker) GetMementoSizeByType(mementoType string) int64 {
 func (cc *ConcreteCaretaker) GetMementoSizeByDateRange(start, end time.Time) int64 {
 	cc.mutex.RLock()
 	defer cc.mutex.RUnlock()
-	
+
 	var totalSize int64
 	for _, memento := range cc.mementos {
 		timestamp := memento.GetTimestamp()
@@ -259,7 +259,7 @@ func (cc *ConcreteCaretaker) GetMementoSizeByDateRange(start, end time.Time) int
 			totalSize += memento.GetSize()
 		}
 	}
-	
+
 	return totalSize
 }
 
@@ -267,7 +267,7 @@ func (cc *ConcreteCaretaker) GetMementoSizeByDateRange(start, end time.Time) int
 func (cc *ConcreteCaretaker) Cleanup() error {
 	cc.mutex.Lock()
 	defer cc.mutex.Unlock()
-	
+
 	// Remove expired mementos
 	now := time.Now()
 	for id, memento := range cc.mementos {
@@ -275,7 +275,7 @@ func (cc *ConcreteCaretaker) Cleanup() error {
 			delete(cc.mementos, id)
 		}
 	}
-	
+
 	return nil
 }
 
@@ -283,7 +283,7 @@ func (cc *ConcreteCaretaker) Cleanup() error {
 func (cc *ConcreteCaretaker) GetStats() map[string]interface{} {
 	cc.mutex.RLock()
 	defer cc.mutex.RUnlock()
-	
+
 	stats := map[string]interface{}{
 		"total_mementos": len(cc.mementos),
 		"total_size":     cc.GetMementoSize(),
@@ -291,7 +291,7 @@ func (cc *ConcreteCaretaker) GetStats() map[string]interface{} {
 		"max_size":       cc.config.GetMaxMementoSize(),
 		"max_age":        cc.config.GetMaxMementoAge(),
 	}
-	
+
 	return stats
 }
 
@@ -314,11 +314,11 @@ func NewMementoManager(config *MementoConfig) *MementoManager {
 func (mm *MementoManager) CreateCaretaker(name string) (Caretaker, error) {
 	mm.mutex.Lock()
 	defer mm.mutex.Unlock()
-	
+
 	if len(mm.caretakers) >= mm.config.GetMaxMementos() {
 		return nil, ErrMaxCaretakersReached
 	}
-	
+
 	caretaker := NewConcreteCaretaker(mm.config)
 	mm.caretakers[name] = caretaker
 	return caretaker, nil
@@ -328,12 +328,12 @@ func (mm *MementoManager) CreateCaretaker(name string) (Caretaker, error) {
 func (mm *MementoManager) GetCaretaker(name string) (Caretaker, error) {
 	mm.mutex.RLock()
 	defer mm.mutex.RUnlock()
-	
+
 	caretaker, exists := mm.caretakers[name]
 	if !exists {
 		return nil, ErrCaretakerNotFound
 	}
-	
+
 	return caretaker, nil
 }
 
@@ -341,12 +341,12 @@ func (mm *MementoManager) GetCaretaker(name string) (Caretaker, error) {
 func (mm *MementoManager) RemoveCaretaker(name string) error {
 	mm.mutex.Lock()
 	defer mm.mutex.Unlock()
-	
+
 	caretaker, exists := mm.caretakers[name]
 	if !exists {
 		return ErrCaretakerNotFound
 	}
-	
+
 	// Cleanup caretaker
 	caretaker.Cleanup()
 	delete(mm.caretakers, name)
@@ -357,12 +357,12 @@ func (mm *MementoManager) RemoveCaretaker(name string) error {
 func (mm *MementoManager) ListCaretakers() []string {
 	mm.mutex.RLock()
 	defer mm.mutex.RUnlock()
-	
+
 	names := make([]string, 0, len(mm.caretakers))
 	for name := range mm.caretakers {
 		names = append(names, name)
 	}
-	
+
 	return names
 }
 
@@ -370,7 +370,7 @@ func (mm *MementoManager) ListCaretakers() []string {
 func (mm *MementoManager) GetCaretakerCount() int {
 	mm.mutex.RLock()
 	defer mm.mutex.RUnlock()
-	
+
 	return len(mm.caretakers)
 }
 
@@ -378,16 +378,16 @@ func (mm *MementoManager) GetCaretakerCount() int {
 func (mm *MementoManager) GetCaretakerStats() map[string]interface{} {
 	mm.mutex.RLock()
 	defer mm.mutex.RUnlock()
-	
+
 	stats := map[string]interface{}{
 		"total_caretakers": len(mm.caretakers),
 		"caretakers":       make(map[string]interface{}),
 	}
-	
+
 	for name, caretaker := range mm.caretakers {
 		stats["caretakers"].(map[string]interface{})[name] = caretaker.GetStats()
 	}
-	
+
 	return stats
 }
 
@@ -395,11 +395,11 @@ func (mm *MementoManager) GetCaretakerStats() map[string]interface{} {
 func (mm *MementoManager) Cleanup() error {
 	mm.mutex.Lock()
 	defer mm.mutex.Unlock()
-	
+
 	for _, caretaker := range mm.caretakers {
 		caretaker.Cleanup()
 	}
-	
+
 	return nil
 }
 
@@ -471,7 +471,7 @@ func NewMementoCache(ttl time.Duration) *MementoCache {
 func (mc *MementoCache) Get(key string) (Memento, bool) {
 	mc.mutex.RLock()
 	defer mc.mutex.RUnlock()
-	
+
 	memento, exists := mc.cache[key]
 	return memento, exists
 }
@@ -480,7 +480,7 @@ func (mc *MementoCache) Get(key string) (Memento, bool) {
 func (mc *MementoCache) Set(key string, memento Memento, ttl time.Duration) error {
 	mc.mutex.Lock()
 	defer mc.mutex.Unlock()
-	
+
 	mc.cache[key] = memento
 	return nil
 }
@@ -489,7 +489,7 @@ func (mc *MementoCache) Set(key string, memento Memento, ttl time.Duration) erro
 func (mc *MementoCache) Delete(key string) error {
 	mc.mutex.Lock()
 	defer mc.mutex.Unlock()
-	
+
 	delete(mc.cache, key)
 	return nil
 }
@@ -498,7 +498,7 @@ func (mc *MementoCache) Delete(key string) error {
 func (mc *MementoCache) Clear() error {
 	mc.mutex.Lock()
 	defer mc.mutex.Unlock()
-	
+
 	mc.cache = make(map[string]Memento)
 	return nil
 }
@@ -507,7 +507,7 @@ func (mc *MementoCache) Clear() error {
 func (mc *MementoCache) Size() int {
 	mc.mutex.RLock()
 	defer mc.mutex.RUnlock()
-	
+
 	return len(mc.cache)
 }
 
@@ -515,12 +515,12 @@ func (mc *MementoCache) Size() int {
 func (mc *MementoCache) Keys() []string {
 	mc.mutex.RLock()
 	defer mc.mutex.RUnlock()
-	
+
 	keys := make([]string, 0, len(mc.cache))
 	for key := range mc.cache {
 		keys = append(keys, key)
 	}
-	
+
 	return keys
 }
 
@@ -528,12 +528,12 @@ func (mc *MementoCache) Keys() []string {
 func (mc *MementoCache) GetStats() map[string]interface{} {
 	mc.mutex.RLock()
 	defer mc.mutex.RUnlock()
-	
+
 	stats := map[string]interface{}{
 		"size": len(mc.cache),
 		"ttl":  mc.ttl,
 	}
-	
+
 	return stats
 }
 
@@ -563,19 +563,19 @@ func (mc *MementoCache) GetExpirationCount() int64 {
 
 // MementoMetrics provides metrics for mementos
 type MementoMetrics struct {
-	TotalMementos      int64
-	ActiveMementos     int64
-	TotalSize          int64
-	AverageSize        float64
-	MaxSize            int64
-	MinSize            int64
-	TotalOperations    int64
+	TotalMementos        int64
+	ActiveMementos       int64
+	TotalSize            int64
+	AverageSize          float64
+	MaxSize              int64
+	MinSize              int64
+	TotalOperations      int64
 	SuccessfulOperations int64
-	FailedOperations   int64
-	AverageLatency     float64
-	MaxLatency         float64
-	MinLatency         float64
-	LastUpdate         time.Time
+	FailedOperations     int64
+	AverageLatency       float64
+	MaxLatency           float64
+	MinLatency           float64
+	LastUpdate           time.Time
 }
 
 // GetMetrics returns current metrics
@@ -589,15 +589,15 @@ func (mm *MementoMetrics) UpdateMetrics(memento Memento) {
 	mm.ActiveMementos++
 	mm.TotalSize += memento.GetSize()
 	mm.AverageSize = float64(mm.TotalSize) / float64(mm.TotalMementos)
-	
+
 	if memento.GetSize() > mm.MaxSize {
 		mm.MaxSize = memento.GetSize()
 	}
-	
+
 	if mm.MinSize == 0 || memento.GetSize() < mm.MinSize {
 		mm.MinSize = memento.GetSize()
 	}
-	
+
 	mm.LastUpdate = time.Now()
 }
 
@@ -618,23 +618,23 @@ func (mv *MementoValidator) Validate(memento Memento) error {
 	if memento == nil {
 		return ErrInvalidMemento
 	}
-	
+
 	if memento.GetID() == "" {
 		return ErrEmptyMementoID
 	}
-	
+
 	if memento.GetOriginatorID() == "" {
 		return ErrEmptyOriginatorID
 	}
-	
+
 	if memento.GetState() == nil {
 		return ErrEmptyMementoState
 	}
-	
+
 	if memento.GetSize() > mv.config.GetMaxMementoSize() {
 		return ErrMementoTooLarge
 	}
-	
+
 	return nil
 }
 
@@ -643,7 +643,7 @@ func (mv *MementoValidator) ValidateState(state interface{}) error {
 	if state == nil {
 		return ErrEmptyMementoState
 	}
-	
+
 	return nil
 }
 
@@ -658,7 +658,7 @@ func (mv *MementoValidator) ValidateSize(memento Memento) error {
 	if memento.GetSize() > mv.config.GetMaxMementoSize() {
 		return ErrMementoTooLarge
 	}
-	
+
 	return nil
 }
 
@@ -667,7 +667,7 @@ func (mv *MementoValidator) ValidateVersion(memento Memento) error {
 	if memento.GetVersion() < 1 {
 		return ErrInvalidMementoVersion
 	}
-	
+
 	return nil
 }
 
@@ -676,7 +676,7 @@ func (mv *MementoValidator) ValidateTimestamp(memento Memento) error {
 	if memento.GetTimestamp().IsZero() {
 		return ErrInvalidMementoTimestamp
 	}
-	
+
 	return nil
 }
 

@@ -76,17 +76,17 @@ func (bo *BaseOriginator) SetDirty(dirty bool) {
 // CreateMemento creates a memento from the current state
 func (bo *BaseOriginator) CreateMemento() Memento {
 	return &BaseMemento{
-		ID:            generateID(),
-		OriginatorID:  bo.ID,
-		State:         bo.State,
-		Timestamp:     time.Now(),
-		Version:       bo.Version,
-		Type:          bo.Type,
-		Description:   "Memento for " + bo.Name,
-		Metadata:      make(map[string]interface{}),
-		Valid:         true,
-		Size:          calculateSize(bo.State),
-		Checksum:      calculateChecksum(bo.State),
+		ID:           generateID(),
+		OriginatorID: bo.ID,
+		State:        bo.State,
+		Timestamp:    time.Now(),
+		Version:      bo.Version,
+		Type:         bo.Type,
+		Description:  "Memento for " + bo.Name,
+		Metadata:     make(map[string]interface{}),
+		Valid:        true,
+		Size:         calculateSize(bo.State),
+		Checksum:     calculateChecksum(bo.State),
 	}
 }
 
@@ -95,16 +95,16 @@ func (bo *BaseOriginator) RestoreMemento(memento Memento) error {
 	if memento.GetOriginatorID() != bo.ID {
 		return ErrInvalidOriginator
 	}
-	
+
 	if !memento.IsValid() {
 		return ErrInvalidMemento
 	}
-	
+
 	bo.State = memento.GetState()
 	bo.Version = memento.GetVersion()
 	bo.LastModified = memento.GetTimestamp()
 	bo.Dirty = false
-	
+
 	return nil
 }
 
@@ -368,11 +368,11 @@ func (do *DocumentOriginator) GetEncoding() string {
 // DatabaseOriginator implements a database originator
 type DatabaseOriginator struct {
 	BaseOriginator
-	Table    string                 `json:"table"`
-	Schema   string                 `json:"schema"`
-	Records  []map[string]interface{} `json:"records"`
-	Indexes  []string               `json:"indexes"`
-	Constraints []string            `json:"constraints"`
+	Table       string                   `json:"table"`
+	Schema      string                   `json:"schema"`
+	Records     []map[string]interface{} `json:"records"`
+	Indexes     []string                 `json:"indexes"`
+	Constraints []string                 `json:"constraints"`
 }
 
 // NewDatabaseOriginator creates a new database originator
@@ -595,11 +595,11 @@ func (fo *FileOriginator) updateState() {
 // ConfigurationOriginator implements a configuration originator
 type ConfigurationOriginator struct {
 	BaseOriginator
-	Config   map[string]interface{} `json:"config"`
-	Defaults map[string]interface{} `json:"defaults"`
-	Overrides map[string]interface{} `json:"overrides"`
-	Version  string                 `json:"version"`
-	Environment string              `json:"environment"`
+	Config      map[string]interface{} `json:"config"`
+	Defaults    map[string]interface{} `json:"defaults"`
+	Overrides   map[string]interface{} `json:"overrides"`
+	Version     string                 `json:"version"`
+	Environment string                 `json:"environment"`
 }
 
 // NewConfigurationOriginator creates a new configuration originator

@@ -127,7 +127,7 @@ func (btm *BaseTemplateMethod) Execute() error {
 
 	for i, step := range btm.Steps {
 		btm.CurrentStep = i
-		
+
 		if !step.CanExecute() {
 			btm.Status = "failed"
 			btm.Error = ErrStepCannotExecute
@@ -277,7 +277,7 @@ func (bs *BaseStep) CanExecute() bool {
 func (bs *BaseStep) Execute() error {
 	bs.Status = "running"
 	bs.StartTime = time.Now()
-	
+
 	// Default implementation - override in specific steps
 	bs.Status = "completed"
 	bs.EndTime = time.Now()
@@ -406,7 +406,7 @@ func (cs *ConcreteStep) SetStepType(stepType string) {
 func (cs *ConcreteStep) Execute() error {
 	cs.Status = "running"
 	cs.StartTime = time.Now()
-	
+
 	// Default implementation - override in specific steps
 	cs.Status = "completed"
 	cs.EndTime = time.Now()
@@ -422,7 +422,7 @@ func (cs *ConcreteStep) Validate() error {
 // DocumentProcessingTemplateMethod implements document processing template method
 type DocumentProcessingTemplateMethod struct {
 	ConcreteTemplateMethod
-	DocumentType string `json:"document_type"`
+	DocumentType    string   `json:"document_type"`
 	ProcessingRules []string `json:"processing_rules"`
 }
 
@@ -430,8 +430,8 @@ type DocumentProcessingTemplateMethod struct {
 func NewDocumentProcessingTemplateMethod(name, description, documentType string) *DocumentProcessingTemplateMethod {
 	return &DocumentProcessingTemplateMethod{
 		ConcreteTemplateMethod: *NewConcreteTemplateMethod(name, description, "document_processing"),
-		DocumentType: documentType,
-		ProcessingRules: make([]string, 0),
+		DocumentType:           documentType,
+		ProcessingRules:        make([]string, 0),
 	}
 }
 
@@ -467,8 +467,8 @@ type DataValidationTemplateMethod struct {
 func NewDataValidationTemplateMethod(name, description, validationLevel string) *DataValidationTemplateMethod {
 	return &DataValidationTemplateMethod{
 		ConcreteTemplateMethod: *NewConcreteTemplateMethod(name, description, "data_validation"),
-		ValidationRules: make([]string, 0),
-		ValidationLevel: validationLevel,
+		ValidationRules:        make([]string, 0),
+		ValidationLevel:        validationLevel,
 	}
 }
 
@@ -504,8 +504,8 @@ type WorkflowTemplateMethod struct {
 func NewWorkflowTemplateMethod(name, description, workflowType string) *WorkflowTemplateMethod {
 	return &WorkflowTemplateMethod{
 		ConcreteTemplateMethod: *NewConcreteTemplateMethod(name, description, "workflow"),
-		WorkflowType: workflowType,
-		WorkflowData: make(map[string]interface{}),
+		WorkflowType:           workflowType,
+		WorkflowData:           make(map[string]interface{}),
 	}
 }
 
@@ -532,8 +532,8 @@ func (wtm *WorkflowTemplateMethod) SetWorkflowData(workflowData map[string]inter
 // APIRequestTemplateMethod implements API request template method
 type APIRequestTemplateMethod struct {
 	ConcreteTemplateMethod
-	RequestType string                 `json:"request_type"`
-	RequestData map[string]interface{} `json:"request_data"`
+	RequestType  string                 `json:"request_type"`
+	RequestData  map[string]interface{} `json:"request_data"`
 	ResponseData map[string]interface{} `json:"response_data"`
 }
 
@@ -541,9 +541,9 @@ type APIRequestTemplateMethod struct {
 func NewAPIRequestTemplateMethod(name, description, requestType string) *APIRequestTemplateMethod {
 	return &APIRequestTemplateMethod{
 		ConcreteTemplateMethod: *NewConcreteTemplateMethod(name, description, "api_request"),
-		RequestType: requestType,
-		RequestData: make(map[string]interface{}),
-		ResponseData: make(map[string]interface{}),
+		RequestType:            requestType,
+		RequestData:            make(map[string]interface{}),
+		ResponseData:           make(map[string]interface{}),
 	}
 }
 
@@ -589,9 +589,9 @@ type DatabaseOperationTemplateMethod struct {
 func NewDatabaseOperationTemplateMethod(name, description, operationType, tableName string) *DatabaseOperationTemplateMethod {
 	return &DatabaseOperationTemplateMethod{
 		ConcreteTemplateMethod: *NewConcreteTemplateMethod(name, description, "database_operation"),
-		OperationType: operationType,
-		TableName: tableName,
-		QueryData: make(map[string]interface{}),
+		OperationType:          operationType,
+		TableName:              tableName,
+		QueryData:              make(map[string]interface{}),
 	}
 }
 

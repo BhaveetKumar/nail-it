@@ -1,7 +1,6 @@
 package template_method
 
 import (
-	"context"
 	"sync"
 	"time"
 )
@@ -25,11 +24,11 @@ func NewConcreteTemplateMethodManager(config *TemplateMethodConfig) *ConcreteTem
 func (ctmm *ConcreteTemplateMethodManager) CreateTemplateMethod(name string, template TemplateMethod) error {
 	ctmm.mutex.Lock()
 	defer ctmm.mutex.Unlock()
-	
+
 	if len(ctmm.templates) >= ctmm.config.GetMaxTemplateMethods() {
 		return ErrMaxTemplateMethodsReached
 	}
-	
+
 	ctmm.templates[name] = template
 	return nil
 }
@@ -38,12 +37,12 @@ func (ctmm *ConcreteTemplateMethodManager) CreateTemplateMethod(name string, tem
 func (ctmm *ConcreteTemplateMethodManager) GetTemplateMethod(name string) (TemplateMethod, error) {
 	ctmm.mutex.RLock()
 	defer ctmm.mutex.RUnlock()
-	
+
 	template, exists := ctmm.templates[name]
 	if !exists {
 		return nil, ErrTemplateMethodNotFound
 	}
-	
+
 	return template, nil
 }
 
@@ -51,12 +50,12 @@ func (ctmm *ConcreteTemplateMethodManager) GetTemplateMethod(name string) (Templ
 func (ctmm *ConcreteTemplateMethodManager) RemoveTemplateMethod(name string) error {
 	ctmm.mutex.Lock()
 	defer ctmm.mutex.Unlock()
-	
+
 	_, exists := ctmm.templates[name]
 	if !exists {
 		return ErrTemplateMethodNotFound
 	}
-	
+
 	delete(ctmm.templates, name)
 	return nil
 }
@@ -65,12 +64,12 @@ func (ctmm *ConcreteTemplateMethodManager) RemoveTemplateMethod(name string) err
 func (ctmm *ConcreteTemplateMethodManager) ListTemplateMethods() []string {
 	ctmm.mutex.RLock()
 	defer ctmm.mutex.RUnlock()
-	
+
 	names := make([]string, 0, len(ctmm.templates))
 	for name := range ctmm.templates {
 		names = append(names, name)
 	}
-	
+
 	return names
 }
 
@@ -78,7 +77,7 @@ func (ctmm *ConcreteTemplateMethodManager) ListTemplateMethods() []string {
 func (ctmm *ConcreteTemplateMethodManager) GetTemplateMethodCount() int {
 	ctmm.mutex.RLock()
 	defer ctmm.mutex.RUnlock()
-	
+
 	return len(ctmm.templates)
 }
 
@@ -86,28 +85,28 @@ func (ctmm *ConcreteTemplateMethodManager) GetTemplateMethodCount() int {
 func (ctmm *ConcreteTemplateMethodManager) GetTemplateMethodStats() map[string]interface{} {
 	ctmm.mutex.RLock()
 	defer ctmm.mutex.RUnlock()
-	
+
 	stats := map[string]interface{}{
 		"total_templates": len(ctmm.templates),
 		"templates":       make(map[string]interface{}),
 	}
-	
+
 	for name, template := range ctmm.templates {
 		stats["templates"].(map[string]interface{})[name] = map[string]interface{}{
-			"name":        template.GetName(),
-			"description": template.GetDescription(),
-			"status":      template.GetStatus(),
-			"steps":       len(template.GetSteps()),
+			"name":         template.GetName(),
+			"description":  template.GetDescription(),
+			"status":       template.GetStatus(),
+			"steps":        len(template.GetSteps()),
 			"current_step": template.GetCurrentStep(),
-			"start_time":  template.GetStartTime(),
-			"end_time":    template.GetEndTime(),
-			"duration":    template.GetDuration(),
-			"completed":   template.IsCompleted(),
-			"failed":      template.IsFailed(),
-			"running":     template.IsRunning(),
+			"start_time":   template.GetStartTime(),
+			"end_time":     template.GetEndTime(),
+			"duration":     template.GetDuration(),
+			"completed":    template.IsCompleted(),
+			"failed":       template.IsFailed(),
+			"running":      template.IsRunning(),
 		}
 	}
-	
+
 	return stats
 }
 
@@ -115,32 +114,32 @@ func (ctmm *ConcreteTemplateMethodManager) GetTemplateMethodStats() map[string]i
 func (ctmm *ConcreteTemplateMethodManager) Cleanup() error {
 	ctmm.mutex.Lock()
 	defer ctmm.mutex.Unlock()
-	
+
 	// Remove completed or failed templates older than max age
 	now := time.Now()
 	for name, template := range ctmm.templates {
-		if (template.IsCompleted() || template.IsFailed()) && 
-		   now.Sub(template.GetEndTime()) > ctmm.config.GetMaxExecutionTime() {
+		if (template.IsCompleted() || template.IsFailed()) &&
+			now.Sub(template.GetEndTime()) > ctmm.config.GetMaxExecutionTime() {
 			delete(ctmm.templates, name)
 		}
 	}
-	
+
 	return nil
 }
 
 // ConcreteTemplateMethodExecutor implements the TemplateMethodExecutor interface
 type ConcreteTemplateMethodExecutor struct {
-	manager        *ConcreteTemplateMethodManager
-	config         *TemplateMethodConfig
+	manager          *ConcreteTemplateMethodManager
+	config           *TemplateMethodConfig
 	executionHistory []ExecutionRecord
-	mutex          sync.RWMutex
+	mutex            sync.RWMutex
 }
 
 // NewConcreteTemplateMethodExecutor creates a new concrete template method executor
 func NewConcreteTemplateMethodExecutor(manager *ConcreteTemplateMethodManager, config *TemplateMethodConfig) *ConcreteTemplateMethodExecutor {
 	return &ConcreteTemplateMethodExecutor{
-		manager:        manager,
-		config:         config,
+		manager:          manager,
+		config:           config,
 		executionHistory: make([]ExecutionRecord, 0),
 	}
 }
@@ -159,14 +158,14 @@ func (ctme *ConcreteTemplateMethodExecutor) ExecuteTemplateMethod(template Templ
 		Result:             nil,
 		Metadata:           make(map[string]interface{}),
 	}
-	
+
 	ctme.mutex.Lock()
 	ctme.executionHistory = append(ctme.executionHistory, record)
 	ctme.mutex.Unlock()
-	
+
 	// Execute template method
 	err := template.Execute()
-	
+
 	// Update execution record
 	record.SetEndTime(time.Now())
 	if err != nil {
@@ -176,7 +175,7 @@ func (ctme *ConcreteTemplateMethodExecutor) ExecuteTemplateMethod(template Templ
 		record.SetStatus("completed")
 		record.SetResult(template.GetResult())
 	}
-	
+
 	return err
 }
 
@@ -186,7 +185,7 @@ func (ctme *ConcreteTemplateMethodExecutor) ExecuteStep(step Step) error {
 	if err := step.Validate(); err != nil {
 		return err
 	}
-	
+
 	// Execute step
 	return step.Execute()
 }
@@ -206,22 +205,22 @@ func (ctme *ConcreteTemplateMethodExecutor) ValidateTemplateMethod(template Temp
 	if template == nil {
 		return ErrInvalidTemplateMethod
 	}
-	
+
 	if template.GetName() == "" {
 		return ErrEmptyTemplateMethodName
 	}
-	
+
 	if len(template.GetSteps()) == 0 {
 		return ErrNoSteps
 	}
-	
+
 	// Validate each step
 	for _, step := range template.GetSteps() {
 		if err := ctme.ValidateStep(step); err != nil {
 			return err
 		}
 	}
-	
+
 	return nil
 }
 
@@ -230,11 +229,11 @@ func (ctme *ConcreteTemplateMethodExecutor) ValidateStep(step Step) error {
 	if step == nil {
 		return ErrInvalidStep
 	}
-	
+
 	if step.GetName() == "" {
 		return ErrEmptyStepName
 	}
-	
+
 	return step.Validate()
 }
 
@@ -242,21 +241,21 @@ func (ctme *ConcreteTemplateMethodExecutor) ValidateStep(step Step) error {
 func (ctme *ConcreteTemplateMethodExecutor) GetExecutionStats() map[string]interface{} {
 	ctme.mutex.RLock()
 	defer ctme.mutex.RUnlock()
-	
+
 	stats := map[string]interface{}{
-		"total_executions": len(ctme.executionHistory),
+		"total_executions":      len(ctme.executionHistory),
 		"successful_executions": 0,
-		"failed_executions": 0,
-		"running_executions": 0,
-		"average_duration": 0.0,
-		"max_duration": 0.0,
-		"min_duration": 0.0,
+		"failed_executions":     0,
+		"running_executions":    0,
+		"average_duration":      0.0,
+		"max_duration":          0.0,
+		"min_duration":          0.0,
 	}
-	
+
 	var totalDuration time.Duration
 	var maxDuration time.Duration
 	var minDuration time.Duration
-	
+
 	for _, record := range ctme.executionHistory {
 		switch record.GetStatus() {
 		case "completed":
@@ -266,25 +265,25 @@ func (ctme *ConcreteTemplateMethodExecutor) GetExecutionStats() map[string]inter
 		case "running":
 			stats["running_executions"] = stats["running_executions"].(int) + 1
 		}
-		
+
 		duration := record.GetDuration()
 		totalDuration += duration
-		
+
 		if duration > maxDuration {
 			maxDuration = duration
 		}
-		
+
 		if minDuration == 0 || duration < minDuration {
 			minDuration = duration
 		}
 	}
-	
+
 	if len(ctme.executionHistory) > 0 {
 		stats["average_duration"] = float64(totalDuration) / float64(len(ctme.executionHistory))
 		stats["max_duration"] = float64(maxDuration)
 		stats["min_duration"] = float64(minDuration)
 	}
-	
+
 	return stats
 }
 
@@ -292,7 +291,7 @@ func (ctme *ConcreteTemplateMethodExecutor) GetExecutionStats() map[string]inter
 func (ctme *ConcreteTemplateMethodExecutor) GetExecutionHistory() []ExecutionRecord {
 	ctme.mutex.RLock()
 	defer ctme.mutex.RUnlock()
-	
+
 	return ctme.executionHistory
 }
 
@@ -300,7 +299,7 @@ func (ctme *ConcreteTemplateMethodExecutor) GetExecutionHistory() []ExecutionRec
 func (ctme *ConcreteTemplateMethodExecutor) ClearExecutionHistory() error {
 	ctme.mutex.Lock()
 	defer ctme.mutex.Unlock()
-	
+
 	ctme.executionHistory = make([]ExecutionRecord, 0)
 	return nil
 }
@@ -422,7 +421,7 @@ type TemplateMethodService struct {
 func NewTemplateMethodService(config *TemplateMethodConfig) *TemplateMethodService {
 	manager := NewConcreteTemplateMethodManager(config)
 	executor := NewConcreteTemplateMethodExecutor(manager, config)
-	
+
 	return &TemplateMethodService{
 		manager:  manager,
 		executor: executor,
@@ -524,7 +523,7 @@ func NewTemplateMethodCache(ttl time.Duration) *TemplateMethodCache {
 func (tmc *TemplateMethodCache) Get(key string) (TemplateMethod, bool) {
 	tmc.mutex.RLock()
 	defer tmc.mutex.RUnlock()
-	
+
 	template, exists := tmc.cache[key]
 	return template, exists
 }
@@ -533,7 +532,7 @@ func (tmc *TemplateMethodCache) Get(key string) (TemplateMethod, bool) {
 func (tmc *TemplateMethodCache) Set(key string, template TemplateMethod, ttl time.Duration) error {
 	tmc.mutex.Lock()
 	defer tmc.mutex.Unlock()
-	
+
 	tmc.cache[key] = template
 	return nil
 }
@@ -542,7 +541,7 @@ func (tmc *TemplateMethodCache) Set(key string, template TemplateMethod, ttl tim
 func (tmc *TemplateMethodCache) Delete(key string) error {
 	tmc.mutex.Lock()
 	defer tmc.mutex.Unlock()
-	
+
 	delete(tmc.cache, key)
 	return nil
 }
@@ -551,7 +550,7 @@ func (tmc *TemplateMethodCache) Delete(key string) error {
 func (tmc *TemplateMethodCache) Clear() error {
 	tmc.mutex.Lock()
 	defer tmc.mutex.Unlock()
-	
+
 	tmc.cache = make(map[string]TemplateMethod)
 	return nil
 }
@@ -560,7 +559,7 @@ func (tmc *TemplateMethodCache) Clear() error {
 func (tmc *TemplateMethodCache) Size() int {
 	tmc.mutex.RLock()
 	defer tmc.mutex.RUnlock()
-	
+
 	return len(tmc.cache)
 }
 
@@ -568,12 +567,12 @@ func (tmc *TemplateMethodCache) Size() int {
 func (tmc *TemplateMethodCache) Keys() []string {
 	tmc.mutex.RLock()
 	defer tmc.mutex.RUnlock()
-	
+
 	keys := make([]string, 0, len(tmc.cache))
 	for key := range tmc.cache {
 		keys = append(keys, key)
 	}
-	
+
 	return keys
 }
 
@@ -581,12 +580,12 @@ func (tmc *TemplateMethodCache) Keys() []string {
 func (tmc *TemplateMethodCache) GetStats() map[string]interface{} {
 	tmc.mutex.RLock()
 	defer tmc.mutex.RUnlock()
-	
+
 	stats := map[string]interface{}{
 		"size": len(tmc.cache),
 		"ttl":  tmc.ttl,
 	}
-	
+
 	return stats
 }
 
@@ -631,19 +630,19 @@ func (tmv *TemplateMethodValidator) ValidateTemplateMethod(template TemplateMeth
 	if template == nil {
 		return ErrInvalidTemplateMethod
 	}
-	
+
 	if template.GetName() == "" {
 		return ErrEmptyTemplateMethodName
 	}
-	
+
 	if len(template.GetSteps()) == 0 {
 		return ErrNoSteps
 	}
-	
+
 	if len(template.GetSteps()) > tmv.config.GetMaxSteps() {
 		return ErrTooManySteps
 	}
-	
+
 	return nil
 }
 
@@ -652,11 +651,11 @@ func (tmv *TemplateMethodValidator) ValidateStep(step Step) error {
 	if step == nil {
 		return ErrInvalidStep
 	}
-	
+
 	if step.GetName() == "" {
 		return ErrEmptyStepName
 	}
-	
+
 	return step.Validate()
 }
 
@@ -673,9 +672,9 @@ func (tmv *TemplateMethodValidator) ValidateSteps(steps []Step) error {
 // GetValidationRules returns validation rules
 func (tmv *TemplateMethodValidator) GetValidationRules() map[string]interface{} {
 	return map[string]interface{}{
-		"max_steps": tmv.config.GetMaxSteps(),
+		"max_steps":          tmv.config.GetMaxSteps(),
 		"max_execution_time": tmv.config.GetMaxExecutionTime(),
-		"max_retries": tmv.config.GetMaxRetries(),
+		"max_retries":        tmv.config.GetMaxRetries(),
 	}
 }
 

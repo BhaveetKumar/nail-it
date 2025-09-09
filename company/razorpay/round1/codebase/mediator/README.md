@@ -50,6 +50,7 @@ The Mediator pattern defines an object that encapsulates how a set of objects in
 ## Mediator Types
 
 ### 1. Message Mediator
+
 Handles message passing between colleagues.
 
 ```go
@@ -65,6 +66,7 @@ mediator.SendMessage("colleague1", "colleague2", "Hello from colleague 1")
 ```
 
 ### 2. Event Mediator
+
 Handles event distribution and processing.
 
 ```go
@@ -81,6 +83,7 @@ mediator.BroadcastMessage("handler1", &Event{
 ```
 
 ### 3. Command Mediator
+
 Handles command execution and coordination.
 
 ```go
@@ -97,6 +100,7 @@ mediator.SendMessage("handler1", "handler1", &Command{
 ```
 
 ### 4. Query Mediator
+
 Handles query processing and data retrieval.
 
 ```go
@@ -113,6 +117,7 @@ mediator.SendMessage("handler1", "handler1", &Query{
 ```
 
 ### 5. Notification Mediator
+
 Handles notification delivery and management.
 
 ```go
@@ -130,6 +135,7 @@ mediator.SendMessage("handler1", "handler1", &Notification{
 ```
 
 ### 6. Workflow Mediator
+
 Handles workflow execution and coordination.
 
 ```go
@@ -150,6 +156,7 @@ mediator.SendMessage("handler1", "handler1", &Workflow{
 ```
 
 ### 7. Service Mediator
+
 Handles service coordination and management.
 
 ```go
@@ -167,6 +174,7 @@ mediator.SendMessage("handler1", "handler1", &Service{
 ```
 
 ### 8. Resource Mediator
+
 Handles resource allocation and management.
 
 ```go
@@ -185,6 +193,7 @@ mediator.SendMessage("handler1", "handler1", &Resource{
 ```
 
 ### 9. Task Mediator
+
 Handles task execution and coordination.
 
 ```go
@@ -202,6 +211,7 @@ mediator.SendMessage("handler1", "handler1", &Task{
 ```
 
 ### 10. Job Mediator
+
 Handles job scheduling and execution.
 
 ```go
@@ -223,6 +233,7 @@ mediator.SendMessage("handler1", "handler1", &Job{
 ### Mediator Management
 
 #### Create Mediator
+
 ```http
 POST /api/v1/mediators
 Content-Type: application/json
@@ -233,16 +244,19 @@ Content-Type: application/json
 ```
 
 #### Get Mediator
+
 ```http
 GET /api/v1/mediators/{name}
 ```
 
 #### List Mediators
+
 ```http
 GET /api/v1/mediators
 ```
 
 #### Remove Mediator
+
 ```http
 DELETE /api/v1/mediators/{name}
 ```
@@ -250,6 +264,7 @@ DELETE /api/v1/mediators/{name}
 ### Colleague Management
 
 #### Register Colleague
+
 ```http
 POST /api/v1/mediators/{name}/colleagues
 Content-Type: application/json
@@ -262,6 +277,7 @@ Content-Type: application/json
 ```
 
 #### Unregister Colleague
+
 ```http
 DELETE /api/v1/mediators/{name}/colleagues/{colleagueID}
 ```
@@ -269,6 +285,7 @@ DELETE /api/v1/mediators/{name}/colleagues/{colleagueID}
 ### Message Operations
 
 #### Send Message
+
 ```http
 POST /api/v1/mediators/{name}/messages
 Content-Type: application/json
@@ -281,6 +298,7 @@ Content-Type: application/json
 ```
 
 #### Broadcast Message
+
 ```http
 POST /api/v1/mediators/{name}/broadcast
 Content-Type: application/json
@@ -292,6 +310,7 @@ Content-Type: application/json
 ```
 
 ### Health Check
+
 ```http
 GET /health
 ```
@@ -299,11 +318,13 @@ GET /health
 ## WebSocket Events
 
 ### Connection
+
 ```javascript
-const ws = new WebSocket('ws://localhost:8080/ws');
+const ws = new WebSocket("ws://localhost:8080/ws");
 ```
 
 ### Events
+
 - `mediator_created`: When a new mediator is created
 - `mediator_updated`: When a mediator is updated
 - `mediator_deleted`: When a mediator is deleted
@@ -337,11 +358,11 @@ database:
     username: "root"
     password: "password"
     database: "mediator_db"
-  
+
   mongodb:
     uri: "mongodb://localhost:27017"
     database: "mediator_db"
-  
+
   redis:
     host: "localhost"
     port: 6379
@@ -388,6 +409,7 @@ logging:
 ## Usage Examples
 
 ### Basic Message Mediator
+
 ```go
 // Create mediator
 config := &MediatorConfig{
@@ -423,6 +445,7 @@ mediator.BroadcastMessage("colleague1", "Hello everyone!")
 ```
 
 ### Event-Driven Mediator
+
 ```go
 // Create event mediator
 mediator := NewConcreteMediator(config)
@@ -462,6 +485,7 @@ mediator.BroadcastMessage("user_handler", event)
 ```
 
 ### Command Mediator
+
 ```go
 // Create command mediator
 mediator := NewConcreteMediator(config)
@@ -493,6 +517,7 @@ mediator.SendMessage("user_command_handler", "user_command_handler", command)
 ```
 
 ### Workflow Mediator
+
 ```go
 // Create workflow mediator
 mediator := NewConcreteMediator(config)
@@ -546,16 +571,19 @@ mediator.SendMessage("workflow_handler", "workflow_handler", workflow)
 ## Testing
 
 ### Unit Tests
+
 ```bash
 go test ./internal/mediator/...
 ```
 
 ### Integration Tests
+
 ```bash
 go test -tags=integration ./...
 ```
 
 ### Benchmark Tests
+
 ```bash
 go test -bench=. ./internal/mediator/...
 ```
@@ -587,17 +615,20 @@ go test -bench=. ./internal/mediator/...
 ## Deployment
 
 ### Docker
+
 ```bash
 docker build -t mediator-service .
 docker run -p 8080:8080 mediator-service
 ```
 
 ### Kubernetes
+
 ```bash
 kubectl apply -f k8s/
 ```
 
 ### Environment Variables
+
 ```bash
 export MYSQL_HOST=localhost
 export MYSQL_PORT=3306
@@ -627,6 +658,7 @@ MIT License - see LICENSE file for details.
 ## Support
 
 For support and questions:
+
 - Create an issue in the repository
 - Check the documentation
 - Review the examples
@@ -634,6 +666,7 @@ For support and questions:
 ## Changelog
 
 ### v1.0.0
+
 - Initial release
 - Basic mediator types
 - REST API

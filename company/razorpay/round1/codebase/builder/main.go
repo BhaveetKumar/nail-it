@@ -19,11 +19,11 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
-	"github.com/razorpay/round1/codebase/cqrs/configs"
-	"github.com/razorpay/round1/codebase/cqrs/internal/cqrs"
-	"github.com/razorpay/round1/codebase/cqrs/internal/handlers"
-	"github.com/razorpay/round1/codebase/cqrs/internal/kafka"
-	"github.com/razorpay/round1/codebase/cqrs/internal/websocket"
+	"github.com/razorpay/round1/codebase/builder/configs"
+	"github.com/razorpay/round1/codebase/builder/internal/builder"
+	"github.com/razorpay/round1/codebase/builder/internal/handlers"
+	"github.com/razorpay/round1/codebase/builder/internal/kafka"
+	"github.com/razorpay/round1/codebase/builder/internal/websocket"
 )
 
 func main() {
@@ -61,32 +61,31 @@ func main() {
 	wsHub := websocket.NewHub()
 	go wsHub.Run()
 
-	// Initialize CQRS service
-	cqrsConfig := &cqrs.CQRSConfig{
-		Name:                    config.CQRS.Name,
-		Version:                 config.CQRS.Version,
-		Description:             config.CQRS.Description,
-		MaxCommands:             config.CQRS.MaxCommands,
-		MaxQueries:              config.CQRS.MaxQueries,
-		MaxEvents:               config.CQRS.MaxEvents,
-		MaxReadModels:           config.CQRS.MaxReadModels,
-		CleanupInterval:         config.CQRS.CleanupInterval,
-		ValidationEnabled:       config.CQRS.ValidationEnabled,
-		CachingEnabled:          config.CQRS.CachingEnabled,
-		MonitoringEnabled:       config.CQRS.MonitoringEnabled,
-		AuditingEnabled:         config.CQRS.AuditingEnabled,
-		SupportedCommandTypes:   config.CQRS.SupportedCommandTypes,
-		SupportedQueryTypes:     config.CQRS.SupportedQueryTypes,
-		SupportedEventTypes:     config.CQRS.SupportedEventTypes,
-		SupportedReadModelTypes: config.CQRS.SupportedReadModelTypes,
-		ValidationRules:         config.CQRS.ValidationRules,
-		Metadata:                config.CQRS.Metadata,
+	// Initialize Builder service
+	builderConfig := &builder.ServiceConfig{
+		Name:                  config.Builder.Name,
+		Version:               config.Builder.Version,
+		Description:           config.Builder.Description,
+		MaxBuilders:           config.Builder.MaxBuilders,
+		MaxProducts:           config.Builder.MaxProducts,
+		MaxDirectors:          config.Builder.MaxDirectors,
+		CleanupInterval:       config.Builder.CleanupInterval,
+		ValidationEnabled:     config.Builder.ValidationEnabled,
+		CachingEnabled:        config.Builder.CachingEnabled,
+		MonitoringEnabled:     config.Builder.MonitoringEnabled,
+		AuditingEnabled:       config.Builder.AuditingEnabled,
+		SupportedBuilderTypes: config.Builder.SupportedBuilderTypes,
+		SupportedProductTypes: config.Builder.SupportedProductTypes,
+		ValidationRules:       config.Builder.ValidationRules,
+		Metadata:              config.Builder.Metadata,
 	}
 
-	cqrsService := cqrs.NewService(cqrsConfig)
+	builderService := builder.NewBuilderService(builderConfig)
+	productService := builder.NewProductService(builderConfig)
+	directorService := builder.NewDirectorService(builderConfig)
 
 	// Initialize handlers
-	handlers := handlers.NewHandlers(cqrsService, mysqlDB, mongoDB, kafkaProducer, kafkaConsumer, wsHub, logger)
+	handlers := handlers.NewHandlers(builderService, productService, directorService, mysqlDB, mongoDB, kafkaProducer, kafkaConsumer, wsHub, logger)
 
 	// Initialize Gin router
 	router := gin.New()
@@ -190,42 +189,40 @@ func setupRoutes(router *gin.Engine, handlers *handlers.Handlers) {
 	// Health check
 	router.GET("/health", handlers.HealthCheck)
 
-	// CQRS endpoints
-	cqrsGroup := router.Group("/api/v1/cqrs")
+	// Builder endpoints
+	builderGroup := router.Group("/api/v1/builder")
 	{
-		// Command endpoints
-		cqrsGroup.POST("/commands", handlers.SendCommand)
-		cqrsGroup.GET("/commands/:id", handlers.GetCommand)
-		cqrsGroup.GET("/commands", handlers.ListCommands)
+		// Builder management endpoints
+		builderGroup.POST("/builders", handlers.CreateBuilder)
+		builderGroup.DELETE("/builders/:type", handlers.DestroyBuilder)
+		builderGroup.GET("/builders/:type", handlers.GetBuilder)
+		builderGroup.GET("/builders", handlers.ListBuilders)
+		builderGroup.GET("/builders/:type/stats", handlers.GetBuilderStats)
+		builderGroup.GET("/builders/stats", handlers.GetAllBuilderStats)
+		builderGroup.PUT("/builders/:type/active", handlers.SetBuilderActive)
 
-		// Query endpoints
-		cqrsGroup.POST("/queries", handlers.SendQuery)
-		cqrsGroup.GET("/queries/:id", handlers.GetQuery)
-		cqrsGroup.GET("/queries", handlers.ListQueries)
+		// Product management endpoints
+		builderGroup.POST("/products", handlers.CreateProduct)
+		builderGroup.DELETE("/products/:id", handlers.DestroyProduct)
+		builderGroup.GET("/products/:id", handlers.GetProduct)
+		builderGroup.GET("/products", handlers.ListProducts)
+		builderGroup.GET("/products/:id/stats", handlers.GetProductStats)
+		builderGroup.GET("/products/stats", handlers.GetAllProductStats)
+		builderGroup.PUT("/products/:id/active", handlers.SetProductActive)
 
-		// Event endpoints
-		cqrsGroup.POST("/events", handlers.PublishEvent)
-		cqrsGroup.GET("/events/:id", handlers.GetEvent)
-		cqrsGroup.GET("/events", handlers.ListEvents)
-
-		// Read model endpoints
-		cqrsGroup.POST("/read-models", handlers.SaveReadModel)
-		cqrsGroup.GET("/read-models/:id", handlers.GetReadModel)
-		cqrsGroup.GET("/read-models", handlers.ListReadModels)
-		cqrsGroup.DELETE("/read-models/:id", handlers.DeleteReadModel)
-
-		// Handler registration endpoints
-		cqrsGroup.POST("/handlers/commands", handlers.RegisterCommandHandler)
-		cqrsGroup.POST("/handlers/queries", handlers.RegisterQueryHandler)
-		cqrsGroup.POST("/handlers/events", handlers.RegisterEventHandler)
-		cqrsGroup.DELETE("/handlers/commands/:type", handlers.UnregisterCommandHandler)
-		cqrsGroup.DELETE("/handlers/queries/:type", handlers.UnregisterQueryHandler)
-		cqrsGroup.DELETE("/handlers/events/:type", handlers.UnregisterEventHandler)
+		// Director management endpoints
+		builderGroup.POST("/directors", handlers.CreateDirector)
+		builderGroup.DELETE("/directors/:id", handlers.DestroyDirector)
+		builderGroup.GET("/directors/:id", handlers.GetDirector)
+		builderGroup.GET("/directors", handlers.ListDirectors)
+		builderGroup.GET("/directors/:id/stats", handlers.GetDirectorStats)
+		builderGroup.GET("/directors/stats", handlers.GetAllDirectorStats)
+		builderGroup.PUT("/directors/:id/active", handlers.SetDirectorActive)
 
 		// Service management endpoints
-		cqrsGroup.GET("/stats", handlers.GetServiceStats)
-		cqrsGroup.POST("/cleanup", handlers.Cleanup)
-		cqrsGroup.GET("/health", handlers.GetHealthStatus)
+		builderGroup.GET("/stats", handlers.GetServiceStats)
+		builderGroup.POST("/cleanup", handlers.Cleanup)
+		builderGroup.GET("/health", handlers.GetHealthStatus)
 	}
 
 	// WebSocket endpoint

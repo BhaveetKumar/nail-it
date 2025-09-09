@@ -23,28 +23,28 @@ var (
 
 // UnitOfWorkConfig represents the configuration for the unit of work service
 type UnitOfWorkConfig struct {
-	Name                    string                 `json:"name"`
-	Version                 string                 `json:"version"`
-	Description             string                 `json:"description"`
-	MaxEntities             int                    `json:"max_entities"`
-	MaxRepositories         int                    `json:"max_repositories"`
-	TransactionTimeout      time.Duration          `json:"transaction_timeout"`
-	CleanupInterval         time.Duration          `json:"cleanup_interval"`
-	ValidationEnabled       bool                   `json:"validation_enabled"`
-	CachingEnabled          bool                   `json:"caching_enabled"`
-	MonitoringEnabled       bool                   `json:"monitoring_enabled"`
-	AuditingEnabled         bool                   `json:"auditing_enabled"`
-	SupportedEntityTypes    []string               `json:"supported_entity_types"`
-	DefaultEntityType       string                 `json:"default_entity_type"`
-	ValidationRules         map[string]interface{} `json:"validation_rules"`
-	Metadata                map[string]interface{} `json:"metadata"`
-	Database                DatabaseConfig         `json:"database"`
-	Cache                   CacheConfig            `json:"cache"`
-	MessageQueue            MessageQueueConfig     `json:"message_queue"`
-	WebSocket               WebSocketConfig        `json:"websocket"`
-	Security                SecurityConfig         `json:"security"`
-	Monitoring              MonitoringConfig       `json:"monitoring"`
-	Logging                 LoggingConfig          `json:"logging"`
+	Name                 string                 `json:"name"`
+	Version              string                 `json:"version"`
+	Description          string                 `json:"description"`
+	MaxEntities          int                    `json:"max_entities"`
+	MaxRepositories      int                    `json:"max_repositories"`
+	TransactionTimeout   time.Duration          `json:"transaction_timeout"`
+	CleanupInterval      time.Duration          `json:"cleanup_interval"`
+	ValidationEnabled    bool                   `json:"validation_enabled"`
+	CachingEnabled       bool                   `json:"caching_enabled"`
+	MonitoringEnabled    bool                   `json:"monitoring_enabled"`
+	AuditingEnabled      bool                   `json:"auditing_enabled"`
+	SupportedEntityTypes []string               `json:"supported_entity_types"`
+	DefaultEntityType    string                 `json:"default_entity_type"`
+	ValidationRules      map[string]interface{} `json:"validation_rules"`
+	Metadata             map[string]interface{} `json:"metadata"`
+	Database             DatabaseConfig         `json:"database"`
+	Cache                CacheConfig            `json:"cache"`
+	MessageQueue         MessageQueueConfig     `json:"message_queue"`
+	WebSocket            WebSocketConfig        `json:"websocket"`
+	Security             SecurityConfig         `json:"security"`
+	Monitoring           MonitoringConfig       `json:"monitoring"`
+	Logging              LoggingConfig          `json:"logging"`
 }
 
 // DatabaseConfig represents database configuration
@@ -438,19 +438,19 @@ func (uowsm *UnitOfWorkServiceManager) GetHealthStatus() map[string]interface{} 
 // GetServiceInfo returns service information
 func (uowsm *UnitOfWorkServiceManager) GetServiceInfo() map[string]interface{} {
 	return map[string]interface{}{
-		"name":                  uowsm.config.Name,
-		"version":               uowsm.config.Version,
-		"description":           uowsm.config.Description,
-		"repository_count":      uowsm.service.GetRepositoryCount(),
-		"entity_count":          uowsm.service.GetEntityCount(),
-		"new_entity_count":      uowsm.service.GetNewEntityCount(),
-		"dirty_entity_count":    uowsm.service.GetDirtyEntityCount(),
-		"deleted_entity_count":  uowsm.service.GetDeletedEntityCount(),
-		"clean_entity_count":    uowsm.service.GetCleanEntityCount(),
-		"created_at":            uowsm.service.GetCreatedAt(),
-		"updated_at":            uowsm.service.GetUpdatedAt(),
-		"active":                uowsm.service.IsActive(),
-		"metadata":              uowsm.service.GetMetadata(),
+		"name":                 uowsm.config.Name,
+		"version":              uowsm.config.Version,
+		"description":          uowsm.config.Description,
+		"repository_count":     uowsm.service.GetRepositoryCount(),
+		"entity_count":         uowsm.service.GetEntityCount(),
+		"new_entity_count":     uowsm.service.GetNewEntityCount(),
+		"dirty_entity_count":   uowsm.service.GetDirtyEntityCount(),
+		"deleted_entity_count": uowsm.service.GetDeletedEntityCount(),
+		"clean_entity_count":   uowsm.service.GetCleanEntityCount(),
+		"created_at":           uowsm.service.GetCreatedAt(),
+		"updated_at":           uowsm.service.GetUpdatedAt(),
+		"active":               uowsm.service.IsActive(),
+		"metadata":             uowsm.service.GetMetadata(),
 	}
 }
 

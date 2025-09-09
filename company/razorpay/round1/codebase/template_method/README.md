@@ -56,6 +56,7 @@ The Template Method pattern defines the skeleton of an algorithm in a base class
 ## Template Method Pattern Structure
 
 ### Abstract Template Method
+
 ```go
 type TemplateMethod interface {
     Execute() error
@@ -76,6 +77,7 @@ type TemplateMethod interface {
 ```
 
 ### Concrete Template Methods
+
 - **Document Processing Template**: Handles PDF, Word, Excel document processing
 - **Data Validation Template**: Validates data against configurable rules
 - **Workflow Template**: Manages sequential and parallel workflow execution
@@ -85,12 +87,14 @@ type TemplateMethod interface {
 ## API Endpoints
 
 ### Template Method Management
+
 - `POST /api/v1/template-methods/` - Create a new template method
 - `GET /api/v1/template-methods/:name` - Get template method details
 - `DELETE /api/v1/template-methods/:name` - Remove a template method
 - `GET /api/v1/template-methods/` - List all template methods
 
 ### Template Method Execution
+
 - `POST /api/v1/template-methods/:name/execute` - Execute a template method
 - `GET /api/v1/template-methods/:name/stats` - Get execution statistics
 - `GET /api/v1/template-methods/stats` - Get overall statistics
@@ -98,11 +102,13 @@ type TemplateMethod interface {
 - `DELETE /api/v1/template-methods/history` - Clear execution history
 
 ### Step Management
+
 - `POST /api/v1/template-methods/:name/steps` - Add a step to template method
 - `GET /api/v1/template-methods/:name/steps/:stepName` - Get step details
 - `POST /api/v1/template-methods/:name/steps/:stepName/execute` - Execute a specific step
 
 ### WebSocket
+
 - `GET /ws` - WebSocket endpoint for real-time updates
 
 ## Configuration
@@ -207,6 +213,7 @@ logging:
 ## Usage Examples
 
 ### Creating a Document Processing Template
+
 ```bash
 curl -X POST http://localhost:8080/api/v1/template-methods/ \
   -H "Content-Type: application/json" \
@@ -218,6 +225,7 @@ curl -X POST http://localhost:8080/api/v1/template-methods/ \
 ```
 
 ### Adding Steps to a Template Method
+
 ```bash
 curl -X POST http://localhost:8080/api/v1/template-methods/pdf-processing/steps \
   -H "Content-Type: application/json" \
@@ -230,11 +238,13 @@ curl -X POST http://localhost:8080/api/v1/template-methods/pdf-processing/steps 
 ```
 
 ### Executing a Template Method
+
 ```bash
 curl -X POST http://localhost:8080/api/v1/template-methods/pdf-processing/execute
 ```
 
 ### Getting Template Method Statistics
+
 ```bash
 curl http://localhost:8080/api/v1/template-methods/pdf-processing/stats
 ```
@@ -250,6 +260,7 @@ curl http://localhost:8080/api/v1/template-methods/pdf-processing/stats
 ## Real-World Use Cases
 
 ### Fintech Applications
+
 - **Document Processing**: KYC document verification, invoice processing, contract analysis
 - **Data Validation**: Customer data validation, transaction data verification, compliance checks
 - **Workflow Management**: Loan approval workflows, payment processing pipelines, risk assessment
@@ -257,6 +268,7 @@ curl http://localhost:8080/api/v1/template-methods/pdf-processing/stats
 - **Database Operations**: Batch data processing, data migration, backup and restore operations
 
 ### Other Applications
+
 - **E-commerce**: Order processing, inventory management, customer service workflows
 - **Healthcare**: Patient data processing, medical record validation, treatment workflows
 - **Education**: Student enrollment, grade processing, course management

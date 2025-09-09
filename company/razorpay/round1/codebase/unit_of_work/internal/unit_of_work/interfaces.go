@@ -335,18 +335,18 @@ func (cr *ConcreteRepository) SetActive(active bool) {
 
 // ConcreteUnitOfWork represents a concrete implementation of UnitOfWork
 type ConcreteUnitOfWork struct {
-	ID             string                 `json:"id"`
-	Name           string                 `json:"name"`
-	Description    string                 `json:"description"`
-	Metadata       map[string]interface{} `json:"metadata"`
-	CreatedAt      time.Time              `json:"created_at"`
-	UpdatedAt      time.Time              `json:"updated_at"`
-	Active         bool                   `json:"active"`
-	Repositories   map[string]Repository  `json:"repositories"`
-	NewEntities    []Entity               `json:"new_entities"`
-	DirtyEntities  []Entity               `json:"dirty_entities"`
-	DeletedEntities []Entity              `json:"deleted_entities"`
-	CleanEntities  []Entity               `json:"clean_entities"`
+	ID              string                 `json:"id"`
+	Name            string                 `json:"name"`
+	Description     string                 `json:"description"`
+	Metadata        map[string]interface{} `json:"metadata"`
+	CreatedAt       time.Time              `json:"created_at"`
+	UpdatedAt       time.Time              `json:"updated_at"`
+	Active          bool                   `json:"active"`
+	Repositories    map[string]Repository  `json:"repositories"`
+	NewEntities     []Entity               `json:"new_entities"`
+	DirtyEntities   []Entity               `json:"dirty_entities"`
+	DeletedEntities []Entity               `json:"deleted_entities"`
+	CleanEntities   []Entity               `json:"clean_entities"`
 }
 
 // RegisterNew registers a new entity
@@ -542,16 +542,16 @@ func (cuow *ConcreteUnitOfWork) GetUpdatedAt() time.Time {
 
 // ConcreteTransactionManager represents a concrete implementation of TransactionManager
 type ConcreteTransactionManager struct {
-	ID                string                 `json:"id"`
-	Name              string                 `json:"name"`
-	Description       string                 `json:"description"`
-	Metadata          map[string]interface{} `json:"metadata"`
-	CreatedAt         time.Time              `json:"created_at"`
-	UpdatedAt         time.Time              `json:"updated_at"`
-	Active            bool                   `json:"active"`
-	ActiveTransactions []UnitOfWork          `json:"active_transactions"`
-	MaxTransactions   int                    `json:"max_transactions"`
-	TransactionTimeout time.Duration         `json:"transaction_timeout"`
+	ID                 string                 `json:"id"`
+	Name               string                 `json:"name"`
+	Description        string                 `json:"description"`
+	Metadata           map[string]interface{} `json:"metadata"`
+	CreatedAt          time.Time              `json:"created_at"`
+	UpdatedAt          time.Time              `json:"updated_at"`
+	Active             bool                   `json:"active"`
+	ActiveTransactions []UnitOfWork           `json:"active_transactions"`
+	MaxTransactions    int                    `json:"max_transactions"`
+	TransactionTimeout time.Duration          `json:"transaction_timeout"`
 }
 
 // Begin begins a new transaction
@@ -561,18 +561,18 @@ func (ctm *ConcreteTransactionManager) Begin() (UnitOfWork, error) {
 	}
 
 	unitOfWork := &ConcreteUnitOfWork{
-		ID:             generateID(),
-		Name:           "Unit of Work",
-		Description:    "Auto-generated unit of work",
-		Metadata:       make(map[string]interface{}),
-		CreatedAt:      time.Now(),
-		UpdatedAt:      time.Now(),
-		Active:         true,
-		Repositories:   make(map[string]Repository),
-		NewEntities:    make([]Entity, 0),
-		DirtyEntities:  make([]Entity, 0),
+		ID:              generateID(),
+		Name:            "Unit of Work",
+		Description:     "Auto-generated unit of work",
+		Metadata:        make(map[string]interface{}),
+		CreatedAt:       time.Now(),
+		UpdatedAt:       time.Now(),
+		Active:          true,
+		Repositories:    make(map[string]Repository),
+		NewEntities:     make([]Entity, 0),
+		DirtyEntities:   make([]Entity, 0),
 		DeletedEntities: make([]Entity, 0),
-		CleanEntities:  make([]Entity, 0),
+		CleanEntities:   make([]Entity, 0),
 	}
 
 	ctm.ActiveTransactions = append(ctm.ActiveTransactions, unitOfWork)

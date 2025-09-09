@@ -46,6 +46,7 @@ The Iterator pattern provides a way to access the elements of an aggregate objec
 ## Iterator Types
 
 ### 1. Slice Iterator
+
 Iterates over a slice of items.
 
 ```go
@@ -54,6 +55,7 @@ iterator := NewSliceIterator(items)
 ```
 
 ### 2. Map Iterator
+
 Iterates over a map, returning key-value pairs.
 
 ```go
@@ -65,6 +67,7 @@ iterator := NewMapIterator(items)
 ```
 
 ### 3. Channel Iterator
+
 Iterates over a channel, processing items as they arrive.
 
 ```go
@@ -73,6 +76,7 @@ iterator := NewChannelIterator(channel)
 ```
 
 ### 4. Database Iterator
+
 Iterates over database query results.
 
 ```go
@@ -82,6 +86,7 @@ iterator := NewDatabaseIterator(query, results)
 ```
 
 ### 5. File Iterator
+
 Iterates over file lines.
 
 ```go
@@ -90,6 +95,7 @@ iterator := NewFileIterator("/path/to/file", lines)
 ```
 
 ### 6. Filtered Iterator
+
 Wraps another iterator with filtering logic.
 
 ```go
@@ -99,6 +105,7 @@ iterator := NewFilteredIterator(baseIterator, filter)
 ```
 
 ### 7. Sorted Iterator
+
 Wraps another iterator with sorting logic.
 
 ```go
@@ -108,6 +115,7 @@ iterator := NewSortedIterator(baseIterator, sorter)
 ```
 
 ### 8. Transformed Iterator
+
 Wraps another iterator with transformation logic.
 
 ```go
@@ -121,6 +129,7 @@ iterator := NewTransformedIterator(baseIterator, transformer)
 ### Iterator Management
 
 #### Create Iterator
+
 ```http
 POST /api/v1/iterators
 Content-Type: application/json
@@ -133,21 +142,25 @@ Content-Type: application/json
 ```
 
 #### Get Iterator
+
 ```http
 GET /api/v1/iterators/{name}
 ```
 
 #### List Iterators
+
 ```http
 GET /api/v1/iterators
 ```
 
 #### Remove Iterator
+
 ```http
 DELETE /api/v1/iterators/{name}
 ```
 
 #### Get Iterator Statistics
+
 ```http
 GET /api/v1/iterators/{name}/stats
 ```
@@ -155,21 +168,25 @@ GET /api/v1/iterators/{name}/stats
 ### Iterator Operations
 
 #### Iterate Over Items
+
 ```http
 POST /api/v1/iterators/{name}/iterate
 ```
 
 #### Reset Iterator
+
 ```http
 POST /api/v1/iterators/{name}/reset
 ```
 
 #### Close Iterator
+
 ```http
 POST /api/v1/iterators/{name}/close
 ```
 
 ### Health Check
+
 ```http
 GET /health
 ```
@@ -177,11 +194,13 @@ GET /health
 ## WebSocket Events
 
 ### Connection
+
 ```javascript
-const ws = new WebSocket('ws://localhost:8080/ws');
+const ws = new WebSocket("ws://localhost:8080/ws");
 ```
 
 ### Events
+
 - `iterator_created`: When a new iterator is created
 - `iterator_updated`: When an iterator is updated
 - `iterator_deleted`: When an iterator is deleted
@@ -211,11 +230,11 @@ database:
     username: "root"
     password: "password"
     database: "iterator_db"
-  
+
   mongodb:
     uri: "mongodb://localhost:27017"
     database: "iterator_db"
-  
+
   redis:
     host: "localhost"
     port: 6379
@@ -262,6 +281,7 @@ logging:
 ## Usage Examples
 
 ### Basic Slice Iterator
+
 ```go
 // Create a slice iterator
 items := []interface{}{"apple", "banana", "cherry"}
@@ -275,6 +295,7 @@ for iterator.HasNext() {
 ```
 
 ### Filtered Iterator
+
 ```go
 // Create a filter
 type EvenNumberFilter struct{}
@@ -300,6 +321,7 @@ for filteredIterator.HasNext() {
 ```
 
 ### Sorted Iterator
+
 ```go
 // Create a sorter
 type StringSorter struct{}
@@ -326,6 +348,7 @@ for sortedIterator.HasNext() {
 ```
 
 ### Transformed Iterator
+
 ```go
 // Create a transformer
 type UpperCaseTransformer struct{}
@@ -353,16 +376,19 @@ for transformedIterator.HasNext() {
 ## Testing
 
 ### Unit Tests
+
 ```bash
 go test ./internal/iterator/...
 ```
 
 ### Integration Tests
+
 ```bash
 go test -tags=integration ./...
 ```
 
 ### Benchmark Tests
+
 ```bash
 go test -bench=. ./internal/iterator/...
 ```
@@ -394,17 +420,20 @@ go test -bench=. ./internal/iterator/...
 ## Deployment
 
 ### Docker
+
 ```bash
 docker build -t iterator-service .
 docker run -p 8080:8080 iterator-service
 ```
 
 ### Kubernetes
+
 ```bash
 kubectl apply -f k8s/
 ```
 
 ### Environment Variables
+
 ```bash
 export MYSQL_HOST=localhost
 export MYSQL_PORT=3306
@@ -434,6 +463,7 @@ MIT License - see LICENSE file for details.
 ## Support
 
 For support and questions:
+
 - Create an issue in the repository
 - Check the documentation
 - Review the examples
@@ -441,6 +471,7 @@ For support and questions:
 ## Changelog
 
 ### v1.0.0
+
 - Initial release
 - Basic iterator types
 - REST API

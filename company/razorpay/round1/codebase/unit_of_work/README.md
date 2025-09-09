@@ -55,6 +55,7 @@ The Unit of Work pattern maintains a list of objects affected by a business tran
 ## Unit of Work Pattern Structure
 
 ### Entity Interface
+
 ```go
 type Entity interface {
     GetID() string
@@ -77,6 +78,7 @@ type Entity interface {
 ```
 
 ### Repository Interface
+
 ```go
 type Repository interface {
     Create(ctx context.Context, entity Entity) error
@@ -99,6 +101,7 @@ type Repository interface {
 ```
 
 ### Unit of Work Interface
+
 ```go
 type UnitOfWork interface {
     RegisterNew(entity Entity) error
@@ -128,12 +131,14 @@ type UnitOfWork interface {
 ```
 
 ### Concrete Entities
+
 - **User Entity**: Manages user information, email, name, role, and status
 - **Order Entity**: Handles order details, items, amounts, and status
 - **Product Entity**: Manages product information, SKU, price, category, and stock
 - **Payment Entity**: Handles payment details, amounts, methods, and transaction status
 
 ### Concrete Repositories
+
 - **User Repository**: User-specific data access operations
 - **Order Repository**: Order-specific data access operations
 - **Product Repository**: Product-specific data access operations
@@ -142,6 +147,7 @@ type UnitOfWork interface {
 ## API Endpoints
 
 ### Entity Management
+
 - `POST /api/v1/unit-of-work/entities/new` - Register a new entity
 - `POST /api/v1/unit-of-work/entities/dirty` - Register a dirty entity
 - `POST /api/v1/unit-of-work/entities/deleted` - Register a deleted entity
@@ -154,20 +160,24 @@ type UnitOfWork interface {
 - `DELETE /api/v1/unit-of-work/entities` - Clear all entities
 
 ### Transaction Management
+
 - `POST /api/v1/unit-of-work/commit` - Commit the unit of work
 - `POST /api/v1/unit-of-work/rollback` - Rollback the unit of work
 
 ### Repository Management
+
 - `POST /api/v1/repositories/` - Register a new repository
 - `GET /api/v1/repositories/:entity_type` - Get repository by entity type
 - `GET /api/v1/repositories/` - List all repository types
 
 ### Statistics and Information
+
 - `GET /api/v1/stats` - Get unit of work statistics
 - `GET /api/v1/info` - Get service information
 - `GET /health` - Health check endpoint
 
 ### WebSocket
+
 - `GET /ws` - WebSocket endpoint for real-time updates
 
 ## Configuration
@@ -268,6 +278,7 @@ logging:
 ## Usage Examples
 
 ### Registering a New User Entity
+
 ```bash
 curl -X POST http://localhost:8080/api/v1/unit-of-work/entities/new \
   -H "Content-Type: application/json" \
@@ -279,6 +290,7 @@ curl -X POST http://localhost:8080/api/v1/unit-of-work/entities/new \
 ```
 
 ### Registering a Dirty Order Entity
+
 ```bash
 curl -X POST http://localhost:8080/api/v1/unit-of-work/entities/dirty \
   -H "Content-Type: application/json" \
@@ -288,11 +300,13 @@ curl -X POST http://localhost:8080/api/v1/unit-of-work/entities/dirty \
 ```
 
 ### Committing the Unit of Work
+
 ```bash
 curl -X POST http://localhost:8080/api/v1/unit-of-work/commit
 ```
 
 ### Getting Entity Statistics
+
 ```bash
 curl http://localhost:8080/api/v1/stats
 ```
@@ -308,6 +322,7 @@ curl http://localhost:8080/api/v1/stats
 ## Real-World Use Cases
 
 ### Fintech Applications
+
 - **User Management**: User registration, profile updates, and account management
 - **Order Processing**: Order creation, modification, and cancellation
 - **Product Management**: Product catalog updates, pricing changes, and inventory management
@@ -315,6 +330,7 @@ curl http://localhost:8080/api/v1/stats
 - **Transaction Coordination**: Coordinating multiple related operations across different entities
 
 ### Other Applications
+
 - **E-commerce**: Order management, inventory updates, and customer data changes
 - **Healthcare**: Patient record updates, appointment scheduling, and medical history changes
 - **Education**: Student enrollment, grade updates, and course management
