@@ -5,6 +5,7 @@ This is a complete microservice implementation demonstrating the Observer design
 ## Architecture Overview
 
 The service implements the Observer pattern for:
+
 - **Event-Driven Architecture**: Decoupled event publishing and subscription
 - **Real-time Notifications**: WebSocket-based event distribution
 - **Event Persistence**: MongoDB-based event store
@@ -16,6 +17,7 @@ The service implements the Observer pattern for:
 ## Features
 
 ### Core Functionality
+
 - **Event Publishing**: Publish events to multiple subscribers
 - **Event Subscription**: Subscribe to specific event types
 - **Event Storage**: Persistent event store with MongoDB
@@ -28,6 +30,7 @@ The service implements the Observer pattern for:
 ### Observer Implementations
 
 #### 1. Event Bus
+
 ```go
 // Event bus for managing event distribution
 type EventBus interface {
@@ -40,6 +43,7 @@ type EventBus interface {
 ```
 
 #### 2. Event Store
+
 ```go
 // Event store for persistent event storage
 type EventStore interface {
@@ -51,6 +55,7 @@ type EventStore interface {
 ```
 
 #### 3. Event Observers
+
 ```go
 // Observer interface for event handling
 type Observer interface {
@@ -62,6 +67,7 @@ type Observer interface {
 ```
 
 #### 4. Event Metrics
+
 ```go
 // Event metrics for monitoring
 type EventMetrics interface {
@@ -75,6 +81,7 @@ type EventMetrics interface {
 ## API Endpoints
 
 ### Events
+
 - `POST /api/v1/events` - Publish event
 - `GET /api/v1/events` - Get events (paginated)
 - `GET /api/v1/events/:id` - Get event by ID
@@ -82,6 +89,7 @@ type EventMetrics interface {
 - `GET /api/v1/events/range` - Get events by time range
 
 ### Observers
+
 - `POST /api/v1/observers` - Create observer
 - `GET /api/v1/observers` - Get all observers
 - `GET /api/v1/observers/:id` - Get observer by ID
@@ -89,35 +97,42 @@ type EventMetrics interface {
 - `DELETE /api/v1/observers/:id` - Delete observer
 
 ### Subscriptions
+
 - `POST /api/v1/subscriptions` - Subscribe observer to event type
 - `DELETE /api/v1/subscriptions` - Unsubscribe observer from event type
 - `GET /api/v1/subscriptions` - Get all subscriptions
 
 ### Event Store
+
 - `GET /api/v1/event-store/events` - Get events from store
 - `GET /api/v1/event-store/events/:id` - Get event from store
 - `POST /api/v1/event-store/replay` - Replay events
 - `DELETE /api/v1/event-store/events/old` - Delete old events
 
 ### Metrics
+
 - `GET /api/v1/metrics` - Get event metrics
 - `GET /api/v1/metrics/events` - Get event count metrics
 - `GET /api/v1/metrics/errors` - Get error metrics
 - `GET /api/v1/metrics/processing-times` - Get processing time metrics
 
 ### Circuit Breaker
+
 - `GET /api/v1/circuit-breaker/status` - Get circuit breaker status
 - `POST /api/v1/circuit-breaker/reset` - Reset circuit breaker
 
 ### WebSocket
+
 - `GET /ws?user_id=:user_id&client_id=:client_id` - WebSocket connection
 
 ### Health Check
+
 - `GET /health` - Service health status
 
 ## Event Types
 
 ### Payment Events
+
 - `payment.created` - Payment created
 - `payment.updated` - Payment updated
 - `payment.completed` - Payment completed
@@ -125,6 +140,7 @@ type EventMetrics interface {
 - `payment.refunded` - Payment refunded
 
 ### User Events
+
 - `user.created` - User created
 - `user.updated` - User updated
 - `user.deleted` - User deleted
@@ -132,6 +148,7 @@ type EventMetrics interface {
 - `user.deactivated` - User deactivated
 
 ### Order Events
+
 - `order.created` - Order created
 - `order.updated` - Order updated
 - `order.cancelled` - Order cancelled
@@ -140,6 +157,7 @@ type EventMetrics interface {
 - `order.delivered` - Order delivered
 
 ### Product Events
+
 - `product.created` - Product created
 - `product.updated` - Product updated
 - `product.deleted` - Product deleted
@@ -147,12 +165,14 @@ type EventMetrics interface {
 - `product.out_of_stock` - Product out of stock
 
 ### Notification Events
+
 - `notification.sent` - Notification sent
 - `notification.failed` - Notification failed
 - `notification.delivered` - Notification delivered
 - `notification.read` - Notification read
 
 ### System Events
+
 - `system.startup` - System startup
 - `system.shutdown` - System shutdown
 - `system.error` - System error
@@ -162,11 +182,13 @@ type EventMetrics interface {
 ## WebSocket Events
 
 ### Event Distribution
+
 - `event.published` - Event published
 - `event.processed` - Event processed
 - `event.failed` - Event processing failed
 
 ### Observer Events
+
 - `observer.subscribed` - Observer subscribed
 - `observer.unsubscribed` - Observer unsubscribed
 - `observer.enabled` - Observer enabled
@@ -175,6 +197,7 @@ type EventMetrics interface {
 ## Kafka Events
 
 ### Event Streaming
+
 - All event types are streamed to Kafka for external consumption
 - Event replay capabilities from Kafka
 - Event correlation and ordering
@@ -182,6 +205,7 @@ type EventMetrics interface {
 ## Setup Instructions
 
 ### Prerequisites
+
 - Go 1.21+
 - MySQL 8.0+
 - MongoDB 4.4+
@@ -191,12 +215,14 @@ type EventMetrics interface {
 ### Installation
 
 1. **Clone and setup**:
+
 ```bash
 cd observer
 go mod tidy
 ```
 
 2. **Start dependencies**:
+
 ```bash
 # Start MySQL
 docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 mysql:8.0
@@ -212,11 +238,13 @@ docker-compose up -d kafka zookeeper
 ```
 
 3. **Create database**:
+
 ```sql
 CREATE DATABASE observer_db;
 ```
 
 4. **Run the service**:
+
 ```bash
 go run main.go
 ```
@@ -236,16 +264,19 @@ The service uses a YAML configuration file (`configs/config.yaml`) with the foll
 ## Testing
 
 ### Unit Tests
+
 ```bash
 go test ./...
 ```
 
 ### Integration Tests
+
 ```bash
 go test -tags=integration ./...
 ```
 
 ### Load Testing
+
 ```bash
 # Install hey
 go install github.com/rakyll/hey@latest
@@ -260,11 +291,13 @@ hey -n 1000 -c 10 -m POST -H "Content-Type: application/json" -d '{"id":"observe
 ## Monitoring
 
 ### Health Check
+
 ```bash
 curl http://localhost:8080/health
 ```
 
 ### Event Metrics
+
 ```bash
 curl http://localhost:8080/api/v1/metrics
 curl http://localhost:8080/api/v1/metrics/events
@@ -272,11 +305,13 @@ curl http://localhost:8080/api/v1/metrics/errors
 ```
 
 ### Circuit Breaker Status
+
 ```bash
 curl http://localhost:8080/api/v1/circuit-breaker/status
 ```
 
 ### WebSocket Connection
+
 ```javascript
 const ws = new WebSocket(
   "ws://localhost:8080/ws?user_id=user123&client_id=client456"
@@ -287,6 +322,7 @@ ws.onmessage = function (event) {
 ```
 
 ### Kafka Events
+
 ```bash
 # Consume events
 kafka-console-consumer --bootstrap-server localhost:9092 --topic observer-events --from-beginning
@@ -295,6 +331,7 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic observer-events
 ## Performance Considerations
 
 ### Observer Benefits
+
 - **Decoupling**: Publishers and subscribers are decoupled
 - **Scalability**: Easy to add new observers
 - **Flexibility**: Dynamic subscription management
@@ -302,6 +339,7 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic observer-events
 - **Persistence**: Event store for replay and audit
 
 ### Optimization Strategies
+
 - **Async Processing**: Non-blocking event processing
 - **Batch Processing**: Process events in batches
 - **Circuit Breaker**: Fault tolerance for event processing
@@ -312,6 +350,7 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic observer-events
 ## Error Handling
 
 The service implements comprehensive error handling:
+
 - **Event Processing Errors**: Retry logic with exponential backoff
 - **Observer Errors**: Circuit breaker protection
 - **Dead Letter Queue**: Failed event handling
@@ -330,12 +369,14 @@ The service implements comprehensive error handling:
 ## Scalability
 
 ### Horizontal Scaling
+
 - **Stateless Design**: No server-side session storage
 - **Load Balancer Ready**: Multiple instance support
 - **Event Partitioning**: Distribute events across instances
 - **Observer Distribution**: Distribute observers across instances
 
 ### Vertical Scaling
+
 - **Async Processing**: Non-blocking event processing
 - **Memory Management**: Efficient event storage
 - **CPU Optimization**: Concurrent event processing
@@ -346,18 +387,21 @@ The service implements comprehensive error handling:
 ### Common Issues
 
 1. **Event Processing Failed**
+
    - Check observer implementation
    - Verify event data format
    - Check circuit breaker status
    - Monitor error metrics
 
 2. **Observer Not Receiving Events**
+
    - Verify subscription status
    - Check event type matching
    - Verify observer is enabled
    - Check event filtering
 
 3. **High Event Processing Latency**
+
    - Check processing time metrics
    - Verify observer performance
    - Check circuit breaker status
@@ -370,6 +414,7 @@ The service implements comprehensive error handling:
    - Monitor storage usage
 
 ### Logs
+
 ```bash
 # View application logs
 tail -f logs/app.log
