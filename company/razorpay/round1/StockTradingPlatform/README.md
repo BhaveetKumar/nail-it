@@ -46,6 +46,18 @@ A comprehensive, production-ready stock trading platform built with Node.js, fea
 - ✅ API rate limiting and security
 - ✅ High availability and scalability
 
+### Parking Lot Management System
+- ✅ Complete parking space allocation and management
+- ✅ Real-time booking system with WebSocket updates
+- ✅ RFID-based access control for entry/exit
+- ✅ Dynamic pricing based on demand and user type
+- ✅ Multi-level parking support with floor management
+- ✅ Employee priority parking and visitor management
+- ✅ Payment integration with refund processing
+- ✅ Real-time occupancy monitoring and analytics
+- ✅ Mobile app integration for space booking
+- ✅ Security and audit logging for all operations
+
 ## Quick Start
 
 ### Prerequisites
@@ -77,6 +89,14 @@ npm run dev          # Start the application
 - **Base URL**: `http://localhost:3000/api/v1`
 - **WebSocket**: `ws://localhost:3000`
 - **API Docs**: `http://localhost:3000/docs` (Swagger)
+
+### Parking System APIs
+- **Parking Lots**: `GET /api/v1/parking/lots`
+- **Available Spaces**: `GET /api/v1/parking/lots/:id/spaces/available`
+- **Create Booking**: `POST /api/v1/parking/bookings`
+- **Process Entry**: `POST /api/v1/parking/entry`
+- **Process Exit**: `POST /api/v1/parking/exit`
+- **Parking Status**: `GET /api/v1/parking/lots/:id/status`
 
 ## Project Structure
 
@@ -133,6 +153,14 @@ StockTradingPlatform/
 - Email/SMS alerts
 - Push notifications
 - Custom alert rules
+
+### 6. Parking Lot Management System
+- **Space Allocation Service**: Intelligent space assignment based on user preferences and availability
+- **Access Control Service**: RFID-based entry/exit management with security validation
+- **Pricing Service**: Dynamic pricing with demand-based multipliers and user discounts
+- **Booking Management**: Complete booking lifecycle from creation to completion
+- **Real-time Monitoring**: Live occupancy tracking and analytics dashboard
+- **Payment Integration**: Seamless payment processing with refund handling
 
 ## Security Features
 
