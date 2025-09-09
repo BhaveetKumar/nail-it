@@ -22,6 +22,47 @@
 
 #### **Horizontal vs Vertical Scaling**
 
+**Detailed Explanation:**
+
+Scalability is the ability of a system to handle increased load by adding resources. There are two primary approaches to scaling:
+
+**Vertical Scaling (Scale Up):**
+- Adding more power to existing machines (CPU, RAM, storage)
+- Simpler architecture and management
+- No network communication overhead
+- Single point of failure
+- Limited by hardware maximums
+- More expensive per unit of performance
+
+**Horizontal Scaling (Scale Out):**
+- Adding more machines to the system
+- Better fault tolerance and availability
+- Can scale beyond single machine limits
+- Requires load balancing and distributed systems knowledge
+- Network communication overhead
+- More complex to manage
+
+**When to Use Each Approach:**
+
+**Vertical Scaling is ideal for:**
+- Small to medium applications
+- When simplicity is more important than scalability
+- Applications with single-threaded bottlenecks
+- Legacy systems that are difficult to distribute
+
+**Horizontal Scaling is ideal for:**
+- High-traffic applications
+- Systems requiring high availability
+- Applications that need to scale beyond single machine limits
+- Modern cloud-native applications
+
+**Key Considerations:**
+- **Cost**: Horizontal scaling can be more cost-effective at scale
+- **Complexity**: Vertical scaling is simpler to implement
+- **Fault Tolerance**: Horizontal scaling provides better resilience
+- **Performance**: Vertical scaling avoids network overhead
+- **Maintenance**: Horizontal scaling requires more operational overhead
+
 ```go
 package main
 
@@ -170,6 +211,52 @@ func main() {
 - **Capacity Management**: Tracks current load vs maximum capacity
 
 ### **2. CAP Theorem Implementation**
+
+**Detailed Explanation:**
+
+The CAP theorem, formulated by Eric Brewer, states that in a distributed system, you can only guarantee two out of three properties:
+
+**Consistency (C):**
+- All nodes see the same data at the same time
+- After an update, all subsequent reads return the updated value
+- Strong consistency ensures data integrity
+- Examples: ACID databases, financial systems
+
+**Availability (A):**
+- The system remains operational and responsive
+- Every request receives a response (success or failure)
+- No downtime or service unavailability
+- Examples: CDNs, web services
+
+**Partition Tolerance (P):**
+- The system continues to operate despite network failures
+- Handles network splits and communication failures
+- Essential for distributed systems
+- Examples: Internet-based systems, cloud services
+
+**CAP Trade-offs in Practice:**
+
+**CP Systems (Consistency + Partition Tolerance):**
+- Prioritize data consistency over availability
+- Examples: MongoDB, HBase, traditional RDBMS
+- Use case: Financial systems, inventory management
+
+**AP Systems (Availability + Partition Tolerance):**
+- Prioritize availability over consistency
+- Examples: Cassandra, DynamoDB, CouchDB
+- Use case: Social media, content delivery
+
+**CA Systems (Consistency + Availability):**
+- Only possible in non-distributed systems
+- Single-node systems or systems with perfect network
+- Examples: Single-server databases
+
+**Real-World Implications:**
+
+1. **Network Partitions are Inevitable**: In distributed systems, network failures will occur
+2. **Choose Based on Use Case**: Different applications have different requirements
+3. **Eventual Consistency**: Many systems use eventual consistency as a compromise
+4. **Consistency Levels**: Modern systems offer different consistency levels
 
 ```go
 package main

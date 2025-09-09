@@ -13,11 +13,13 @@
 ## 📚 **Learning Path**
 
 ### **🔢 Foundations**
+
 - [**Math for ML**](./Foundations/MathForML.md) - Linear algebra, calculus, optimization
 - [**JavaScript for ML**](./Foundations/JavaScriptForML.md) - Node.js, TensorFlow.js, ML libraries
 - [**Probability & Statistics**](./Foundations/ProbabilityAndStats.md) - Statistical foundations for ML
 
 ### **🧠 Machine Learning**
+
 - [**Linear Regression**](./MachineLearning/LinearRegression.md) - Mathematical foundations and implementation
 - [**Logistic Regression**](./MachineLearning/LogisticRegression.md) - Classification algorithms
 - [**Decision Trees**](./MachineLearning/DecisionTrees.md) - Tree-based algorithms
@@ -27,6 +29,7 @@
 - [**Dimensionality Reduction**](./MachineLearning/DimensionalityReduction.md) - PCA, t-SNE
 
 ### **🧠 Deep Learning**
+
 - [**Neural Networks**](./DeepLearning/NeuralNetworks.md) - Perceptrons, backpropagation, optimizers
 - [**CNNs**](./DeepLearning/CNNs.md) - Convolutional Neural Networks, ResNet, DenseNet
 - [**RNNs**](./DeepLearning/RNNs.md) - Recurrent Neural Networks
@@ -35,6 +38,7 @@
 - [**Attention Mechanism**](./DeepLearning/AttentionMechanism.md) - Attention mechanisms
 
 ### **🎨 Generative AI**
+
 - [**GPT**](./GenerativeAI/GPT.md) - Transformer architecture and attention mechanisms
 - [**Diffusion Models**](./GenerativeAI/DiffusionModels.md) - Mathematical foundations and implementation
 - [**LLM Training**](./GenerativeAI/LLMTraining.md) - Distributed training and optimization
@@ -42,6 +46,7 @@
 - [**Fine-tuning LLMs**](./GenerativeAI/FineTuningLLMs.md) - Fine-tuning strategies and considerations
 
 ### **⚙️ Backend for AI**
+
 - [**Model Serving**](./BackendForAI/ModelServing.md) - Express.js, load balancing, auto-scaling
 - [**APIs for AI**](./BackendForAI/APIsForAI.md) - REST, GraphQL, gRPC for AI models
 - [**Vector Databases**](./BackendForAI/VectorDatabases.md) - Pinecone, Weaviate, Chroma
@@ -49,17 +54,20 @@
 - [**Caching and Latency**](./BackendForAI/CachingAndLatency.md) - Redis, CDN, optimization
 
 ### **🔄 MLOps**
+
 - [**Model Deployment**](./MLOps/ModelDeployment.md) - CI/CD, monitoring, model registry
 - [**Data Pipelines**](./MLOps/DataPipelines.md) - ETL/ELT, data validation, quality
 - [**Model Registry**](./MLOps/ModelRegistry.md) - Versioning, metadata, lifecycle
 - [**Monitoring**](./MLOps/Monitoring.md) - Model performance, drift detection
 
 ### **📊 Case Studies**
+
 - [**Meta AI Practices**](./CaseStudies/MetaAIPractices.md) - Meta's AI research and infrastructure
 - [**Google Brain Practices**](./CaseStudies/GoogleBrainPractices.md) - Google's AI research and production
 - [**OpenAI Practices**](./CaseStudies/OpenAIPractices.md) - OpenAI's AI safety and production
 
 ### **📱 TinyML & Edge AI**
+
 - [**TinyML Complete Guide**](./TinyML/) - Complete TinyML knowledge base
   - [**Introduction**](./TinyML/Introduction.md) - TinyML fundamentals and challenges
   - [**Frameworks & Tools**](./TinyML/FrameworksAndTools.md) - TensorFlow Lite, Edge Impulse
@@ -74,6 +82,7 @@
 ## 🚀 **Getting Started**
 
 ### **For Backend + AI Roles**
+
 1. Start with [**Foundations**](./Foundations/) - Math, JavaScript, Statistics
 2. Learn [**Machine Learning**](./MachineLearning/) - Core algorithms
 3. Study [**Deep Learning**](./DeepLearning/) - Neural networks and CNNs
@@ -81,12 +90,14 @@
 5. Master [**MLOps**](./MLOps/) - Production deployment
 
 ### **For TinyML/Edge AI Roles**
+
 1. Complete [**Foundations**](./Foundations/) and [**Machine Learning**](./MachineLearning/)
 2. Study [**TinyML Complete Guide**](./TinyML/) - All 9 sections
 3. Practice with [**Code Examples**](./TinyML/CodeExamples.md)
 4. Review [**Interview Questions**](./TinyML/InterviewQuestions.md)
 
 ### **For Research/Academic Roles**
+
 1. Master [**Foundations**](./Foundations/) - Mathematical foundations
 2. Deep dive into [**Deep Learning**](./DeepLearning/) - Advanced architectures
 3. Study [**Generative AI**](./GenerativeAI/) - Latest research
@@ -95,6 +106,7 @@
 ## 🔧 **Node.js AI/ML Stack**
 
 ### **Core Technologies**
+
 - **Node.js**: JavaScript runtime for backend
 - **TensorFlow.js**: Machine learning in JavaScript
 - **ML5.js**: Friendly machine learning library
@@ -102,6 +114,7 @@
 - **Natural**: Natural language processing
 
 ### **Backend Frameworks**
+
 - **Express.js**: Web framework for APIs
 - **Fastify**: High-performance framework
 - **NestJS**: Enterprise framework
@@ -109,6 +122,7 @@
 - **GraphQL**: Query language for APIs
 
 ### **Databases**
+
 - **MongoDB**: Document database for ML data
 - **PostgreSQL**: Relational database
 - **Redis**: In-memory cache
@@ -116,6 +130,7 @@
 - **Weaviate**: Vector search engine
 
 ### **Cloud Platforms**
+
 - **AWS**: SageMaker, Lambda, EC2
 - **Google Cloud**: AI Platform, Vertex AI
 - **Azure**: Machine Learning Studio
@@ -125,24 +140,28 @@
 ## 📊 **Learning Progression**
 
 ### **Beginner (0-3 months)**
+
 - JavaScript and Node.js fundamentals
 - Basic machine learning concepts
 - Simple algorithms implementation
 - Basic API development
 
 ### **Intermediate (3-6 months)**
+
 - Advanced ML algorithms
 - Deep learning with TensorFlow.js
 - Model serving and deployment
 - Database integration
 
 ### **Advanced (6-12 months)**
+
 - Complex neural networks
 - Generative AI models
 - MLOps and production systems
 - System design for AI
 
 ### **Expert (12+ months)**
+
 - Research-level understanding
 - Custom model development
 - Large-scale AI systems
@@ -151,6 +170,7 @@
 ## 🎯 **Interview Preparation**
 
 ### **Technical Skills**
+
 - **Algorithm Implementation**: Code ML algorithms from scratch
 - **Model Serving**: Build APIs for ML models
 - **System Design**: Design AI/ML systems at scale
@@ -160,6 +180,7 @@
 ### **Company-Specific Focus**
 
 #### **Google**
+
 - **TensorFlow**: Deep learning framework
 - **Vertex AI**: Managed ML platform
 - **BigQuery**: Data analytics
@@ -167,6 +188,7 @@
 - **Kubernetes**: Container orchestration
 
 #### **Meta**
+
 - **PyTorch**: Deep learning framework
 - **React Native**: Mobile AI apps
 - **GraphQL**: API design
@@ -174,6 +196,7 @@
 - **Real-time AI**: Live recommendations
 
 #### **OpenAI**
+
 - **GPT Models**: Large language models
 - **API Design**: RESTful and streaming APIs
 - **Safety**: AI safety and alignment
@@ -183,6 +206,7 @@
 ## 📚 **Resources**
 
 ### **Books**
+
 - "Hands-On Machine Learning" by Aurélien Géron
 - "Deep Learning" by Ian Goodfellow
 - "Pattern Recognition and Machine Learning" by Christopher Bishop
@@ -190,6 +214,7 @@
 - "Artificial Intelligence: A Modern Approach" by Russell and Norvig
 
 ### **Online Courses**
+
 - Coursera Machine Learning by Andrew Ng
 - Fast.ai Practical Deep Learning
 - CS229 Stanford Machine Learning
@@ -197,6 +222,7 @@
 - CS224n Stanford Natural Language Processing
 
 ### **Practice Platforms**
+
 - Kaggle
 - Google Colab
 - Jupyter Notebooks
@@ -206,6 +232,7 @@
 ## 🔬 **Research Areas**
 
 ### **Current Trends**
+
 - **Large Language Models**: GPT, BERT, T5
 - **Computer Vision**: CNNs, Vision Transformers
 - **Reinforcement Learning**: Deep Q-Networks, Policy Gradients
@@ -213,6 +240,7 @@
 - **Edge AI**: TinyML, Mobile AI, IoT
 
 ### **Future Directions**
+
 - **AGI**: Artificial General Intelligence
 - **Quantum Machine Learning**: Quantum algorithms
 - **Neuromorphic Computing**: Brain-inspired computing
@@ -222,6 +250,7 @@
 ## 🎉 **Success Metrics**
 
 ### **Technical Goals**
+
 - Implement 10+ ML algorithms from scratch
 - Build 5+ production AI applications
 - Deploy models to cloud platforms
@@ -229,6 +258,7 @@
 - Pass technical interviews
 
 ### **Learning Goals**
+
 - Complete all foundation courses
 - Build portfolio of AI projects
 - Write technical blog posts
