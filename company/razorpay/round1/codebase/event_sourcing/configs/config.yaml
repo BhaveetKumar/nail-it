@@ -1,0 +1,95 @@
+name: "Event Sourcing Service"
+version: "1.0.0"
+description: "Event Sourcing pattern implementation with microservice architecture"
+
+max_events: 100000
+max_aggregates: 10000
+max_snapshots: 1000
+snapshot_interval: 1h
+cleanup_interval: 24h
+
+validation_enabled: true
+caching_enabled: true
+monitoring_enabled: true
+auditing_enabled: true
+
+supported_event_types:
+  - "user_created"
+  - "user_updated"
+  - "user_deleted"
+  - "order_created"
+  - "order_status_changed"
+  - "payment_processed"
+  - "custom"
+
+supported_aggregate_types:
+  - "user"
+  - "order"
+  - "payment"
+  - "custom"
+
+validation_rules:
+  max_event_data_size: 1048576  # 1MB
+  max_aggregate_events: 10000
+
+metadata:
+  environment: "production"
+  region: "us-east-1"
+
+database:
+  mysql:
+    host: "localhost"
+    port: 3306
+    username: "root"
+    password: "password"
+    database: "event_sourcing_db"
+  mongodb:
+    uri: "mongodb://localhost:27017"
+    database: "event_sourcing_db"
+  redis:
+    host: "localhost"
+    port: 6379
+    password: ""
+    db: 0
+
+cache:
+  enabled: true
+  type: "memory"
+  ttl: 5m
+  max_size: 1000
+  cleanup_interval: 10m
+
+message_queue:
+  enabled: true
+  brokers:
+    - "localhost:9092"
+  topics:
+    - "event-sourcing-events"
+
+websocket:
+  enabled: true
+  port: 8080
+  read_buffer_size: 1024
+  write_buffer_size: 1024
+  handshake_timeout: 10s
+
+security:
+  enabled: true
+  jwt_secret: "your-secret-key"
+  token_expiry: 24h
+  allowed_origins:
+    - "*"
+  rate_limit_enabled: true
+  rate_limit_requests: 100
+  rate_limit_window: 1m
+
+monitoring:
+  enabled: true
+  port: 9090
+  path: "/metrics"
+  collect_interval: 30s
+
+logging:
+  level: "info"
+  format: "json"
+  output: "stdout"
