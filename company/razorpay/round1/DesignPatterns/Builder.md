@@ -5,6 +5,7 @@
 **Builder** is a creational design pattern that lets you construct complex objects step by step. The pattern allows you to produce different types and representations of an object using the same construction code.
 
 **Key Intent:**
+
 - Separate the construction of complex objects from their representation
 - Allow step-by-step construction with optional parameters
 - Create different representations of the same object
@@ -23,6 +24,7 @@
 6. **Validation During Construction**: Need to validate object state during construction
 
 **Don't use when:**
+
 - Object has few parameters (< 4-5)
 - Construction is simple and straightforward
 - All parameters are required
@@ -31,6 +33,7 @@
 ## Real-World Use Cases (Payments/Fintech)
 
 ### 1. Payment Request Builder
+
 ```go
 // Complex payment request with many optional parameters
 type PaymentRequest struct {
@@ -59,6 +62,7 @@ payment := NewPaymentRequestBuilder().
 ```
 
 ### 2. Financial Report Builder
+
 ```go
 // Complex financial report with multiple sections
 type FinancialReport struct {
@@ -87,6 +91,7 @@ report := NewFinancialReportBuilder().
 ```
 
 ### 3. Trading Strategy Builder
+
 ```go
 // Complex trading strategy configuration
 type TradingStrategy struct {
@@ -113,6 +118,7 @@ strategy := NewTradingStrategyBuilder().
 ```
 
 ### 4. Bank Account Builder
+
 ```go
 // Complex bank account with various features
 type BankAccount struct {
@@ -161,7 +167,7 @@ type PaymentRequest struct {
     currency string
     orderID  string
     userID   string
-    
+
     // Optional fields
     description string
     metadata    map[string]string
@@ -170,7 +176,7 @@ type PaymentRequest struct {
     timeout     time.Duration
     notes       []string
     tags        []string
-    
+
     // Internal fields
     createdAt   time.Time
     requestID   string
@@ -194,29 +200,29 @@ func (p *PaymentRequest) Validate() error {
     if p.amount <= 0 {
         return errors.New("amount must be positive")
     }
-    
+
     if p.currency == "" {
         return errors.New("currency is required")
     }
-    
+
     if p.orderID == "" {
         return errors.New("order ID is required")
     }
-    
+
     if p.userID == "" {
         return errors.New("user ID is required")
     }
-    
+
     if p.webhook != nil {
         if _, err := url.Parse(p.webhook.URL); err != nil {
             return fmt.Errorf("invalid webhook URL: %w", err)
         }
     }
-    
+
     if p.timeout < 0 {
         return errors.New("timeout cannot be negative")
     }
-    
+
     return nil
 }
 
@@ -225,15 +231,15 @@ func (p *PaymentRequest) String() string {
     parts = append(parts, fmt.Sprintf("Amount: %.2f %s", p.amount, p.currency))
     parts = append(parts, fmt.Sprintf("Order: %s", p.orderID))
     parts = append(parts, fmt.Sprintf("User: %s", p.userID))
-    
+
     if p.description != "" {
         parts = append(parts, fmt.Sprintf("Description: %s", p.description))
     }
-    
+
     if len(p.notes) > 0 {
         parts = append(parts, fmt.Sprintf("Notes: %v", p.notes))
     }
-    
+
     return fmt.Sprintf("PaymentRequest{%s}", strings.Join(parts, ", "))
 }
 
@@ -259,7 +265,7 @@ type PaymentRequestBuilder interface {
     Amount(amount float64, currency string) PaymentRequestBuilder
     Order(orderID string) PaymentRequestBuilder
     User(userID string) PaymentRequestBuilder
-    
+
     // Optional fields
     Description(description string) PaymentRequestBuilder
     AddMetadata(key, value string) PaymentRequestBuilder
@@ -274,7 +280,7 @@ type PaymentRequestBuilder interface {
     AddNotes(notes ...string) PaymentRequestBuilder
     AddTag(tag string) PaymentRequestBuilder
     AddTags(tags ...string) PaymentRequestBuilder
-    
+
     // Build and validation
     Build() (*PaymentRequest, error)
     BuildUnsafe() *PaymentRequest
@@ -310,7 +316,7 @@ func (b *paymentRequestBuilder) Amount(amount float64, currency string) PaymentR
     if currency == "" {
         b.errors = append(b.errors, errors.New("currency cannot be empty"))
     }
-    
+
     b.request.amount = amount
     b.request.currency = strings.ToUpper(currency)
     return b
@@ -320,7 +326,7 @@ func (b *paymentRequestBuilder) Order(orderID string) PaymentRequestBuilder {
     if orderID == "" {
         b.errors = append(b.errors, errors.New("order ID cannot be empty"))
     }
-    
+
     b.request.orderID = orderID
     return b
 }
@@ -329,7 +335,7 @@ func (b *paymentRequestBuilder) User(userID string) PaymentRequestBuilder {
     if userID == "" {
         b.errors = append(b.errors, errors.New("user ID cannot be empty"))
     }
-    
+
     b.request.userID = userID
     return b
 }
@@ -345,7 +351,7 @@ func (b *paymentRequestBuilder) AddMetadata(key, value string) PaymentRequestBui
         b.errors = append(b.errors, errors.New("metadata key cannot be empty"))
         return b
     }
-    
+
     b.request.metadata[key] = value
     return b
 }
@@ -365,12 +371,12 @@ func (b *paymentRequestBuilder) WithWebhook(webhookURL string) PaymentRequestBui
         b.errors = append(b.errors, errors.New("webhook URL cannot be empty"))
         return b
     }
-    
+
     if _, err := url.Parse(webhookURL); err != nil {
         b.errors = append(b.errors, fmt.Errorf("invalid webhook URL: %w", err))
         return b
     }
-    
+
     if b.request.webhook == nil {
         b.request.webhook = &WebhookConfig{
             Headers: make(map[string]string),
@@ -386,7 +392,7 @@ func (b *paymentRequestBuilder) WithWebhookHeaders(headers map[string]string) Pa
             Headers: make(map[string]string),
         }
     }
-    
+
     for k, v := range headers {
         b.request.webhook.Headers[k] = v
     }
@@ -399,7 +405,7 @@ func (b *paymentRequestBuilder) WithWebhookSecret(secret string) PaymentRequestB
             Headers: make(map[string]string),
         }
     }
-    
+
     b.request.webhook.Secret = secret
     return b
 }
@@ -408,11 +414,11 @@ func (b *paymentRequestBuilder) WithRetry(maxAttempts int, interval time.Duratio
     if maxAttempts < 0 {
         b.errors = append(b.errors, errors.New("max attempts cannot be negative"))
     }
-    
+
     if interval < 0 {
         b.errors = append(b.errors, errors.New("retry interval cannot be negative"))
     }
-    
+
     b.request.retry = &RetryConfig{
         MaxAttempts: maxAttempts,
         Interval:    interval,
@@ -426,14 +432,14 @@ func (b *paymentRequestBuilder) WithRetryBackoff(backoff float64) PaymentRequest
         b.errors = append(b.errors, errors.New("retry backoff must be positive"))
         return b
     }
-    
+
     if b.request.retry == nil {
         b.request.retry = &RetryConfig{
             MaxAttempts: 3,
             Interval:    time.Second * 30,
         }
     }
-    
+
     b.request.retry.Backoff = backoff
     return b
 }
@@ -442,7 +448,7 @@ func (b *paymentRequestBuilder) WithTimeout(timeout time.Duration) PaymentReques
     if timeout < 0 {
         b.errors = append(b.errors, errors.New("timeout cannot be negative"))
     }
-    
+
     b.request.timeout = timeout
     return b
 }
@@ -485,15 +491,15 @@ func (b *paymentRequestBuilder) Build() (*PaymentRequest, error) {
     if len(b.errors) > 0 {
         return nil, fmt.Errorf("builder errors: %v", b.errors)
     }
-    
+
     // Validate the built object
     if err := b.request.Validate(); err != nil {
         return nil, fmt.Errorf("validation failed: %w", err)
     }
-    
+
     // Mark as validated
     b.request.validated = true
-    
+
     // Return a copy to ensure immutability
     return b.copyRequest(), nil
 }
@@ -536,23 +542,23 @@ func (b *paymentRequestBuilder) copyRequest() *PaymentRequest {
         requestID:   b.request.requestID,
         validated:   b.request.validated,
     }
-    
+
     // Deep copy metadata
     copy.metadata = make(map[string]string)
     for k, v := range b.request.metadata {
         copy.metadata[k] = v
     }
-    
+
     // Deep copy notes
     copy.notes = make([]string, len(b.request.notes))
     copySlice := copy.notes
     copy(copySlice, b.request.notes)
-    
+
     // Deep copy tags
     copy.tags = make([]string, len(b.request.tags))
     copySlice = copy.tags
     copy(copySlice, b.request.tags)
-    
+
     // Deep copy webhook
     if b.request.webhook != nil {
         copy.webhook = &WebhookConfig{
@@ -564,7 +570,7 @@ func (b *paymentRequestBuilder) copyRequest() *PaymentRequest {
             copy.webhook.Headers[k] = v
         }
     }
-    
+
     // Deep copy retry
     if b.request.retry != nil {
         copy.retry = &RetryConfig{
@@ -573,7 +579,7 @@ func (b *paymentRequestBuilder) copyRequest() *PaymentRequest {
             Backoff:     b.request.retry.Backoff,
         }
     }
-    
+
     return copy
 }
 
@@ -647,7 +653,7 @@ func (d *PaymentRequestDirector) BuildHighValuePayment(amount float64, currency,
 // Example usage
 func main() {
     fmt.Println("=== Builder Pattern Examples ===\n")
-    
+
     // Example 1: Simple payment using builder directly
     fmt.Println("1. Simple Payment:")
     payment1, err := NewPaymentRequestBuilder().
@@ -656,15 +662,15 @@ func main() {
         User("USER_123").
         Description("Product purchase").
         Build()
-    
+
     if err != nil {
         fmt.Printf("Error: %v\n", err)
     } else {
         fmt.Printf("%s\n", payment1)
     }
-    
+
     fmt.Println()
-    
+
     // Example 2: Complex payment with all options
     fmt.Println("2. Complex Payment:")
     payment2, err := NewPaymentRequestBuilder().
@@ -687,7 +693,7 @@ func main() {
         AddNote("Priority processing").
         AddTags("subscription", "premium", "vip").
         Build()
-    
+
     if err != nil {
         fmt.Printf("Error: %v\n", err)
     } else {
@@ -696,13 +702,13 @@ func main() {
         fmt.Printf("Retry Config: %+v\n", payment2.GetRetry())
         fmt.Printf("Metadata: %+v\n", payment2.GetMetadata())
     }
-    
+
     fmt.Println()
-    
+
     // Example 3: Using Director for predefined patterns
     fmt.Println("3. Using Director:")
     director := NewPaymentRequestDirector(NewPaymentRequestBuilder())
-    
+
     // Simple payment
     simplePayment, err := director.BuildSimplePayment(50.00, "USD", "ORD_003", "USER_789")
     if err != nil {
@@ -710,7 +716,7 @@ func main() {
     } else {
         fmt.Printf("Simple: %s\n", simplePayment)
     }
-    
+
     // E-commerce payment
     ecommercePayment, err := director.BuildEcommercePayment(299.99, "USD", "ORD_004", "USER_789", "Electronics purchase")
     if err != nil {
@@ -718,7 +724,7 @@ func main() {
     } else {
         fmt.Printf("E-commerce: %s\n", ecommercePayment)
     }
-    
+
     // Subscription payment
     subscriptionPayment, err := director.BuildSubscriptionPayment(29.99, "USD", "ORD_005", "USER_789", "https://api.myapp.com/webhook")
     if err != nil {
@@ -726,9 +732,9 @@ func main() {
     } else {
         fmt.Printf("Subscription: %s\n", subscriptionPayment)
     }
-    
+
     fmt.Println()
-    
+
     // Example 4: Error handling
     fmt.Println("4. Error Handling:")
     _, err = NewPaymentRequestBuilder().
@@ -736,38 +742,38 @@ func main() {
         Order("").           // Empty order ID
         User("USER_123").
         Build()
-    
+
     if err != nil {
         fmt.Printf("Expected error: %v\n", err)
     }
-    
+
     fmt.Println()
-    
+
     // Example 5: Builder reuse and cloning
     fmt.Println("5. Builder Reuse and Cloning:")
     baseBuilder := NewPaymentRequestBuilder().
         Amount(100, "USD").
         User("USER_123").
         AddMetadata("source", "mobile_app")
-    
+
     // Clone for order 1
     payment5a, _ := baseBuilder.Clone().
         Order("ORD_006").
         Description("Mobile purchase 1").
         Build()
-    
+
     // Clone for order 2
     payment5b, _ := baseBuilder.Clone().
         Order("ORD_007").
         Description("Mobile purchase 2").
         AddTag("promotional").
         Build()
-    
+
     fmt.Printf("Payment A: %s\n", payment5a)
     fmt.Printf("Payment B: %s\n", payment5b)
-    
+
     fmt.Println()
-    
+
     // Example 6: Unsafe building (for performance-critical paths)
     fmt.Println("6. Unsafe Building:")
     unsafePayment := NewPaymentRequestBuilder().
@@ -775,7 +781,7 @@ func main() {
         Order("ORD_008").
         User("USER_123").
         BuildUnsafe() // No validation
-    
+
     fmt.Printf("Unsafe payment: %s\n", unsafePayment)
     fmt.Printf("Is validated: %t\n", unsafePayment.IsValidated())
 }
@@ -786,6 +792,7 @@ func main() {
 ### Variants
 
 1. **Fluent Builder (Method Chaining)**
+
 ```go
 payment := NewPaymentRequestBuilder().
     Amount(100, "USD").
@@ -795,6 +802,7 @@ payment := NewPaymentRequestBuilder().
 ```
 
 2. **Step Builder (Enforced Order)**
+
 ```go
 type AmountStep interface {
     Amount(float64, string) OrderStep
@@ -815,6 +823,7 @@ type OptionalStep interface {
 ```
 
 3. **Functional Builder**
+
 ```go
 type BuildOption func(*PaymentRequest)
 
@@ -831,16 +840,17 @@ func NewPaymentRequest(amount float64, currency, orderID, userID string, options
         orderID:  orderID,
         userID:   userID,
     }
-    
+
     for _, option := range options {
         option(p)
     }
-    
+
     return p
 }
 ```
 
 4. **Generic Builder**
+
 ```go
 type Builder[T any] interface {
     Build() (T, error)
@@ -856,6 +866,7 @@ type PaymentRequestBuilder struct {
 ### Trade-offs
 
 **Pros:**
+
 - **Readable Code**: Fluent interface makes code self-documenting
 - **Optional Parameters**: Elegant handling of optional parameters
 - **Immutability**: Can create immutable objects safely
@@ -864,6 +875,7 @@ type PaymentRequestBuilder struct {
 - **Reusability**: Builders can be reused and cloned
 
 **Cons:**
+
 - **Verbosity**: More code than simple constructors
 - **Memory Overhead**: Additional objects during construction
 - **Complexity**: More complex than simple factory methods
@@ -872,12 +884,12 @@ type PaymentRequestBuilder struct {
 
 **When to Choose Builder vs Alternatives:**
 
-| Pattern | Use When | Avoid When |
-|---------|----------|------------|
-| Builder | Many optional parameters | Few required parameters |
-| Constructor | Simple objects | Complex configuration |
-| Factory Method | Object creation varies | Step-by-step construction |
-| Abstract Factory | Family of objects | Single complex object |
+| Pattern          | Use When                 | Avoid When                |
+| ---------------- | ------------------------ | ------------------------- |
+| Builder          | Many optional parameters | Few required parameters   |
+| Constructor      | Simple objects           | Complex configuration     |
+| Factory Method   | Object creation varies   | Step-by-step construction |
+| Abstract Factory | Family of objects        | Single complex object     |
 
 ## Testable Example
 
@@ -897,7 +909,7 @@ func TestPaymentRequestBuilder_Basic(t *testing.T) {
         Order("ORD_123").
         User("USER_456").
         Build()
-    
+
     require.NoError(t, err)
     assert.Equal(t, 100.50, payment.GetAmount())
     assert.Equal(t, "USD", payment.GetCurrency())
@@ -918,7 +930,7 @@ func TestPaymentRequestBuilder_WithOptionalFields(t *testing.T) {
         AddNote("Test note").
         AddTag("test").
         Build()
-    
+
     require.NoError(t, err)
     assert.Equal(t, "Test payment", payment.GetDescription())
     assert.Equal(t, "value1", payment.GetMetadata()["key1"])
@@ -939,7 +951,7 @@ func TestPaymentRequestBuilder_WithWebhook(t *testing.T) {
         }).
         WithWebhookSecret("secret123").
         Build()
-    
+
     require.NoError(t, err)
     webhook := payment.GetWebhook()
     require.NotNil(t, webhook)
@@ -956,7 +968,7 @@ func TestPaymentRequestBuilder_WithRetry(t *testing.T) {
         WithRetry(3, time.Minute*2).
         WithRetryBackoff(1.5).
         Build()
-    
+
     require.NoError(t, err)
     retry := payment.GetRetry()
     require.NotNil(t, retry)
@@ -1023,7 +1035,7 @@ func TestPaymentRequestBuilder_ValidationErrors(t *testing.T) {
             wantErr: "invalid webhook URL",
         },
     }
-    
+
     for _, tt := range tests {
         t.Run(tt.name, func(t *testing.T) {
             _, err := tt.builder().Build()
@@ -1038,26 +1050,26 @@ func TestPaymentRequestBuilder_Clone(t *testing.T) {
         Amount(100, "USD").
         User("USER_123").
         AddMetadata("source", "test")
-    
+
     // Build from cloned builder
     payment1, err := baseBuilder.Clone().
         Order("ORD_001").
         Description("Payment 1").
         Build()
     require.NoError(t, err)
-    
+
     payment2, err := baseBuilder.Clone().
         Order("ORD_002").
         Description("Payment 2").
         Build()
     require.NoError(t, err)
-    
+
     // Verify independence
     assert.Equal(t, "ORD_001", payment1.GetOrderID())
     assert.Equal(t, "Payment 1", payment1.GetDescription())
     assert.Equal(t, "ORD_002", payment2.GetOrderID())
     assert.Equal(t, "Payment 2", payment2.GetDescription())
-    
+
     // Verify shared fields
     assert.Equal(t, "USER_123", payment1.GetUserID())
     assert.Equal(t, "USER_123", payment2.GetUserID())
@@ -1071,12 +1083,12 @@ func TestPaymentRequestBuilder_Reset(t *testing.T) {
         Order("ORD_123").
         User("USER_456").
         Description("Test")
-    
+
     // Build first payment
     payment1, err := builder.Build()
     require.NoError(t, err)
     assert.Equal(t, "Test", payment1.GetDescription())
-    
+
     // Reset and build second payment
     payment2, err := builder.Reset().
         Amount(200, "EUR").
@@ -1084,7 +1096,7 @@ func TestPaymentRequestBuilder_Reset(t *testing.T) {
         User("USER_789").
         Build()
     require.NoError(t, err)
-    
+
     // Verify reset worked
     assert.Equal(t, 200.0, payment2.GetAmount())
     assert.Equal(t, "EUR", payment2.GetCurrency())
@@ -1098,7 +1110,7 @@ func TestPaymentRequestBuilder_UnsafeBuild(t *testing.T) {
         Order("").           // Empty order
         User("USER_123").
         BuildUnsafe()
-    
+
     // Should build without error but not be validated
     assert.Equal(t, -100.0, payment.GetAmount())
     assert.Equal(t, "", payment.GetOrderID())
@@ -1107,7 +1119,7 @@ func TestPaymentRequestBuilder_UnsafeBuild(t *testing.T) {
 
 func TestPaymentRequestDirector(t *testing.T) {
     director := NewPaymentRequestDirector(NewPaymentRequestBuilder())
-    
+
     t.Run("simple payment", func(t *testing.T) {
         payment, err := director.BuildSimplePayment(50.00, "USD", "ORD_001", "USER_123")
         require.NoError(t, err)
@@ -1116,7 +1128,7 @@ func TestPaymentRequestDirector(t *testing.T) {
         assert.Equal(t, "ORD_001", payment.GetOrderID())
         assert.Equal(t, "USER_123", payment.GetUserID())
     })
-    
+
     t.Run("ecommerce payment", func(t *testing.T) {
         payment, err := director.BuildEcommercePayment(299.99, "USD", "ORD_002", "USER_456", "Product purchase")
         require.NoError(t, err)
@@ -1124,7 +1136,7 @@ func TestPaymentRequestDirector(t *testing.T) {
         assert.Equal(t, time.Minute*5, payment.GetTimeout())
         assert.Contains(t, payment.GetTags(), "ecommerce")
     })
-    
+
     t.Run("subscription payment", func(t *testing.T) {
         payment, err := director.BuildSubscriptionPayment(29.99, "USD", "ORD_003", "USER_789", "https://webhook.example.com")
         require.NoError(t, err)
@@ -1135,7 +1147,7 @@ func TestPaymentRequestDirector(t *testing.T) {
         assert.Contains(t, payment.GetTags(), "subscription")
         assert.Contains(t, payment.GetTags(), "recurring")
     })
-    
+
     t.Run("high value payment", func(t *testing.T) {
         payment, err := director.BuildHighValuePayment(10000.00, "USD", "ORD_004", "USER_123", "APPROVER_456")
         require.NoError(t, err)
@@ -1150,7 +1162,7 @@ func TestPaymentRequestDirector(t *testing.T) {
 
 func BenchmarkPaymentRequestBuilder_Build(b *testing.B) {
     b.ResetTimer()
-    
+
     for i := 0; i < b.N; i++ {
         _, err := NewPaymentRequestBuilder().
             Amount(100.0, "USD").
@@ -1159,7 +1171,7 @@ func BenchmarkPaymentRequestBuilder_Build(b *testing.B) {
             Description("Benchmark test").
             AddMetadata("key", "value").
             Build()
-        
+
         if err != nil {
             b.Fatal(err)
         }
@@ -1168,7 +1180,7 @@ func BenchmarkPaymentRequestBuilder_Build(b *testing.B) {
 
 func BenchmarkPaymentRequestBuilder_BuildComplex(b *testing.B) {
     b.ResetTimer()
-    
+
     for i := 0; i < b.N; i++ {
         _, err := NewPaymentRequestBuilder().
             Amount(100.0, "USD").
@@ -1189,7 +1201,7 @@ func BenchmarkPaymentRequestBuilder_BuildComplex(b *testing.B) {
             AddNote("Note 2").
             AddTags("tag1", "tag2", "tag3").
             Build()
-        
+
         if err != nil {
             b.Fatal(err)
         }
@@ -1200,6 +1212,7 @@ func BenchmarkPaymentRequestBuilder_BuildComplex(b *testing.B) {
 ## Integration Tips
 
 ### 1. Configuration-Driven Builder
+
 ```go
 type BuilderConfig struct {
     DefaultTimeout time.Duration `yaml:"default_timeout"`
@@ -1218,16 +1231,17 @@ func (c *ConfigurableBuilder) Build() (*PaymentRequest, error) {
     if c.request.timeout == 0 {
         c.WithTimeout(c.config.DefaultTimeout)
     }
-    
+
     if c.request.retry == nil {
         c.WithRetry(c.config.MaxRetries, c.config.RetryInterval)
     }
-    
+
     return c.PaymentRequestBuilder.Build()
 }
 ```
 
 ### 2. Validation Pipeline Integration
+
 ```go
 type Validator interface {
     Validate(request *PaymentRequest) error
@@ -1247,18 +1261,19 @@ func (v *ValidatingBuilder) Build() (*PaymentRequest, error) {
     if err != nil {
         return nil, err
     }
-    
+
     for _, validator := range v.pipeline.validators {
         if err := validator.Validate(request); err != nil {
             return nil, fmt.Errorf("validation failed: %w", err)
         }
     }
-    
+
     return request, nil
 }
 ```
 
 ### 3. Event-Driven Builder
+
 ```go
 type EventPublisher interface {
     Publish(event interface{}) error
@@ -1274,7 +1289,7 @@ func (e *EventDrivenBuilder) Build() (*PaymentRequest, error) {
     if err != nil {
         return nil, err
     }
-    
+
     // Publish event
     event := PaymentRequestCreated{
         RequestID: request.GetRequestID(),
@@ -1282,17 +1297,18 @@ func (e *EventDrivenBuilder) Build() (*PaymentRequest, error) {
         Currency:  request.GetCurrency(),
         CreatedAt: request.GetCreatedAt(),
     }
-    
+
     if err := e.publisher.Publish(event); err != nil {
         // Log error but don't fail the build
         log.Printf("Failed to publish event: %v", err)
     }
-    
+
     return request, nil
 }
 ```
 
 ### 4. Caching Integration
+
 ```go
 type CachingBuilder struct {
     PaymentRequestBuilder
@@ -1302,18 +1318,18 @@ type CachingBuilder struct {
 func (c *CachingBuilder) Build() (*PaymentRequest, error) {
     // Generate cache key from request data
     key := c.generateCacheKey()
-    
+
     // Check cache first
     if cached, found := c.cache.Get(key); found {
         return cached.(*PaymentRequest), nil
     }
-    
+
     // Build and cache
     request, err := c.PaymentRequestBuilder.Build()
     if err != nil {
         return nil, err
     }
-    
+
     c.cache.Set(key, request, time.Minute*5)
     return request, nil
 }
@@ -1336,12 +1352,14 @@ func NewPaymentRequestWithDescription(amount float64, currency, orderID, userID,
 ```
 
 **Problems:**
+
 - Exponential growth of constructors
 - Parameter order confusion
 - Hard to remember which constructor to use
 - No way to set only some optional parameters
 
 **Builder solution:**
+
 ```go
 // Clean, readable, flexible
 payment := NewPaymentRequestBuilder().
@@ -1356,15 +1374,16 @@ payment := NewPaymentRequestBuilder().
 
 **Answer:**
 
-| Scenario | Pattern | Reason |
-|----------|---------|--------|
-| Object with many optional parameters | Builder | Step-by-step construction with optional fields |
-| Object creation varies by type | Factory Method | Different object types, same interface |
-| Family of related objects | Abstract Factory | Consistent object families |
-| Complex object with validation | Builder | Validation during construction |
-| Simple object creation | Factory Method | Less overhead |
+| Scenario                             | Pattern          | Reason                                         |
+| ------------------------------------ | ---------------- | ---------------------------------------------- |
+| Object with many optional parameters | Builder          | Step-by-step construction with optional fields |
+| Object creation varies by type       | Factory Method   | Different object types, same interface         |
+| Family of related objects            | Abstract Factory | Consistent object families                     |
+| Complex object with validation       | Builder          | Validation during construction                 |
+| Simple object creation               | Factory Method   | Less overhead                                  |
 
 **Example:**
+
 ```go
 // Builder - complex configuration
 payment := NewPaymentRequestBuilder().
@@ -1379,6 +1398,7 @@ processor := ProcessorFactory.Create("stripe") // or "razorpay"
 ### 3. **How do you implement immutability with Builder pattern?**
 
 **Answer:**
+
 1. **Private fields** in the product
 2. **Deep copying** in the builder
 3. **Validation** before returning
@@ -1399,7 +1419,7 @@ func (b *Builder) Build() (*PaymentRequest, error) {
     for k, v := range b.request.metadata {
         metadata[k] = v
     }
-    
+
     return &PaymentRequest{
         amount:   b.request.amount,
         currency: b.request.currency,
@@ -1414,6 +1434,7 @@ func (b *Builder) Build() (*PaymentRequest, error) {
 Multiple validation strategies:
 
 1. **Immediate validation** (fail fast):
+
 ```go
 func (b *Builder) Amount(amount float64, currency string) Builder {
     if amount <= 0 {
@@ -1425,21 +1446,23 @@ func (b *Builder) Amount(amount float64, currency string) Builder {
 ```
 
 2. **Build-time validation**:
+
 ```go
 func (b *Builder) Build() (*PaymentRequest, error) {
     if len(b.errors) > 0 {
         return nil, fmt.Errorf("validation errors: %v", b.errors)
     }
-    
+
     if err := b.request.Validate(); err != nil {
         return nil, err
     }
-    
+
     return b.request, nil
 }
 ```
 
 3. **Pipeline validation**:
+
 ```go
 type ValidationRule func(*PaymentRequest) error
 
@@ -1452,6 +1475,7 @@ func (b *Builder) AddValidationRule(rule ValidationRule) Builder {
 ### 5. **How do you implement Builder pattern with generics in Go?**
 
 **Answer:**
+
 ```go
 // Generic builder interface
 type Builder[T any] interface {

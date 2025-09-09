@@ -5,6 +5,7 @@
 **Proxy** is a structural design pattern that provides a placeholder or surrogate for another object to control access to it. The proxy acts as an intermediary that can add additional functionality like lazy loading, access control, caching, or logging without changing the original object's interface.
 
 **Key Intent:**
+
 - Control access to another object (the real subject)
 - Add additional behavior without modifying the original object
 - Implement lazy initialization and loading
@@ -25,6 +26,7 @@
 7. **Logging/Monitoring**: Add logging without modifying the original object
 
 **Don't use when:**
+
 - Direct object access is simpler and sufficient
 - The proxy adds unnecessary complexity
 - Performance overhead is unacceptable
@@ -33,6 +35,7 @@
 ## Real-World Use Cases (Payments/Fintech)
 
 ### 1. Payment Gateway Proxy
+
 ```go
 // Payment gateway interface
 type PaymentGateway interface {
@@ -59,42 +62,42 @@ func NewStripePaymentGateway(apiKey string) *StripePaymentGateway {
 func (s *StripePaymentGateway) ProcessPayment(ctx context.Context, request *PaymentRequest) (*PaymentResponse, error) {
     // Actual Stripe API call
     url := s.baseURL + "/charges"
-    
+
     payload := map[string]interface{}{
         "amount":   request.Amount.Mul(decimal.NewFromInt(100)).IntPart(), // Convert to cents
         "currency": request.Currency,
         "source":   request.PaymentMethod,
     }
-    
+
     jsonPayload, _ := json.Marshal(payload)
-    
+
     req, err := http.NewRequestWithContext(ctx, "POST", url, bytes.NewBuffer(jsonPayload))
     if err != nil {
         return nil, err
     }
-    
+
     req.Header.Set("Authorization", "Bearer "+s.apiKey)
     req.Header.Set("Content-Type", "application/json")
-    
+
     resp, err := s.httpClient.Do(req)
     if err != nil {
         return nil, fmt.Errorf("stripe api call failed: %w", err)
     }
     defer resp.Body.Close()
-    
+
     if resp.StatusCode != http.StatusOK {
         return nil, fmt.Errorf("stripe api returned status %d", resp.StatusCode)
     }
-    
+
     var stripeResponse struct {
         ID     string `json:"id"`
         Status string `json:"status"`
     }
-    
+
     if err := json.NewDecoder(resp.Body).Decode(&stripeResponse); err != nil {
         return nil, err
     }
-    
+
     return &PaymentResponse{
         TransactionID: stripeResponse.ID,
         Status:        stripeResponse.Status,
@@ -149,35 +152,35 @@ func (p *CachingPaymentGatewayProxy) ProcessPayment(ctx context.Context, request
 func (p *CachingPaymentGatewayProxy) RefundPayment(ctx context.Context, transactionID string, amount decimal.Decimal) (*RefundResponse, error) {
     // Refunds should not be cached - always go to real gateway
     p.logger.Info("Processing refund", zap.String("transaction_id", transactionID))
-    
+
     // Invalidate transaction status cache
     statusCacheKey := fmt.Sprintf("transaction_status:%s", transactionID)
     p.cache.Delete(statusCacheKey)
-    
+
     return p.realGateway.RefundPayment(ctx, transactionID, amount)
 }
 
 func (p *CachingPaymentGatewayProxy) GetTransactionStatus(ctx context.Context, transactionID string) (*TransactionStatus, error) {
     cacheKey := fmt.Sprintf("transaction_status:%s", transactionID)
-    
+
     // Try to get from cache first
     if cached, err := p.cache.Get(cacheKey); err == nil {
         p.logger.Debug("Transaction status cache hit", zap.String("transaction_id", transactionID))
         return cached.(*TransactionStatus), nil
     }
-    
+
     // Not in cache, fetch from real gateway
     p.logger.Debug("Transaction status cache miss", zap.String("transaction_id", transactionID))
     status, err := p.realGateway.GetTransactionStatus(ctx, transactionID)
     if err != nil {
         return nil, err
     }
-    
+
     // Cache the result
     if err := p.cache.Set(cacheKey, status, p.cacheTTL); err != nil {
         p.logger.Warn("Failed to cache transaction status", zap.Error(err))
     }
-    
+
     return status, nil
 }
 
@@ -201,7 +204,7 @@ func (p *RateLimitingPaymentGatewayProxy) ProcessPayment(ctx context.Context, re
         p.logger.Warn("Payment request rate limited")
         return nil, fmt.Errorf("rate limit exceeded for payment processing")
     }
-    
+
     return p.realGateway.ProcessPayment(ctx, request)
 }
 
@@ -210,7 +213,7 @@ func (p *RateLimitingPaymentGatewayProxy) RefundPayment(ctx context.Context, tra
         p.logger.Warn("Refund request rate limited")
         return nil, fmt.Errorf("rate limit exceeded for refund processing")
     }
-    
+
     return p.realGateway.RefundPayment(ctx, transactionID, amount)
 }
 
@@ -219,7 +222,7 @@ func (p *RateLimitingPaymentGatewayProxy) GetTransactionStatus(ctx context.Conte
         p.logger.Warn("Status check request rate limited")
         return nil, fmt.Errorf("rate limit exceeded for status check")
     }
-    
+
     return p.realGateway.GetTransactionStatus(ctx, transactionID)
 }
 
@@ -252,19 +255,19 @@ func (p *SecurityPaymentGatewayProxy) ProcessPayment(ctx context.Context, reques
         p.logger.Warn("Payment authentication failed", zap.Error(err))
         return nil, fmt.Errorf("authentication failed: %w", err)
     }
-    
+
     // Authorize the payment
     if !p.authzService.CanProcessPayment(user, request) {
-        p.logger.Warn("Payment authorization failed", 
+        p.logger.Warn("Payment authorization failed",
             zap.String("user_id", user.ID),
             zap.String("amount", request.Amount.String()))
         return nil, fmt.Errorf("insufficient permissions to process payment")
     }
-    
-    p.logger.Info("Payment authorized", 
+
+    p.logger.Info("Payment authorized",
         zap.String("user_id", user.ID),
         zap.String("amount", request.Amount.String()))
-    
+
     return p.realGateway.ProcessPayment(ctx, request)
 }
 
@@ -273,11 +276,11 @@ func (p *SecurityPaymentGatewayProxy) RefundPayment(ctx context.Context, transac
     if err != nil {
         return nil, fmt.Errorf("authentication failed: %w", err)
     }
-    
+
     if !p.authzService.CanProcessRefund(user, transactionID, amount) {
         return nil, fmt.Errorf("insufficient permissions to process refund")
     }
-    
+
     return p.realGateway.RefundPayment(ctx, transactionID, amount)
 }
 
@@ -286,16 +289,17 @@ func (p *SecurityPaymentGatewayProxy) GetTransactionStatus(ctx context.Context, 
     if err != nil {
         return nil, fmt.Errorf("authentication failed: %w", err)
     }
-    
+
     if !p.authzService.CanViewTransaction(user, transactionID) {
         return nil, fmt.Errorf("insufficient permissions to view transaction")
     }
-    
+
     return p.realGateway.GetTransactionStatus(ctx, transactionID)
 }
 ```
 
 ### 2. Database Connection Proxy
+
 ```go
 // Database interface
 type Database interface {
@@ -315,11 +319,11 @@ func NewPostgreSQLDatabase(connectionString string) (*PostgreSQLDatabase, error)
     if err != nil {
         return nil, err
     }
-    
+
     if err := db.Ping(); err != nil {
         return nil, err
     }
-    
+
     return &PostgreSQLDatabase{db: db}, nil
 }
 
@@ -426,21 +430,21 @@ func (m *MonitoringDatabaseProxy) Query(ctx context.Context, query string, args 
     start := time.Now()
     rows, err := m.realDB.Query(ctx, query, args...)
     duration := time.Since(start)
-    
+
     m.metrics.RecordQueryDuration(query, duration)
-    
+
     if err != nil {
         m.metrics.RecordQueryError(query, err)
-        m.logger.Error("Database query failed", 
+        m.logger.Error("Database query failed",
             zap.String("query", query),
             zap.Error(err),
             zap.Duration("duration", duration))
     } else {
-        m.logger.Debug("Database query executed", 
+        m.logger.Debug("Database query executed",
             zap.String("query", query),
             zap.Duration("duration", duration))
     }
-    
+
     return rows, err
 }
 
@@ -448,21 +452,21 @@ func (m *MonitoringDatabaseProxy) Exec(ctx context.Context, query string, args .
     start := time.Now()
     result, err := m.realDB.Exec(ctx, query, args...)
     duration := time.Since(start)
-    
+
     m.metrics.RecordQueryDuration(query, duration)
-    
+
     if err != nil {
         m.metrics.RecordQueryError(query, err)
-        m.logger.Error("Database exec failed", 
+        m.logger.Error("Database exec failed",
             zap.String("query", query),
             zap.Error(err),
             zap.Duration("duration", duration))
     } else {
-        m.logger.Debug("Database exec completed", 
+        m.logger.Debug("Database exec completed",
             zap.String("query", query),
             zap.Duration("duration", duration))
     }
-    
+
     return result, err
 }
 
@@ -482,6 +486,7 @@ func (m *MonitoringDatabaseProxy) Close() error {
 ```
 
 ### 3. Account Service Proxy
+
 ```go
 // Account service interface
 type AccountService interface {
@@ -507,13 +512,13 @@ func NewBankAccountService(db Database, logger *zap.Logger) *BankAccountService 
 func (b *BankAccountService) GetAccount(ctx context.Context, accountID string) (*Account, error) {
     query := "SELECT id, balance, status, created_at, updated_at FROM accounts WHERE id = $1"
     row := b.db.QueryRow(ctx, query, accountID)
-    
+
     var account Account
     err := row.Scan(&account.ID, &account.Balance, &account.Status, &account.CreatedAt, &account.UpdatedAt)
     if err != nil {
         return nil, fmt.Errorf("failed to get account: %w", err)
     }
-    
+
     return &account, nil
 }
 
@@ -557,25 +562,25 @@ func NewCachingAccountServiceProxy(service AccountService, cache Cache, ttl time
 
 func (c *CachingAccountServiceProxy) GetAccount(ctx context.Context, accountID string) (*Account, error) {
     cacheKey := fmt.Sprintf("account:%s", accountID)
-    
+
     // Try cache first
     if cached, err := c.cache.Get(cacheKey); err == nil {
         c.logger.Debug("Account cache hit", zap.String("account_id", accountID))
         return cached.(*Account), nil
     }
-    
+
     // Cache miss - get from real service
     c.logger.Debug("Account cache miss", zap.String("account_id", accountID))
     account, err := c.realService.GetAccount(ctx, accountID)
     if err != nil {
         return nil, err
     }
-    
+
     // Cache the result
     if err := c.cache.Set(cacheKey, account, c.cacheTTL); err != nil {
         c.logger.Warn("Failed to cache account", zap.Error(err))
     }
-    
+
     return account, nil
 }
 
@@ -585,12 +590,12 @@ func (c *CachingAccountServiceProxy) UpdateBalance(ctx context.Context, accountI
     if err != nil {
         return err
     }
-    
+
     // Invalidate cache
     cacheKey := fmt.Sprintf("account:%s", accountID)
     c.cache.Delete(cacheKey)
     c.logger.Debug("Invalidated account cache", zap.String("account_id", accountID))
-    
+
     return nil
 }
 
@@ -599,11 +604,11 @@ func (c *CachingAccountServiceProxy) FreezeAccount(ctx context.Context, accountI
     if err != nil {
         return err
     }
-    
+
     // Invalidate cache
     cacheKey := fmt.Sprintf("account:%s", accountID)
     c.cache.Delete(cacheKey)
-    
+
     return nil
 }
 
@@ -612,11 +617,11 @@ func (c *CachingAccountServiceProxy) UnfreezeAccount(ctx context.Context, accoun
     if err != nil {
         return err
     }
-    
+
     // Invalidate cache
     cacheKey := fmt.Sprintf("account:%s", accountID)
     c.cache.Delete(cacheKey)
-    
+
     return nil
 }
 
@@ -645,7 +650,7 @@ func (v *ValidatingAccountServiceProxy) GetAccount(ctx context.Context, accountI
         v.logger.Warn("Invalid account ID", zap.String("account_id", accountID), zap.Error(err))
         return nil, fmt.Errorf("validation failed: %w", err)
     }
-    
+
     return v.realService.GetAccount(ctx, accountID)
 }
 
@@ -653,11 +658,11 @@ func (v *ValidatingAccountServiceProxy) UpdateBalance(ctx context.Context, accou
     if err := v.validator.ValidateAccountID(accountID); err != nil {
         return fmt.Errorf("validation failed: %w", err)
     }
-    
+
     if err := v.validator.ValidateBalanceUpdate(accountID, amount); err != nil {
         return fmt.Errorf("validation failed: %w", err)
     }
-    
+
     return v.realService.UpdateBalance(ctx, accountID, amount)
 }
 
@@ -665,7 +670,7 @@ func (v *ValidatingAccountServiceProxy) FreezeAccount(ctx context.Context, accou
     if err := v.validator.ValidateAccountID(accountID); err != nil {
         return fmt.Errorf("validation failed: %w", err)
     }
-    
+
     return v.realService.FreezeAccount(ctx, accountID)
 }
 
@@ -673,7 +678,7 @@ func (v *ValidatingAccountServiceProxy) UnfreezeAccount(ctx context.Context, acc
     if err := v.validator.ValidateAccountID(accountID); err != nil {
         return fmt.Errorf("validation failed: %w", err)
     }
-    
+
     return v.realService.UnfreezeAccount(ctx, accountID)
 }
 ```
@@ -712,10 +717,10 @@ func NewRealImageService(logger *zap.Logger) *RealImageService {
 
 func (r *RealImageService) LoadImage(filename string) (*Image, error) {
     r.logger.Info("Loading image from disk", zap.String("filename", filename))
-    
+
     // Simulate expensive I/O operation
     time.Sleep(100 * time.Millisecond)
-    
+
     return &Image{
         Filename: filename,
         Data:     []byte(fmt.Sprintf("image_data_for_%s", filename)),
@@ -728,10 +733,10 @@ func (r *RealImageService) LoadImage(filename string) (*Image, error) {
 
 func (r *RealImageService) GetImageMetadata(filename string) (*ImageMetadata, error) {
     r.logger.Info("Reading image metadata", zap.String("filename", filename))
-    
+
     // Simulate metadata reading
     time.Sleep(20 * time.Millisecond)
-    
+
     return &ImageMetadata{
         Filename:    filename,
         Width:       1920,
@@ -744,14 +749,14 @@ func (r *RealImageService) GetImageMetadata(filename string) (*ImageMetadata, er
 }
 
 func (r *RealImageService) ResizeImage(filename string, width, height int) (*Image, error) {
-    r.logger.Info("Resizing image", 
+    r.logger.Info("Resizing image",
         zap.String("filename", filename),
         zap.Int("width", width),
         zap.Int("height", height))
-    
+
     // Simulate expensive resize operation
     time.Sleep(200 * time.Millisecond)
-    
+
     return &Image{
         Filename: fmt.Sprintf("%s_resized_%dx%d", filename, width, height),
         Data:     []byte(fmt.Sprintf("resized_data_%dx%d", width, height)),
@@ -805,13 +810,13 @@ func (v *VirtualImageProxy) LoadImage(filename string) (*Image, error) {
         // Different filename, delegate to real service
         return v.realService.LoadImage(filename)
     }
-    
+
     // Lazy loading for our specific filename
     v.loadOnce.Do(func() {
         v.logger.Info("Virtual proxy: lazy loading image", zap.String("filename", v.filename))
         v.cachedImage, v.loadError = v.realService.LoadImage(v.filename)
     })
-    
+
     return v.cachedImage, v.loadError
 }
 
@@ -845,10 +850,10 @@ func NewCachingImageProxy(realService ImageService, cacheTTL time.Duration, logg
         cacheTTL:    cacheTTL,
         logger:      logger,
     }
-    
+
     // Start cache cleanup goroutine
     go proxy.cleanupCache()
-    
+
     return proxy
 }
 
@@ -860,17 +865,17 @@ func (c *CachingImageProxy) LoadImage(filename string) (*Image, error) {
         return cachedImage, nil
     }
     c.mu.RUnlock()
-    
+
     c.logger.Debug("Image cache miss", zap.String("filename", filename))
     image, err := c.realService.LoadImage(filename)
     if err != nil {
         return nil, err
     }
-    
+
     c.mu.Lock()
     c.imageCache[filename] = image
     c.mu.Unlock()
-    
+
     return image, nil
 }
 
@@ -882,23 +887,23 @@ func (c *CachingImageProxy) GetImageMetadata(filename string) (*ImageMetadata, e
         return cachedMeta, nil
     }
     c.mu.RUnlock()
-    
+
     c.logger.Debug("Metadata cache miss", zap.String("filename", filename))
     metadata, err := c.realService.GetImageMetadata(filename)
     if err != nil {
         return nil, err
     }
-    
+
     c.mu.Lock()
     c.metaCache[filename] = metadata
     c.mu.Unlock()
-    
+
     return metadata, nil
 }
 
 func (c *CachingImageProxy) ResizeImage(filename string, width, height int) (*Image, error) {
     cacheKey := fmt.Sprintf("%s_%dx%d", filename, width, height)
-    
+
     c.mu.RLock()
     if cachedResize, exists := c.resizeCache[cacheKey]; exists {
         c.mu.RUnlock()
@@ -906,28 +911,28 @@ func (c *CachingImageProxy) ResizeImage(filename string, width, height int) (*Im
         return cachedResize, nil
     }
     c.mu.RUnlock()
-    
+
     c.logger.Debug("Resize cache miss", zap.String("cache_key", cacheKey))
     resizedImage, err := c.realService.ResizeImage(filename, width, height)
     if err != nil {
         return nil, err
     }
-    
+
     c.mu.Lock()
     c.resizeCache[cacheKey] = resizedImage
     c.mu.Unlock()
-    
+
     return resizedImage, nil
 }
 
 func (c *CachingImageProxy) cleanupCache() {
     ticker := time.NewTicker(c.cacheTTL)
     defer ticker.Stop()
-    
+
     for range ticker.C {
         c.logger.Debug("Cleaning up image cache")
         c.mu.Lock()
-        
+
         // In a real implementation, you'd track timestamps and remove expired entries
         // For simplicity, we'll just clear old caches periodically
         if len(c.imageCache) > 100 {
@@ -939,7 +944,7 @@ func (c *CachingImageProxy) cleanupCache() {
         if len(c.resizeCache) > 50 {
             c.resizeCache = make(map[string]*Image)
         }
-        
+
         c.mu.Unlock()
     }
 }
@@ -984,18 +989,18 @@ func (a *AccessControlImageProxy) LoadImage(filename string) (*Image, error) {
         a.logger.Warn("Authentication failed for image access", zap.String("filename", filename))
         return nil, fmt.Errorf("authentication failed: %w", err)
     }
-    
+
     if !a.authorizer.CanAccessImage(user, filename) {
-        a.logger.Warn("Access denied for image", 
+        a.logger.Warn("Access denied for image",
             zap.String("user", user.Username),
             zap.String("filename", filename))
         return nil, fmt.Errorf("access denied to image: %s", filename)
     }
-    
-    a.logger.Info("Image access granted", 
+
+    a.logger.Info("Image access granted",
         zap.String("user", user.Username),
         zap.String("filename", filename))
-    
+
     return a.realService.LoadImage(filename)
 }
 
@@ -1005,11 +1010,11 @@ func (a *AccessControlImageProxy) GetImageMetadata(filename string) (*ImageMetad
     if err != nil {
         return nil, fmt.Errorf("authentication failed: %w", err)
     }
-    
+
     if !a.authorizer.CanAccessImage(user, filename) {
         return nil, fmt.Errorf("access denied to image metadata: %s", filename)
     }
-    
+
     return a.realService.GetImageMetadata(filename)
 }
 
@@ -1019,14 +1024,14 @@ func (a *AccessControlImageProxy) ResizeImage(filename string, width, height int
     if err != nil {
         return nil, fmt.Errorf("authentication failed: %w", err)
     }
-    
+
     if !a.authorizer.CanResizeImage(user, filename) {
-        a.logger.Warn("Resize access denied", 
+        a.logger.Warn("Resize access denied",
             zap.String("user", user.Username),
             zap.String("filename", filename))
         return nil, fmt.Errorf("access denied to resize image: %s", filename)
     }
-    
+
     return a.realService.ResizeImage(filename, width, height)
 }
 
@@ -1046,22 +1051,22 @@ func NewLoggingImageProxy(realService ImageService, logger *zap.Logger) *Logging
 func (l *LoggingImageProxy) LoadImage(filename string) (*Image, error) {
     start := time.Now()
     l.logger.Info("Loading image started", zap.String("filename", filename))
-    
+
     image, err := l.realService.LoadImage(filename)
     duration := time.Since(start)
-    
+
     if err != nil {
-        l.logger.Error("Loading image failed", 
+        l.logger.Error("Loading image failed",
             zap.String("filename", filename),
             zap.Error(err),
             zap.Duration("duration", duration))
     } else {
-        l.logger.Info("Loading image completed", 
+        l.logger.Info("Loading image completed",
             zap.String("filename", filename),
             zap.Int64("size", image.Size),
             zap.Duration("duration", duration))
     }
-    
+
     return image, err
 }
 
@@ -1069,44 +1074,44 @@ func (l *LoggingImageProxy) GetImageMetadata(filename string) (*ImageMetadata, e
     start := time.Now()
     metadata, err := l.realService.GetImageMetadata(filename)
     duration := time.Since(start)
-    
+
     if err != nil {
-        l.logger.Error("Getting metadata failed", 
+        l.logger.Error("Getting metadata failed",
             zap.String("filename", filename),
             zap.Error(err),
             zap.Duration("duration", duration))
     } else {
-        l.logger.Info("Getting metadata completed", 
+        l.logger.Info("Getting metadata completed",
             zap.String("filename", filename),
             zap.String("format", metadata.Format),
             zap.Duration("duration", duration))
     }
-    
+
     return metadata, err
 }
 
 func (l *LoggingImageProxy) ResizeImage(filename string, width, height int) (*Image, error) {
     start := time.Now()
-    l.logger.Info("Resizing image started", 
+    l.logger.Info("Resizing image started",
         zap.String("filename", filename),
         zap.Int("width", width),
         zap.Int("height", height))
-    
+
     image, err := l.realService.ResizeImage(filename, width, height)
     duration := time.Since(start)
-    
+
     if err != nil {
-        l.logger.Error("Resizing image failed", 
+        l.logger.Error("Resizing image failed",
             zap.String("filename", filename),
             zap.Error(err),
             zap.Duration("duration", duration))
     } else {
-        l.logger.Info("Resizing image completed", 
+        l.logger.Info("Resizing image completed",
             zap.String("filename", filename),
             zap.Int64("size", image.Size),
             zap.Duration("duration", duration))
     }
-    
+
     return image, err
 }
 
@@ -1144,21 +1149,21 @@ func contains(slice []string, item string) bool {
 // Example usage demonstrating different proxy types
 func main() {
     fmt.Println("=== Proxy Pattern Demo ===\n")
-    
+
     // Create logger
     logger, _ := zap.NewDevelopment()
     defer logger.Sync()
-    
+
     // Create real image service
     realService := NewRealImageService(logger)
-    
+
     // Demonstrate virtual proxy (lazy loading)
     fmt.Println("=== Virtual Proxy (Lazy Loading) ===")
     virtualProxy := NewVirtualImageProxy("large_image.jpg", realService, logger)
-    
+
     // The image won't be loaded until first access
     fmt.Println("Virtual proxy created, but image not loaded yet")
-    
+
     // First access triggers loading
     image1, err := virtualProxy.LoadImage("large_image.jpg")
     if err != nil {
@@ -1166,7 +1171,7 @@ func main() {
     } else {
         fmt.Printf("Loaded image: %s (%d bytes)\n", image1.Filename, image1.Size)
     }
-    
+
     // Second access uses cached image
     image2, err := virtualProxy.LoadImage("large_image.jpg")
     if err != nil {
@@ -1175,11 +1180,11 @@ func main() {
         fmt.Printf("Loaded image from cache: %s (%d bytes)\n", image2.Filename, image2.Size)
         fmt.Printf("Same instance: %t\n", image1 == image2)
     }
-    
+
     // Demonstrate caching proxy
     fmt.Println("\n=== Caching Proxy ===")
     cachingProxy := NewCachingImageProxy(realService, 5*time.Minute, logger)
-    
+
     // First load - cache miss
     start := time.Now()
     image3, err := cachingProxy.LoadImage("photo.jpg")
@@ -1188,7 +1193,7 @@ func main() {
     } else {
         fmt.Printf("First load: %s (%d bytes) - took %v\n", image3.Filename, image3.Size, time.Since(start))
     }
-    
+
     // Second load - cache hit
     start = time.Now()
     image4, err := cachingProxy.LoadImage("photo.jpg")
@@ -1197,7 +1202,7 @@ func main() {
     } else {
         fmt.Printf("Second load: %s (%d bytes) - took %v\n", image4.Filename, image4.Size, time.Since(start))
     }
-    
+
     // Demonstrate metadata caching
     start = time.Now()
     metadata1, err := cachingProxy.GetImageMetadata("photo.jpg")
@@ -1206,7 +1211,7 @@ func main() {
     } else {
         fmt.Printf("First metadata load: %s - took %v\n", metadata1.Format, time.Since(start))
     }
-    
+
     start = time.Now()
     metadata2, err := cachingProxy.GetImageMetadata("photo.jpg")
     if err != nil {
@@ -1214,13 +1219,13 @@ func main() {
     } else {
         fmt.Printf("Second metadata load: %s - took %v\n", metadata2.Format, time.Since(start))
     }
-    
+
     // Demonstrate access control proxy
     fmt.Println("\n=== Access Control Proxy ===")
     authenticator := &MockAuthenticator{}
     authorizer := &MockAuthorizer{}
     accessProxy := NewAccessControlImageProxy(realService, authenticator, authorizer, logger)
-    
+
     // Authorized access
     image5, err := accessProxy.LoadImage("secure_image.jpg")
     if err != nil {
@@ -1228,7 +1233,7 @@ func main() {
     } else {
         fmt.Printf("Authorized access: %s (%d bytes)\n", image5.Filename, image5.Size)
     }
-    
+
     // Authorized resize
     resized, err := accessProxy.ResizeImage("secure_image.jpg", 800, 600)
     if err != nil {
@@ -1236,27 +1241,27 @@ func main() {
     } else {
         fmt.Printf("Authorized resize: %s (%dx%d)\n", resized.Filename, resized.Width, resized.Height)
     }
-    
+
     // Demonstrate logging proxy
     fmt.Println("\n=== Logging Proxy ===")
     loggingProxy := NewLoggingImageProxy(realService, logger)
-    
+
     image6, err := loggingProxy.LoadImage("logged_image.jpg")
     if err != nil {
         fmt.Printf("Error: %v\n", err)
     } else {
         fmt.Printf("Logged operation completed: %s\n", image6.Filename)
     }
-    
+
     // Demonstrate proxy chaining
     fmt.Println("\n=== Chained Proxies ===")
-    
+
     // Chain: Real Service -> Caching -> Access Control -> Logging
     var service ImageService = realService
     service = NewCachingImageProxy(service, 5*time.Minute, logger)
     service = NewAccessControlImageProxy(service, authenticator, authorizer, logger)
     service = NewLoggingImageProxy(service, logger)
-    
+
     fmt.Println("Processing request through chained proxies:")
     image7, err := service.LoadImage("chained_image.jpg")
     if err != nil {
@@ -1264,7 +1269,7 @@ func main() {
     } else {
         fmt.Printf("Chained request succeeded: %s (%d bytes)\n", image7.Filename, image7.Size)
     }
-    
+
     // Second request should hit cache
     fmt.Println("Second request through chained proxies:")
     image8, err := service.LoadImage("chained_image.jpg")
@@ -1273,7 +1278,7 @@ func main() {
     } else {
         fmt.Printf("Chained request succeeded: %s (%d bytes)\n", image8.Filename, image8.Size)
     }
-    
+
     fmt.Println("\n=== Proxy Pattern Demo Complete ===")
 }
 ```
@@ -1283,6 +1288,7 @@ func main() {
 ### Variants
 
 1. **Remote Proxy**
+
 ```go
 type RemoteImageProxy struct {
     serverURL  string
@@ -1292,23 +1298,24 @@ type RemoteImageProxy struct {
 
 func (r *RemoteImageProxy) LoadImage(filename string) (*Image, error) {
     url := fmt.Sprintf("%s/images/%s", r.serverURL, filename)
-    
+
     resp, err := r.httpClient.Get(url)
     if err != nil {
         return nil, fmt.Errorf("remote call failed: %w", err)
     }
     defer resp.Body.Close()
-    
+
     var image Image
     if err := json.NewDecoder(resp.Body).Decode(&image); err != nil {
         return nil, err
     }
-    
+
     return &image, nil
 }
 ```
 
 2. **Smart Reference Proxy**
+
 ```go
 type SmartReferenceProxy struct {
     realObject  *ExpensiveResource
@@ -1320,21 +1327,21 @@ type SmartReferenceProxy struct {
 func (s *SmartReferenceProxy) UseResource() {
     s.mu.Lock()
     defer s.mu.Unlock()
-    
+
     s.refCount++
     s.lastAccess = time.Now()
-    
+
     if s.realObject == nil {
         s.realObject = NewExpensiveResource()
     }
-    
+
     s.realObject.DoWork()
 }
 
 func (s *SmartReferenceProxy) ReleaseResource() {
     s.mu.Lock()
     defer s.mu.Unlock()
-    
+
     s.refCount--
     if s.refCount <= 0 {
         s.realObject.Close()
@@ -1344,6 +1351,7 @@ func (s *SmartReferenceProxy) ReleaseResource() {
 ```
 
 3. **Copy-on-Write Proxy**
+
 ```go
 type CopyOnWriteProxy struct {
     original *SharedData
@@ -1355,7 +1363,7 @@ type CopyOnWriteProxy struct {
 func (c *CopyOnWriteProxy) Read() interface{} {
     c.mu.RLock()
     defer c.mu.RUnlock()
-    
+
     if c.copied != nil {
         return c.copied.Data
     }
@@ -1365,13 +1373,13 @@ func (c *CopyOnWriteProxy) Read() interface{} {
 func (c *CopyOnWriteProxy) Write(data interface{}) {
     c.mu.Lock()
     defer c.mu.Unlock()
-    
+
     if !c.isOwner {
         // Copy on first write
         c.copied = c.original.Copy()
         c.isOwner = true
     }
-    
+
     c.copied.Data = data
 }
 ```
@@ -1379,6 +1387,7 @@ func (c *CopyOnWriteProxy) Write(data interface{}) {
 ### Trade-offs
 
 **Pros:**
+
 - **Controlled Access**: Can control when and how objects are accessed
 - **Lazy Loading**: Delays expensive operations until needed
 - **Caching**: Can cache expensive operations and results
@@ -1387,6 +1396,7 @@ func (c *CopyOnWriteProxy) Write(data interface{}) {
 - **Remote Access**: Can provide local interface to remote objects
 
 **Cons:**
+
 - **Additional Complexity**: Adds another layer of indirection
 - **Performance Overhead**: Method calls through proxy add latency
 - **Memory Overhead**: Proxy objects consume additional memory
@@ -1395,17 +1405,18 @@ func (c *CopyOnWriteProxy) Write(data interface{}) {
 
 **When to Choose Proxy vs Alternatives:**
 
-| Scenario | Pattern | Reason |
-|----------|---------|--------|
-| Lazy loading | Proxy | Control object creation timing |
-| Cross-cutting concerns | Decorator | Add behavior dynamically |
-| Interface compatibility | Adapter | Interface conversion |
-| Simplified interface | Facade | Hide complexity |
-| Object pooling | Object Pool | Reuse expensive objects |
+| Scenario                | Pattern     | Reason                         |
+| ----------------------- | ----------- | ------------------------------ |
+| Lazy loading            | Proxy       | Control object creation timing |
+| Cross-cutting concerns  | Decorator   | Add behavior dynamically       |
+| Interface compatibility | Adapter     | Interface conversion           |
+| Simplified interface    | Facade      | Hide complexity                |
+| Object pooling          | Object Pool | Reuse expensive objects        |
 
 ## Integration Tips
 
 ### 1. Factory Pattern Integration
+
 ```go
 type ProxyFactory interface {
     CreateProxy(realObject interface{}, config ProxyConfig) interface{}
@@ -1426,24 +1437,25 @@ type ImageProxyFactory struct {
 
 func (ipf *ImageProxyFactory) CreateProxy(realService interface{}, config ProxyConfig) interface{} {
     service := realService.(ImageService)
-    
+
     if config.EnableCaching {
         service = NewCachingImageProxy(service, config.CacheTTL, ipf.logger)
     }
-    
+
     if config.EnableAccessControl {
         service = NewAccessControlImageProxy(service, ipf.authenticator, ipf.authorizer, ipf.logger)
     }
-    
+
     if config.EnableLogging {
         service = NewLoggingImageProxy(service, ipf.logger)
     }
-    
+
     return service
 }
 ```
 
 ### 2. Decorator Pattern Integration
+
 ```go
 type ProxyDecorator struct {
     proxy Proxy
@@ -1461,19 +1473,20 @@ func (pd *ProxyDecorator) Invoke(method string, args ...interface{}) (interface{
             return nil, err
         }
     }
-    
+
     result, err := pd.proxy.Invoke(method, args...)
-    
+
     // Apply decorators after proxy
     for i := len(pd.decorators) - 1; i >= 0; i-- {
         pd.decorators[i].After(method, result, err)
     }
-    
+
     return result, err
 }
 ```
 
 ### 3. Strategy Pattern Integration
+
 ```go
 type CachingStrategy interface {
     ShouldCache(method string, args []interface{}) bool
@@ -1504,24 +1517,25 @@ func (scp *StrategicCachingProxy) LoadImage(filename string) (*Image, error) {
     if !scp.strategy.ShouldCache("LoadImage", []interface{}{filename}) {
         return scp.realService.LoadImage(filename)
     }
-    
+
     key := scp.strategy.GenerateKey("LoadImage", []interface{}{filename})
-    
+
     if cached, err := scp.cache.Get(key); err == nil {
         return cached.(*Image), nil
     }
-    
+
     result, err := scp.realService.LoadImage(filename)
     if err == nil {
         ttl := scp.strategy.GetTTL("LoadImage")
         scp.cache.Set(key, result, ttl)
     }
-    
+
     return result, err
 }
 ```
 
 ### 4. Observer Pattern Integration
+
 ```go
 type ProxyEventListener interface {
     OnMethodCalled(proxy interface{}, method string, args []interface{})
@@ -1538,16 +1552,16 @@ func (op *ObservableProxy) LoadImage(filename string) (*Image, error) {
     for _, listener := range op.listeners {
         listener.OnMethodCalled(op, "LoadImage", []interface{}{filename})
     }
-    
+
     start := time.Now()
     result, err := op.realService.LoadImage(filename)
     duration := time.Since(start)
-    
+
     // Notify completion
     for _, listener := range op.listeners {
         listener.OnMethodCompleted(op, "LoadImage", result, err, duration)
     }
-    
+
     return result, err
 }
 
@@ -1564,6 +1578,7 @@ func (op *ObservableProxy) AddListener(listener ProxyEventListener) {
 Both patterns involve wrapping objects, but they have different purposes and usage:
 
 **Proxy Pattern:**
+
 ```go
 // Proxy controls access to the real object
 type AccountServiceProxy struct {
@@ -1577,7 +1592,7 @@ func (p *AccountServiceProxy) GetAccount(id string) (*Account, error) {
     if !p.accessControl.CanAccess(id) {
         return nil, errors.New("access denied")
     }
-    
+
     // Delegate to real service
     return p.realService.GetAccount(id)
 }
@@ -1588,6 +1603,7 @@ account, err := proxy.GetAccount("123")
 ```
 
 **Decorator Pattern:**
+
 ```go
 // Decorator adds new functionality
 type LoggingAccountServiceDecorator struct {
@@ -1598,15 +1614,15 @@ type LoggingAccountServiceDecorator struct {
 // Purpose: Add behavior without changing original
 func (d *LoggingAccountServiceDecorator) GetAccount(id string) (*Account, error) {
     d.logger.Log("GetAccount called with ID: " + id)
-    
+
     result, err := d.wrapped.GetAccount(id)
-    
+
     if err != nil {
         d.logger.Log("GetAccount failed: " + err.Error())
     } else {
         d.logger.Log("GetAccount succeeded")
     }
-    
+
     return result, err
 }
 
@@ -1620,14 +1636,14 @@ service := NewLoggingAccountServiceDecorator(
 
 **Key Differences:**
 
-| Aspect | Proxy | Decorator |
-|--------|-------|-----------|
-| **Purpose** | Control access to object | Add functionality to object |
-| **Relationship** | Proxy "is-a" subject | Decorator "has-a" component |
-| **Object Creation** | May control object creation | Wraps existing objects |
-| **Interface** | Same interface as real object | Usually same interface |
-| **Stacking** | Usually single proxy | Multiple decorators can be stacked |
-| **Use Cases** | Lazy loading, access control, caching | Logging, validation, encryption |
+| Aspect              | Proxy                                 | Decorator                          |
+| ------------------- | ------------------------------------- | ---------------------------------- |
+| **Purpose**         | Control access to object              | Add functionality to object        |
+| **Relationship**    | Proxy "is-a" subject                  | Decorator "has-a" component        |
+| **Object Creation** | May control object creation           | Wraps existing objects             |
+| **Interface**       | Same interface as real object         | Usually same interface             |
+| **Stacking**        | Usually single proxy                  | Multiple decorators can be stacked |
+| **Use Cases**       | Lazy loading, access control, caching | Logging, validation, encryption    |
 
 ### 2. **How do you implement thread-safe proxy objects?**
 
@@ -1635,6 +1651,7 @@ service := NewLoggingAccountServiceDecorator(
 Thread safety in proxies requires careful synchronization, especially for caching and lazy loading:
 
 **Thread-Safe Lazy Loading:**
+
 ```go
 type ThreadSafeLazyProxy struct {
     factory    func() (Service, error)
@@ -1658,14 +1675,14 @@ func (p *ThreadSafeLazyProxy) GetService() (Service, error) {
         return nil, err
     }
     p.mu.RUnlock()
-    
+
     // Initialize only once
     p.initOnce.Do(func() {
         p.mu.Lock()
         defer p.mu.Unlock()
         p.service, p.initError = p.factory()
     })
-    
+
     p.mu.RLock()
     defer p.mu.RUnlock()
     return p.service, p.initError
@@ -1673,6 +1690,7 @@ func (p *ThreadSafeLazyProxy) GetService() (Service, error) {
 ```
 
 **Thread-Safe Caching Proxy:**
+
 ```go
 type ThreadSafeCachingProxy struct {
     realService Service
@@ -1695,24 +1713,25 @@ func (p *ThreadSafeCachingProxy) Get(key string) (interface{}, error) {
         // Expired - remove from cache
         p.cache.Delete(key)
     }
-    
+
     // Get from real service
     value, err := p.realService.Get(key)
     if err != nil {
         return nil, err
     }
-    
+
     // Store in cache
     p.cache.Store(key, &cacheEntry{
         value:     value,
         timestamp: time.Now(),
     })
-    
+
     return value, nil
 }
 ```
 
 **Reference Counting Proxy:**
+
 ```go
 type RefCountingProxy struct {
     realObject interface{}
@@ -1742,16 +1761,17 @@ func (r *RefCountingProxy) Release() {
 func (r *RefCountingProxy) GetObject() (interface{}, error) {
     r.mu.Lock()
     defer r.mu.Unlock()
-    
+
     if r.closed {
         return nil, errors.New("object has been closed")
     }
-    
+
     return r.realObject, nil
 }
 ```
 
 **Channel-Based Serialized Access:**
+
 ```go
 type SerializedProxy struct {
     requests chan request
@@ -1784,13 +1804,13 @@ func (s *SerializedProxy) Start(realService Service) {
 
 func (s *SerializedProxy) Call(method string, args ...interface{}) (interface{}, error) {
     respChan := make(chan response, 1)
-    
+
     s.requests <- request{
         method:   method,
         args:     args,
         response: respChan,
     }
-    
+
     resp := <-respChan
     return resp.result, resp.error
 }
@@ -1802,6 +1822,7 @@ func (s *SerializedProxy) Call(method string, args ...interface{}) (interface{},
 Error handling in proxies should be robust and provide useful information to clients:
 
 **Fallback Proxy:**
+
 ```go
 type FallbackProxy struct {
     primaryService   Service
@@ -1818,23 +1839,24 @@ func (f *FallbackProxy) Get(key string) (interface{}, error) {
             f.circuitBreaker.RecordSuccess()
             return result, nil
         }
-        
+
         f.circuitBreaker.RecordFailure()
         f.logger.Warn("Primary service failed, trying fallback", zap.Error(err))
     }
-    
+
     // Try fallback service
     result, err := f.fallbackService.Get(key)
     if err != nil {
         return nil, fmt.Errorf("both primary and fallback services failed: %w", err)
     }
-    
+
     f.logger.Info("Fallback service succeeded")
     return result, nil
 }
 ```
 
 **Retry Proxy:**
+
 ```go
 type RetryProxy struct {
     realService Service
@@ -1845,16 +1867,16 @@ type RetryProxy struct {
 
 func (r *RetryProxy) Get(key string) (interface{}, error) {
     var lastErr error
-    
+
     for attempt := 0; attempt <= r.maxRetries; attempt++ {
         if attempt > 0 {
             delay := r.backoff.NextDelay(attempt)
-            r.logger.Info("Retrying request", 
+            r.logger.Info("Retrying request",
                 zap.Int("attempt", attempt),
                 zap.Duration("delay", delay))
             time.Sleep(delay)
         }
-        
+
         result, err := r.realService.Get(key)
         if err == nil {
             if attempt > 0 {
@@ -1862,15 +1884,15 @@ func (r *RetryProxy) Get(key string) (interface{}, error) {
             }
             return result, nil
         }
-        
+
         lastErr = err
-        
+
         // Don't retry for certain error types
         if !r.isRetryableError(err) {
             break
         }
     }
-    
+
     return nil, fmt.Errorf("request failed after %d attempts: %w", r.maxRetries+1, lastErr)
 }
 
@@ -1879,17 +1901,18 @@ func (r *RetryProxy) isRetryableError(err error) bool {
     if netErr, ok := err.(net.Error); ok && netErr.Timeout() {
         return true
     }
-    
+
     // Check for specific error types
     if strings.Contains(err.Error(), "connection refused") {
         return true
     }
-    
+
     return false
 }
 ```
 
 **Error Aggregation Proxy:**
+
 ```go
 type ErrorAggregatingProxy struct {
     services []Service
@@ -1932,7 +1955,7 @@ func (e *ErrorAggregatingProxy) getFailFast(key string) (interface{}, error) {
 func (e *ErrorAggregatingProxy) getCollectAll(key string) (interface{}, error) {
     var results []interface{}
     var errors []error
-    
+
     for _, service := range e.services {
         result, err := service.Get(key)
         if err != nil {
@@ -1941,17 +1964,18 @@ func (e *ErrorAggregatingProxy) getCollectAll(key string) (interface{}, error) {
             results = append(results, result)
         }
     }
-    
+
     if len(results) == 0 {
         return nil, fmt.Errorf("all services failed: %v", errors)
     }
-    
+
     // Return first successful result
     return results[0], nil
 }
 ```
 
 **Context-Aware Error Handling:**
+
 ```go
 type ContextAwareProxy struct {
     realService Service
@@ -1963,21 +1987,21 @@ func (c *ContextAwareProxy) Get(ctx context.Context, key string) (interface{}, e
     // Create timeout context
     timeoutCtx, cancel := context.WithTimeout(ctx, c.timeout)
     defer cancel()
-    
+
     // Use channel to handle concurrent execution and timeout
     resultChan := make(chan result, 1)
-    
+
     go func() {
         value, err := c.realService.Get(key)
         resultChan <- result{value: value, err: err}
     }()
-    
+
     select {
     case res := <-resultChan:
         return res.value, res.err
     case <-timeoutCtx.Done():
         if timeoutCtx.Err() == context.DeadlineExceeded {
-            c.logger.Warn("Request timed out", 
+            c.logger.Warn("Request timed out",
                 zap.String("key", key),
                 zap.Duration("timeout", c.timeout))
             return nil, fmt.Errorf("request timed out after %v", c.timeout)
@@ -2000,6 +2024,7 @@ type result struct {
 Testing proxies requires verifying both the proxy behavior and the interaction with the real object:
 
 **Mock-based Testing:**
+
 ```go
 type MockService struct {
     mock.Mock
@@ -2014,108 +2039,112 @@ func TestCachingProxy(t *testing.T) {
     mockService := &MockService{}
     cache := NewMockCache()
     proxy := NewCachingProxy(mockService, cache, 5*time.Minute)
-    
+
     expectedValue := "test_value"
     mockService.On("Get", "test_key").Return(expectedValue, nil).Once()
-    
+
     // First call should hit the real service
     result1, err := proxy.Get("test_key")
     assert.NoError(t, err)
     assert.Equal(t, expectedValue, result1)
-    
+
     // Second call should hit the cache
     result2, err := proxy.Get("test_key")
     assert.NoError(t, err)
     assert.Equal(t, expectedValue, result2)
-    
+
     // Verify mock was called only once
     mockService.AssertExpectations(t)
 }
 ```
 
 **Behavior Testing:**
+
 ```go
 func TestLazyLoadingProxy(t *testing.T) {
     factory := &MockFactory{}
     proxy := NewLazyProxy(factory.CreateService)
-    
+
     // Service should not be created initially
     factory.AssertNotCalled(t, "CreateService")
-    
+
     // First access should trigger creation
     factory.On("CreateService").Return(&MockService{}, nil).Once()
-    
+
     service, err := proxy.GetService()
     assert.NoError(t, err)
     assert.NotNil(t, service)
-    
+
     // Subsequent access should reuse the same service
     service2, err := proxy.GetService()
     assert.NoError(t, err)
     assert.Same(t, service, service2)
-    
+
     factory.AssertExpectations(t)
 }
 ```
 
 **Error Scenario Testing:**
+
 ```go
 func TestProxyErrorHandling(t *testing.T) {
     mockService := &MockService{}
     proxy := NewRetryProxy(mockService, 3, &ExponentialBackoff{})
-    
+
     // Test retry on failure
     expectedError := errors.New("service unavailable")
     mockService.On("Get", "failing_key").Return(nil, expectedError).Times(4) // Initial + 3 retries
-    
+
     result, err := proxy.Get("failing_key")
     assert.Error(t, err)
     assert.Nil(t, result)
     assert.Contains(t, err.Error(), "failed after 4 attempts")
-    
+
     mockService.AssertExpectations(t)
 }
 ```
 
 **Integration Testing:**
+
 ```go
 func TestProxyIntegration(t *testing.T) {
     // Use real service for integration test
     realService := NewRealService()
     proxy := NewLoggingProxy(realService, logger)
-    
+
     // Test actual functionality
     result, err := proxy.Get("integration_test_key")
     assert.NoError(t, err)
     assert.NotNil(t, result)
-    
+
     // Verify logging occurred (check log output or use test logger)
     // This requires a test-friendly logger implementation
 }
 ```
 
 **Performance Testing:**
+
 ```go
 func BenchmarkProxyVsDirect(b *testing.B) {
     service := NewRealService()
     proxy := NewCachingProxy(service, cache, 5*time.Minute)
-    
+
     b.Run("DirectAccess", func(b *testing.B) {
         for i := 0; i < b.N; i++ {
             service.Get("benchmark_key")
         }
     })
-    
+
     b.Run("ProxyAccess", func(b *testing.B) {
         for i := 0; i < b.N; i++ {
             proxy.Get("benchmark_key")
         }
     })
-    
+
     b.Run("ProxyCacheHit", func(b *testing.B) {
         // Prime the cache
         proxy.Get("cached_key")
-        
+
         b.ResetTimer()
         for i := 0; i < b.N; i++ {
             proxy.Get("cached_key")
@@ -2130,6 +2159,7 @@ func BenchmarkProxyVsDirect(b *testing.B) {
 Proxy pattern should be avoided in certain scenarios where its costs outweigh benefits:
 
 **Simple Operations:**
+
 ```go
 // DON'T use proxy for simple, lightweight operations
 type SimpleCalculator struct{}
@@ -2150,21 +2180,23 @@ func (p *CalculatorProxy) Add(a, b int) int {
 ```
 
 **Performance-Critical Code:**
+
 ```go
 // DON'T use proxy in hot paths where every nanosecond counts
 func ProcessHighFrequencyData(data []DataPoint) {
     for _, point := range data {
         // Direct call is faster than proxy indirection
         result := calculator.Process(point.Value)
-        
+
         // proxy.Process(point.Value) // Adds unnecessary overhead
-        
+
         processResult(result)
     }
 }
 ```
 
 **Stable, Simple Interfaces:**
+
 ```go
 // DON'T use proxy when interface is simple and unlikely to change
 type FileReader interface {
@@ -2182,12 +2214,13 @@ func (s *SimpleFileReader) Read(filename string) ([]byte, error) {
 ```
 
 **Short-Lived Objects:**
+
 ```go
 // DON'T use proxy for short-lived objects
 func ProcessRequest(request *Request) *Response {
     processor := NewRequestProcessor() // Short-lived
     defer processor.Close()
-    
+
     // No need for proxy since object lifetime is so short
     return processor.Process(request)
 }
@@ -2195,16 +2228,17 @@ func ProcessRequest(request *Request) *Response {
 
 **Better Alternatives:**
 
-| Scenario | Alternative | Reason |
-|----------|-------------|--------|
-| Simple operations | Direct calls | No overhead needed |
-| Cross-cutting concerns | Middleware/Interceptors | More explicit |
-| Object lifecycle | Factory/Builder | Better creation control |
-| Interface adaptation | Adapter | Cleaner interface conversion |
-| Behavior enhancement | Decorator | More flexible |
-| Configuration-based behavior | Strategy | Runtime behavior selection |
+| Scenario                     | Alternative             | Reason                       |
+| ---------------------------- | ----------------------- | ---------------------------- |
+| Simple operations            | Direct calls            | No overhead needed           |
+| Cross-cutting concerns       | Middleware/Interceptors | More explicit                |
+| Object lifecycle             | Factory/Builder         | Better creation control      |
+| Interface adaptation         | Adapter                 | Cleaner interface conversion |
+| Behavior enhancement         | Decorator               | More flexible                |
+| Configuration-based behavior | Strategy                | Runtime behavior selection   |
 
 **Decision Framework:**
+
 ```go
 type ProxyDecision struct {
     OperationComplexity  string // "simple", "medium", "complex"
@@ -2220,15 +2254,15 @@ func (pd *ProxyDecision) ShouldUseProxy() (bool, string) {
     if pd.OperationComplexity == "simple" && pd.PerformanceRequirements == "high" {
         return false, "Proxy overhead too high for simple, performance-critical operations"
     }
-    
+
     if pd.ObjectLifetime == "short" && !pd.AccessControlNeeds && !pd.CachingNeeds {
         return false, "No benefits for short-lived objects without special needs"
     }
-    
+
     if pd.AccessControlNeeds || pd.CachingNeeds || pd.LazyLoadingNeeds || pd.RemoteAccessNeeds {
         return true, "Proxy provides valuable functionality"
     }
-    
+
     return false, "No clear benefits identified"
 }
 ```

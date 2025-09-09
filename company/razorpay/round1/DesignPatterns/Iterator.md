@@ -5,6 +5,7 @@
 **Iterator** is a behavioral design pattern that lets you traverse elements of a collection without exposing its underlying representation (list, stack, tree, etc.). It provides a way to access the elements of an aggregate object sequentially without exposing its internal structure.
 
 **Key Intent:**
+
 - Provide a uniform interface for traversing different types of collections
 - Hide the internal structure and implementation of collections
 - Support multiple concurrent iterations over the same collection
@@ -25,6 +26,7 @@
 7. **Concurrent Access**: Multiple clients need to iterate simultaneously
 
 **Don't use when:**
+
 - Simple collections with direct access methods
 - Collection size is always small and fits in memory
 - Only one type of iteration is needed
@@ -34,6 +36,7 @@
 ## Real-World Use Cases (Payments/Fintech)
 
 ### 1. Transaction History Iterator
+
 ```go
 // Transaction represents a financial transaction
 type Transaction struct {
@@ -90,19 +93,19 @@ func NewDatabaseTransactionIterator(db Database, filter *TransactionFilter, batc
         hasMore:   true,
         logger:    logger,
     }
-    
+
     // Get total count for the filter
     count, err := iterator.getTotalCount()
     if err != nil {
         return nil, fmt.Errorf("failed to get total count: %w", err)
     }
     iterator.totalCount = count
-    
+
     // Load first batch
     if err := iterator.loadNextBatch(); err != nil {
         return nil, fmt.Errorf("failed to load initial batch: %w", err)
     }
-    
+
     return iterator, nil
 }
 
@@ -116,36 +119,36 @@ func (d *DatabaseTransactionIterator) Next() (*Transaction, error) {
         if !d.hasMore {
             return nil, fmt.Errorf("no more transactions")
         }
-        
+
         if err := d.loadNextBatch(); err != nil {
             return nil, fmt.Errorf("failed to load next batch: %w", err)
         }
-        
+
         if len(d.currentBatch) == 0 {
             return nil, fmt.Errorf("no more transactions")
         }
     }
-    
+
     transaction := d.currentBatch[d.batchIndex]
     d.batchIndex++
-    
+
     return transaction, nil
 }
 
 func (d *DatabaseTransactionIterator) loadNextBatch() error {
     query := d.buildQuery()
     args := d.buildQueryArgs()
-    
-    d.logger.Debug("Loading transaction batch", 
+
+    d.logger.Debug("Loading transaction batch",
         zap.Int("offset", d.offset),
         zap.Int("batch_size", d.batchSize))
-    
+
     rows, err := d.db.Query(query, args...)
     if err != nil {
         return fmt.Errorf("database query failed: %w", err)
     }
     defer rows.Close()
-    
+
     var batch []*Transaction
     for rows.Next() {
         transaction := &Transaction{}
@@ -162,19 +165,19 @@ func (d *DatabaseTransactionIterator) loadNextBatch() error {
         if err != nil {
             return fmt.Errorf("failed to scan transaction: %w", err)
         }
-        
+
         batch = append(batch, transaction)
     }
-    
+
     d.currentBatch = batch
     d.batchIndex = 0
     d.offset += len(batch)
     d.hasMore = len(batch) == d.batchSize
-    
-    d.logger.Debug("Loaded transaction batch", 
+
+    d.logger.Debug("Loaded transaction batch",
         zap.Int("batch_size", len(batch)),
         zap.Bool("has_more", d.hasMore))
-    
+
     return nil
 }
 
@@ -184,7 +187,7 @@ func (d *DatabaseTransactionIterator) buildQuery() string {
         FROM transactions
         WHERE 1=1
     `
-    
+
     if d.filter.AccountID != "" {
         query += " AND account_id = ?"
     }
@@ -209,15 +212,15 @@ func (d *DatabaseTransactionIterator) buildQuery() string {
     if d.filter.Currency != "" {
         query += " AND currency = ?"
     }
-    
+
     query += " ORDER BY timestamp DESC LIMIT ? OFFSET ?"
-    
+
     return query
 }
 
 func (d *DatabaseTransactionIterator) buildQueryArgs() []interface{} {
     var args []interface{}
-    
+
     if d.filter.AccountID != "" {
         args = append(args, d.filter.AccountID)
     }
@@ -242,25 +245,25 @@ func (d *DatabaseTransactionIterator) buildQueryArgs() []interface{} {
     if d.filter.Currency != "" {
         args = append(args, d.filter.Currency)
     }
-    
+
     args = append(args, d.batchSize, d.offset)
-    
+
     return args
 }
 
 func (d *DatabaseTransactionIterator) getTotalCount() (int, error) {
     query := "SELECT COUNT(*) FROM transactions WHERE 1=1"
     args := d.buildQueryArgs()
-    
+
     // Remove LIMIT and OFFSET from args for count query
     args = args[:len(args)-2]
-    
+
     var count int
     err := d.db.QueryRow(query, args...).Scan(&count)
     if err != nil {
         return 0, err
     }
-    
+
     return count, nil
 }
 
@@ -300,7 +303,7 @@ func (f *FilteredTransactionIterator) HasNext() bool {
     if f.prefetched != nil {
         return true
     }
-    
+
     return f.findNext()
 }
 
@@ -310,11 +313,11 @@ func (f *FilteredTransactionIterator) Next() (*Transaction, error) {
         f.prefetched = nil
         return transaction, nil
     }
-    
+
     if !f.findNext() {
         return nil, fmt.Errorf("no more matching transactions")
     }
-    
+
     transaction := f.prefetched
     f.prefetched = nil
     return transaction, nil
@@ -327,13 +330,13 @@ func (f *FilteredTransactionIterator) findNext() bool {
             f.logger.Error("Error getting next transaction", zap.Error(err))
             return false
         }
-        
+
         if f.filter(transaction) {
             f.prefetched = transaction
             return true
         }
     }
-    
+
     return false
 }
 
@@ -366,39 +369,39 @@ func (ta *TransactionAggregator) CalculateTotals(iterator TransactionIterator) (
         TotalsByCurrency: make(map[string]decimal.Decimal),
         TotalsByStatus:   make(map[string]decimal.Decimal),
     }
-    
+
     defer iterator.Close()
-    
+
     for iterator.HasNext() {
         transaction, err := iterator.Next()
         if err != nil {
             return nil, fmt.Errorf("failed to get next transaction: %w", err)
         }
-        
+
         summary.TotalCount++
         summary.TotalAmount = summary.TotalAmount.Add(transaction.Amount)
-        
+
         // Aggregate by type
         if total, exists := summary.TotalsByType[transaction.Type]; exists {
             summary.TotalsByType[transaction.Type] = total.Add(transaction.Amount)
         } else {
             summary.TotalsByType[transaction.Type] = transaction.Amount
         }
-        
+
         // Aggregate by currency
         if total, exists := summary.TotalsByCurrency[transaction.Currency]; exists {
             summary.TotalsByCurrency[transaction.Currency] = total.Add(transaction.Amount)
         } else {
             summary.TotalsByCurrency[transaction.Currency] = transaction.Amount
         }
-        
+
         // Aggregate by status
         if total, exists := summary.TotalsByStatus[transaction.Status]; exists {
             summary.TotalsByStatus[transaction.Status] = total.Add(transaction.Amount)
         } else {
             summary.TotalsByStatus[transaction.Status] = transaction.Amount
         }
-        
+
         // Track date range
         if summary.EarliestTransaction.IsZero() || transaction.Timestamp.Before(summary.EarliestTransaction) {
             summary.EarliestTransaction = transaction.Timestamp
@@ -407,11 +410,11 @@ func (ta *TransactionAggregator) CalculateTotals(iterator TransactionIterator) (
             summary.LatestTransaction = transaction.Timestamp
         }
     }
-    
-    ta.logger.Info("Transaction aggregation completed", 
+
+    ta.logger.Info("Transaction aggregation completed",
         zap.Int("total_count", summary.TotalCount),
         zap.String("total_amount", summary.TotalAmount.String()))
-    
+
     return summary, nil
 }
 
@@ -427,6 +430,7 @@ type TransactionSummary struct {
 ```
 
 ### 2. Account Balance History Iterator
+
 ```go
 // BalanceEntry represents a point-in-time balance
 type BalanceEntry struct {
@@ -448,7 +452,7 @@ type BalanceHistoryIterator interface {
     Skip(n int) error
     Reset()
     Close() error
-    
+
     // Time-series specific methods
     SeekToTime(timestamp time.Time) error
     GetTimeRange() (start, end time.Time)
@@ -496,19 +500,19 @@ func (s *StreamingBalanceIterator) Next() (*BalanceEntry, error) {
         if !s.hasMore {
             return nil, fmt.Errorf("no more balance entries")
         }
-        
+
         if err := s.loadNextBatch(); err != nil {
             return nil, err
         }
-        
+
         if len(s.currentBatch) == 0 {
             return nil, fmt.Errorf("no more balance entries")
         }
     }
-    
+
     entry := s.currentBatch[s.batchIndex]
     s.batchIndex++
-    
+
     return entry, nil
 }
 
@@ -517,16 +521,16 @@ func (s *StreamingBalanceIterator) Peek() (*BalanceEntry, error) {
         if !s.hasMore {
             return nil, fmt.Errorf("no more balance entries")
         }
-        
+
         if err := s.loadNextBatch(); err != nil {
             return nil, err
         }
-        
+
         if len(s.currentBatch) == 0 {
             return nil, fmt.Errorf("no more balance entries")
         }
     }
-    
+
     return s.currentBatch[s.batchIndex], nil
 }
 
@@ -548,13 +552,13 @@ func (s *StreamingBalanceIterator) loadNextBatch() error {
         ORDER BY timestamp ASC
         LIMIT ?
     `
-    
+
     rows, err := s.db.Query(query, s.accountID, s.currentTime, s.endTime, s.batchSize)
     if err != nil {
         return fmt.Errorf("failed to query balance history: %w", err)
     }
     defer rows.Close()
-    
+
     var batch []*BalanceEntry
     for rows.Next() {
         entry := &BalanceEntry{}
@@ -571,15 +575,15 @@ func (s *StreamingBalanceIterator) loadNextBatch() error {
         if err != nil {
             return fmt.Errorf("failed to scan balance entry: %w", err)
         }
-        
+
         batch = append(batch, entry)
         s.currentTime = entry.Timestamp.Add(time.Nanosecond) // Move past this entry
     }
-    
+
     s.currentBatch = batch
     s.batchIndex = 0
     s.hasMore = len(batch) == s.batchSize
-    
+
     return nil
 }
 
@@ -587,12 +591,12 @@ func (s *StreamingBalanceIterator) SeekToTime(timestamp time.Time) error {
     if timestamp.Before(s.startTime) || timestamp.After(s.endTime) {
         return fmt.Errorf("timestamp outside iterator range")
     }
-    
+
     s.currentTime = timestamp
     s.batchIndex = 0
     s.currentBatch = nil
     s.hasMore = true
-    
+
     return s.loadNextBatch()
 }
 
@@ -623,44 +627,44 @@ func NewBalanceCalculator(logger *zap.Logger) *BalanceCalculator {
 
 func (bc *BalanceCalculator) CalculateAverageBalance(iterator BalanceHistoryIterator) (decimal.Decimal, error) {
     defer iterator.Close()
-    
+
     var totalBalance decimal.Decimal
     var count int
-    
+
     for iterator.HasNext() {
         entry, err := iterator.Next()
         if err != nil {
             return decimal.Zero, fmt.Errorf("failed to get next balance entry: %w", err)
         }
-        
+
         totalBalance = totalBalance.Add(entry.Balance)
         count++
     }
-    
+
     if count == 0 {
         return decimal.Zero, fmt.Errorf("no balance entries found")
     }
-    
+
     average := totalBalance.Div(decimal.NewFromInt(int64(count)))
-    
-    bc.logger.Info("Average balance calculated", 
+
+    bc.logger.Info("Average balance calculated",
         zap.String("average", average.String()),
         zap.Int("entries", count))
-    
+
     return average, nil
 }
 
 func (bc *BalanceCalculator) CalculateMinMaxBalance(iterator BalanceHistoryIterator) (min, max decimal.Decimal, err error) {
     defer iterator.Close()
-    
+
     var initialized bool
-    
+
     for iterator.HasNext() {
         entry, err := iterator.Next()
         if err != nil {
             return decimal.Zero, decimal.Zero, fmt.Errorf("failed to get next balance entry: %w", err)
         }
-        
+
         if !initialized {
             min = entry.Balance
             max = entry.Balance
@@ -674,16 +678,17 @@ func (bc *BalanceCalculator) CalculateMinMaxBalance(iterator BalanceHistoryItera
             }
         }
     }
-    
+
     if !initialized {
         return decimal.Zero, decimal.Zero, fmt.Errorf("no balance entries found")
     }
-    
+
     return min, max, nil
 }
 ```
 
 ### 3. Payment Batch Iterator
+
 ```go
 // PaymentBatch represents a batch of payments to be processed
 type PaymentBatch struct {
@@ -741,17 +746,17 @@ func NewConcurrentPaymentBatchIterator(batch *PaymentBatch, bufferSize int, logg
         done:           make(chan struct{}),
         logger:         logger,
     }
-    
+
     // Start goroutine to feed payments into channel
     go iterator.feedPayments()
-    
+
     return iterator
 }
 
 func (c *ConcurrentPaymentBatchIterator) feedPayments() {
     defer close(c.paymentChannel)
     defer close(c.errorChannel)
-    
+
     for _, payment := range c.batch.Payments {
         select {
         case c.paymentChannel <- payment:
@@ -765,11 +770,11 @@ func (c *ConcurrentPaymentBatchIterator) feedPayments() {
 func (c *ConcurrentPaymentBatchIterator) HasNext() bool {
     c.mu.RLock()
     defer c.mu.RUnlock()
-    
+
     if c.closed {
         return false
     }
-    
+
     // Check if there are more payments in the channel
     select {
     case <-c.paymentChannel:
@@ -783,11 +788,11 @@ func (c *ConcurrentPaymentBatchIterator) HasNext() bool {
 func (c *ConcurrentPaymentBatchIterator) Next() (*Payment, error) {
     c.mu.RLock()
     defer c.mu.RUnlock()
-    
+
     if c.closed {
         return nil, fmt.Errorf("iterator is closed")
     }
-    
+
     select {
     case payment, ok := <-c.paymentChannel:
         if !ok {
@@ -812,19 +817,19 @@ func (c *ConcurrentPaymentBatchIterator) GetProgress() (current, total int) {
 func (c *ConcurrentPaymentBatchIterator) Reset() {
     c.mu.Lock()
     defer c.mu.Unlock()
-    
+
     if !c.closed {
         close(c.done)
         c.closed = true
     }
-    
+
     // Create new iterator state
     c.currentIndex = 0
     c.paymentChannel = make(chan *Payment, cap(c.paymentChannel))
     c.errorChannel = make(chan error, 1)
     c.done = make(chan struct{})
     c.closed = false
-    
+
     // Restart feeding
     go c.feedPayments()
 }
@@ -832,12 +837,12 @@ func (c *ConcurrentPaymentBatchIterator) Reset() {
 func (c *ConcurrentPaymentBatchIterator) Close() error {
     c.mu.Lock()
     defer c.mu.Unlock()
-    
+
     if !c.closed {
         close(c.done)
         c.closed = true
     }
-    
+
     return nil
 }
 
@@ -866,12 +871,12 @@ func (p *PaymentBatchProcessor) ProcessBatch(ctx context.Context, iterator Payme
         Failed:       make([]*Payment, 0),
         Errors:       make([]error, 0),
     }
-    
+
     defer iterator.Close()
-    
-    p.logger.Info("Starting batch processing", 
+
+    p.logger.Info("Starting batch processing",
         zap.String("batch_id", result.BatchID))
-    
+
     for iterator.HasNext() {
         payment, err := iterator.Next()
         if err != nil {
@@ -879,12 +884,12 @@ func (p *PaymentBatchProcessor) ProcessBatch(ctx context.Context, iterator Payme
             result.Errors = append(result.Errors, err)
             continue
         }
-        
+
         if err := p.processor.ProcessPayment(ctx, payment); err != nil {
-            p.logger.Error("Payment processing failed", 
+            p.logger.Error("Payment processing failed",
                 zap.String("payment_id", payment.ID),
                 zap.Error(err))
-            
+
             payment.Status = "FAILED"
             payment.ErrorMessage = err.Error()
             result.Failed = append(result.Failed, payment)
@@ -895,20 +900,20 @@ func (p *PaymentBatchProcessor) ProcessBatch(ctx context.Context, iterator Payme
             payment.ProcessedAt = &now
             result.Processed = append(result.Processed, payment)
         }
-        
+
         result.TotalProcessed++
     }
-    
+
     result.EndTime = time.Now()
     result.Duration = result.EndTime.Sub(result.StartTime)
-    
-    p.logger.Info("Batch processing completed", 
+
+    p.logger.Info("Batch processing completed",
         zap.String("batch_id", result.BatchID),
         zap.Int("total_processed", result.TotalProcessed),
         zap.Int("successful", len(result.Processed)),
         zap.Int("failed", len(result.Failed)),
         zap.Duration("duration", result.Duration))
-    
+
     return result, nil
 }
 
@@ -1019,7 +1024,7 @@ func (s *SliceIterator[T]) Next() (T, error) {
     if !s.HasNext() {
         return zero, fmt.Errorf("no more items")
     }
-    
+
     item := s.items[s.current]
     s.current++
     return item, nil
@@ -1057,7 +1062,7 @@ func (r *RangeIterator) Next() (int, error) {
     if !r.HasNext() {
         return 0, fmt.Errorf("no more items")
     }
-    
+
     value := r.current
     r.current += r.step
     return value, nil
@@ -1086,24 +1091,24 @@ func (f *FilteredIterator[T]) HasNext() bool {
     if f.hasPrefetch {
         return true
     }
-    
+
     return f.findNext()
 }
 
 func (f *FilteredIterator[T]) Next() (T, error) {
     var zero T
-    
+
     if f.hasPrefetch {
         item := *f.prefetched
         f.prefetched = nil
         f.hasPrefetch = false
         return item, nil
     }
-    
+
     if !f.findNext() {
         return zero, fmt.Errorf("no more matching items")
     }
-    
+
     item := *f.prefetched
     f.prefetched = nil
     f.hasPrefetch = false
@@ -1116,14 +1121,14 @@ func (f *FilteredIterator[T]) findNext() bool {
         if err != nil {
             return false
         }
-        
+
         if f.filter(item) {
             f.prefetched = &item
             f.hasPrefetch = true
             return true
         }
     }
-    
+
     return false
 }
 
@@ -1152,12 +1157,12 @@ func (t *TransformedIterator[T, U]) HasNext() bool {
 
 func (t *TransformedIterator[T, U]) Next() (U, error) {
     var zero U
-    
+
     item, err := t.baseIterator.Next()
     if err != nil {
         return zero, err
     }
-    
+
     return t.transform(item), nil
 }
 
@@ -1184,7 +1189,7 @@ func (b *BatchedIterator[T]) HasNext() bool {
 
 func (b *BatchedIterator[T]) Next() ([]T, error) {
     var batch []T
-    
+
     for i := 0; i < b.batchSize && b.baseIterator.HasNext(); i++ {
         item, err := b.baseIterator.Next()
         if err != nil {
@@ -1192,11 +1197,11 @@ func (b *BatchedIterator[T]) Next() ([]T, error) {
         }
         batch = append(batch, item)
     }
-    
+
     if len(batch) == 0 {
         return nil, fmt.Errorf("no more items")
     }
-    
+
     return batch, nil
 }
 
@@ -1229,11 +1234,11 @@ func (c *ChainedIterator[T]) HasNext() bool {
 
 func (c *ChainedIterator[T]) Next() (T, error) {
     var zero T
-    
+
     if !c.HasNext() {
         return zero, fmt.Errorf("no more items")
     }
-    
+
     return c.iterators[c.currentIndex].Next()
 }
 
@@ -1270,11 +1275,11 @@ func (l *LazyIterator[T]) HasNext() bool {
 
 func (l *LazyIterator[T]) Next() (T, error) {
     var zero T
-    
+
     if !l.HasNext() {
         return zero, fmt.Errorf("no more items")
     }
-    
+
     item := *l.current
     l.checked = false
     return item, nil
@@ -1313,7 +1318,7 @@ func NewBookProcessor(logger *zap.Logger) *BookProcessor {
 
 func (bp *BookProcessor) ProcessBooks(iterator Iterator[Book]) {
     bp.logger.Info("Starting book processing")
-    
+
     count := 0
     for iterator.HasNext() {
         book, err := iterator.Next()
@@ -1321,52 +1326,52 @@ func (bp *BookProcessor) ProcessBooks(iterator Iterator[Book]) {
             bp.logger.Error("Error getting next book", zap.Error(err))
             break
         }
-        
-        bp.logger.Debug("Processing book", 
+
+        bp.logger.Debug("Processing book",
             zap.String("title", book.Title),
             zap.String("author", book.Author))
-        
+
         count++
     }
-    
+
     bp.logger.Info("Book processing completed", zap.Int("total_processed", count))
 }
 
 func (bp *BookProcessor) CalculateAverageRating(iterator Iterator[Book]) float64 {
     var totalRating float64
     var count int
-    
+
     for iterator.HasNext() {
         book, err := iterator.Next()
         if err != nil {
             break
         }
-        
+
         totalRating += book.Rating
         count++
     }
-    
+
     if count == 0 {
         return 0
     }
-    
+
     return totalRating / float64(count)
 }
 
 func (bp *BookProcessor) FindBooksByGenre(iterator Iterator[Book], genre string) []Book {
     var books []Book
-    
+
     for iterator.HasNext() {
         book, err := iterator.Next()
         if err != nil {
             break
         }
-        
+
         if book.Genre == genre {
             books = append(books, book)
         }
     }
-    
+
     return books
 }
 
@@ -1388,14 +1393,14 @@ func BatchBooks(iterator Iterator[Book], batchSize int) Iterator[[]Book] {
 // Example usage and demonstrations
 func main() {
     fmt.Println("=== Iterator Pattern Demo ===\n")
-    
+
     // Create logger
     logger, _ := zap.NewDevelopment()
     defer logger.Sync()
-    
+
     // Create a collection of books
     books := NewSliceCollection[Book]()
-    
+
     sampleBooks := []Book{
         {ID: "1", Title: "The Go Programming Language", Author: "Alan Donovan", Genre: "Technology", Year: 2015, Pages: 380, Rating: 4.5, InStock: true},
         {ID: "2", Title: "Clean Code", Author: "Robert Martin", Genre: "Technology", Year: 2008, Pages: 464, Rating: 4.7, InStock: true},
@@ -1405,24 +1410,24 @@ func main() {
         {ID: "6", Title: "1984", Author: "George Orwell", Genre: "Dystopian", Year: 1949, Pages: 328, Rating: 4.9, InStock: true},
         {ID: "7", Title: "To Kill a Mockingbird", Author: "Harper Lee", Genre: "Fiction", Year: 1960, Pages: 281, Rating: 4.3, InStock: false},
     }
-    
+
     for _, book := range sampleBooks {
         books.Add(book)
     }
-    
+
     processor := NewBookProcessor(logger)
-    
+
     // Basic iteration
     fmt.Println("=== Basic Iteration ===")
     basicIterator := books.CreateIterator()
     processor.ProcessBooks(basicIterator)
-    
+
     // Filtered iteration - only technology books
     fmt.Println("\n=== Filtered Iteration (Technology Books) ===")
     techBooksIterator := FilterBooks(books.CreateIterator(), func(book Book) bool {
         return book.Genre == "Technology"
     })
-    
+
     count := 0
     for techBooksIterator.HasNext() {
         book, err := techBooksIterator.Next()
@@ -1433,11 +1438,11 @@ func main() {
         count++
     }
     fmt.Printf("Found %d technology books\n", count)
-    
+
     // Transformed iteration - book titles only
     fmt.Println("\n=== Transformed Iteration (Titles Only) ===")
     titleIterator := MapBooksToTitles(books.CreateIterator())
-    
+
     count = 0
     for titleIterator.HasNext() {
         title, err := titleIterator.Next()
@@ -1447,37 +1452,37 @@ func main() {
         fmt.Printf("  %d. %s\n", count+1, title)
         count++
     }
-    
+
     // Batched iteration
     fmt.Println("\n=== Batched Iteration (Batch Size 3) ===")
     batchIterator := BatchBooks(books.CreateIterator(), 3)
-    
+
     batchNum := 1
     for batchIterator.HasNext() {
         batch, err := batchIterator.Next()
         if err != nil {
             break
         }
-        
+
         fmt.Printf("Batch %d (%d books):\n", batchNum, len(batch))
         for _, book := range batch {
             fmt.Printf("  - %s\n", book.Title)
         }
         batchNum++
     }
-    
+
     // Chained iteration - combining filtered results
     fmt.Println("\n=== Chained Iteration (Tech + Fiction) ===")
     techIterator := FilterBooks(books.CreateIterator(), func(book Book) bool {
         return book.Genre == "Technology"
     })
-    
+
     fictionIterator := FilterBooks(books.CreateIterator(), func(book Book) bool {
         return book.Genre == "Fiction" || book.Genre == "Science Fiction"
     })
-    
+
     chainedIterator := NewChainedIterator(techIterator, fictionIterator)
-    
+
     count = 0
     for chainedIterator.HasNext() {
         book, err := chainedIterator.Next()
@@ -1488,11 +1493,11 @@ func main() {
         count++
     }
     fmt.Printf("Total books in chain: %d\n", count)
-    
+
     // Range iterator
     fmt.Println("\n=== Range Iterator ===")
     rangeIterator := NewRangeIterator(1, 10, 2)
-    
+
     fmt.Print("Odd numbers 1-9: ")
     for rangeIterator.HasNext() {
         num, err := rangeIterator.Next()
@@ -1502,11 +1507,11 @@ func main() {
         fmt.Printf("%d ", num)
     }
     fmt.Println()
-    
+
     // Lazy iterator - Fibonacci sequence
     fmt.Println("\n=== Lazy Iterator (Fibonacci) ===")
     fibIterator := createFibonacciIterator()
-    
+
     fmt.Print("First 10 Fibonacci numbers: ")
     for i := 0; i < 10 && fibIterator.HasNext(); i++ {
         num, err := fibIterator.Next()
@@ -1516,13 +1521,13 @@ func main() {
         fmt.Printf("%d ", num)
     }
     fmt.Println()
-    
+
     // Calculate average rating using iterator
     fmt.Println("\n=== Calculate Average Rating ===")
     ratingIterator := books.CreateIterator()
     avgRating := processor.CalculateAverageRating(ratingIterator)
     fmt.Printf("Average book rating: %.2f\n", avgRating)
-    
+
     // Find books by genre using iterator
     fmt.Println("\n=== Find Books by Genre ===")
     genreIterator := books.CreateIterator()
@@ -1531,18 +1536,18 @@ func main() {
     for _, book := range techBooks {
         fmt.Printf("  - %s (Rating: %.1f)\n", book.Title, book.Rating)
     }
-    
+
     // Demonstrate iterator reset
     fmt.Println("\n=== Iterator Reset Demo ===")
     resetIterator := books.CreateIterator()
-    
+
     fmt.Print("First 3 books: ")
     for i := 0; i < 3 && resetIterator.HasNext(); i++ {
         book, _ := resetIterator.Next()
         fmt.Printf("%s; ", book.Title)
     }
     fmt.Println()
-    
+
     resetIterator.Reset()
     fmt.Print("After reset, first 3 again: ")
     for i := 0; i < 3 && resetIterator.HasNext(); i++ {
@@ -1550,20 +1555,20 @@ func main() {
         fmt.Printf("%s; ", book.Title)
     }
     fmt.Println()
-    
+
     fmt.Println("\n=== Iterator Pattern Demo Complete ===")
 }
 
 // Helper function to create Fibonacci iterator
 func createFibonacciIterator() Iterator[int] {
     a, b := 0, 1
-    
+
     generator := func() (int, bool) {
         current := a
         a, b = b, a+b
         return current, true // Infinite sequence
     }
-    
+
     return NewLazyIterator(generator)
 }
 ```
@@ -1573,6 +1578,7 @@ func createFibonacciIterator() Iterator[int] {
 ### Variants
 
 1. **External Iterator (Active Iterator)**
+
 ```go
 // Client controls the iteration
 type ExternalIterator[T any] interface {
@@ -1593,6 +1599,7 @@ func ProcessWithExternalIterator[T any](iterator ExternalIterator[T], processor 
 ```
 
 2. **Internal Iterator (Passive Iterator)**
+
 ```go
 // Collection controls the iteration
 type InternalIterator[T any] interface {
@@ -1613,6 +1620,7 @@ func (s *SliceInternalIterator[T]) ForEach(fn func(T) bool) {
 ```
 
 3. **Bidirectional Iterator**
+
 ```go
 type BidirectionalIterator[T any] interface {
     Iterator[T]
@@ -1636,13 +1644,14 @@ func (d *DoublyLinkedListIterator[T]) Previous() (T, error) {
     if !d.HasPrevious() {
         return zero, fmt.Errorf("no previous item")
     }
-    
+
     d.current = d.current.Prev
     return d.current.Data, nil
 }
 ```
 
 4. **Random Access Iterator**
+
 ```go
 type RandomAccessIterator[T any] interface {
     BidirectionalIterator[T]
@@ -1672,6 +1681,7 @@ func (a *ArrayIterator[T]) GetIndex() int {
 ### Trade-offs
 
 **Pros:**
+
 - **Abstraction**: Hides collection implementation details
 - **Consistency**: Uniform interface across different collections
 - **Memory Efficiency**: Can iterate without loading entire collection
@@ -1680,6 +1690,7 @@ func (a *ArrayIterator[T]) GetIndex() int {
 - **Concurrent Access**: Multiple iterators can traverse simultaneously
 
 **Cons:**
+
 - **Performance Overhead**: Iterator objects add memory and CPU overhead
 - **Complexity**: More complex than direct array access
 - **State Management**: Iterator state must be carefully managed
@@ -1688,18 +1699,19 @@ func (a *ArrayIterator[T]) GetIndex() int {
 
 **When to Choose Iterator vs Alternatives:**
 
-| Scenario | Pattern | Reason |
-|----------|---------|--------|
-| Large collections | Iterator | Memory efficiency |
-| Small arrays | Direct access | Less overhead |
-| Multiple traversals | Iterator | Flexibility |
-| Single pass | Direct iteration | Simplicity |
-| Lazy evaluation | Iterator | On-demand computation |
-| Stream processing | Pipeline | Better for transformations |
+| Scenario            | Pattern          | Reason                     |
+| ------------------- | ---------------- | -------------------------- |
+| Large collections   | Iterator         | Memory efficiency          |
+| Small arrays        | Direct access    | Less overhead              |
+| Multiple traversals | Iterator         | Flexibility                |
+| Single pass         | Direct iteration | Simplicity                 |
+| Lazy evaluation     | Iterator         | On-demand computation      |
+| Stream processing   | Pipeline         | Better for transformations |
 
 ## Integration Tips
 
 ### 1. Builder Pattern Integration
+
 ```go
 type IteratorBuilder[T any] struct {
     baseIterator Iterator[T]
@@ -1737,27 +1749,28 @@ func (ib *IteratorBuilder[T]) Limit(count int) *IteratorBuilder[T] {
 
 func (ib *IteratorBuilder[T]) Build() Iterator[T] {
     iterator := ib.baseIterator
-    
+
     // Apply filters
     for _, filter := range ib.filters {
         iterator = NewFilteredIterator(iterator, filter)
     }
-    
+
     // Apply transforms
     for _, transform := range ib.transforms {
         iterator = NewTransformedIterator(iterator, transform)
     }
-    
+
     // Apply limit
     if ib.limit > 0 {
         iterator = NewLimitedIterator(iterator, ib.limit)
     }
-    
+
     return iterator
 }
 ```
 
 ### 2. Strategy Pattern Integration
+
 ```go
 type IterationStrategy[T any] interface {
     CreateIterator(collection Collection[T]) Iterator[T]
@@ -1798,6 +1811,7 @@ func (ic *IterationContext[T]) Iterate() Iterator[T] {
 ```
 
 ### 3. Observer Pattern Integration
+
 ```go
 type IteratorObserver[T any] interface {
     OnNext(item T)
@@ -1823,29 +1837,30 @@ func (o *ObservableIterator[T]) Subscribe(observer IteratorObserver[T]) {
 
 func (o *ObservableIterator[T]) Next() (T, error) {
     item, err := o.baseIterator.Next()
-    
+
     if err != nil {
         for _, observer := range o.observers {
             observer.OnError(err)
         }
         return item, err
     }
-    
+
     for _, observer := range o.observers {
         observer.OnNext(item)
     }
-    
+
     if !o.baseIterator.HasNext() {
         for _, observer := range o.observers {
             observer.OnComplete()
         }
     }
-    
+
     return item, nil
 }
 ```
 
 ### 4. Command Pattern Integration
+
 ```go
 type IteratorCommand interface {
     Execute() error
@@ -1872,14 +1887,14 @@ func (f *ForEachCommand[T]) Execute() error {
         if err != nil {
             return err
         }
-        
+
         if err := f.action(item); err != nil {
             return err
         }
-        
+
         f.executed = append(f.executed, item)
     }
-    
+
     return nil
 }
 
@@ -1897,6 +1912,7 @@ func (f *ForEachCommand[T]) Undo() error {
 Iterator pattern provides abstraction and flexibility that simple indexing cannot:
 
 **Simple Array Indexing:**
+
 ```go
 // Direct indexing - tightly coupled to array
 func ProcessArray(arr []string) {
@@ -1915,6 +1931,7 @@ func ProcessArray(arr []string) {
 ```
 
 **Iterator Pattern:**
+
 ```go
 // Iterator - works with any collection
 func ProcessCollection(iterator Iterator[string]) {
@@ -1938,13 +1955,13 @@ func ProcessCollection(iterator Iterator[string]) {
 
 **Key Differences:**
 
-| Aspect | Array Indexing | Iterator Pattern |
-|--------|----------------|------------------|
-| **Abstraction** | Low - exposes array structure | High - hides collection details |
-| **Flexibility** | Limited to indexed collections | Works with any collection |
-| **Memory Usage** | Entire array in memory | Can stream/lazy load |
-| **Performance** | Direct access - fastest | Slight overhead for abstraction |
-| **Extensibility** | Hard to extend | Easy to add filters/transforms |
+| Aspect                | Array Indexing                  | Iterator Pattern                  |
+| --------------------- | ------------------------------- | --------------------------------- |
+| **Abstraction**       | Low - exposes array structure   | High - hides collection details   |
+| **Flexibility**       | Limited to indexed collections  | Works with any collection         |
+| **Memory Usage**      | Entire array in memory          | Can stream/lazy load              |
+| **Performance**       | Direct access - fastest         | Slight overhead for abstraction   |
+| **Extensibility**     | Hard to extend                  | Easy to add filters/transforms    |
 | **Concurrent Access** | Requires manual synchronization | Can provide thread-safe iterators |
 
 ### 2. **How do you handle concurrent modification during iteration?**
@@ -1953,6 +1970,7 @@ func ProcessCollection(iterator Iterator[string]) {
 Concurrent modification is a common problem that can be handled in several ways:
 
 **Fail-Fast Iterator:**
+
 ```go
 type FailFastIterator[T any] struct {
     collection      *ObservableCollection[T]
@@ -1969,15 +1987,15 @@ type ObservableCollection[T any] struct {
 
 func (f *FailFastIterator[T]) Next() (T, error) {
     var zero T
-    
+
     f.collection.mu.RLock()
     currentVersion := f.collection.version
     f.collection.mu.RUnlock()
-    
+
     if currentVersion != f.expectedVersion {
         return zero, fmt.Errorf("concurrent modification detected")
     }
-    
+
     // Continue with iteration...
     return f.collection.items[f.currentIndex], nil
 }
@@ -1985,10 +2003,10 @@ func (f *FailFastIterator[T]) Next() (T, error) {
 func (oc *ObservableCollection[T]) Add(item T) {
     oc.mu.Lock()
     defer oc.mu.Unlock()
-    
+
     oc.items = append(oc.items, item)
     oc.version++
-    
+
     // Notify observers of modification
     for _, observer := range oc.observers {
         observer.OnItemAdded(item)
@@ -1997,6 +2015,7 @@ func (oc *ObservableCollection[T]) Add(item T) {
 ```
 
 **Copy-on-Write Iterator:**
+
 ```go
 type CopyOnWriteIterator[T any] struct {
     snapshot []T
@@ -2011,11 +2030,11 @@ type CopyOnWriteCollection[T any] struct {
 func (c *CopyOnWriteCollection[T]) CreateIterator() Iterator[T] {
     c.mu.RLock()
     defer c.mu.RUnlock()
-    
+
     // Create a snapshot for iteration
     snapshot := make([]T, len(c.items))
     copy(snapshot, c.items)
-    
+
     return &CopyOnWriteIterator[T]{
         snapshot: snapshot,
         index:    0,
@@ -2027,7 +2046,7 @@ func (c *CopyOnWriteIterator[T]) Next() (T, error) {
         var zero T
         return zero, fmt.Errorf("no more items")
     }
-    
+
     item := c.snapshot[c.index]
     c.index++
     return item, nil
@@ -2035,6 +2054,7 @@ func (c *CopyOnWriteIterator[T]) Next() (T, error) {
 ```
 
 **Synchronized Iterator:**
+
 ```go
 type SynchronizedIterator[T any] struct {
     collection Collection[T]
@@ -2053,22 +2073,23 @@ func NewSynchronizedIterator[T any](collection Collection[T], mu *sync.RWMutex) 
 func (s *SynchronizedIterator[T]) Next() (T, error) {
     s.mu.RLock()
     defer s.mu.RUnlock()
-    
+
     // Access collection under lock
     if s.index >= s.collection.Size() {
         var zero T
         return zero, fmt.Errorf("no more items")
     }
-    
+
     // Get item at current index
     item, err := s.collection.Get(s.index)
     s.index++
-    
+
     return item, err
 }
 ```
 
 **Channel-based Iterator (Go-specific):**
+
 ```go
 type ChannelIterator[T any] struct {
     channel <-chan T
@@ -2086,11 +2107,11 @@ func (c *ChannelIterator[T]) HasNext() bool {
     if c.done {
         return false
     }
-    
+
     if c.current != nil {
         return true
     }
-    
+
     select {
     case item, ok := <-c.channel:
         if !ok {
@@ -2106,11 +2127,11 @@ func (c *ChannelIterator[T]) HasNext() bool {
 
 func (c *ChannelIterator[T]) Next() (T, error) {
     var zero T
-    
+
     if !c.HasNext() {
         return zero, fmt.Errorf("no more items")
     }
-    
+
     item := *c.current
     c.current = nil
     return item, nil
@@ -2119,7 +2140,7 @@ func (c *ChannelIterator[T]) Next() (T, error) {
 // Producer can safely add items via channel
 func ProduceItems[T any](channel chan<- T, items []T) {
     defer close(channel)
-    
+
     for _, item := range items {
         channel <- item
     }
@@ -2132,6 +2153,7 @@ func ProduceItems[T any](channel chan<- T, items []T) {
 Lazy evaluation allows computation to be deferred until actually needed:
 
 **Lazy Generator Iterator:**
+
 ```go
 type LazyGeneratorIterator[T any] struct {
     generator func() (T, bool, error)
@@ -2150,38 +2172,38 @@ func (l *LazyGeneratorIterator[T]) HasNext() bool {
     if l.finished {
         return false
     }
-    
+
     if l.cached != nil {
         return true
     }
-    
+
     item, hasNext, err := l.generator()
     if err != nil {
         l.err = err
         l.finished = true
         return false
     }
-    
+
     if !hasNext {
         l.finished = true
         return false
     }
-    
+
     l.cached = &item
     return true
 }
 
 func (l *LazyGeneratorIterator[T]) Next() (T, error) {
     var zero T
-    
+
     if l.err != nil {
         return zero, l.err
     }
-    
+
     if !l.HasNext() {
         return zero, fmt.Errorf("no more items")
     }
-    
+
     item := *l.cached
     l.cached = nil
     return item, nil
@@ -2190,18 +2212,19 @@ func (l *LazyGeneratorIterator[T]) Next() (T, error) {
 // Example: Lazy Fibonacci sequence
 func CreateLazyFibonacci() Iterator[int] {
     a, b := 0, 1
-    
+
     generator := func() (int, bool, error) {
         current := a
         a, b = b, a+b
         return current, true, nil // Infinite sequence
     }
-    
+
     return NewLazyGeneratorIterator(generator)
 }
 ```
 
 **Lazy Transformation Iterator:**
+
 ```go
 type LazyTransformIterator[T, U any] struct {
     sourceIterator Iterator[T]
@@ -2227,21 +2250,21 @@ func (l *LazyTransformIterator[T, U]) HasNext() bool {
     if l.computed != nil {
         return true
     }
-    
+
     return l.findNextValidItem()
 }
 
 func (l *LazyTransformIterator[T, U]) Next() (U, error) {
     var zero U
-    
+
     if !l.HasNext() {
         return zero, fmt.Errorf("no more items")
     }
-    
+
     result := *l.computed
     l.computed = nil
     l.sourceItem = nil
-    
+
     return result, nil
 }
 
@@ -2251,25 +2274,26 @@ func (l *LazyTransformIterator[T, U]) findNextValidItem() bool {
         if err != nil {
             return false
         }
-        
+
         // Apply filter
         if l.filter != nil && !l.filter(item) {
             continue
         }
-        
+
         // Apply transformation (lazy - only when needed)
         transformed := l.transform(item)
         l.computed = &transformed
         l.sourceItem = &item
-        
+
         return true
     }
-    
+
     return false
 }
 ```
 
 **Database Result Set Iterator (Lazy Loading):**
+
 ```go
 type LazyDatabaseIterator[T any] struct {
     db           Database
@@ -2304,25 +2328,25 @@ func (l *LazyDatabaseIterator[T]) HasNext() bool {
     if l.batchIndex < len(l.currentBatch) {
         return true
     }
-    
+
     if !l.hasMore {
         return false
     }
-    
+
     // Lazy load next batch only when needed
     return l.loadNextBatch() == nil
 }
 
 func (l *LazyDatabaseIterator[T]) Next() (T, error) {
     var zero T
-    
+
     if !l.HasNext() {
         return zero, fmt.Errorf("no more items")
     }
-    
+
     item := l.currentBatch[l.batchIndex]
     l.batchIndex++
-    
+
     return item, nil
 }
 
@@ -2330,13 +2354,13 @@ func (l *LazyDatabaseIterator[T]) loadNextBatch() error {
     // Add LIMIT and OFFSET to query
     paginatedQuery := l.query + " LIMIT ? OFFSET ?"
     queryArgs := append(l.args, l.batchSize, l.offset)
-    
+
     rows, err := l.db.Query(paginatedQuery, queryArgs...)
     if err != nil {
         return err
     }
     defer rows.Close()
-    
+
     var batch []T
     for rows.Next() {
         item, err := l.mapper(rows)
@@ -2345,12 +2369,12 @@ func (l *LazyDatabaseIterator[T]) loadNextBatch() error {
         }
         batch = append(batch, item)
     }
-    
+
     l.currentBatch = batch
     l.batchIndex = 0
     l.offset += len(batch)
     l.hasMore = len(batch) == l.batchSize
-    
+
     return nil
 }
 ```
@@ -2361,6 +2385,7 @@ func (l *LazyDatabaseIterator[T]) loadNextBatch() error {
 Iterator composition allows building complex iteration logic from simple components:
 
 **Fluent Iterator API:**
+
 ```go
 type FluentIterator[T any] struct {
     baseIterator Iterator[T]
@@ -2427,6 +2452,7 @@ func (f *FluentIterator[T]) Reduce(initial T, reducer func(T, T) T) T {
 ```
 
 **Pipeline Iterator:**
+
 ```go
 type PipelineStage[T any] interface {
     Process(input Iterator[T]) Iterator[T]
@@ -2465,11 +2491,11 @@ func (ip *IteratorPipeline[T]) AddStage(stage PipelineStage[T]) *IteratorPipelin
 
 func (ip *IteratorPipeline[T]) Execute(input Iterator[T]) Iterator[T] {
     current := input
-    
+
     for _, stage := range ip.stages {
         current = stage.Process(current)
     }
-    
+
     return current
 }
 
@@ -2477,11 +2503,12 @@ func (ip *IteratorPipeline[T]) Execute(input Iterator[T]) Iterator[T] {
 // pipeline := NewIteratorPipeline[int]().
 //     AddStage(&FilterStage[int]{predicate: isPositive}).
 //     AddStage(&MapStage[int]{mapper: double})
-// 
+//
 // result := pipeline.Execute(collection.CreateIterator())
 ```
 
 **Parallel Iterator Composition:**
+
 ```go
 type ParallelIterator[T any] struct {
     iterators []Iterator[T]
@@ -2503,15 +2530,15 @@ func NewParallelIterator[T any](iterators ...Iterator[T]) *ParallelIterator[T] {
         done:      make(chan struct{}),
         merger:    make(chan IteratorItem[T], len(iterators)),
     }
-    
+
     // Start goroutine for each iterator
     for i, iterator := range iterators {
         channel := make(chan IteratorItem[T])
         pi.channels[i] = channel
-        
+
         go func(iter Iterator[T], ch chan<- IteratorItem[T]) {
             defer close(ch)
-            
+
             for iter.HasNext() {
                 item, err := iter.Next()
                 select {
@@ -2519,33 +2546,33 @@ func NewParallelIterator[T any](iterators ...Iterator[T]) *ParallelIterator[T] {
                 case <-pi.done:
                     return
                 }
-                
+
                 if err != nil {
                     return
                 }
             }
-            
+
             ch <- IteratorItem[T]{Done: true}
         }(iterator, channel)
     }
-    
+
     // Start merger goroutine
     go pi.merge()
-    
+
     return pi
 }
 
 func (pi *ParallelIterator[T]) merge() {
     defer close(pi.merger)
-    
+
     activeChannels := len(pi.channels)
-    
+
     for activeChannels > 0 {
         for i, ch := range pi.channels {
             if ch == nil {
                 continue
             }
-            
+
             select {
             case item, ok := <-ch:
                 if !ok || item.Done {
@@ -2574,7 +2601,7 @@ func (pi *ParallelIterator[T]) HasNext() bool {
 
 func (pi *ParallelIterator[T]) Next() (T, error) {
     var zero T
-    
+
     select {
     case item, ok := <-pi.merger:
         if !ok {
@@ -2598,6 +2625,7 @@ func (pi *ParallelIterator[T]) Close() error {
 Iterator pattern should be avoided in certain scenarios:
 
 **Simple Data Structures:**
+
 ```go
 // DON'T use iterator for simple arrays when direct access is sufficient
 type SimpleProcessor struct{}
@@ -2616,18 +2644,19 @@ func (s *SimpleProcessor) ProcessNumbers(numbers []int) int {
 ```
 
 **Performance-Critical Code:**
+
 ```go
 // DON'T use iterator in performance-critical loops
 func ProcessLargeArray(data []float64) float64 {
     sum := 0.0
-    
+
     // Direct array access is faster
     for i := 0; i < len(data); i++ {
         sum += data[i] * data[i] // Hot path - direct access
     }
-    
+
     return sum
-    
+
     // Iterator would add unnecessary overhead:
     // iterator := NewSliceIterator(data)
     // for iterator.HasNext() { ... } // Slower due to method calls
@@ -2635,6 +2664,7 @@ func ProcessLargeArray(data []float64) float64 {
 ```
 
 **Small, Fixed Collections:**
+
 ```go
 // DON'T use iterator for small, known collections
 type Colors struct {
@@ -2651,36 +2681,38 @@ func (c *Colors) GetPrimaryColors() []string {
 ```
 
 **Single-Use, Simple Iterations:**
+
 ```go
 // DON'T use iterator for one-off, simple operations
 func FindMax(numbers []int) int {
     if len(numbers) == 0 {
         return 0
     }
-    
+
     max := numbers[0]
     for _, num := range numbers { // Simple range is clearer
         if num > max {
             max = num
         }
     }
-    
+
     return max
 }
 ```
 
 **Better Alternatives:**
 
-| Scenario | Alternative | Reason |
-|----------|-------------|--------|
-| Simple arrays | Range loops (`for _, v := range slice`) | Less overhead |
-| Performance critical | Direct indexing (`for i := 0; i < len(arr); i++`) | Fastest access |
-| Functional operations | Higher-order functions (map, filter, reduce) | More expressive |
-| Stream processing | Channels and goroutines | Better for Go concurrency |
-| One-time operations | Direct loops | Simpler code |
-| Small collections | Direct methods | Less abstraction overhead |
+| Scenario              | Alternative                                       | Reason                    |
+| --------------------- | ------------------------------------------------- | ------------------------- |
+| Simple arrays         | Range loops (`for _, v := range slice`)           | Less overhead             |
+| Performance critical  | Direct indexing (`for i := 0; i < len(arr); i++`) | Fastest access            |
+| Functional operations | Higher-order functions (map, filter, reduce)      | More expressive           |
+| Stream processing     | Channels and goroutines                           | Better for Go concurrency |
+| One-time operations   | Direct loops                                      | Simpler code              |
+| Small collections     | Direct methods                                    | Less abstraction overhead |
 
 **Decision Framework:**
+
 ```go
 type IteratorDecision struct {
     CollectionSize      int
@@ -2696,23 +2728,23 @@ func (id *IteratorDecision) ShouldUseIterator() (bool, string) {
     if id.CollectionSize < 10 && id.CollectionComplexity == "simple" {
         return false, "Collection too simple for iterator pattern"
     }
-    
+
     if id.PerformanceNeeds == "high" && id.AccessPattern == "sequential" {
         return false, "Direct iteration faster for performance-critical sequential access"
     }
-    
+
     if !id.ReuseRequirements && !id.LazyLoadingNeeds && !id.MultipleTraversals {
         return false, "No clear benefits over direct iteration"
     }
-    
+
     if id.LazyLoadingNeeds || id.MultipleTraversals || id.AccessPattern == "filtered" {
         return true, "Iterator provides valuable abstraction and functionality"
     }
-    
+
     if id.CollectionComplexity == "complex" {
         return true, "Iterator hides complex collection structure"
     }
-    
+
     return false, "Direct iteration likely sufficient"
 }
 ```

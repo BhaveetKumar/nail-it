@@ -5,6 +5,7 @@ This microservice demonstrates the Circuit Breaker pattern, which is used to pre
 ## Architecture Overview
 
 The Circuit Breaker pattern provides:
+
 - **Circuit Breaker**: Monitors operations and controls the flow of requests
 - **Circuit States**: Closed, Open, and Half-Open states
 - **Circuit Manager**: Manages circuit breaker lifecycle and state
@@ -83,17 +84,20 @@ circuit_breaker/
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd circuit_breaker
 ```
 
 2. Install dependencies:
+
 ```bash
 go mod tidy
 ```
 
 3. Set up the databases:
+
 ```bash
 # MySQL
 mysql -u root -p -e "CREATE DATABASE circuit_breaker_db;"
@@ -103,6 +107,7 @@ mongosh --eval "use circuit_breaker_db"
 ```
 
 4. Start Kafka:
+
 ```bash
 # Start Zookeeper
 bin/zookeeper-server-start.sh config/zookeeper.properties
@@ -115,6 +120,7 @@ bin/kafka-topics.sh --create --topic circuit-breaker-events --bootstrap-server l
 ```
 
 5. Update configuration in `configs/config.yaml`:
+
 ```yaml
 database:
   mysql:
@@ -134,6 +140,7 @@ kafka:
 ```
 
 6. Run the service:
+
 ```bash
 go run main.go
 ```
@@ -141,9 +148,11 @@ go run main.go
 ## API Endpoints
 
 ### Health Check
+
 - `GET /health` - Service health status
 
 ### Circuit Breaker Management
+
 - `POST /api/v1/circuit-breaker/circuit-breakers` - Create a circuit breaker
 - `DELETE /api/v1/circuit-breaker/circuit-breakers/:id` - Destroy a circuit breaker
 - `GET /api/v1/circuit-breaker/circuit-breakers/:id` - Get circuit breaker by ID
@@ -153,15 +162,18 @@ go run main.go
 - `PUT /api/v1/circuit-breaker/circuit-breakers/:id/active` - Set circuit breaker active status
 
 ### Circuit Breaker Execution
+
 - `POST /api/v1/circuit-breaker/circuit-breakers/:id/execute` - Execute operation through circuit breaker
 - `POST /api/v1/circuit-breaker/circuit-breakers/:id/execute-async` - Execute operation asynchronously
 
 ### Service Management
+
 - `GET /api/v1/circuit-breaker/stats` - Get service statistics
 - `POST /api/v1/circuit-breaker/cleanup` - Perform cleanup
 - `GET /api/v1/circuit-breaker/health` - Get detailed health status
 
 ### WebSocket
+
 - `GET /ws` - WebSocket connection for real-time updates
 
 ## Usage Examples
@@ -365,19 +377,19 @@ The service provides several monitoring endpoints:
 The service supports WebSocket connections for real-time updates:
 
 ```javascript
-const ws = new WebSocket('ws://localhost:8080/ws');
+const ws = new WebSocket("ws://localhost:8080/ws");
 
-ws.onopen = function(event) {
-    console.log('Connected to WebSocket');
+ws.onopen = function (event) {
+  console.log("Connected to WebSocket");
 };
 
-ws.onmessage = function(event) {
-    const data = JSON.parse(event.data);
-    console.log('Received:', data);
+ws.onmessage = function (event) {
+  const data = JSON.parse(event.data);
+  console.log("Received:", data);
 };
 
-ws.onclose = function(event) {
-    console.log('WebSocket connection closed');
+ws.onclose = function (event) {
+  console.log("WebSocket connection closed");
 };
 ```
 
@@ -453,7 +465,7 @@ CMD ["./main"]
 ### Docker Compose
 
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   circuit-breaker-service:
@@ -527,6 +539,7 @@ For support, please open an issue in the repository or contact the development t
 ## Changelog
 
 ### v1.0.0
+
 - Initial release
 - Basic Circuit Breaker pattern implementation
 - Circuit Breaker management

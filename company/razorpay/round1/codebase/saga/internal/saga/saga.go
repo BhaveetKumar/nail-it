@@ -8,11 +8,11 @@ import (
 
 // SagaManagerImpl implements the SagaManager interface
 type SagaManagerImpl struct {
-	sagas      map[string]Saga
-	mutex      sync.RWMutex
-	createdAt  time.Time
-	updatedAt  time.Time
-	active     bool
+	sagas     map[string]Saga
+	mutex     sync.RWMutex
+	createdAt time.Time
+	updatedAt time.Time
+	active    bool
 }
 
 // NewSagaManager creates a new saga manager
@@ -167,11 +167,11 @@ func (m *SagaManagerImpl) GetManagerStats() map[string]interface{} {
 	defer m.mutex.RUnlock()
 
 	return map[string]interface{}{
-		"active":       m.active,
-		"created_at":   m.createdAt,
-		"updated_at":   m.updatedAt,
-		"sagas_count":  len(m.sagas),
-		"sagas":        m.ListSagas(),
+		"active":      m.active,
+		"created_at":  m.createdAt,
+		"updated_at":  m.updatedAt,
+		"sagas_count": len(m.sagas),
+		"sagas":       m.ListSagas(),
 	}
 }
 
@@ -222,12 +222,12 @@ func (m *SagaManagerImpl) Cleanup(ctx context.Context) error {
 
 // SagaExecutorImpl implements the SagaExecutor interface
 type SagaExecutorImpl struct {
-	config     *ServiceConfig
-	manager    SagaManager
-	createdAt  time.Time
-	updatedAt  time.Time
-	active     bool
-	mutex      sync.RWMutex
+	config    *ServiceConfig
+	manager   SagaManager
+	createdAt time.Time
+	updatedAt time.Time
+	active    bool
+	mutex     sync.RWMutex
 }
 
 // NewSagaExecutor creates a new saga executor
@@ -351,9 +351,9 @@ func (e *SagaExecutorImpl) GetExecutorStats() map[string]interface{} {
 	defer e.mutex.RUnlock()
 
 	return map[string]interface{}{
-		"active":      e.active,
-		"created_at":  e.createdAt,
-		"updated_at":  e.updatedAt,
+		"active":        e.active,
+		"created_at":    e.createdAt,
+		"updated_at":    e.updatedAt,
 		"manager_stats": e.manager.GetManagerStats(),
 	}
 }
@@ -414,11 +414,11 @@ func (e *SagaExecutorImpl) Cleanup(ctx context.Context) error {
 
 // StepExecutorImpl implements the StepExecutor interface
 type StepExecutorImpl struct {
-	config     *ServiceConfig
-	createdAt  time.Time
-	updatedAt  time.Time
-	active     bool
-	mutex      sync.RWMutex
+	config    *ServiceConfig
+	createdAt time.Time
+	updatedAt time.Time
+	active    bool
+	mutex     sync.RWMutex
 }
 
 // NewStepExecutor creates a new step executor

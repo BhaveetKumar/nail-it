@@ -2,19 +2,20 @@ package circuit_breaker
 
 import (
 	"context"
+	"fmt"
 	"sync"
 	"time"
 )
 
 // CircuitBreakerServiceImpl implements the CircuitBreakerService interface
 type CircuitBreakerServiceImpl struct {
-	config     *ServiceConfig
-	manager    CircuitBreakerManager
-	executor   CircuitBreakerExecutor
-	createdAt  time.Time
-	updatedAt  time.Time
-	active     bool
-	mutex      sync.RWMutex
+	config    *ServiceConfig
+	manager   CircuitBreakerManager
+	executor  CircuitBreakerExecutor
+	createdAt time.Time
+	updatedAt time.Time
+	active    bool
+	mutex     sync.RWMutex
 }
 
 // NewCircuitBreakerService creates a new circuit breaker service
@@ -198,14 +199,14 @@ func (s *CircuitBreakerServiceImpl) GetServiceStats() map[string]interface{} {
 	executorStats := s.executor.GetExecutorStats()
 
 	return map[string]interface{}{
-		"service_name":           s.config.Name,
-		"version":                s.config.Version,
-		"active":                 s.active,
-		"created_at":             s.createdAt,
-		"updated_at":             s.updatedAt,
-		"manager_stats":          managerStats,
-		"executor_stats":         executorStats,
-		"metadata":               s.config.Metadata,
+		"service_name":   s.config.Name,
+		"version":        s.config.Version,
+		"active":         s.active,
+		"created_at":     s.createdAt,
+		"updated_at":     s.updatedAt,
+		"manager_stats":  managerStats,
+		"executor_stats": executorStats,
+		"metadata":       s.config.Metadata,
 	}
 }
 

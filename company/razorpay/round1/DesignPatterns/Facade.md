@@ -5,6 +5,7 @@
 **Facade** is a structural design pattern that provides a simplified interface to a complex subsystem. It defines a higher-level interface that makes the subsystem easier to use by hiding the complexity of the underlying components.
 
 **Key Intent:**
+
 - Provide a simple interface to a complex subsystem
 - Hide the complexity of subsystem interactions
 - Decouple clients from subsystem components
@@ -24,6 +25,7 @@
 7. **Microservices**: Creating unified interfaces for multiple services
 
 **Don't use when:**
+
 - The subsystem is already simple
 - Clients need direct access to subsystem components
 - The facade would just add unnecessary indirection
@@ -32,6 +34,7 @@
 ## Real-World Use Cases (Payments/Fintech)
 
 ### 1. Payment Processing Facade
+
 ```go
 // Complex subsystem components
 type PaymentValidator interface {
@@ -102,7 +105,7 @@ func (pf *PaymentFacade) ProcessPayment(request *PaymentProcessingRequest) (*Pay
         Items:     request.Items,
         Timestamp: time.Now(),
     }
-    
+
     // Step 1: Validate all inputs
     if err := pf.validatePayment(request); err != nil {
         pf.auditLogger.LogSecurityEvent(&SecurityEvent{
@@ -111,26 +114,26 @@ func (pf *PaymentFacade) ProcessPayment(request *PaymentProcessingRequest) (*Pay
         })
         return nil, fmt.Errorf("validation failed: %w", err)
     }
-    
+
     // Step 2: Reserve inventory
     reservationID, err := pf.reserveInventory(request.Items)
     if err != nil {
         return nil, fmt.Errorf("inventory reservation failed: %w", err)
     }
-    
+
     defer func() {
         if err != nil {
             // Release reservation if payment fails
             pf.inventory.ReleaseReservation(reservationID)
         }
     }()
-    
+
     // Step 3: Fraud detection
     riskAssessment, err := pf.fraudDetector.CheckTransaction(transaction)
     if err != nil {
         return nil, fmt.Errorf("fraud detection failed: %w", err)
     }
-    
+
     if riskAssessment.RiskLevel == "HIGH" {
         pf.auditLogger.LogSecurityEvent(&SecurityEvent{
             Type:         "HIGH_RISK_TRANSACTION",
@@ -139,7 +142,7 @@ func (pf *PaymentFacade) ProcessPayment(request *PaymentProcessingRequest) (*Pay
         })
         return nil, fmt.Errorf("transaction blocked due to high risk")
     }
-    
+
     // Step 4: Process payment through gateway
     paymentRequest := &PaymentRequest{
         Amount:        request.Amount,
@@ -147,24 +150,24 @@ func (pf *PaymentFacade) ProcessPayment(request *PaymentProcessingRequest) (*Pay
         TransactionID: transaction.ID,
         MerchantID:    request.MerchantID,
     }
-    
+
     paymentResponse, err := pf.gateway.ProcessPayment(paymentRequest)
     if err != nil {
         pf.auditLogger.LogTransaction(transaction)
         return nil, fmt.Errorf("payment processing failed: %w", err)
     }
-    
+
     // Step 5: Log successful transaction
     transaction.GatewayTransactionID = paymentResponse.TransactionID
     transaction.Status = "COMPLETED"
     pf.auditLogger.LogTransaction(transaction)
-    
+
     // Step 6: Send notifications
     if err := pf.sendNotifications(request, paymentResponse); err != nil {
         // Don't fail the payment for notification errors, just log
         fmt.Printf("Warning: Failed to send notifications: %v\n", err)
     }
-    
+
     return &PaymentResult{
         TransactionID:        transaction.ID,
         GatewayTransactionID: paymentResponse.TransactionID,
@@ -179,15 +182,15 @@ func (pf *PaymentFacade) validatePayment(request *PaymentProcessingRequest) erro
     if err := pf.validator.ValidateCard(request.Card); err != nil {
         return err
     }
-    
+
     if err := pf.validator.ValidateMerchant(request.MerchantID); err != nil {
         return err
     }
-    
+
     if err := pf.validator.ValidateAmount(request.Amount); err != nil {
         return err
     }
-    
+
     return nil
 }
 
@@ -195,7 +198,7 @@ func (pf *PaymentFacade) reserveInventory(items []OrderItem) (string, error) {
     if len(items) == 0 {
         return "", nil
     }
-    
+
     return "", pf.inventory.ReserveItems(items)
 }
 
@@ -207,20 +210,20 @@ func (pf *PaymentFacade) sendNotifications(request *PaymentProcessingRequest, re
         Items:         request.Items,
         Timestamp:     time.Now(),
     }
-    
+
     if request.Email != "" {
         if err := pf.notifications.SendReceipt(request.Email, receipt); err != nil {
             return err
         }
     }
-    
+
     // Send SMS confirmation
     if request.Phone != "" {
         if err := pf.notifications.SendSMSConfirmation(request.Phone, response.TransactionID); err != nil {
             return err
         }
     }
-    
+
     return nil
 }
 
@@ -232,7 +235,7 @@ func (pf *PaymentFacade) RefundPayment(transactionID string, amount decimal.Deci
     // 3. Update inventory
     // 4. Send notifications
     // 5. Log transaction
-    
+
     // Implementation details hidden from client
     return &RefundResult{
         RefundID: generateRefundID(),
@@ -252,6 +255,7 @@ func (pf *PaymentFacade) GetTransactionStatus(transactionID string) (*Transactio
 ```
 
 ### 2. Banking Operations Facade
+
 ```go
 // Complex banking subsystems
 type AccountService interface {
@@ -302,22 +306,22 @@ func NewBankingFacade(
 
 // Simplified money transfer operation
 func (bf *BankingFacade) TransferMoney(request *TransferRequest) (*TransferResult, error) {
-    bf.logger.Info("Starting money transfer", 
+    bf.logger.Info("Starting money transfer",
         zap.String("from", request.FromAccountID),
         zap.String("to", request.ToAccountID),
         zap.String("amount", request.Amount.String()))
-    
+
     // Step 1: Validate accounts
     fromAccount, err := bf.accountService.GetAccount(request.FromAccountID)
     if err != nil {
         return nil, fmt.Errorf("invalid from account: %w", err)
     }
-    
+
     toAccount, err := bf.accountService.GetAccount(request.ToAccountID)
     if err != nil {
         return nil, fmt.Errorf("invalid to account: %w", err)
     }
-    
+
     // Step 2: Currency conversion if needed
     transferAmount := request.Amount
     if fromAccount.Currency != toAccount.Currency {
@@ -331,7 +335,7 @@ func (bf *BankingFacade) TransferMoney(request *TransferRequest) (*TransferResul
         }
         transferAmount = convertedAmount
     }
-    
+
     // Step 3: Create transaction for compliance check
     transaction := &BankTransaction{
         ID:            generateTransactionID(),
@@ -343,13 +347,13 @@ func (bf *BankingFacade) TransferMoney(request *TransferRequest) (*TransferResul
         Timestamp:     time.Now(),
         Description:   request.Description,
     }
-    
+
     // Step 4: Compliance check
     complianceResult, err := bf.complianceService.CheckAMLCompliance(transaction)
     if err != nil {
         return nil, fmt.Errorf("compliance check failed: %w", err)
     }
-    
+
     if complianceResult.Status == "BLOCKED" {
         bf.complianceService.ReportSuspiciousActivity(&SuspiciousActivity{
             TransactionID: transaction.ID,
@@ -358,27 +362,27 @@ func (bf *BankingFacade) TransferMoney(request *TransferRequest) (*TransferResul
         })
         return nil, fmt.Errorf("transfer blocked by compliance: %s", complianceResult.Reason)
     }
-    
+
     // Step 5: Check sufficient balance
     if fromAccount.Balance.LessThan(request.Amount) {
         return nil, fmt.Errorf("insufficient balance")
     }
-    
+
     // Step 6: Perform the transfer (atomic operation)
     if err := bf.performTransfer(fromAccount, toAccount, request.Amount, transferAmount); err != nil {
         return nil, fmt.Errorf("transfer failed: %w", err)
     }
-    
+
     // Step 7: Record transaction
     transaction.Status = "COMPLETED"
     if err := bf.transactionHistory.RecordTransaction(transaction); err != nil {
         bf.logger.Error("Failed to record transaction", zap.Error(err))
         // Don't fail the transfer for logging errors
     }
-    
+
     bf.logger.Info("Money transfer completed successfully",
         zap.String("transaction_id", transaction.ID))
-    
+
     return &TransferResult{
         TransactionID:    transaction.ID,
         Status:          "SUCCESS",
@@ -395,14 +399,14 @@ func (bf *BankingFacade) performTransfer(fromAccount, toAccount *Account, debitA
     if err := bf.accountService.UpdateBalance(fromAccount.ID, debitAmount.Neg()); err != nil {
         return fmt.Errorf("failed to debit from account: %w", err)
     }
-    
+
     // Credit to destination account
     if err := bf.accountService.UpdateBalance(toAccount.ID, creditAmount); err != nil {
         // Rollback the debit
         bf.accountService.UpdateBalance(fromAccount.ID, debitAmount)
         return fmt.Errorf("failed to credit to account: %w", err)
     }
-    
+
     return nil
 }
 
@@ -412,13 +416,13 @@ func (bf *BankingFacade) GetAccountSummary(accountID string) (*AccountSummary, e
     if err != nil {
         return nil, err
     }
-    
+
     recentTransactions, err := bf.transactionHistory.GetTransactionHistory(accountID, 10)
     if err != nil {
         bf.logger.Warn("Failed to get transaction history", zap.Error(err))
         recentTransactions = []*BankTransaction{} // Continue without transaction history
     }
-    
+
     return &AccountSummary{
         Account:            account,
         RecentTransactions: recentTransactions,
@@ -428,6 +432,7 @@ func (bf *BankingFacade) GetAccountSummary(accountID string) (*AccountSummary, e
 ```
 
 ### 3. Investment Portfolio Facade
+
 ```go
 // Complex investment subsystems
 type MarketDataService interface {
@@ -483,36 +488,36 @@ func (inf *InvestmentFacade) InvestInPortfolio(request *InvestmentRequest) (*Inv
     if err != nil {
         return nil, fmt.Errorf("failed to get holdings: %w", err)
     }
-    
+
     // Step 2: Calculate risk metrics
     currentRisk, err := inf.riskAnalysis.CalculatePortfolioRisk(holdings)
     if err != nil {
         return nil, fmt.Errorf("risk calculation failed: %w", err)
     }
-    
+
     // Step 3: Get investment recommendations
     recommendations, err := inf.riskAnalysis.GetRecommendations(request.RiskProfile)
     if err != nil {
         return nil, fmt.Errorf("failed to get recommendations: %w", err)
     }
-    
+
     // Step 4: Allocate investment amount across recommendations
     allocations := inf.calculateAllocations(request.Amount, recommendations)
-    
+
     var orders []*OrderResult
     var totalInvested decimal.Decimal
-    
+
     // Step 5: Place orders for each allocation
     for symbol, amount := range allocations {
         currentPrice, err := inf.marketData.GetCurrentPrice(symbol)
         if err != nil {
-            inf.logger.Warn("Failed to get price for symbol", 
+            inf.logger.Warn("Failed to get price for symbol",
                 zap.String("symbol", symbol), zap.Error(err))
             continue
         }
-        
+
         quantity := amount.Div(currentPrice)
-        
+
         order := &TradeOrder{
             AccountID: request.AccountID,
             Symbol:    symbol,
@@ -520,21 +525,21 @@ func (inf *InvestmentFacade) InvestInPortfolio(request *InvestmentRequest) (*Inv
             OrderType: "MARKET",
             Side:      "BUY",
         }
-        
+
         orderResult, err := inf.trading.PlaceOrder(order)
         if err != nil {
-            inf.logger.Error("Failed to place order", 
+            inf.logger.Error("Failed to place order",
                 zap.String("symbol", symbol), zap.Error(err))
             continue
         }
-        
+
         orders = append(orders, orderResult)
         totalInvested = totalInvested.Add(amount)
-        
+
         // Update portfolio holdings
         inf.portfolio.UpdateHolding(request.AccountID, symbol, quantity)
     }
-    
+
     return &InvestmentResult{
         AccountID:     request.AccountID,
         TotalInvested: totalInvested,
@@ -546,15 +551,15 @@ func (inf *InvestmentFacade) InvestInPortfolio(request *InvestmentRequest) (*Inv
 
 func (inf *InvestmentFacade) calculateAllocations(totalAmount decimal.Decimal, recommendations []*Investment) map[string]decimal.Decimal {
     allocations := make(map[string]decimal.Decimal)
-    
+
     // Simple equal weight allocation
     weightPerRecommendation := decimal.NewFromFloat(1.0).Div(decimal.NewFromInt(int64(len(recommendations))))
-    
+
     for _, rec := range recommendations {
         allocation := totalAmount.Mul(weightPerRecommendation)
         allocations[rec.Symbol] = allocation
     }
-    
+
     return allocations
 }
 
@@ -565,36 +570,36 @@ func (inf *InvestmentFacade) GetPortfolioAnalysis(accountID string) (*PortfolioA
     if err != nil {
         return nil, err
     }
-    
+
     // Calculate current values
     var totalValue decimal.Decimal
     valuedHoldings := make([]*ValuedHolding, 0, len(holdings))
-    
+
     for _, holding := range holdings {
         currentPrice, err := inf.marketData.GetCurrentPrice(holding.Symbol)
         if err != nil {
-            inf.logger.Warn("Failed to get current price", 
+            inf.logger.Warn("Failed to get current price",
                 zap.String("symbol", holding.Symbol))
             continue
         }
-        
+
         currentValue := holding.Quantity.Mul(currentPrice)
         totalValue = totalValue.Add(currentValue)
-        
+
         valuedHoldings = append(valuedHoldings, &ValuedHolding{
             Holding:      holding,
             CurrentPrice: currentPrice,
             CurrentValue: currentValue,
         })
     }
-    
+
     // Calculate risk metrics
     riskMetrics, err := inf.riskAnalysis.CalculatePortfolioRisk(holdings)
     if err != nil {
         inf.logger.Warn("Failed to calculate risk metrics", zap.Error(err))
         riskMetrics = &RiskMetrics{} // Provide empty metrics
     }
-    
+
     return &PortfolioAnalysis{
         AccountID:      accountID,
         Holdings:       valuedHoldings,
@@ -730,10 +735,10 @@ func NewEcommerceOrderFacade(
 
 // Simplified order processing - hides all the complexity
 func (eof *EcommerceOrderFacade) PlaceOrder(ctx context.Context, orderRequest *OrderRequest) (*OrderResult, error) {
-    eof.logger.Info("Starting order placement", 
+    eof.logger.Info("Starting order placement",
         zap.String("customer_id", orderRequest.CustomerID),
         zap.Int("item_count", len(orderRequest.Items)))
-    
+
     // Create order with generated ID
     order := &Order{
         ID:              generateOrderID(),
@@ -745,32 +750,32 @@ func (eof *EcommerceOrderFacade) PlaceOrder(ctx context.Context, orderRequest *O
         Status:          "PROCESSING",
         CreatedAt:       time.Now(),
     }
-    
+
     // Step 1: Validate customer
     customer, err := eof.customer.GetCustomer(orderRequest.CustomerID)
     if err != nil {
         return nil, fmt.Errorf("customer validation failed: %w", err)
     }
-    
+
     // Step 2: Check inventory and reserve items
     reservationID, err := eof.reserveInventory(order.Items)
     if err != nil {
         return nil, fmt.Errorf("inventory reservation failed: %w", err)
     }
     order.ReservationID = reservationID
-    
+
     // Ensure we release reservation if anything fails
     defer func() {
         if err != nil && reservationID != "" {
             eof.inventory.ReleaseReservation(reservationID)
         }
     }()
-    
+
     // Step 3: Calculate totals
     if err := eof.calculateOrderTotals(order); err != nil {
         return nil, fmt.Errorf("order calculation failed: %w", err)
     }
-    
+
     // Step 4: Process payment
     paymentResult, err := eof.payment.ProcessPayment(&PaymentDetails{
         CardNumber:  orderRequest.PaymentDetails.CardNumber,
@@ -784,7 +789,7 @@ func (eof *EcommerceOrderFacade) PlaceOrder(ctx context.Context, orderRequest *O
         return nil, fmt.Errorf("payment processing failed: %w", err)
     }
     order.TransactionID = paymentResult.TransactionID
-    
+
     // Step 5: Schedule shipping
     deliverySchedule, err := eof.shipping.ScheduleDelivery(order)
     if err != nil {
@@ -793,27 +798,27 @@ func (eof *EcommerceOrderFacade) PlaceOrder(ctx context.Context, orderRequest *O
         return nil, fmt.Errorf("shipping scheduling failed: %w", err)
     }
     order.TrackingNumber = deliverySchedule.TrackingNumber
-    
+
     // Step 6: Update order status
     order.Status = "CONFIRMED"
-    
+
     // Step 7: Update customer loyalty points
     loyaltyPoints := int(order.Total.InexactFloat64() / 10) // 1 point per $10
     if err := eof.customer.UpdateLoyaltyPoints(customer.ID, loyaltyPoints); err != nil {
         eof.logger.Warn("Failed to update loyalty points", zap.Error(err))
         // Don't fail the order for loyalty points
     }
-    
+
     // Step 8: Send notifications
     if err := eof.sendOrderNotifications(customer.Email, order); err != nil {
         eof.logger.Warn("Failed to send notifications", zap.Error(err))
         // Don't fail the order for notification issues
     }
-    
-    eof.logger.Info("Order placed successfully", 
+
+    eof.logger.Info("Order placed successfully",
         zap.String("order_id", order.ID),
         zap.String("transaction_id", order.TransactionID))
-    
+
     return &OrderResult{
         OrderID:        order.ID,
         Status:         order.Status,
@@ -836,13 +841,13 @@ func (eof *EcommerceOrderFacade) reserveInventory(items []OrderItem) (string, er
             return "", fmt.Errorf("insufficient inventory for product %s", item.ProductID)
         }
     }
-    
+
     // Reserve all items
     reservationID, err := eof.inventory.ReserveItems(items)
     if err != nil {
         return "", fmt.Errorf("inventory reservation failed: %w", err)
     }
-    
+
     return reservationID, nil
 }
 
@@ -854,24 +859,24 @@ func (eof *EcommerceOrderFacade) calculateOrderTotals(order *Order) error {
         subtotal = subtotal.Add(itemTotal)
     }
     order.Subtotal = subtotal
-    
+
     // Calculate shipping
     shippingQuote, err := eof.shipping.CalculateShipping(order.ShippingAddress, order.Items)
     if err != nil {
         return fmt.Errorf("shipping calculation failed: %w", err)
     }
     order.ShippingCost = shippingQuote.Cost
-    
+
     // Calculate tax
     tax, err := eof.tax.CalculateTax(order)
     if err != nil {
         return fmt.Errorf("tax calculation failed: %w", err)
     }
     order.Tax = tax
-    
+
     // Calculate total
     order.Total = subtotal.Add(order.ShippingCost).Add(order.Tax)
-    
+
     return nil
 }
 
@@ -880,21 +885,21 @@ func (eof *EcommerceOrderFacade) sendOrderNotifications(email string, order *Ord
     if err := eof.notifications.SendOrderConfirmation(email, order); err != nil {
         return fmt.Errorf("order confirmation failed: %w", err)
     }
-    
+
     // Send shipping notification if tracking number is available
     if order.TrackingNumber != "" {
         if err := eof.notifications.SendShippingNotification(email, order.TrackingNumber); err != nil {
             return fmt.Errorf("shipping notification failed: %w", err)
         }
     }
-    
+
     return nil
 }
 
 // Additional simplified operations
 func (eof *EcommerceOrderFacade) CancelOrder(orderID string) (*CancellationResult, error) {
     eof.logger.Info("Cancelling order", zap.String("order_id", orderID))
-    
+
     // In a real implementation, this would:
     // 1. Retrieve order details
     // 2. Check if cancellation is allowed
@@ -903,7 +908,7 @@ func (eof *EcommerceOrderFacade) CancelOrder(orderID string) (*CancellationResul
     // 5. Cancel shipping
     // 6. Send cancellation notification
     // 7. Update order status
-    
+
     return &CancellationResult{
         OrderID:       orderID,
         Status:        "CANCELLED",
@@ -925,10 +930,10 @@ func (eof *EcommerceOrderFacade) GetOrderStatus(orderID string) (*OrderStatus, e
 }
 
 func (eof *EcommerceOrderFacade) ProcessReturn(returnRequest *ReturnRequest) (*ReturnResult, error) {
-    eof.logger.Info("Processing return", 
+    eof.logger.Info("Processing return",
         zap.String("order_id", returnRequest.OrderID),
         zap.String("reason", returnRequest.Reason))
-    
+
     // Complex return process simplified:
     // 1. Validate return eligibility
     // 2. Generate return authorization
@@ -936,7 +941,7 @@ func (eof *EcommerceOrderFacade) ProcessReturn(returnRequest *ReturnRequest) (*R
     // 4. Process refund (partial or full)
     // 5. Update inventory
     // 6. Send return confirmation
-    
+
     return &ReturnResult{
         ReturnID:           generateReturnID(),
         Status:            "APPROVED",
@@ -1118,11 +1123,11 @@ func generateID() string {
 // Example usage
 func main() {
     fmt.Println("=== Facade Pattern Demo ===\n")
-    
+
     // Create logger
     logger, _ := zap.NewDevelopment()
     defer logger.Sync()
-    
+
     // Create subsystem services (using mocks for demo)
     inventory := &MockInventoryService{}
     payment := &MockPaymentService{}
@@ -1130,7 +1135,7 @@ func main() {
     notifications := &MockNotificationService{}
     tax := &MockTaxService{}
     customer := &MockCustomerService{}
-    
+
     // Create the facade
     orderFacade := NewEcommerceOrderFacade(
         inventory,
@@ -1141,7 +1146,7 @@ func main() {
         customer,
         logger,
     )
-    
+
     // Create a sample order request
     orderRequest := &OrderRequest{
         CustomerID: "CUST-12345",
@@ -1180,7 +1185,7 @@ func main() {
             CVV:         "123",
         },
     }
-    
+
     // Place the order using the simplified facade interface
     fmt.Println("Placing order...")
     orderResult, err := orderFacade.PlaceOrder(context.Background(), orderRequest)
@@ -1188,7 +1193,7 @@ func main() {
         fmt.Printf("Order failed: %v\n", err)
         return
     }
-    
+
     fmt.Printf("Order placed successfully!\n")
     fmt.Printf("Order ID: %s\n", orderResult.OrderID)
     fmt.Printf("Status: %s\n", orderResult.Status)
@@ -1197,7 +1202,7 @@ func main() {
     fmt.Printf("Tracking Number: %s\n", orderResult.TrackingNumber)
     fmt.Printf("Estimated Delivery: %s\n", orderResult.EstimatedDelivery.Format("2006-01-02"))
     fmt.Printf("Loyalty Points Earned: %d\n", orderResult.LoyaltyPointsEarned)
-    
+
     // Demonstrate other facade operations
     fmt.Println("\nChecking order status...")
     status, err := orderFacade.GetOrderStatus(orderResult.OrderID)
@@ -1208,7 +1213,7 @@ func main() {
         fmt.Printf("Tracking: %s\n", status.TrackingNumber)
         fmt.Printf("Estimated Delivery: %s\n", status.EstimatedDelivery.Format("2006-01-02"))
     }
-    
+
     // Demonstrate order cancellation
     fmt.Println("\nCancelling order...")
     cancellation, err := orderFacade.CancelOrder(orderResult.OrderID)
@@ -1219,7 +1224,7 @@ func main() {
         fmt.Printf("Refund Amount: $%s\n", cancellation.RefundAmount)
         fmt.Printf("Refund Method: %s\n", cancellation.RefundMethod)
     }
-    
+
     // Demonstrate return processing
     fmt.Println("\nProcessing return...")
     returnRequest := &ReturnRequest{
@@ -1230,7 +1235,7 @@ func main() {
         Reason:       "Defective product",
         RefundAmount: decimal.NewFromFloat(99.99),
     }
-    
+
     returnResult, err := orderFacade.ProcessReturn(returnRequest)
     if err != nil {
         fmt.Printf("Failed to process return: %v\n", err)
@@ -1241,7 +1246,7 @@ func main() {
         fmt.Printf("Refund Amount: $%s\n", returnResult.RefundAmount)
         fmt.Printf("Return Label: %s\n", returnResult.ReturnShippingLabel)
     }
-    
+
     fmt.Println("\n=== Facade Pattern Demo Complete ===")
 }
 ```
@@ -1251,6 +1256,7 @@ func main() {
 ### Variants
 
 1. **Simple Facade (Basic Interface)**
+
 ```go
 type SimpleFacade interface {
     Operation() error
@@ -1269,6 +1275,7 @@ func (f *BasicFacade) Operation() error {
 ```
 
 2. **Context-Aware Facade**
+
 ```go
 type ContextualFacade struct {
     subsystems map[string]Subsystem
@@ -1290,6 +1297,7 @@ func (f *ContextualFacade) selectSubsystem(ctx context.Context, operation string
 ```
 
 3. **Configurable Facade**
+
 ```go
 type ConfigurableFacade struct {
     components map[string]Component
@@ -1309,19 +1317,19 @@ func (f *ConfigurableFacade) ProcessRequest(request *Request) (*Response, error)
             return nil, err
         }
     }
-    
+
     if f.config.EnableCache {
         if cached := f.components["cache"].Get(request.ID); cached != nil {
             return cached.(*Response), nil
         }
     }
-    
+
     response, err := f.components["processor"].Process(request)
-    
+
     if f.config.EnableLogging {
         f.components["logger"].Log(request, response, err)
     }
-    
+
     return response, err
 }
 ```
@@ -1329,6 +1337,7 @@ func (f *ConfigurableFacade) ProcessRequest(request *Request) (*Response, error)
 ### Trade-offs
 
 **Pros:**
+
 - **Simplified Interface**: Easier for clients to use
 - **Decoupling**: Clients don't depend on subsystem details
 - **Flexibility**: Can change subsystem implementations without affecting clients
@@ -1336,6 +1345,7 @@ func (f *ConfigurableFacade) ProcessRequest(request *Request) (*Response, error)
 - **Reduced Learning Curve**: Clients need to learn fewer interfaces
 
 **Cons:**
+
 - **Limited Functionality**: May not expose all subsystem capabilities
 - **Additional Layer**: Adds another layer of indirection
 - **Potential Bottleneck**: All operations go through the facade
@@ -1344,17 +1354,18 @@ func (f *ConfigurableFacade) ProcessRequest(request *Request) (*Response, error)
 
 **When to Choose Facade vs Alternatives:**
 
-| Scenario | Pattern | Reason |
-|----------|---------|--------|
-| Complex subsystem | Facade | Simplify client interactions |
-| Microservices integration | API Gateway | Centralized entry point |
-| Legacy system wrapping | Adapter | Interface compatibility |
-| Cross-cutting concerns | Decorator | Layered functionality |
-| Algorithm selection | Strategy | Different algorithms |
+| Scenario                  | Pattern     | Reason                       |
+| ------------------------- | ----------- | ---------------------------- |
+| Complex subsystem         | Facade      | Simplify client interactions |
+| Microservices integration | API Gateway | Centralized entry point      |
+| Legacy system wrapping    | Adapter     | Interface compatibility      |
+| Cross-cutting concerns    | Decorator   | Layered functionality        |
+| Algorithm selection       | Strategy    | Different algorithms         |
 
 ## Integration Tips
 
 ### 1. Builder Pattern Integration
+
 ```go
 type OrderFacadeBuilder struct {
     inventory     InventoryService
@@ -1392,7 +1403,7 @@ func (b *OrderFacadeBuilder) Build() (*EcommerceOrderFacade, error) {
     if b.inventory == nil {
         return nil, fmt.Errorf("inventory service is required")
     }
-    
+
     return NewEcommerceOrderFacade(
         b.inventory,
         b.payment,
@@ -1406,6 +1417,7 @@ func (b *OrderFacadeBuilder) Build() (*EcommerceOrderFacade, error) {
 ```
 
 ### 2. Factory Pattern Integration
+
 ```go
 type FacadeFactory interface {
     CreateOrderFacade(config *Config) OrderFacade
@@ -1430,6 +1442,7 @@ func (f *DefaultFacadeFactory) CreateOrderFacade(config *Config) OrderFacade {
 ```
 
 ### 3. Dependency Injection
+
 ```go
 type ServiceContainer interface {
     RegisterService(name string, service interface{})
@@ -1443,13 +1456,14 @@ type FacadeWithDI struct {
 func (f *FacadeWithDI) ProcessOrder(orderRequest *OrderRequest) (*OrderResult, error) {
     inventory := f.container.GetService("inventory").(InventoryService)
     payment := f.container.GetService("payment").(PaymentService)
-    
+
     // Use services...
     return &OrderResult{}, nil
 }
 ```
 
 ### 4. Configuration-Driven Facade
+
 ```yaml
 # facade_config.yaml
 facades:
@@ -1475,7 +1489,7 @@ func CreateFacadeFromConfig(configPath string) (*EcommerceOrderFacade, error) {
     if err != nil {
         return nil, err
     }
-    
+
     var services []interface{}
     for _, serviceConfig := range config.Services {
         service, err := CreateService(serviceConfig.Type, serviceConfig.Config)
@@ -1484,7 +1498,7 @@ func CreateFacadeFromConfig(configPath string) (*EcommerceOrderFacade, error) {
         }
         services = append(services, service)
     }
-    
+
     return BuildFacade(services, config.Features)
 }
 ```
@@ -1497,6 +1511,7 @@ func CreateFacadeFromConfig(configPath string) (*EcommerceOrderFacade, error) {
 Both are structural patterns but serve different purposes:
 
 **Facade:**
+
 ```go
 // Simplifies a complex subsystem
 type PaymentFacade struct {
@@ -1518,6 +1533,7 @@ func (f *PaymentFacade) ProcessPayment(payment *Payment) error {
 ```
 
 **Adapter:**
+
 ```go
 // Makes incompatible interfaces compatible
 type LegacyPaymentGateway struct {
@@ -1537,13 +1553,13 @@ func (a *PaymentGatewayAdapter) ProcessPayment(payment *Payment) error {
 
 **Key Differences:**
 
-| Aspect | Facade | Adapter |
-|--------|--------|---------|
-| **Purpose** | Simplify complex subsystem | Make incompatible interfaces compatible |
-| **Scope** | Multiple classes/subsystems | Usually single class/interface |
-| **Interface** | Creates new simplified interface | Implements existing target interface |
-| **Relationship** | Uses subsystem classes | Wraps adaptee class |
-| **Intent** | Hide complexity | Enable interoperability |
+| Aspect           | Facade                           | Adapter                                 |
+| ---------------- | -------------------------------- | --------------------------------------- |
+| **Purpose**      | Simplify complex subsystem       | Make incompatible interfaces compatible |
+| **Scope**        | Multiple classes/subsystems      | Usually single class/interface          |
+| **Interface**    | Creates new simplified interface | Implements existing target interface    |
+| **Relationship** | Uses subsystem classes           | Wraps adaptee class                     |
+| **Intent**       | Hide complexity                  | Enable interoperability                 |
 
 ### 2. **How do you handle error propagation in Facade pattern?**
 
@@ -1551,6 +1567,7 @@ func (a *PaymentGatewayAdapter) ProcessPayment(payment *Payment) error {
 Error handling in facades requires careful consideration of how to present subsystem errors to clients:
 
 **Error Aggregation Strategy:**
+
 ```go
 type FacadeError struct {
     Operation string
@@ -1564,16 +1581,16 @@ func (f *FacadeError) Error() string {
 
 func (f *PaymentFacade) ProcessPayment(payment *Payment) error {
     var errors []error
-    
+
     // Collect all validation errors
     if err := f.validator.ValidateCard(payment.Card); err != nil {
         errors = append(errors, fmt.Errorf("card validation: %w", err))
     }
-    
+
     if err := f.validator.ValidateAmount(payment.Amount); err != nil {
         errors = append(errors, fmt.Errorf("amount validation: %w", err))
     }
-    
+
     if len(errors) > 0 {
         return &FacadeError{
             Operation: "ProcessPayment",
@@ -1581,13 +1598,14 @@ func (f *PaymentFacade) ProcessPayment(payment *Payment) error {
             Context:   map[string]interface{}{"payment_id": payment.ID},
         }
     }
-    
+
     // Continue with processing...
     return nil
 }
 ```
 
 **Failure Recovery Strategy:**
+
 ```go
 func (f *PaymentFacade) ProcessPayment(payment *Payment) error {
     // Try primary gateway
@@ -1595,23 +1613,24 @@ func (f *PaymentFacade) ProcessPayment(payment *Payment) error {
     if err == nil {
         return nil
     }
-    
+
     // Log primary failure
     f.logger.Warn("Primary gateway failed, trying fallback", zap.Error(err))
-    
+
     // Try fallback gateway
     err = f.fallbackGateway.Process(payment)
     if err == nil {
         f.logger.Info("Payment processed via fallback gateway")
         return nil
     }
-    
+
     // Both failed
     return fmt.Errorf("payment processing failed on both gateways: primary=%v, fallback=%v", err, err)
 }
 ```
 
 **Circuit Breaker Integration:**
+
 ```go
 type CircuitBreakerFacade struct {
     breakers map[string]*CircuitBreaker
@@ -1623,7 +1642,7 @@ func (f *CircuitBreakerFacade) ProcessPayment(payment *Payment) error {
     err := f.breakers["gateway"].Execute(func() error {
         return f.services["gateway"].(PaymentGateway).Process(payment)
     })
-    
+
     if err != nil {
         // Check if it's a circuit breaker error
         if circuitBreakerErr, ok := err.(*CircuitBreakerError); ok {
@@ -1632,7 +1651,7 @@ func (f *CircuitBreakerFacade) ProcessPayment(payment *Payment) error {
         }
         return err
     }
-    
+
     return nil
 }
 ```
@@ -1643,6 +1662,7 @@ func (f *CircuitBreakerFacade) ProcessPayment(payment *Payment) error {
 Async operations in facades can be implemented using various Go concurrency patterns:
 
 **Future/Promise Pattern:**
+
 ```go
 type PaymentFuture struct {
     result chan *PaymentResult
@@ -1663,7 +1683,7 @@ func (pf *PaymentFacade) ProcessPaymentAsync(payment *Payment) *PaymentFuture {
         result: make(chan *PaymentResult, 1),
         err:    make(chan error, 1),
     }
-    
+
     go func() {
         result, err := pf.ProcessPayment(payment)
         if err != nil {
@@ -1672,7 +1692,7 @@ func (pf *PaymentFacade) ProcessPaymentAsync(payment *Payment) *PaymentFuture {
             future.result <- result
         }
     }()
-    
+
     return future
 }
 
@@ -1682,11 +1702,12 @@ result, err := future.Get() // Blocks until completion
 ```
 
 **Context with Timeout:**
+
 ```go
 func (pf *PaymentFacade) ProcessPaymentWithTimeout(ctx context.Context, payment *Payment) (*PaymentResult, error) {
     resultChan := make(chan *PaymentResult, 1)
     errChan := make(chan error, 1)
-    
+
     go func() {
         result, err := pf.ProcessPayment(payment)
         if err != nil {
@@ -1695,7 +1716,7 @@ func (pf *PaymentFacade) ProcessPaymentWithTimeout(ctx context.Context, payment 
             resultChan <- result
         }
     }()
-    
+
     select {
     case result := <-resultChan:
         return result, nil
@@ -1714,6 +1735,7 @@ result, err := facade.ProcessPaymentWithTimeout(ctx, payment)
 ```
 
 **Worker Pool Pattern:**
+
 ```go
 type AsyncPaymentFacade struct {
     *PaymentFacade
@@ -1742,7 +1764,7 @@ func (apf *AsyncPaymentFacade) Start() {
 
 func (apf *AsyncPaymentFacade) worker() {
     defer apf.wg.Done()
-    
+
     for {
         select {
         case req := <-apf.workChan:
@@ -1759,12 +1781,12 @@ func (apf *AsyncPaymentFacade) worker() {
 
 func (apf *AsyncPaymentFacade) ProcessPaymentAsync(payment *Payment) <-chan *AsyncPaymentResponse {
     responseChan := make(chan *AsyncPaymentResponse, 1)
-    
+
     request := &AsyncPaymentRequest{
         Payment:  payment,
         Response: responseChan,
     }
-    
+
     select {
     case apf.workChan <- request:
         return responseChan
@@ -1784,6 +1806,7 @@ func (apf *AsyncPaymentFacade) ProcessPaymentAsync(payment *Payment) <-chan *Asy
 Testing facades requires both unit testing of the facade logic and integration testing with subsystems:
 
 **Mock-based Unit Testing:**
+
 ```go
 type MockPaymentGateway struct {
     mock.Mock
@@ -1799,25 +1822,25 @@ func TestPaymentFacade_ProcessPayment_Success(t *testing.T) {
     mockValidator := &MockPaymentValidator{}
     mockGateway := &MockPaymentGateway{}
     mockLogger := &MockLogger{}
-    
+
     // Create facade with mocks
     facade := NewPaymentFacade(mockValidator, mockGateway, mockLogger)
-    
+
     // Setup expectations
     payment := &Payment{ID: "test-payment"}
     expectedResult := &PaymentResult{TransactionID: "txn-123"}
-    
+
     mockValidator.On("Validate", payment).Return(nil)
     mockGateway.On("ProcessPayment", payment).Return(expectedResult, nil)
     mockLogger.On("Log", mock.Anything).Return(nil)
-    
+
     // Execute
     result, err := facade.ProcessPayment(payment)
-    
+
     // Assert
     assert.NoError(t, err)
     assert.Equal(t, expectedResult, result)
-    
+
     // Verify all mocks were called
     mockValidator.AssertExpectations(t)
     mockGateway.AssertExpectations(t)
@@ -1826,27 +1849,28 @@ func TestPaymentFacade_ProcessPayment_Success(t *testing.T) {
 ```
 
 **Integration Testing:**
+
 ```go
 func TestPaymentFacade_Integration(t *testing.T) {
     // Use real implementations or test doubles
     validator := NewRealPaymentValidator()
     gateway := NewTestPaymentGateway() // Test implementation
     logger := NewTestLogger()
-    
+
     facade := NewPaymentFacade(validator, gateway, logger)
-    
+
     // Test with real data flow
     payment := &Payment{
         Amount: decimal.NewFromFloat(100.00),
         Card:   &CreditCard{Number: "4111111111111111"},
     }
-    
+
     result, err := facade.ProcessPayment(payment)
-    
+
     assert.NoError(t, err)
     assert.NotNil(t, result)
     assert.NotEmpty(t, result.TransactionID)
-    
+
     // Verify side effects
     assert.True(t, logger.HasLoggedSuccess())
     assert.Equal(t, 1, gateway.GetTransactionCount())
@@ -1854,28 +1878,29 @@ func TestPaymentFacade_Integration(t *testing.T) {
 ```
 
 **Error Scenario Testing:**
+
 ```go
 func TestPaymentFacade_ProcessPayment_ValidationError(t *testing.T) {
     mockValidator := &MockPaymentValidator{}
     mockGateway := &MockPaymentGateway{}
-    
+
     facade := NewPaymentFacade(mockValidator, mockGateway, nil)
-    
+
     payment := &Payment{ID: "invalid-payment"}
     validationError := fmt.Errorf("invalid card number")
-    
+
     // Setup validation to fail
     mockValidator.On("Validate", payment).Return(validationError)
-    
+
     // Gateway should not be called when validation fails
     mockGateway.AssertNotCalled(t, "ProcessPayment")
-    
+
     result, err := facade.ProcessPayment(payment)
-    
+
     assert.Error(t, err)
     assert.Nil(t, result)
     assert.Contains(t, err.Error(), "validation")
-    
+
     mockValidator.AssertExpectations(t)
 }
 ```
@@ -1886,6 +1911,7 @@ func TestPaymentFacade_ProcessPayment_ValidationError(t *testing.T) {
 Facade versioning requires careful planning to maintain backward compatibility:
 
 **Interface Versioning:**
+
 ```go
 // Version 1
 type PaymentFacadeV1 interface {
@@ -1916,6 +1942,7 @@ func (f *PaymentFacade) ProcessPaymentWithOptions(payment *Payment, options *Pay
 ```
 
 **Backward Compatibility:**
+
 ```go
 type LegacyPaymentFacade struct {
     modernFacade PaymentFacadeV2
@@ -1928,18 +1955,19 @@ func (l *LegacyPaymentFacade) ProcessPayment(paymentData string) string {
     if err != nil {
         return "ERROR: " + err.Error()
     }
-    
+
     result, err := l.modernFacade.ProcessPayment(payment)
     if err != nil {
         return "ERROR: " + err.Error()
     }
-    
+
     // Convert modern result to legacy format
     return l.convertLegacyResult(result)
 }
 ```
 
 **Feature Flags:**
+
 ```go
 type FeatureFlags struct {
     EnableNewPaymentFlow bool

@@ -5,6 +5,7 @@ This microservice demonstrates the Saga pattern, which is used to manage distrib
 ## Architecture Overview
 
 The Saga pattern provides:
+
 - **Saga**: A sequence of local transactions that can be executed or compensated
 - **Saga Step**: Individual local transaction with its own compensation
 - **Saga Manager**: Manages saga lifecycle and state
@@ -84,17 +85,20 @@ saga/
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd saga
 ```
 
 2. Install dependencies:
+
 ```bash
 go mod tidy
 ```
 
 3. Set up the databases:
+
 ```bash
 # MySQL
 mysql -u root -p -e "CREATE DATABASE saga_db;"
@@ -104,6 +108,7 @@ mongosh --eval "use saga_db"
 ```
 
 4. Start Kafka:
+
 ```bash
 # Start Zookeeper
 bin/zookeeper-server-start.sh config/zookeeper.properties
@@ -116,6 +121,7 @@ bin/kafka-topics.sh --create --topic saga-events --bootstrap-server localhost:90
 ```
 
 5. Update configuration in `configs/config.yaml`:
+
 ```yaml
 database:
   mysql:
@@ -135,6 +141,7 @@ kafka:
 ```
 
 6. Run the service:
+
 ```bash
 go run main.go
 ```
@@ -142,9 +149,11 @@ go run main.go
 ## API Endpoints
 
 ### Health Check
+
 - `GET /health` - Service health status
 
 ### Saga Management
+
 - `POST /api/v1/saga/sagas` - Create a saga
 - `DELETE /api/v1/saga/sagas/:id` - Destroy a saga
 - `GET /api/v1/saga/sagas/:id` - Get saga by ID
@@ -154,16 +163,19 @@ go run main.go
 - `PUT /api/v1/saga/sagas/:id/active` - Set saga active status
 
 ### Saga Execution
+
 - `POST /api/v1/saga/sagas/:id/execute` - Execute a saga
 - `POST /api/v1/saga/sagas/:id/compensate` - Compensate a saga
 - `GET /api/v1/saga/sagas/:id/status` - Get saga status
 
 ### Service Management
+
 - `GET /api/v1/saga/stats` - Get service statistics
 - `POST /api/v1/saga/cleanup` - Perform cleanup
 - `GET /api/v1/saga/health` - Get detailed health status
 
 ### WebSocket
+
 - `GET /ws` - WebSocket connection for real-time updates
 
 ## Usage Examples
@@ -388,19 +400,19 @@ The service provides several monitoring endpoints:
 The service supports WebSocket connections for real-time updates:
 
 ```javascript
-const ws = new WebSocket('ws://localhost:8080/ws');
+const ws = new WebSocket("ws://localhost:8080/ws");
 
-ws.onopen = function(event) {
-    console.log('Connected to WebSocket');
+ws.onopen = function (event) {
+  console.log("Connected to WebSocket");
 };
 
-ws.onmessage = function(event) {
-    const data = JSON.parse(event.data);
-    console.log('Received:', data);
+ws.onmessage = function (event) {
+  const data = JSON.parse(event.data);
+  console.log("Received:", data);
 };
 
-ws.onclose = function(event) {
-    console.log('WebSocket connection closed');
+ws.onclose = function (event) {
+  console.log("WebSocket connection closed");
 };
 ```
 
@@ -476,7 +488,7 @@ CMD ["./main"]
 ### Docker Compose
 
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   saga-service:
@@ -550,6 +562,7 @@ For support, please open an issue in the repository or contact the development t
 ## Changelog
 
 ### v1.0.0
+
 - Initial release
 - Basic Saga pattern implementation
 - Saga and Step management

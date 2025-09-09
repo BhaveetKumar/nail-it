@@ -1,6 +1,7 @@
 # 02. Payment Gateway - Financial Transaction System
 
 ## Title & Summary
+
 Design and implement a payment gateway system using Node.js that processes payments, handles refunds, manages transactions, and integrates with multiple payment providers.
 
 ## Problem Statement
@@ -17,6 +18,7 @@ Build a comprehensive payment gateway that handles:
 ## Requirements & Constraints
 
 ### Functional Requirements
+
 - Process payments with multiple methods
 - Handle payment failures and retries
 - Process refunds and chargebacks
@@ -25,6 +27,7 @@ Build a comprehensive payment gateway that handles:
 - Merchant dashboard integration
 
 ### Non-Functional Requirements
+
 - **Latency**: < 2 seconds for payment processing
 - **Availability**: 99.9% uptime
 - **Throughput**: 10,000 transactions per minute
@@ -38,28 +41,35 @@ Build a comprehensive payment gateway that handles:
 
 ```javascript
 // Payment Processing
-POST   /api/payments/process
-GET    /api/payments/{paymentID}/status
-POST   /api/payments/{paymentID}/capture
-POST   /api/payments/{paymentID}/void
-
-// Refund Processing
-POST   /api/refunds/process
-GET    /api/refunds/{refundID}/status
+POST / api / payments / process;
+GET / api / payments / { paymentID } / status;
+POST / api / payments / { paymentID } / capture;
+POST /
+  api /
+  payments /
+  { paymentID } /
+  void (
+    // Refund Processing
+    POST
+  ) /
+  api /
+  refunds /
+  process;
+GET / api / refunds / { refundID } / status;
 
 // Transaction Management
-GET    /api/transactions
-GET    /api/transactions/{transactionID}
-GET    /api/transactions/merchant/{merchantID}
+GET / api / transactions;
+GET / api / transactions / { transactionID };
+GET / api / transactions / merchant / { merchantID };
 
 // Webhook Management
-POST   /api/webhooks/payment
-POST   /api/webhooks/refund
-GET    /api/webhooks/events
+POST / api / webhooks / payment;
+POST / api / webhooks / refund;
+GET / api / webhooks / events;
 
 // Settlement
-GET    /api/settlements/daily
-POST   /api/settlements/process
+GET / api / settlements / daily;
+POST / api / settlements / process;
 ```
 
 ### Request/Response Examples
@@ -118,80 +128,82 @@ POST /api/payments/process
 ```javascript
 // Payment Entity
 class Payment {
-    constructor(merchantID, amount, currency, paymentMethod) {
-        this.id = this.generateID();
-        this.merchantID = merchantID;
-        this.amount = amount;
-        this.currency = currency;
-        this.paymentMethod = paymentMethod;
-        this.status = 'pending';
-        this.orderID = null;
-        this.customerInfo = {};
-        this.paymentDetails = {};
-        this.gatewayTransactionID = null;
-        this.gatewayResponse = null;
-        this.createdAt = new Date();
-        this.updatedAt = new Date();
-        this.processedAt = null;
-        this.failedAt = null;
-        this.failureReason = null;
-    }
+  constructor(merchantID, amount, currency, paymentMethod) {
+    this.id = this.generateID();
+    this.merchantID = merchantID;
+    this.amount = amount;
+    this.currency = currency;
+    this.paymentMethod = paymentMethod;
+    this.status = "pending";
+    this.orderID = null;
+    this.customerInfo = {};
+    this.paymentDetails = {};
+    this.gatewayTransactionID = null;
+    this.gatewayResponse = null;
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
+    this.processedAt = null;
+    this.failedAt = null;
+    this.failureReason = null;
+  }
 }
 
 // Transaction Entity
 class Transaction {
-    constructor(paymentID, type, amount, status) {
-        this.id = this.generateID();
-        this.paymentID = paymentID;
-        this.type = type; // 'payment', 'refund', 'chargeback'
-        this.amount = amount;
-        this.status = status;
-        this.gatewayTransactionID = null;
-        this.gatewayResponse = null;
-        this.createdAt = new Date();
-        this.updatedAt = new Date();
-    }
+  constructor(paymentID, type, amount, status) {
+    this.id = this.generateID();
+    this.paymentID = paymentID;
+    this.type = type; // 'payment', 'refund', 'chargeback'
+    this.amount = amount;
+    this.status = status;
+    this.gatewayTransactionID = null;
+    this.gatewayResponse = null;
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
+  }
 }
 
 // Refund Entity
 class Refund {
-    constructor(paymentID, amount, reason) {
-        this.id = this.generateID();
-        this.paymentID = paymentID;
-        this.amount = amount;
-        this.reason = reason;
-        this.status = 'pending';
-        this.gatewayRefundID = null;
-        this.gatewayResponse = null;
-        this.createdAt = new Date();
-        this.updatedAt = new Date();
-    }
+  constructor(paymentID, amount, reason) {
+    this.id = this.generateID();
+    this.paymentID = paymentID;
+    this.amount = amount;
+    this.reason = reason;
+    this.status = "pending";
+    this.gatewayRefundID = null;
+    this.gatewayResponse = null;
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
+  }
 }
 
 // Settlement Entity
 class Settlement {
-    constructor(merchantID, date, totalAmount, transactionCount) {
-        this.id = this.generateID();
-        this.merchantID = merchantID;
-        this.date = date;
-        this.totalAmount = totalAmount;
-        this.transactionCount = transactionCount;
-        this.status = 'pending';
-        this.processedAt = null;
-        this.createdAt = new Date();
-    }
+  constructor(merchantID, date, totalAmount, transactionCount) {
+    this.id = this.generateID();
+    this.merchantID = merchantID;
+    this.date = date;
+    this.totalAmount = totalAmount;
+    this.transactionCount = transactionCount;
+    this.status = "pending";
+    this.processedAt = null;
+    this.createdAt = new Date();
+  }
 }
 ```
 
 ## Approach Overview
 
 ### Simple Solution (MVP)
+
 1. In-memory storage with basic validation
 2. Single payment provider integration
 3. Simple status tracking
 4. Basic error handling
 
 ### Production-Ready Design
+
 1. **Modular Architecture**: Separate payment providers
 2. **Event-Driven**: Use EventEmitter for payment events
 3. **Persistence Layer**: Database for transaction history
@@ -204,336 +216,338 @@ class Settlement {
 ### Core Service Implementation
 
 ```javascript
-const EventEmitter = require('events');
-const crypto = require('crypto');
-const { v4: uuidv4 } = require('uuid');
+const EventEmitter = require("events");
+const crypto = require("crypto");
+const { v4: uuidv4 } = require("uuid");
 
 class PaymentGatewayService extends EventEmitter {
-    constructor() {
-        super();
-        this.payments = new Map();
-        this.transactions = new Map();
-        this.refunds = new Map();
-        this.settlements = new Map();
-        this.webhooks = new Map();
-        
-        // Payment providers
-        this.providers = new Map();
-        this.initializeProviders();
-        
-        // Fraud detection
-        this.fraudDetector = new FraudDetectionService();
-        
-        // Retry mechanism
-        this.retryQueue = [];
-        this.startRetryProcessor();
+  constructor() {
+    super();
+    this.payments = new Map();
+    this.transactions = new Map();
+    this.refunds = new Map();
+    this.settlements = new Map();
+    this.webhooks = new Map();
+
+    // Payment providers
+    this.providers = new Map();
+    this.initializeProviders();
+
+    // Fraud detection
+    this.fraudDetector = new FraudDetectionService();
+
+    // Retry mechanism
+    this.retryQueue = [];
+    this.startRetryProcessor();
+  }
+
+  initializeProviders() {
+    this.providers.set("card", new CardPaymentProvider());
+    this.providers.set("upi", new UPIPaymentProvider());
+    this.providers.set("netbanking", new NetBankingProvider());
+  }
+
+  // Payment Processing
+  async processPayment(paymentData) {
+    try {
+      // Validate payment data
+      this.validatePaymentData(paymentData);
+
+      // Create payment record
+      const payment = new Payment(
+        paymentData.merchantID,
+        paymentData.amount,
+        paymentData.currency,
+        paymentData.paymentMethod
+      );
+
+      payment.orderID = paymentData.orderID;
+      payment.customerInfo = paymentData.customerInfo;
+      payment.paymentDetails = paymentData.paymentDetails;
+
+      // Store payment
+      this.payments.set(payment.id, payment);
+
+      // Fraud detection
+      const fraudCheck = await this.fraudDetector.checkFraud(payment);
+      if (fraudCheck.isFraudulent) {
+        payment.status = "failed";
+        payment.failureReason = "Fraud detected";
+        payment.failedAt = new Date();
+
+        this.emit("paymentFailed", payment);
+        return payment;
+      }
+
+      // Process with payment provider
+      const provider = this.providers.get(payment.paymentMethod);
+      if (!provider) {
+        throw new Error("Unsupported payment method");
+      }
+
+      const result = await provider.processPayment(payment);
+
+      // Update payment status
+      payment.status = result.status;
+      payment.gatewayTransactionID = result.transactionID;
+      payment.gatewayResponse = result.response;
+      payment.updatedAt = new Date();
+
+      if (result.status === "completed") {
+        payment.processedAt = new Date();
+        this.emit("paymentCompleted", payment);
+      } else if (result.status === "failed") {
+        payment.failedAt = new Date();
+        payment.failureReason = result.error;
+        this.emit("paymentFailed", payment);
+      }
+
+      // Create transaction record
+      const transaction = new Transaction(
+        payment.id,
+        "payment",
+        payment.amount,
+        payment.status
+      );
+      transaction.gatewayTransactionID = result.transactionID;
+      transaction.gatewayResponse = result.response;
+
+      this.transactions.set(transaction.id, transaction);
+
+      // Send webhook
+      await this.sendWebhook(payment);
+
+      return payment;
+    } catch (error) {
+      console.error("Payment processing error:", error);
+      throw error;
     }
-    
-    initializeProviders() {
-        this.providers.set('card', new CardPaymentProvider());
-        this.providers.set('upi', new UPIPaymentProvider());
-        this.providers.set('netbanking', new NetBankingProvider());
+  }
+
+  // Refund Processing
+  async processRefund(paymentID, refundData) {
+    try {
+      const payment = this.payments.get(paymentID);
+      if (!payment) {
+        throw new Error("Payment not found");
+      }
+
+      if (payment.status !== "completed") {
+        throw new Error("Can only refund completed payments");
+      }
+
+      if (refundData.amount > payment.amount) {
+        throw new Error("Refund amount cannot exceed payment amount");
+      }
+
+      // Create refund record
+      const refund = new Refund(
+        paymentID,
+        refundData.amount,
+        refundData.reason
+      );
+
+      this.refunds.set(refund.id, refund);
+
+      // Process with payment provider
+      const provider = this.providers.get(payment.paymentMethod);
+      const result = await provider.processRefund(payment, refund);
+
+      // Update refund status
+      refund.status = result.status;
+      refund.gatewayRefundID = result.refundID;
+      refund.gatewayResponse = result.response;
+      refund.updatedAt = new Date();
+
+      // Create transaction record
+      const transaction = new Transaction(
+        paymentID,
+        "refund",
+        refund.amount,
+        refund.status
+      );
+      transaction.gatewayTransactionID = result.refundID;
+      transaction.gatewayResponse = result.response;
+
+      this.transactions.set(transaction.id, transaction);
+
+      // Send webhook
+      await this.sendRefundWebhook(refund);
+
+      return refund;
+    } catch (error) {
+      console.error("Refund processing error:", error);
+      throw error;
     }
-    
-    // Payment Processing
-    async processPayment(paymentData) {
-        try {
-            // Validate payment data
-            this.validatePaymentData(paymentData);
-            
-            // Create payment record
-            const payment = new Payment(
-                paymentData.merchantID,
-                paymentData.amount,
-                paymentData.currency,
-                paymentData.paymentMethod
-            );
-            
-            payment.orderID = paymentData.orderID;
-            payment.customerInfo = paymentData.customerInfo;
-            payment.paymentDetails = paymentData.paymentDetails;
-            
-            // Store payment
-            this.payments.set(payment.id, payment);
-            
-            // Fraud detection
-            const fraudCheck = await this.fraudDetector.checkFraud(payment);
-            if (fraudCheck.isFraudulent) {
-                payment.status = 'failed';
-                payment.failureReason = 'Fraud detected';
-                payment.failedAt = new Date();
-                
-                this.emit('paymentFailed', payment);
-                return payment;
-            }
-            
-            // Process with payment provider
-            const provider = this.providers.get(payment.paymentMethod);
-            if (!provider) {
-                throw new Error('Unsupported payment method');
-            }
-            
-            const result = await provider.processPayment(payment);
-            
-            // Update payment status
-            payment.status = result.status;
-            payment.gatewayTransactionID = result.transactionID;
-            payment.gatewayResponse = result.response;
-            payment.updatedAt = new Date();
-            
-            if (result.status === 'completed') {
-                payment.processedAt = new Date();
-                this.emit('paymentCompleted', payment);
-            } else if (result.status === 'failed') {
-                payment.failedAt = new Date();
-                payment.failureReason = result.error;
-                this.emit('paymentFailed', payment);
-            }
-            
-            // Create transaction record
-            const transaction = new Transaction(
-                payment.id,
-                'payment',
-                payment.amount,
-                payment.status
-            );
-            transaction.gatewayTransactionID = result.transactionID;
-            transaction.gatewayResponse = result.response;
-            
-            this.transactions.set(transaction.id, transaction);
-            
-            // Send webhook
-            await this.sendWebhook(payment);
-            
-            return payment;
-            
-        } catch (error) {
-            console.error('Payment processing error:', error);
-            throw error;
-        }
+  }
+
+  // Webhook Management
+  async sendWebhook(payment) {
+    const webhookData = {
+      event: `payment.${payment.status}`,
+      data: {
+        paymentID: payment.id,
+        status: payment.status,
+        amount: payment.amount,
+        currency: payment.currency,
+        transactionID: payment.gatewayTransactionID,
+        timestamp: payment.updatedAt,
+      },
+    };
+
+    // Store webhook for retry mechanism
+    const webhook = {
+      id: uuidv4(),
+      url: this.getMerchantWebhookURL(payment.merchantID),
+      payload: webhookData,
+      attempts: 0,
+      maxAttempts: 3,
+      nextRetryAt: new Date(),
+      status: "pending",
+    };
+
+    this.webhooks.set(webhook.id, webhook);
+
+    // Send webhook
+    await this.deliverWebhook(webhook);
+  }
+
+  async deliverWebhook(webhook) {
+    try {
+      const response = await fetch(webhook.url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Webhook-Signature": this.generateWebhookSignature(webhook.payload),
+        },
+        body: JSON.stringify(webhook.payload),
+      });
+
+      if (response.ok) {
+        webhook.status = "delivered";
+        webhook.deliveredAt = new Date();
+      } else {
+        throw new Error(`Webhook delivery failed: ${response.status}`);
+      }
+    } catch (error) {
+      webhook.attempts++;
+      webhook.status = "failed";
+
+      if (webhook.attempts < webhook.maxAttempts) {
+        // Schedule retry with exponential backoff
+        const delay = Math.pow(2, webhook.attempts) * 1000;
+        webhook.nextRetryAt = new Date(Date.now() + delay);
+        webhook.status = "pending";
+
+        this.retryQueue.push(webhook);
+      }
+
+      console.error("Webhook delivery failed:", error);
     }
-    
-    // Refund Processing
-    async processRefund(paymentID, refundData) {
-        try {
-            const payment = this.payments.get(paymentID);
-            if (!payment) {
-                throw new Error('Payment not found');
-            }
-            
-            if (payment.status !== 'completed') {
-                throw new Error('Can only refund completed payments');
-            }
-            
-            if (refundData.amount > payment.amount) {
-                throw new Error('Refund amount cannot exceed payment amount');
-            }
-            
-            // Create refund record
-            const refund = new Refund(
-                paymentID,
-                refundData.amount,
-                refundData.reason
-            );
-            
-            this.refunds.set(refund.id, refund);
-            
-            // Process with payment provider
-            const provider = this.providers.get(payment.paymentMethod);
-            const result = await provider.processRefund(payment, refund);
-            
-            // Update refund status
-            refund.status = result.status;
-            refund.gatewayRefundID = result.refundID;
-            refund.gatewayResponse = result.response;
-            refund.updatedAt = new Date();
-            
-            // Create transaction record
-            const transaction = new Transaction(
-                paymentID,
-                'refund',
-                refund.amount,
-                refund.status
-            );
-            transaction.gatewayTransactionID = result.refundID;
-            transaction.gatewayResponse = result.response;
-            
-            this.transactions.set(transaction.id, transaction);
-            
-            // Send webhook
-            await this.sendRefundWebhook(refund);
-            
-            return refund;
-            
-        } catch (error) {
-            console.error('Refund processing error:', error);
-            throw error;
-        }
+  }
+
+  // Retry Mechanism
+  startRetryProcessor() {
+    setInterval(() => {
+      this.processRetryQueue();
+    }, 5000); // Check every 5 seconds
+  }
+
+  processRetryQueue() {
+    const now = new Date();
+    const readyWebhooks = this.retryQueue.filter(
+      (webhook) => webhook.nextRetryAt <= now
+    );
+
+    readyWebhooks.forEach((webhook) => {
+      this.deliverWebhook(webhook);
+      const index = this.retryQueue.indexOf(webhook);
+      if (index > -1) {
+        this.retryQueue.splice(index, 1);
+      }
+    });
+  }
+
+  // Settlement Processing
+  async processDailySettlement(merchantID, date) {
+    try {
+      const transactions = this.getTransactionsForSettlement(merchantID, date);
+
+      const totalAmount = transactions.reduce((sum, tx) => {
+        return tx.type === "payment" ? sum + tx.amount : sum - tx.amount;
+      }, 0);
+
+      const settlement = new Settlement(
+        merchantID,
+        date,
+        totalAmount,
+        transactions.length
+      );
+
+      this.settlements.set(settlement.id, settlement);
+
+      // Process settlement with payment provider
+      const provider = this.providers.get("card"); // Default provider
+      await provider.processSettlement(settlement);
+
+      settlement.status = "completed";
+      settlement.processedAt = new Date();
+
+      this.emit("settlementCompleted", settlement);
+
+      return settlement;
+    } catch (error) {
+      console.error("Settlement processing error:", error);
+      throw error;
     }
-    
-    // Webhook Management
-    async sendWebhook(payment) {
-        const webhookData = {
-            event: `payment.${payment.status}`,
-            data: {
-                paymentID: payment.id,
-                status: payment.status,
-                amount: payment.amount,
-                currency: payment.currency,
-                transactionID: payment.gatewayTransactionID,
-                timestamp: payment.updatedAt
-            }
-        };
-        
-        // Store webhook for retry mechanism
-        const webhook = {
-            id: uuidv4(),
-            url: this.getMerchantWebhookURL(payment.merchantID),
-            payload: webhookData,
-            attempts: 0,
-            maxAttempts: 3,
-            nextRetryAt: new Date(),
-            status: 'pending'
-        };
-        
-        this.webhooks.set(webhook.id, webhook);
-        
-        // Send webhook
-        await this.deliverWebhook(webhook);
+  }
+
+  // Utility Methods
+  validatePaymentData(paymentData) {
+    if (
+      !paymentData.merchantID ||
+      !paymentData.amount ||
+      !paymentData.currency
+    ) {
+      throw new Error("Missing required payment data");
     }
-    
-    async deliverWebhook(webhook) {
-        try {
-            const response = await fetch(webhook.url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Webhook-Signature': this.generateWebhookSignature(webhook.payload)
-                },
-                body: JSON.stringify(webhook.payload)
-            });
-            
-            if (response.ok) {
-                webhook.status = 'delivered';
-                webhook.deliveredAt = new Date();
-            } else {
-                throw new Error(`Webhook delivery failed: ${response.status}`);
-            }
-            
-        } catch (error) {
-            webhook.attempts++;
-            webhook.status = 'failed';
-            
-            if (webhook.attempts < webhook.maxAttempts) {
-                // Schedule retry with exponential backoff
-                const delay = Math.pow(2, webhook.attempts) * 1000;
-                webhook.nextRetryAt = new Date(Date.now() + delay);
-                webhook.status = 'pending';
-                
-                this.retryQueue.push(webhook);
-            }
-            
-            console.error('Webhook delivery failed:', error);
-        }
+
+    if (paymentData.amount <= 0) {
+      throw new Error("Invalid payment amount");
     }
-    
-    // Retry Mechanism
-    startRetryProcessor() {
-        setInterval(() => {
-            this.processRetryQueue();
-        }, 5000); // Check every 5 seconds
+
+    if (!["INR", "USD", "EUR"].includes(paymentData.currency)) {
+      throw new Error("Unsupported currency");
     }
-    
-    processRetryQueue() {
-        const now = new Date();
-        const readyWebhooks = this.retryQueue.filter(webhook => 
-            webhook.nextRetryAt <= now
-        );
-        
-        readyWebhooks.forEach(webhook => {
-            this.deliverWebhook(webhook);
-            const index = this.retryQueue.indexOf(webhook);
-            if (index > -1) {
-                this.retryQueue.splice(index, 1);
-            }
-        });
-    }
-    
-    // Settlement Processing
-    async processDailySettlement(merchantID, date) {
-        try {
-            const transactions = this.getTransactionsForSettlement(merchantID, date);
-            
-            const totalAmount = transactions.reduce((sum, tx) => {
-                return tx.type === 'payment' ? sum + tx.amount : sum - tx.amount;
-            }, 0);
-            
-            const settlement = new Settlement(
-                merchantID,
-                date,
-                totalAmount,
-                transactions.length
-            );
-            
-            this.settlements.set(settlement.id, settlement);
-            
-            // Process settlement with payment provider
-            const provider = this.providers.get('card'); // Default provider
-            await provider.processSettlement(settlement);
-            
-            settlement.status = 'completed';
-            settlement.processedAt = new Date();
-            
-            this.emit('settlementCompleted', settlement);
-            
-            return settlement;
-            
-        } catch (error) {
-            console.error('Settlement processing error:', error);
-            throw error;
-        }
-    }
-    
-    // Utility Methods
-    validatePaymentData(paymentData) {
-        if (!paymentData.merchantID || !paymentData.amount || !paymentData.currency) {
-            throw new Error('Missing required payment data');
-        }
-        
-        if (paymentData.amount <= 0) {
-            throw new Error('Invalid payment amount');
-        }
-        
-        if (!['INR', 'USD', 'EUR'].includes(paymentData.currency)) {
-            throw new Error('Unsupported currency');
-        }
-    }
-    
-    generateWebhookSignature(payload) {
-        const secret = process.env.WEBHOOK_SECRET || 'default-secret';
-        return crypto
-            .createHmac('sha256', secret)
-            .update(JSON.stringify(payload))
-            .digest('hex');
-    }
-    
-    getMerchantWebhookURL(merchantID) {
-        // In production, fetch from database
-        return `https://merchant-${merchantID}.example.com/webhooks/payment`;
-    }
-    
-    getTransactionsForSettlement(merchantID, date) {
-        return Array.from(this.transactions.values()).filter(tx => {
-            const payment = this.payments.get(tx.paymentID);
-            return payment && 
-                   payment.merchantID === merchantID &&
-                   tx.createdAt.toDateString() === date.toDateString();
-        });
-    }
-    
-    generateID() {
-        return uuidv4();
-    }
+  }
+
+  generateWebhookSignature(payload) {
+    const secret = process.env.WEBHOOK_SECRET || "default-secret";
+    return crypto
+      .createHmac("sha256", secret)
+      .update(JSON.stringify(payload))
+      .digest("hex");
+  }
+
+  getMerchantWebhookURL(merchantID) {
+    // In production, fetch from database
+    return `https://merchant-${merchantID}.example.com/webhooks/payment`;
+  }
+
+  getTransactionsForSettlement(merchantID, date) {
+    return Array.from(this.transactions.values()).filter((tx) => {
+      const payment = this.payments.get(tx.paymentID);
+      return (
+        payment &&
+        payment.merchantID === merchantID &&
+        tx.createdAt.toDateString() === date.toDateString()
+      );
+    });
+  }
+
+  generateID() {
+    return uuidv4();
+  }
 }
 ```
 
@@ -542,155 +556,152 @@ class PaymentGatewayService extends EventEmitter {
 ```javascript
 // Base Payment Provider
 class PaymentProvider {
-    constructor(name) {
-        this.name = name;
-        this.baseURL = process.env[`${name.toUpperCase()}_API_URL`];
-        this.apiKey = process.env[`${name.toUpperCase()}_API_KEY`];
-    }
-    
-    async processPayment(payment) {
-        throw new Error('processPayment must be implemented');
-    }
-    
-    async processRefund(payment, refund) {
-        throw new Error('processRefund must be implemented');
-    }
-    
-    async processSettlement(settlement) {
-        throw new Error('processSettlement must be implemented');
-    }
+  constructor(name) {
+    this.name = name;
+    this.baseURL = process.env[`${name.toUpperCase()}_API_URL`];
+    this.apiKey = process.env[`${name.toUpperCase()}_API_KEY`];
+  }
+
+  async processPayment(payment) {
+    throw new Error("processPayment must be implemented");
+  }
+
+  async processRefund(payment, refund) {
+    throw new Error("processRefund must be implemented");
+  }
+
+  async processSettlement(settlement) {
+    throw new Error("processSettlement must be implemented");
+  }
 }
 
 // Card Payment Provider
 class CardPaymentProvider extends PaymentProvider {
-    constructor() {
-        super('card');
+  constructor() {
+    super("card");
+  }
+
+  async processPayment(payment) {
+    try {
+      // Simulate API call to card processor
+      const response = await this.callCardAPI("charge", {
+        amount: payment.amount,
+        currency: payment.currency,
+        card: payment.paymentDetails,
+        order_id: payment.orderID,
+      });
+
+      return {
+        status: response.status === "success" ? "completed" : "failed",
+        transactionID: response.transaction_id,
+        response: response,
+      };
+    } catch (error) {
+      return {
+        status: "failed",
+        transactionID: null,
+        response: { error: error.message },
+      };
     }
-    
-    async processPayment(payment) {
-        try {
-            // Simulate API call to card processor
-            const response = await this.callCardAPI('charge', {
-                amount: payment.amount,
-                currency: payment.currency,
-                card: payment.paymentDetails,
-                order_id: payment.orderID
-            });
-            
-            return {
-                status: response.status === 'success' ? 'completed' : 'failed',
-                transactionID: response.transaction_id,
-                response: response
-            };
-            
-        } catch (error) {
-            return {
-                status: 'failed',
-                transactionID: null,
-                response: { error: error.message }
-            };
+  }
+
+  async processRefund(payment, refund) {
+    try {
+      const response = await this.callCardAPI("refund", {
+        transaction_id: payment.gatewayTransactionID,
+        amount: refund.amount,
+        reason: refund.reason,
+      });
+
+      return {
+        status: response.status === "success" ? "completed" : "failed",
+        refundID: response.refund_id,
+        response: response,
+      };
+    } catch (error) {
+      return {
+        status: "failed",
+        refundID: null,
+        response: { error: error.message },
+      };
+    }
+  }
+
+  async callCardAPI(endpoint, data) {
+    // Simulate API call
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // Simulate 95% success rate
+        const success = Math.random() > 0.05;
+
+        if (success) {
+          resolve({
+            status: "success",
+            transaction_id: `txn_${Date.now()}`,
+            refund_id: `ref_${Date.now()}`,
+            amount: data.amount,
+            currency: data.currency,
+          });
+        } else {
+          resolve({
+            status: "failed",
+            error: "Payment declined by bank",
+          });
         }
-    }
-    
-    async processRefund(payment, refund) {
-        try {
-            const response = await this.callCardAPI('refund', {
-                transaction_id: payment.gatewayTransactionID,
-                amount: refund.amount,
-                reason: refund.reason
-            });
-            
-            return {
-                status: response.status === 'success' ? 'completed' : 'failed',
-                refundID: response.refund_id,
-                response: response
-            };
-            
-        } catch (error) {
-            return {
-                status: 'failed',
-                refundID: null,
-                response: { error: error.message }
-            };
-        }
-    }
-    
-    async callCardAPI(endpoint, data) {
-        // Simulate API call
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                // Simulate 95% success rate
-                const success = Math.random() > 0.05;
-                
-                if (success) {
-                    resolve({
-                        status: 'success',
-                        transaction_id: `txn_${Date.now()}`,
-                        refund_id: `ref_${Date.now()}`,
-                        amount: data.amount,
-                        currency: data.currency
-                    });
-                } else {
-                    resolve({
-                        status: 'failed',
-                        error: 'Payment declined by bank'
-                    });
-                }
-            }, 1000); // Simulate network delay
-        });
-    }
+      }, 1000); // Simulate network delay
+    });
+  }
 }
 
 // UPI Payment Provider
 class UPIPaymentProvider extends PaymentProvider {
-    constructor() {
-        super('upi');
+  constructor() {
+    super("upi");
+  }
+
+  async processPayment(payment) {
+    try {
+      const response = await this.callUPIAPI("collect", {
+        amount: payment.amount,
+        vpa: payment.paymentDetails.vpa,
+        order_id: payment.orderID,
+      });
+
+      return {
+        status: response.status === "success" ? "completed" : "failed",
+        transactionID: response.upi_transaction_id,
+        response: response,
+      };
+    } catch (error) {
+      return {
+        status: "failed",
+        transactionID: null,
+        response: { error: error.message },
+      };
     }
-    
-    async processPayment(payment) {
-        try {
-            const response = await this.callUPIAPI('collect', {
-                amount: payment.amount,
-                vpa: payment.paymentDetails.vpa,
-                order_id: payment.orderID
-            });
-            
-            return {
-                status: response.status === 'success' ? 'completed' : 'failed',
-                transactionID: response.upi_transaction_id,
-                response: response
-            };
-            
-        } catch (error) {
-            return {
-                status: 'failed',
-                transactionID: null,
-                response: { error: error.message }
-            };
+  }
+
+  async callUPIAPI(endpoint, data) {
+    // Simulate UPI API call
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const success = Math.random() > 0.02; // 98% success rate for UPI
+
+        if (success) {
+          resolve({
+            status: "success",
+            upi_transaction_id: `upi_${Date.now()}`,
+            amount: data.amount,
+          });
+        } else {
+          resolve({
+            status: "failed",
+            error: "UPI transaction failed",
+          });
         }
-    }
-    
-    async callUPIAPI(endpoint, data) {
-        // Simulate UPI API call
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                const success = Math.random() > 0.02; // 98% success rate for UPI
-                
-                if (success) {
-                    resolve({
-                        status: 'success',
-                        upi_transaction_id: `upi_${Date.now()}`,
-                        amount: data.amount
-                    });
-                } else {
-                    resolve({
-                        status: 'failed',
-                        error: 'UPI transaction failed'
-                    });
-                }
-            }, 800);
-        });
-    }
+      }, 800);
+    });
+  }
 }
 ```
 
@@ -698,68 +709,69 @@ class UPIPaymentProvider extends PaymentProvider {
 
 ```javascript
 class FraudDetectionService {
-    constructor() {
-        this.rules = [
-            new AmountLimitRule(),
-            new VelocityRule(),
-            new BlacklistRule(),
-            new GeolocationRule()
-        ];
-    }
-    
-    async checkFraud(payment) {
-        const fraudScore = 0;
-        const reasons = [];
-        
-        for (const rule of this.rules) {
-            const result = await rule.evaluate(payment);
-            if (result.isFraudulent) {
-                return {
-                    isFraudulent: true,
-                    score: 100,
-                    reasons: [result.reason]
-                };
-            }
-            fraudScore += result.score;
-            if (result.reason) {
-                reasons.push(result.reason);
-            }
-        }
-        
+  constructor() {
+    this.rules = [
+      new AmountLimitRule(),
+      new VelocityRule(),
+      new BlacklistRule(),
+      new GeolocationRule(),
+    ];
+  }
+
+  async checkFraud(payment) {
+    const fraudScore = 0;
+    const reasons = [];
+
+    for (const rule of this.rules) {
+      const result = await rule.evaluate(payment);
+      if (result.isFraudulent) {
         return {
-            isFraudulent: fraudScore > 80,
-            score: fraudScore,
-            reasons: reasons
+          isFraudulent: true,
+          score: 100,
+          reasons: [result.reason],
         };
+      }
+      fraudScore += result.score;
+      if (result.reason) {
+        reasons.push(result.reason);
+      }
     }
+
+    return {
+      isFraudulent: fraudScore > 80,
+      score: fraudScore,
+      reasons: reasons,
+    };
+  }
 }
 
 // Fraud Detection Rules
 class AmountLimitRule {
-    async evaluate(payment) {
-        if (payment.amount > 100000) { // 1 lakh limit
-            return {
-                isFraudulent: true,
-                score: 100,
-                reason: 'Amount exceeds limit'
-            };
-        }
-        return { isFraudulent: false, score: 0 };
+  async evaluate(payment) {
+    if (payment.amount > 100000) {
+      // 1 lakh limit
+      return {
+        isFraudulent: true,
+        score: 100,
+        reason: "Amount exceeds limit",
+      };
     }
+    return { isFraudulent: false, score: 0 };
+  }
 }
 
 class VelocityRule {
-    async evaluate(payment) {
-        // Check if too many transactions in short time
-        // This would require access to transaction history
-        return { isFraudulent: false, score: 0 };
-    }
+  async evaluate(payment) {
+    // Check if too many transactions in short time
+    // This would require access to transaction history
+    return { isFraudulent: false, score: 0 };
+  }
 }
 ```
 
 ## Express.js API Implementation
 
-```javascript
+````javascript
 const express = require('express');
 const cors = require('cors');
 const { PaymentGatewayService } = require('./services/PaymentGatewayService');
@@ -768,79 +780,79 @@ class PaymentGatewayAPI {
     constructor() {
         this.app = express();
         this.paymentService = new PaymentGatewayService();
-        
+
         this.setupMiddleware();
         this.setupRoutes();
         this.setupEventHandlers();
     }
-    
+
     setupMiddleware() {
         this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
-        
+
         // Request logging
         this.app.use((req, res, next) => {
             console.log(`${req.method} ${req.path} - ${new Date().toISOString()}`);
             next();
         });
-        
+
         // Rate limiting
         this.app.use(this.rateLimitMiddleware());
     }
-    
+
     setupRoutes() {
         // Payment routes
         this.app.post('/api/payments/process', this.processPayment.bind(this));
         this.app.get('/api/payments/:paymentID/status', this.getPaymentStatus.bind(this));
         this.app.post('/api/payments/:paymentID/capture', this.capturePayment.bind(this));
-        
+
         // Refund routes
         this.app.post('/api/refunds/process', this.processRefund.bind(this));
         this.app.get('/api/refunds/:refundID/status', this.getRefundStatus.bind(this));
-        
+
         // Transaction routes
         this.app.get('/api/transactions', this.getTransactions.bind(this));
         this.app.get('/api/transactions/:transactionID', this.getTransaction.bind(this));
-        
+
         // Webhook routes
         this.app.post('/api/webhooks/payment', this.handlePaymentWebhook.bind(this));
         this.app.post('/api/webhooks/refund', this.handleRefundWebhook.bind(this));
-        
+
         // Settlement routes
         this.app.get('/api/settlements/daily', this.getDailySettlements.bind(this));
         this.app.post('/api/settlements/process', this.processSettlement.bind(this));
-        
+
         // Health check
         this.app.get('/health', (req, res) => {
-            res.json({ 
-                status: 'healthy', 
+            res.json({
+                status: 'healthy',
                 timestamp: new Date(),
                 totalPayments: this.paymentService.payments.size,
                 totalTransactions: this.paymentService.transactions.size
             });
         });
     }
-    
+
     setupEventHandlers() {
         this.paymentService.on('paymentCompleted', (payment) => {
             console.log(`Payment completed: ${payment.id}`);
         });
-        
+
         this.paymentService.on('paymentFailed', (payment) => {
             console.log(`Payment failed: ${payment.id} - ${payment.failureReason}`);
         });
-        
+
         this.paymentService.on('settlementCompleted', (settlement) => {
             console.log(`Settlement completed: ${settlement.id}`);
         });
     }
-    
+
     // HTTP Handlers
     async processPayment(req, res) {
         try {
             const payment = await this.paymentService.processPayment(req.body);
-            
+
             res.status(201).json({
                 success: true,
                 data: {
@@ -853,22 +865,22 @@ class PaymentGatewayAPI {
                 }
             });
         } catch (error) {
-            res.status(400).json({ 
+            res.status(400).json({
                 success: false,
-                error: error.message 
+                error: error.message
             });
         }
     }
-    
+
     async getPaymentStatus(req, res) {
         try {
             const { paymentID } = req.params;
             const payment = this.paymentService.payments.get(paymentID);
-            
+
             if (!payment) {
                 return res.status(404).json({ error: 'Payment not found' });
             }
-            
+
             res.json({
                 success: true,
                 data: {
@@ -885,20 +897,20 @@ class PaymentGatewayAPI {
             res.status(500).json({ error: error.message });
         }
     }
-    
+
     async processRefund(req, res) {
         try {
             const { paymentID, amount, reason } = req.body;
-            
+
             if (!paymentID || !amount || !reason) {
                 return res.status(400).json({ error: 'Missing required fields' });
             }
-            
+
             const refund = await this.paymentService.processRefund(paymentID, {
                 amount,
                 reason
             });
-            
+
             res.status(201).json({
                 success: true,
                 data: {
@@ -910,32 +922,32 @@ class PaymentGatewayAPI {
                 }
             });
         } catch (error) {
-            res.status(400).json({ 
+            res.status(400).json({
                 success: false,
-                error: error.message 
+                error: error.message
             });
         }
     }
-    
+
     async getTransactions(req, res) {
         try {
             const { merchantID, limit = 50, offset = 0 } = req.query;
-            
+
             let transactions = Array.from(this.paymentService.transactions.values());
-            
+
             if (merchantID) {
                 transactions = transactions.filter(tx => {
                     const payment = this.paymentService.payments.get(tx.paymentID);
                     return payment && payment.merchantID === merchantID;
                 });
             }
-            
+
             // Apply pagination
             const paginatedTransactions = transactions.slice(
-                parseInt(offset), 
+                parseInt(offset),
                 parseInt(offset) + parseInt(limit)
             );
-            
+
             res.json({
                 success: true,
                 data: paginatedTransactions,
@@ -949,39 +961,39 @@ class PaymentGatewayAPI {
             res.status(500).json({ error: error.message });
         }
     }
-    
+
     async handlePaymentWebhook(req, res) {
         try {
             const signature = req.headers['x-webhook-signature'];
             const payload = req.body;
-            
+
             // Verify webhook signature
             if (!this.verifyWebhookSignature(payload, signature)) {
                 return res.status(401).json({ error: 'Invalid signature' });
             }
-            
+
             // Process webhook
             console.log('Received payment webhook:', payload);
-            
+
             res.json({ success: true, message: 'Webhook processed' });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
     }
-    
+
     async processSettlement(req, res) {
         try {
             const { merchantID, date } = req.body;
-            
+
             if (!merchantID || !date) {
                 return res.status(400).json({ error: 'Missing required fields' });
             }
-            
+
             const settlement = await this.paymentService.processDailySettlement(
-                merchantID, 
+                merchantID,
                 new Date(date)
             );
-            
+
             res.status(201).json({
                 success: true,
                 data: {
@@ -997,44 +1009,44 @@ class PaymentGatewayAPI {
             res.status(500).json({ error: error.message });
         }
     }
-    
+
     // Middleware
     rateLimitMiddleware() {
         const requests = new Map();
         const windowMs = 60000; // 1 minute
         const maxRequests = 100;
-        
+
         return (req, res, next) => {
             const clientIP = req.ip;
             const now = Date.now();
-            
+
             if (!requests.has(clientIP)) {
                 requests.set(clientIP, { count: 1, resetTime: now + windowMs });
                 return next();
             }
-            
+
             const clientData = requests.get(clientIP);
-            
+
             if (now > clientData.resetTime) {
                 clientData.count = 1;
                 clientData.resetTime = now + windowMs;
                 return next();
             }
-            
+
             if (clientData.count >= maxRequests) {
                 return res.status(429).json({ error: 'Rate limit exceeded' });
             }
-            
+
             clientData.count++;
             next();
         };
     }
-    
+
     verifyWebhookSignature(payload, signature) {
         const expectedSignature = this.paymentService.generateWebhookSignature(payload);
         return signature === expectedSignature;
     }
-    
+
     start(port = 3000) {
         this.app.listen(port, () => {
             console.log(`Payment Gateway API server running on port ${port}`);
@@ -1135,18 +1147,18 @@ class RecurringPaymentService {
       paymentMethod: subscriptionData.paymentMethod,
       createdAt: new Date()
     };
-    
+
     await this.database.subscriptions.insert(subscription);
-    
+
     // Schedule first payment
     this.schedulePayment(subscription);
-    
+
     return subscription;
   }
-  
+
   async processRecurringPayments() {
     const dueSubscriptions = await this.database.subscriptions.findDue();
-    
+
     for (const subscription of dueSubscriptions) {
       try {
         const payment = await this.paymentService.processPayment({
@@ -1156,14 +1168,14 @@ class RecurringPaymentService {
           paymentMethod: subscription.paymentMethod,
           subscriptionId: subscription.id
         });
-        
+
         // Update next billing date
         subscription.nextBillingDate = this.calculateNextBillingDate(subscription);
         await this.database.subscriptions.update(subscription.id, subscription);
-        
+
         // Send notification
         this.notificationService.sendPaymentNotification(subscription.customerId, payment);
-        
+
       } catch (error) {
         // Handle failed recurring payment
         await this.handleFailedRecurringPayment(subscription, error);
@@ -1171,23 +1183,27 @@ class RecurringPaymentService {
     }
   }
 }
-```
+````
 
 **Q2: How do you implement payment splitting and marketplace functionality?**
 **A:**
+
 ```javascript
 // Payment Splitting Service
 class PaymentSplittingService {
   async processSplitPayment(paymentData, splits) {
-    const totalSplitAmount = splits.reduce((sum, split) => sum + split.amount, 0);
-    
+    const totalSplitAmount = splits.reduce(
+      (sum, split) => sum + split.amount,
+      0
+    );
+
     if (totalSplitAmount !== paymentData.amount) {
-      throw new Error('Split amounts must equal total payment amount');
+      throw new Error("Split amounts must equal total payment amount");
     }
-    
+
     // Process main payment
     const mainPayment = await this.paymentService.processPayment(paymentData);
-    
+
     // Process splits
     const splitResults = [];
     for (const split of splits) {
@@ -1197,38 +1213,40 @@ class PaymentSplittingService {
         recipientId: split.recipientId,
         amount: split.amount,
         percentage: split.percentage,
-        status: 'pending',
-        createdAt: new Date()
+        status: "pending",
+        createdAt: new Date(),
       };
-      
+
       // Transfer to recipient
       await this.transferToRecipient(splitPayment);
       splitResults.push(splitPayment);
     }
-    
+
     return {
       mainPayment,
-      splits: splitResults
+      splits: splitResults,
     };
   }
-  
+
   async transferToRecipient(splitPayment) {
     // Check recipient's payment method
-    const recipient = await this.database.recipients.findById(splitPayment.recipientId);
-    
-    if (recipient.paymentMethod === 'bank_account') {
+    const recipient = await this.database.recipients.findById(
+      splitPayment.recipientId
+    );
+
+    if (recipient.paymentMethod === "bank_account") {
       // Process bank transfer
       await this.bankTransferService.transfer({
         amount: splitPayment.amount,
         bankAccount: recipient.bankAccount,
-        reference: splitPayment.id
+        reference: splitPayment.id,
       });
-    } else if (recipient.paymentMethod === 'wallet') {
+    } else if (recipient.paymentMethod === "wallet") {
       // Credit wallet
       await this.walletService.credit(recipient.walletId, splitPayment.amount);
     }
-    
-    splitPayment.status = 'completed';
+
+    splitPayment.status = "completed";
     await this.database.splitPayments.update(splitPayment.id, splitPayment);
   }
 }
@@ -1236,6 +1254,7 @@ class PaymentSplittingService {
 
 **Q3: How do you implement international payments and currency conversion?**
 **A:**
+
 ```javascript
 // International Payment Service
 class InternationalPaymentService {
@@ -1245,13 +1264,13 @@ class InternationalPaymentService {
       paymentData.fromCurrency,
       paymentData.toCurrency
     );
-    
+
     // Convert amount
     const convertedAmount = paymentData.amount * exchangeRate.rate;
-    
+
     // Check regulatory compliance
     await this.complianceService.checkInternationalTransfer(paymentData);
-    
+
     // Process payment with converted amount
     const payment = await this.paymentService.processPayment({
       ...paymentData,
@@ -1259,9 +1278,9 @@ class InternationalPaymentService {
       currency: paymentData.toCurrency,
       exchangeRate: exchangeRate.rate,
       originalAmount: paymentData.amount,
-      originalCurrency: paymentData.fromCurrency
+      originalCurrency: paymentData.fromCurrency,
     });
-    
+
     // Log conversion for audit
     await this.database.currencyConversions.insert({
       paymentId: payment.id,
@@ -1270,19 +1289,19 @@ class InternationalPaymentService {
       originalAmount: paymentData.amount,
       convertedAmount: convertedAmount,
       exchangeRate: exchangeRate.rate,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
-    
+
     return payment;
   }
-  
+
   async getExchangeRates(baseCurrency) {
     const rates = await this.exchangeRateService.getAllRates(baseCurrency);
-    
+
     return {
       base: baseCurrency,
       rates: rates,
-      timestamp: new Date()
+      timestamp: new Date(),
     };
   }
 }
@@ -1292,70 +1311,75 @@ class InternationalPaymentService {
 
 **Q4: How do you implement 3D Secure authentication?**
 **A:**
+
 ```javascript
 // 3D Secure Authentication Service
 class ThreeDSecureService {
   async initiate3DSecure(paymentData) {
     // Check if 3DS is required
     const requires3DS = await this.check3DSRequirement(paymentData);
-    
+
     if (!requires3DS) {
       return { requires3DS: false };
     }
-    
+
     // Initiate 3DS authentication
     const authRequest = {
       amount: paymentData.amount,
       currency: paymentData.currency,
       cardNumber: paymentData.cardNumber,
       merchantId: paymentData.merchantId,
-      returnUrl: paymentData.returnUrl
+      returnUrl: paymentData.returnUrl,
     };
-    
+
     const authResponse = await this.paymentProvider.initiate3DS(authRequest);
-    
+
     // Store authentication session
     await this.database.threeDSSessions.insert({
       sessionId: authResponse.sessionId,
       paymentId: paymentData.id,
-      status: 'pending',
+      status: "pending",
       acsUrl: authResponse.acsUrl,
       paReq: authResponse.paReq,
-      createdAt: new Date()
+      createdAt: new Date(),
     });
-    
+
     return {
       requires3DS: true,
       acsUrl: authResponse.acsUrl,
       paReq: authResponse.paReq,
-      sessionId: authResponse.sessionId
+      sessionId: authResponse.sessionId,
     };
   }
-  
+
   async handle3DSecureCallback(callbackData) {
-    const session = await this.database.threeDSSessions.findBySessionId(callbackData.sessionId);
-    
+    const session = await this.database.threeDSSessions.findBySessionId(
+      callbackData.sessionId
+    );
+
     if (!session) {
-      throw new Error('Invalid 3DS session');
+      throw new Error("Invalid 3DS session");
     }
-    
+
     // Verify authentication response
     const verificationResult = await this.paymentProvider.verify3DS({
       sessionId: callbackData.sessionId,
-      paRes: callbackData.paRes
+      paRes: callbackData.paRes,
     });
-    
+
     if (verificationResult.success) {
       // Complete payment
-      const payment = await this.paymentService.completePayment(session.paymentId);
-      session.status = 'completed';
+      const payment = await this.paymentService.completePayment(
+        session.paymentId
+      );
+      session.status = "completed";
     } else {
-      session.status = 'failed';
+      session.status = "failed";
       session.error = verificationResult.error;
     }
-    
+
     await this.database.threeDSSessions.update(session.id, session);
-    
+
     return verificationResult;
   }
 }
@@ -1363,73 +1387,78 @@ class ThreeDSecureService {
 
 **Q5: How do you implement real-time fraud detection?**
 **A:**
+
 ```javascript
 // Real-time Fraud Detection Service
 class FraudDetectionService {
   async analyzeTransaction(transaction) {
     const riskFactors = [];
     let riskScore = 0;
-    
+
     // Check transaction velocity
     const velocityCheck = await this.checkTransactionVelocity(transaction);
     if (velocityCheck.risk > 0.7) {
-      riskFactors.push('High transaction velocity');
+      riskFactors.push("High transaction velocity");
       riskScore += 30;
     }
-    
+
     // Check device fingerprint
     const deviceCheck = await this.checkDeviceFingerprint(transaction);
     if (deviceCheck.risk > 0.8) {
-      riskFactors.push('Suspicious device');
+      riskFactors.push("Suspicious device");
       riskScore += 25;
     }
-    
+
     // Check geolocation
     const locationCheck = await this.checkGeolocation(transaction);
     if (locationCheck.risk > 0.6) {
-      riskFactors.push('Unusual location');
+      riskFactors.push("Unusual location");
       riskScore += 20;
     }
-    
+
     // Check amount patterns
     const amountCheck = await this.checkAmountPatterns(transaction);
     if (amountCheck.risk > 0.5) {
-      riskFactors.push('Unusual amount');
+      riskFactors.push("Unusual amount");
       riskScore += 15;
     }
-    
+
     // Check blacklist
     const blacklistCheck = await this.checkBlacklist(transaction);
     if (blacklistCheck.isBlacklisted) {
-      riskFactors.push('Blacklisted entity');
+      riskFactors.push("Blacklisted entity");
       riskScore += 50;
     }
-    
+
     const riskLevel = this.calculateRiskLevel(riskScore);
-    
+
     return {
       riskScore,
       riskLevel,
       riskFactors,
-      recommendation: this.getRecommendation(riskLevel)
+      recommendation: this.getRecommendation(riskLevel),
     };
   }
-  
+
   async checkTransactionVelocity(transaction) {
-    const recentTransactions = await this.database.transactions.findRecentByUser(
-      transaction.customerId,
-      24 // hours
-    );
-    
+    const recentTransactions =
+      await this.database.transactions.findRecentByUser(
+        transaction.customerId,
+        24 // hours
+      );
+
     const transactionCount = recentTransactions.length;
-    const totalAmount = recentTransactions.reduce((sum, t) => sum + t.amount, 0);
-    
+    const totalAmount = recentTransactions.reduce(
+      (sum, t) => sum + t.amount,
+      0
+    );
+
     // Calculate velocity risk
     let risk = 0;
     if (transactionCount > 10) risk += 0.3;
     if (totalAmount > 10000) risk += 0.4;
     if (transaction.amount > 5000) risk += 0.3;
-    
+
     return { risk: Math.min(risk, 1) };
   }
 }
@@ -1439,49 +1468,50 @@ class FraudDetectionService {
 
 **Q6: How do you implement AML (Anti-Money Laundering) compliance?**
 **A:**
+
 ```javascript
 // AML Compliance Service
 class AMLComplianceService {
   async checkAMLCompliance(transaction) {
     const amlChecks = [];
-    
+
     // Check transaction amount thresholds
     if (transaction.amount > 10000) {
       amlChecks.push(await this.performEnhancedDueDiligence(transaction));
     }
-    
+
     // Check customer risk profile
     const customerRisk = await this.assessCustomerRisk(transaction.customerId);
-    if (customerRisk.level === 'high') {
+    if (customerRisk.level === "high") {
       amlChecks.push(await this.performCustomerScreening(transaction));
     }
-    
+
     // Check for suspicious patterns
     const patternCheck = await this.checkSuspiciousPatterns(transaction);
     if (patternCheck.suspicious) {
       amlChecks.push(patternCheck);
     }
-    
+
     // Check sanctions lists
     const sanctionsCheck = await this.checkSanctionsLists(transaction);
     if (sanctionsCheck.match) {
       amlChecks.push(sanctionsCheck);
     }
-    
+
     const complianceResult = {
       transactionId: transaction.id,
       checks: amlChecks,
       overallRisk: this.calculateOverallRisk(amlChecks),
       requiresReporting: this.requiresSAR(amlChecks),
-      timestamp: new Date()
+      timestamp: new Date(),
     };
-    
+
     // Store compliance result
     await this.database.amlChecks.insert(complianceResult);
-    
+
     return complianceResult;
   }
-  
+
   async generateSAR(suspiciousTransaction) {
     const sar = {
       id: this.generateID(),
@@ -1491,14 +1521,14 @@ class AMLComplianceService {
       reason: suspiciousTransaction.amlResult.reason,
       riskLevel: suspiciousTransaction.amlResult.overallRisk,
       generatedAt: new Date(),
-      status: 'pending'
+      status: "pending",
     };
-    
+
     await this.database.sars.insert(sar);
-    
+
     // Submit to regulatory authority
     await this.regulatoryService.submitSAR(sar);
-    
+
     return sar;
   }
 }
@@ -1506,6 +1536,7 @@ class AMLComplianceService {
 
 **Q7: How do you implement payment reconciliation and settlement?**
 **A:**
+
 ```javascript
 // Payment Reconciliation Service
 class PaymentReconciliationService {
@@ -1513,53 +1544,63 @@ class PaymentReconciliationService {
     const reconciliation = {
       id: this.generateID(),
       date: date,
-      status: 'in_progress',
-      startedAt: new Date()
+      status: "in_progress",
+      startedAt: new Date(),
     };
-    
+
     await this.database.reconciliations.insert(reconciliation);
-    
+
     try {
       // Get all transactions for the date
       const transactions = await this.database.transactions.findByDate(date);
-      
+
       // Get provider settlement data
       const providerData = await this.paymentProvider.getSettlementData(date);
-      
+
       // Perform reconciliation
-      const reconciliationResult = await this.reconcileTransactions(transactions, providerData);
-      
+      const reconciliationResult = await this.reconcileTransactions(
+        transactions,
+        providerData
+      );
+
       // Update reconciliation status
-      reconciliation.status = 'completed';
+      reconciliation.status = "completed";
       reconciliation.completedAt = new Date();
       reconciliation.result = reconciliationResult;
-      
-      await this.database.reconciliations.update(reconciliation.id, reconciliation);
-      
+
+      await this.database.reconciliations.update(
+        reconciliation.id,
+        reconciliation
+      );
+
       // Handle discrepancies
       if (reconciliationResult.discrepancies.length > 0) {
         await this.handleDiscrepancies(reconciliationResult.discrepancies);
       }
-      
+
       return reconciliation;
-      
     } catch (error) {
-      reconciliation.status = 'failed';
+      reconciliation.status = "failed";
       reconciliation.error = error.message;
-      await this.database.reconciliations.update(reconciliation.id, reconciliation);
+      await this.database.reconciliations.update(
+        reconciliation.id,
+        reconciliation
+      );
       throw error;
     }
   }
-  
+
   async reconcileTransactions(transactions, providerData) {
     const matched = [];
     const unmatched = [];
     const discrepancies = [];
-    
+
     // Match transactions with provider data
     for (const transaction of transactions) {
-      const providerTransaction = providerData.find(p => p.reference === transaction.id);
-      
+      const providerTransaction = providerData.find(
+        (p) => p.reference === transaction.id
+      );
+
       if (providerTransaction) {
         if (transaction.amount === providerTransaction.amount) {
           matched.push({ transaction, providerTransaction });
@@ -1567,25 +1608,26 @@ class PaymentReconciliationService {
           discrepancies.push({
             transaction,
             providerTransaction,
-            type: 'amount_mismatch',
-            difference: transaction.amount - providerTransaction.amount
+            type: "amount_mismatch",
+            difference: transaction.amount - providerTransaction.amount,
           });
         }
       } else {
-        unmatched.push({ transaction, type: 'missing_in_provider' });
+        unmatched.push({ transaction, type: "missing_in_provider" });
       }
     }
-    
+
     return {
       matched: matched.length,
       unmatched: unmatched.length,
       discrepancies: discrepancies.length,
-      details: { matched, unmatched, discrepancies }
+      details: { matched, unmatched, discrepancies },
     };
   }
 }
 ```
-```
+
+````
 
 ## Key Features
 
@@ -1647,7 +1689,7 @@ class AdvancedFraudDetection {
     const riskFactors = await this.collectRiskFactors(transaction);
     const riskScore = await this.calculateRiskScore(riskFactors);
     const riskLevel = this.determineRiskLevel(riskScore);
-    
+
     const analysis = {
       transactionId: transaction.id,
       riskScore,
@@ -1659,7 +1701,7 @@ class AdvancedFraudDetection {
 
     // Store analysis for future learning
     await this.storeAnalysis(analysis);
-    
+
     return analysis;
   }
 
@@ -1669,17 +1711,17 @@ class AdvancedFraudDetection {
       amount: transaction.amount,
       currency: transaction.currency,
       paymentMethod: transaction.paymentMethod,
-      
+
       // User factors
       userHistory: await this.getUserHistory(transaction.userId),
       deviceFingerprint: transaction.deviceFingerprint,
       ipAddress: transaction.ipAddress,
       location: transaction.location,
-      
+
       // Behavioral factors
       velocity: await this.calculateVelocity(transaction),
       patterns: await this.analyzePatterns(transaction),
-      
+
       // External factors
       blacklistStatus: await this.checkBlacklist(transaction),
       merchantRisk: await this.getMerchantRisk(transaction.merchantId)
@@ -1690,30 +1732,30 @@ class AdvancedFraudDetection {
 
   async calculateRiskScore(factors) {
     let score = 0;
-    
+
     // Amount-based scoring
     if (factors.amount > 10000) score += 20;
     if (factors.amount > 50000) score += 30;
-    
+
     // Velocity-based scoring
     if (factors.velocity.transactionsPerHour > 10) score += 25;
     if (factors.velocity.amountPerHour > 100000) score += 30;
-    
+
     // Location-based scoring
     if (factors.location.isHighRisk) score += 15;
     if (factors.location.distanceFromHome > 1000) score += 20;
-    
+
     // Device-based scoring
     if (factors.deviceFingerprint.isNew) score += 10;
     if (factors.deviceFingerprint.isSuspicious) score += 25;
-    
+
     // Blacklist scoring
     if (factors.blacklistStatus.isBlacklisted) score += 100;
-    
+
     // ML model scoring
     const mlScore = await this.mlModel.predict(factors);
     score += mlScore * 30;
-    
+
     return Math.min(score, 100);
   }
 
@@ -1726,7 +1768,7 @@ class AdvancedFraudDetection {
 
   async getRecommendations(riskLevel, factors) {
     const recommendations = [];
-    
+
     switch (riskLevel) {
       case 'high':
         recommendations.push('BLOCK_TRANSACTION');
@@ -1742,7 +1784,7 @@ class AdvancedFraudDetection {
       default:
         recommendations.push('PROCEED_NORMALLY');
     }
-    
+
     return recommendations;
   }
 }
@@ -1760,10 +1802,10 @@ class MLFraudModel {
   async predict(factors) {
     // Convert factors to feature vector
     const features = this.extractFeatures(factors);
-    
+
     // Use pre-trained model for prediction
     const prediction = await this.model.predict(features);
-    
+
     return prediction.probability;
   }
 
@@ -1792,11 +1834,12 @@ class MLFraudModel {
     return encodings[method] || 0;
   }
 }
-```
+````
 
 ### **2. How to implement multi-currency support and international payments?**
 
 **Answer:**
+
 ```javascript
 class MultiCurrencySupport {
   constructor() {
@@ -1809,25 +1852,28 @@ class MultiCurrencySupport {
   async processInternationalPayment(payment) {
     // Validate currency support
     await this.validateCurrencySupport(payment.currency);
-    
+
     // Get exchange rate
-    const exchangeRate = await this.getExchangeRate(payment.currency, 'USD');
-    
+    const exchangeRate = await this.getExchangeRate(payment.currency, "USD");
+
     // Convert amount to base currency
     const baseAmount = this.convertAmount(payment.amount, exchangeRate);
-    
+
     // Check payment method availability
-    const availableMethods = await this.getAvailablePaymentMethods(payment.currency, payment.country);
-    
+    const availableMethods = await this.getAvailablePaymentMethods(
+      payment.currency,
+      payment.country
+    );
+
     // Process payment with converted amount
     const result = await this.processPayment({
       ...payment,
       amount: baseAmount,
       originalAmount: payment.amount,
       originalCurrency: payment.currency,
-      exchangeRate
+      exchangeRate,
     });
-    
+
     return result;
   }
 
@@ -1836,27 +1882,27 @@ class MultiCurrencySupport {
     if (!config) {
       throw new Error(`Currency ${currency} not supported`);
     }
-    
+
     if (!config.enabled) {
       throw new Error(`Currency ${currency} is currently disabled`);
     }
-    
+
     return true;
   }
 
   async getExchangeRate(fromCurrency, toCurrency) {
     const rateKey = `${fromCurrency}_${toCurrency}`;
     let rate = this.exchangeRates.get(rateKey);
-    
+
     if (!rate || this.isRateExpired(rate)) {
       rate = await this.rateProvider.getRate(fromCurrency, toCurrency);
       this.exchangeRates.set(rateKey, {
         rate: rate.rate,
         timestamp: new Date(),
-        source: rate.source
+        source: rate.source,
       });
     }
-    
+
     return rate.rate;
   }
 
@@ -1866,40 +1912,41 @@ class MultiCurrencySupport {
 
   async getAvailablePaymentMethods(currency, country) {
     const methods = [];
-    
+
     // Get country-specific payment methods
     const countryMethods = this.paymentMethods.get(country) || [];
-    
+
     // Get currency-specific payment methods
-    const currencyMethods = this.currencyConfigs.get(currency)?.paymentMethods || [];
-    
+    const currencyMethods =
+      this.currencyConfigs.get(currency)?.paymentMethods || [];
+
     // Combine and deduplicate
     const allMethods = [...new Set([...countryMethods, ...currencyMethods])];
-    
+
     // Filter by availability
     for (const method of allMethods) {
       if (await this.isPaymentMethodAvailable(method, currency, country)) {
         methods.push(method);
       }
     }
-    
+
     return methods;
   }
 
   async isPaymentMethodAvailable(method, currency, country) {
     const methodConfig = this.paymentMethods.get(method);
     if (!methodConfig) return false;
-    
+
     // Check currency support
     if (!methodConfig.supportedCurrencies.includes(currency)) {
       return false;
     }
-    
+
     // Check country support
     if (!methodConfig.supportedCountries.includes(country)) {
       return false;
     }
-    
+
     // Check if method is enabled
     return methodConfig.enabled;
   }
@@ -1915,7 +1962,7 @@ class ExchangeRateProvider {
     this.providers = [
       new FixerIOProvider(),
       new CurrencyLayerProvider(),
-      new OpenExchangeRatesProvider()
+      new OpenExchangeRatesProvider(),
     ];
     this.fallbackRates = new Map();
   }
@@ -1928,21 +1975,25 @@ class ExchangeRateProvider {
           return {
             rate: rate.rate,
             source: provider.name,
-            timestamp: new Date()
+            timestamp: new Date(),
           };
         }
       } catch (error) {
         console.error(`Provider ${provider.name} failed:`, error);
       }
     }
-    
+
     // Fallback to cached rates
-    const fallbackRate = this.fallbackRates.get(`${fromCurrency}_${toCurrency}`);
+    const fallbackRate = this.fallbackRates.get(
+      `${fromCurrency}_${toCurrency}`
+    );
     if (fallbackRate) {
       return fallbackRate;
     }
-    
-    throw new Error(`Unable to get exchange rate for ${fromCurrency} to ${toCurrency}`);
+
+    throw new Error(
+      `Unable to get exchange rate for ${fromCurrency} to ${toCurrency}`
+    );
   }
 }
 
@@ -1956,18 +2007,20 @@ class InternationalPaymentProcessor {
   async processPayment(payment) {
     // Check compliance requirements
     await this.compliance.checkRequirements(payment);
-    
+
     // Perform KYC if required
     if (await this.kyc.isRequired(payment)) {
       await this.kyc.performKYC(payment.userId);
     }
-    
+
     // Process with multi-currency support
-    const result = await this.multiCurrency.processInternationalPayment(payment);
-    
+    const result = await this.multiCurrency.processInternationalPayment(
+      payment
+    );
+
     // Log for compliance
     await this.compliance.logTransaction(result);
-    
+
     return result;
   }
 }

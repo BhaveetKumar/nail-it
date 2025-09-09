@@ -974,7 +974,7 @@ async function registerUser(username, email) {
 ### **Scalability Considerations**
 
 **Q: How would you handle 1 million concurrent users?**
-**A:** 
+**A:**
 
 - **Horizontal Scaling**: Deploy multiple server instances behind a load balancer
 - **WebSocket Connection Management**: Use Redis for connection state sharing across servers
@@ -1040,7 +1040,7 @@ async function registerUser(username, email) {
 ### **System Design Deep Dive**
 
 **Q1: How would you implement message search functionality?**
-**A:** 
+**A:**
 
 ```javascript
 // Elasticsearch Integration for Message Search
@@ -1053,7 +1053,7 @@ class MessageSearchService {
           bool: {
             must: [
               { match: { content: query } },
-              { 
+              {
                 bool: {
                   should: [
                     { term: { senderId: userId } },
@@ -1070,7 +1070,7 @@ class MessageSearchService {
         size: options.limit || 20,
       },
     };
-    
+
     return await this.elasticsearch.search(searchQuery);
   }
 }
@@ -1085,10 +1085,10 @@ class FileSharingService {
   async uploadFile(file, userId) {
     // Generate unique file ID
     const fileId = this.generateFileId();
-    
+
     // Upload to cloud storage (AWS S3, Google Cloud Storage)
     const uploadResult = await this.cloudStorage.upload(file, fileId);
-    
+
     // Store file metadata in database
     const fileMetadata = {
       fileId,
@@ -1099,12 +1099,12 @@ class FileSharingService {
       uploadUrl: uploadResult.url,
       createdAt: new Date(),
     };
-    
+
     await this.database.files.insert(fileMetadata);
-    
+
     return fileMetadata;
   }
-  
+
   async shareFile(fileId, recipientIds, messageId) {
     // Create file share record
     const fileShare = {
@@ -1113,9 +1113,9 @@ class FileSharingService {
       recipientIds,
       sharedAt: new Date(),
     };
-    
+
     await this.database.fileShares.insert(fileShare);
-    
+
     // Send file share notification
     this.notificationService.notifyFileShare(recipientIds, fileId);
   }
@@ -1135,34 +1135,34 @@ class MessageInteractionService {
       emoji,
       createdAt: new Date(),
     };
-    
+
     // Store reaction in database
     await this.database.reactions.insert(reaction);
-    
+
     // Broadcast reaction to all connected clients
     this.broadcastReaction(messageId, reaction);
-    
+
     return reaction;
   }
-  
+
   async createThread(parentMessageId, replyMessage) {
     const thread = {
       parentMessageId,
       threadId: this.generateThreadId(),
       createdAt: new Date(),
     };
-    
+
     // Store thread metadata
     await this.database.threads.insert(thread);
-    
+
     // Send reply message
     const message = await this.sendMessage(replyMessage);
-    
+
     // Link message to thread
     await this.database.messages.update(message.id, {
       threadId: thread.threadId,
     });
-    
+
     return { thread, message };
   }
 }
@@ -1179,7 +1179,7 @@ class MobileOptimizationService {
   async handleOfflineMessages(userId) {
     // Store messages locally when offline
     const offlineMessages = await this.localStorage.getOfflineMessages(userId);
-    
+
     // Sync when connection is restored
     for (const message of offlineMessages) {
       try {
@@ -1191,19 +1191,19 @@ class MobileOptimizationService {
       }
     }
   }
-  
+
   async optimizeMessageDelivery(message, recipientConnection) {
     // Check connection quality
     const connectionQuality = this.assessConnectionQuality(recipientConnection);
-    
+
     if (connectionQuality === "poor") {
       // Compress message content
       message.content = await this.compressContent(message.content);
-      
+
       // Send in smaller chunks
       return this.sendInChunks(message, recipientConnection);
     }
-    
+
     return this.sendMessage(message, recipientConnection);
   }
 }
@@ -1221,20 +1221,20 @@ class ReadReceiptService {
       userId,
       readAt: new Date(),
     };
-    
+
     // Store read receipt
     await this.database.readReceipts.insert(readReceipt);
-    
+
     // Update message read status
     await this.database.messages.updateReadStatus(messageId, userId);
-    
+
     // Notify sender about read receipt
     const message = await this.database.messages.findById(messageId);
     this.notifyReadReceipt(message.senderId, messageId, userId);
-    
+
     return readReceipt;
   }
-  
+
   async getReadReceipts(messageId) {
     return await this.database.readReceipts.findByMessageId(messageId);
   }
@@ -1252,28 +1252,28 @@ class GroupEncryptionService {
   async createGroupKey(groupId, members) {
     // Generate group encryption key
     const groupKey = this.generateEncryptionKey();
-    
+
     // Encrypt group key for each member
     const encryptedKeys = {};
     for (const memberId of members) {
       const memberPublicKey = await this.getMemberPublicKey(memberId);
       encryptedKeys[memberId] = await this.encrypt(groupKey, memberPublicKey);
     }
-    
+
     // Store encrypted keys
     await this.database.groupKeys.insert({
       groupId,
       encryptedKeys,
       createdAt: new Date(),
     });
-    
+
     return groupKey;
   }
-  
+
   async encryptMessage(message, groupId) {
     const groupKey = await this.getGroupKey(groupId);
     const encryptedContent = await this.encrypt(message.content, groupKey);
-    
+
     return {
       ...message,
       content: encryptedContent,
@@ -1292,7 +1292,7 @@ class MessageModerationService {
   async moderateMessage(message) {
     // Check for inappropriate content
     const contentCheck = await this.contentFilter.check(message.content);
-    
+
     if (contentCheck.flagged) {
       // Store flagged message for review
       await this.database.flaggedMessages.insert({
@@ -1301,23 +1301,23 @@ class MessageModerationService {
         confidence: contentCheck.confidence,
         flaggedAt: new Date(),
       });
-      
+
       // Notify moderators
       this.notifyModerators(message, contentCheck);
-      
+
       // Block message if confidence is high
       if (contentCheck.confidence > 0.8) {
         return { blocked: true, reason: contentCheck.reason };
       }
     }
-    
+
     return { blocked: false };
   }
-  
+
   async autoModerate(message) {
     // Use AI/ML for content moderation
     const moderationResult = await this.aiModeration.analyze(message.content);
-    
+
     if (moderationResult.violation) {
       // Apply automatic actions
       switch (moderationResult.severity) {
@@ -2184,6 +2184,7 @@ class FullTextSearch {
 ### **6. How to handle 1 trillion users and extreme scale messaging?**
 
 **Answer:**
+
 ```javascript
 class ExtremeScaleMessagingSystem {
   constructor() {
@@ -2199,47 +2200,51 @@ class ExtremeScaleMessagingSystem {
     // 1. Determine user shard
     const userShard = this.shardManager.getShard(message.senderId);
     const recipientShard = this.shardManager.getShard(message.recipientId);
-    
+
     // 2. Compress message for storage efficiency
     const compressedMessage = await this.compressionEngine.compress(message);
-    
+
     // 3. Route message based on shard location
     if (userShard === recipientShard) {
       return await this.sendLocalMessage(compressedMessage, userShard);
     } else {
-      return await this.sendCrossShardMessage(compressedMessage, userShard, recipientShard);
+      return await this.sendCrossShardMessage(
+        compressedMessage,
+        userShard,
+        recipientShard
+      );
     }
   }
 
   async sendLocalMessage(message, shardId) {
     const shard = this.shardManager.getShardInstance(shardId);
-    
+
     // Store in shard-local database
     await shard.storeMessage(message);
-    
+
     // Update recipient's message queue
     await shard.addToRecipientQueue(message.recipientId, message.id);
-    
+
     // Real-time delivery if user is online
     const isOnline = await this.checkUserOnlineStatus(message.recipientId);
     if (isOnline) {
       await this.deliverRealtimeMessage(message);
     }
-    
+
     return { success: true, shardId, local: true };
   }
 
   async sendCrossShardMessage(message, senderShard, recipientShard) {
     // Use message queue for cross-shard communication
     const routingKey = `shard.${recipientShard}.messages`;
-    
+
     await this.messageRouter.routeMessage(routingKey, {
       message,
       senderShard,
       recipientShard,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     });
-    
+
     return { success: true, crossShard: true, routingKey };
   }
 }
@@ -2248,7 +2253,13 @@ class ShardManager {
   constructor() {
     this.totalShards = 1000000; // 1 million shards
     this.shardsPerRegion = 10000; // 10k shards per region
-    this.regions = ['us-east', 'us-west', 'eu-west', 'ap-south', 'ap-northeast'];
+    this.regions = [
+      "us-east",
+      "us-west",
+      "eu-west",
+      "ap-south",
+      "ap-northeast",
+    ];
     this.shardInstances = new Map();
   }
 
@@ -2299,7 +2310,7 @@ class ShardInstance {
   async storeMessage(message) {
     // Store in shard-specific database
     await this.database.insertMessage(message);
-    
+
     // Update recipient's message queue
     await this.addToRecipientQueue(message.recipientId, message.id);
   }
@@ -2308,14 +2319,14 @@ class ShardInstance {
     if (!this.messageQueues.has(userId)) {
       this.messageQueues.set(userId, []);
     }
-    
+
     const queue = this.messageQueues.get(userId);
     queue.push({
       messageId,
       timestamp: Date.now(),
-      priority: this.calculatePriority(messageId)
+      priority: this.calculatePriority(messageId),
     });
-    
+
     // Keep queue size manageable
     if (queue.length > 1000) {
       queue.splice(0, queue.length - 1000);
@@ -2338,10 +2349,10 @@ class MessageRouter {
   async routeMessage(routingKey, message) {
     // Get target shard from routing key
     const targetShard = this.extractShardFromKey(routingKey);
-    
+
     // Route to appropriate shard instance
     const shardInstance = this.shardManager.getShardInstance(targetShard);
-    
+
     // Process message in target shard
     await shardInstance.processIncomingMessage(message);
   }
@@ -2355,19 +2366,19 @@ class MessageRouter {
 class CompressionEngine {
   constructor() {
     this.compressionAlgorithms = {
-      'lz4': new LZ4Compressor(),
-      'zstd': new ZstdCompressor(),
-      'brotli': new BrotliCompressor()
+      lz4: new LZ4Compressor(),
+      zstd: new ZstdCompressor(),
+      brotli: new BrotliCompressor(),
     };
-    this.defaultAlgorithm = 'zstd';
+    this.defaultAlgorithm = "zstd";
   }
 
   async compress(message) {
     const algorithm = this.selectAlgorithm(message);
     const compressor = this.compressionAlgorithms[algorithm];
-    
+
     const compressed = await compressor.compress(JSON.stringify(message));
-    
+
     return {
       ...message,
       content: compressed,
@@ -2375,18 +2386,18 @@ class CompressionEngine {
         algorithm,
         originalSize: JSON.stringify(message).length,
         compressedSize: compressed.length,
-        ratio: compressed.length / JSON.stringify(message).length
-      }
+        ratio: compressed.length / JSON.stringify(message).length,
+      },
     };
   }
 
   selectAlgorithm(message) {
     // Select compression algorithm based on message characteristics
     const contentSize = JSON.stringify(message).length;
-    
-    if (contentSize < 1024) return 'lz4';      // Fast for small messages
-    if (contentSize < 10240) return 'zstd';    // Balanced for medium messages
-    return 'brotli';                           // Best compression for large messages
+
+    if (contentSize < 1024) return "lz4"; // Fast for small messages
+    if (contentSize < 10240) return "zstd"; // Balanced for medium messages
+    return "brotli"; // Best compression for large messages
   }
 }
 
@@ -2397,7 +2408,7 @@ class CacheManager {
     this.cacheLayers = [
       new L1Cache(), // In-memory cache
       new L2Cache(), // Redis cluster
-      new L3Cache()  // Persistent cache
+      new L3Cache(), // Persistent cache
     ];
   }
 
@@ -2411,16 +2422,16 @@ class CacheManager {
         return value;
       }
     }
-    
+
     return null;
   }
 
   async set(key, value, ttl = 3600) {
     // Set in all cache layers
-    const promises = this.cacheLayers.map(layer => 
+    const promises = this.cacheLayers.map((layer) =>
       layer.set(key, value, ttl)
     );
-    
+
     await Promise.all(promises);
   }
 
@@ -2446,15 +2457,15 @@ class AnalyticsEngine {
       recipientId: message.recipientId,
       messageType: message.type,
       size: JSON.stringify(message).length,
-      shardId: this.shardManager.getShard(message.senderId)
+      shardId: this.shardManager.getShard(message.senderId),
     };
-    
+
     // Collect metrics
     await this.metricsCollector.collect(metrics);
-    
+
     // Aggregate for real-time dashboards
     await this.aggregator.aggregate(metrics);
-    
+
     // Store for historical analysis
     await this.storage.store(metrics);
   }
@@ -2466,7 +2477,7 @@ class AnalyticsEngine {
       messagesPerSecond: await this.getMessagesPerSecond(),
       averageLatency: await this.getAverageLatency(),
       errorRate: await this.getErrorRate(),
-      shardDistribution: await this.getShardDistribution()
+      shardDistribution: await this.getShardDistribution(),
     };
   }
 }
@@ -2483,7 +2494,7 @@ class DatabaseSharding {
       const pool = new ConnectionPool(config);
       this.connectionPools.set(shardId, pool);
     }
-    
+
     return this.connectionPools.get(shardId);
   }
 
@@ -2493,7 +2504,7 @@ class DatabaseSharding {
       port: 5432,
       database: `messages_shard_${shardId}`,
       maxConnections: 100,
-      minConnections: 10
+      minConnections: 10,
     };
   }
 }
@@ -2501,27 +2512,29 @@ class DatabaseSharding {
 class LoadBalancer {
   constructor() {
     this.healthChecker = new HealthChecker();
-    this.loadBalancingAlgorithm = 'round_robin';
+    this.loadBalancingAlgorithm = "round_robin";
     this.instances = new Map();
   }
 
   async selectInstance(serviceType) {
-    const healthyInstances = await this.healthChecker.getHealthyInstances(serviceType);
-    
+    const healthyInstances = await this.healthChecker.getHealthyInstances(
+      serviceType
+    );
+
     if (healthyInstances.length === 0) {
-      throw new Error('No healthy instances available');
+      throw new Error("No healthy instances available");
     }
-    
+
     return this.selectUsingAlgorithm(healthyInstances);
   }
 
   selectUsingAlgorithm(instances) {
     switch (this.loadBalancingAlgorithm) {
-      case 'round_robin':
+      case "round_robin":
         return this.roundRobin(instances);
-      case 'least_connections':
+      case "least_connections":
         return this.leastConnections(instances);
-      case 'weighted_round_robin':
+      case "weighted_round_robin":
         return this.weightedRoundRobin(instances);
       default:
         return instances[0];
@@ -2541,13 +2554,13 @@ class PerformanceOptimizations {
   async optimizeForScale() {
     // 1. Connection pooling
     await this.connectionPooling.optimize();
-    
+
     // 2. Batch processing
     await this.batchProcessing.configure();
-    
+
     // 3. Async processing
     await this.asyncProcessing.setup();
-    
+
     // 4. Memory optimization
     await this.memoryOptimization.optimize();
   }
@@ -2564,9 +2577,9 @@ class ConnectionPooling {
       destroyTimeoutMillis: 5000,
       idleTimeoutMillis: 30000,
       reapIntervalMillis: 1000,
-      createRetryIntervalMillis: 200
+      createRetryIntervalMillis: 200,
     };
-    
+
     // Apply to all shards
     for (let i = 0; i < 1000000; i++) {
       await this.configurePool(i, poolConfig);
@@ -2580,7 +2593,7 @@ class BatchProcessing {
     this.batchSize = 1000;
     this.flushInterval = 100; // ms
     this.maxWaitTime = 1000; // ms
-    
+
     // Start batch processors
     this.startMessageBatchProcessor();
     this.startUserBatchProcessor();
@@ -2591,21 +2604,21 @@ class BatchProcessing {
 class AsyncProcessing {
   async setup() {
     // Set up async processing queues
-    this.messageQueue = new Queue('messages', {
-      redis: { host: 'redis-cluster.internal' },
+    this.messageQueue = new Queue("messages", {
+      redis: { host: "redis-cluster.internal" },
       defaultJobOptions: {
         removeOnComplete: 100,
         removeOnFail: 50,
         attempts: 3,
         backoff: {
-          type: 'exponential',
-          delay: 2000
-        }
-      }
+          type: "exponential",
+          delay: 2000,
+        },
+      },
     });
-    
+
     // Process messages asynchronously
-    this.messageQueue.process('send-message', 100, this.processMessage);
+    this.messageQueue.process("send-message", 100, this.processMessage);
   }
 }
 
@@ -2616,12 +2629,12 @@ class MemoryOptimization {
     this.configureGarbageCollection();
     this.optimizeDataStructures();
   }
-  
+
   enableMemoryCompression() {
     // Enable memory compression for large data structures
-    process.env.NODE_OPTIONS = '--max-old-space-size=8192 --gc-interval=100';
+    process.env.NODE_OPTIONS = "--max-old-space-size=8192 --gc-interval=100";
   }
-  
+
   configureGarbageCollection() {
     // Configure aggressive garbage collection
     if (global.gc) {
@@ -2630,7 +2643,7 @@ class MemoryOptimization {
       }, 30000); // GC every 30 seconds
     }
   }
-  
+
   optimizeDataStructures() {
     // Use more memory-efficient data structures
     // Replace Map with WeakMap where appropriate

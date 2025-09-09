@@ -5,6 +5,7 @@
 **Flyweight** is a structural design pattern that lets you fit more objects into the available amount of RAM by sharing efficiently the common parts of state between multiple objects instead of keeping it all in each object.
 
 **Key Intent:**
+
 - Minimize memory usage when dealing with large numbers of similar objects
 - Share common data between multiple objects efficiently
 - Separate intrinsic state (shared) from extrinsic state (unique per object)
@@ -24,6 +25,7 @@
 7. **Caching Benefits**: Shared objects can be cached effectively
 
 **Don't use when:**
+
 - Object state is mostly unique (little intrinsic state to share)
 - Memory usage is not a concern
 - Object identity is important
@@ -33,6 +35,7 @@
 ## Real-World Use Cases (Payments/Fintech)
 
 ### 1. Currency and Exchange Rate Management
+
 ```go
 // Flyweight for currency information
 type CurrencyFlyweight interface {
@@ -86,13 +89,13 @@ func (c *Currency) GetExchangeRate(baseCurrency string, targetCurrency string, d
             "GBP": decimal.NewFromFloat(0.86),
         },
     }
-    
+
     if baseRates, exists := rates[baseCurrency]; exists {
         if rate, exists := baseRates[targetCurrency]; exists {
             return rate, nil
         }
     }
-    
+
     return decimal.Zero, fmt.Errorf("exchange rate not found for %s to %s", baseCurrency, targetCurrency)
 }
 
@@ -115,15 +118,15 @@ func (f *CurrencyFactory) GetCurrency(code string) *Currency {
         return currency
     }
     f.mu.RUnlock()
-    
+
     f.mu.Lock()
     defer f.mu.Unlock()
-    
+
     // Double-check after acquiring write lock
     if currency, exists := f.currencies[code]; exists {
         return currency
     }
-    
+
     // Create new currency flyweight
     currency := f.createCurrency(code)
     f.currencies[code] = currency
@@ -138,11 +141,11 @@ func (f *CurrencyFactory) createCurrency(code string) *Currency {
         "JPY": {Code: "JPY", Symbol: "¥", DecimalPlaces: 0, Name: "Japanese Yen"},
         "BTC": {Code: "BTC", Symbol: "₿", DecimalPlaces: 8, Name: "Bitcoin"},
     }
-    
+
     if data, exists := currencyData[code]; exists {
         return &data
     }
-    
+
     // Default currency for unknown codes
     return &Currency{
         Code:          code,
@@ -179,18 +182,18 @@ func (m *MoneyAmount) Format(locale string) string {
 
 func (m *MoneyAmount) ConvertTo(targetCurrencyCode string, factory *CurrencyFactory) (*MoneyAmount, error) {
     targetCurrency := factory.GetCurrency(targetCurrencyCode)
-    
+
     if m.Currency.Code == targetCurrency.Code {
         return m, nil // Same currency
     }
-    
+
     rate, err := m.Currency.GetExchangeRate(m.Currency.Code, targetCurrency.Code, m.Date)
     if err != nil {
         return nil, err
     }
-    
+
     convertedAmount := m.Amount.Mul(rate)
-    
+
     return &MoneyAmount{
         Amount:   convertedAmount,
         Currency: targetCurrency,
@@ -200,6 +203,7 @@ func (m *MoneyAmount) ConvertTo(targetCurrencyCode string, factory *CurrencyFact
 ```
 
 ### 2. Transaction Type Flyweights
+
 ```go
 // Transaction type flyweight for processing rules
 type TransactionTypeFlyweight interface {
@@ -223,7 +227,7 @@ type TransactionType struct {
 func (tt *TransactionType) CalculateFee(amount decimal.Decimal, merchantCategory string) decimal.Decimal {
     baseFee := amount.Mul(tt.BaseFeePercent.Div(decimal.NewFromInt(100)))
     totalFee := baseFee.Add(tt.FixedFee)
-    
+
     // Apply merchant category modifiers
     modifier := tt.getMerchantCategoryModifier(merchantCategory)
     return totalFee.Mul(modifier)
@@ -237,7 +241,7 @@ func (tt *TransactionType) getMerchantCategoryModifier(category string) decimal.
         "LUXURY":      decimal.NewFromFloat(1.2),  // 20% surcharge
         "HIGH_RISK":   decimal.NewFromFloat(1.5),  // 50% surcharge
     }
-    
+
     if modifier, exists := modifiers[category]; exists {
         return modifier
     }
@@ -255,11 +259,11 @@ func (tt *TransactionType) ValidateTransaction(transaction *Transaction) error {
             }
         }
         if !allowed {
-            return fmt.Errorf("merchant category %s not allowed for transaction type %s", 
+            return fmt.Errorf("merchant category %s not allowed for transaction type %s",
                 transaction.MerchantCategory, tt.TypeCode)
         }
     }
-    
+
     // Additional validation rules based on transaction type
     switch tt.TypeCode {
     case "CREDIT_CARD":
@@ -269,7 +273,7 @@ func (tt *TransactionType) ValidateTransaction(transaction *Transaction) error {
     case "BANK_TRANSFER":
         return tt.validateBankTransfer(transaction)
     }
-    
+
     return nil
 }
 
@@ -314,7 +318,7 @@ func NewTransactionTypeFactory() *TransactionTypeFactory {
     factory := &TransactionTypeFactory{
         types: make(map[string]*TransactionType),
     }
-    
+
     // Pre-populate common transaction types
     factory.initializeCommonTypes()
     return factory
@@ -359,7 +363,7 @@ func (f *TransactionTypeFactory) initializeCommonTypes() {
             AllowedMerchantCategories: []string{"DIGITAL_GOODS", "SOFTWARE", "GAMING"},
         },
     }
-    
+
     for code, transactionType := range commonTypes {
         f.types[code] = transactionType
     }
@@ -372,15 +376,15 @@ func (f *TransactionTypeFactory) GetTransactionType(typeCode string) *Transactio
         return transactionType
     }
     f.mu.RUnlock()
-    
+
     f.mu.Lock()
     defer f.mu.Unlock()
-    
+
     // Double-check after acquiring write lock
     if transactionType, exists := f.types[typeCode]; exists {
         return transactionType
     }
-    
+
     // Create default transaction type for unknown codes
     defaultType := &TransactionType{
         TypeCode:         typeCode,
@@ -391,7 +395,7 @@ func (f *TransactionTypeFactory) GetTransactionType(typeCode string) *Transactio
         ApprovalThreshold: decimal.NewFromInt(1000), // Lower approval threshold
         AllowedMerchantCategories: []string{},
     }
-    
+
     f.types[typeCode] = defaultType
     return defaultType
 }
@@ -456,6 +460,7 @@ func (t *Transaction) GetProcessingTime() time.Duration {
 ```
 
 ### 3. Risk Profile Flyweights
+
 ```go
 // Risk profile flyweight for fraud detection
 type RiskProfileFlyweight interface {
@@ -489,19 +494,19 @@ type RiskProfile struct {
 
 func (rp *RiskProfile) CalculateRiskScore(context *RiskContext) float64 {
     score := rp.BaselineRisk
-    
+
     for _, factor := range rp.Factors {
         factorScore := rp.calculateFactorScore(factor, context)
         score += factorScore * factor.Weight
     }
-    
+
     // Normalize score to 0-1 range
     if score > 1.0 {
         score = 1.0
     } else if score < 0.0 {
         score = 0.0
     }
-    
+
     return score
 }
 
@@ -528,9 +533,9 @@ func (rp *RiskProfile) calculateAmountRisk(amount, avgAmount decimal.Decimal) fl
     if avgAmount.IsZero() {
         return 0.5 // Neutral risk for new customers
     }
-    
+
     ratio := amount.Div(avgAmount).InexactFloat64()
-    
+
     switch {
     case ratio > 10.0:
         return 1.0 // Very high risk
@@ -549,9 +554,9 @@ func (rp *RiskProfile) calculateFrequencyRisk(recentCount int, avgFrequency floa
     if avgFrequency == 0 {
         return 0.3
     }
-    
+
     frequencyRatio := float64(recentCount) / avgFrequency
-    
+
     switch {
     case frequencyRatio > 5.0:
         return 1.0
@@ -570,14 +575,14 @@ func (rp *RiskProfile) calculateLocationRisk(location string, usualLocations []s
             return 0.1 // Known location
         }
     }
-    
+
     // Check if it's a neighboring location (simplified)
     for _, usual := range usualLocations {
         if rp.isNeighboringLocation(location, usual) {
             return 0.3
         }
     }
-    
+
     return 0.8 // Completely new location
 }
 
@@ -588,7 +593,7 @@ func (rp *RiskProfile) isNeighboringLocation(loc1, loc2 string) bool {
 
 func (rp *RiskProfile) calculateTimeRisk(transactionTime time.Time, usualTimes []time.Time) float64 {
     hour := transactionTime.Hour()
-    
+
     // Check if it's within usual hours
     for _, usual := range usualTimes {
         usualHour := usual.Hour()
@@ -596,17 +601,17 @@ func (rp *RiskProfile) calculateTimeRisk(transactionTime time.Time, usualTimes [
             return 0.1
         }
     }
-    
+
     // Check if it's during typical business hours
     if hour >= 9 && hour <= 17 {
         return 0.3
     }
-    
+
     // Late night/early morning transactions are riskier
     if hour >= 22 || hour <= 6 {
         return 0.8
     }
-    
+
     return 0.4
 }
 
@@ -645,7 +650,7 @@ func NewRiskProfileFactory() *RiskProfileFactory {
     factory := &RiskProfileFactory{
         profiles: make(map[string]*RiskProfile),
     }
-    
+
     factory.initializeStandardProfiles()
     return factory
 }
@@ -703,7 +708,7 @@ func (f *RiskProfileFactory) initializeStandardProfiles() {
             },
         },
     }
-    
+
     for code, profile := range profiles {
         f.profiles[code] = profile
     }
@@ -716,15 +721,15 @@ func (f *RiskProfileFactory) GetRiskProfile(profileCode string) *RiskProfile {
         return profile
     }
     f.mu.RUnlock()
-    
+
     f.mu.Lock()
     defer f.mu.Unlock()
-    
+
     // Double-check after acquiring write lock
     if profile, exists := f.profiles[profileCode]; exists {
         return profile
     }
-    
+
     // Return standard profile for unknown codes
     return f.profiles["STANDARD"]
 }
@@ -777,7 +782,7 @@ type Character struct {
 }
 
 func (c *Character) Render(x, y int, font string, size int, color string) string {
-    return fmt.Sprintf("Rendering '%c' at (%d,%d) with font=%s, size=%d, color=%s", 
+    return fmt.Sprintf("Rendering '%c' at (%d,%d) with font=%s, size=%d, color=%s",
         c.Symbol, x, y, font, size, color)
 }
 
@@ -800,19 +805,19 @@ func (f *CharacterFactory) GetCharacter(symbol rune) *Character {
         return char
     }
     f.mu.RUnlock()
-    
+
     f.mu.Lock()
     defer f.mu.Unlock()
-    
+
     // Double-check after acquiring write lock
     if char, exists := f.characters[symbol]; exists {
         return char
     }
-    
+
     // Create new character flyweight
     char := &Character{Symbol: symbol}
     f.characters[symbol] = char
-    
+
     fmt.Printf("Created new character flyweight for '%c'\n", symbol)
     return char
 }
@@ -826,7 +831,7 @@ func (f *CharacterFactory) GetCreatedCharactersCount() int {
 func (f *CharacterFactory) ListCreatedCharacters() []rune {
     f.mu.RLock()
     defer f.mu.RUnlock()
-    
+
     chars := make([]rune, 0, len(f.characters))
     for char := range f.characters {
         chars = append(chars, char)
@@ -879,11 +884,11 @@ func (d *Document) AddText(text string, x, y int, font string, size int, color s
             currentX += size / 2 // Space width
             continue
         }
-        
+
         char := d.factory.GetCharacter(symbol)
         context := NewCharacterContext(char, currentX, y, font, size, color)
         d.characters = append(d.characters, context)
-        
+
         currentX += size // Move to next position
     }
 }
@@ -891,11 +896,11 @@ func (d *Document) AddText(text string, x, y int, font string, size int, color s
 func (d *Document) Render() string {
     var result strings.Builder
     result.WriteString("Document Rendering:\n")
-    
+
     for i, charContext := range d.characters {
         result.WriteString(fmt.Sprintf("%d: %s\n", i+1, charContext.Render()))
     }
-    
+
     return result.String()
 }
 
@@ -910,18 +915,18 @@ func (d *Document) GetUniqueCharacterCount() int {
 func (d *Document) GetMemoryUsage() string {
     totalCharacters := d.GetCharacterCount()
     uniqueCharacters := d.GetUniqueCharacterCount()
-    
+
     // Estimate memory usage
     // Without flyweight: each character context would store the symbol
     memoryWithoutFlyweight := totalCharacters * (4 + 4 + 4 + 20 + 4 + 20) // Rough estimate in bytes
-    
+
     // With flyweight: shared symbols + contexts with references
     memoryWithFlyweight := (uniqueCharacters * 4) + (totalCharacters * (8 + 4 + 4 + 20 + 4 + 20)) // Rough estimate
-    
+
     savedMemory := memoryWithoutFlyweight - memoryWithFlyweight
     savingPercentage := float64(savedMemory) / float64(memoryWithoutFlyweight) * 100
-    
-    return fmt.Sprintf("Total characters: %d, Unique: %d, Memory saved: ~%d bytes (%.1f%%)", 
+
+    return fmt.Sprintf("Total characters: %d, Unique: %d, Memory saved: ~%d bytes (%.1f%%)",
         totalCharacters, uniqueCharacters, savedMemory, savingPercentage)
 }
 
@@ -945,7 +950,7 @@ type Font struct {
 }
 
 func (f *Font) RenderText(text string, x, y int, size int, color string) string {
-    return fmt.Sprintf("Rendering '%s' at (%d,%d) with %s %s %d, size=%d, color=%s", 
+    return fmt.Sprintf("Rendering '%s' at (%d,%d) with %s %s %d, size=%d, color=%s",
         text, x, y, f.FontFamily, f.Style, f.Weight, size, color)
 }
 
@@ -953,7 +958,7 @@ func (f *Font) GetFontMetrics(size int) FontMetrics {
     if metrics, exists := f.Metrics[size]; exists {
         return metrics
     }
-    
+
     // Calculate metrics based on size
     return FontMetrics{
         LineHeight: size + size/4,
@@ -975,22 +980,22 @@ func NewFontFactory() *FontFactory {
 
 func (ff *FontFactory) GetFont(family, style string, weight int) *Font {
     key := fmt.Sprintf("%s-%s-%d", family, style, weight)
-    
+
     ff.mu.RLock()
     if font, exists := ff.fonts[key]; exists {
         ff.mu.RUnlock()
         return font
     }
     ff.mu.RUnlock()
-    
+
     ff.mu.Lock()
     defer ff.mu.Unlock()
-    
+
     // Double-check after acquiring write lock
     if font, exists := ff.fonts[key]; exists {
         return font
     }
-    
+
     // Create new font flyweight
     font := &Font{
         FontFamily: family,
@@ -998,7 +1003,7 @@ func (ff *FontFactory) GetFont(family, style string, weight int) *Font {
         Weight:     weight,
         Metrics:    make(map[int]FontMetrics),
     }
-    
+
     ff.fonts[key] = font
     fmt.Printf("Created new font flyweight: %s\n", key)
     return font
@@ -1062,28 +1067,28 @@ func (rtd *RichTextDocument) AddText(text, fontFamily, style string, weight, x, 
 func (rtd *RichTextDocument) Render() string {
     var result strings.Builder
     result.WriteString("Rich Text Document:\n")
-    
+
     for i, element := range rtd.elements {
         result.WriteString(fmt.Sprintf("%d: %s\n", i+1, element.Render()))
     }
-    
+
     return result.String()
 }
 
 func (rtd *RichTextDocument) GetStatistics() string {
     totalElements := len(rtd.elements)
     uniqueFonts := rtd.fontFactory.GetLoadedFontsCount()
-    
+
     return fmt.Sprintf("Total text elements: %d, Unique fonts loaded: %d", totalElements, uniqueFonts)
 }
 
 // Performance demonstration
 func demonstratePerformanceBenefits() {
     fmt.Println("\n=== Performance Benefits Demonstration ===")
-    
+
     factory := NewCharacterFactory()
     document := NewDocument(factory)
-    
+
     // Add a lot of repeated text
     texts := []string{
         "Hello World! This is a test document.",
@@ -1092,13 +1097,13 @@ func demonstratePerformanceBenefits() {
         "Hello World! This is a test document.", // Repeated
         "The quick brown fox jumps over the lazy dog.", // Repeated
     }
-    
+
     y := 10
     for i, text := range texts {
         document.AddText(text, 10, y, "Arial", 12, fmt.Sprintf("Color%d", i%3))
         y += 20
     }
-    
+
     fmt.Printf("Document created with multiple text lines\n")
     fmt.Printf("Characters in document: %d\n", document.GetCharacterCount())
     fmt.Printf("Unique character flyweights created: %d\n", document.GetUniqueCharacterCount())
@@ -1109,21 +1114,21 @@ func demonstratePerformanceBenefits() {
 // Stress test to show memory efficiency
 func stressTest() {
     fmt.Println("\n=== Stress Test ===")
-    
+
     factory := NewCharacterFactory()
     document := NewDocument(factory)
-    
+
     // Add the same text many times
     text := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    
+
     start := time.Now()
-    
+
     for i := 0; i < 1000; i++ {
         document.AddText(text, 10, i*15, "Arial", 12, "Black")
     }
-    
+
     elapsed := time.Since(start)
-    
+
     fmt.Printf("Added text 1000 times (26,000 characters total)\n")
     fmt.Printf("Time taken: %v\n", elapsed)
     fmt.Printf("Unique character flyweights: %d\n", document.GetUniqueCharacterCount())
@@ -1133,59 +1138,59 @@ func stressTest() {
 
 func main() {
     fmt.Println("=== Flyweight Pattern Demo ===\n")
-    
+
     // Basic flyweight demonstration
     factory := NewCharacterFactory()
     document := NewDocument(factory)
-    
+
     // Add some text to the document
     document.AddText("Hello", 10, 10, "Arial", 14, "Blue")
     document.AddText("World", 100, 10, "Times", 16, "Red")
     document.AddText("Hello", 10, 30, "Arial", 14, "Green") // Reuses 'H', 'e', 'l', 'o'
-    
+
     fmt.Println("=== Basic Character Flyweight ===")
     fmt.Printf("Characters created: %d\n", factory.GetCreatedCharactersCount())
     fmt.Printf("Total character instances in document: %d\n", document.GetCharacterCount())
-    
+
     // Show that flyweights are reused
     h1 := factory.GetCharacter('H')
     h2 := factory.GetCharacter('H')
     fmt.Printf("Same flyweight instance for 'H': %t\n", h1 == h2)
-    
+
     // Render part of the document
     fmt.Println("\nRendering first few characters:")
     for i := 0; i < min(5, document.GetCharacterCount()); i++ {
         fmt.Printf("  %s\n", document.characters[i].Render())
     }
-    
+
     // Rich text document demonstration
     fmt.Println("\n=== Rich Text Document with Font Flyweights ===")
-    
+
     fontFactory := NewFontFactory()
     richDoc := NewRichTextDocument(fontFactory)
-    
+
     // Add text with different fonts
     richDoc.AddText("Title", "Arial", "Bold", 700, 10, 10, 24, "Black")
     richDoc.AddText("Subtitle", "Arial", "Normal", 400, 10, 40, 18, "Gray")
     richDoc.AddText("Body text", "Times", "Normal", 400, 10, 70, 12, "Black")
     richDoc.AddText("Important note", "Arial", "Bold", 700, 10, 90, 14, "Red") // Reuses Arial Bold
-    
+
     fmt.Printf("%s\n", richDoc.GetStatistics())
-    
+
     // Show font reuse
     font1 := fontFactory.GetFont("Arial", "Bold", 700)
     font2 := fontFactory.GetFont("Arial", "Bold", 700)
     fmt.Printf("Same font flyweight instance: %t\n", font1 == font2)
-    
+
     fmt.Println("\nRich document rendering:")
     fmt.Print(richDoc.Render())
-    
+
     // Demonstrate performance benefits
     demonstratePerformanceBenefits()
-    
+
     // Stress test
     stressTest()
-    
+
     fmt.Println("\n=== Flyweight Pattern Demo Complete ===")
 }
 
@@ -1208,6 +1213,7 @@ func generateTransactionID() string {
 ### Variants
 
 1. **Thread-Safe Flyweight Factory**
+
 ```go
 type ThreadSafeFlyweightFactory struct {
     flyweights map[string]Flyweight
@@ -1221,15 +1227,15 @@ func (f *ThreadSafeFlyweightFactory) GetFlyweight(key string) Flyweight {
         return fw
     }
     f.mu.RUnlock()
-    
+
     f.mu.Lock()
     defer f.mu.Unlock()
-    
+
     // Double-check locking pattern
     if fw, exists := f.flyweights[key]; exists {
         return fw
     }
-    
+
     fw := f.createFlyweight(key)
     f.flyweights[key] = fw
     return fw
@@ -1237,6 +1243,7 @@ func (f *ThreadSafeFlyweightFactory) GetFlyweight(key string) Flyweight {
 ```
 
 2. **Lazy Initialization Flyweight**
+
 ```go
 type LazyFlyweight struct {
     key  string
@@ -1259,6 +1266,7 @@ func (lf *LazyFlyweight) loadData(key string) interface{} {
 ```
 
 3. **Pooled Flyweight Factory**
+
 ```go
 type PooledFlyweightFactory struct {
     pool     sync.Pool
@@ -1284,10 +1292,10 @@ func (f *PooledFlyweightFactory) GetFlyweight(key string) Flyweight {
         return fw
     }
     f.mu.RUnlock()
-    
+
     f.mu.Lock()
     defer f.mu.Unlock()
-    
+
     fw := f.pool.Get().(Flyweight)
     fw.Initialize(key)
     f.active[key] = fw
@@ -1297,7 +1305,7 @@ func (f *PooledFlyweightFactory) GetFlyweight(key string) Flyweight {
 func (f *PooledFlyweightFactory) ReleaseFlyweight(key string) {
     f.mu.Lock()
     defer f.mu.Unlock()
-    
+
     if fw, exists := f.active[key]; exists {
         delete(f.active, key)
         fw.Reset()
@@ -1309,6 +1317,7 @@ func (f *PooledFlyweightFactory) ReleaseFlyweight(key string) {
 ### Trade-offs
 
 **Pros:**
+
 - **Memory Efficiency**: Significant memory savings with many similar objects
 - **Performance**: Reduced object creation overhead
 - **Sharing**: Efficient sharing of common state
@@ -1316,6 +1325,7 @@ func (f *PooledFlyweightFactory) ReleaseFlyweight(key string) {
 - **Cache Friendly**: Better cache performance due to shared objects
 
 **Cons:**
+
 - **Complexity**: Added complexity in separating intrinsic/extrinsic state
 - **Thread Safety**: Concurrent access requires careful synchronization
 - **Context Overhead**: Extrinsic state must be passed around
@@ -1324,17 +1334,18 @@ func (f *PooledFlyweightFactory) ReleaseFlyweight(key string) {
 
 **When to Choose Flyweight vs Alternatives:**
 
-| Scenario | Pattern | Reason |
-|----------|---------|--------|
-| Many similar objects | Flyweight | Memory efficiency |
-| Unique objects | Regular objects | No sharing benefit |
-| Immutable shared data | Singleton | Global shared state |
-| Object pooling | Object Pool | Reuse expensive objects |
-| Caching | Cache pattern | Temporary storage |
+| Scenario              | Pattern         | Reason                  |
+| --------------------- | --------------- | ----------------------- |
+| Many similar objects  | Flyweight       | Memory efficiency       |
+| Unique objects        | Regular objects | No sharing benefit      |
+| Immutable shared data | Singleton       | Global shared state     |
+| Object pooling        | Object Pool     | Reuse expensive objects |
+| Caching               | Cache pattern   | Temporary storage       |
 
 ## Integration Tips
 
 ### 1. Factory Pattern Integration
+
 ```go
 type ConfigurableFlyweightFactory struct {
     factories map[string]FlyweightFactory
@@ -1351,7 +1362,7 @@ func (cff *ConfigurableFlyweightFactory) GetFactory(factoryType string) Flyweigh
     if factory, exists := cff.factories[factoryType]; exists {
         return factory
     }
-    
+
     return cff.createFactory(factoryType, cff.config)
 }
 
@@ -1368,6 +1379,7 @@ func (cff *ConfigurableFlyweightFactory) createFactory(factoryType string, confi
 ```
 
 ### 2. Observer Pattern Integration
+
 ```go
 type ObservableFlyweightFactory struct {
     flyweights map[string]Flyweight
@@ -1388,10 +1400,10 @@ func (off *ObservableFlyweightFactory) GetFlyweight(key string) Flyweight {
         return fw
     }
     off.mu.RUnlock()
-    
+
     off.mu.Lock()
     defer off.mu.Unlock()
-    
+
     fw := off.createFlyweight(key)
     off.flyweights[key] = fw
     off.notifyCreated(key, fw)
@@ -1406,6 +1418,7 @@ func (off *ObservableFlyweightFactory) notifyCreated(key string, fw Flyweight) {
 ```
 
 ### 3. Strategy Pattern Integration
+
 ```go
 type FlyweightCreationStrategy interface {
     CreateFlyweight(key string) Flyweight
@@ -1445,6 +1458,7 @@ func (sbf *StrategyBasedFactory) GetFlyweight(key string) Flyweight {
 ```
 
 ### 4. Decorator Pattern Integration
+
 ```go
 type FlyweightDecorator interface {
     Flyweight
@@ -1459,20 +1473,20 @@ type CachingFlyweightDecorator struct {
 
 func (cfd *CachingFlyweightDecorator) Operation(extrinsicState interface{}) interface{} {
     key := fmt.Sprintf("%v", extrinsicState)
-    
+
     cfd.mu.RLock()
     if result, exists := cfd.cache[key]; exists {
         cfd.mu.RUnlock()
         return result
     }
     cfd.mu.RUnlock()
-    
+
     result := cfd.flyweight.Operation(extrinsicState)
-    
+
     cfd.mu.Lock()
     cfd.cache[key] = result
     cfd.mu.Unlock()
-    
+
     return result
 }
 
@@ -1489,6 +1503,7 @@ func (cfd *CachingFlyweightDecorator) GetDecoratedFlyweight() Flyweight {
 Both patterns involve sharing, but they serve different purposes and have different scopes:
 
 **Flyweight:**
+
 ```go
 // Multiple flyweight instances, each representing different intrinsic state
 type CharacterFlyweight struct {
@@ -1504,7 +1519,7 @@ func (f *CharacterFactory) GetCharacter(symbol rune) *CharacterFlyweight {
     if char, exists := f.characters[symbol]; exists {
         return char
     }
-    
+
     char := &CharacterFlyweight{symbol: symbol}
     f.characters[symbol] = char
     return char
@@ -1516,6 +1531,7 @@ charB := factory.GetCharacter('B') // Different flyweight for 'B'
 ```
 
 **Singleton:**
+
 ```go
 // Single instance for entire application
 type DatabaseConnection struct {
@@ -1544,13 +1560,13 @@ conn2 := GetDatabaseConnection()
 
 **Key Differences:**
 
-| Aspect | Flyweight | Singleton |
-|--------|-----------|-----------|
-| **Instances** | Multiple (one per intrinsic state) | Single instance |
-| **Purpose** | Memory efficiency | Global access point |
-| **State** | Intrinsic (shared) + Extrinsic (context) | Global state |
-| **Factory** | Maps keys to instances | Returns same instance |
-| **Use Case** | Many similar objects | Global resource |
+| Aspect        | Flyweight                                | Singleton             |
+| ------------- | ---------------------------------------- | --------------------- |
+| **Instances** | Multiple (one per intrinsic state)       | Single instance       |
+| **Purpose**   | Memory efficiency                        | Global access point   |
+| **State**     | Intrinsic (shared) + Extrinsic (context) | Global state          |
+| **Factory**   | Maps keys to instances                   | Returns same instance |
+| **Use Case**  | Many similar objects                     | Global resource       |
 
 ### 2. **How do you handle thread safety in Flyweight factories?**
 
@@ -1558,6 +1574,7 @@ conn2 := GetDatabaseConnection()
 Thread safety in flyweight factories requires careful synchronization to prevent race conditions:
 
 **Double-Checked Locking Pattern:**
+
 ```go
 type ThreadSafeFlyweightFactory struct {
     flyweights map[string]Flyweight
@@ -1572,16 +1589,16 @@ func (f *ThreadSafeFlyweightFactory) GetFlyweight(key string) Flyweight {
         return fw
     }
     f.mu.RUnlock()
-    
+
     // Acquire write lock for creation
     f.mu.Lock()
     defer f.mu.Unlock()
-    
+
     // Double-check after acquiring write lock
     if fw, exists := f.flyweights[key]; exists {
         return fw
     }
-    
+
     // Create new flyweight
     fw := f.createFlyweight(key)
     f.flyweights[key] = fw
@@ -1590,6 +1607,7 @@ func (f *ThreadSafeFlyweightFactory) GetFlyweight(key string) Flyweight {
 ```
 
 **sync.Once for Lazy Initialization:**
+
 ```go
 type LazyFlyweight struct {
     key        string
@@ -1614,6 +1632,7 @@ func NewLazyFlyweight(key string, initFunc func(string) interface{}) *LazyFlywei
 ```
 
 **Concurrent Map with sync.Map:**
+
 ```go
 type ConcurrentFlyweightFactory struct {
     flyweights sync.Map // Built-in concurrent map
@@ -1623,22 +1642,23 @@ func (f *ConcurrentFlyweightFactory) GetFlyweight(key string) Flyweight {
     if fw, ok := f.flyweights.Load(key); ok {
         return fw.(Flyweight)
     }
-    
+
     // Create new flyweight
     newFW := f.createFlyweight(key)
-    
+
     // Store if not already exists
     actual, loaded := f.flyweights.LoadOrStore(key, newFW)
     if loaded {
         // Another goroutine created it first, discard our creation
         return actual.(Flyweight)
     }
-    
+
     return newFW
 }
 ```
 
 **Channel-Based Factory:**
+
 ```go
 type ChannelBasedFactory struct {
     requests  chan flyweightRequest
@@ -1653,7 +1673,7 @@ type flyweightRequest struct {
 
 func (f *ChannelBasedFactory) Start() {
     flyweights := make(map[string]Flyweight)
-    
+
     go func() {
         for req := range f.requests {
             if fw, exists := flyweights[req.key]; exists {
@@ -1669,12 +1689,12 @@ func (f *ChannelBasedFactory) Start() {
 
 func (f *ChannelBasedFactory) GetFlyweight(key string) Flyweight {
     response := make(chan Flyweight, 1)
-    
+
     f.requests <- flyweightRequest{
         key:      key,
         response: response,
     }
-    
+
     return <-response
 }
 ```
@@ -1685,6 +1705,7 @@ func (f *ChannelBasedFactory) GetFlyweight(key string) Flyweight {
 Memory optimization in flyweight pattern involves several strategies:
 
 **Efficient Intrinsic State Storage:**
+
 ```go
 // Optimize storage of intrinsic state
 type OptimizedCharacterFlyweight struct {
@@ -1712,6 +1733,7 @@ func (ocf *OptimizedCharacterFlyweight) GetCategory() string {
 ```
 
 **Weak References and Cleanup:**
+
 ```go
 type WeakReferenceFactory struct {
     flyweights map[string]*WeakReference
@@ -1728,26 +1750,26 @@ type WeakReference struct {
 func (wrf *WeakReferenceFactory) GetFlyweight(key string) Flyweight {
     wrf.mu.Lock()
     defer wrf.mu.Unlock()
-    
+
     if ref, exists := wrf.flyweights[key]; exists {
         ref.lastAccess = time.Now()
         atomic.AddInt64(&ref.accessCount, 1)
         return ref.flyweight
     }
-    
+
     fw := wrf.createFlyweight(key)
     wrf.flyweights[key] = &WeakReference{
         flyweight:   fw,
         lastAccess:  time.Now(),
         accessCount: 1,
     }
-    
+
     return fw
 }
 
 func (wrf *WeakReferenceFactory) startCleaner() {
     wrf.cleaner = time.NewTicker(5 * time.Minute)
-    
+
     go func() {
         for range wrf.cleaner.C {
             wrf.cleanup()
@@ -1758,9 +1780,9 @@ func (wrf *WeakReferenceFactory) startCleaner() {
 func (wrf *WeakReferenceFactory) cleanup() {
     wrf.mu.Lock()
     defer wrf.mu.Unlock()
-    
+
     cutoff := time.Now().Add(-10 * time.Minute)
-    
+
     for key, ref := range wrf.flyweights {
         if ref.lastAccess.Before(cutoff) && ref.accessCount < 10 {
             delete(wrf.flyweights, key)
@@ -1770,6 +1792,7 @@ func (wrf *WeakReferenceFactory) cleanup() {
 ```
 
 **Memory Pool Integration:**
+
 ```go
 type PooledFlyweightFactory struct {
     pool       sync.Pool
@@ -1797,26 +1820,26 @@ func (pff *PooledFlyweightFactory) GetFlyweight(key string) Flyweight {
         return fw
     }
     pff.mu.RUnlock()
-    
+
     pff.mu.Lock()
     defer pff.mu.Unlock()
-    
+
     if len(pff.active) >= pff.maxActive {
         // Remove least recently used
         pff.evictLRU()
     }
-    
+
     fw := pff.pool.Get().(Flyweight)
     fw.Initialize(key)
     pff.active[key] = fw
-    
+
     return fw
 }
 
 func (pff *PooledFlyweightFactory) ReleaseFlyweight(key string) {
     pff.mu.Lock()
     defer pff.mu.Unlock()
-    
+
     if fw, exists := pff.active[key]; exists {
         delete(pff.active, key)
         fw.Reset()
@@ -1826,6 +1849,7 @@ func (pff *PooledFlyweightFactory) ReleaseFlyweight(key string) {
 ```
 
 **Compression and Bit Packing:**
+
 ```go
 // Pack multiple boolean flags into a single byte
 type CompactFlyweight struct {
@@ -1863,52 +1887,55 @@ func (cf *CompactFlyweight) SetFlag(flag uint8, value bool) {
 Testing flyweight patterns requires verifying both functionality and memory efficiency:
 
 **Factory Sharing Test:**
+
 ```go
 func TestFlyweightSharing(t *testing.T) {
     factory := NewCharacterFactory()
-    
+
     // Get same character multiple times
     char1 := factory.GetCharacter('A')
     char2 := factory.GetCharacter('A')
     char3 := factory.GetCharacter('B')
-    
+
     // Verify flyweights are shared
     assert.Same(t, char1, char2, "Same character should return same flyweight instance")
     assert.NotSame(t, char1, char3, "Different characters should return different flyweight instances")
-    
+
     // Verify factory state
     assert.Equal(t, 2, factory.GetCreatedCharactersCount(), "Should have created exactly 2 flyweights")
 }
 ```
 
 **Memory Usage Test:**
+
 ```go
 func TestMemoryEfficiency(t *testing.T) {
     factory := NewCharacterFactory()
     document := NewDocument(factory)
-    
+
     // Add large amount of repeated text
     text := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     for i := 0; i < 1000; i++ {
         document.AddText(text, 10, i*15, "Arial", 12, "Black")
     }
-    
+
     // Should have created only 26 flyweights despite 26,000 characters
-    assert.Equal(t, 26, factory.GetCreatedCharactersCount(), 
+    assert.Equal(t, 26, factory.GetCreatedCharactersCount(),
         "Should only create flyweights for unique characters")
-    assert.Equal(t, 26000, document.GetCharacterCount(), 
+    assert.Equal(t, 26000, document.GetCharacterCount(),
         "Should have 26,000 character contexts")
 }
 ```
 
 **Thread Safety Test:**
+
 ```go
 func TestConcurrentAccess(t *testing.T) {
     factory := NewThreadSafeFlyweightFactory()
-    
+
     var wg sync.WaitGroup
     results := make([]Flyweight, 100)
-    
+
     // Access same flyweight concurrently
     for i := 0; i < 100; i++ {
         wg.Add(1)
@@ -1917,33 +1944,34 @@ func TestConcurrentAccess(t *testing.T) {
             results[index] = factory.GetFlyweight("test-key")
         }(i)
     }
-    
+
     wg.Wait()
-    
+
     // All results should be the same instance
     for i := 1; i < len(results); i++ {
-        assert.Same(t, results[0], results[i], 
+        assert.Same(t, results[0], results[i],
             "Concurrent access should return same flyweight instance")
     }
-    
+
     // Factory should have created only one instance
     assert.Equal(t, 1, factory.GetCreatedFlyweightsCount())
 }
 ```
 
 **Performance Benchmark:**
+
 ```go
 func BenchmarkFlyweightVsRegularObjects(b *testing.B) {
     b.Run("WithFlyweight", func(b *testing.B) {
         factory := NewCharacterFactory()
-        
+
         b.ResetTimer()
         for i := 0; i < b.N; i++ {
             char := factory.GetCharacter('A')
             char.Render(10, 10, "Arial", 12, "Black")
         }
     })
-    
+
     b.Run("WithoutFlyweight", func(b *testing.B) {
         b.ResetTimer()
         for i := 0; i < b.N; i++ {
@@ -1955,10 +1983,10 @@ func BenchmarkFlyweightVsRegularObjects(b *testing.B) {
 
 func BenchmarkMemoryUsage(b *testing.B) {
     factory := NewCharacterFactory()
-    
+
     b.ReportAllocs()
     b.ResetTimer()
-    
+
     for i := 0; i < b.N; i++ {
         // This should not allocate new flyweights after first iteration
         char := factory.GetCharacter('A')
@@ -1968,18 +1996,19 @@ func BenchmarkMemoryUsage(b *testing.B) {
 ```
 
 **Extrinsic State Test:**
+
 ```go
 func TestExtrinsicStateHandling(t *testing.T) {
     factory := NewCharacterFactory()
     char := factory.GetCharacter('A')
-    
+
     // Same flyweight should produce different results with different extrinsic state
     result1 := char.Render(10, 10, "Arial", 12, "Red")
     result2 := char.Render(20, 20, "Times", 16, "Blue")
-    
-    assert.NotEqual(t, result1, result2, 
+
+    assert.NotEqual(t, result1, result2,
         "Same flyweight with different extrinsic state should produce different results")
-    
+
     // Verify flyweight itself doesn't store extrinsic state
     assert.Equal(t, 'A', char.Symbol, "Flyweight should only contain intrinsic state")
 }
@@ -1991,6 +2020,7 @@ func TestExtrinsicStateHandling(t *testing.T) {
 Flyweight pattern should be avoided in certain scenarios where its costs outweigh benefits:
 
 **Small Number of Objects:**
+
 ```go
 // DON'T use flyweight for small collections
 type SmallConfigManager struct {
@@ -2004,6 +2034,7 @@ func (scm *SmallConfigManager) GetConfig(index int) *Config {
 ```
 
 **Unique State Dominant:**
+
 ```go
 // DON'T use flyweight when objects have mostly unique state
 type UserProfile struct {
@@ -2012,7 +2043,7 @@ type UserProfile struct {
     Name        string
     Email       string
     Preferences map[string]string
-    
+
     // Minimal intrinsic state
     AccountType string // Only this could be shared
 }
@@ -2030,13 +2061,14 @@ func NewUserProfile(userID, name, email, accountType string) *UserProfile {
 ```
 
 **Performance-Critical Code:**
+
 ```go
 // DON'T use flyweight in tight loops where lookup overhead matters
 func ProcessHighFrequencyData(data []DataPoint) {
     for _, point := range data {
         // Factory lookup in tight loop adds overhead
         // processor := factory.GetProcessor(point.Type) // Avoid this
-        
+
         // Direct processing is faster
         switch point.Type {
         case "TYPE_A":
@@ -2049,6 +2081,7 @@ func ProcessHighFrequencyData(data []DataPoint) {
 ```
 
 **Complex Thread Safety Requirements:**
+
 ```go
 // DON'T use flyweight when thread safety adds too much complexity
 type ComplexStatefulFlyweight struct {
@@ -2062,7 +2095,7 @@ type ComplexStatefulFlyweight struct {
 func (csf *ComplexStatefulFlyweight) Operation(extrinsicState interface{}) interface{} {
     csf.mu.Lock()
     defer csf.mu.Unlock()
-    
+
     // Complex synchronized operations
     // Better to use separate instances
     return nil
@@ -2071,16 +2104,17 @@ func (csf *ComplexStatefulFlyweight) Operation(extrinsicState interface{}) inter
 
 **Better Alternatives:**
 
-| Scenario | Alternative | Reason |
-|----------|-------------|--------|
-| Small object count | Regular objects | No memory pressure |
-| Mostly unique state | Value objects | No sharing benefit |
-| High-performance code | Direct implementation | Avoid lookup overhead |
-| Complex state management | Separate objects | Simpler design |
-| Temporary objects | Object pooling | Lifecycle management |
-| Immutable data | Caching | Different access pattern |
+| Scenario                 | Alternative           | Reason                   |
+| ------------------------ | --------------------- | ------------------------ |
+| Small object count       | Regular objects       | No memory pressure       |
+| Mostly unique state      | Value objects         | No sharing benefit       |
+| High-performance code    | Direct implementation | Avoid lookup overhead    |
+| Complex state management | Separate objects      | Simpler design           |
+| Temporary objects        | Object pooling        | Lifecycle management     |
+| Immutable data           | Caching               | Different access pattern |
 
 **Decision Framework:**
+
 ```go
 type FlyweightDecision struct {
     ObjectCount        int
@@ -2094,15 +2128,15 @@ func (fd *FlyweightDecision) ShouldUseFlyweight() bool {
     if fd.ObjectCount < 100 {
         return false // Too few objects
     }
-    
+
     if fd.SharedStateRatio < 0.3 {
         return false // Not enough shared state
     }
-    
+
     if fd.PerformanceNeeds == "high" && fd.ThreadSafetyNeeds {
         return false // Synchronization overhead too high
     }
-    
+
     return fd.MemoryConstraints || fd.ObjectCount > 10000
 }
 ```

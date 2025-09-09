@@ -193,7 +193,7 @@ func (m *CircuitBreakerManagerImpl) GetManagerStats() map[string]interface{} {
 
 	for _, circuitBreaker := range m.circuitBreakers {
 		stats := circuitBreaker.GetStats()
-		
+
 		switch stats.State {
 		case CircuitStateClosed:
 			closedBreakers++
@@ -210,18 +210,18 @@ func (m *CircuitBreakerManagerImpl) GetManagerStats() map[string]interface{} {
 	}
 
 	return map[string]interface{}{
-		"active":                m.active,
-		"created_at":            m.createdAt,
-		"updated_at":            m.updatedAt,
+		"active":                 m.active,
+		"created_at":             m.createdAt,
+		"updated_at":             m.updatedAt,
 		"circuit_breakers_count": len(m.circuitBreakers),
-		"closed_breakers":       closedBreakers,
-		"open_breakers":         openBreakers,
-		"half_open_breakers":    halfOpenBreakers,
-		"total_requests":        totalRequests,
-		"successful_requests":   successfulRequests,
-		"failed_requests":       failedRequests,
-		"rejected_requests":     rejectedRequests,
-		"circuit_breakers":      m.ListCircuitBreakers(),
+		"closed_breakers":        closedBreakers,
+		"open_breakers":          openBreakers,
+		"half_open_breakers":     halfOpenBreakers,
+		"total_requests":         totalRequests,
+		"successful_requests":    successfulRequests,
+		"failed_requests":        failedRequests,
+		"rejected_requests":      rejectedRequests,
+		"circuit_breakers":       m.ListCircuitBreakers(),
 	}
 }
 
@@ -345,9 +345,9 @@ func (e *CircuitBreakerExecutorImpl) GetExecutorStats() map[string]interface{} {
 	defer e.mutex.RUnlock()
 
 	return map[string]interface{}{
-		"active":      e.active,
-		"created_at":  e.createdAt,
-		"updated_at":  e.updatedAt,
+		"active":        e.active,
+		"created_at":    e.createdAt,
+		"updated_at":    e.updatedAt,
 		"manager_stats": e.manager.GetManagerStats(),
 	}
 }

@@ -19,11 +19,11 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
-	"github.com/razorpay/round1/codebase/saga/internal/saga"
+	"github.com/razorpay/round1/codebase/saga/configs"
 	"github.com/razorpay/round1/codebase/saga/internal/handlers"
 	"github.com/razorpay/round1/codebase/saga/internal/kafka"
+	"github.com/razorpay/round1/codebase/saga/internal/saga"
 	"github.com/razorpay/round1/codebase/saga/internal/websocket"
-	"github.com/razorpay/round1/codebase/saga/configs"
 )
 
 func main() {
@@ -63,22 +63,22 @@ func main() {
 
 	// Initialize Saga service
 	sagaConfig := &saga.ServiceConfig{
-		Name:                    config.Saga.Name,
-		Version:                 config.Saga.Version,
-		Description:             config.Saga.Description,
-		MaxSagas:                config.Saga.MaxSagas,
-		MaxSteps:                config.Saga.MaxSteps,
-		CleanupInterval:         config.Saga.CleanupInterval,
-		ValidationEnabled:       config.Saga.ValidationEnabled,
-		CachingEnabled:          config.Saga.CachingEnabled,
-		MonitoringEnabled:       config.Saga.MonitoringEnabled,
-		AuditingEnabled:         config.Saga.AuditingEnabled,
-		RetryEnabled:            config.Saga.RetryEnabled,
-		CompensationEnabled:     config.Saga.CompensationEnabled,
-		SupportedSagaTypes:      config.Saga.SupportedSagaTypes,
-		SupportedStepTypes:      config.Saga.SupportedStepTypes,
-		ValidationRules:         config.Saga.ValidationRules,
-		Metadata:                config.Saga.Metadata,
+		Name:                config.Saga.Name,
+		Version:             config.Saga.Version,
+		Description:         config.Saga.Description,
+		MaxSagas:            config.Saga.MaxSagas,
+		MaxSteps:            config.Saga.MaxSteps,
+		CleanupInterval:     config.Saga.CleanupInterval,
+		ValidationEnabled:   config.Saga.ValidationEnabled,
+		CachingEnabled:      config.Saga.CachingEnabled,
+		MonitoringEnabled:   config.Saga.MonitoringEnabled,
+		AuditingEnabled:     config.Saga.AuditingEnabled,
+		RetryEnabled:        config.Saga.RetryEnabled,
+		CompensationEnabled: config.Saga.CompensationEnabled,
+		SupportedSagaTypes:  config.Saga.SupportedSagaTypes,
+		SupportedStepTypes:  config.Saga.SupportedStepTypes,
+		ValidationRules:     config.Saga.ValidationRules,
+		Metadata:            config.Saga.Metadata,
 	}
 
 	sagaService := saga.NewSagaService(sagaConfig)

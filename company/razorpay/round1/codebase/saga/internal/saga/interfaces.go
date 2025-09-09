@@ -101,26 +101,26 @@ type StepExecutor interface {
 type SagaStatus string
 
 const (
-	SagaStatusPending    SagaStatus = "pending"
-	SagaStatusRunning    SagaStatus = "running"
-	SagaStatusCompleted  SagaStatus = "completed"
-	SagaStatusFailed     SagaStatus = "failed"
+	SagaStatusPending     SagaStatus = "pending"
+	SagaStatusRunning     SagaStatus = "running"
+	SagaStatusCompleted   SagaStatus = "completed"
+	SagaStatusFailed      SagaStatus = "failed"
 	SagaStatusCompensated SagaStatus = "compensated"
-	SagaStatusCancelled  SagaStatus = "cancelled"
-	SagaStatusPaused     SagaStatus = "paused"
+	SagaStatusCancelled   SagaStatus = "cancelled"
+	SagaStatusPaused      SagaStatus = "paused"
 )
 
 // StepStatus represents the status of a saga step
 type StepStatus string
 
 const (
-	StepStatusPending    StepStatus = "pending"
-	StepStatusRunning    StepStatus = "running"
-	StepStatusCompleted  StepStatus = "completed"
-	StepStatusFailed     StepStatus = "failed"
+	StepStatusPending     StepStatus = "pending"
+	StepStatusRunning     StepStatus = "running"
+	StepStatusCompleted   StepStatus = "completed"
+	StepStatusFailed      StepStatus = "failed"
 	StepStatusCompensated StepStatus = "compensated"
-	StepStatusSkipped    StepStatus = "skipped"
-	StepStatusCancelled  StepStatus = "cancelled"
+	StepStatusSkipped     StepStatus = "skipped"
+	StepStatusCancelled   StepStatus = "cancelled"
 )
 
 // SagaConfig holds configuration for a saga
@@ -154,36 +154,36 @@ type SagaStepConfig struct {
 
 // ServiceConfig holds configuration for the service
 type ServiceConfig struct {
-	Name                    string                 `json:"name" yaml:"name"`
-	Version                 string                 `json:"version" yaml:"version"`
-	Description             string                 `json:"description" yaml:"description"`
-	MaxSagas                int                    `json:"max_sagas" yaml:"max_sagas"`
-	MaxSteps                int                    `json:"max_steps" yaml:"max_steps"`
-	CleanupInterval         time.Duration          `json:"cleanup_interval" yaml:"cleanup_interval"`
-	ValidationEnabled       bool                   `json:"validation_enabled" yaml:"validation_enabled"`
-	CachingEnabled          bool                   `json:"caching_enabled" yaml:"caching_enabled"`
-	MonitoringEnabled       bool                   `json:"monitoring_enabled" yaml:"monitoring_enabled"`
-	AuditingEnabled         bool                   `json:"auditing_enabled" yaml:"auditing_enabled"`
-	RetryEnabled            bool                   `json:"retry_enabled" yaml:"retry_enabled"`
-	CompensationEnabled     bool                   `json:"compensation_enabled" yaml:"compensation_enabled"`
-	SupportedSagaTypes      []string               `json:"supported_saga_types" yaml:"supported_saga_types"`
-	SupportedStepTypes      []string               `json:"supported_step_types" yaml:"supported_step_types"`
-	ValidationRules         map[string]interface{} `json:"validation_rules" yaml:"validation_rules"`
-	Metadata                map[string]interface{} `json:"metadata" yaml:"metadata"`
+	Name                string                 `json:"name" yaml:"name"`
+	Version             string                 `json:"version" yaml:"version"`
+	Description         string                 `json:"description" yaml:"description"`
+	MaxSagas            int                    `json:"max_sagas" yaml:"max_sagas"`
+	MaxSteps            int                    `json:"max_steps" yaml:"max_steps"`
+	CleanupInterval     time.Duration          `json:"cleanup_interval" yaml:"cleanup_interval"`
+	ValidationEnabled   bool                   `json:"validation_enabled" yaml:"validation_enabled"`
+	CachingEnabled      bool                   `json:"caching_enabled" yaml:"caching_enabled"`
+	MonitoringEnabled   bool                   `json:"monitoring_enabled" yaml:"monitoring_enabled"`
+	AuditingEnabled     bool                   `json:"auditing_enabled" yaml:"auditing_enabled"`
+	RetryEnabled        bool                   `json:"retry_enabled" yaml:"retry_enabled"`
+	CompensationEnabled bool                   `json:"compensation_enabled" yaml:"compensation_enabled"`
+	SupportedSagaTypes  []string               `json:"supported_saga_types" yaml:"supported_saga_types"`
+	SupportedStepTypes  []string               `json:"supported_step_types" yaml:"supported_step_types"`
+	ValidationRules     map[string]interface{} `json:"validation_rules" yaml:"validation_rules"`
+	Metadata            map[string]interface{} `json:"metadata" yaml:"metadata"`
 }
 
 // SagaStats holds statistics for a saga
 type SagaStats struct {
-	SagaID        string                 `json:"saga_id" yaml:"saga_id"`
-	Status        SagaStatus             `json:"status" yaml:"status"`
-	Active        bool                   `json:"active" yaml:"active"`
-	CreatedAt     time.Time              `json:"created_at" yaml:"created_at"`
-	UpdatedAt     time.Time              `json:"updated_at" yaml:"updated_at"`
-	StepsCount    int                    `json:"steps_count" yaml:"steps_count"`
+	SagaID         string                 `json:"saga_id" yaml:"saga_id"`
+	Status         SagaStatus             `json:"status" yaml:"status"`
+	Active         bool                   `json:"active" yaml:"active"`
+	CreatedAt      time.Time              `json:"created_at" yaml:"created_at"`
+	UpdatedAt      time.Time              `json:"updated_at" yaml:"updated_at"`
+	StepsCount     int                    `json:"steps_count" yaml:"steps_count"`
 	CompletedSteps int                    `json:"completed_steps" yaml:"completed_steps"`
-	FailedSteps   int                    `json:"failed_steps" yaml:"failed_steps"`
-	RetryCount    int                    `json:"retry_count" yaml:"retry_count"`
-	Metadata      map[string]interface{} `json:"metadata" yaml:"metadata"`
+	FailedSteps    int                    `json:"failed_steps" yaml:"failed_steps"`
+	RetryCount     int                    `json:"retry_count" yaml:"retry_count"`
+	Metadata       map[string]interface{} `json:"metadata" yaml:"metadata"`
 }
 
 // StepStats holds statistics for a saga step

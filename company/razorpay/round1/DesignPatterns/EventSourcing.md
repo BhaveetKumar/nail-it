@@ -5,6 +5,7 @@
 **Event Sourcing** is an architectural pattern where state changes are stored as a sequence of events. Instead of storing current state, the system stores all events that led to the current state.
 
 **Key Intent:**
+
 - Store state changes as immutable events
 - Rebuild application state by replaying events
 - Provide complete audit trail of all changes
@@ -25,6 +26,7 @@
 7. **High Scalability**: Need to scale reads independently from writes
 
 **Don't use when:**
+
 - Simple CRUD applications
 - Low latency requirements for reads
 - Complex querying is primary use case
@@ -33,6 +35,7 @@
 ## Real-World Use Cases (Payments/Fintech)
 
 ### 1. Payment Transaction Event Sourcing
+
 ```go
 // Payment events
 type PaymentEvent interface {
@@ -157,7 +160,7 @@ type PaymentAggregate struct {
     CreatedAt     time.Time
     ProcessedAt   time.Time
     Version       int64
-    
+
     // Event sourcing specific
     uncommittedEvents []PaymentEvent
     eventHistory      []PaymentEvent
@@ -177,7 +180,7 @@ func (pa *PaymentAggregate) InitiatePayment(amount decimal.Decimal, currency, cu
     if pa.Status != "UNKNOWN" {
         return fmt.Errorf("payment already initiated")
     }
-    
+
     event := &PaymentInitiatedEvent{
         BasePaymentEvent: BasePaymentEvent{
             EventID:     generateEventID(),
@@ -193,10 +196,10 @@ func (pa *PaymentAggregate) InitiatePayment(amount decimal.Decimal, currency, cu
         PaymentMethod: paymentMethod,
         Description:   description,
     }
-    
+
     pa.applyEvent(event)
     pa.uncommittedEvents = append(pa.uncommittedEvents, event)
-    
+
     return nil
 }
 
@@ -204,7 +207,7 @@ func (pa *PaymentAggregate) ValidatePayment(validationType string, riskScore flo
     if pa.Status != "INITIATED" {
         return fmt.Errorf("payment not in initiated state")
     }
-    
+
     event := &PaymentValidatedEvent{
         BasePaymentEvent: BasePaymentEvent{
             EventID:     generateEventID(),
@@ -216,10 +219,10 @@ func (pa *PaymentAggregate) ValidatePayment(validationType string, riskScore flo
         ValidationType: validationType,
         RiskScore:      riskScore,
     }
-    
+
     pa.applyEvent(event)
     pa.uncommittedEvents = append(pa.uncommittedEvents, event)
-    
+
     return nil
 }
 
@@ -227,7 +230,7 @@ func (pa *PaymentAggregate) ProcessPayment(transactionID, gateway string, fee de
     if pa.Status != "VALIDATED" {
         return fmt.Errorf("payment not validated")
     }
-    
+
     event := &PaymentProcessedEvent{
         BasePaymentEvent: BasePaymentEvent{
             EventID:     generateEventID(),
@@ -241,10 +244,10 @@ func (pa *PaymentAggregate) ProcessPayment(transactionID, gateway string, fee de
         ProcessedAt:   time.Now(),
         Fee:           fee,
     }
-    
+
     pa.applyEvent(event)
     pa.uncommittedEvents = append(pa.uncommittedEvents, event)
-    
+
     return nil
 }
 
@@ -252,7 +255,7 @@ func (pa *PaymentAggregate) FailPayment(errorCode, errorMessage, failureType str
     if pa.Status == "PROCESSED" {
         return fmt.Errorf("cannot fail processed payment")
     }
-    
+
     event := &PaymentFailedEvent{
         BasePaymentEvent: BasePaymentEvent{
             EventID:     generateEventID(),
@@ -265,10 +268,10 @@ func (pa *PaymentAggregate) FailPayment(errorCode, errorMessage, failureType str
         ErrorMessage: errorMessage,
         FailureType:  failureType,
     }
-    
+
     pa.applyEvent(event)
     pa.uncommittedEvents = append(pa.uncommittedEvents, event)
-    
+
     return nil
 }
 
@@ -282,22 +285,22 @@ func (pa *PaymentAggregate) applyEvent(event PaymentEvent) {
         pa.PaymentMethod = e.PaymentMethod
         pa.Status = "INITIATED"
         pa.CreatedAt = e.Timestamp
-        
+
     case *PaymentValidatedEvent:
         pa.RiskScore = e.RiskScore
         pa.Status = "VALIDATED"
-        
+
     case *PaymentProcessedEvent:
         pa.TransactionID = e.TransactionID
         pa.Gateway = e.Gateway
         pa.ProcessedAt = e.ProcessedAt
         pa.Fee = e.Fee
         pa.Status = "PROCESSED"
-        
+
     case *PaymentFailedEvent:
         pa.Status = "FAILED"
     }
-    
+
     pa.Version = event.GetVersion()
     pa.eventHistory = append(pa.eventHistory, event)
 }
@@ -320,7 +323,7 @@ func (pa *PaymentAggregate) LoadFromHistory(events []PaymentEvent) {
 
 func (pa *PaymentAggregate) GetStateAtVersion(version int64) *PaymentAggregate {
     temp := NewPaymentAggregate(pa.ID)
-    
+
     for _, event := range pa.eventHistory {
         if event.GetVersion() <= version {
             temp.applyEvent(event)
@@ -328,7 +331,7 @@ func (pa *PaymentAggregate) GetStateAtVersion(version int64) *PaymentAggregate {
             break
         }
     }
-    
+
     return temp
 }
 
@@ -357,70 +360,70 @@ func NewInMemoryEventStore(logger *zap.Logger) *InMemoryEventStore {
 func (imes *InMemoryEventStore) SaveEvents(ctx context.Context, aggregateID string, events []PaymentEvent, expectedVersion int64) error {
     imes.mu.Lock()
     defer imes.mu.Unlock()
-    
+
     existingEvents := imes.events[aggregateID]
-    
+
     // Optimistic concurrency check
     currentVersion := int64(0)
     if len(existingEvents) > 0 {
         currentVersion = existingEvents[len(existingEvents)-1].GetVersion()
     }
-    
+
     if currentVersion != expectedVersion {
-        return fmt.Errorf("concurrency conflict: expected version %d, current version %d", 
+        return fmt.Errorf("concurrency conflict: expected version %d, current version %d",
             expectedVersion, currentVersion)
     }
-    
+
     // Append new events
     imes.events[aggregateID] = append(existingEvents, events...)
-    
-    imes.logger.Debug("Events saved", 
+
+    imes.logger.Debug("Events saved",
         zap.String("aggregate_id", aggregateID),
         zap.Int("event_count", len(events)),
         zap.Int64("new_version", events[len(events)-1].GetVersion()))
-    
+
     return nil
 }
 
 func (imes *InMemoryEventStore) GetEvents(ctx context.Context, aggregateID string) ([]PaymentEvent, error) {
     imes.mu.RLock()
     defer imes.mu.RUnlock()
-    
+
     events := imes.events[aggregateID]
     if events == nil {
         return make([]PaymentEvent, 0), nil
     }
-    
+
     // Return copy to prevent external modification
     result := make([]PaymentEvent, len(events))
     copy(result, events)
-    
+
     return result, nil
 }
 
 func (imes *InMemoryEventStore) GetEventsFromVersion(ctx context.Context, aggregateID string, fromVersion int64) ([]PaymentEvent, error) {
     imes.mu.RLock()
     defer imes.mu.RUnlock()
-    
+
     events := imes.events[aggregateID]
     if events == nil {
         return make([]PaymentEvent, 0), nil
     }
-    
+
     result := make([]PaymentEvent, 0)
     for _, event := range events {
         if event.GetVersion() >= fromVersion {
             result = append(result, event)
         }
     }
-    
+
     return result, nil
 }
 
 func (imes *InMemoryEventStore) GetAllEvents(ctx context.Context, fromTimestamp time.Time) ([]PaymentEvent, error) {
     imes.mu.RLock()
     defer imes.mu.RUnlock()
-    
+
     result := make([]PaymentEvent, 0)
     for _, events := range imes.events {
         for _, event := range events {
@@ -429,12 +432,12 @@ func (imes *InMemoryEventStore) GetAllEvents(ctx context.Context, fromTimestamp 
             }
         }
     }
-    
+
     // Sort by timestamp
     sort.Slice(result, func(i, j int) bool {
         return result[i].GetTimestamp().Before(result[j].GetTimestamp())
     })
-    
+
     return result, nil
 }
 
@@ -456,19 +459,19 @@ func (pr *PaymentRepository) Save(ctx context.Context, aggregate *PaymentAggrega
     if len(uncommittedEvents) == 0 {
         return nil
     }
-    
+
     expectedVersion := aggregate.Version - int64(len(uncommittedEvents))
-    
+
     if err := pr.eventStore.SaveEvents(ctx, aggregate.ID, uncommittedEvents, expectedVersion); err != nil {
         return fmt.Errorf("failed to save events: %w", err)
     }
-    
+
     aggregate.MarkEventsAsCommitted()
-    
-    pr.logger.Debug("Payment aggregate saved", 
+
+    pr.logger.Debug("Payment aggregate saved",
         zap.String("aggregate_id", aggregate.ID),
         zap.Int("events_saved", len(uncommittedEvents)))
-    
+
     return nil
 }
 
@@ -477,19 +480,19 @@ func (pr *PaymentRepository) GetByID(ctx context.Context, id string) (*PaymentAg
     if err != nil {
         return nil, fmt.Errorf("failed to get events: %w", err)
     }
-    
+
     if len(events) == 0 {
         return nil, fmt.Errorf("payment aggregate not found: %s", id)
     }
-    
+
     aggregate := NewPaymentAggregate(id)
     aggregate.LoadFromHistory(events)
-    
-    pr.logger.Debug("Payment aggregate loaded", 
+
+    pr.logger.Debug("Payment aggregate loaded",
         zap.String("aggregate_id", id),
         zap.Int("events_loaded", len(events)),
         zap.Int64("version", aggregate.Version))
-    
+
     return aggregate, nil
 }
 
@@ -498,7 +501,7 @@ func (pr *PaymentRepository) GetAtVersion(ctx context.Context, id string, versio
     if err != nil {
         return nil, err
     }
-    
+
     return aggregate.GetStateAtVersion(version), nil
 }
 
@@ -566,7 +569,7 @@ func (pph *PaymentProjectionHandler) handlePaymentInitiated(ctx context.Context,
         CreatedAt:     event.Timestamp,
         LastUpdated:   event.Timestamp,
     }
-    
+
     return pph.projectionStore.Save(ctx, projection)
 }
 
@@ -575,11 +578,11 @@ func (pph *PaymentProjectionHandler) handlePaymentValidated(ctx context.Context,
     if err != nil {
         return err
     }
-    
+
     projection.Status = "VALIDATED"
     projection.RiskScore = event.RiskScore
     projection.LastUpdated = event.Timestamp
-    
+
     return pph.projectionStore.Save(ctx, projection)
 }
 
@@ -588,14 +591,14 @@ func (pph *PaymentProjectionHandler) handlePaymentProcessed(ctx context.Context,
     if err != nil {
         return err
     }
-    
+
     projection.Status = "PROCESSED"
     projection.TransactionID = event.TransactionID
     projection.Gateway = event.Gateway
     projection.Fee = event.Fee
     projection.ProcessedAt = event.ProcessedAt
     projection.LastUpdated = event.Timestamp
-    
+
     return pph.projectionStore.Save(ctx, projection)
 }
 
@@ -604,10 +607,10 @@ func (pph *PaymentProjectionHandler) handlePaymentFailed(ctx context.Context, ev
     if err != nil {
         return err
     }
-    
+
     projection.Status = "FAILED"
     projection.LastUpdated = event.Timestamp
-    
+
     return pph.projectionStore.Save(ctx, projection)
 }
 
@@ -702,7 +705,7 @@ type Account struct {
     OpenedAt          time.Time
     LastTransactionAt time.Time
     IsActive          bool
-    
+
     events []AccountEvent
     logger *zap.Logger
 }
@@ -723,7 +726,7 @@ func (a *Account) OpenAccount(initialBalance decimal.Decimal) error {
     if a.IsActive {
         return fmt.Errorf("account already opened")
     }
-    
+
     event := &AccountOpenedEvent{
         EventID:        generateEventID(),
         AccountID:      a.ID,
@@ -731,10 +734,10 @@ func (a *Account) OpenAccount(initialBalance decimal.Decimal) error {
         InitialBalance: initialBalance,
         Timestamp:      time.Now(),
     }
-    
+
     a.applyEvent(event)
     a.events = append(a.events, event)
-    
+
     return nil
 }
 
@@ -742,11 +745,11 @@ func (a *Account) Deposit(amount decimal.Decimal, reference string) error {
     if !a.IsActive {
         return fmt.Errorf("account not active")
     }
-    
+
     if amount.LessThanOrEqual(decimal.Zero) {
         return fmt.Errorf("deposit amount must be positive")
     }
-    
+
     event := &MoneyDepositedEvent{
         EventID:   generateEventID(),
         AccountID: a.ID,
@@ -754,10 +757,10 @@ func (a *Account) Deposit(amount decimal.Decimal, reference string) error {
         Timestamp: time.Now(),
         Reference: reference,
     }
-    
+
     a.applyEvent(event)
     a.events = append(a.events, event)
-    
+
     return nil
 }
 
@@ -765,16 +768,16 @@ func (a *Account) Withdraw(amount decimal.Decimal, reference string) error {
     if !a.IsActive {
         return fmt.Errorf("account not active")
     }
-    
+
     if amount.LessThanOrEqual(decimal.Zero) {
         return fmt.Errorf("withdrawal amount must be positive")
     }
-    
+
     if a.Balance.LessThan(amount) {
-        return fmt.Errorf("insufficient funds: balance %s, requested %s", 
+        return fmt.Errorf("insufficient funds: balance %s, requested %s",
             a.Balance.String(), amount.String())
     }
-    
+
     event := &MoneyWithdrawnEvent{
         EventID:   generateEventID(),
         AccountID: a.ID,
@@ -782,10 +785,10 @@ func (a *Account) Withdraw(amount decimal.Decimal, reference string) error {
         Timestamp: time.Now(),
         Reference: reference,
     }
-    
+
     a.applyEvent(event)
     a.events = append(a.events, event)
-    
+
     return nil
 }
 
@@ -797,17 +800,17 @@ func (a *Account) applyEvent(event AccountEvent) {
         a.OpenedAt = e.Timestamp
         a.LastTransactionAt = e.Timestamp
         a.IsActive = true
-        
+
     case *MoneyDepositedEvent:
         a.Balance = a.Balance.Add(e.Amount)
         a.LastTransactionAt = e.Timestamp
-        
+
     case *MoneyWithdrawnEvent:
         a.Balance = a.Balance.Sub(e.Amount)
         a.LastTransactionAt = e.Timestamp
     }
-    
-    a.logger.Debug("Event applied", 
+
+    a.logger.Debug("Event applied",
         zap.String("account_id", a.ID),
         zap.String("event_type", event.GetEventType()),
         zap.String("new_balance", a.Balance.String()))
@@ -846,18 +849,18 @@ func (ses *SimpleEventStore) SaveEvents(ctx context.Context, accountID string, e
     if len(events) == 0 {
         return nil
     }
-    
+
     existingEvents := ses.events[accountID]
     if existingEvents == nil {
         existingEvents = make([]AccountEvent, 0)
     }
-    
+
     ses.events[accountID] = append(existingEvents, events...)
-    
-    ses.logger.Info("Events saved", 
+
+    ses.logger.Info("Events saved",
         zap.String("account_id", accountID),
         zap.Int("event_count", len(events)))
-    
+
     return nil
 }
 
@@ -866,11 +869,11 @@ func (ses *SimpleEventStore) GetEvents(ctx context.Context, accountID string) ([
     if events == nil {
         return make([]AccountEvent, 0), nil
     }
-    
+
     // Return copy
     result := make([]AccountEvent, len(events))
     copy(result, events)
-    
+
     return result, nil
 }
 
@@ -892,17 +895,17 @@ func (ar *AccountRepository) Save(ctx context.Context, account *Account) error {
     if len(uncommittedEvents) == 0 {
         return nil
     }
-    
+
     if err := ar.eventStore.SaveEvents(ctx, account.ID, uncommittedEvents); err != nil {
         return fmt.Errorf("failed to save events: %w", err)
     }
-    
+
     account.MarkEventsAsCommitted()
-    
-    ar.logger.Debug("Account saved", 
+
+    ar.logger.Debug("Account saved",
         zap.String("account_id", account.ID),
         zap.Int("events_saved", len(uncommittedEvents)))
-    
+
     return nil
 }
 
@@ -911,118 +914,118 @@ func (ar *AccountRepository) GetByID(ctx context.Context, accountID, customerID 
     if err != nil {
         return nil, fmt.Errorf("failed to get events: %w", err)
     }
-    
+
     account := NewAccount(accountID, customerID, ar.logger)
     account.LoadFromHistory(events)
-    
-    ar.logger.Debug("Account loaded", 
+
+    ar.logger.Debug("Account loaded",
         zap.String("account_id", accountID),
         zap.Int("events_loaded", len(events)))
-    
+
     return account, nil
 }
 
 // Example usage
 func main() {
     fmt.Println("=== Event Sourcing Pattern Demo ===\n")
-    
+
     // Create logger
     logger, _ := zap.NewDevelopment()
     defer logger.Sync()
-    
+
     // Create event store and repository
     eventStore := NewSimpleEventStore(logger)
     accountRepo := NewAccountRepository(eventStore, logger)
-    
+
     ctx := context.Background()
-    
+
     // Example 1: Create and operate on account
     fmt.Println("=== Account Operations ===")
-    
+
     account := NewAccount("acc_001", "customer_123", logger)
-    
+
     // Open account with initial deposit
     if err := account.OpenAccount(decimal.NewFromInt(1000)); err != nil {
         fmt.Printf("Failed to open account: %v\n", err)
         return
     }
-    
+
     fmt.Printf("Account opened with balance: $%s\n", account.Balance.String())
-    
+
     // Make some transactions
     err := account.Deposit(decimal.NewFromInt(500), "salary_deposit")
     if err != nil {
         fmt.Printf("Deposit failed: %v\n", err)
         return
     }
-    
+
     fmt.Printf("After deposit: $%s\n", account.Balance.String())
-    
+
     err = account.Withdraw(decimal.NewFromInt(200), "atm_withdrawal")
     if err != nil {
         fmt.Printf("Withdrawal failed: %v\n", err)
         return
     }
-    
+
     fmt.Printf("After withdrawal: $%s\n", account.Balance.String())
-    
+
     // Save account (persist events)
     if err := accountRepo.Save(ctx, account); err != nil {
         fmt.Printf("Failed to save account: %v\n", err)
         return
     }
-    
+
     fmt.Printf("Account saved with %d events\n", len(account.GetUncommittedEvents()))
-    
+
     // Example 2: Load account from events
     fmt.Println("\n=== Loading Account from Events ===")
-    
+
     loadedAccount, err := accountRepo.GetByID(ctx, "acc_001", "customer_123")
     if err != nil {
         fmt.Printf("Failed to load account: %v\n", err)
         return
     }
-    
+
     fmt.Printf("Loaded account balance: $%s\n", loadedAccount.Balance.String())
     fmt.Printf("Account opened at: %s\n", loadedAccount.OpenedAt.Format("2006-01-02 15:04:05"))
     fmt.Printf("Last transaction at: %s\n", loadedAccount.LastTransactionAt.Format("2006-01-02 15:04:05"))
     fmt.Printf("Account active: %t\n", loadedAccount.IsActive)
-    
+
     // Example 3: Show event history
     fmt.Println("\n=== Event History ===")
-    
+
     events, err := eventStore.GetEvents(ctx, "acc_001")
     if err != nil {
         fmt.Printf("Failed to get events: %v\n", err)
         return
     }
-    
+
     fmt.Printf("Total events: %d\n", len(events))
-    
+
     for i, event := range events {
-        fmt.Printf("%d. %s at %s - Amount: $%s\n", 
+        fmt.Printf("%d. %s at %s - Amount: $%s\n",
             i+1,
             event.GetEventType(),
             event.GetTimestamp().Format("15:04:05"),
             event.GetAmount().String())
     }
-    
+
     // Example 4: Demonstrate event replay for different time points
     fmt.Println("\n=== Event Replay ===")
-    
+
     replayAccount := NewAccount("acc_001", "customer_123", logger)
-    
+
     // Replay only first two events
     if len(events) >= 2 {
         replayAccount.LoadFromHistory(events[:2])
         fmt.Printf("Balance after first 2 events: $%s\n", replayAccount.Balance.String())
     }
-    
+
     // Replay all events
     replayAccount = NewAccount("acc_001", "customer_123", logger)
     replayAccount.LoadFromHistory(events)
     fmt.Printf("Balance after all events: $%s\n", replayAccount.Balance.String())
-    
+
     // Example 5: Show benefits of event sourcing
     fmt.Println("\n=== Event Sourcing Benefits ===")
     fmt.Printf("1. Complete audit trail: %d events recorded\n", len(events))
@@ -1030,23 +1033,23 @@ func main() {
     fmt.Printf("3. Temporal queries: Can analyze account behavior over time\n")
     fmt.Printf("4. Event replay: Can replay events for testing or analysis\n")
     fmt.Printf("5. Immutable history: Events cannot be changed, only new events added\n")
-    
+
     // Example 6: Demonstrate error handling
     fmt.Println("\n=== Error Handling ===")
-    
+
     // Try to withdraw more than balance
     err = loadedAccount.Withdraw(decimal.NewFromInt(2000), "large_withdrawal")
     if err != nil {
         fmt.Printf("Expected error: %v\n", err)
     }
-    
+
     // Try to operate on unopened account
     newAccount := NewAccount("acc_002", "customer_456", logger)
     err = newAccount.Deposit(decimal.NewFromInt(100), "test_deposit")
     if err != nil {
         fmt.Printf("Expected error: %v\n", err)
     }
-    
+
     fmt.Println("\n=== Event Sourcing Pattern Demo Complete ===")
 }
 
@@ -1060,6 +1063,7 @@ func generateEventID() string {
 ### Variants
 
 1. **CQRS Integration**
+
 ```go
 type CommandHandler interface {
     Handle(ctx context.Context, command interface{}) error
@@ -1085,6 +1089,7 @@ func (pch *PaymentCommandHandler) Handle(ctx context.Context, command interface{
 ```
 
 2. **Snapshots**
+
 ```go
 type Snapshot struct {
     AggregateID   string
@@ -1101,22 +1106,22 @@ type SnapshotStore interface {
 
 func (pr *PaymentRepository) GetByIDWithSnapshot(ctx context.Context, id string) (*PaymentAggregate, error) {
     snapshot, _ := pr.snapshotStore.GetSnapshot(ctx, id)
-    
+
     var fromVersion int64 = 0
     var aggregate *PaymentAggregate
-    
+
     if snapshot != nil {
         aggregate = snapshot.Data.(*PaymentAggregate)
         fromVersion = snapshot.Version + 1
     } else {
         aggregate = NewPaymentAggregate(id)
     }
-    
+
     events, err := pr.eventStore.GetEventsFromVersion(ctx, id, fromVersion)
     if err != nil {
         return nil, err
     }
-    
+
     aggregate.LoadFromHistory(events)
     return aggregate, nil
 }
@@ -1125,6 +1130,7 @@ func (pr *PaymentRepository) GetByIDWithSnapshot(ctx context.Context, id string)
 ### Trade-offs
 
 **Pros:**
+
 - **Complete Audit Trail**: Every change is recorded as an event
 - **Temporal Queries**: Can query state at any point in time
 - **Scalability**: Reads and writes can be scaled independently
@@ -1132,6 +1138,7 @@ func (pr *PaymentRepository) GetByIDWithSnapshot(ctx context.Context, id string)
 - **Integration**: Natural fit for event-driven architectures
 
 **Cons:**
+
 - **Complexity**: Adds significant complexity to the system
 - **Performance**: Read operations require event replay
 - **Storage**: Events accumulate over time
@@ -1141,6 +1148,7 @@ func (pr *PaymentRepository) GetByIDWithSnapshot(ctx context.Context, id string)
 ## Integration Tips
 
 ### 1. **Saga Pattern Integration**
+
 ```go
 type PaymentSaga struct {
     events []PaymentEvent
@@ -1149,7 +1157,7 @@ type PaymentSaga struct {
 
 func (ps *PaymentSaga) Handle(event PaymentEvent) error {
     ps.events = append(ps.events, event)
-    
+
     switch event.GetEventType() {
     case "PaymentInitiated":
         return ps.validatePayment(event)
@@ -1161,6 +1169,7 @@ func (ps *PaymentSaga) Handle(event PaymentEvent) error {
 ```
 
 ### 2. **Message Bus Integration**
+
 ```go
 type EventPublisher interface {
     Publish(ctx context.Context, event PaymentEvent) error
@@ -1168,18 +1177,18 @@ type EventPublisher interface {
 
 func (pr *PaymentRepository) Save(ctx context.Context, aggregate *PaymentAggregate) error {
     events := aggregate.GetUncommittedEvents()
-    
+
     if err := pr.eventStore.SaveEvents(ctx, aggregate.ID, events, aggregate.Version); err != nil {
         return err
     }
-    
+
     // Publish events to message bus
     for _, event := range events {
         if err := pr.publisher.Publish(ctx, event); err != nil {
             pr.logger.Error("Failed to publish event", zap.Error(err))
         }
     }
-    
+
     aggregate.MarkEventsAsCommitted()
     return nil
 }
@@ -1190,12 +1199,14 @@ func (pr *PaymentRepository) Save(ctx context.Context, aggregate *PaymentAggrega
 ### 1. **How does Event Sourcing differ from traditional CRUD?**
 
 **Traditional CRUD:**
+
 - Stores current state only
 - Updates modify existing data
 - No history of changes
 - Simple querying
 
 **Event Sourcing:**
+
 - Stores all events leading to current state
 - Appends events, never updates
 - Complete history preserved
@@ -1204,6 +1215,7 @@ func (pr *PaymentRepository) Save(ctx context.Context, aggregate *PaymentAggrega
 ### 2. **How do you handle schema evolution in Event Sourcing?**
 
 **Versioned Events:**
+
 ```go
 type PaymentEventV2 struct {
     Version int `json:"version"`
@@ -1221,6 +1233,7 @@ func (pe *PaymentEventV2) Migrate() PaymentEvent {
 ### 3. **When should you use snapshots?**
 
 Use snapshots when:
+
 - Event replay becomes slow
 - Large number of events per aggregate
 - Complex event application logic
@@ -1229,6 +1242,7 @@ Use snapshots when:
 ### 4. **How do you query Event Sourced data?**
 
 **Projections/Read Models:**
+
 ```go
 type PaymentReadModel struct {
     ID       string
@@ -1259,6 +1273,7 @@ func (pp *PaymentProjector) Project(event PaymentEvent) error {
 ### 5. **How do you handle eventual consistency?**
 
 **Strategies:**
+
 - Use read models that may lag behind events
 - Implement compensating actions for failures
 - Design UX to handle eventual consistency

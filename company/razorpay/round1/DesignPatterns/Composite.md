@@ -5,6 +5,7 @@
 **Composite** is a structural design pattern that lets you compose objects into tree structures and then work with these structures as if they were individual objects. It allows clients to treat individual objects and compositions of objects uniformly.
 
 **Key Intent:**
+
 - Compose objects into tree structures to represent part-whole hierarchies
 - Let clients treat individual objects and compositions uniformly
 - Make it easier to add new kinds of components
@@ -24,6 +25,7 @@
 7. **Mathematical Expressions**: Building expression trees
 
 **Don't use when:**
+
 - Object structure is not hierarchical
 - You need type safety and want to distinguish between leaves and composites
 - The hierarchy is very simple and doesn't justify the pattern complexity
@@ -32,6 +34,7 @@
 ## Real-World Use Cases (Payments/Fintech)
 
 ### 1. Financial Portfolio Management
+
 ```go
 // Portfolio components that can contain other components
 type PortfolioComponent interface {
@@ -79,12 +82,12 @@ func (m *MutualFund) GetRisk() float64 {
     // Weighted average risk of holdings
     totalValue := m.GetValue()
     weightedRisk := 0.0
-    
+
     for _, holding := range m.Holdings {
         weight := holding.GetValue().Div(totalValue).InexactFloat64()
         weightedRisk += weight * holding.GetRisk()
     }
-    
+
     return weightedRisk
 }
 
@@ -110,6 +113,7 @@ func (p *Portfolio) AddComponent(component PortfolioComponent) error {
 ```
 
 ### 2. Organizational Chart System
+
 ```go
 // Organizational unit that can contain other units
 type OrganizationalUnit interface {
@@ -159,11 +163,11 @@ func (d *Department) GetEmployeeCount() int {
     if d.Manager != nil {
         count = 1
     }
-    
+
     for _, unit := range d.SubUnits {
         count += unit.GetEmployeeCount()
     }
-    
+
     return count
 }
 
@@ -179,16 +183,17 @@ func (c *Company) GetBudget() decimal.Decimal {
     if c.CEO != nil {
         total = total.Add(c.CEO.GetBudget())
     }
-    
+
     for _, dept := range c.Departments {
         total = total.Add(dept.GetBudget())
     }
-    
+
     return total
 }
 ```
 
 ### 3. Transaction Processing Hierarchy
+
 ```go
 // Transaction component that can be simple or composite
 type TransactionComponent interface {
@@ -269,23 +274,24 @@ func (s *SplitPayment) Process() error {
     for _, split := range s.Splits {
         splitTotal = splitTotal.Add(split.GetAmount())
     }
-    
+
     if !splitTotal.Equal(s.TotalAmount) {
         return fmt.Errorf("split amounts don't match total: %v vs %v", splitTotal, s.TotalAmount)
     }
-    
+
     // Process all splits
     for _, split := range s.Splits {
         if err := split.Process(); err != nil {
             return fmt.Errorf("split payment failed: %w", err)
         }
     }
-    
+
     return nil
 }
 ```
 
 ### 4. Risk Management Hierarchy
+
 ```go
 // Risk component that can be individual or composite
 type RiskComponent interface {
@@ -334,14 +340,14 @@ type PortfolioRisk struct {
 func (p *PortfolioRisk) CalculateRisk() float64 {
     // Portfolio risk with correlation adjustments
     totalRisk := 0.0
-    
+
     for i, risk1 := range p.Risks {
         for j, risk2 := range p.Risks {
             if i <= j {
                 risk1Value := risk1.CalculateRisk()
                 risk2Value := risk2.CalculateRisk()
                 correlation := p.getCorrelation(risk1.GetRiskType(), risk2.GetRiskType())
-                
+
                 if i == j {
                     totalRisk += risk1Value * risk1Value
                 } else {
@@ -350,7 +356,7 @@ func (p *PortfolioRisk) CalculateRisk() float64 {
             }
         }
     }
-    
+
     return math.Sqrt(totalRisk)
 }
 ```
@@ -372,7 +378,7 @@ type FinancialComponent interface {
     GetName() string
     GetType() string
     Display(indent int) string
-    
+
     // Composite-specific methods
     Add(component FinancialComponent) error
     Remove(component FinancialComponent) error
@@ -526,11 +532,11 @@ func (p *Portfolio) Display(indent int) string {
     indentStr := strings.Repeat("  ", indent)
     result := fmt.Sprintf("%s📁 %s (Total: %s %s)",
         indentStr, p.Name, p.GetValue(), p.Currency)
-    
+
     for _, component := range p.Components {
         result += "\n" + component.Display(indent+1)
     }
-    
+
     return result
 }
 
@@ -538,7 +544,7 @@ func (p *Portfolio) Add(component FinancialComponent) error {
     if component == nil {
         return fmt.Errorf("cannot add nil component")
     }
-    
+
     p.Components = append(p.Components, component)
     return nil
 }
@@ -590,10 +596,10 @@ func NewMutualFund(name, fundCode string, expenseRatio, nav, unitsHeld decimal.D
 func (m *MutualFund) GetValue() decimal.Decimal {
     // Value based on NAV and units held
     grossValue := m.NAV.Mul(m.UnitsHeld)
-    
+
     // Subtract expense ratio (simplified calculation)
     expenses := grossValue.Mul(m.ExpenseRatio).Div(decimal.NewFromInt(100))
-    
+
     return grossValue.Sub(expenses)
 }
 
@@ -609,14 +615,14 @@ func (m *MutualFund) Display(indent int) string {
     indentStr := strings.Repeat("  ", indent)
     result := fmt.Sprintf("%s🏦 %s: %s units @ %s %s = %s %s (Expense Ratio: %s%%)",
         indentStr, m.GetName(), m.UnitsHeld, m.NAV, m.Currency, m.GetValue(), m.Currency, m.ExpenseRatio)
-    
+
     if len(m.Holdings) > 0 {
         result += "\n" + indentStr + "  Holdings:"
         for _, holding := range m.Holdings {
             result += "\n" + holding.Display(indent+2)
         }
     }
-    
+
     return result
 }
 
@@ -624,7 +630,7 @@ func (m *MutualFund) Add(component FinancialComponent) error {
     if component == nil {
         return fmt.Errorf("cannot add nil component")
     }
-    
+
     m.Holdings = append(m.Holdings, component)
     return nil
 }
@@ -656,16 +662,16 @@ type PortfolioAnalyzer struct{}
 func (pa *PortfolioAnalyzer) CalculateAllocation(portfolio FinancialComponent) map[string]decimal.Decimal {
     allocation := make(map[string]decimal.Decimal)
     totalValue := portfolio.GetValue()
-    
+
     pa.calculateAllocationRecursive(portfolio, allocation, totalValue)
-    
+
     return allocation
 }
 
 func (pa *PortfolioAnalyzer) calculateAllocationRecursive(component FinancialComponent, allocation map[string]decimal.Decimal, totalValue decimal.Decimal) {
     componentType := component.GetType()
     componentValue := component.GetValue()
-    
+
     if componentType == "Stock" || componentType == "Bond" {
         // Leaf component
         if existing, exists := allocation[componentType]; exists {
@@ -708,7 +714,7 @@ func (pa *PortfolioAnalyzer) CountComponents(component FinancialComponent) map[s
 func (pa *PortfolioAnalyzer) countComponentsRecursive(component FinancialComponent, counts map[string]int) {
     componentType := component.GetType()
     counts[componentType]++
-    
+
     children := component.GetChildren()
     for _, child := range children {
         pa.countComponentsRecursive(child, counts)
@@ -744,16 +750,16 @@ func (r *RiskCalculatorVisitor) VisitStock(stock *Stock) error {
     if !exists {
         volatility = decimal.NewFromFloat(0.15) // Default 15% volatility
     }
-    
+
     stockRisk := stock.GetValue().Mul(volatility)
     r.TotalRisk = r.TotalRisk.Add(stockRisk)
-    
+
     if existing, exists := r.RiskByType["Stock"]; exists {
         r.RiskByType["Stock"] = existing.Add(stockRisk)
     } else {
         r.RiskByType["Stock"] = stockRisk
     }
-    
+
     return nil
 }
 
@@ -761,13 +767,13 @@ func (r *RiskCalculatorVisitor) VisitBond(bond *Bond) error {
     // Bonds have lower risk - simplified calculation
     bondRisk := bond.GetValue().Mul(decimal.NewFromFloat(0.05)) // 5% risk
     r.TotalRisk = r.TotalRisk.Add(bondRisk)
-    
+
     if existing, exists := r.RiskByType["Bond"]; exists {
         r.RiskByType["Bond"] = existing.Add(bondRisk)
     } else {
         r.RiskByType["Bond"] = bondRisk
     }
-    
+
     return nil
 }
 
@@ -785,20 +791,20 @@ func (r *RiskCalculatorVisitor) VisitMutualFund(fund *MutualFund) error {
     // Mutual fund risk based on expense ratio and holdings
     fundRisk := fund.GetValue().Mul(fund.ExpenseRatio.Div(decimal.NewFromInt(100)))
     r.TotalRisk = r.TotalRisk.Add(fundRisk)
-    
+
     if existing, exists := r.RiskByType["MutualFund"]; exists {
         r.RiskByType["MutualFund"] = existing.Add(fundRisk)
     } else {
         r.RiskByType["MutualFund"] = fundRisk
     }
-    
+
     // Visit holdings
     for _, holding := range fund.GetChildren() {
         if err := r.visitComponent(holding); err != nil {
             return err
         }
     }
-    
+
     return nil
 }
 
@@ -820,49 +826,49 @@ func (r *RiskCalculatorVisitor) visitComponent(component FinancialComponent) err
 // Example usage
 func main() {
     fmt.Println("=== Composite Pattern Demo ===\n")
-    
+
     // Create individual stocks (leaves)
     appleStock := NewStock("AAPL", "Apple Inc.", 100, decimal.NewFromFloat(150.00), "USD")
     googleStock := NewStock("GOOGL", "Alphabet Inc.", 50, decimal.NewFromFloat(2500.00), "USD")
     teslaStock := NewStock("TSLA", "Tesla Inc.", 75, decimal.NewFromFloat(800.00), "USD")
-    
+
     // Create bonds (leaves)
     usTreasury := NewBond("US912810RZ35", "US Treasury", decimal.NewFromFloat(1000), decimal.NewFromFloat(2.5), decimal.NewFromFloat(980), "USD")
     corpBond := NewBond("XS1234567890", "Apple Corp Bond", decimal.NewFromFloat(1000), decimal.NewFromFloat(3.5), decimal.NewFromFloat(1020), "USD")
-    
+
     // Create tech portfolio (composite)
     techPortfolio := NewPortfolio("Tech Stocks", "USD")
     techPortfolio.Add(appleStock)
     techPortfolio.Add(googleStock)
     techPortfolio.Add(teslaStock)
-    
+
     // Create bond portfolio (composite)
     bondPortfolio := NewPortfolio("Fixed Income", "USD")
     bondPortfolio.Add(usTreasury)
     bondPortfolio.Add(corpBond)
-    
+
     // Create mutual fund (composite)
     mutualFund := NewMutualFund("Vanguard S&P 500", "VFINX", decimal.NewFromFloat(0.14), decimal.NewFromFloat(350.00), decimal.NewFromFloat(100), "USD")
     mutualFund.Add(appleStock)
     mutualFund.Add(googleStock)
-    
+
     // Create main portfolio (composite of composites)
     mainPortfolio := NewPortfolio("My Investment Portfolio", "USD")
     mainPortfolio.Add(techPortfolio)
     mainPortfolio.Add(bondPortfolio)
     mainPortfolio.Add(mutualFund)
-    
+
     // Display the entire portfolio structure
     fmt.Println("Portfolio Structure:")
     fmt.Println(mainPortfolio.Display(0))
-    
+
     fmt.Printf("\nTotal Portfolio Value: %s USD\n", mainPortfolio.GetValue())
-    
+
     // Portfolio analysis
     fmt.Println("\n=== Portfolio Analysis ===")
-    
+
     analyzer := &PortfolioAnalyzer{}
-    
+
     // Asset allocation
     allocation := analyzer.CalculateAllocation(mainPortfolio)
     fmt.Println("\nAsset Allocation:")
@@ -870,31 +876,31 @@ func main() {
         percentage := value.Div(mainPortfolio.GetValue()).Mul(decimal.NewFromInt(100))
         fmt.Printf("  %s: %s USD (%.2f%%)\n", assetType, value, percentage.InexactFloat64())
     }
-    
+
     // Component counts
     counts := analyzer.CountComponents(mainPortfolio)
     fmt.Println("\nComponent Counts:")
     for componentType, count := range counts {
         fmt.Printf("  %s: %d\n", componentType, count)
     }
-    
+
     // All stocks in portfolio
     allStocks := analyzer.GetAllStocks(mainPortfolio)
     fmt.Printf("\nAll Stocks in Portfolio (%d total):\n", len(allStocks))
     for _, stock := range allStocks {
         fmt.Printf("  %s: %s USD\n", stock.GetName(), stock.GetValue())
     }
-    
+
     // Risk analysis using visitor pattern
     fmt.Println("\n=== Risk Analysis ===")
-    
+
     riskCalculator := NewRiskCalculatorVisitor()
-    
+
     // Set some volatility data
     riskCalculator.VolatilityMap["AAPL"] = decimal.NewFromFloat(0.20) // 20%
     riskCalculator.VolatilityMap["GOOGL"] = decimal.NewFromFloat(0.25) // 25%
     riskCalculator.VolatilityMap["TSLA"] = decimal.NewFromFloat(0.40) // 40%
-    
+
     err := riskCalculator.visitComponent(mainPortfolio)
     if err != nil {
         fmt.Printf("Risk calculation error: %v\n", err)
@@ -905,19 +911,19 @@ func main() {
             fmt.Printf("  %s Risk: %s USD\n", assetType, risk)
         }
     }
-    
+
     // Test composite operations
     fmt.Println("\n=== Composite Operations ===")
-    
+
     // Add a new stock to tech portfolio
     microsoftStock := NewStock("MSFT", "Microsoft Corp.", 60, decimal.NewFromFloat(300.00), "USD")
     techPortfolio.Add(microsoftStock)
     fmt.Printf("Added Microsoft stock. Tech portfolio value: %s USD\n", techPortfolio.GetValue())
-    
+
     // Remove a stock from tech portfolio
     techPortfolio.Remove(teslaStock)
     fmt.Printf("Removed Tesla stock. Tech portfolio value: %s USD\n", techPortfolio.GetValue())
-    
+
     // Access child components
     child, err := techPortfolio.GetChild(0)
     if err != nil {
@@ -925,9 +931,9 @@ func main() {
     } else {
         fmt.Printf("First child in tech portfolio: %s (Value: %s USD)\n", child.GetName(), child.GetValue())
     }
-    
+
     fmt.Printf("\nFinal Portfolio Value: %s USD\n", mainPortfolio.GetValue())
-    
+
     fmt.Println("\n=== Composite Pattern Demo Complete ===")
 }
 ```
@@ -937,6 +943,7 @@ func main() {
 ### Variants
 
 1. **Strict Composite (Type Safety)**
+
 ```go
 type Component interface {
     Operation() string
@@ -972,6 +979,7 @@ func (c *Composite) Add(component Component) {
 ```
 
 2. **Safe Composite (Interface Segregation)**
+
 ```go
 type Component interface {
     Operation() string
@@ -990,6 +998,7 @@ type SafeComposite interface {
 ```
 
 3. **Cached Composite**
+
 ```go
 type CachedComposite struct {
     children    []Component
@@ -1020,6 +1029,7 @@ func (c *CachedComposite) Add(component Component) {
 ```
 
 4. **Iterator Integration**
+
 ```go
 type IterableComposite struct {
     *Composite
@@ -1051,6 +1061,7 @@ func (ci *ComponentIterator) Next() Component {
 ### Trade-offs
 
 **Pros:**
+
 - **Uniform Treatment**: Clients can treat simple and complex objects uniformly
 - **Easy Extension**: Easy to add new component types
 - **Recursive Composition**: Natural support for tree structures
@@ -1058,6 +1069,7 @@ func (ci *ComponentIterator) Next() Component {
 - **Simplified Client Code**: Clients don't need to distinguish between leaf and composite
 
 **Cons:**
+
 - **Type Safety**: May sacrifice type safety for uniformity
 - **Design Constraint**: Can make the design overly general
 - **Component Interface**: Interface may become too broad
@@ -1066,13 +1078,13 @@ func (ci *ComponentIterator) Next() Component {
 
 **When to Choose Composite vs Alternatives:**
 
-| Scenario | Pattern | Reason |
-|----------|---------|--------|
-| Tree structures | Composite | Natural fit for hierarchies |
-| Simple collections | List/Array | Less overhead |
-| Different behaviors | Strategy | Different algorithms |
-| Chain of responsibility | Chain of Responsibility | Sequential processing |
-| Observer pattern | Observer | Event notification |
+| Scenario                | Pattern                 | Reason                      |
+| ----------------------- | ----------------------- | --------------------------- |
+| Tree structures         | Composite               | Natural fit for hierarchies |
+| Simple collections      | List/Array              | Less overhead               |
+| Different behaviors     | Strategy                | Different algorithms        |
+| Chain of responsibility | Chain of Responsibility | Sequential processing       |
+| Observer pattern        | Observer                | Event notification          |
 
 ## Testable Example
 
@@ -1088,21 +1100,21 @@ import (
 
 func TestStock_BasicOperations(t *testing.T) {
     stock := NewStock("AAPL", "Apple Inc.", 100, decimal.NewFromFloat(150.00), "USD")
-    
+
     assert.Equal(t, "Apple Inc. (AAPL)", stock.GetName())
     assert.Equal(t, "Stock", stock.GetType())
     assert.Equal(t, decimal.NewFromFloat(15000.00), stock.GetValue()) // 100 * 150
     assert.Nil(t, stock.GetChildren())
-    
+
     // Test that leaf operations return errors
     err := stock.Add(nil)
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "cannot add components to a stock")
-    
+
     err = stock.Remove(nil)
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "cannot remove components from a stock")
-    
+
     _, err = stock.GetChild(0)
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "stock has no children")
@@ -1110,19 +1122,19 @@ func TestStock_BasicOperations(t *testing.T) {
 
 func TestBond_BasicOperations(t *testing.T) {
     bond := NewBond("US912810RZ35", "US Treasury", decimal.NewFromFloat(1000), decimal.NewFromFloat(2.5), decimal.NewFromFloat(980), "USD")
-    
+
     assert.Equal(t, "US Treasury (US912810RZ35)", bond.GetName())
     assert.Equal(t, "Bond", bond.GetType())
     assert.Equal(t, decimal.NewFromFloat(980.00), bond.GetValue())
     assert.Nil(t, bond.GetChildren())
-    
+
     // Test that leaf operations return errors
     err := bond.Add(nil)
     assert.Error(t, err)
-    
+
     err = bond.Remove(nil)
     assert.Error(t, err)
-    
+
     _, err = bond.GetChild(0)
     assert.Error(t, err)
 }
@@ -1131,30 +1143,30 @@ func TestPortfolio_AddRemoveOperations(t *testing.T) {
     portfolio := NewPortfolio("Test Portfolio", "USD")
     stock1 := NewStock("AAPL", "Apple Inc.", 100, decimal.NewFromFloat(150.00), "USD")
     stock2 := NewStock("GOOGL", "Alphabet Inc.", 50, decimal.NewFromFloat(2500.00), "USD")
-    
+
     // Test adding components
     err := portfolio.Add(stock1)
     assert.NoError(t, err)
     assert.Len(t, portfolio.GetChildren(), 1)
-    
+
     err = portfolio.Add(stock2)
     assert.NoError(t, err)
     assert.Len(t, portfolio.GetChildren(), 2)
-    
+
     // Test portfolio value calculation
     expectedValue := decimal.NewFromFloat(15000.00).Add(decimal.NewFromFloat(125000.00)) // 15k + 125k
     assert.Equal(t, expectedValue, portfolio.GetValue())
-    
+
     // Test removing components
     err = portfolio.Remove(stock1)
     assert.NoError(t, err)
     assert.Len(t, portfolio.GetChildren(), 1)
-    
+
     // Test removing non-existent component
     err = portfolio.Remove(stock1)
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "component not found")
-    
+
     // Test adding nil component
     err = portfolio.Add(nil)
     assert.Error(t, err)
@@ -1165,28 +1177,28 @@ func TestPortfolio_ChildAccess(t *testing.T) {
     portfolio := NewPortfolio("Test Portfolio", "USD")
     stock1 := NewStock("AAPL", "Apple Inc.", 100, decimal.NewFromFloat(150.00), "USD")
     stock2 := NewStock("GOOGL", "Alphabet Inc.", 50, decimal.NewFromFloat(2500.00), "USD")
-    
+
     portfolio.Add(stock1)
     portfolio.Add(stock2)
-    
+
     // Test valid child access
     child, err := portfolio.GetChild(0)
     assert.NoError(t, err)
     assert.Equal(t, stock1, child)
-    
+
     child, err = portfolio.GetChild(1)
     assert.NoError(t, err)
     assert.Equal(t, stock2, child)
-    
+
     // Test invalid child access
     _, err = portfolio.GetChild(2)
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "index out of range")
-    
+
     _, err = portfolio.GetChild(-1)
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "index out of range")
-    
+
     // Test GetChildren
     children := portfolio.GetChildren()
     assert.Len(t, children, 2)
@@ -1196,23 +1208,23 @@ func TestPortfolio_ChildAccess(t *testing.T) {
 
 func TestMutualFund_Operations(t *testing.T) {
     fund := NewMutualFund("Test Fund", "TFUND", decimal.NewFromFloat(0.5), decimal.NewFromFloat(100.00), decimal.NewFromFloat(50), "USD")
-    
+
     assert.Equal(t, "Test Fund (TFUND)", fund.GetName())
     assert.Equal(t, "MutualFund", fund.GetType())
-    
+
     // Test value calculation with expense ratio
     // Gross value: 100 * 50 = 5000
     // Expenses: 5000 * 0.5% = 25
     // Net value: 5000 - 25 = 4975
     expectedValue := decimal.NewFromFloat(4975.00)
     assert.Equal(t, expectedValue, fund.GetValue())
-    
+
     // Test adding holdings
     stock := NewStock("AAPL", "Apple Inc.", 100, decimal.NewFromFloat(150.00), "USD")
     err := fund.Add(stock)
     assert.NoError(t, err)
     assert.Len(t, fund.GetChildren(), 1)
-    
+
     // Test removing holdings
     err = fund.Remove(stock)
     assert.NoError(t, err)
@@ -1222,29 +1234,29 @@ func TestMutualFund_Operations(t *testing.T) {
 func TestCompositeHierarchy(t *testing.T) {
     // Create a complex hierarchy: Portfolio -> MutualFund -> Stocks
     mainPortfolio := NewPortfolio("Main Portfolio", "USD")
-    
+
     // Create mutual fund with holdings
     fund := NewMutualFund("Tech Fund", "TECH", decimal.NewFromFloat(1.0), decimal.NewFromFloat(200.00), decimal.NewFromFloat(25), "USD")
     stock1 := NewStock("AAPL", "Apple Inc.", 100, decimal.NewFromFloat(150.00), "USD")
     stock2 := NewStock("GOOGL", "Alphabet Inc.", 50, decimal.NewFromFloat(2500.00), "USD")
-    
+
     fund.Add(stock1)
     fund.Add(stock2)
-    
+
     // Add fund to main portfolio
     mainPortfolio.Add(fund)
-    
+
     // Add direct stock to main portfolio
     directStock := NewStock("MSFT", "Microsoft Corp.", 75, decimal.NewFromFloat(300.00), "USD")
     mainPortfolio.Add(directStock)
-    
+
     // Test hierarchy value calculation
     fundValue := decimal.NewFromFloat(4950.00) // (200 * 25) - (5000 * 1%) = 5000 - 50 = 4950
     directStockValue := decimal.NewFromFloat(22500.00) // 75 * 300
     expectedTotal := fundValue.Add(directStockValue)
-    
+
     assert.Equal(t, expectedTotal, mainPortfolio.GetValue())
-    
+
     // Test hierarchy structure
     assert.Len(t, mainPortfolio.GetChildren(), 2)
     assert.Len(t, fund.GetChildren(), 2)
@@ -1253,16 +1265,16 @@ func TestCompositeHierarchy(t *testing.T) {
 
 func TestPortfolioAnalyzer_CalculateAllocation(t *testing.T) {
     analyzer := &PortfolioAnalyzer{}
-    
+
     portfolio := NewPortfolio("Test Portfolio", "USD")
     stock := NewStock("AAPL", "Apple Inc.", 100, decimal.NewFromFloat(150.00), "USD")
     bond := NewBond("US912810RZ35", "US Treasury", decimal.NewFromFloat(1000), decimal.NewFromFloat(2.5), decimal.NewFromFloat(1000), "USD")
-    
+
     portfolio.Add(stock)
     portfolio.Add(bond)
-    
+
     allocation := analyzer.CalculateAllocation(portfolio)
-    
+
     assert.Len(t, allocation, 2)
     assert.Equal(t, decimal.NewFromFloat(15000.00), allocation["Stock"])
     assert.Equal(t, decimal.NewFromFloat(1000.00), allocation["Bond"])
@@ -1270,22 +1282,22 @@ func TestPortfolioAnalyzer_CalculateAllocation(t *testing.T) {
 
 func TestPortfolioAnalyzer_GetAllStocks(t *testing.T) {
     analyzer := &PortfolioAnalyzer{}
-    
+
     portfolio := NewPortfolio("Test Portfolio", "USD")
     stock1 := NewStock("AAPL", "Apple Inc.", 100, decimal.NewFromFloat(150.00), "USD")
     stock2 := NewStock("GOOGL", "Alphabet Inc.", 50, decimal.NewFromFloat(2500.00), "USD")
     bond := NewBond("US912810RZ35", "US Treasury", decimal.NewFromFloat(1000), decimal.NewFromFloat(2.5), decimal.NewFromFloat(1000), "USD")
-    
+
     // Create nested structure
     subPortfolio := NewPortfolio("Sub Portfolio", "USD")
     subPortfolio.Add(stock2)
-    
+
     portfolio.Add(stock1)
     portfolio.Add(bond)
     portfolio.Add(subPortfolio)
-    
+
     stocks := analyzer.GetAllStocks(portfolio)
-    
+
     assert.Len(t, stocks, 2)
     assert.Contains(t, stocks, stock1)
     assert.Contains(t, stocks, stock2)
@@ -1293,18 +1305,18 @@ func TestPortfolioAnalyzer_GetAllStocks(t *testing.T) {
 
 func TestPortfolioAnalyzer_CountComponents(t *testing.T) {
     analyzer := &PortfolioAnalyzer{}
-    
+
     portfolio := NewPortfolio("Test Portfolio", "USD")
     stock := NewStock("AAPL", "Apple Inc.", 100, decimal.NewFromFloat(150.00), "USD")
     bond := NewBond("US912810RZ35", "US Treasury", decimal.NewFromFloat(1000), decimal.NewFromFloat(2.5), decimal.NewFromFloat(1000), "USD")
     fund := NewMutualFund("Test Fund", "TFUND", decimal.NewFromFloat(0.5), decimal.NewFromFloat(100.00), decimal.NewFromFloat(50), "USD")
-    
+
     portfolio.Add(stock)
     portfolio.Add(bond)
     portfolio.Add(fund)
-    
+
     counts := analyzer.CountComponents(portfolio)
-    
+
     assert.Equal(t, 1, counts["Portfolio"])
     assert.Equal(t, 1, counts["Stock"])
     assert.Equal(t, 1, counts["Bond"])
@@ -1314,26 +1326,26 @@ func TestPortfolioAnalyzer_CountComponents(t *testing.T) {
 func TestRiskCalculatorVisitor(t *testing.T) {
     calculator := NewRiskCalculatorVisitor()
     calculator.VolatilityMap["AAPL"] = decimal.NewFromFloat(0.20)
-    
+
     portfolio := NewPortfolio("Test Portfolio", "USD")
     stock := NewStock("AAPL", "Apple Inc.", 100, decimal.NewFromFloat(150.00), "USD") // Value: 15000
     bond := NewBond("US912810RZ35", "US Treasury", decimal.NewFromFloat(1000), decimal.NewFromFloat(2.5), decimal.NewFromFloat(1000), "USD") // Value: 1000
-    
+
     portfolio.Add(stock)
     portfolio.Add(bond)
-    
+
     err := calculator.visitComponent(portfolio)
     assert.NoError(t, err)
-    
+
     // Expected risks:
     // Stock: 15000 * 0.20 = 3000
     // Bond: 1000 * 0.05 = 50
     // Total: 3050
-    
+
     expectedStockRisk := decimal.NewFromFloat(3000.00)
     expectedBondRisk := decimal.NewFromFloat(50.00)
     expectedTotalRisk := decimal.NewFromFloat(3050.00)
-    
+
     assert.Equal(t, expectedTotalRisk, calculator.TotalRisk)
     assert.Equal(t, expectedStockRisk, calculator.RiskByType["Stock"])
     assert.Equal(t, expectedBondRisk, calculator.RiskByType["Bond"])
@@ -1343,9 +1355,9 @@ func TestPortfolioDisplay(t *testing.T) {
     portfolio := NewPortfolio("Test Portfolio", "USD")
     stock := NewStock("AAPL", "Apple Inc.", 100, decimal.NewFromFloat(150.00), "USD")
     portfolio.Add(stock)
-    
+
     display := portfolio.Display(0)
-    
+
     assert.Contains(t, display, "Test Portfolio")
     assert.Contains(t, display, "15000")
     assert.Contains(t, display, "Apple Inc.")
@@ -1355,15 +1367,15 @@ func TestPortfolioDisplay(t *testing.T) {
 
 func BenchmarkPortfolioValueCalculation(b *testing.B) {
     portfolio := NewPortfolio("Benchmark Portfolio", "USD")
-    
+
     // Add 1000 stocks to portfolio
     for i := 0; i < 1000; i++ {
         stock := NewStock(fmt.Sprintf("STOCK%d", i), fmt.Sprintf("Company %d", i), 100, decimal.NewFromFloat(150.00), "USD")
         portfolio.Add(stock)
     }
-    
+
     b.ResetTimer()
-    
+
     for i := 0; i < b.N; i++ {
         portfolio.GetValue()
     }
@@ -1371,9 +1383,9 @@ func BenchmarkPortfolioValueCalculation(b *testing.B) {
 
 func BenchmarkPortfolioAnalyzer_GetAllStocks(b *testing.B) {
     analyzer := &PortfolioAnalyzer{}
-    
+
     portfolio := NewPortfolio("Benchmark Portfolio", "USD")
-    
+
     // Create nested structure with 100 stocks
     for i := 0; i < 100; i++ {
         subPortfolio := NewPortfolio(fmt.Sprintf("Sub Portfolio %d", i), "USD")
@@ -1381,9 +1393,9 @@ func BenchmarkPortfolioAnalyzer_GetAllStocks(b *testing.B) {
         subPortfolio.Add(stock)
         portfolio.Add(subPortfolio)
     }
-    
+
     b.ResetTimer()
-    
+
     for i := 0; i < b.N; i++ {
         analyzer.GetAllStocks(portfolio)
     }
@@ -1393,6 +1405,7 @@ func BenchmarkPortfolioAnalyzer_GetAllStocks(b *testing.B) {
 ## Integration Tips
 
 ### 1. Persistence Integration
+
 ```go
 type PersistableComponent interface {
     FinancialComponent
@@ -1422,6 +1435,7 @@ func (p *PersistablePortfolio) Load(id string) error {
 ```
 
 ### 2. Observer Integration
+
 ```go
 type ObservableComponent interface {
     FinancialComponent
@@ -1449,6 +1463,7 @@ func (o *ObservablePortfolio) Add(component FinancialComponent) error {
 ```
 
 ### 3. Strategy Integration
+
 ```go
 type ValueCalculationStrategy interface {
     CalculateValue(component FinancialComponent) decimal.Decimal
@@ -1478,6 +1493,7 @@ func (s *StrategicPortfolio) GetValue() decimal.Decimal {
 ```
 
 ### 4. Factory Integration
+
 ```go
 type ComponentFactory interface {
     CreateStock(symbol, name string, shares int64, price decimal.Decimal) FinancialComponent
@@ -1526,7 +1542,7 @@ type Component interface {
 func ProcessComponent(comp Component) {
     result := comp.Operation() // Works for both leaf and composite
     fmt.Println(result)
-    
+
     // Optional: Handle composites
     if children := comp.GetChildren(); children != nil {
         for _, child := range children {
@@ -1544,6 +1560,7 @@ ProcessComponent(composite) // Also works
 ```
 
 **Benefits:**
+
 - **Client Simplicity**: Clients don't need to distinguish between types
 - **Polymorphism**: Same operations work on different object types
 - **Recursive Operations**: Natural support for tree traversal
@@ -1555,6 +1572,7 @@ ProcessComponent(composite) // Also works
 There are several approaches to handle operations that don't apply to leaves:
 
 **Approach 1: Return Error for Inappropriate Operations**
+
 ```go
 type Stock struct {
     // ... fields
@@ -1574,6 +1592,7 @@ func (s *Stock) GetChild(index int) (Component, error) {
 ```
 
 **Approach 2: Default Implementation (No-op)**
+
 ```go
 type Stock struct {
     // ... fields
@@ -1590,6 +1609,7 @@ func (s *Stock) GetChildren() []Component {
 ```
 
 **Approach 3: Interface Segregation**
+
 ```go
 type Component interface {
     Operation() string
@@ -1620,13 +1640,14 @@ func AddToComposite(comp Component, child Component) error {
 Implement various traversal strategies based on needs:
 
 **1. Depth-First Traversal (Recursive)**
+
 ```go
 func (p *Portfolio) TraverseDepthFirst(visitor func(Component) error) error {
     // Visit current node
     if err := visitor(p); err != nil {
         return err
     }
-    
+
     // Visit children
     for _, child := range p.GetChildren() {
         if composite, ok := child.(interface{ TraverseDepthFirst(func(Component) error) error }); ok {
@@ -1639,35 +1660,37 @@ func (p *Portfolio) TraverseDepthFirst(visitor func(Component) error) error {
             }
         }
     }
-    
+
     return nil
 }
 ```
 
 **2. Breadth-First Traversal (Iterative)**
+
 ```go
 func (p *Portfolio) TraverseBreadthFirst(visitor func(Component) error) error {
     queue := []Component{p}
-    
+
     for len(queue) > 0 {
         current := queue[0]
         queue = queue[1:]
-        
+
         if err := visitor(current); err != nil {
             return err
         }
-        
+
         // Add children to queue
         if children := current.GetChildren(); children != nil {
             queue = append(queue, children...)
         }
     }
-    
+
     return nil
 }
 ```
 
 **3. Iterator Pattern Integration**
+
 ```go
 type ComponentIterator interface {
     HasNext() bool
@@ -1686,17 +1709,17 @@ func (d *DepthFirstIterator) Next() Component {
     if !d.HasNext() {
         return nil
     }
-    
+
     current := d.stack[len(d.stack)-1]
     d.stack = d.stack[:len(d.stack)-1]
-    
+
     // Add children to stack (reverse order for DFS)
     if children := current.GetChildren(); children != nil {
         for i := len(children) - 1; i >= 0; i-- {
             d.stack = append(d.stack, children[i])
         }
     }
-    
+
     return current
 }
 
@@ -1708,6 +1731,7 @@ func (p *Portfolio) Iterator() ComponentIterator {
 ```
 
 **4. Visitor Pattern for Complex Operations**
+
 ```go
 type ComponentVisitor interface {
     VisitStock(stock *Stock) error
@@ -1719,13 +1743,13 @@ func (p *Portfolio) Accept(visitor ComponentVisitor) error {
     if err := visitor.VisitPortfolio(p); err != nil {
         return err
     }
-    
+
     for _, child := range p.GetChildren() {
         if err := child.Accept(visitor); err != nil {
             return err
         }
     }
-    
+
     return nil
 }
 ```
@@ -1736,17 +1760,18 @@ func (p *Portfolio) Accept(visitor ComponentVisitor) error {
 Prevent and detect cycles using several strategies:
 
 **1. Cycle Detection during Addition**
+
 ```go
 func (p *Portfolio) Add(component FinancialComponent) error {
     if component == nil {
         return fmt.Errorf("cannot add nil component")
     }
-    
+
     // Check for cycles
     if p.createsCycle(component) {
         return fmt.Errorf("adding component would create a cycle")
     }
-    
+
     p.Components = append(p.Components, component)
     return nil
 }
@@ -1761,13 +1786,13 @@ func (p *Portfolio) hasCycle(component FinancialComponent, visited map[Financial
     if component == p {
         return true // Found cycle
     }
-    
+
     if visited[component] {
         return false // Already visited, no cycle through this path
     }
-    
+
     visited[component] = true
-    
+
     children := component.GetChildren()
     if children != nil {
         for _, child := range children {
@@ -1776,12 +1801,13 @@ func (p *Portfolio) hasCycle(component FinancialComponent, visited map[Financial
             }
         }
     }
-    
+
     return false
 }
 ```
 
 **2. Parent References**
+
 ```go
 type ComponentWithParent interface {
     FinancialComponent
@@ -1799,16 +1825,16 @@ func (s *SafePortfolio) Add(component FinancialComponent) error {
     if s.isAncestor(component) {
         return fmt.Errorf("cannot add ancestor as child - would create cycle")
     }
-    
+
     if err := s.Portfolio.Add(component); err != nil {
         return err
     }
-    
+
     // Set parent reference
     if parentAware, ok := component.(ComponentWithParent); ok {
         parentAware.SetParent(s)
     }
-    
+
     return nil
 }
 
@@ -1829,6 +1855,7 @@ func (s *SafePortfolio) isAncestor(component FinancialComponent) bool {
 ```
 
 **3. Immutable Structure Approach**
+
 ```go
 type ImmutablePortfolio struct {
     name       string
@@ -1841,7 +1868,7 @@ func (i *ImmutablePortfolio) WithComponent(component FinancialComponent) (*Immut
     newComponents := make([]FinancialComponent, len(i.components)+1)
     copy(newComponents, i.components)
     newComponents[len(i.components)] = component
-    
+
     return &ImmutablePortfolio{
         name:       i.name,
         components: newComponents,
@@ -1856,6 +1883,7 @@ func (i *ImmutablePortfolio) WithComponent(component FinancialComponent) (*Immut
 Implement caching at different levels:
 
 **1. Cached Value Calculation**
+
 ```go
 type CachedPortfolio struct {
     *Portfolio
@@ -1868,13 +1896,13 @@ func (c *CachedPortfolio) GetValue() decimal.Decimal {
     if c.cacheValid && c.cachedValue != nil {
         return *c.cachedValue
     }
-    
+
     // Recalculate value
     value := c.Portfolio.GetValue()
     c.cachedValue = &value
     c.cacheValid = true
     c.lastModified = time.Now()
-    
+
     return value
 }
 
@@ -1901,6 +1929,7 @@ func (c *CachedPortfolio) invalidateCache() {
 ```
 
 **2. Hierarchical Cache Invalidation**
+
 ```go
 type CacheInvalidator interface {
     InvalidateCache()
@@ -1913,7 +1942,7 @@ type HierarchicalCachedPortfolio struct {
 
 func (h *HierarchicalCachedPortfolio) invalidateCache() {
     h.CachedPortfolio.invalidateCache()
-    
+
     // Propagate invalidation up the hierarchy
     if h.parent != nil {
         h.parent.InvalidateCache()
@@ -1933,6 +1962,7 @@ func (h *HierarchicalCachedPortfolio) Add(component FinancialComponent) error {
 ```
 
 **3. Time-based Cache Expiration**
+
 ```go
 type TimedCachedPortfolio struct {
     *Portfolio
@@ -1943,16 +1973,16 @@ type TimedCachedPortfolio struct {
 
 func (t *TimedCachedPortfolio) GetValue() decimal.Decimal {
     now := time.Now()
-    
+
     if t.cachedValue != nil && now.Sub(t.cacheTimestamp) < t.cacheTTL {
         return *t.cachedValue
     }
-    
+
     // Cache expired or invalid, recalculate
     value := t.Portfolio.GetValue()
     t.cachedValue = &value
     t.cacheTimestamp = now
-    
+
     return value
 }
 ```

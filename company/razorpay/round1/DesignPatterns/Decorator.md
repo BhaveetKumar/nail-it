@@ -5,6 +5,7 @@
 **Decorator** is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors. It provides a flexible alternative to subclassing for extending functionality.
 
 **Key Intent:**
+
 - Add new functionality to objects dynamically without altering their structure
 - Provide a flexible alternative to inheritance for extending behavior
 - Allow behavior to be extended at runtime
@@ -24,6 +25,7 @@
 7. **Middleware Patterns**: Request/response processing pipelines
 
 **Don't use when:**
+
 - Simple inheritance is sufficient
 - The decorator interface becomes too complex
 - You need to remove decorators frequently
@@ -33,6 +35,7 @@
 ## Real-World Use Cases (Payments/Fintech)
 
 ### 1. Payment Processing Pipeline
+
 ```go
 // Base payment processor
 type PaymentProcessor interface {
@@ -54,22 +57,22 @@ type LoggingPaymentProcessor struct {
 }
 
 func (l *LoggingPaymentProcessor) ProcessPayment(ctx context.Context, payment *Payment) (*PaymentResult, error) {
-    l.logger.Info("Processing payment", 
+    l.logger.Info("Processing payment",
         zap.String("payment_id", payment.ID),
         zap.String("amount", payment.Amount.String()))
-    
+
     result, err := l.processor.ProcessPayment(ctx, payment)
-    
+
     if err != nil {
-        l.logger.Error("Payment processing failed", 
+        l.logger.Error("Payment processing failed",
             zap.String("payment_id", payment.ID),
             zap.Error(err))
     } else {
-        l.logger.Info("Payment processed successfully", 
+        l.logger.Info("Payment processed successfully",
             zap.String("payment_id", payment.ID),
             zap.String("transaction_id", result.TransactionID))
     }
-    
+
     return result, err
 }
 
@@ -83,7 +86,7 @@ func (v *ValidationPaymentProcessor) ProcessPayment(ctx context.Context, payment
     if err := v.validator.Validate(payment); err != nil {
         return nil, fmt.Errorf("payment validation failed: %w", err)
     }
-    
+
     return v.processor.ProcessPayment(ctx, payment)
 }
 
@@ -98,16 +101,16 @@ func (f *FraudDetectionPaymentProcessor) ProcessPayment(ctx context.Context, pay
     if err != nil {
         return nil, fmt.Errorf("fraud detection failed: %w", err)
     }
-    
+
     if riskScore > 0.8 {
         return nil, fmt.Errorf("payment blocked due to high fraud risk: %.2f", riskScore)
     }
-    
+
     result, err := f.processor.ProcessPayment(ctx, payment)
     if err == nil {
         result.RiskScore = riskScore
     }
-    
+
     return result, err
 }
 
@@ -120,7 +123,7 @@ type RetryPaymentProcessor struct {
 
 func (r *RetryPaymentProcessor) ProcessPayment(ctx context.Context, payment *Payment) (*PaymentResult, error) {
     var lastErr error
-    
+
     for attempt := 0; attempt <= r.maxRetries; attempt++ {
         if attempt > 0 {
             select {
@@ -129,54 +132,55 @@ func (r *RetryPaymentProcessor) ProcessPayment(ctx context.Context, payment *Pay
             case <-time.After(r.retryDelay):
             }
         }
-        
+
         result, err := r.processor.ProcessPayment(ctx, payment)
         if err == nil {
             return result, nil
         }
-        
+
         lastErr = err
-        
+
         // Don't retry for certain error types
         if !isRetryableError(err) {
             break
         }
     }
-    
+
     return nil, fmt.Errorf("payment failed after %d attempts: %w", r.maxRetries+1, lastErr)
 }
 
 // Usage - compose decorators
 func CreatePaymentProcessor(gateway PaymentGateway, logger *zap.Logger) PaymentProcessor {
     processor := &BasicPaymentProcessor{gateway: gateway}
-    
+
     // Wrap with decorators
     processor = &ValidationPaymentProcessor{
         processor: processor,
         validator: NewPaymentValidator(),
     }
-    
+
     processor = &FraudDetectionPaymentProcessor{
         processor:   processor,
         fraudEngine: NewFraudDetectionEngine(),
     }
-    
+
     processor = &RetryPaymentProcessor{
         processor:   processor,
         maxRetries:  3,
         retryDelay:  time.Second,
     }
-    
+
     processor = &LoggingPaymentProcessor{
         processor: processor,
         logger:    logger,
     }
-    
+
     return processor
 }
 ```
 
 ### 2. Account Balance Decorators
+
 ```go
 // Base account interface
 type Account interface {
@@ -201,11 +205,11 @@ func (b *BasicAccount) GetBalance(ctx context.Context) (decimal.Decimal, error) 
 func (b *BasicAccount) Debit(ctx context.Context, amount decimal.Decimal, description string) error {
     b.mutex.Lock()
     defer b.mutex.Unlock()
-    
+
     if b.balance.LessThan(amount) {
         return fmt.Errorf("insufficient balance")
     }
-    
+
     b.balance = b.balance.Sub(amount)
     return nil
 }
@@ -221,12 +225,12 @@ func (o *OverdraftProtectionAccount) Debit(ctx context.Context, amount decimal.D
     if err != nil {
         return err
     }
-    
+
     availableBalance := balance.Add(o.overdraftLimit)
     if availableBalance.LessThan(amount) {
         return fmt.Errorf("debit amount exceeds available balance including overdraft limit")
     }
-    
+
     return o.Account.Debit(ctx, amount, description)
 }
 
@@ -242,31 +246,31 @@ func (i *InterestBearingAccount) GetBalance(ctx context.Context) (decimal.Decima
     if err := i.accrueInterest(); err != nil {
         return decimal.Zero, err
     }
-    
+
     return i.Account.GetBalance(ctx)
 }
 
 func (i *InterestBearingAccount) accrueInterest() error {
     now := time.Now()
     daysSinceUpdate := now.Sub(i.lastUpdate).Hours() / 24
-    
+
     if daysSinceUpdate > 0 {
         balance, err := i.Account.GetBalance(context.Background())
         if err != nil {
             return err
         }
-        
+
         dailyRate := i.interestRate.Div(decimal.NewFromInt(365))
         interest := balance.Mul(dailyRate).Mul(decimal.NewFromFloat(daysSinceUpdate))
-        
+
         err = i.Account.Credit(context.Background(), interest, "Accrued interest")
         if err != nil {
             return err
         }
-        
+
         i.lastUpdate = now
     }
-    
+
     return nil
 }
 
@@ -293,6 +297,7 @@ func (n *NotificationAccount) Debit(ctx context.Context, amount decimal.Decimal,
 ```
 
 ### 3. API Endpoint Decorators
+
 ```go
 // HTTP handler interface
 type Handler interface {
@@ -321,7 +326,7 @@ func (a *AuthenticationHandler) ServeHTTP(ctx context.Context, request *HTTPRequ
             Body:       "Missing authorization token",
         }, nil
     }
-    
+
     user, err := a.authService.ValidateToken(ctx, token)
     if err != nil {
         return &HTTPResponse{
@@ -329,10 +334,10 @@ func (a *AuthenticationHandler) ServeHTTP(ctx context.Context, request *HTTPRequ
             Body:       "Invalid token",
         }, nil
     }
-    
+
     // Add user to context
     ctx = context.WithValue(ctx, "user", user)
-    
+
     return a.Handler.ServeHTTP(ctx, request)
 }
 
@@ -344,7 +349,7 @@ type RateLimitingHandler struct {
 
 func (r *RateLimitingHandler) ServeHTTP(ctx context.Context, request *HTTPRequest) (*HTTPResponse, error) {
     clientID := getClientID(request)
-    
+
     allowed, err := r.limiter.Allow(ctx, clientID)
     if err != nil {
         return &HTTPResponse{
@@ -352,14 +357,14 @@ func (r *RateLimitingHandler) ServeHTTP(ctx context.Context, request *HTTPReques
             Body:       "Rate limiting error",
         }, err
     }
-    
+
     if !allowed {
         return &HTTPResponse{
             StatusCode: 429,
             Body:       "Rate limit exceeded",
         }, nil
     }
-    
+
     return r.Handler.ServeHTTP(ctx, request)
 }
 
@@ -374,25 +379,25 @@ func (c *CachingHandler) ServeHTTP(ctx context.Context, request *HTTPRequest) (*
     if request.Method != "GET" {
         return c.Handler.ServeHTTP(ctx, request)
     }
-    
+
     cacheKey := generateCacheKey(request)
-    
+
     // Try to get from cache
     if cached, err := c.cache.Get(cacheKey); err == nil {
         return cached.(*HTTPResponse), nil
     }
-    
+
     // Not in cache, process request
     response, err := c.Handler.ServeHTTP(ctx, request)
     if err != nil {
         return response, err
     }
-    
+
     // Cache successful responses
     if response.StatusCode == 200 {
         c.cache.Set(cacheKey, response, c.ttl)
     }
-    
+
     return response, nil
 }
 
@@ -404,11 +409,11 @@ type MetricsHandler struct {
 
 func (m *MetricsHandler) ServeHTTP(ctx context.Context, request *HTTPRequest) (*HTTPResponse, error) {
     start := time.Now()
-    
+
     response, err := m.Handler.ServeHTTP(ctx, request)
-    
+
     duration := time.Since(start)
-    
+
     m.metrics.RecordRequestDuration(request.Method, request.Path, duration)
     if response != nil {
         m.metrics.RecordResponseStatus(response.StatusCode)
@@ -416,7 +421,7 @@ func (m *MetricsHandler) ServeHTTP(ctx context.Context, request *HTTPRequest) (*
     if err != nil {
         m.metrics.RecordError(request.Method, request.Path)
     }
-    
+
     return response, err
 }
 ```
@@ -509,11 +514,11 @@ func (l *LoggingNotificationDecorator) SendNotification(ctx context.Context, mes
         zap.String("type", message.Type),
         zap.String("recipient", message.RecipientID),
         zap.Int("priority", message.Priority))
-    
+
     start := time.Now()
     err := l.NotificationDecorator.SendNotification(ctx, message)
     duration := time.Since(start)
-    
+
     if err != nil {
         l.logger.Error("Failed to send notification",
             zap.String("id", message.ID),
@@ -524,7 +529,7 @@ func (l *LoggingNotificationDecorator) SendNotification(ctx context.Context, mes
             zap.String("id", message.ID),
             zap.Duration("duration", duration))
     }
-    
+
     return err
 }
 
@@ -562,7 +567,7 @@ func NewRetryNotificationDecorator(service NotificationService, maxRetries int, 
 
 func (r *RetryNotificationDecorator) SendNotification(ctx context.Context, message NotificationMessage) error {
     var lastErr error
-    
+
     for attempt := 0; attempt <= r.maxRetries; attempt++ {
         if attempt > 0 {
             delay := r.backoff.NextDelay(attempt - 1)
@@ -572,20 +577,20 @@ func (r *RetryNotificationDecorator) SendNotification(ctx context.Context, messa
             case <-time.After(delay):
             }
         }
-        
+
         err := r.NotificationDecorator.SendNotification(ctx, message)
         if err == nil {
             return nil
         }
-        
+
         lastErr = err
-        
+
         // Don't retry for certain error types
         if !isRetryableError(err) {
             break
         }
     }
-    
+
     return fmt.Errorf("notification failed after %d attempts: %w", r.maxRetries+1, lastErr)
 }
 
@@ -616,20 +621,20 @@ func NewTokenBucketLimiter(capacity, refillRate int) *TokenBucketLimiter {
 func (t *TokenBucketLimiter) Allow() bool {
     t.mu.Lock()
     defer t.mu.Unlock()
-    
+
     now := time.Now()
     elapsed := now.Sub(t.lastRefill)
-    
+
     // Refill tokens
     tokensToAdd := int(elapsed.Seconds()) * t.refillRate
     t.tokens = min(t.capacity, t.tokens+tokensToAdd)
     t.lastRefill = now
-    
+
     if t.tokens > 0 {
         t.tokens--
         return true
     }
-    
+
     return false
 }
 
@@ -644,7 +649,7 @@ func (r *RateLimitingNotificationDecorator) SendNotification(ctx context.Context
     if !r.limiter.Allow() {
         return fmt.Errorf("rate limit exceeded for notification service")
     }
-    
+
     return r.NotificationDecorator.SendNotification(ctx, message)
 }
 
@@ -683,7 +688,7 @@ func NewCircuitBreaker(failureThreshold int, timeout time.Duration) *CircuitBrea
 func (c *CircuitBreaker) Call(fn func() error) error {
     c.mu.Lock()
     defer c.mu.Unlock()
-    
+
     switch c.state {
     case CircuitOpen:
         if time.Since(c.lastFailureTime) > c.timeout {
@@ -697,22 +702,22 @@ func (c *CircuitBreaker) Call(fn func() error) error {
     case CircuitClosed:
         // Normal operation
     }
-    
+
     err := fn()
-    
+
     if err != nil {
         c.failureCount++
         c.lastFailureTime = time.Now()
-        
+
         if c.state == CircuitHalfOpen {
             c.state = CircuitOpen
         } else if c.failureCount >= c.failureThreshold {
             c.state = CircuitOpen
         }
-        
+
         return err
     }
-    
+
     // Success
     if c.state == CircuitHalfOpen {
         c.successCount++
@@ -723,7 +728,7 @@ func (c *CircuitBreaker) Call(fn func() error) error {
     } else {
         c.failureCount = 0
     }
-    
+
     return nil
 }
 
@@ -785,16 +790,16 @@ func (e *EncryptionNotificationDecorator) SendNotification(ctx context.Context, 
     if err != nil {
         return fmt.Errorf("failed to encrypt subject: %w", err)
     }
-    
+
     encryptedBody, err := e.encryptor.Encrypt(message.Body)
     if err != nil {
         return fmt.Errorf("failed to encrypt body: %w", err)
     }
-    
+
     encryptedMessage := message
     encryptedMessage.Subject = encryptedSubject
     encryptedMessage.Body = encryptedBody
-    
+
     return e.NotificationDecorator.SendNotification(ctx, encryptedMessage)
 }
 
@@ -816,7 +821,7 @@ func NewPriorityQueueNotificationDecorator(service NotificationService) *Priorit
         lowPriorityQueue:     make(chan NotificationMessage, 10000),
         quit:                 make(chan struct{}),
     }
-    
+
     decorator.startWorkers()
     return decorator
 }
@@ -831,7 +836,7 @@ func (p *PriorityQueueNotificationDecorator) startWorkers() {
 
 func (p *PriorityQueueNotificationDecorator) worker() {
     defer p.wg.Done()
-    
+
     for {
         select {
         case <-p.quit:
@@ -924,7 +929,7 @@ func (m *MockSMSSender) SendSMS(ctx context.Context, message SMSMessage) error {
 // Helper functions
 func isRetryableError(err error) bool {
     // Simplified: retry for network errors, not for validation errors
-    return !strings.Contains(err.Error(), "validation") && 
+    return !strings.Contains(err.Error(), "validation") &&
            !strings.Contains(err.Error(), "invalid")
 }
 
@@ -938,41 +943,41 @@ func min(a, b int) int {
 // Example usage
 func main() {
     fmt.Println("=== Decorator Pattern Demo ===\n")
-    
+
     // Create logger
     logger, _ := zap.NewDevelopment()
     defer logger.Sync()
-    
+
     // Create basic notification service
     emailSender := &MockEmailSender{}
     smsSender := &MockSMSSender{}
     basicService := NewBasicNotificationService(emailSender, smsSender)
-    
+
     // Create decorators
     var service NotificationService = basicService
-    
+
     // Add logging
     service = NewLoggingNotificationDecorator(service, logger)
-    
+
     // Add retry functionality
     backoff := &ExponentialBackoff{
         baseDelay: 100 * time.Millisecond,
         maxDelay:  5 * time.Second,
     }
     service = NewRetryNotificationDecorator(service, 3, backoff)
-    
+
     // Add rate limiting
     rateLimiter := NewTokenBucketLimiter(10, 2) // 10 tokens, refill 2 per second
     service = NewRateLimitingNotificationDecorator(service, rateLimiter)
-    
+
     // Add circuit breaker
     circuitBreaker := NewCircuitBreaker(3, 30*time.Second)
     service = NewCircuitBreakerNotificationDecorator(service, circuitBreaker)
-    
+
     // Add encryption
     encryptor := NewAESEncryptor([]byte("secret-key-32-characters-long"))
     service = NewEncryptionNotificationDecorator(service, encryptor)
-    
+
     // Create test messages
     messages := []NotificationMessage{
         {
@@ -1000,10 +1005,10 @@ func main() {
             Priority:    9,
         },
     }
-    
+
     // Send notifications
     ctx := context.Background()
-    
+
     fmt.Println("Sending notifications with decorated service:")
     for _, message := range messages {
         err := service.SendNotification(ctx, message)
@@ -1014,7 +1019,7 @@ func main() {
         }
         time.Sleep(100 * time.Millisecond) // Small delay between messages
     }
-    
+
     // Test rate limiting
     fmt.Println("\nTesting rate limiting:")
     for i := 0; i < 15; i++ {
@@ -1026,7 +1031,7 @@ func main() {
             Type:        "EMAIL",
             Priority:    1,
         }
-        
+
         err := service.SendNotification(ctx, message)
         if err != nil {
             fmt.Printf("Message %d: Rate limited - %v\n", i+1, err)
@@ -1034,7 +1039,7 @@ func main() {
             fmt.Printf("Message %d: Sent successfully\n", i+1)
         }
     }
-    
+
     fmt.Println("\n=== Decorator Pattern Demo Complete ===")
 }
 ```
@@ -1044,6 +1049,7 @@ func main() {
 ### Variants
 
 1. **Interface-based Decorators**
+
 ```go
 type Component interface {
     Operation() string
@@ -1074,6 +1080,7 @@ func (d *ConcreteDecorator) Operation() string {
 ```
 
 2. **Functional Decorators**
+
 ```go
 type HandlerFunc func(context.Context, *Request) (*Response, error)
 
@@ -1113,6 +1120,7 @@ func ChainMiddlewares(handler HandlerFunc, middlewares ...Middleware) HandlerFun
 ```
 
 3. **Type-safe Decorators with Generics**
+
 ```go
 type Processor[T any] interface {
     Process(ctx context.Context, input T) (T, error)
@@ -1151,6 +1159,7 @@ func (l *LoggingProcessor[T]) Process(ctx context.Context, input T) (T, error) {
 ### Trade-offs
 
 **Pros:**
+
 - **Runtime Composition**: Add behaviors dynamically
 - **Single Responsibility**: Each decorator has one concern
 - **Open-Closed Principle**: Extend without modifying existing code
@@ -1158,6 +1167,7 @@ func (l *LoggingProcessor[T]) Process(ctx context.Context, input T) (T, error) {
 - **Inheritance Alternative**: Avoid explosion of subclasses
 
 **Cons:**
+
 - **Complexity**: Can create deep object hierarchies
 - **Performance**: Additional method calls and object creation
 - **Debugging**: Stack traces can become complex
@@ -1166,17 +1176,18 @@ func (l *LoggingProcessor[T]) Process(ctx context.Context, input T) (T, error) {
 
 **When to Choose Decorator vs Alternatives:**
 
-| Scenario | Pattern | Reason |
-|----------|---------|--------|
-| Cross-cutting concerns | Decorator | Clean separation of concerns |
-| Pipeline processing | Chain of Responsibility | Sequential processing |
-| Object state changes | State | Behavior changes with state |
-| Algorithm selection | Strategy | Different algorithms |
-| Single enhancement | Inheritance | Simpler for one enhancement |
+| Scenario               | Pattern                 | Reason                       |
+| ---------------------- | ----------------------- | ---------------------------- |
+| Cross-cutting concerns | Decorator               | Clean separation of concerns |
+| Pipeline processing    | Chain of Responsibility | Sequential processing        |
+| Object state changes   | State                   | Behavior changes with state  |
+| Algorithm selection    | Strategy                | Different algorithms         |
+| Single enhancement     | Inheritance             | Simpler for one enhancement  |
 
 ## Integration Tips
 
 ### 1. Factory Integration
+
 ```go
 type DecoratorFactory interface {
     CreateDecorator(service NotificationService, config DecoratorConfig) NotificationService
@@ -1209,6 +1220,7 @@ func (f *NotificationDecoratorFactory) CreateDecorator(service NotificationServi
 ```
 
 ### 2. Builder Pattern Integration
+
 ```go
 type NotificationServiceBuilder struct {
     baseService NotificationService
@@ -1241,16 +1253,17 @@ func (b *NotificationServiceBuilder) WithRetry(maxRetries int) *NotificationServ
 func (b *NotificationServiceBuilder) Build() NotificationService {
     service := b.baseService
     factory := &NotificationDecoratorFactory{}
-    
+
     for _, config := range b.decorators {
         service = factory.CreateDecorator(service, config)
     }
-    
+
     return service
 }
 ```
 
 ### 3. Configuration-driven Decoration
+
 ```go
 type ServiceConfig struct {
     Decorators []DecoratorSpec `yaml:"decorators"`
@@ -1263,11 +1276,11 @@ type DecoratorSpec struct {
 
 func BuildServiceFromConfig(baseService NotificationService, config ServiceConfig) NotificationService {
     service := baseService
-    
+
     for _, spec := range config.Decorators {
         service = applyDecorator(service, spec)
     }
-    
+
     return service
 }
 
@@ -1293,6 +1306,7 @@ func applyDecorator(service NotificationService, spec DecoratorSpec) Notificatio
 Decorator pattern provides composition-based extension instead of inheritance-based extension:
 
 **Inheritance:**
+
 ```go
 // Base class
 type NotificationService struct{}
@@ -1321,6 +1335,7 @@ type LoggingRetryNotificationService struct {
 ```
 
 **Decorator:**
+
 ```go
 // Component interface
 type NotificationService interface {
@@ -1353,13 +1368,13 @@ service = &RetryDecorator{service, 3}
 
 **Key Differences:**
 
-| Aspect | Inheritance | Decorator |
-|--------|-------------|-----------|
-| **Flexibility** | Static (compile-time) | Dynamic (runtime) |
-| **Combinations** | Class explosion | Flexible composition |
-| **Dependencies** | Tight coupling | Loose coupling |
-| **Reusability** | Limited | High |
-| **Complexity** | Hierarchy complexity | Composition complexity |
+| Aspect           | Inheritance           | Decorator              |
+| ---------------- | --------------------- | ---------------------- |
+| **Flexibility**  | Static (compile-time) | Dynamic (runtime)      |
+| **Combinations** | Class explosion       | Flexible composition   |
+| **Dependencies** | Tight coupling        | Loose coupling         |
+| **Reusability**  | Limited               | High                   |
+| **Complexity**   | Hierarchy complexity  | Composition complexity |
 
 ### 2. **How do you handle decorator ordering and dependencies?**
 
@@ -1367,6 +1382,7 @@ service = &RetryDecorator{service, 3}
 Decorator ordering matters and should be managed carefully:
 
 **Order-dependent Decorators:**
+
 ```go
 // Order matters: Logging should see the final result
 service := baseService
@@ -1378,6 +1394,7 @@ service = NewLoggingDecorator(service, logger)    // Finally log
 ```
 
 **Dependency Management:**
+
 ```go
 type DecoratorChain struct {
     decorators []DecoratorFactory
@@ -1391,12 +1408,12 @@ func (d *DecoratorChain) AddDecorator(name string, factory DecoratorFactory) {
 
 func (d *DecoratorChain) Build(base NotificationService) NotificationService {
     service := base
-    
+
     // Apply decorators in defined order
     for _, factory := range d.decorators {
         service = factory.Create(service)
     }
-    
+
     return service
 }
 
@@ -1410,6 +1427,7 @@ chain.AddDecorator("logging", loggingFactory)
 ```
 
 **Dependency Declaration:**
+
 ```go
 type DecoratorMetadata struct {
     Name         string
@@ -1424,14 +1442,14 @@ func (d *DecoratorChain) AddDecoratorWithMetadata(meta DecoratorMetadata, factor
             return fmt.Errorf("missing dependency: %s", dep)
         }
     }
-    
+
     // Check conflicts
     for _, conflict := range meta.Conflicts {
         if d.hasDecorator(conflict) {
             return fmt.Errorf("conflicting decorator: %s", conflict)
         }
     }
-    
+
     d.decorators = append(d.decorators, factory)
     return nil
 }
@@ -1443,6 +1461,7 @@ func (d *DecoratorChain) AddDecoratorWithMetadata(meta DecoratorMetadata, factor
 Error handling in decorators requires careful consideration of error propagation and recovery:
 
 **Error Propagation:**
+
 ```go
 type ErrorHandlingDecorator struct {
     NotificationService
@@ -1480,6 +1499,7 @@ func LogAndIgnoreErrorHandler(logger Logger) func(error) error {
 ```
 
 **Circuit Breaker Integration:**
+
 ```go
 type CircuitBreakerDecorator struct {
     NotificationService
@@ -1509,20 +1529,21 @@ func (c *CircuitBreaker) Execute(fn func() error) error {
             return fmt.Errorf("circuit breaker is open")
         }
     }
-    
+
     err := fn()
-    
+
     if err != nil {
         c.recordFailure()
     } else {
         c.recordSuccess()
     }
-    
+
     return err
 }
 ```
 
 **Error Context Preservation:**
+
 ```go
 type ErrorContext struct {
     Operation string
@@ -1560,62 +1581,65 @@ func (c *ContextualErrorDecorator) Send(message string) error {
 Testing decorators requires both unit testing of individual decorators and integration testing of decorator chains:
 
 **Unit Testing Individual Decorators:**
+
 ```go
 func TestLoggingDecorator(t *testing.T) {
     // Create mock service
     mockService := &MockNotificationService{}
-    
+
     // Create logger with buffer
     var buf bytes.Buffer
     logger := log.New(&buf, "", 0)
-    
+
     // Create decorator
     decorator := NewLoggingDecorator(mockService, logger)
-    
+
     // Test success case
     mockService.On("Send", "test").Return(nil)
     err := decorator.Send("test")
-    
+
     assert.NoError(t, err)
     assert.Contains(t, buf.String(), "Sending notification")
     assert.Contains(t, buf.String(), "test")
-    
+
     // Test error case
     buf.Reset()
     mockService.On("Send", "error").Return(fmt.Errorf("send failed"))
     err = decorator.Send("error")
-    
+
     assert.Error(t, err)
     assert.Contains(t, buf.String(), "Failed to send")
 }
 ```
 
 **Testing Decorator Chains:**
+
 ```go
 func TestDecoratorChain(t *testing.T) {
     // Create test service
     mockService := &MockNotificationService{}
-    
+
     // Create decorator chain
     service := NotificationService(mockService)
     service = NewRetryDecorator(service, 2)
     service = NewLoggingDecorator(service, logger)
-    
+
     // Test that retry works
     mockService.On("Send", "retry-test").
         Return(fmt.Errorf("temp failure")).Once()
     mockService.On("Send", "retry-test").
         Return(nil).Once()
-    
+
     err := service.Send("retry-test")
     assert.NoError(t, err)
-    
+
     // Verify both calls were made
     mockService.AssertNumberOfCalls(t, "Send", 2)
 }
 ```
 
 **Mock-based Testing:**
+
 ```go
 type MockNotificationService struct {
     mock.Mock
@@ -1630,11 +1654,11 @@ func (m *MockNotificationService) Send(message string) error {
 func TestRetryDecorator(t *testing.T) {
     mockService := &MockNotificationService{}
     retryDecorator := NewRetryDecorator(mockService, 3)
-    
+
     // Fail twice, succeed on third attempt
     mockService.On("Send", "test").Return(fmt.Errorf("failure")).Twice()
     mockService.On("Send", "test").Return(nil).Once()
-    
+
     err := retryDecorator.Send("test")
     assert.NoError(t, err)
     mockService.AssertNumberOfCalls(t, "Send", 3)
@@ -1642,19 +1666,20 @@ func TestRetryDecorator(t *testing.T) {
 ```
 
 **Integration Testing:**
+
 ```go
 func TestFullNotificationPipeline(t *testing.T) {
     // Setup real dependencies
     emailSender := &TestEmailSender{}
     smsSender := &TestSMSSender{}
-    
+
     // Create full pipeline
     service := BuildNotificationService(emailSender, smsSender)
-    
+
     // Test end-to-end functionality
     err := service.Send("integration-test")
     assert.NoError(t, err)
-    
+
     // Verify side effects
     assert.Equal(t, 1, emailSender.CallCount)
     assert.True(t, logging.ContainsLog("Successfully sent"))
@@ -1667,6 +1692,7 @@ func TestFullNotificationPipeline(t *testing.T) {
 Performance optimization in decorator chains involves several strategies:
 
 **Lazy Evaluation:**
+
 ```go
 type LazyDecorator struct {
     NotificationService
@@ -1686,6 +1712,7 @@ func (l *LazyDecorator) Send(message string) error {
 ```
 
 **Caching Decorator:**
+
 ```go
 type CachingDecorator struct {
     NotificationService
@@ -1701,18 +1728,19 @@ func (c *CachingDecorator) Send(message string) error {
         return cached
     }
     c.mu.RUnlock()
-    
+
     err := c.NotificationService.Send(message)
-    
+
     c.mu.Lock()
     c.cache[message] = err
     c.mu.Unlock()
-    
+
     return err
 }
 ```
 
 **Async Processing:**
+
 ```go
 type AsyncDecorator struct {
     NotificationService
@@ -1731,14 +1759,14 @@ func (a *AsyncDecorator) Send(message string) error {
         Message:  message,
         Response: make(chan error, 1),
     }
-    
+
     a.queue <- task
     return <-task.Response
 }
 
 func (a *AsyncDecorator) worker() {
     defer a.wg.Done()
-    
+
     for task := range a.queue {
         err := a.NotificationService.Send(task.Message)
         task.Response <- err
@@ -1747,12 +1775,13 @@ func (a *AsyncDecorator) worker() {
 ```
 
 **Profiling and Benchmarking:**
+
 ```go
 func BenchmarkDecoratorChain(b *testing.B) {
     service := buildTestService()
-    
+
     b.ResetTimer()
-    
+
     for i := 0; i < b.N; i++ {
         service.Send("benchmark-message")
     }
@@ -1764,7 +1793,7 @@ func BenchmarkNestedDecorators(b *testing.B) {
         buildServiceWith5Decorators(),
         buildServiceWith10Decorators(),
     }
-    
+
     for i, service := range services {
         b.Run(fmt.Sprintf("decorators-%d", (i+1)*5-4), func(b *testing.B) {
             for j := 0; j < b.N; j++ {

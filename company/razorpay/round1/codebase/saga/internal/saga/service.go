@@ -2,20 +2,21 @@ package saga
 
 import (
 	"context"
+	"fmt"
 	"sync"
 	"time"
 )
 
 // SagaServiceImpl implements the SagaService interface
 type SagaServiceImpl struct {
-	config        *ServiceConfig
-	manager       SagaManager
-	executor      SagaExecutor
-	stepExecutor  StepExecutor
-	createdAt     time.Time
-	updatedAt     time.Time
-	active        bool
-	mutex         sync.RWMutex
+	config       *ServiceConfig
+	manager      SagaManager
+	executor     SagaExecutor
+	stepExecutor StepExecutor
+	createdAt    time.Time
+	updatedAt    time.Time
+	active       bool
+	mutex        sync.RWMutex
 }
 
 // NewSagaService creates a new saga service
@@ -213,15 +214,15 @@ func (s *SagaServiceImpl) GetServiceStats() map[string]interface{} {
 	stepExecutorStats := s.stepExecutor.GetExecutorStats()
 
 	return map[string]interface{}{
-		"service_name":    s.config.Name,
-		"version":         s.config.Version,
-		"active":          s.active,
-		"created_at":      s.createdAt,
-		"updated_at":      s.updatedAt,
-		"manager_stats":   managerStats,
-		"executor_stats":  executorStats,
+		"service_name":        s.config.Name,
+		"version":             s.config.Version,
+		"active":              s.active,
+		"created_at":          s.createdAt,
+		"updated_at":          s.updatedAt,
+		"manager_stats":       managerStats,
+		"executor_stats":      executorStats,
 		"step_executor_stats": stepExecutorStats,
-		"metadata":        s.config.Metadata,
+		"metadata":            s.config.Metadata,
 	}
 }
 

@@ -26,19 +26,19 @@ var (
 
 // ConcreteCircuitBreaker represents a concrete implementation of CircuitBreaker
 type ConcreteCircuitBreaker struct {
-	config      CircuitConfig
-	state       CircuitState
-	stats       CircuitStats
-	mutex       sync.RWMutex
-	createdAt   time.Time
-	updatedAt   time.Time
-	active      bool
+	config    CircuitConfig
+	state     CircuitState
+	stats     CircuitStats
+	mutex     sync.RWMutex
+	createdAt time.Time
+	updatedAt time.Time
+	active    bool
 }
 
 // NewConcreteCircuitBreaker creates a new concrete circuit breaker
 func NewConcreteCircuitBreaker(config CircuitConfig) *ConcreteCircuitBreaker {
 	now := time.Now()
-	
+
 	return &ConcreteCircuitBreaker{
 		config: config,
 		state:  CircuitStateClosed,
@@ -124,7 +124,7 @@ func (cb *ConcreteCircuitBreaker) GetMetadata() map[string]interface{} {
 func (cb *ConcreteCircuitBreaker) SetMetadata(key string, value interface{}) {
 	cb.mutex.Lock()
 	defer cb.mutex.Unlock()
-	
+
 	if cb.stats.Metadata == nil {
 		cb.stats.Metadata = make(map[string]interface{})
 	}
@@ -143,7 +143,7 @@ func (cb *ConcreteCircuitBreaker) IsActive() bool {
 func (cb *ConcreteCircuitBreaker) SetActive(active bool) {
 	cb.mutex.Lock()
 	defer cb.mutex.Unlock()
-	
+
 	cb.active = active
 	cb.updatedAt = time.Now()
 }

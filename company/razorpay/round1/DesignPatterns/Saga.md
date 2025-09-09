@@ -5,6 +5,7 @@
 **Saga** is a design pattern for managing data consistency across microservices in distributed transaction scenarios. It provides a way to manage long-running transactions by breaking them into a series of smaller, local transactions with compensating actions.
 
 **Key Intent:**
+
 - Maintain data consistency across distributed services
 - Handle long-running business processes
 - Provide fault tolerance and recovery mechanisms
@@ -23,6 +24,7 @@
 6. **High Availability**: Cannot afford to lock resources for long periods
 
 **Don't use when:**
+
 - Single service operations (use local transactions)
 - Strong consistency is absolutely required
 - Simple operations without compensation logic
@@ -31,6 +33,7 @@
 ## Real-World Use Cases (Payments/Fintech)
 
 ### 1. Payment Processing Saga
+
 ```go
 // Multi-step payment process across services
 type PaymentSaga struct {
@@ -66,6 +69,7 @@ func NewPaymentSaga(paymentID, userID, merchantID string, amount decimal.Decimal
 ```
 
 ### 2. Account Opening Saga
+
 ```go
 // Multi-service account opening process
 type AccountOpeningSaga struct {
@@ -91,6 +95,7 @@ func NewAccountOpeningSaga(applicationID string, customer CustomerInfo) *Account
 ```
 
 ### 3. Trade Settlement Saga
+
 ```go
 // Multi-party trade settlement
 type TradeSettlementSaga struct {
@@ -125,6 +130,7 @@ func NewTradeSettlementSaga(trade TradeInfo) *TradeSettlementSaga {
 ```
 
 ### 4. Loan Approval Saga
+
 ```go
 // Multi-stage loan approval process
 type LoanApprovalSaga struct {
@@ -327,15 +333,15 @@ func (s *ValidateUserStep) Execute(ctx context.Context, sagaCtx *SagaContext) er
     if userID == "" {
         return fmt.Errorf("user_id not found in saga context")
     }
-    
+
     user, err := s.userService.ValidateUser(ctx, userID)
     if err != nil {
         return fmt.Errorf("user validation failed: %w", err)
     }
-    
+
     sagaCtx.Set("user", user)
     sagaCtx.Set("user_validated", true)
-    
+
     log.Printf("User validated: %s", userID)
     return nil
 }
@@ -359,19 +365,19 @@ func NewReserveFundsStep(accountService AccountService) *ReserveFundsStep {
 func (s *ReserveFundsStep) Execute(ctx context.Context, sagaCtx *SagaContext) error {
     userID := sagaCtx.GetString("user_id")
     amount := sagaCtx.GetDecimal("amount")
-    
+
     if amount.LessThanOrEqual(decimal.Zero) {
         return fmt.Errorf("invalid amount: %v", amount)
     }
-    
+
     reservationID, err := s.accountService.ReserveFunds(ctx, userID, amount)
     if err != nil {
         return fmt.Errorf("failed to reserve funds: %w", err)
     }
-    
+
     sagaCtx.Set("reservation_id", reservationID)
     sagaCtx.Set("funds_reserved", true)
-    
+
     log.Printf("Funds reserved: %s for amount %v", reservationID, amount)
     return nil
 }
@@ -385,12 +391,12 @@ func (s *ReserveFundsStep) Compensate(ctx context.Context, sagaCtx *SagaContext)
     if reservationID == "" {
         return nil // Nothing to compensate
     }
-    
+
     err := s.accountService.ReleaseReservation(ctx, reservationID)
     if err != nil {
         return fmt.Errorf("failed to release reservation: %w", err)
     }
-    
+
     sagaCtx.Set("funds_released", true)
     log.Printf("Funds reservation released: %s", reservationID)
     return nil
@@ -418,7 +424,7 @@ func (s *ProcessPaymentStep) Execute(ctx context.Context, sagaCtx *SagaContext) 
     merchantID := sagaCtx.GetString("merchant_id")
     amount := sagaCtx.GetDecimal("amount")
     reservationID := sagaCtx.GetString("reservation_id")
-    
+
     transactionID, err := s.paymentService.ProcessPayment(ctx, ProcessPaymentRequest{
         PaymentID:     paymentID,
         UserID:        userID,
@@ -426,14 +432,14 @@ func (s *ProcessPaymentStep) Execute(ctx context.Context, sagaCtx *SagaContext) 
         Amount:        amount,
         ReservationID: reservationID,
     })
-    
+
     if err != nil {
         return fmt.Errorf("payment processing failed: %w", err)
     }
-    
+
     sagaCtx.Set("transaction_id", transactionID)
     sagaCtx.Set("payment_processed", true)
-    
+
     log.Printf("Payment processed: %s -> %s", paymentID, transactionID)
     return nil
 }
@@ -447,12 +453,12 @@ func (s *ProcessPaymentStep) Compensate(ctx context.Context, sagaCtx *SagaContex
     if transactionID == "" {
         return nil // Nothing to compensate
     }
-    
+
     refundID, err := s.paymentService.RefundPayment(ctx, transactionID)
     if err != nil {
         return fmt.Errorf("failed to refund payment: %w", err)
     }
-    
+
     sagaCtx.Set("refund_id", refundID)
     sagaCtx.Set("payment_refunded", true)
     log.Printf("Payment refunded: %s -> %s", transactionID, refundID)
@@ -479,12 +485,12 @@ func (s *UpdateMerchantBalanceStep) Execute(ctx context.Context, sagaCtx *SagaCo
     merchantID := sagaCtx.GetString("merchant_id")
     amount := sagaCtx.GetDecimal("amount")
     transactionID := sagaCtx.GetString("transaction_id")
-    
+
     err := s.merchantService.CreditBalance(ctx, merchantID, amount, transactionID)
     if err != nil {
         return fmt.Errorf("failed to update merchant balance: %w", err)
     }
-    
+
     sagaCtx.Set("merchant_balance_updated", true)
     log.Printf("Merchant balance updated: %s +%v", merchantID, amount)
     return nil
@@ -498,12 +504,12 @@ func (s *UpdateMerchantBalanceStep) Compensate(ctx context.Context, sagaCtx *Sag
     merchantID := sagaCtx.GetString("merchant_id")
     amount := sagaCtx.GetDecimal("amount")
     transactionID := sagaCtx.GetString("transaction_id")
-    
+
     err := s.merchantService.DebitBalance(ctx, merchantID, amount, transactionID+"_compensation")
     if err != nil {
         return fmt.Errorf("failed to compensate merchant balance: %w", err)
     }
-    
+
     sagaCtx.Set("merchant_balance_compensated", true)
     log.Printf("Merchant balance compensated: %s -%v", merchantID, amount)
     return nil
@@ -530,7 +536,7 @@ func (s *SendNotificationStep) Execute(ctx context.Context, sagaCtx *SagaContext
     merchantID := sagaCtx.GetString("merchant_id")
     amount := sagaCtx.GetDecimal("amount")
     transactionID := sagaCtx.GetString("transaction_id")
-    
+
     // Send notification to user
     err := s.notificationService.SendPaymentSuccessNotification(ctx, userID, NotificationData{
         Type:          "payment_success",
@@ -538,12 +544,12 @@ func (s *SendNotificationStep) Execute(ctx context.Context, sagaCtx *SagaContext
         MerchantID:    merchantID,
         TransactionID: transactionID,
     })
-    
+
     if err != nil {
         // Notification failure is not critical, log but don't fail the saga
         log.Printf("Failed to send user notification: %v", err)
     }
-    
+
     // Send notification to merchant
     err = s.notificationService.SendPaymentReceivedNotification(ctx, merchantID, NotificationData{
         Type:          "payment_received",
@@ -551,11 +557,11 @@ func (s *SendNotificationStep) Execute(ctx context.Context, sagaCtx *SagaContext
         UserID:        userID,
         TransactionID: transactionID,
     })
-    
+
     if err != nil {
         log.Printf("Failed to send merchant notification: %v", err)
     }
-    
+
     sagaCtx.Set("notifications_sent", true)
     log.Printf("Notifications sent for transaction: %s", transactionID)
     return nil
@@ -573,13 +579,13 @@ type PaymentSaga struct {
 func NewPaymentSaga(paymentID, userID, merchantID string, amount decimal.Decimal, services Services) *PaymentSaga {
     sagaID := uuid.New().String()
     sagaCtx := NewSagaContext(sagaID)
-    
+
     // Initialize saga context
     sagaCtx.Set("payment_id", paymentID)
     sagaCtx.Set("user_id", userID)
     sagaCtx.Set("merchant_id", merchantID)
     sagaCtx.Set("amount", amount)
-    
+
     steps := []SagaStep{
         NewValidateUserStep(services.UserService),
         NewReserveFundsStep(services.AccountService),
@@ -587,7 +593,7 @@ func NewPaymentSaga(paymentID, userID, merchantID string, amount decimal.Decimal
         NewUpdateMerchantBalanceStep(services.MerchantService),
         NewSendNotificationStep(services.NotificationService),
     }
-    
+
     execution := &SagaExecution{
         SagaID:      sagaID,
         SagaType:    "payment",
@@ -598,12 +604,12 @@ func NewPaymentSaga(paymentID, userID, merchantID string, amount decimal.Decimal
         StartedAt:   time.Now(),
         Compensations: make([]CompensationRecord, 0),
     }
-    
+
     // Initialize step states
     for _, step := range steps {
         execution.StepStates[step.GetStepID()] = StepStatePending
     }
-    
+
     return &PaymentSaga{
         SagaID:    sagaID,
         SagaType:  "payment",
@@ -635,32 +641,32 @@ func (o *SagaOrchestrator) ExecuteSaga(ctx context.Context, saga *PaymentSaga) e
     o.mu.Lock()
     o.runningSagas[saga.SagaID] = saga
     o.mu.Unlock()
-    
+
     defer func() {
         o.mu.Lock()
         delete(o.runningSagas, saga.SagaID)
         o.mu.Unlock()
     }()
-    
+
     saga.Execution.State = SagaStateInProgress
     if err := o.sagaStore.SaveSaga(ctx, saga); err != nil {
         return fmt.Errorf("failed to save saga: %w", err)
     }
-    
+
     // Execute steps sequentially
     for i, step := range saga.Steps {
         saga.Execution.CurrentStep = i
         saga.Execution.StepStates[step.GetStepID()] = StepStateExecuting
-        
+
         if err := o.sagaStore.SaveSaga(ctx, saga); err != nil {
             log.Printf("Failed to save saga state: %v", err)
         }
-        
+
         // Execute step with timeout
         stepCtx, cancel := context.WithTimeout(ctx, step.GetTimeout())
         err := o.executeStepWithRetry(stepCtx, step, saga.Context)
         cancel()
-        
+
         if err != nil {
             saga.Execution.StepStates[step.GetStepID()] = StepStateFailed
             saga.Execution.State = SagaStateFailed
@@ -668,33 +674,33 @@ func (o *SagaOrchestrator) ExecuteSaga(ctx context.Context, saga *PaymentSaga) e
             saga.Execution.FailedAt = &now
             errorStr := err.Error()
             saga.Execution.Error = &errorStr
-            
+
             if err := o.sagaStore.SaveSaga(ctx, saga); err != nil {
                 log.Printf("Failed to save failed saga: %v", err)
             }
-            
+
             // Start compensation
             return o.compensateSaga(ctx, saga, i-1)
         }
-        
+
         saga.Execution.StepStates[step.GetStepID()] = StepStateCompleted
-        
+
         // Publish step completed event
         o.publishStepCompletedEvent(saga.SagaID, step.GetStepID())
     }
-    
+
     // All steps completed successfully
     saga.Execution.State = SagaStateCompleted
     now := time.Now()
     saga.Execution.CompletedAt = &now
-    
+
     if err := o.sagaStore.SaveSaga(ctx, saga); err != nil {
         log.Printf("Failed to save completed saga: %v", err)
     }
-    
+
     // Publish saga completed event
     o.publishSagaCompletedEvent(saga.SagaID)
-    
+
     log.Printf("Saga completed successfully: %s", saga.SagaID)
     return nil
 }
@@ -710,32 +716,32 @@ func (o *SagaOrchestrator) compensateSaga(ctx context.Context, saga *PaymentSaga
     if err := o.sagaStore.SaveSaga(ctx, saga); err != nil {
         log.Printf("Failed to save compensating saga: %v", err)
     }
-    
+
     log.Printf("Starting compensation for saga: %s from step %d", saga.SagaID, lastCompletedStep)
-    
+
     // Compensate in reverse order
     for i := lastCompletedStep; i >= 0; i-- {
         step := saga.Steps[i]
-        
+
         if compensatableStep, ok := step.(CompensatableStep); ok && step.CanCompensate() {
             stepID := step.GetStepID()
             saga.Execution.StepStates[stepID] = StepStateCompensating
-            
+
             if err := o.sagaStore.SaveSaga(ctx, saga); err != nil {
                 log.Printf("Failed to save saga state during compensation: %v", err)
             }
-            
+
             compensationCtx, cancel := context.WithTimeout(ctx, step.GetTimeout())
             err := o.retryPolicy.Execute(func() error {
                 return compensatableStep.Compensate(compensationCtx, saga.Context)
             })
             cancel()
-            
+
             compensation := CompensationRecord{
                 StepID:        stepID,
                 CompensatedAt: time.Now(),
             }
-            
+
             if err != nil {
                 errorStr := err.Error()
                 compensation.Error = &errorStr
@@ -745,19 +751,19 @@ func (o *SagaOrchestrator) compensateSaga(ctx context.Context, saga *PaymentSaga
                 saga.Execution.StepStates[stepID] = StepStateCompensated
                 log.Printf("Compensation completed for step: %s", stepID)
             }
-            
+
             saga.Execution.Compensations = append(saga.Execution.Compensations, compensation)
         }
     }
-    
+
     saga.Execution.State = SagaStateCompensated
     if err := o.sagaStore.SaveSaga(ctx, saga); err != nil {
         log.Printf("Failed to save compensated saga: %v", err)
     }
-    
+
     // Publish saga compensated event
     o.publishSagaCompensatedEvent(saga.SagaID)
-    
+
     log.Printf("Saga compensation completed: %s", saga.SagaID)
     return fmt.Errorf("saga failed and was compensated")
 }
@@ -768,7 +774,7 @@ func (o *SagaOrchestrator) publishStepCompletedEvent(sagaID, stepID string) {
         StepID:    stepID,
         Timestamp: time.Now(),
     }
-    
+
     if err := o.eventBus.Publish(context.Background(), "saga.step.completed", event); err != nil {
         log.Printf("Failed to publish step completed event: %v", err)
     }
@@ -779,7 +785,7 @@ func (o *SagaOrchestrator) publishSagaCompletedEvent(sagaID string) {
         SagaID:    sagaID,
         Timestamp: time.Now(),
     }
-    
+
     if err := o.eventBus.Publish(context.Background(), "saga.completed", event); err != nil {
         log.Printf("Failed to publish saga completed event: %v", err)
     }
@@ -790,7 +796,7 @@ func (o *SagaOrchestrator) publishSagaCompensatedEvent(sagaID string) {
         SagaID:    sagaID,
         Timestamp: time.Now(),
     }
-    
+
     if err := o.eventBus.Publish(context.Background(), "saga.compensated", event); err != nil {
         log.Printf("Failed to publish saga compensated event: %v", err)
     }
@@ -898,14 +904,14 @@ func NewRetryPolicy(maxAttempts int, initialDelay time.Duration, multiplier floa
 func (r RetryPolicy) Execute(fn func() error) error {
     var lastErr error
     delay := r.InitialDelay
-    
+
     for attempt := 1; attempt <= r.MaxAttempts; attempt++ {
         if err := fn(); err != nil {
             lastErr = err
             if attempt == r.MaxAttempts {
                 break
             }
-            
+
             log.Printf("Attempt %d failed: %v. Retrying in %v", attempt, err, delay)
             time.Sleep(delay)
             delay = time.Duration(float64(delay) * r.Multiplier)
@@ -913,7 +919,7 @@ func (r RetryPolicy) Execute(fn func() error) error {
             return nil // Success
         }
     }
-    
+
     return fmt.Errorf("failed after %d attempts: %w", r.MaxAttempts, lastErr)
 }
 
@@ -924,7 +930,7 @@ func (m *MockUserService) ValidateUser(ctx context.Context, userID string) (*Use
     if userID == "invalid_user" {
         return nil, fmt.Errorf("user not found")
     }
-    
+
     return &User{
         UserID: userID,
         Name:   "John Doe",
@@ -948,24 +954,24 @@ func (m *MockAccountService) ReserveFunds(ctx context.Context, userID string, am
     if amount.GreaterThan(decimal.NewFromFloat(1000)) {
         return "", fmt.Errorf("insufficient funds")
     }
-    
+
     reservationID := uuid.New().String()
-    
+
     m.mu.Lock()
     m.reservations[reservationID] = amount
     m.mu.Unlock()
-    
+
     return reservationID, nil
 }
 
 func (m *MockAccountService) ReleaseReservation(ctx context.Context, reservationID string) error {
     m.mu.Lock()
     defer m.mu.Unlock()
-    
+
     if _, exists := m.reservations[reservationID]; !exists {
         return fmt.Errorf("reservation not found: %s", reservationID)
     }
-    
+
     delete(m.reservations, reservationID)
     return nil
 }
@@ -976,7 +982,7 @@ func (m *MockPaymentService) ProcessPayment(ctx context.Context, req ProcessPaym
     if req.Amount.GreaterThan(decimal.NewFromFloat(500)) {
         return "", fmt.Errorf("payment amount too high")
     }
-    
+
     return uuid.New().String(), nil
 }
 
@@ -1018,7 +1024,7 @@ func NewInMemorySagaStore() *InMemorySagaStore {
 func (s *InMemorySagaStore) SaveSaga(ctx context.Context, saga *PaymentSaga) error {
     s.mu.Lock()
     defer s.mu.Unlock()
-    
+
     // Deep copy to avoid race conditions
     sagaCopy := *saga
     s.sagas[saga.SagaID] = &sagaCopy
@@ -1028,12 +1034,12 @@ func (s *InMemorySagaStore) SaveSaga(ctx context.Context, saga *PaymentSaga) err
 func (s *InMemorySagaStore) LoadSaga(ctx context.Context, sagaID string) (*PaymentSaga, error) {
     s.mu.RLock()
     defer s.mu.RUnlock()
-    
+
     saga, exists := s.sagas[sagaID]
     if !exists {
         return nil, fmt.Errorf("saga not found: %s", sagaID)
     }
-    
+
     // Return a copy
     sagaCopy := *saga
     return &sagaCopy, nil
@@ -1042,7 +1048,7 @@ func (s *InMemorySagaStore) LoadSaga(ctx context.Context, sagaID string) (*Payme
 func (s *InMemorySagaStore) DeleteSaga(ctx context.Context, sagaID string) error {
     s.mu.Lock()
     defer s.mu.Unlock()
-    
+
     delete(s.sagas, sagaID)
     return nil
 }
@@ -1057,7 +1063,7 @@ func (m *MockEventBus) Publish(ctx context.Context, topic string, event interfac
 // Example usage
 func main() {
     fmt.Println("=== Saga Pattern Demo ===\n")
-    
+
     // Setup services
     services := Services{
         UserService:         &MockUserService{},
@@ -1066,14 +1072,14 @@ func main() {
         MerchantService:     &MockMerchantService{},
         NotificationService: &MockNotificationService{},
     }
-    
+
     // Setup infrastructure
     sagaStore := NewInMemorySagaStore()
     eventBus := &MockEventBus{}
     orchestrator := NewSagaOrchestrator(sagaStore, eventBus)
-    
+
     ctx := context.Background()
-    
+
     // Example 1: Successful payment saga
     fmt.Println("1. Successful Payment Saga")
     paymentSaga1 := NewPaymentSaga(
@@ -1083,19 +1089,19 @@ func main() {
         decimal.NewFromFloat(100.50),
         services,
     )
-    
+
     err := orchestrator.ExecuteSaga(ctx, paymentSaga1)
     if err != nil {
         fmt.Printf("Saga failed: %v\n", err)
     } else {
         fmt.Printf("Saga completed successfully: %s\n", paymentSaga1.SagaID)
     }
-    
+
     fmt.Printf("Final state: %s\n", paymentSaga1.Execution.State)
     fmt.Printf("Steps completed: %d/%d\n", paymentSaga1.Execution.CurrentStep+1, len(paymentSaga1.Steps))
-    
+
     fmt.Println()
-    
+
     // Example 2: Failed payment saga (amount too high)
     fmt.Println("2. Failed Payment Saga (Amount Too High)")
     paymentSaga2 := NewPaymentSaga(
@@ -1105,22 +1111,22 @@ func main() {
         decimal.NewFromFloat(600.00), // This will fail in ProcessPaymentStep
         services,
     )
-    
+
     err = orchestrator.ExecuteSaga(ctx, paymentSaga2)
     if err != nil {
         fmt.Printf("Saga failed as expected: %v\n", err)
     }
-    
+
     fmt.Printf("Final state: %s\n", paymentSaga2.Execution.State)
     fmt.Printf("Failed at step: %d\n", paymentSaga2.Execution.CurrentStep)
     fmt.Printf("Compensations: %d\n", len(paymentSaga2.Execution.Compensations))
-    
+
     if paymentSaga2.Execution.Error != nil {
         fmt.Printf("Error: %s\n", *paymentSaga2.Execution.Error)
     }
-    
+
     fmt.Println()
-    
+
     // Example 3: Failed payment saga (insufficient funds)
     fmt.Println("3. Failed Payment Saga (Insufficient Funds)")
     paymentSaga3 := NewPaymentSaga(
@@ -1130,24 +1136,24 @@ func main() {
         decimal.NewFromFloat(1500.00), // This will fail in ReserveFundsStep
         services,
     )
-    
+
     err = orchestrator.ExecuteSaga(ctx, paymentSaga3)
     if err != nil {
         fmt.Printf("Saga failed as expected: %v\n", err)
     }
-    
+
     fmt.Printf("Final state: %s\n", paymentSaga3.Execution.State)
     fmt.Printf("Failed at step: %d\n", paymentSaga3.Execution.CurrentStep)
-    
+
     // Check step states
     fmt.Println("Step states:")
     for _, step := range paymentSaga3.Steps {
         state := paymentSaga3.Execution.StepStates[step.GetStepID()]
         fmt.Printf("  %s: %s\n", step.GetStepName(), state)
     }
-    
+
     fmt.Println()
-    
+
     // Example 4: Show saga persistence
     fmt.Println("4. Saga Persistence")
     savedSaga, err := sagaStore.LoadSaga(ctx, paymentSaga1.SagaID)
@@ -1158,7 +1164,7 @@ func main() {
         fmt.Printf("State: %s\n", savedSaga.Execution.State)
         fmt.Printf("Completed at: %v\n", savedSaga.Execution.CompletedAt)
     }
-    
+
     fmt.Println("\n=== Saga Demo Complete ===")
 }
 ```
@@ -1168,6 +1174,7 @@ func main() {
 ### Variants
 
 1. **Orchestrator-based Saga (Centralized)**
+
 ```go
 type SagaOrchestrator struct {
     steps    []SagaStep
@@ -1187,6 +1194,7 @@ func (o *SagaOrchestrator) Execute() error {
 ```
 
 2. **Choreography-based Saga (Distributed)**
+
 ```go
 type SagaStep struct {
     OnSuccess func() Event
@@ -1204,6 +1212,7 @@ func (s *PaymentService) ProcessPayment(event PaymentEvent) {
 ```
 
 3. **State Machine Saga**
+
 ```go
 type SagaStateMachine struct {
     states      map[SagaState]StateHandler
@@ -1216,18 +1225,19 @@ func (sm *SagaStateMachine) HandleEvent(event Event) error {
     if !exists {
         return fmt.Errorf("invalid transition")
     }
-    
+
     handler := sm.states[nextState]
     if err := handler.Handle(event); err != nil {
         return err
     }
-    
+
     sm.current = nextState
     return nil
 }
 ```
 
 4. **Event-Sourced Saga**
+
 ```go
 type EventSourcedSaga struct {
     sagaID string
@@ -1253,6 +1263,7 @@ func (s *EventSourcedSaga) computeState(events []SagaEvent) SagaState {
 ### Trade-offs
 
 **Pros:**
+
 - **Distributed Consistency**: Maintains consistency across services
 - **Fault Tolerance**: Automatic compensation on failures
 - **Long-Running Support**: Handles long-running processes
@@ -1260,6 +1271,7 @@ func (s *EventSourcedSaga) computeState(events []SagaEvent) SagaState {
 - **Observability**: Clear audit trail of operations
 
 **Cons:**
+
 - **Complexity**: More complex than local transactions
 - **Eventual Consistency**: Not immediately consistent
 - **Compensation Logic**: Must implement compensation for each step
@@ -1268,14 +1280,14 @@ func (s *EventSourcedSaga) computeState(events []SagaEvent) SagaState {
 
 **When to Choose Saga vs Alternatives:**
 
-| Scenario | Pattern | Reason |
-|----------|---------|--------|
-| Distributed transactions | Saga | Handles distributed consistency |
-| Local transactions | Database Transaction | Simpler and ACID compliant |
-| Eventual consistency OK | Saga | Better performance and availability |
-| Strong consistency required | Two-Phase Commit | Stronger consistency guarantees |
-| Long-running processes | Saga | Doesn't hold locks |
-| Short operations | Local Transaction | Lower overhead |
+| Scenario                    | Pattern              | Reason                              |
+| --------------------------- | -------------------- | ----------------------------------- |
+| Distributed transactions    | Saga                 | Handles distributed consistency     |
+| Local transactions          | Database Transaction | Simpler and ACID compliant          |
+| Eventual consistency OK     | Saga                 | Better performance and availability |
+| Strong consistency required | Two-Phase Commit     | Stronger consistency guarantees     |
+| Long-running processes      | Saga                 | Doesn't hold locks                  |
+| Short operations            | Local Transaction    | Lower overhead                      |
 
 ## Testable Example
 
@@ -1337,7 +1349,7 @@ func TestPaymentSaga_SuccessfulExecution(t *testing.T) {
     paymentService := &MockPaymentServiceTest{}
     merchantService := &MockMerchantService{}
     notificationService := &MockNotificationService{}
-    
+
     services := Services{
         UserService:         userService,
         AccountService:      accountService,
@@ -1345,45 +1357,45 @@ func TestPaymentSaga_SuccessfulExecution(t *testing.T) {
         MerchantService:     merchantService,
         NotificationService: notificationService,
     }
-    
+
     // Setup expectations
     user := &User{UserID: "USER_123", Name: "John Doe", Active: true}
     userService.On("ValidateUser", mock.Anything, "USER_123").Return(user, nil)
-    
+
     accountService.On("ReserveFunds", mock.Anything, "USER_123", decimal.NewFromFloat(100.0)).
         Return("RESERVATION_123", nil)
-    
+
     paymentService.On("ProcessPayment", mock.Anything, mock.AnythingOfType("ProcessPaymentRequest")).
         Return("TRANSACTION_123", nil)
-    
+
     // Create and execute saga
     saga := NewPaymentSaga("PAY_001", "USER_123", "MERCHANT_456", decimal.NewFromFloat(100.0), services)
-    
+
     sagaStore := NewInMemorySagaStore()
     eventBus := &MockEventBus{}
     orchestrator := NewSagaOrchestrator(sagaStore, eventBus)
-    
+
     ctx := context.Background()
     err := orchestrator.ExecuteSaga(ctx, saga)
-    
+
     // Assertions
     assert.NoError(t, err)
     assert.Equal(t, SagaStateCompleted, saga.Execution.State)
     assert.NotNil(t, saga.Execution.CompletedAt)
     assert.Nil(t, saga.Execution.FailedAt)
     assert.Nil(t, saga.Execution.Error)
-    
+
     // Verify all steps completed
     for _, step := range saga.Steps {
         state := saga.Execution.StepStates[step.GetStepID()]
         assert.Equal(t, StepStateCompleted, state)
     }
-    
+
     // Verify context data
     assert.Equal(t, "RESERVATION_123", saga.Context.GetString("reservation_id"))
     assert.Equal(t, "TRANSACTION_123", saga.Context.GetString("transaction_id"))
     assert.True(t, saga.Context.Get("user_validated") != nil)
-    
+
     // Verify mock expectations
     userService.AssertExpectations(t)
     accountService.AssertExpectations(t)
@@ -1397,7 +1409,7 @@ func TestPaymentSaga_FailureAndCompensation(t *testing.T) {
     paymentService := &MockPaymentServiceTest{}
     merchantService := &MockMerchantService{}
     notificationService := &MockNotificationService{}
-    
+
     services := Services{
         UserService:         userService,
         AccountService:      accountService,
@@ -1405,30 +1417,30 @@ func TestPaymentSaga_FailureAndCompensation(t *testing.T) {
         MerchantService:     merchantService,
         NotificationService: notificationService,
     }
-    
+
     // Setup expectations - payment will fail
     user := &User{UserID: "USER_123", Name: "John Doe", Active: true}
     userService.On("ValidateUser", mock.Anything, "USER_123").Return(user, nil)
-    
+
     accountService.On("ReserveFunds", mock.Anything, "USER_123", decimal.NewFromFloat(100.0)).
         Return("RESERVATION_123", nil)
-    
+
     paymentService.On("ProcessPayment", mock.Anything, mock.AnythingOfType("ProcessPaymentRequest")).
         Return("", fmt.Errorf("payment failed"))
-    
+
     // Compensation expectations
     accountService.On("ReleaseReservation", mock.Anything, "RESERVATION_123").Return(nil)
-    
+
     // Create and execute saga
     saga := NewPaymentSaga("PAY_001", "USER_123", "MERCHANT_456", decimal.NewFromFloat(100.0), services)
-    
+
     sagaStore := NewInMemorySagaStore()
     eventBus := &MockEventBus{}
     orchestrator := NewSagaOrchestrator(sagaStore, eventBus)
-    
+
     ctx := context.Background()
     err := orchestrator.ExecuteSaga(ctx, saga)
-    
+
     // Assertions
     assert.Error(t, err)
     assert.Equal(t, SagaStateCompensated, saga.Execution.State)
@@ -1436,17 +1448,17 @@ func TestPaymentSaga_FailureAndCompensation(t *testing.T) {
     assert.NotNil(t, saga.Execution.FailedAt)
     assert.NotNil(t, saga.Execution.Error)
     assert.Contains(t, *saga.Execution.Error, "payment failed")
-    
+
     // Verify step states
     assert.Equal(t, StepStateCompleted, saga.Execution.StepStates["validate_user"])
     assert.Equal(t, StepStateCompensated, saga.Execution.StepStates["reserve_funds"])
     assert.Equal(t, StepStateFailed, saga.Execution.StepStates["process_payment"])
-    
+
     // Verify compensations
     assert.Len(t, saga.Execution.Compensations, 1)
     assert.Equal(t, "reserve_funds", saga.Execution.Compensations[0].StepID)
     assert.Nil(t, saga.Execution.Compensations[0].Error)
-    
+
     // Verify mock expectations
     userService.AssertExpectations(t)
     accountService.AssertExpectations(t)
@@ -1460,7 +1472,7 @@ func TestPaymentSaga_EarlyFailure(t *testing.T) {
     paymentService := &MockPaymentServiceTest{}
     merchantService := &MockMerchantService{}
     notificationService := &MockNotificationService{}
-    
+
     services := Services{
         UserService:         userService,
         AccountService:      accountService,
@@ -1468,32 +1480,32 @@ func TestPaymentSaga_EarlyFailure(t *testing.T) {
         MerchantService:     merchantService,
         NotificationService: notificationService,
     }
-    
+
     // Setup expectations - user validation will fail
     userService.On("ValidateUser", mock.Anything, "INVALID_USER").
         Return((*User)(nil), fmt.Errorf("user not found"))
-    
+
     // Create and execute saga
     saga := NewPaymentSaga("PAY_001", "INVALID_USER", "MERCHANT_456", decimal.NewFromFloat(100.0), services)
-    
+
     sagaStore := NewInMemorySagaStore()
     eventBus := &MockEventBus{}
     orchestrator := NewSagaOrchestrator(sagaStore, eventBus)
-    
+
     ctx := context.Background()
     err := orchestrator.ExecuteSaga(ctx, saga)
-    
+
     // Assertions
     assert.Error(t, err)
     assert.Equal(t, SagaStateCompensated, saga.Execution.State)
     assert.Equal(t, StepStateFailed, saga.Execution.StepStates["validate_user"])
-    
+
     // No compensations should occur for first step failure
     assert.Len(t, saga.Execution.Compensations, 0)
-    
+
     // Verify mock expectations
     userService.AssertExpectations(t)
-    
+
     // Verify other services were not called
     accountService.AssertNotCalled(t, "ReserveFunds")
     paymentService.AssertNotCalled(t, "ProcessPayment")
@@ -1501,28 +1513,28 @@ func TestPaymentSaga_EarlyFailure(t *testing.T) {
 
 func TestSagaContext_DataManagement(t *testing.T) {
     sagaCtx := NewSagaContext("SAGA_123")
-    
+
     // Test setting and getting different types
     sagaCtx.Set("string_value", "test")
     sagaCtx.Set("decimal_value", decimal.NewFromFloat(100.50))
     sagaCtx.Set("bool_value", true)
-    
+
     // Test string retrieval
     assert.Equal(t, "test", sagaCtx.GetString("string_value"))
     assert.Equal(t, "", sagaCtx.GetString("nonexistent"))
-    
+
     // Test decimal retrieval
     assert.Equal(t, decimal.NewFromFloat(100.50), sagaCtx.GetDecimal("decimal_value"))
     assert.Equal(t, decimal.Zero, sagaCtx.GetDecimal("nonexistent"))
-    
+
     // Test generic retrieval
     value, exists := sagaCtx.Get("bool_value")
     assert.True(t, exists)
     assert.Equal(t, true, value)
-    
+
     _, exists = sagaCtx.Get("nonexistent")
     assert.False(t, exists)
-    
+
     // Test timestamp updates
     originalTime := sagaCtx.UpdatedAt
     time.Sleep(1 * time.Millisecond)
@@ -1533,31 +1545,31 @@ func TestSagaContext_DataManagement(t *testing.T) {
 func TestSagaStore_Persistence(t *testing.T) {
     store := NewInMemorySagaStore()
     ctx := context.Background()
-    
+
     // Create test saga
     services := Services{} // Empty services for test
     saga := NewPaymentSaga("PAY_001", "USER_123", "MERCHANT_456", decimal.NewFromFloat(100.0), services)
     saga.Execution.State = SagaStateInProgress
-    
+
     // Test save
     err := store.SaveSaga(ctx, saga)
     assert.NoError(t, err)
-    
+
     // Test load
     loadedSaga, err := store.LoadSaga(ctx, saga.SagaID)
     assert.NoError(t, err)
     assert.Equal(t, saga.SagaID, loadedSaga.SagaID)
     assert.Equal(t, saga.Execution.State, loadedSaga.Execution.State)
-    
+
     // Test load non-existent
     _, err = store.LoadSaga(ctx, "NON_EXISTENT")
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "saga not found")
-    
+
     // Test delete
     err = store.DeleteSaga(ctx, saga.SagaID)
     assert.NoError(t, err)
-    
+
     // Verify deletion
     _, err = store.LoadSaga(ctx, saga.SagaID)
     assert.Error(t, err)
@@ -1565,18 +1577,18 @@ func TestSagaStore_Persistence(t *testing.T) {
 
 func TestRetryPolicy_Execution(t *testing.T) {
     retryPolicy := NewRetryPolicy(3, time.Millisecond*10, 2.0)
-    
+
     t.Run("successful execution", func(t *testing.T) {
         callCount := 0
         err := retryPolicy.Execute(func() error {
             callCount++
             return nil
         })
-        
+
         assert.NoError(t, err)
         assert.Equal(t, 1, callCount)
     })
-    
+
     t.Run("eventual success", func(t *testing.T) {
         callCount := 0
         err := retryPolicy.Execute(func() error {
@@ -1586,18 +1598,18 @@ func TestRetryPolicy_Execution(t *testing.T) {
             }
             return nil
         })
-        
+
         assert.NoError(t, err)
         assert.Equal(t, 3, callCount)
     })
-    
+
     t.Run("max retries exceeded", func(t *testing.T) {
         callCount := 0
         err := retryPolicy.Execute(func() error {
             callCount++
             return fmt.Errorf("persistent error")
         })
-        
+
         assert.Error(t, err)
         assert.Equal(t, 3, callCount)
         assert.Contains(t, err.Error(), "failed after 3 attempts")
@@ -1607,48 +1619,48 @@ func TestRetryPolicy_Execution(t *testing.T) {
 func TestSagaStep_Execution(t *testing.T) {
     userService := &MockUserServiceTest{}
     step := NewValidateUserStep(userService)
-    
+
     sagaCtx := NewSagaContext("SAGA_123")
     sagaCtx.Set("user_id", "USER_123")
-    
+
     user := &User{UserID: "USER_123", Name: "John Doe", Active: true}
     userService.On("ValidateUser", mock.Anything, "USER_123").Return(user, nil)
-    
+
     ctx := context.Background()
     err := step.Execute(ctx, sagaCtx)
-    
+
     assert.NoError(t, err)
     assert.Equal(t, true, sagaCtx.Data["user_validated"])
     assert.Equal(t, user, sagaCtx.Data["user"])
-    
+
     userService.AssertExpectations(t)
 }
 
 func TestCompensatableStep_Compensation(t *testing.T) {
     accountService := &MockAccountServiceTest{}
     step := NewReserveFundsStep(accountService)
-    
+
     sagaCtx := NewSagaContext("SAGA_123")
     sagaCtx.Set("user_id", "USER_123")
     sagaCtx.Set("amount", decimal.NewFromFloat(100.0))
-    
+
     // First execute the step
     accountService.On("ReserveFunds", mock.Anything, "USER_123", decimal.NewFromFloat(100.0)).
         Return("RESERVATION_123", nil)
-    
+
     ctx := context.Background()
     err := step.Execute(ctx, sagaCtx)
     assert.NoError(t, err)
     assert.Equal(t, "RESERVATION_123", sagaCtx.GetString("reservation_id"))
-    
+
     // Then compensate
     accountService.On("ReleaseReservation", mock.Anything, "RESERVATION_123").Return(nil)
-    
+
     compensatableStep := step.(CompensatableStep)
     err = compensatableStep.Compensate(ctx, sagaCtx)
     assert.NoError(t, err)
     assert.Equal(t, true, sagaCtx.Data["funds_released"])
-    
+
     accountService.AssertExpectations(t)
 }
 
@@ -1660,15 +1672,15 @@ func BenchmarkSagaExecution(b *testing.B) {
         MerchantService:     &MockMerchantService{},
         NotificationService: &MockNotificationService{},
     }
-    
+
     sagaStore := NewInMemorySagaStore()
     eventBus := &MockEventBus{}
     orchestrator := NewSagaOrchestrator(sagaStore, eventBus)
-    
+
     ctx := context.Background()
-    
+
     b.ResetTimer()
-    
+
     for i := 0; i < b.N; i++ {
         saga := NewPaymentSaga(
             fmt.Sprintf("PAY_%d", i),
@@ -1677,7 +1689,7 @@ func BenchmarkSagaExecution(b *testing.B) {
             decimal.NewFromFloat(100.0),
             services,
         )
-        
+
         err := orchestrator.ExecuteSaga(ctx, saga)
         if err != nil {
             b.Fatal(err)
@@ -1687,14 +1699,14 @@ func BenchmarkSagaExecution(b *testing.B) {
 
 func BenchmarkSagaContextDataAccess(b *testing.B) {
     sagaCtx := NewSagaContext("SAGA_123")
-    
+
     // Setup test data
     for i := 0; i < 1000; i++ {
         sagaCtx.Set(fmt.Sprintf("key_%d", i), fmt.Sprintf("value_%d", i))
     }
-    
+
     b.ResetTimer()
-    
+
     for i := 0; i < b.N; i++ {
         key := fmt.Sprintf("key_%d", i%1000)
         value := sagaCtx.GetString(key)
@@ -1708,6 +1720,7 @@ func BenchmarkSagaContextDataAccess(b *testing.B) {
 ## Integration Tips
 
 ### 1. Database Integration
+
 ```go
 // PostgreSQL Saga Store
 type PostgreSQLSagaStore struct {
@@ -1719,7 +1732,7 @@ func (s *PostgreSQLSagaStore) SaveSaga(ctx context.Context, saga *PaymentSaga) e
     if err != nil {
         return err
     }
-    
+
     _, err = s.db.ExecContext(ctx, `
         INSERT INTO sagas (saga_id, saga_type, state, current_step, saga_data, created_at, updated_at)
         VALUES ($1, $2, $3, $4, $5, $6, $7)
@@ -1730,31 +1743,32 @@ func (s *PostgreSQLSagaStore) SaveSaga(ctx context.Context, saga *PaymentSaga) e
             updated_at = EXCLUDED.updated_at
     `, saga.SagaID, saga.SagaType, saga.Execution.State, saga.Execution.CurrentStep,
        sagaData, saga.Context.CreatedAt, saga.Context.UpdatedAt)
-    
+
     return err
 }
 
 func (s *PostgreSQLSagaStore) LoadSaga(ctx context.Context, sagaID string) (*PaymentSaga, error) {
     var sagaData []byte
-    
+
     err := s.db.QueryRowContext(ctx, `
         SELECT saga_data FROM sagas WHERE saga_id = $1
     `, sagaID).Scan(&sagaData)
-    
+
     if err != nil {
         return nil, err
     }
-    
+
     var saga PaymentSaga
     if err := json.Unmarshal(sagaData, &saga); err != nil {
         return nil, err
     }
-    
+
     return &saga, nil
 }
 ```
 
 ### 2. Kafka Integration
+
 ```go
 type KafkaSagaEventBus struct {
     producer *kafka.Writer
@@ -1766,7 +1780,7 @@ func (k *KafkaSagaEventBus) Publish(ctx context.Context, topic string, event int
     if err != nil {
         return err
     }
-    
+
     message := kafka.Message{
         Topic: topic,
         Key:   []byte(fmt.Sprintf("saga_%s", getSagaID(event))),
@@ -1776,7 +1790,7 @@ func (k *KafkaSagaEventBus) Publish(ctx context.Context, topic string, event int
             {Key: "timestamp", Value: []byte(time.Now().Format(time.RFC3339))},
         },
     }
-    
+
     return k.producer.WriteMessages(ctx, message)
 }
 
@@ -1787,7 +1801,7 @@ func (k *KafkaSagaEventBus) StartConsumer(ctx context.Context, handler func(stri
             log.Printf("Error reading message: %v", err)
             continue
         }
-        
+
         topic := message.Topic
         if err := handler(topic, message.Value); err != nil {
             log.Printf("Error handling message: %v", err)
@@ -1797,6 +1811,7 @@ func (k *KafkaSagaEventBus) StartConsumer(ctx context.Context, handler func(stri
 ```
 
 ### 3. Monitoring Integration
+
 ```go
 type InstrumentedSagaOrchestrator struct {
     *SagaOrchestrator
@@ -1817,12 +1832,12 @@ type SagaMetrics interface {
 func (i *InstrumentedSagaOrchestrator) ExecuteSaga(ctx context.Context, saga *PaymentSaga) error {
     start := time.Now()
     i.metrics.IncSagaStarted(saga.SagaType)
-    
+
     err := i.SagaOrchestrator.ExecuteSaga(ctx, saga)
     duration := time.Since(start)
-    
+
     i.metrics.ObserveSagaDuration(saga.SagaType, duration)
-    
+
     switch saga.Execution.State {
     case SagaStateCompleted:
         i.metrics.IncSagaCompleted(saga.SagaType)
@@ -1831,12 +1846,13 @@ func (i *InstrumentedSagaOrchestrator) ExecuteSaga(ctx context.Context, saga *Pa
     case SagaStateCompensated:
         i.metrics.IncSagaCompensated(saga.SagaType)
     }
-    
+
     return err
 }
 ```
 
 ### 4. Timeout and Circuit Breaker Integration
+
 ```go
 type ResilientSagaStep struct {
     SagaStep
@@ -1848,7 +1864,7 @@ func (r *ResilientSagaStep) Execute(ctx context.Context, sagaCtx *SagaContext) e
     // Add timeout
     timeoutCtx, cancel := context.WithTimeout(ctx, r.timeout)
     defer cancel()
-    
+
     // Execute through circuit breaker
     return r.circuitBreaker.Execute(func() error {
         return r.SagaStep.Execute(timeoutCtx, sagaCtx)
@@ -1871,20 +1887,20 @@ func (cb *SagaStepCircuitBreaker) Execute(fn func() error) error {
             return fmt.Errorf("circuit breaker is open")
         }
     }
-    
+
     err := fn()
-    
+
     if err != nil {
         cb.failures++
         cb.lastFailureTime = time.Now()
-        
+
         if cb.failures >= cb.failureThreshold {
             cb.state = CircuitStateOpen
         }
-        
+
         return err
     }
-    
+
     // Success - reset circuit breaker
     cb.failures = 0
     cb.state = CircuitStateClosed
@@ -1907,6 +1923,7 @@ func (cb *SagaStepCircuitBreaker) Execute(fn func() error) error {
 | **Complexity** | Complex compensation logic | Complex coordination protocol |
 
 **Saga Example:**
+
 ```go
 // Non-blocking, compensatable
 func (s *PaymentSaga) Execute() error {
@@ -1921,6 +1938,7 @@ func (s *PaymentSaga) Execute() error {
 ```
 
 **2PC Example:**
+
 ```go
 // Blocking, atomic
 func (t *TwoPhaseCommit) Execute() error {
@@ -1931,7 +1949,7 @@ func (t *TwoPhaseCommit) Execute() error {
             return errors.New("prepare failed")
         }
     }
-    
+
     // Phase 2: Commit
     for _, participant := range t.participants {
         participant.Commit()
@@ -1946,20 +1964,22 @@ func (t *TwoPhaseCommit) Execute() error {
 Partial compensation failures require several strategies:
 
 1. **Idempotent Compensation**: Make compensation operations idempotent
+
 ```go
 func (s *ReserveFundsStep) Compensate(ctx context.Context, sagaCtx *SagaContext) error {
     reservationID := sagaCtx.GetString("reservation_id")
-    
+
     // Idempotent - safe to call multiple times
     if reservationID == "" {
         return nil // Already compensated or nothing to compensate
     }
-    
+
     return s.accountService.ReleaseReservation(ctx, reservationID)
 }
 ```
 
 2. **Compensation Retry**: Retry failed compensations
+
 ```go
 func (o *SagaOrchestrator) compensateWithRetry(step CompensatableStep, sagaCtx *SagaContext) error {
     return o.retryPolicy.Execute(func() error {
@@ -1969,6 +1989,7 @@ func (o *SagaOrchestrator) compensateWithRetry(step CompensatableStep, sagaCtx *
 ```
 
 3. **Manual Intervention**: Flag for manual resolution
+
 ```go
 type CompensationRecord struct {
     StepID              string    `json:"step_id"`
@@ -1979,6 +2000,7 @@ type CompensationRecord struct {
 ```
 
 4. **Dead Letter Queue**: Send failed compensations to DLQ
+
 ```go
 if err := step.Compensate(ctx, sagaCtx); err != nil {
     compensationEvent := CompensationFailedEvent{
@@ -1986,7 +2008,7 @@ if err := step.Compensate(ctx, sagaCtx); err != nil {
         StepID: step.GetStepID(),
         Error:  err.Error(),
     }
-    
+
     // Send to dead letter queue for manual processing
     o.deadLetterQueue.Send(compensationEvent)
 }
@@ -1998,18 +2020,20 @@ if err := step.Compensate(ctx, sagaCtx); err != nil {
 Timeouts and retries are implemented at multiple levels:
 
 1. **Step-Level Timeout**:
+
 ```go
 func (o *SagaOrchestrator) executeStep(ctx context.Context, step SagaStep, sagaCtx *SagaContext) error {
     // Create timeout context for the step
     stepCtx, cancel := context.WithTimeout(ctx, step.GetTimeout())
     defer cancel()
-    
+
     // Execute with timeout
     return step.Execute(stepCtx, sagaCtx)
 }
 ```
 
 2. **Step-Level Retry**:
+
 ```go
 func (o *SagaOrchestrator) executeStepWithRetry(ctx context.Context, step SagaStep, sagaCtx *SagaContext) error {
     return o.retryPolicy.Execute(func() error {
@@ -2019,17 +2043,19 @@ func (o *SagaOrchestrator) executeStepWithRetry(ctx context.Context, step SagaSt
 ```
 
 3. **Saga-Level Timeout**:
+
 ```go
 func (o *SagaOrchestrator) ExecuteSaga(ctx context.Context, saga *PaymentSaga) error {
     // Create timeout context for entire saga
     sagaCtx, cancel := context.WithTimeout(ctx, time.Hour) // 1 hour total timeout
     defer cancel()
-    
+
     return o.executeSagaSteps(sagaCtx, saga)
 }
 ```
 
 4. **Exponential Backoff**:
+
 ```go
 type RetryPolicy struct {
     MaxAttempts int
@@ -2040,13 +2066,13 @@ type RetryPolicy struct {
 
 func (r *RetryPolicy) Execute(fn func() error) error {
     delay := r.BaseDelay
-    
+
     for attempt := 1; attempt <= r.MaxAttempts; attempt++ {
         if err := fn(); err != nil {
             if attempt == r.MaxAttempts {
                 return err
             }
-            
+
             time.Sleep(delay)
             delay = time.Duration(float64(delay) * r.Multiplier)
             if delay > r.MaxDelay {
@@ -2056,7 +2082,7 @@ func (r *RetryPolicy) Execute(fn func() error) error {
             return nil
         }
     }
-    
+
     return fmt.Errorf("max attempts exceeded")
 }
 ```
@@ -2066,6 +2092,7 @@ func (r *RetryPolicy) Execute(fn func() error) error {
 **Answer:**
 
 **Orchestration (Centralized Control):**
+
 ```go
 type SagaOrchestrator struct {
     steps []SagaStep
@@ -2089,6 +2116,7 @@ func (o *SagaOrchestrator) ExecuteSaga(saga *PaymentSaga) error {
 ```
 
 **Choreography (Distributed Control):**
+
 ```go
 // Each service knows what to do based on events
 type PaymentService struct {
@@ -2135,6 +2163,7 @@ func (m *MerchantService) HandlePaymentSuccess(event PaymentSuccessEvent) {
 ```
 
 **Trade-offs:**
+
 - **Orchestration**: Easier to understand and debug, but single point of failure
 - **Choreography**: More resilient and scalable, but harder to track and debug
 
@@ -2144,6 +2173,7 @@ func (m *MerchantService) HandlePaymentSuccess(event PaymentSuccessEvent) {
 Saga isolation and consistency are achieved through several techniques:
 
 1. **Semantic Locks**: Use business-level locks instead of database locks
+
 ```go
 type SemanticsLockService struct {
     locks map[string]time.Time
@@ -2153,17 +2183,18 @@ type SemanticsLockService struct {
 func (s *SemanticsLockService) AcquireLock(resource string, duration time.Duration) error {
     s.mu.Lock()
     defer s.mu.Unlock()
-    
+
     if expiry, exists := s.locks[resource]; exists && time.Now().Before(expiry) {
         return fmt.Errorf("resource is locked: %s", resource)
     }
-    
+
     s.locks[resource] = time.Now().Add(duration)
     return nil
 }
 ```
 
 2. **Versioning**: Use optimistic locking with versions
+
 ```go
 type VersionedEntity struct {
     ID      string `json:"id"`
@@ -2173,25 +2204,26 @@ type VersionedEntity struct {
 
 func (s *EntityService) UpdateWithVersion(entity *VersionedEntity) error {
     result, err := s.db.Exec(`
-        UPDATE entities 
-        SET data = ?, version = version + 1 
+        UPDATE entities
+        SET data = ?, version = version + 1
         WHERE id = ? AND version = ?
     `, entity.Data, entity.ID, entity.Version)
-    
+
     if err != nil {
         return err
     }
-    
+
     rowsAffected, _ := result.RowsAffected()
     if rowsAffected == 0 {
         return fmt.Errorf("optimistic lock failed - entity was modified")
     }
-    
+
     return nil
 }
 ```
 
 3. **Commutative Operations**: Design operations to be commutative
+
 ```go
 // Non-commutative (order matters)
 func (a *Account) SetBalance(amount decimal.Decimal) {
@@ -2205,6 +2237,7 @@ func (a *Account) AdjustBalance(delta decimal.Decimal) {
 ```
 
 4. **Compensating Transactions**: Make compensation idempotent
+
 ```go
 func (s *ReservationService) CompensateReservation(reservationID string) error {
     // Idempotent compensation
@@ -2212,7 +2245,7 @@ func (s *ReservationService) CompensateReservation(reservationID string) error {
     if err != nil || reservation.Status == "RELEASED" {
         return nil // Already compensated
     }
-    
+
     return s.releaseReservation(reservationID)
 }
 ```

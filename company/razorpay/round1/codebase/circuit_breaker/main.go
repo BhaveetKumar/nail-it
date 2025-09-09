@@ -19,11 +19,11 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
+	"github.com/razorpay/round1/codebase/circuit_breaker/configs"
 	"github.com/razorpay/round1/codebase/circuit_breaker/internal/circuit_breaker"
 	"github.com/razorpay/round1/codebase/circuit_breaker/internal/handlers"
 	"github.com/razorpay/round1/codebase/circuit_breaker/internal/kafka"
 	"github.com/razorpay/round1/codebase/circuit_breaker/internal/websocket"
-	"github.com/razorpay/round1/codebase/circuit_breaker/configs"
 )
 
 func main() {

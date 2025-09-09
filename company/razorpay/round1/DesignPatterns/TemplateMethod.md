@@ -5,6 +5,7 @@
 **Template Method** is a behavioral design pattern that defines the skeleton of an algorithm in a superclass but lets subclasses override specific steps of the algorithm without changing its structure.
 
 **Key Intent:**
+
 - Define the skeleton of an algorithm in an operation
 - Let subclasses redefine certain steps without changing the algorithm's structure
 - Promote code reuse through inheritance
@@ -25,6 +26,7 @@
 7. **Workflow Definition**: Standard process with customizable steps
 
 **Don't use when:**
+
 - Algorithm has no common structure across implementations
 - High flexibility is needed (composition might be better)
 - Runtime algorithm switching is required
@@ -33,19 +35,20 @@
 ## Real-World Use Cases (Payments/Fintech)
 
 ### 1. Payment Processing Template
+
 ```go
 // Abstract payment processor template
 type PaymentProcessor interface {
     ProcessPayment(ctx context.Context, request *PaymentRequest) (*PaymentResult, error)
-    
+
     // Template method - defines the algorithm skeleton
     processPaymentTemplate(ctx context.Context, request *PaymentRequest) (*PaymentResult, error)
-    
+
     // Abstract methods - must be implemented by subclasses
     validatePaymentData(ctx context.Context, request *PaymentRequest) error
     authenticatePayment(ctx context.Context, request *PaymentRequest) error
     executePayment(ctx context.Context, request *PaymentRequest) (*PaymentResponse, error)
-    
+
     // Hook methods - optional overrides
     preProcessHook(ctx context.Context, request *PaymentRequest) error
     postProcessHook(ctx context.Context, result *PaymentResult) error
@@ -77,31 +80,31 @@ func (bpp *BasePaymentProcessor) ProcessPayment(ctx context.Context, request *Pa
 
 func (bpp *BasePaymentProcessor) processPaymentTemplate(ctx context.Context, request *PaymentRequest) (*PaymentResult, error) {
     startTime := time.Now()
-    bpp.logger.Info("Starting payment processing", 
+    bpp.logger.Info("Starting payment processing",
         zap.String("payment_id", request.PaymentID),
         zap.String("amount", request.Amount.String()),
         zap.String("currency", request.Currency))
-    
+
     // Step 1: Pre-processing hook (optional)
     if err := bpp.preProcessHook(ctx, request); err != nil {
         bpp.logger.Warn("Pre-processing hook failed", zap.Error(err))
         return nil, fmt.Errorf("pre-processing failed: %w", err)
     }
-    
+
     // Step 2: Validate payment data (must be implemented by subclass)
     if err := bpp.validatePaymentData(ctx, request); err != nil {
         bpp.metrics.IncrementCounter("payment_validation_failed", request.PaymentMethod)
         bpp.onPaymentFailure(ctx, err)
         return nil, fmt.Errorf("validation failed: %w", err)
     }
-    
+
     // Step 3: Authenticate payment (must be implemented by subclass)
     if err := bpp.authenticatePayment(ctx, request); err != nil {
         bpp.metrics.IncrementCounter("payment_authentication_failed", request.PaymentMethod)
         bpp.onPaymentFailure(ctx, err)
         return nil, fmt.Errorf("authentication failed: %w", err)
     }
-    
+
     // Step 4: Execute payment (must be implemented by subclass)
     response, err := bpp.executePayment(ctx, request)
     if err != nil {
@@ -109,7 +112,7 @@ func (bpp *BasePaymentProcessor) processPaymentTemplate(ctx context.Context, req
         bpp.onPaymentFailure(ctx, err)
         return nil, fmt.Errorf("execution failed: %w", err)
     }
-    
+
     // Step 5: Create result
     result := &PaymentResult{
         PaymentID:     request.PaymentID,
@@ -122,31 +125,31 @@ func (bpp *BasePaymentProcessor) processPaymentTemplate(ctx context.Context, req
         Gateway:       response.Gateway,
         Metadata:      response.Metadata,
     }
-    
+
     // Step 6: Handle success
     if err := bpp.onPaymentSuccess(ctx, result); err != nil {
         bpp.logger.Warn("Post-success handler failed", zap.Error(err))
         // Don't fail the payment, just log the warning
     }
-    
+
     // Step 7: Post-processing hook (optional)
     if err := bpp.postProcessHook(ctx, result); err != nil {
         bpp.logger.Warn("Post-processing hook failed", zap.Error(err))
         // Don't fail the payment, just log the warning
     }
-    
+
     // Step 8: Record metrics and audit
     bpp.metrics.RecordDuration("payment_processing_duration", time.Since(startTime), request.PaymentMethod)
     bpp.metrics.IncrementCounter("payment_processed_successfully", request.PaymentMethod)
-    
+
     bpp.auditor.LogPaymentProcessed(ctx, request, result)
-    
-    bpp.logger.Info("Payment processing completed", 
+
+    bpp.logger.Info("Payment processing completed",
         zap.String("payment_id", request.PaymentID),
         zap.String("transaction_id", result.TransactionID),
         zap.String("status", result.Status),
         zap.Duration("processing_time", result.ProcessingTime))
-    
+
     return result, nil
 }
 
@@ -163,7 +166,7 @@ func (bpp *BasePaymentProcessor) postProcessHook(ctx context.Context, result *Pa
 
 func (bpp *BasePaymentProcessor) onPaymentSuccess(ctx context.Context, result *PaymentResult) error {
     // Default: log success
-    bpp.logger.Debug("Payment processed successfully", 
+    bpp.logger.Debug("Payment processed successfully",
         zap.String("payment_id", result.PaymentID),
         zap.String("transaction_id", result.TransactionID))
     return nil
@@ -197,58 +200,58 @@ func NewCreditCardProcessor(base *BasePaymentProcessor, gateway CreditCardGatewa
 // Implement abstract methods
 func (ccp *CreditCardProcessor) validatePaymentData(ctx context.Context, request *PaymentRequest) error {
     ccp.logger.Debug("Validating credit card data", zap.String("payment_id", request.PaymentID))
-    
+
     // Validate card number
     if !ccp.validator.IsValidCardNumber(request.PaymentData.CardNumber) {
         return fmt.Errorf("invalid card number")
     }
-    
+
     // Validate expiry date
     if !ccp.validator.IsValidExpiryDate(request.PaymentData.ExpiryMonth, request.PaymentData.ExpiryYear) {
         return fmt.Errorf("invalid expiry date")
     }
-    
+
     // Validate CVV
     if !ccp.validator.IsValidCVV(request.PaymentData.CVV, request.PaymentData.CardNumber) {
         return fmt.Errorf("invalid CVV")
     }
-    
+
     // Validate amount
     if request.Amount.LessThanOrEqual(decimal.Zero) {
         return fmt.Errorf("invalid amount: must be positive")
     }
-    
+
     return nil
 }
 
 func (ccp *CreditCardProcessor) authenticatePayment(ctx context.Context, request *PaymentRequest) error {
     ccp.logger.Debug("Authenticating credit card payment", zap.String("payment_id", request.PaymentID))
-    
+
     // Perform fraud detection
     riskScore, err := ccp.fraudDetector.CalculateRiskScore(ctx, request)
     if err != nil {
         return fmt.Errorf("fraud detection failed: %w", err)
     }
-    
+
     if riskScore > 0.8 {
         return fmt.Errorf("payment blocked due to high fraud risk: score %.2f", riskScore)
     }
-    
+
     // Tokenize card data
     token, err := ccp.tokenizer.TokenizeCard(request.PaymentData.CardNumber)
     if err != nil {
         return fmt.Errorf("card tokenization failed: %w", err)
     }
-    
+
     // Store token for use in execution
     request.PaymentData.CardToken = token
-    
+
     return nil
 }
 
 func (ccp *CreditCardProcessor) executePayment(ctx context.Context, request *PaymentRequest) (*PaymentResponse, error) {
     ccp.logger.Debug("Executing credit card payment", zap.String("payment_id", request.PaymentID))
-    
+
     // Prepare gateway request
     gatewayRequest := &CreditCardGatewayRequest{
         PaymentID:   request.PaymentID,
@@ -259,13 +262,13 @@ func (ccp *CreditCardProcessor) executePayment(ctx context.Context, request *Pay
         MerchantID:  request.MerchantID,
         Description: request.Description,
     }
-    
+
     // Execute through gateway
     gatewayResponse, err := ccp.gateway.ProcessPayment(ctx, gatewayRequest)
     if err != nil {
         return nil, fmt.Errorf("gateway processing failed: %w", err)
     }
-    
+
     // Convert gateway response to standard response
     response := &PaymentResponse{
         TransactionID: gatewayResponse.TransactionID,
@@ -277,7 +280,7 @@ func (ccp *CreditCardProcessor) executePayment(ctx context.Context, request *Pay
             "card_last_four":     gatewayResponse.CardLastFour,
         },
     }
-    
+
     return response, nil
 }
 
@@ -285,12 +288,12 @@ func (ccp *CreditCardProcessor) executePayment(ctx context.Context, request *Pay
 func (ccp *CreditCardProcessor) preProcessHook(ctx context.Context, request *PaymentRequest) error {
     // Credit card specific pre-processing
     ccp.logger.Debug("Credit card pre-processing", zap.String("payment_id", request.PaymentID))
-    
+
     // Check if card is blacklisted
     if ccp.validator.IsCardBlacklisted(request.PaymentData.CardNumber) {
         return fmt.Errorf("card is blacklisted")
     }
-    
+
     return nil
 }
 
@@ -299,17 +302,17 @@ func (ccp *CreditCardProcessor) onPaymentSuccess(ctx context.Context, result *Pa
     if err := ccp.BasePaymentProcessor.onPaymentSuccess(ctx, result); err != nil {
         return err
     }
-    
+
     // Credit card specific success handling
-    ccp.logger.Info("Credit card payment successful", 
+    ccp.logger.Info("Credit card payment successful",
         zap.String("payment_id", result.PaymentID),
         zap.String("transaction_id", result.TransactionID))
-    
+
     // Update card usage statistics
     if err := ccp.updateCardUsageStats(result); err != nil {
         ccp.logger.Warn("Failed to update card usage stats", zap.Error(err))
     }
-    
+
     return nil
 }
 
@@ -337,44 +340,44 @@ func NewBankTransferProcessor(base *BasePaymentProcessor, gateway BankTransferGa
 
 func (btp *BankTransferProcessor) validatePaymentData(ctx context.Context, request *PaymentRequest) error {
     btp.logger.Debug("Validating bank transfer data", zap.String("payment_id", request.PaymentID))
-    
+
     // Validate account number
     if !btp.accountValidator.IsValidAccountNumber(request.PaymentData.AccountNumber) {
         return fmt.Errorf("invalid account number")
     }
-    
+
     // Validate routing number
     if !btp.accountValidator.IsValidRoutingNumber(request.PaymentData.RoutingNumber) {
         return fmt.Errorf("invalid routing number")
     }
-    
+
     // Check transfer limits
     if err := btp.limitsChecker.CheckTransferLimits(request.CustomerID, request.Amount); err != nil {
         return fmt.Errorf("transfer limits exceeded: %w", err)
     }
-    
+
     return nil
 }
 
 func (btp *BankTransferProcessor) authenticatePayment(ctx context.Context, request *PaymentRequest) error {
     btp.logger.Debug("Authenticating bank transfer", zap.String("payment_id", request.PaymentID))
-    
+
     // Verify account ownership
     if err := btp.accountValidator.VerifyAccountOwnership(request.CustomerID, request.PaymentData.AccountNumber); err != nil {
         return fmt.Errorf("account ownership verification failed: %w", err)
     }
-    
+
     // Check account balance (if available)
     if err := btp.accountValidator.CheckSufficientBalance(request.PaymentData.AccountNumber, request.Amount); err != nil {
         return fmt.Errorf("insufficient balance: %w", err)
     }
-    
+
     return nil
 }
 
 func (btp *BankTransferProcessor) executePayment(ctx context.Context, request *PaymentRequest) (*PaymentResponse, error) {
     btp.logger.Debug("Executing bank transfer", zap.String("payment_id", request.PaymentID))
-    
+
     // Prepare gateway request
     gatewayRequest := &BankTransferGatewayRequest{
         PaymentID:     request.PaymentID,
@@ -386,13 +389,13 @@ func (btp *BankTransferProcessor) executePayment(ctx context.Context, request *P
         MerchantID:    request.MerchantID,
         Description:   request.Description,
     }
-    
+
     // Execute through gateway
     gatewayResponse, err := btp.gateway.ProcessTransfer(ctx, gatewayRequest)
     if err != nil {
         return nil, fmt.Errorf("gateway processing failed: %w", err)
     }
-    
+
     response := &PaymentResponse{
         TransactionID: gatewayResponse.TransactionID,
         Status:        gatewayResponse.Status,
@@ -402,19 +405,19 @@ func (btp *BankTransferProcessor) executePayment(ctx context.Context, request *P
             "expected_settlement": gatewayResponse.ExpectedSettlement,
         },
     }
-    
+
     return response, nil
 }
 
 func (btp *BankTransferProcessor) postProcessHook(ctx context.Context, result *PaymentResult) error {
     // Bank transfer specific post-processing
     btp.logger.Debug("Bank transfer post-processing", zap.String("payment_id", result.PaymentID))
-    
+
     // Schedule settlement tracking
     if err := btp.scheduleSettlementTracking(result); err != nil {
         btp.logger.Warn("Failed to schedule settlement tracking", zap.Error(err))
     }
-    
+
     return nil
 }
 
@@ -443,7 +446,7 @@ type PaymentData struct {
     ExpiryYear   int
     CVV          string
     CardToken    string
-    
+
     // Bank Transfer fields
     AccountNumber string
     RoutingNumber string
@@ -470,20 +473,21 @@ type PaymentResponse struct {
 ```
 
 ### 2. Loan Application Processing Template
+
 ```go
 // Abstract loan application processor
 type LoanApplicationProcessor interface {
     ProcessApplication(ctx context.Context, application *LoanApplication) (*ApplicationDecision, error)
-    
+
     // Template method
     processApplicationTemplate(ctx context.Context, application *LoanApplication) (*ApplicationDecision, error)
-    
+
     // Abstract methods
     validateApplication(ctx context.Context, application *LoanApplication) error
     performCreditCheck(ctx context.Context, application *LoanApplication) (*CreditReport, error)
     calculateLoanTerms(ctx context.Context, application *LoanApplication, creditReport *CreditReport) (*LoanTerms, error)
     makeDecision(ctx context.Context, application *LoanApplication, terms *LoanTerms) (*ApplicationDecision, error)
-    
+
     // Hook methods
     preProcessingHook(ctx context.Context, application *LoanApplication) error
     postDecisionHook(ctx context.Context, decision *ApplicationDecision) error
@@ -504,16 +508,16 @@ func (blp *BaseLoanProcessor) ProcessApplication(ctx context.Context, applicatio
 
 func (blp *BaseLoanProcessor) processApplicationTemplate(ctx context.Context, application *LoanApplication) (*ApplicationDecision, error) {
     startTime := time.Now()
-    blp.logger.Info("Starting loan application processing", 
+    blp.logger.Info("Starting loan application processing",
         zap.String("application_id", application.ApplicationID),
         zap.String("loan_type", application.LoanType),
         zap.String("amount", application.RequestedAmount.String()))
-    
+
     // Step 1: Pre-processing hook
     if err := blp.preProcessingHook(ctx, application); err != nil {
         return nil, fmt.Errorf("pre-processing failed: %w", err)
     }
-    
+
     // Step 2: Validate application
     if err := blp.validateApplication(ctx, application); err != nil {
         decision := &ApplicationDecision{
@@ -525,42 +529,42 @@ func (blp *BaseLoanProcessor) processApplicationTemplate(ctx context.Context, ap
         blp.postDecisionHook(ctx, decision)
         return decision, nil
     }
-    
+
     // Step 3: Perform credit check
     creditReport, err := blp.performCreditCheck(ctx, application)
     if err != nil {
         return nil, fmt.Errorf("credit check failed: %w", err)
     }
-    
+
     // Step 4: Calculate loan terms
     loanTerms, err := blp.calculateLoanTerms(ctx, application, creditReport)
     if err != nil {
         return nil, fmt.Errorf("loan terms calculation failed: %w", err)
     }
-    
+
     // Step 5: Make decision
     decision, err := blp.makeDecision(ctx, application, loanTerms)
     if err != nil {
         return nil, fmt.Errorf("decision making failed: %w", err)
     }
-    
+
     decision.ProcessedAt = time.Now()
     decision.ProcessingTime = time.Since(startTime)
-    
+
     // Step 6: Post-decision hook
     if err := blp.postDecisionHook(ctx, decision); err != nil {
         blp.logger.Warn("Post-decision hook failed", zap.Error(err))
     }
-    
+
     // Step 7: Record metrics and audit
     blp.metrics.RecordDuration("loan_processing_duration", time.Since(startTime), application.LoanType)
     blp.auditor.LogApplicationProcessed(ctx, application, decision)
-    
-    blp.logger.Info("Loan application processing completed", 
+
+    blp.logger.Info("Loan application processing completed",
         zap.String("application_id", application.ApplicationID),
         zap.String("decision", decision.Status),
         zap.Duration("processing_time", decision.ProcessingTime))
-    
+
     return decision, nil
 }
 
@@ -590,15 +594,15 @@ func (plp *PersonalLoanProcessor) validateApplication(ctx context.Context, appli
     if application.ApplicantAge < 18 {
         return fmt.Errorf("applicant must be at least 18 years old")
     }
-    
+
     if application.RequestedAmount.LessThan(decimal.NewFromInt(1000)) {
         return fmt.Errorf("minimum loan amount is $1,000")
     }
-    
+
     if application.RequestedAmount.GreaterThan(decimal.NewFromInt(50000)) {
         return fmt.Errorf("maximum loan amount is $50,000")
     }
-    
+
     return nil
 }
 
@@ -612,7 +616,7 @@ func (plp *PersonalLoanProcessor) calculateLoanTerms(ctx context.Context, applic
         PrincipalAmount: application.RequestedAmount,
         Currency:        "USD",
     }
-    
+
     // Calculate interest rate based on credit score
     if creditReport.Score >= 750 {
         terms.InterestRate = decimal.NewFromFloat(5.99)
@@ -623,14 +627,14 @@ func (plp *PersonalLoanProcessor) calculateLoanTerms(ctx context.Context, applic
     } else {
         terms.InterestRate = decimal.NewFromFloat(18.99)
     }
-    
+
     // Set term length
     terms.TermMonths = 36 // 3 years for personal loans
-    
+
     // Calculate monthly payment
     monthlyRate := terms.InterestRate.Div(decimal.NewFromInt(100)).Div(decimal.NewFromInt(12))
     terms.MonthlyPayment = plp.calculateMonthlyPayment(terms.PrincipalAmount, monthlyRate, terms.TermMonths)
-    
+
     return terms, nil
 }
 
@@ -639,7 +643,7 @@ func (plp *PersonalLoanProcessor) makeDecision(ctx context.Context, application 
         ApplicationID: application.ApplicationID,
         LoanTerms:     terms,
     }
-    
+
     // Decision logic for personal loans
     if terms.InterestRate.GreaterThan(decimal.NewFromFloat(15.0)) {
         decision.Status = "REJECTED"
@@ -648,7 +652,7 @@ func (plp *PersonalLoanProcessor) makeDecision(ctx context.Context, application 
         decision.Status = "APPROVED"
         decision.Reason = "Application meets personal loan criteria"
     }
-    
+
     return decision, nil
 }
 
@@ -656,10 +660,10 @@ func (plp *PersonalLoanProcessor) calculateMonthlyPayment(principal, monthlyRate
     // Standard loan payment calculation: P * [r(1+r)^n] / [(1+r)^n - 1]
     onePlusRate := decimal.NewFromInt(1).Add(monthlyRate)
     onePlusRatePowN := onePlusRate.Pow(decimal.NewFromInt(int64(termMonths)))
-    
+
     numerator := principal.Mul(monthlyRate).Mul(onePlusRatePowN)
     denominator := onePlusRatePowN.Sub(decimal.NewFromInt(1))
-    
+
     return numerator.Div(denominator)
 }
 
@@ -676,15 +680,15 @@ func (mp *MortgageProcessor) validateApplication(ctx context.Context, applicatio
     if application.ApplicantAge < 21 {
         return fmt.Errorf("applicant must be at least 21 years old for mortgage")
     }
-    
+
     if application.RequestedAmount.LessThan(decimal.NewFromInt(50000)) {
         return fmt.Errorf("minimum mortgage amount is $50,000")
     }
-    
+
     if application.PropertyAddress == "" {
         return fmt.Errorf("property address is required for mortgage")
     }
-    
+
     return nil
 }
 
@@ -694,12 +698,12 @@ func (mp *MortgageProcessor) performCreditCheck(ctx context.Context, application
     if err != nil {
         return nil, err
     }
-    
+
     // Additional checks for mortgage
     if creditReport.Score < 620 {
         return nil, fmt.Errorf("credit score too low for mortgage: %d", creditReport.Score)
     }
-    
+
     return creditReport, nil
 }
 
@@ -709,13 +713,13 @@ func (mp *MortgageProcessor) calculateLoanTerms(ctx context.Context, application
     if err != nil {
         return nil, fmt.Errorf("property appraisal failed: %w", err)
     }
-    
+
     // Loan-to-value ratio check
     ltvRatio := application.RequestedAmount.Div(appraisal.Value)
     if ltvRatio.GreaterThan(decimal.NewFromFloat(0.95)) {
         return nil, fmt.Errorf("loan-to-value ratio too high: %.2f%%", ltvRatio.InexactFloat64()*100)
     }
-    
+
     terms := &LoanTerms{
         PrincipalAmount: application.RequestedAmount,
         Currency:        "USD",
@@ -723,7 +727,7 @@ func (mp *MortgageProcessor) calculateLoanTerms(ctx context.Context, application
         PropertyValue:   appraisal.Value,
         LTVRatio:        ltvRatio,
     }
-    
+
     // Calculate mortgage interest rate
     baseRate := decimal.NewFromFloat(3.5)
     if creditReport.Score >= 760 {
@@ -735,11 +739,11 @@ func (mp *MortgageProcessor) calculateLoanTerms(ctx context.Context, application
     } else {
         terms.InterestRate = baseRate.Add(decimal.NewFromFloat(1.0))
     }
-    
+
     // Calculate monthly payment
     monthlyRate := terms.InterestRate.Div(decimal.NewFromInt(100)).Div(decimal.NewFromInt(12))
     terms.MonthlyPayment = mp.calculateMonthlyPayment(terms.PrincipalAmount, monthlyRate, terms.TermMonths)
-    
+
     return terms, nil
 }
 
@@ -748,12 +752,12 @@ func (mp *MortgageProcessor) makeDecision(ctx context.Context, application *Loan
         ApplicationID: application.ApplicationID,
         LoanTerms:     terms,
     }
-    
+
     // Debt-to-income ratio check
     monthlyIncome := application.MonthlyIncome
     totalMonthlyDebt := application.MonthlyDebtPayments.Add(terms.MonthlyPayment)
     dtiRatio := totalMonthlyDebt.Div(monthlyIncome)
-    
+
     if dtiRatio.GreaterThan(decimal.NewFromFloat(0.43)) {
         decision.Status = "REJECTED"
         decision.Reason = fmt.Sprintf("Debt-to-income ratio too high: %.2f%%", dtiRatio.InexactFloat64()*100)
@@ -761,7 +765,7 @@ func (mp *MortgageProcessor) makeDecision(ctx context.Context, application *Loan
         decision.Status = "APPROVED"
         decision.Reason = "Application meets mortgage criteria"
     }
-    
+
     return decision, nil
 }
 
@@ -769,22 +773,22 @@ func (mp *MortgageProcessor) calculateMonthlyPayment(principal, monthlyRate deci
     // Same calculation as personal loan
     onePlusRate := decimal.NewFromInt(1).Add(monthlyRate)
     onePlusRatePowN := onePlusRate.Pow(decimal.NewFromInt(int64(termMonths)))
-    
+
     numerator := principal.Mul(monthlyRate).Mul(onePlusRatePowN)
     denominator := onePlusRatePowN.Sub(decimal.NewFromInt(1))
-    
+
     return numerator.Div(denominator)
 }
 
 func (mp *MortgageProcessor) preProcessingHook(ctx context.Context, application *LoanApplication) error {
     // Mortgage specific pre-processing
     mp.logger.Debug("Mortgage pre-processing", zap.String("application_id", application.ApplicationID))
-    
+
     // Verify property title
     if err := mp.titleService.VerifyTitle(ctx, application.PropertyAddress); err != nil {
         return fmt.Errorf("title verification failed: %w", err)
     }
-    
+
     return nil
 }
 
@@ -793,7 +797,7 @@ func (mp *MortgageProcessor) postDecisionHook(ctx context.Context, decision *App
     if err := mp.BaseLoanProcessor.postDecisionHook(ctx, decision); err != nil {
         return err
     }
-    
+
     // Mortgage specific post-decision processing
     if decision.Status == "APPROVED" {
         // Schedule closing process
@@ -801,7 +805,7 @@ func (mp *MortgageProcessor) postDecisionHook(ctx context.Context, decision *App
             mp.logger.Warn("Failed to schedule closing", zap.Error(err))
         }
     }
-    
+
     return nil
 }
 
@@ -812,20 +816,21 @@ func (mp *MortgageProcessor) scheduleClosing(decision *ApplicationDecision) erro
 ```
 
 ### 3. KYC Verification Template
+
 ```go
 // Abstract KYC processor template
 type KYCProcessor interface {
     ProcessKYC(ctx context.Context, customer *Customer) (*KYCResult, error)
-    
+
     // Template method
     processKYCTemplate(ctx context.Context, customer *Customer) (*KYCResult, error)
-    
+
     // Abstract methods
     validateDocuments(ctx context.Context, customer *Customer) error
     verifyIdentity(ctx context.Context, customer *Customer) (*IdentityVerification, error)
     performRiskAssessment(ctx context.Context, customer *Customer) (*RiskAssessment, error)
     makeKYCDecision(ctx context.Context, customer *Customer, verification *IdentityVerification, risk *RiskAssessment) (*KYCDecision, error)
-    
+
     // Hook methods
     preKYCHook(ctx context.Context, customer *Customer) error
     postKYCHook(ctx context.Context, result *KYCResult) error
@@ -846,15 +851,15 @@ func (bkp *BaseKYCProcessor) ProcessKYC(ctx context.Context, customer *Customer)
 
 func (bkp *BaseKYCProcessor) processKYCTemplate(ctx context.Context, customer *Customer) (*KYCResult, error) {
     startTime := time.Now()
-    bkp.logger.Info("Starting KYC processing", 
+    bkp.logger.Info("Starting KYC processing",
         zap.String("customer_id", customer.CustomerID),
         zap.String("customer_type", customer.Type))
-    
+
     // Step 1: Pre-KYC hook
     if err := bkp.preKYCHook(ctx, customer); err != nil {
         return nil, fmt.Errorf("pre-KYC processing failed: %w", err)
     }
-    
+
     // Step 2: Validate documents
     if err := bkp.validateDocuments(ctx, customer); err != nil {
         result := &KYCResult{
@@ -866,25 +871,25 @@ func (bkp *BaseKYCProcessor) processKYCTemplate(ctx context.Context, customer *C
         bkp.postKYCHook(ctx, result)
         return result, nil
     }
-    
+
     // Step 3: Verify identity
     identityVerification, err := bkp.verifyIdentity(ctx, customer)
     if err != nil {
         return nil, fmt.Errorf("identity verification failed: %w", err)
     }
-    
+
     // Step 4: Perform risk assessment
     riskAssessment, err := bkp.performRiskAssessment(ctx, customer)
     if err != nil {
         return nil, fmt.Errorf("risk assessment failed: %w", err)
     }
-    
+
     // Step 5: Make KYC decision
     decision, err := bkp.makeKYCDecision(ctx, customer, identityVerification, riskAssessment)
     if err != nil {
         return nil, fmt.Errorf("KYC decision making failed: %w", err)
     }
-    
+
     // Step 6: Create result
     result := &KYCResult{
         CustomerID:           customer.CustomerID,
@@ -897,21 +902,21 @@ func (bkp *BaseKYCProcessor) processKYCTemplate(ctx context.Context, customer *C
         ProcessingTime:      time.Since(startTime),
         ExpiryDate:          decision.ExpiryDate,
     }
-    
+
     // Step 7: Post-KYC hook
     if err := bkp.postKYCHook(ctx, result); err != nil {
         bkp.logger.Warn("Post-KYC hook failed", zap.Error(err))
     }
-    
+
     // Step 8: Audit and compliance logging
     bkp.auditor.LogKYCProcessed(ctx, customer, result)
     bkp.complianceDB.RecordKYCEvent(ctx, result)
-    
-    bkp.logger.Info("KYC processing completed", 
+
+    bkp.logger.Info("KYC processing completed",
         zap.String("customer_id", customer.CustomerID),
         zap.String("status", result.Status),
         zap.Duration("processing_time", result.ProcessingTime))
-    
+
     return result, nil
 }
 
@@ -937,29 +942,29 @@ type IndividualKYCProcessor struct {
 func (ikp *IndividualKYCProcessor) validateDocuments(ctx context.Context, customer *Customer) error {
     // Individual-specific document validation
     requiredDocs := []string{"GOVERNMENT_ID", "PROOF_OF_ADDRESS"}
-    
+
     for _, docType := range requiredDocs {
         if !ikp.hasDocument(customer, docType) {
             return fmt.Errorf("missing required document: %s", docType)
         }
-        
+
         doc := ikp.getDocument(customer, docType)
         if err := ikp.documentValidator.ValidateDocument(doc); err != nil {
             return fmt.Errorf("invalid %s: %w", docType, err)
         }
     }
-    
+
     return nil
 }
 
 func (ikp *IndividualKYCProcessor) verifyIdentity(ctx context.Context, customer *Customer) (*IdentityVerification, error) {
     govID := ikp.getDocument(customer, "GOVERNMENT_ID")
-    
+
     verification, err := ikp.identityService.VerifyGovernmentID(ctx, govID)
     if err != nil {
         return nil, err
     }
-    
+
     // Face matching if photo available
     if customer.PhotoURL != "" {
         faceMatch, err := ikp.identityService.VerifyFaceMatch(ctx, customer.PhotoURL, govID.PhotoURL)
@@ -969,7 +974,7 @@ func (ikp *IndividualKYCProcessor) verifyIdentity(ctx context.Context, customer 
             verification.FaceMatchScore = faceMatch.Score
         }
     }
-    
+
     return verification, nil
 }
 
@@ -980,31 +985,31 @@ func (ikp *IndividualKYCProcessor) performRiskAssessment(ctx context.Context, cu
         Score:      0.0,
         Factors:    make([]string, 0),
     }
-    
+
     // Check sanctions lists
     sanctionsResult, err := ikp.sanctionsChecker.CheckSanctions(ctx, customer)
     if err != nil {
         return nil, err
     }
-    
+
     if sanctionsResult.IsOnSanctionsList {
         assessment.RiskLevel = "HIGH"
         assessment.Score += 100.0
         assessment.Factors = append(assessment.Factors, "SANCTIONS_LIST_MATCH")
     }
-    
+
     // Check PEP lists
     pepResult, err := ikp.pepChecker.CheckPEP(ctx, customer)
     if err != nil {
         return nil, err
     }
-    
+
     if pepResult.IsPEP {
         assessment.RiskLevel = "HIGH"
         assessment.Score += 50.0
         assessment.Factors = append(assessment.Factors, "POLITICALLY_EXPOSED_PERSON")
     }
-    
+
     // Geographic risk assessment
     if ikp.isHighRiskCountry(customer.Country) {
         assessment.Score += 30.0
@@ -1013,7 +1018,7 @@ func (ikp *IndividualKYCProcessor) performRiskAssessment(ctx context.Context, cu
             assessment.RiskLevel = "MEDIUM"
         }
     }
-    
+
     return assessment, nil
 }
 
@@ -1022,7 +1027,7 @@ func (ikp *IndividualKYCProcessor) makeKYCDecision(ctx context.Context, customer
         CustomerID: customer.CustomerID,
         ExpiryDate: time.Now().AddDate(1, 0, 0), // 1 year expiry
     }
-    
+
     // Decision logic
     if risk.RiskLevel == "HIGH" {
         decision.Status = "REJECTED"
@@ -1036,7 +1041,7 @@ func (ikp *IndividualKYCProcessor) makeKYCDecision(ctx context.Context, customer
         decision.Status = "APPROVED"
         decision.Reason = "KYC verification successful"
     }
-    
+
     return decision, nil
 }
 
@@ -1139,16 +1144,16 @@ import (
 // Abstract document generator
 type DocumentGenerator interface {
     GenerateDocument() (*Document, error)
-    
+
     // Template method
     generateDocumentTemplate() (*Document, error)
-    
+
     // Abstract methods that must be implemented
     createHeader() (*Header, error)
     createBody() (*Body, error)
     createFooter() (*Footer, error)
     formatDocument(*Document) error
-    
+
     // Hook methods that can be overridden
     preGenerationHook() error
     postGenerationHook(*Document) error
@@ -1178,33 +1183,33 @@ func (bdg *BaseDocumentGenerator) GenerateDocument() (*Document, error) {
 }
 
 func (bdg *BaseDocumentGenerator) generateDocumentTemplate() (*Document, error) {
-    bdg.logger.Info("Starting document generation", 
+    bdg.logger.Info("Starting document generation",
         zap.String("title", bdg.title),
         zap.String("author", bdg.author))
-    
+
     // Step 1: Pre-generation hook
     if err := bdg.preGenerationHook(); err != nil {
         return nil, fmt.Errorf("pre-generation hook failed: %w", err)
     }
-    
+
     // Step 2: Create header
     header, err := bdg.createHeader()
     if err != nil {
         return nil, fmt.Errorf("header creation failed: %w", err)
     }
-    
+
     // Step 3: Create body
     body, err := bdg.createBody()
     if err != nil {
         return nil, fmt.Errorf("body creation failed: %w", err)
     }
-    
+
     // Step 4: Create footer
     footer, err := bdg.createFooter()
     if err != nil {
         return nil, fmt.Errorf("footer creation failed: %w", err)
     }
-    
+
     // Step 5: Assemble document
     document := &Document{
         Header:      header,
@@ -1215,27 +1220,27 @@ func (bdg *BaseDocumentGenerator) generateDocumentTemplate() (*Document, error) 
         CreatedAt:   bdg.createdAt,
         GeneratedAt: time.Now(),
     }
-    
+
     // Step 6: Format document
     if err := bdg.formatDocument(document); err != nil {
         return nil, fmt.Errorf("document formatting failed: %w", err)
     }
-    
+
     // Step 7: Validate content
     if err := bdg.validateContent(document); err != nil {
         return nil, fmt.Errorf("content validation failed: %w", err)
     }
-    
+
     // Step 8: Post-generation hook
     if err := bdg.postGenerationHook(document); err != nil {
         bdg.logger.Warn("Post-generation hook failed", zap.Error(err))
         // Don't fail document generation for post-processing errors
     }
-    
-    bdg.logger.Info("Document generation completed", 
+
+    bdg.logger.Info("Document generation completed",
         zap.String("title", document.Title),
         zap.Duration("generation_time", time.Since(bdg.createdAt)))
-    
+
     return document, nil
 }
 
@@ -1246,7 +1251,7 @@ func (bdg *BaseDocumentGenerator) preGenerationHook() error {
 }
 
 func (bdg *BaseDocumentGenerator) postGenerationHook(document *Document) error {
-    bdg.logger.Debug("Post-generation hook executed", 
+    bdg.logger.Debug("Post-generation hook executed",
         zap.String("document_title", document.Title))
     return nil
 }
@@ -1276,7 +1281,7 @@ type InvoiceGenerator struct {
 
 func NewInvoiceGenerator(invoiceNumber string, customer *CustomerInfo, items []*InvoiceItem, taxRate float64, logger *zap.Logger) *InvoiceGenerator {
     base := NewBaseDocumentGenerator(fmt.Sprintf("Invoice %s", invoiceNumber), "Invoice System", logger)
-    
+
     return &InvoiceGenerator{
         BaseDocumentGenerator: base,
         invoiceNumber:        invoiceNumber,
@@ -1289,7 +1294,7 @@ func NewInvoiceGenerator(invoiceNumber string, customer *CustomerInfo, items []*
 // Implement abstract methods for invoice generation
 func (ig *InvoiceGenerator) createHeader() (*Header, error) {
     ig.logger.Debug("Creating invoice header", zap.String("invoice_number", ig.invoiceNumber))
-    
+
     header := &Header{
         Type: "INVOICE",
         Content: map[string]interface{}{
@@ -1302,24 +1307,24 @@ func (ig *InvoiceGenerator) createHeader() (*Header, error) {
             "company_email":  "billing@acme.com",
         },
     }
-    
+
     return header, nil
 }
 
 func (ig *InvoiceGenerator) createBody() (*Body, error) {
-    ig.logger.Debug("Creating invoice body", 
+    ig.logger.Debug("Creating invoice body",
         zap.String("customer_name", ig.customerInfo.Name),
         zap.Int("item_count", len(ig.items)))
-    
+
     // Calculate totals
     subtotal := 0.0
     for _, item := range ig.items {
         subtotal += item.Quantity * item.UnitPrice
     }
-    
+
     tax := subtotal * ig.taxRate
     total := subtotal + tax
-    
+
     body := &Body{
         Type: "INVOICE_BODY",
         Content: map[string]interface{}{
@@ -1336,13 +1341,13 @@ func (ig *InvoiceGenerator) createBody() (*Body, error) {
             "total":    total,
         },
     }
-    
+
     return body, nil
 }
 
 func (ig *InvoiceGenerator) createFooter() (*Footer, error) {
     ig.logger.Debug("Creating invoice footer")
-    
+
     footer := &Footer{
         Type: "INVOICE_FOOTER",
         Content: map[string]interface{}{
@@ -1352,13 +1357,13 @@ func (ig *InvoiceGenerator) createFooter() (*Footer, error) {
             "legal_notice": "This invoice is generated electronically and is valid without signature",
         },
     }
-    
+
     return footer, nil
 }
 
 func (ig *InvoiceGenerator) formatDocument(document *Document) error {
     ig.logger.Debug("Formatting invoice document")
-    
+
     // Invoice-specific formatting
     document.Format = "PDF"
     document.Layout = "INVOICE_LAYOUT"
@@ -1373,27 +1378,27 @@ func (ig *InvoiceGenerator) formatDocument(document *Document) error {
         "logo_position": "top-left",
         "table_style":   "striped",
     }
-    
+
     return nil
 }
 
 // Override hook methods for invoice-specific behavior
 func (ig *InvoiceGenerator) preGenerationHook() error {
     ig.logger.Debug("Invoice pre-generation hook")
-    
+
     // Validate invoice data
     if ig.invoiceNumber == "" {
         return fmt.Errorf("invoice number is required")
     }
-    
+
     if ig.customerInfo == nil {
         return fmt.Errorf("customer information is required")
     }
-    
+
     if len(ig.items) == 0 {
         return fmt.Errorf("at least one invoice item is required")
     }
-    
+
     return nil
 }
 
@@ -1402,35 +1407,35 @@ func (ig *InvoiceGenerator) postGenerationHook(document *Document) error {
     if err := ig.BaseDocumentGenerator.postGenerationHook(document); err != nil {
         return err
     }
-    
+
     // Invoice-specific post-processing
-    ig.logger.Info("Invoice generated successfully", 
+    ig.logger.Info("Invoice generated successfully",
         zap.String("invoice_number", ig.invoiceNumber),
         zap.String("customer", ig.customerInfo.Name))
-    
+
     // Save to invoice database
     if err := ig.saveInvoiceToDatabase(document); err != nil {
         ig.logger.Warn("Failed to save invoice to database", zap.Error(err))
     }
-    
+
     // Send email notification
     if err := ig.sendInvoiceNotification(document); err != nil {
         ig.logger.Warn("Failed to send invoice notification", zap.Error(err))
     }
-    
+
     return nil
 }
 
 func (ig *InvoiceGenerator) saveInvoiceToDatabase(document *Document) error {
     // Simulate database save
-    ig.logger.Debug("Saving invoice to database", 
+    ig.logger.Debug("Saving invoice to database",
         zap.String("invoice_number", ig.invoiceNumber))
     return nil
 }
 
 func (ig *InvoiceGenerator) sendInvoiceNotification(document *Document) error {
     // Simulate email notification
-    ig.logger.Debug("Sending invoice notification", 
+    ig.logger.Debug("Sending invoice notification",
         zap.String("customer_email", ig.customerInfo.Email))
     return nil
 }
@@ -1446,7 +1451,7 @@ type ReportGenerator struct {
 
 func NewReportGenerator(reportType string, dateRange DateRange, data interface{}, charts []*Chart, logger *zap.Logger) *ReportGenerator {
     base := NewBaseDocumentGenerator(fmt.Sprintf("%s Report", reportType), "Report System", logger)
-    
+
     return &ReportGenerator{
         BaseDocumentGenerator: base,
         reportType:           reportType,
@@ -1458,7 +1463,7 @@ func NewReportGenerator(reportType string, dateRange DateRange, data interface{}
 
 func (rg *ReportGenerator) createHeader() (*Header, error) {
     rg.logger.Debug("Creating report header", zap.String("report_type", rg.reportType))
-    
+
     header := &Header{
         Type: "REPORT",
         Content: map[string]interface{}{
@@ -1469,15 +1474,15 @@ func (rg *ReportGenerator) createHeader() (*Header, error) {
             "logo_url":      "/assets/logo.png",
         },
     }
-    
+
     return header, nil
 }
 
 func (rg *ReportGenerator) createBody() (*Body, error) {
-    rg.logger.Debug("Creating report body", 
+    rg.logger.Debug("Creating report body",
         zap.String("report_type", rg.reportType),
         zap.Int("chart_count", len(rg.charts)))
-    
+
     body := &Body{
         Type: "REPORT_BODY",
         Content: map[string]interface{}{
@@ -1488,13 +1493,13 @@ func (rg *ReportGenerator) createBody() (*Body, error) {
             "date_range": rg.dateRange,
         },
     }
-    
+
     return body, nil
 }
 
 func (rg *ReportGenerator) createFooter() (*Footer, error) {
     rg.logger.Debug("Creating report footer")
-    
+
     footer := &Footer{
         Type: "REPORT_FOOTER",
         Content: map[string]interface{}{
@@ -1504,13 +1509,13 @@ func (rg *ReportGenerator) createFooter() (*Footer, error) {
             "confidentiality": "CONFIDENTIAL - Internal Use Only",
         },
     }
-    
+
     return footer, nil
 }
 
 func (rg *ReportGenerator) formatDocument(document *Document) error {
     rg.logger.Debug("Formatting report document")
-    
+
     // Report-specific formatting
     document.Format = "PDF"
     document.Layout = "REPORT_LAYOUT"
@@ -1531,7 +1536,7 @@ func (rg *ReportGenerator) formatDocument(document *Document) error {
             "right":  72,
         },
     }
-    
+
     return nil
 }
 
@@ -1560,19 +1565,19 @@ func (rg *ReportGenerator) postGenerationHook(document *Document) error {
     if err := rg.BaseDocumentGenerator.postGenerationHook(document); err != nil {
         return err
     }
-    
+
     // Report-specific post-processing
-    rg.logger.Info("Report generated successfully", 
+    rg.logger.Info("Report generated successfully",
         zap.String("report_type", rg.reportType),
-        zap.String("date_range", fmt.Sprintf("%s to %s", 
-            rg.dateRange.Start.Format("2006-01-02"), 
+        zap.String("date_range", fmt.Sprintf("%s to %s",
+            rg.dateRange.Start.Format("2006-01-02"),
             rg.dateRange.End.Format("2006-01-02"))))
-    
+
     // Archive report
     if err := rg.archiveReport(document); err != nil {
         rg.logger.Warn("Failed to archive report", zap.Error(err))
     }
-    
+
     return nil
 }
 
@@ -1639,29 +1644,29 @@ type Chart struct {
 // Example usage
 func main() {
     fmt.Println("=== Template Method Pattern Demo ===\n")
-    
+
     // Create logger
     logger, _ := zap.NewDevelopment()
     defer logger.Sync()
-    
+
     // Example 1: Generate Invoice
     fmt.Println("=== Generating Invoice ===")
-    
+
     customer := &CustomerInfo{
         Name:    "John Doe",
         Address: "456 Customer Lane, City, State 67890",
         Phone:   "+1-555-0199",
         Email:   "john.doe@email.com",
     }
-    
+
     items := []*InvoiceItem{
         {Description: "Software License", Quantity: 1, UnitPrice: 299.99},
         {Description: "Support Package", Quantity: 1, UnitPrice: 99.99},
         {Description: "Training Hours", Quantity: 4, UnitPrice: 150.00},
     }
-    
+
     invoiceGen := NewInvoiceGenerator("INV-2024-001", customer, items, 0.08, logger)
-    
+
     invoice, err := invoiceGen.GenerateDocument()
     if err != nil {
         fmt.Printf("Invoice generation failed: %v\n", err)
@@ -1672,27 +1677,27 @@ func main() {
         fmt.Printf("  Format: %s\n", invoice.Format)
         fmt.Printf("  Layout: %s\n", invoice.Layout)
         fmt.Printf("  Generated at: %s\n", invoice.GeneratedAt.Format("2006-01-02 15:04:05"))
-        
+
         // Display invoice details
         if headerContent, ok := invoice.Header.Content["invoice_number"]; ok {
             fmt.Printf("  Invoice Number: %s\n", headerContent)
         }
-        
+
         if bodyContent, ok := invoice.Body.Content["total"]; ok {
             fmt.Printf("  Total Amount: $%.2f\n", bodyContent)
         }
     }
-    
+
     fmt.Println()
-    
+
     // Example 2: Generate Report
     fmt.Println("=== Generating Report ===")
-    
+
     dateRange := DateRange{
         Start: time.Now().AddDate(0, -1, 0), // 1 month ago
         End:   time.Now(),
     }
-    
+
     charts := []*Chart{
         {
             Type:  "line",
@@ -1717,7 +1722,7 @@ func main() {
             },
         },
     }
-    
+
     reportData := map[string]interface{}{
         "sales": map[string]float64{
             "total":     8400,
@@ -1730,9 +1735,9 @@ func main() {
             "churned":   12,
         },
     }
-    
+
     reportGen := NewReportGenerator("Sales Performance", dateRange, reportData, charts, logger)
-    
+
     report, err := reportGen.GenerateDocument()
     if err != nil {
         fmt.Printf("Report generation failed: %v\n", err)
@@ -1743,16 +1748,16 @@ func main() {
         fmt.Printf("  Format: %s\n", report.Format)
         fmt.Printf("  Layout: %s\n", report.Layout)
         fmt.Printf("  Generated at: %s\n", report.GeneratedAt.Format("2006-01-02 15:04:05"))
-        
+
         // Display report details
         if headerContent, ok := report.Header.Content["report_type"]; ok {
             fmt.Printf("  Report Type: %s\n", headerContent)
         }
-        
+
         if headerContent, ok := report.Header.Content["date_range"]; ok {
             fmt.Printf("  Date Range: %s\n", headerContent)
         }
-        
+
         if bodyContent, ok := report.Body.Content["summary"]; ok {
             if summary, ok := bodyContent.(map[string]interface{}); ok {
                 if totalRecords, ok := summary["total_records"]; ok {
@@ -1761,9 +1766,9 @@ func main() {
             }
         }
     }
-    
+
     fmt.Println()
-    
+
     // Example 3: Demonstrate Template Method Structure
     fmt.Println("=== Template Method Structure Demo ===")
     fmt.Println("Both generators follow the same algorithm:")
@@ -1779,7 +1784,7 @@ func main() {
     fmt.Println("- Invoice: Business-focused formatting, tax calculations")
     fmt.Println("- Report: Analytics-focused formatting, charts and insights")
     fmt.Println()
-    
+
     fmt.Println("=== Template Method Pattern Demo Complete ===")
 }
 ```
@@ -1789,6 +1794,7 @@ func main() {
 ### Variants
 
 1. **Interface-based Template Method**
+
 ```go
 // Using interfaces instead of inheritance
 type DocumentProcessor interface {
@@ -1805,18 +1811,19 @@ type TemplateDocumentProcessor struct {
 
 func (tdp *TemplateDocumentProcessor) ProcessDocument() error {
     context := &ProcessingContext{}
-    
+
     for _, step := range tdp.steps {
         if err := step.Execute(context); err != nil {
             return err
         }
     }
-    
+
     return nil
 }
 ```
 
 2. **Functional Template Method**
+
 ```go
 // Using function composition
 type ProcessingStep func(*ProcessingContext) error
@@ -1827,13 +1834,13 @@ type FunctionalProcessor struct {
 
 func (fp *FunctionalProcessor) Process() error {
     context := &ProcessingContext{}
-    
+
     for _, step := range fp.steps {
         if err := step(context); err != nil {
             return err
         }
     }
-    
+
     return nil
 }
 
@@ -1851,6 +1858,7 @@ func NewPaymentProcessor() *FunctionalProcessor {
 ```
 
 3. **Pipeline Template Method**
+
 ```go
 type Pipeline struct {
     stages []Stage
@@ -1863,19 +1871,19 @@ type Stage interface {
 
 func (p *Pipeline) Execute(input interface{}) (interface{}, error) {
     current := input
-    
+
     for _, stage := range p.stages {
         if !stage.CanProcess(current) {
             continue
         }
-        
+
         result, err := stage.Process(current)
         if err != nil {
             return nil, err
         }
         current = result
     }
-    
+
     return current, nil
 }
 ```
@@ -1883,6 +1891,7 @@ func (p *Pipeline) Execute(input interface{}) (interface{}, error) {
 ### Trade-offs
 
 **Pros:**
+
 - **Code Reuse**: Common algorithm structure shared across implementations
 - **Consistency**: Ensures all implementations follow the same process
 - **Maintainability**: Changes to algorithm structure in one place
@@ -1890,6 +1899,7 @@ func (p *Pipeline) Execute(input interface{}) (interface{}, error) {
 - **Inversion of Control**: Framework controls the algorithm flow
 
 **Cons:**
+
 - **Inheritance Coupling**: Creates dependency on base class
 - **Rigid Structure**: Difficult to change algorithm structure at runtime
 - **Complexity**: Can become complex with many hook methods
@@ -1899,6 +1909,7 @@ func (p *Pipeline) Execute(input interface{}) (interface{}, error) {
 ## Integration Tips
 
 ### 1. Strategy Pattern Integration
+
 ```go
 // Combine Template Method with Strategy for flexible steps
 type TemplateWithStrategy struct {
@@ -1911,18 +1922,19 @@ func (tws *TemplateWithStrategy) processTemplate() error {
     if err := tws.preProcess(); err != nil {
         return err
     }
-    
+
     // Use strategy for validation
     if err := tws.validationStrategy.Validate(); err != nil {
         return err
     }
-    
+
     // Use strategy for processing
     return tws.processingStrategy.Process()
 }
 ```
 
 ### 2. Observer Pattern Integration
+
 ```go
 type ObservableTemplate struct {
     *BaseTemplate
@@ -1940,26 +1952,27 @@ func (ot *ObservableTemplate) executeStep(stepName string, step func() (interfac
     for _, observer := range ot.observers {
         observer.OnStepStarted(stepName)
     }
-    
+
     result, err := step()
-    
+
     if err != nil {
         for _, observer := range ot.observers {
             observer.OnStepFailed(stepName, err)
         }
         return nil, err
     }
-    
+
     // Notify step completed
     for _, observer := range ot.observers {
         observer.OnStepCompleted(stepName, result)
     }
-    
+
     return result, nil
 }
 ```
 
 ### 3. Decorator Pattern Integration
+
 ```go
 type TemplateDecorator interface {
     Decorate(base TemplateMethod) TemplateMethod
@@ -1983,15 +1996,15 @@ type LoggingTemplate struct {
 
 func (lt *LoggingTemplate) Execute() error {
     lt.logger.Info("Template execution started")
-    
+
     err := lt.base.Execute()
-    
+
     if err != nil {
         lt.logger.Error("Template execution failed", zap.Error(err))
     } else {
         lt.logger.Info("Template execution completed successfully")
     }
-    
+
     return err
 }
 ```
@@ -2002,20 +2015,21 @@ func (lt *LoggingTemplate) Execute() error {
 
 **Answer:**
 
-| Aspect | Template Method | Strategy |
-|--------|-----------------|----------|
-| **Purpose** | Define algorithm skeleton | Define algorithm family |
-| **Flexibility** | Fixed structure, variable steps | Interchangeable algorithms |
-| **Runtime** | Structure fixed at compile-time | Algorithm changeable at runtime |
-| **Inheritance** | Uses inheritance heavily | Uses composition |
-| **Control** | Parent controls flow | Client controls selection |
+| Aspect          | Template Method                 | Strategy                        |
+| --------------- | ------------------------------- | ------------------------------- |
+| **Purpose**     | Define algorithm skeleton       | Define algorithm family         |
+| **Flexibility** | Fixed structure, variable steps | Interchangeable algorithms      |
+| **Runtime**     | Structure fixed at compile-time | Algorithm changeable at runtime |
+| **Inheritance** | Uses inheritance heavily        | Uses composition                |
+| **Control**     | Parent controls flow            | Client controls selection       |
 
 **Template Method Example:**
+
 ```go
 func (processor *PaymentProcessor) processPayment() error {
     // Fixed algorithm structure
     processor.validate()    // Step 1 - always happens
-    processor.authenticate() // Step 2 - always happens  
+    processor.authenticate() // Step 2 - always happens
     processor.execute()     // Step 3 - always happens
     processor.notify()      // Step 4 - always happens
 }
@@ -2027,6 +2041,7 @@ func (cc *CreditCardProcessor) authenticate() error {
 ```
 
 **Strategy Example:**
+
 ```go
 type PaymentStrategy interface {
     ProcessPayment() error
@@ -2051,68 +2066,71 @@ processor.SetStrategy(BankTransferStrategy{})
 **Answer:**
 
 **1. Early Return Strategy:**
+
 ```go
 func (base *BaseProcessor) processTemplate() error {
     if err := base.step1(); err != nil {
         base.handleError("step1", err)
         return err // Stop processing
     }
-    
+
     if err := base.step2(); err != nil {
         base.handleError("step2", err)
         return err // Stop processing
     }
-    
+
     return base.step3()
 }
 ```
 
 **2. Error Accumulation:**
+
 ```go
 func (base *BaseProcessor) processTemplate() error {
     var errors []error
-    
+
     if err := base.step1(); err != nil {
         errors = append(errors, err)
     }
-    
+
     if err := base.step2(); err != nil {
         errors = append(errors, err)
     }
-    
+
     if err := base.step3(); err != nil {
         errors = append(errors, err)
     }
-    
+
     if len(errors) > 0 {
         return &MultiError{Errors: errors}
     }
-    
+
     return nil
 }
 ```
 
 **3. Compensation Pattern:**
+
 ```go
 func (base *BaseProcessor) processTemplate() error {
     var completedSteps []string
-    
+
     if err := base.step1(); err != nil {
         return err
     }
     completedSteps = append(completedSteps, "step1")
-    
+
     if err := base.step2(); err != nil {
         base.compensate(completedSteps)
         return err
     }
     completedSteps = append(completedSteps, "step2")
-    
+
     if err := base.step3(); err != nil {
         base.compensate(completedSteps)
         return err
     }
-    
+
     return nil
 }
 
@@ -2125,6 +2143,7 @@ func (base *BaseProcessor) compensate(steps []string) {
 ```
 
 **4. Circuit Breaker Integration:**
+
 ```go
 type CircuitBreakerTemplate struct {
     *BaseTemplate
@@ -2137,7 +2156,7 @@ func (cbt *CircuitBreakerTemplate) executeStep(stepName string, step func() erro
         breaker = NewCircuitBreaker(stepName)
         cbt.breakers[stepName] = breaker
     }
-    
+
     return breaker.Execute(step)
 }
 ```
@@ -2147,6 +2166,7 @@ func (cbt *CircuitBreakerTemplate) executeStep(stepName string, step func() erro
 **Answer:**
 
 **1. Mock Hook Methods:**
+
 ```go
 type TestableProcessor struct {
     *BaseProcessor
@@ -2166,7 +2186,7 @@ func TestProcessorTemplate(t *testing.T) {
     processor.mockValidation = func() error {
         return fmt.Errorf("validation failed")
     }
-    
+
     err := processor.ProcessTemplate()
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "validation failed")
@@ -2174,6 +2194,7 @@ func TestProcessorTemplate(t *testing.T) {
 ```
 
 **2. Dependency Injection:**
+
 ```go
 type PaymentProcessor struct {
     validator    Validator
@@ -2193,16 +2214,16 @@ func TestPaymentProcessorWithMocks(t *testing.T) {
     mockValidator := &MockValidator{}
     mockGateway := &MockPaymentGateway{}
     mockNotifier := &MockNotifier{}
-    
+
     processor := NewPaymentProcessor(mockValidator, mockGateway, mockNotifier)
-    
+
     mockValidator.On("Validate", mock.Anything).Return(nil)
     mockGateway.On("Process", mock.Anything).Return(nil)
     mockNotifier.On("Notify", mock.Anything).Return(nil)
-    
+
     err := processor.ProcessPayment(testRequest)
     assert.NoError(t, err)
-    
+
     mockValidator.AssertExpectations(t)
     mockGateway.AssertExpectations(t)
     mockNotifier.AssertExpectations(t)
@@ -2210,6 +2231,7 @@ func TestPaymentProcessorWithMocks(t *testing.T) {
 ```
 
 **3. Step Verification:**
+
 ```go
 type VerifiableTemplate struct {
     *BaseTemplate
@@ -2228,7 +2250,7 @@ func (vt *VerifiableTemplate) step1() error {
 func TestTemplateStepExecution(t *testing.T) {
     template := &VerifiableTemplate{}
     template.Execute()
-    
+
     expectedSteps := []string{"step1", "step2", "step3"}
     assert.Equal(t, expectedSteps, template.executedSteps)
 }
@@ -2239,6 +2261,7 @@ func TestTemplateStepExecution(t *testing.T) {
 **Answer:**
 
 **Use Template Method when:**
+
 - Algorithm structure is stable and well-defined
 - Multiple implementations follow the same process
 - You're building a framework for others to extend
@@ -2246,6 +2269,7 @@ func TestTemplateStepExecution(t *testing.T) {
 - You want to enforce certain invariants
 
 **Use Composition when:**
+
 - Need runtime flexibility in algorithm structure
 - Want to combine different behaviors dynamically
 - Algorithm steps can be reused in different contexts
@@ -2253,6 +2277,7 @@ func TestTemplateStepExecution(t *testing.T) {
 - Want to avoid inheritance coupling
 
 **Template Method Example:**
+
 ```go
 // Good for: Fixed payment processing flow
 type PaymentProcessor struct {
@@ -2269,6 +2294,7 @@ func (pp *PaymentProcessor) ProcessPayment() error {
 ```
 
 **Composition Example:**
+
 ```go
 // Good for: Flexible pipeline construction
 type PaymentPipeline struct {
@@ -2307,6 +2333,7 @@ internationalPipeline.AddStep(ComplexProcessing{})
 Since Go doesn't have traditional inheritance, here are several approaches:
 
 **1. Interface-based Approach:**
+
 ```go
 type PaymentStep interface {
     Execute(ctx *PaymentContext) error
@@ -2326,13 +2353,13 @@ func (pt *PaymentTemplate) ProcessPayment(ctx *PaymentContext) error {
         pt.processor,
         pt.notifier,
     }
-    
+
     for _, step := range steps {
         if err := step.Execute(ctx); err != nil {
             return err
         }
     }
-    
+
     return nil
 }
 
@@ -2351,6 +2378,7 @@ func (btv BankTransferValidator) Execute(ctx *PaymentContext) error {
 ```
 
 **2. Function-based Approach:**
+
 ```go
 type ProcessingStep func(*PaymentContext) error
 
@@ -2392,6 +2420,7 @@ func NewBankTransferTemplate() *FunctionalTemplate {
 ```
 
 **3. Embedded Struct Approach:**
+
 ```go
 type BasePaymentProcessor struct {
     logger *zap.Logger
@@ -2401,15 +2430,15 @@ func (bpp *BasePaymentProcessor) ProcessPayment(processor PaymentProcessor) erro
     if err := processor.Validate(); err != nil {
         return err
     }
-    
+
     if err := processor.Authenticate(); err != nil {
         return err
     }
-    
+
     if err := processor.Execute(); err != nil {
         return err
     }
-    
+
     return processor.Notify()
 }
 

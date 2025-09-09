@@ -5,6 +5,7 @@
 **Mediator** is a behavioral design pattern that defines how a set of objects interact with each other. Instead of objects communicating directly, they communicate through a central mediator object. This promotes loose coupling by keeping objects from referring to each other explicitly.
 
 **Key Intent:**
+
 - Define how a set of objects interact without tight coupling
 - Centralize complex communications and control logic
 - Promote loose coupling between communicating objects
@@ -25,6 +26,7 @@
 7. **Event Coordination**: Managing complex event-driven interactions
 
 **Don't use when:**
+
 - Simple one-to-one or one-to-many relationships
 - Objects naturally belong together in a hierarchy
 - The mediator itself becomes too complex (God object)
@@ -34,6 +36,7 @@
 ## Real-World Use Cases (Payments/Fintech)
 
 ### 1. Payment Processing Orchestrator
+
 ```go
 // Payment processing involves multiple services that need coordination
 type PaymentMediator interface {
@@ -72,14 +75,14 @@ func NewPaymentProcessingMediator(logger *zap.Logger) *PaymentProcessingMediator
 func (ppm *PaymentProcessingMediator) RegisterComponent(component PaymentComponent) error {
     ppm.mu.Lock()
     defer ppm.mu.Unlock()
-    
+
     componentID := component.GetComponentID()
     if _, exists := ppm.components[componentID]; exists {
         return fmt.Errorf("component %s already registered", componentID)
     }
-    
+
     ppm.components[componentID] = component
-    
+
     // Set up specific components
     switch component.GetComponentType() {
     case "VALIDATOR":
@@ -93,18 +96,18 @@ func (ppm *PaymentProcessingMediator) RegisterComponent(component PaymentCompone
     case "AUDIT":
         ppm.audit = component.(AuditService)
     }
-    
-    ppm.logger.Info("Component registered", 
+
+    ppm.logger.Info("Component registered",
         zap.String("component_id", componentID),
         zap.String("component_type", component.GetComponentType()))
-    
+
     return nil
 }
 
 func (ppm *PaymentProcessingMediator) ProcessPayment(ctx context.Context, request *PaymentRequest) (*PaymentResult, error) {
-    ppm.logger.Info("Starting payment processing", 
+    ppm.logger.Info("Starting payment processing",
         zap.String("payment_id", request.PaymentID))
-    
+
     // Step 1: Validation
     if err := ppm.validatePayment(ctx, request); err != nil {
         ppm.notifyComponents(ctx, &PaymentNotification{
@@ -114,7 +117,7 @@ func (ppm *PaymentProcessingMediator) ProcessPayment(ctx context.Context, reques
         })
         return nil, fmt.Errorf("validation failed: %w", err)
     }
-    
+
     // Step 2: Fraud Detection
     riskScore, err := ppm.performFraudDetection(ctx, request)
     if err != nil {
@@ -125,7 +128,7 @@ func (ppm *PaymentProcessingMediator) ProcessPayment(ctx context.Context, reques
         })
         return nil, fmt.Errorf("fraud detection failed: %w", err)
     }
-    
+
     if riskScore > 0.8 {
         ppm.notifyComponents(ctx, &PaymentNotification{
             Type:      "HIGH_RISK_DETECTED",
@@ -134,7 +137,7 @@ func (ppm *PaymentProcessingMediator) ProcessPayment(ctx context.Context, reques
         })
         return nil, fmt.Errorf("payment blocked due to high risk")
     }
-    
+
     // Step 3: Process Payment
     result, err := ppm.processWithGateway(ctx, request)
     if err != nil {
@@ -145,7 +148,7 @@ func (ppm *PaymentProcessingMediator) ProcessPayment(ctx context.Context, reques
         })
         return nil, fmt.Errorf("payment processing failed: %w", err)
     }
-    
+
     // Step 4: Success Notifications
     ppm.notifyComponents(ctx, &PaymentNotification{
         Type:      "PAYMENT_SUCCESSFUL",
@@ -156,11 +159,11 @@ func (ppm *PaymentProcessingMediator) ProcessPayment(ctx context.Context, reques
             "risk_score":     riskScore,
         },
     })
-    
-    ppm.logger.Info("Payment processing completed", 
+
+    ppm.logger.Info("Payment processing completed",
         zap.String("payment_id", request.PaymentID),
         zap.String("transaction_id", result.TransactionID))
-    
+
     return result, nil
 }
 
@@ -168,7 +171,7 @@ func (ppm *PaymentProcessingMediator) validatePayment(ctx context.Context, reque
     if ppm.validator == nil {
         return fmt.Errorf("validation service not available")
     }
-    
+
     return ppm.validator.ValidatePayment(ctx, request)
 }
 
@@ -176,7 +179,7 @@ func (ppm *PaymentProcessingMediator) performFraudDetection(ctx context.Context,
     if ppm.fraudDetector == nil {
         return 0.0, fmt.Errorf("fraud detection service not available")
     }
-    
+
     return ppm.fraudDetector.CalculateRiskScore(ctx, request)
 }
 
@@ -184,18 +187,18 @@ func (ppm *PaymentProcessingMediator) processWithGateway(ctx context.Context, re
     if ppm.gateway == nil {
         return nil, fmt.Errorf("payment gateway not available")
     }
-    
+
     return ppm.gateway.ProcessPayment(ctx, request)
 }
 
 func (ppm *PaymentProcessingMediator) notifyComponents(ctx context.Context, notification *PaymentNotification) {
     ppm.mu.RLock()
     defer ppm.mu.RUnlock()
-    
+
     for _, component := range ppm.components {
         go func(comp PaymentComponent) {
             if err := comp.HandleNotification(ctx, notification); err != nil {
-                ppm.logger.Warn("Component notification failed", 
+                ppm.logger.Warn("Component notification failed",
                     zap.String("component_id", comp.GetComponentID()),
                     zap.Error(err))
             }
@@ -204,10 +207,10 @@ func (ppm *PaymentProcessingMediator) notifyComponents(ctx context.Context, noti
 }
 
 func (ppm *PaymentProcessingMediator) HandlePaymentUpdate(ctx context.Context, update *PaymentUpdate) error {
-    ppm.logger.Info("Handling payment update", 
+    ppm.logger.Info("Handling payment update",
         zap.String("payment_id", update.PaymentID),
         zap.String("status", update.Status))
-    
+
     notification := &PaymentNotification{
         Type:      "PAYMENT_UPDATE",
         PaymentID: update.PaymentID,
@@ -216,9 +219,9 @@ func (ppm *PaymentProcessingMediator) HandlePaymentUpdate(ctx context.Context, u
             "updated_at": update.UpdatedAt,
         },
     }
-    
+
     ppm.notifyComponents(ctx, notification)
-    
+
     // Handle specific status updates
     switch update.Status {
     case "REFUNDED":
@@ -228,47 +231,47 @@ func (ppm *PaymentProcessingMediator) HandlePaymentUpdate(ctx context.Context, u
     case "SETTLED":
         return ppm.handleSettlement(ctx, update)
     }
-    
+
     return nil
 }
 
 func (ppm *PaymentProcessingMediator) handleRefund(ctx context.Context, update *PaymentUpdate) error {
     ppm.logger.Info("Processing refund", zap.String("payment_id", update.PaymentID))
-    
+
     // Notify all relevant components about refund
     notification := &PaymentNotification{
         Type:      "REFUND_PROCESSED",
         PaymentID: update.PaymentID,
         Data:      map[string]interface{}{"refund_amount": update.Amount},
     }
-    
+
     ppm.notifyComponents(ctx, notification)
     return nil
 }
 
 func (ppm *PaymentProcessingMediator) handleChargeback(ctx context.Context, update *PaymentUpdate) error {
     ppm.logger.Warn("Processing chargeback", zap.String("payment_id", update.PaymentID))
-    
+
     // Notify components about chargeback for appropriate handling
     notification := &PaymentNotification{
         Type:      "CHARGEBACK_RECEIVED",
         PaymentID: update.PaymentID,
         Data:      map[string]interface{}{"chargeback_amount": update.Amount},
     }
-    
+
     ppm.notifyComponents(ctx, notification)
     return nil
 }
 
 func (ppm *PaymentProcessingMediator) handleSettlement(ctx context.Context, update *PaymentUpdate) error {
     ppm.logger.Info("Processing settlement", zap.String("payment_id", update.PaymentID))
-    
+
     notification := &PaymentNotification{
         Type:      "PAYMENT_SETTLED",
         PaymentID: update.PaymentID,
         Data:      map[string]interface{}{"settled_amount": update.Amount},
     }
-    
+
     ppm.notifyComponents(ctx, notification)
     return nil
 }
@@ -308,10 +311,10 @@ func (vc *ValidationComponent) ValidatePayment(ctx context.Context, request *Pay
 func (vc *ValidationComponent) HandleNotification(ctx context.Context, notification *PaymentNotification) error {
     switch notification.Type {
     case "PAYMENT_SUCCESSFUL":
-        vc.logger.Info("Payment validation succeeded", 
+        vc.logger.Info("Payment validation succeeded",
             zap.String("payment_id", notification.PaymentID))
     case "VALIDATION_FAILED":
-        vc.logger.Warn("Payment validation failed", 
+        vc.logger.Warn("Payment validation failed",
             zap.String("payment_id", notification.PaymentID))
     }
     return nil
@@ -347,11 +350,11 @@ func (fdc *FraudDetectionComponent) CalculateRiskScore(ctx context.Context, requ
 func (fdc *FraudDetectionComponent) HandleNotification(ctx context.Context, notification *PaymentNotification) error {
     switch notification.Type {
     case "HIGH_RISK_DETECTED":
-        fdc.logger.Warn("High risk transaction detected", 
+        fdc.logger.Warn("High risk transaction detected",
             zap.String("payment_id", notification.PaymentID))
         // Update fraud models, trigger additional checks, etc.
     case "CHARGEBACK_RECEIVED":
-        fdc.logger.Warn("Chargeback received, updating fraud models", 
+        fdc.logger.Warn("Chargeback received, updating fraud models",
             zap.String("payment_id", notification.PaymentID))
         // Use chargeback data to improve fraud detection
     }
@@ -390,16 +393,16 @@ func (ac *AuditComponent) HandleNotification(ctx context.Context, notification *
         Data:        notification.Data,
         Error:       notification.Error,
     }
-    
+
     if err := ac.storage.StoreAuditEntry(ctx, auditEntry); err != nil {
         ac.logger.Error("Failed to store audit entry", zap.Error(err))
         return err
     }
-    
-    ac.logger.Debug("Audit entry stored", 
+
+    ac.logger.Debug("Audit entry stored",
         zap.String("event_type", notification.Type),
         zap.String("payment_id", notification.PaymentID))
-    
+
     return nil
 }
 
@@ -449,6 +452,7 @@ type AuditEntry struct {
 ```
 
 ### 2. Trading System Mediator
+
 ```go
 // Trading system with multiple participants and complex interactions
 type TradingMediator interface {
@@ -485,11 +489,11 @@ func NewCentralTradingMediator(logger *zap.Logger) *CentralTradingMediator {
 }
 
 func (ctm *CentralTradingMediator) PlaceOrder(ctx context.Context, order *Order) (*OrderResult, error) {
-    ctm.logger.Info("Order placement started", 
+    ctm.logger.Info("Order placement started",
         zap.String("order_id", order.OrderID),
         zap.String("symbol", order.Symbol),
         zap.String("side", order.Side))
-    
+
     // Step 1: Risk Check
     if err := ctm.riskManager.CheckOrderRisk(ctx, order); err != nil {
         ctm.notifyParticipants(ctx, &TradingEvent{
@@ -499,7 +503,7 @@ func (ctm *CentralTradingMediator) PlaceOrder(ctx context.Context, order *Order)
         })
         return nil, fmt.Errorf("risk check failed: %w", err)
     }
-    
+
     // Step 2: Add to Order Book
     if err := ctm.orderBook.AddOrder(order); err != nil {
         ctm.notifyParticipants(ctx, &TradingEvent{
@@ -509,7 +513,7 @@ func (ctm *CentralTradingMediator) PlaceOrder(ctx context.Context, order *Order)
         })
         return nil, fmt.Errorf("order book error: %w", err)
     }
-    
+
     // Step 3: Notify Order Acceptance
     ctm.notifyParticipants(ctx, &TradingEvent{
         Type:    "ORDER_ACCEPTED",
@@ -521,21 +525,21 @@ func (ctm *CentralTradingMediator) PlaceOrder(ctx context.Context, order *Order)
             "side":      order.Side,
         },
     })
-    
+
     // Step 4: Attempt Matching
     matches, err := ctm.matchingEngine.FindMatches(ctx, order)
     if err != nil {
         ctm.logger.Error("Matching engine error", zap.Error(err))
         return &OrderResult{OrderID: order.OrderID, Status: "PENDING"}, nil
     }
-    
+
     // Step 5: Process Matches
     for _, match := range matches {
         if err := ctm.processMatch(ctx, match); err != nil {
             ctm.logger.Error("Match processing failed", zap.Error(err))
         }
     }
-    
+
     return &OrderResult{
         OrderID:   order.OrderID,
         Status:    "ACCEPTED",
@@ -545,11 +549,11 @@ func (ctm *CentralTradingMediator) PlaceOrder(ctx context.Context, order *Order)
 }
 
 func (ctm *CentralTradingMediator) processMatch(ctx context.Context, match *OrderMatch) error {
-    ctm.logger.Info("Processing order match", 
+    ctm.logger.Info("Processing order match",
         zap.String("buy_order", match.BuyOrder.OrderID),
         zap.String("sell_order", match.SellOrder.OrderID),
         zap.String("quantity", match.Quantity.String()))
-    
+
     // Create trade
     trade := &Trade{
         TradeID:       generateTradeID(),
@@ -560,7 +564,7 @@ func (ctm *CentralTradingMediator) processMatch(ctx context.Context, match *Orde
         Price:         match.Price,
         Timestamp:     time.Now(),
     }
-    
+
     // Notify trade execution
     ctm.notifyParticipants(ctx, &TradingEvent{
         Type:    "TRADE_EXECUTED",
@@ -573,26 +577,26 @@ func (ctm *CentralTradingMediator) processMatch(ctx context.Context, match *Orde
             "sell_order":   trade.SellOrderID,
         },
     })
-    
+
     // Initiate settlement
     if err := ctm.settlement.SettleTrade(ctx, trade); err != nil {
         ctm.logger.Error("Settlement initiation failed", zap.Error(err))
         return err
     }
-    
+
     // Update market data
     if err := ctm.marketData.UpdateLastTrade(ctx, trade); err != nil {
         ctm.logger.Warn("Market data update failed", zap.Error(err))
     }
-    
+
     return nil
 }
 
 func (ctm *CentralTradingMediator) HandleMarketData(ctx context.Context, data *MarketData) error {
-    ctm.logger.Debug("Market data received", 
+    ctm.logger.Debug("Market data received",
         zap.String("symbol", data.Symbol),
         zap.String("price", data.LastPrice.String()))
-    
+
     // Notify all participants about market data update
     ctm.notifyParticipants(ctx, &TradingEvent{
         Type:   "MARKET_DATA_UPDATE",
@@ -603,55 +607,55 @@ func (ctm *CentralTradingMediator) HandleMarketData(ctx context.Context, data *M
             "timestamp":  data.Timestamp,
         },
     })
-    
+
     // Check if any stop orders should be triggered
     if err := ctm.checkStopOrders(ctx, data); err != nil {
         ctm.logger.Error("Stop order check failed", zap.Error(err))
     }
-    
+
     return nil
 }
 
 func (ctm *CentralTradingMediator) checkStopOrders(ctx context.Context, data *MarketData) error {
     stopOrders := ctm.orderBook.GetStopOrders(data.Symbol)
-    
+
     for _, order := range stopOrders {
         triggered := false
-        
+
         if order.Side == "BUY" && data.LastPrice.GreaterThanOrEqual(order.StopPrice) {
             triggered = true
         } else if order.Side == "SELL" && data.LastPrice.LessThanOrEqual(order.StopPrice) {
             triggered = true
         }
-        
+
         if triggered {
-            ctm.logger.Info("Stop order triggered", 
+            ctm.logger.Info("Stop order triggered",
                 zap.String("order_id", order.OrderID),
                 zap.String("stop_price", order.StopPrice.String()),
                 zap.String("market_price", data.LastPrice.String()))
-            
+
             // Convert stop order to market order
             marketOrder := order.ConvertToMarketOrder()
             if _, err := ctm.PlaceOrder(ctx, marketOrder); err != nil {
                 ctm.logger.Error("Failed to place stop order as market order", zap.Error(err))
             }
-            
+
             // Remove from stop orders
             ctm.orderBook.RemoveStopOrder(order.OrderID)
         }
     }
-    
+
     return nil
 }
 
 func (ctm *CentralTradingMediator) notifyParticipants(ctx context.Context, event *TradingEvent) {
     ctm.mu.RLock()
     defer ctm.mu.RUnlock()
-    
+
     for _, participant := range ctm.participants {
         go func(p TradingParticipant) {
             if err := p.HandleTradingEvent(ctx, event); err != nil {
-                ctm.logger.Warn("Participant notification failed", 
+                ctm.logger.Warn("Participant notification failed",
                     zap.String("participant_id", p.GetParticipantID()),
                     zap.Error(err))
             }
@@ -696,22 +700,22 @@ func (t *Trader) HandleTradingEvent(ctx context.Context, event *TradingEvent) er
 }
 
 func (t *Trader) handleTradeExecution(ctx context.Context, event *TradingEvent) error {
-    t.logger.Info("Trade executed notification received", 
+    t.logger.Info("Trade executed notification received",
         zap.String("trade_id", event.TradeID))
-    
+
     // Update portfolio based on trade
     // Implementation would update positions, calculate P&L, etc.
-    
+
     return nil
 }
 
 func (t *Trader) handleOrderRejection(ctx context.Context, event *TradingEvent) error {
-    t.logger.Warn("Order rejected", 
+    t.logger.Warn("Order rejected",
         zap.String("order_id", event.OrderID),
         zap.String("reason", event.Reason))
-    
+
     // Handle rejection logic - might retry, adjust strategy, etc.
-    
+
     return nil
 }
 
@@ -755,24 +759,25 @@ func (mm *MarketMaker) HandleTradingEvent(ctx context.Context, event *TradingEve
 
 func (mm *MarketMaker) updateQuotes(ctx context.Context, event *TradingEvent) error {
     // Market makers update their quotes based on market data
-    mm.logger.Debug("Updating quotes based on market data", 
+    mm.logger.Debug("Updating quotes based on market data",
         zap.String("symbol", event.Symbol))
-    
+
     // Implementation would calculate new bid/ask prices and place orders
-    
+
     return nil
 }
 
 func (mm *MarketMaker) handleTradeExecution(ctx context.Context, event *TradingEvent) error {
     // Update inventory and risk position
-    mm.logger.Info("Updating inventory after trade", 
+    mm.logger.Info("Updating inventory after trade",
         zap.String("trade_id", event.TradeID))
-    
+
     return nil
 }
 ```
 
 ### 3. Loan Approval Workflow Mediator
+
 ```go
 // Loan approval involves multiple departments and decision points
 type LoanApprovalMediator interface {
@@ -809,16 +814,16 @@ func NewLoanApprovalWorkflowMediator(logger *zap.Logger) *LoanApprovalWorkflowMe
 }
 
 func (lawm *LoanApprovalWorkflowMediator) SubmitApplication(ctx context.Context, app *LoanApplication) (*ApplicationResult, error) {
-    lawm.logger.Info("Loan application submitted", 
+    lawm.logger.Info("Loan application submitted",
         zap.String("application_id", app.ApplicationID),
         zap.String("applicant", app.ApplicantName),
         zap.String("amount", app.RequestedAmount.String()))
-    
+
     // Store application
     lawm.mu.Lock()
     lawm.applications[app.ApplicationID] = app
     lawm.mu.Unlock()
-    
+
     // Create workflow
     workflow := &ApprovalWorkflow{
         ApplicationID: app.ApplicationID,
@@ -827,11 +832,11 @@ func (lawm *LoanApprovalWorkflowMediator) SubmitApplication(ctx context.Context,
         Steps:         lawm.defineWorkflowSteps(app),
         StartTime:     time.Now(),
     }
-    
+
     lawm.mu.Lock()
     lawm.workflows[app.ApplicationID] = workflow
     lawm.mu.Unlock()
-    
+
     // Notify all processors about new application
     lawm.notifyProcessors(ctx, &LoanNotification{
         Type:          "APPLICATION_SUBMITTED",
@@ -842,12 +847,12 @@ func (lawm *LoanApprovalWorkflowMediator) SubmitApplication(ctx context.Context,
             "loan_type":      app.LoanType,
         },
     })
-    
+
     // Start processing with first applicable processor
     if err := lawm.processNextStep(ctx, app.ApplicationID); err != nil {
         return nil, fmt.Errorf("failed to start processing: %w", err)
     }
-    
+
     return &ApplicationResult{
         ApplicationID: app.ApplicationID,
         Status:        "SUBMITTED",
@@ -863,40 +868,40 @@ func (lawm *LoanApprovalWorkflowMediator) processNextStep(ctx context.Context, a
         lawm.mu.RUnlock()
         return fmt.Errorf("workflow not found for application %s", applicationID)
     }
-    
+
     application, exists := lawm.applications[applicationID]
     if !exists {
         lawm.mu.RUnlock()
         return fmt.Errorf("application not found: %s", applicationID)
     }
     lawm.mu.RUnlock()
-    
+
     currentStep := workflow.GetCurrentStep()
     if currentStep == nil {
         lawm.logger.Info("Workflow completed", zap.String("application_id", applicationID))
         return lawm.completeWorkflow(ctx, applicationID)
     }
-    
+
     // Find processor for current step
     processor := lawm.findProcessorForStep(currentStep.StepType, application)
     if processor == nil {
         return fmt.Errorf("no processor found for step %s", currentStep.StepType)
     }
-    
-    lawm.logger.Info("Processing workflow step", 
+
+    lawm.logger.Info("Processing workflow step",
         zap.String("application_id", applicationID),
         zap.String("step", currentStep.StepType),
         zap.String("processor", processor.GetProcessorID()))
-    
+
     // Process asynchronously
     go func() {
         stepResult, err := processor.ProcessApplication(ctx, application)
         if err != nil {
-            lawm.logger.Error("Step processing failed", 
+            lawm.logger.Error("Step processing failed",
                 zap.String("application_id", applicationID),
                 zap.String("step", currentStep.StepType),
                 zap.Error(err))
-            
+
             stepResult = &StepResult{
                 ApplicationID: applicationID,
                 StepType:      currentStep.StepType,
@@ -905,30 +910,30 @@ func (lawm *LoanApprovalWorkflowMediator) processNextStep(ctx context.Context, a
                 ProcessedAt:   time.Now(),
             }
         }
-        
+
         lawm.ProcessApplicationStep(ctx, stepResult)
     }()
-    
+
     return nil
 }
 
 func (lawm *LoanApprovalWorkflowMediator) ProcessApplicationStep(ctx context.Context, stepResult *StepResult) error {
-    lawm.logger.Info("Processing step result", 
+    lawm.logger.Info("Processing step result",
         zap.String("application_id", stepResult.ApplicationID),
         zap.String("step", stepResult.StepType),
         zap.String("status", stepResult.Status))
-    
+
     lawm.mu.Lock()
     workflow := lawm.workflows[stepResult.ApplicationID]
     lawm.mu.Unlock()
-    
+
     if workflow == nil {
         return fmt.Errorf("workflow not found")
     }
-    
+
     // Update workflow with step result
     workflow.UpdateStep(stepResult)
-    
+
     // Notify processors about step completion
     lawm.notifyProcessors(ctx, &LoanNotification{
         Type:          "STEP_COMPLETED",
@@ -939,7 +944,7 @@ func (lawm *LoanApprovalWorkflowMediator) ProcessApplicationStep(ctx context.Con
             "decision":  stepResult.Decision,
         },
     })
-    
+
     // Handle step result
     switch stepResult.Status {
     case "APPROVED":
@@ -956,13 +961,13 @@ func (lawm *LoanApprovalWorkflowMediator) ProcessApplicationStep(ctx context.Con
 func (lawm *LoanApprovalWorkflowMediator) findProcessorForStep(stepType string, application *LoanApplication) LoanProcessor {
     lawm.mu.RLock()
     defer lawm.mu.RUnlock()
-    
+
     for _, processor := range lawm.processors {
         if processor.GetProcessorType() == stepType && processor.CanProcess(application) {
             return processor
         }
     }
-    
+
     return nil
 }
 
@@ -972,25 +977,25 @@ func (lawm *LoanApprovalWorkflowMediator) defineWorkflowSteps(app *LoanApplicati
         {StepType: "INCOME_VERIFICATION", Status: "PENDING"},
         {StepType: "COLLATERAL_ASSESSMENT", Status: "PENDING"},
     }
-    
+
     // Add conditional steps based on loan amount
     if app.RequestedAmount.GreaterThan(decimal.NewFromInt(100000)) {
         steps = append(steps, &WorkflowStep{StepType: "SENIOR_APPROVAL", Status: "PENDING"})
     }
-    
+
     steps = append(steps, &WorkflowStep{StepType: "FINAL_APPROVAL", Status: "PENDING"})
-    
+
     return steps
 }
 
 func (lawm *LoanApprovalWorkflowMediator) notifyProcessors(ctx context.Context, notification *LoanNotification) {
     lawm.mu.RLock()
     defer lawm.mu.RUnlock()
-    
+
     for _, processor := range lawm.processors {
         go func(p LoanProcessor) {
             if err := p.HandleNotification(ctx, notification); err != nil {
-                lawm.logger.Warn("Processor notification failed", 
+                lawm.logger.Warn("Processor notification failed",
                     zap.String("processor_id", p.GetProcessorID()),
                     zap.Error(err))
             }
@@ -1028,15 +1033,15 @@ func (ccp *CreditCheckProcessor) CanProcess(application *LoanApplication) bool {
 }
 
 func (ccp *CreditCheckProcessor) ProcessApplication(ctx context.Context, application *LoanApplication) (*StepResult, error) {
-    ccp.logger.Info("Processing credit check", 
+    ccp.logger.Info("Processing credit check",
         zap.String("application_id", application.ApplicationID))
-    
+
     // Perform credit check
     creditReport, err := ccp.creditBureau.GetCreditReport(ctx, application.ApplicantSSN)
     if err != nil {
         return nil, fmt.Errorf("credit check failed: %w", err)
     }
-    
+
     result := &StepResult{
         ApplicationID: application.ApplicationID,
         StepType:      "CREDIT_CHECK",
@@ -1046,7 +1051,7 @@ func (ccp *CreditCheckProcessor) ProcessApplication(ctx context.Context, applica
             "report_date":  creditReport.Date,
         },
     }
-    
+
     if creditReport.Score >= ccp.scoreThreshold {
         result.Status = "APPROVED"
         result.Decision = "CREDIT_APPROVED"
@@ -1056,14 +1061,14 @@ func (ccp *CreditCheckProcessor) ProcessApplication(ctx context.Context, applica
         result.Decision = "CREDIT_REJECTED"
         result.Reason = fmt.Sprintf("Credit score %d below threshold %d", creditReport.Score, ccp.scoreThreshold)
     }
-    
+
     return result, nil
 }
 
 func (ccp *CreditCheckProcessor) HandleNotification(ctx context.Context, notification *LoanNotification) error {
     switch notification.Type {
     case "APPLICATION_SUBMITTED":
-        ccp.logger.Info("New loan application notification received", 
+        ccp.logger.Info("New loan application notification received",
             zap.String("application_id", notification.ApplicationID))
     }
     return nil
@@ -1099,15 +1104,15 @@ func (ivp *IncomeVerificationProcessor) CanProcess(application *LoanApplication)
 }
 
 func (ivp *IncomeVerificationProcessor) ProcessApplication(ctx context.Context, application *LoanApplication) (*StepResult, error) {
-    ivp.logger.Info("Processing income verification", 
+    ivp.logger.Info("Processing income verification",
         zap.String("application_id", application.ApplicationID))
-    
+
     // Verify income with employer or tax records
     income, err := ivp.verificationAPI.VerifyIncome(ctx, application.ApplicantSSN, application.EmployerInfo)
     if err != nil {
         return nil, fmt.Errorf("income verification failed: %w", err)
     }
-    
+
     result := &StepResult{
         ApplicationID: application.ApplicationID,
         StepType:      "INCOME_VERIFICATION",
@@ -1117,11 +1122,11 @@ func (ivp *IncomeVerificationProcessor) ProcessApplication(ctx context.Context, 
             "employment_years": income.YearsEmployed,
         },
     }
-    
+
     // Calculate debt-to-income ratio
     monthlyPayment := application.RequestedAmount.Div(decimal.NewFromInt(360)) // 30-year loan approximation
     debtToIncomeRatio := monthlyPayment.Div(income.MonthlyIncome)
-    
+
     if debtToIncomeRatio.LessThanOrEqual(decimal.NewFromFloat(0.43)) { // 43% DTI threshold
         result.Status = "APPROVED"
         result.Decision = "INCOME_SUFFICIENT"
@@ -1131,7 +1136,7 @@ func (ivp *IncomeVerificationProcessor) ProcessApplication(ctx context.Context, 
         result.Decision = "INCOME_INSUFFICIENT"
         result.Reason = fmt.Sprintf("DTI ratio %.2f%% exceeds limit", debtToIncomeRatio.InexactFloat64()*100)
     }
-    
+
     return result, nil
 }
 
@@ -1209,61 +1214,61 @@ func NewChatRoom(roomID string, logger *zap.Logger) *ChatRoom {
 func (cr *ChatRoom) AddParticipant(participant ChatParticipant) error {
     cr.mu.Lock()
     defer cr.mu.Unlock()
-    
+
     participantID := participant.GetID()
     if _, exists := cr.participants[participantID]; exists {
         return fmt.Errorf("participant %s already exists in room", participantID)
     }
-    
+
     cr.participants[participantID] = participant
     participant.SetMediator(cr)
-    
-    cr.logger.Info("Participant joined chat room", 
+
+    cr.logger.Info("Participant joined chat room",
         zap.String("room_id", cr.roomID),
         zap.String("participant_id", participantID),
         zap.String("participant_name", participant.GetName()))
-    
+
     // Notify other participants
     joinMessage := fmt.Sprintf("%s joined the chat", participant.GetName())
     cr.broadcastSystemMessage(joinMessage, participantID)
-    
+
     return nil
 }
 
 func (cr *ChatRoom) RemoveParticipant(participantID string) error {
     cr.mu.Lock()
     defer cr.mu.Unlock()
-    
+
     participant, exists := cr.participants[participantID]
     if !exists {
         return fmt.Errorf("participant %s not found", participantID)
     }
-    
+
     delete(cr.participants, participantID)
-    
-    cr.logger.Info("Participant left chat room", 
+
+    cr.logger.Info("Participant left chat room",
         zap.String("room_id", cr.roomID),
         zap.String("participant_id", participantID),
         zap.String("participant_name", participant.GetName()))
-    
+
     // Notify other participants
     leaveMessage := fmt.Sprintf("%s left the chat", participant.GetName())
     cr.broadcastSystemMessage(leaveMessage, participantID)
-    
+
     return nil
 }
 
 func (cr *ChatRoom) SendMessage(from ChatParticipant, message string, to ...string) error {
     cr.mu.RLock()
     defer cr.mu.RUnlock()
-    
+
     fromID := from.GetID()
-    
+
     // Verify sender is in the room
     if _, exists := cr.participants[fromID]; !exists {
         return fmt.Errorf("sender %s not in room", fromID)
     }
-    
+
     chatMessage := ChatMessage{
         ID:        generateMessageID(),
         From:      fromID,
@@ -1272,22 +1277,22 @@ func (cr *ChatRoom) SendMessage(from ChatParticipant, message string, to ...stri
         Timestamp: time.Now(),
         Type:      "direct",
     }
-    
+
     if len(to) == 0 {
         // Broadcast to all
         chatMessage.Type = "broadcast"
         cr.messageHistory = append(cr.messageHistory, chatMessage)
-        
-        cr.logger.Debug("Broadcasting message", 
+
+        cr.logger.Debug("Broadcasting message",
             zap.String("room_id", cr.roomID),
             zap.String("from", from.GetName()),
             zap.String("message", message))
-        
+
         for participantID, participant := range cr.participants {
             if participantID != fromID { // Don't send to sender
                 go func(p ChatParticipant) {
                     if err := p.ReceiveMessage(from, message); err != nil {
-                        cr.logger.Warn("Failed to deliver message", 
+                        cr.logger.Warn("Failed to deliver message",
                             zap.String("to", p.GetID()),
                             zap.Error(err))
                     }
@@ -1297,29 +1302,29 @@ func (cr *ChatRoom) SendMessage(from ChatParticipant, message string, to ...stri
     } else {
         // Direct message to specific participants
         cr.messageHistory = append(cr.messageHistory, chatMessage)
-        
-        cr.logger.Debug("Sending direct message", 
+
+        cr.logger.Debug("Sending direct message",
             zap.String("room_id", cr.roomID),
             zap.String("from", from.GetName()),
             zap.Strings("to", to),
             zap.String("message", message))
-        
+
         for _, recipientID := range to {
             if recipient, exists := cr.participants[recipientID]; exists {
                 go func(p ChatParticipant) {
                     if err := p.ReceiveMessage(from, message); err != nil {
-                        cr.logger.Warn("Failed to deliver direct message", 
+                        cr.logger.Warn("Failed to deliver direct message",
                             zap.String("to", p.GetID()),
                             zap.Error(err))
                     }
                 }(recipient)
             } else {
-                cr.logger.Warn("Recipient not found", 
+                cr.logger.Warn("Recipient not found",
                     zap.String("recipient_id", recipientID))
             }
         }
     }
-    
+
     return nil
 }
 
@@ -1335,16 +1340,16 @@ func (cr *ChatRoom) broadcastSystemMessage(message string, excludeParticipant st
         Timestamp: time.Now(),
         Type:      "system",
     }
-    
+
     cr.messageHistory = append(cr.messageHistory, systemMessage)
-    
+
     for participantID, participant := range cr.participants {
         if participantID != excludeParticipant {
             go func(p ChatParticipant) {
                 // Create a system participant for the message
                 systemParticipant := &SystemParticipant{id: "SYSTEM", name: "System"}
                 if err := p.ReceiveMessage(systemParticipant, message); err != nil {
-                    cr.logger.Warn("Failed to deliver system message", 
+                    cr.logger.Warn("Failed to deliver system message",
                         zap.String("to", p.GetID()),
                         zap.Error(err))
                 }
@@ -1356,12 +1361,12 @@ func (cr *ChatRoom) broadcastSystemMessage(message string, excludeParticipant st
 func (cr *ChatRoom) GetParticipants() []ChatParticipant {
     cr.mu.RLock()
     defer cr.mu.RUnlock()
-    
+
     participants := make([]ChatParticipant, 0, len(cr.participants))
     for _, participant := range cr.participants {
         participants = append(participants, participant)
     }
-    
+
     return participants
 }
 
@@ -1374,7 +1379,7 @@ func (cr *ChatRoom) GetParticipantCount() int {
 func (cr *ChatRoom) GetMessageHistory() []ChatMessage {
     cr.mu.RLock()
     defer cr.mu.RUnlock()
-    
+
     history := make([]ChatMessage, len(cr.messageHistory))
     copy(history, cr.messageHistory)
     return history
@@ -1416,82 +1421,82 @@ func (u *User) SetMediator(mediator ChatMediator) {
 func (u *User) Join() error {
     u.mu.Lock()
     defer u.mu.Unlock()
-    
+
     if u.mediator == nil {
         return fmt.Errorf("no mediator set")
     }
-    
+
     if err := u.mediator.AddParticipant(u); err != nil {
         return err
     }
-    
+
     u.online = true
-    u.logger.Info("User joined chat", 
+    u.logger.Info("User joined chat",
         zap.String("user_id", u.id),
         zap.String("user_name", u.name))
-    
+
     return nil
 }
 
 func (u *User) Leave() error {
     u.mu.Lock()
     defer u.mu.Unlock()
-    
+
     if u.mediator == nil {
         return fmt.Errorf("no mediator set")
     }
-    
+
     if err := u.mediator.RemoveParticipant(u.id); err != nil {
         return err
     }
-    
+
     u.online = false
-    u.logger.Info("User left chat", 
+    u.logger.Info("User left chat",
         zap.String("user_id", u.id),
         zap.String("user_name", u.name))
-    
+
     return nil
 }
 
 func (u *User) SendMessage(message string) error {
     u.mu.RLock()
     defer u.mu.RUnlock()
-    
+
     if !u.online || u.mediator == nil {
         return fmt.Errorf("user not online or no mediator")
     }
-    
+
     return u.mediator.BroadcastMessage(u, message)
 }
 
 func (u *User) SendDirectMessage(message string, toUserIDs ...string) error {
     u.mu.RLock()
     defer u.mu.RUnlock()
-    
+
     if !u.online || u.mediator == nil {
         return fmt.Errorf("user not online or no mediator")
     }
-    
+
     return u.mediator.SendMessage(u, message, toUserIDs...)
 }
 
 func (u *User) ReceiveMessage(from ChatParticipant, message string) error {
     u.mu.RLock()
     defer u.mu.RUnlock()
-    
+
     if !u.online {
         return fmt.Errorf("user is offline")
     }
-    
-    u.logger.Info("Message received", 
+
+    u.logger.Info("Message received",
         zap.String("to", u.name),
         zap.String("from", from.GetName()),
         zap.String("message", message))
-    
+
     // In a real implementation, this might display the message in UI,
     // store in local message history, trigger notifications, etc.
     fmt.Printf("[%s] %s: %s\n", u.name, from.GetName(), message)
-    
+
     return nil
 }
 
@@ -1512,7 +1517,7 @@ func NewChatBot(id, name string, logger *zap.Logger) *ChatBot {
         commands: make(map[string]func(string, ChatParticipant) string),
         logger:   logger,
     }
-    
+
     bot.setupCommands()
     return bot
 }
@@ -1521,11 +1526,11 @@ func (cb *ChatBot) setupCommands() {
     cb.commands["!help"] = func(args string, from ChatParticipant) string {
         return "Available commands: !help, !time, !participants"
     }
-    
+
     cb.commands["!time"] = func(args string, from ChatParticipant) string {
         return fmt.Sprintf("Current time: %s", time.Now().Format("15:04:05"))
     }
-    
+
     cb.commands["!participants"] = func(args string, from ChatParticipant) string {
         if cb.mediator != nil {
             count := cb.mediator.GetParticipantCount()
@@ -1552,50 +1557,50 @@ func (cb *ChatBot) SetMediator(mediator ChatMediator) {
 func (cb *ChatBot) Join() error {
     cb.mu.Lock()
     defer cb.mu.Unlock()
-    
+
     if cb.mediator == nil {
         return fmt.Errorf("no mediator set")
     }
-    
+
     return cb.mediator.AddParticipant(cb)
 }
 
 func (cb *ChatBot) Leave() error {
     cb.mu.Lock()
     defer cb.mu.Unlock()
-    
+
     if cb.mediator == nil {
         return fmt.Errorf("no mediator set")
     }
-    
+
     return cb.mediator.RemoveParticipant(cb.id)
 }
 
 func (cb *ChatBot) SendMessage(message string) error {
     cb.mu.RLock()
     defer cb.mu.RUnlock()
-    
+
     if cb.mediator == nil {
         return fmt.Errorf("no mediator set")
     }
-    
+
     return cb.mediator.BroadcastMessage(cb, message)
 }
 
 func (cb *ChatBot) ReceiveMessage(from ChatParticipant, message string) error {
     cb.mu.RLock()
     defer cb.mu.RUnlock()
-    
-    cb.logger.Debug("Bot received message", 
+
+    cb.logger.Debug("Bot received message",
         zap.String("from", from.GetName()),
         zap.String("message", message))
-    
+
     // Check if message is a command
     if len(message) > 0 && message[0] == '!' {
         cmd := message
         if handler, exists := cb.commands[cmd]; exists {
             response := handler("", from)
-            
+
             // Send response back through mediator
             if cb.mediator != nil {
                 go func() {
@@ -1606,7 +1611,7 @@ func (cb *ChatBot) ReceiveMessage(from ChatParticipant, message string) error {
             }
         }
     }
-    
+
     return nil
 }
 
@@ -1652,109 +1657,109 @@ func generateMessageID() string {
 // Example usage
 func main() {
     fmt.Println("=== Mediator Pattern Demo ===\n")
-    
+
     // Create logger
     logger, _ := zap.NewDevelopment()
     defer logger.Sync()
-    
+
     // Create chat room (mediator)
     chatRoom := NewChatRoom("general", logger)
-    
+
     // Create participants
     alice := NewUser("user1", "Alice", logger)
     bob := NewUser("user2", "Bob", logger)
     charlie := NewUser("user3", "Charlie", logger)
     bot := NewChatBot("bot1", "HelpBot", logger)
-    
+
     // Set the mediator for all participants
     alice.SetMediator(chatRoom)
     bob.SetMediator(chatRoom)
     charlie.SetMediator(chatRoom)
     bot.SetMediator(chatRoom)
-    
+
     // Participants join the chat
     fmt.Println("=== Participants Joining ===")
     alice.Join()
     bob.Join()
     charlie.Join()
     bot.Join()
-    
+
     // Wait a moment for join notifications
     time.Sleep(100 * time.Millisecond)
-    
+
     // Send some messages
     fmt.Println("\n=== Chat Messages ===")
     alice.SendMessage("Hello everyone!")
     time.Sleep(50 * time.Millisecond)
-    
+
     bob.SendMessage("Hi Alice! How are you?")
     time.Sleep(50 * time.Millisecond)
-    
+
     charlie.SendMessage("Good morning!")
     time.Sleep(50 * time.Millisecond)
-    
+
     // Send direct message
     fmt.Println("\n=== Direct Messages ===")
     alice.SendDirectMessage("Bob, let's talk privately", bob.GetID())
     time.Sleep(50 * time.Millisecond)
-    
+
     bob.SendDirectMessage("Sure Alice, what's up?", alice.GetID())
     time.Sleep(50 * time.Millisecond)
-    
+
     // Interact with bot
     fmt.Println("\n=== Bot Interactions ===")
     alice.SendMessage("!help")
     time.Sleep(100 * time.Millisecond)
-    
+
     bob.SendMessage("!time")
     time.Sleep(100 * time.Millisecond)
-    
+
     charlie.SendMessage("!participants")
     time.Sleep(100 * time.Millisecond)
-    
+
     // Someone leaves
     fmt.Println("\n=== Participant Leaving ===")
     charlie.Leave()
     time.Sleep(100 * time.Millisecond)
-    
+
     // More messages after someone left
     alice.SendMessage("Charlie left, but we're still here!")
     time.Sleep(50 * time.Millisecond)
-    
+
     bob.SendMessage("Yes, the conversation continues!")
     time.Sleep(50 * time.Millisecond)
-    
+
     // Display chat statistics
     fmt.Println("\n=== Chat Statistics ===")
     fmt.Printf("Participants in room: %d\n", chatRoom.GetParticipantCount())
-    
+
     participants := chatRoom.GetParticipants()
     fmt.Println("Current participants:")
     for _, participant := range participants {
         fmt.Printf("  - %s (%s)\n", participant.GetName(), participant.GetID())
     }
-    
+
     messageHistory := chatRoom.GetMessageHistory()
     fmt.Printf("\nTotal messages in history: %d\n", len(messageHistory))
-    
+
     fmt.Println("\nMessage history:")
     for i, msg := range messageHistory {
-        fmt.Printf("  %d. [%s] %s: %s (Type: %s)\n", 
-            i+1, 
-            msg.Timestamp.Format("15:04:05"), 
-            msg.From, 
-            msg.Message, 
+        fmt.Printf("  %d. [%s] %s: %s (Type: %s)\n",
+            i+1,
+            msg.Timestamp.Format("15:04:05"),
+            msg.From,
+            msg.Message,
             msg.Type)
     }
-    
+
     // Cleanup
     fmt.Println("\n=== Cleanup ===")
     alice.Leave()
     bob.Leave()
     bot.Leave()
-    
+
     fmt.Printf("Final participant count: %d\n", chatRoom.GetParticipantCount())
-    
+
     fmt.Println("\n=== Mediator Pattern Demo Complete ===")
 }
 ```
@@ -1764,6 +1769,7 @@ func main() {
 ### Variants
 
 1. **Abstract Mediator**
+
 ```go
 type AbstractMediator interface {
     Notify(sender Component, event string) error
@@ -1790,6 +1796,7 @@ func (cm *ConcreteMediator) Notify(sender Component, event string) error {
 ```
 
 2. **Event-Driven Mediator**
+
 ```go
 type EventMediator struct {
     eventHandlers map[string][]EventHandler
@@ -1821,6 +1828,7 @@ func (em *EventMediator) Subscribe(eventType string, handler EventHandler) {
 ```
 
 3. **Hierarchical Mediator**
+
 ```go
 type HierarchicalMediator struct {
     parent   Mediator
@@ -1833,19 +1841,19 @@ func (hm *HierarchicalMediator) Notify(sender Component, event string) error {
     if err := hm.handleLocally(sender, event); err != nil {
         return err
     }
-    
+
     // Propagate to parent if needed
     if hm.shouldPropagateUp(event) && hm.parent != nil {
         return hm.parent.Notify(sender, event)
     }
-    
+
     // Propagate to children if needed
     if hm.shouldPropagateDown(event) {
         for _, child := range hm.children {
             child.Notify(sender, event)
         }
     }
-    
+
     return nil
 }
 ```
@@ -1853,6 +1861,7 @@ func (hm *HierarchicalMediator) Notify(sender Component, event string) error {
 ### Trade-offs
 
 **Pros:**
+
 - **Loose Coupling**: Objects don't need to know about each other directly
 - **Centralized Control**: Communication logic is centralized and easier to manage
 - **Reusability**: Components can be reused in different contexts with different mediators
@@ -1860,6 +1869,7 @@ func (hm *HierarchicalMediator) Notify(sender Component, event string) error {
 - **Single Responsibility**: Each component focuses on its core responsibility
 
 **Cons:**
+
 - **Complexity**: Mediator can become complex if it handles too many interactions
 - **Single Point of Failure**: Mediator becomes a critical dependency
 - **Performance**: Additional indirection can impact performance
@@ -1868,17 +1878,18 @@ func (hm *HierarchicalMediator) Notify(sender Component, event string) error {
 
 **When to Choose Mediator vs Alternatives:**
 
-| Scenario | Pattern | Reason |
-|----------|---------|--------|
-| Complex interactions | Mediator | Centralized coordination |
-| Simple notifications | Observer | Direct event subscription |
-| Hierarchical communication | Chain of Responsibility | Sequential handling |
-| Request processing | Command | Encapsulated requests |
-| State-dependent behavior | State | Behavior changes with state |
+| Scenario                   | Pattern                 | Reason                      |
+| -------------------------- | ----------------------- | --------------------------- |
+| Complex interactions       | Mediator                | Centralized coordination    |
+| Simple notifications       | Observer                | Direct event subscription   |
+| Hierarchical communication | Chain of Responsibility | Sequential handling         |
+| Request processing         | Command                 | Encapsulated requests       |
+| State-dependent behavior   | State                   | Behavior changes with state |
 
 ## Integration Tips
 
 ### 1. Observer Pattern Integration
+
 ```go
 type ObservableMediator struct {
     *BaseMediator
@@ -1894,12 +1905,12 @@ type MediatorObserver interface {
 func (om *ObservableMediator) Notify(sender Component, event string) error {
     // Process the event
     err := om.BaseMediator.Notify(sender, event)
-    
+
     // Notify observers
     for _, observer := range om.observers {
         observer.OnCommunication(sender, nil, event)
     }
-    
+
     return err
 }
 
@@ -1909,6 +1920,7 @@ func (om *ObservableMediator) AddObserver(observer MediatorObserver) {
 ```
 
 ### 2. Command Pattern Integration
+
 ```go
 type CommandMediator struct {
     *BaseMediator
@@ -1944,6 +1956,7 @@ func (cm *CommandMediator) ProcessCommands() {
 ```
 
 ### 3. State Pattern Integration
+
 ```go
 type StatefulMediator struct {
     *BaseMediator
@@ -1976,13 +1989,14 @@ func (sm *StatefulMediator) ChangeState(newState MediatorState) error {
             return err
         }
     }
-    
+
     sm.currentState = newState
     return newState.Enter(sm)
 }
 ```
 
 ### 4. Strategy Pattern Integration
+
 ```go
 type CommunicationStrategy interface {
     DeliverMessage(from Component, to Component, message interface{}) error
@@ -2010,7 +2024,7 @@ func (as *AsynchronousStrategy) DeliverMessage(from Component, to Component, mes
         To:      to,
         Message: message,
     }
-    
+
     select {
     case as.messageQueue <- delivery:
         return nil
@@ -2041,6 +2055,7 @@ func (sbm *StrategyBasedMediator) DeliverMessage(from Component, to Component, m
 Both patterns deal with communication between objects, but they serve different purposes and have different structures:
 
 **Mediator Pattern:**
+
 ```go
 // Centralized communication through a mediator
 type ChatMediator interface {
@@ -2062,6 +2077,7 @@ user1.SendMessage("Hello", user2, user3) // Mediator coordinates
 ```
 
 **Observer Pattern:**
+
 ```go
 // Direct subscription-based communication
 type Subject interface {
@@ -2094,13 +2110,13 @@ user1.SendMessage("Hello") // Direct notification
 
 **Key Differences:**
 
-| Aspect | Mediator | Observer |
-|--------|----------|----------|
-| **Communication** | Centralized through mediator | Direct publisher-subscriber |
-| **Coupling** | Components coupled to mediator | Publishers coupled to observers |
-| **Control** | Mediator controls all interactions | Each subject controls its observers |
-| **Complexity** | Complex mediator, simple components | Simple subjects, complex interactions |
-| **Use Case** | Complex multi-way communication | One-to-many event notification |
+| Aspect            | Mediator                            | Observer                              |
+| ----------------- | ----------------------------------- | ------------------------------------- |
+| **Communication** | Centralized through mediator        | Direct publisher-subscriber           |
+| **Coupling**      | Components coupled to mediator      | Publishers coupled to observers       |
+| **Control**       | Mediator controls all interactions  | Each subject controls its observers   |
+| **Complexity**    | Complex mediator, simple components | Simple subjects, complex interactions |
+| **Use Case**      | Complex multi-way communication     | One-to-many event notification        |
 
 ### 2. **How do you prevent the mediator from becoming a God Object?**
 
@@ -2108,6 +2124,7 @@ user1.SendMessage("Hello") // Direct notification
 Several strategies can prevent mediators from becoming too complex:
 
 **1. Decompose by Domain:**
+
 ```go
 // Instead of one huge mediator
 type MonolithicMediator struct {
@@ -2138,6 +2155,7 @@ type SystemCoordinator struct {
 ```
 
 **2. Use Event-Driven Architecture:**
+
 ```go
 type EventBus interface {
     Publish(event Event) error
@@ -2151,14 +2169,14 @@ type PaymentProcessor struct {
 func (pp *PaymentProcessor) ProcessPayment(payment Payment) error {
     // Process payment
     result := pp.process(payment)
-    
+
     // Publish event instead of direct mediator calls
     event := PaymentProcessedEvent{
         PaymentID: payment.ID,
         Status:    result.Status,
         Amount:    payment.Amount,
     }
-    
+
     return pp.eventBus.Publish(event)
 }
 
@@ -2174,6 +2192,7 @@ func (ns *NotificationService) Initialize() {
 ```
 
 **3. Use Composition and Delegation:**
+
 ```go
 type CompositeMediator struct {
     validators []Validator
@@ -2190,7 +2209,7 @@ func (cm *CompositeMediator) ProcessRequest(request Request) error {
             }
         }
     }
-    
+
     for _, processor := range cm.processors {
         if processor.CanProcess(request) {
             if err := processor.Process(request); err != nil {
@@ -2198,18 +2217,19 @@ func (cm *CompositeMediator) ProcessRequest(request Request) error {
             }
         }
     }
-    
+
     for _, notifier := range cm.notifiers {
         if notifier.ShouldNotify(request) {
             go notifier.Notify(request)
         }
     }
-    
+
     return nil
 }
 ```
 
 **4. Use Strategy Pattern:**
+
 ```go
 type MediatorStrategy interface {
     Handle(request Request) error
@@ -2224,7 +2244,7 @@ func (sbm *StrategyBasedMediator) Process(request Request) error {
     if !exists {
         return fmt.Errorf("no strategy for request type: %s", request.Type)
     }
-    
+
     return strategy.Handle(request)
 }
 
@@ -2240,6 +2260,7 @@ type OrderStrategy struct{}
 Error handling in mediators requires careful consideration of how errors should be propagated and handled:
 
 **1. Error Aggregation:**
+
 ```go
 type MediatorError struct {
     Operation string
@@ -2257,13 +2278,13 @@ type ErrorAggregatingMediator struct {
 
 func (eam *ErrorAggregatingMediator) BroadcastEvent(event Event) error {
     var errors []error
-    
+
     for componentID, component := range eam.components {
         if err := component.HandleEvent(event); err != nil {
             errors = append(errors, fmt.Errorf("component %s: %w", componentID, err))
         }
     }
-    
+
     if len(errors) > 0 {
         return &MediatorError{
             Operation: "BroadcastEvent",
@@ -2271,12 +2292,13 @@ func (eam *ErrorAggregatingMediator) BroadcastEvent(event Event) error {
             Context:   map[string]interface{}{"event_type": event.Type},
         }
     }
-    
+
     return nil
 }
 ```
 
 **2. Circuit Breaker Integration:**
+
 ```go
 type CircuitBreakerMediator struct {
     *BaseMediator
@@ -2289,7 +2311,7 @@ func (cbm *CircuitBreakerMediator) NotifyComponent(componentID string, event Eve
         breaker = NewCircuitBreaker(componentID)
         cbm.breakers[componentID] = breaker
     }
-    
+
     return breaker.Execute(func() error {
         component := cbm.GetComponent(componentID)
         return component.HandleEvent(event)
@@ -2298,6 +2320,7 @@ func (cbm *CircuitBreakerMediator) NotifyComponent(componentID string, event Eve
 ```
 
 **3. Retry with Backoff:**
+
 ```go
 type RetryableMediator struct {
     *BaseMediator
@@ -2307,32 +2330,33 @@ type RetryableMediator struct {
 
 func (rm *RetryableMediator) NotifyComponent(componentID string, event Event) error {
     var lastErr error
-    
+
     for attempt := 0; attempt <= rm.maxRetries; attempt++ {
         if attempt > 0 {
             delay := rm.backoff.NextDelay(attempt)
             time.Sleep(delay)
         }
-        
+
         component := rm.GetComponent(componentID)
         err := component.HandleEvent(event)
         if err == nil {
             return nil
         }
-        
+
         lastErr = err
-        
+
         // Don't retry for certain error types
         if !rm.isRetryable(err) {
             break
         }
     }
-    
+
     return fmt.Errorf("failed after %d attempts: %w", rm.maxRetries+1, lastErr)
 }
 ```
 
 **4. Compensating Actions:**
+
 ```go
 type CompensatingMediator struct {
     *BaseMediator
@@ -2341,7 +2365,7 @@ type CompensatingMediator struct {
 
 func (cm *CompensatingMediator) ProcessWorkflow(workflow Workflow) error {
     var completedSteps []string
-    
+
     for _, step := range workflow.Steps {
         if err := cm.executeStep(step); err != nil {
             // Execute compensating actions for completed steps
@@ -2349,19 +2373,19 @@ func (cm *CompensatingMediator) ProcessWorkflow(workflow Workflow) error {
                 stepID := completedSteps[i]
                 if compensation, exists := cm.compensations[stepID]; exists {
                     if compErr := compensation(); compErr != nil {
-                        cm.logger.Error("Compensation failed", 
+                        cm.logger.Error("Compensation failed",
                             zap.String("step", stepID),
                             zap.Error(compErr))
                     }
                 }
             }
-            
+
             return fmt.Errorf("workflow failed at step %s: %w", step.ID, err)
         }
-        
+
         completedSteps = append(completedSteps, step.ID)
     }
-    
+
     return nil
 }
 ```
@@ -2372,6 +2396,7 @@ func (cm *CompensatingMediator) ProcessWorkflow(workflow Workflow) error {
 Testing mediators requires both unit testing of mediator logic and integration testing of component interactions:
 
 **1. Mock Components:**
+
 ```go
 type MockComponent struct {
     mock.Mock
@@ -2389,22 +2414,22 @@ func (mc *MockComponent) HandleEvent(event Event) error {
 
 func TestMediatorBroadcast(t *testing.T) {
     mediator := NewChatRoom("test", logger)
-    
+
     // Create mock components
     comp1 := &MockComponent{id: "comp1"}
     comp2 := &MockComponent{id: "comp2"}
-    
+
     comp1.On("HandleEvent", mock.AnythingOfType("Event")).Return(nil)
     comp2.On("HandleEvent", mock.AnythingOfType("Event")).Return(nil)
-    
+
     // Add components to mediator
     mediator.AddComponent(comp1)
     mediator.AddComponent(comp2)
-    
+
     // Test broadcast
     event := Event{Type: "test", Data: "test data"}
     err := mediator.BroadcastEvent(event)
-    
+
     assert.NoError(t, err)
     comp1.AssertExpectations(t)
     comp2.AssertExpectations(t)
@@ -2412,31 +2437,32 @@ func TestMediatorBroadcast(t *testing.T) {
 ```
 
 **2. Integration Testing:**
+
 ```go
 func TestPaymentProcessingIntegration(t *testing.T) {
     // Create real components
     validator := NewPaymentValidator()
     gateway := NewMockPaymentGateway()
     notifier := NewMockNotificationService()
-    
+
     // Create mediator
     mediator := NewPaymentMediator()
     mediator.RegisterComponent(validator)
     mediator.RegisterComponent(gateway)
     mediator.RegisterComponent(notifier)
-    
+
     // Test complete payment flow
     payment := &PaymentRequest{
         Amount:   decimal.NewFromFloat(100.00),
         Currency: "USD",
     }
-    
+
     result, err := mediator.ProcessPayment(context.Background(), payment)
-    
+
     assert.NoError(t, err)
     assert.NotNil(t, result)
     assert.Equal(t, "SUCCESS", result.Status)
-    
+
     // Verify all components were involved
     gateway.AssertCalled(t, "ProcessPayment", mock.Anything)
     notifier.AssertCalled(t, "SendNotification", mock.Anything)
@@ -2444,6 +2470,7 @@ func TestPaymentProcessingIntegration(t *testing.T) {
 ```
 
 **3. Event Sequence Testing:**
+
 ```go
 type EventRecorder struct {
     events []Event
@@ -2465,21 +2492,21 @@ func (er *EventRecorder) GetEvents() []Event {
 func TestEventSequence(t *testing.T) {
     recorder := &EventRecorder{}
     mediator := NewObservableMediator(recorder)
-    
+
     // Add components
     comp1 := NewTestComponent("comp1")
     comp2 := NewTestComponent("comp2")
-    
+
     mediator.AddComponent(comp1)
     mediator.AddComponent(comp2)
-    
+
     // Trigger sequence of events
     mediator.ProcessRequest(TestRequest{Type: "test"})
-    
+
     // Verify event sequence
     events := recorder.GetEvents()
     expectedSequence := []string{"REQUEST_RECEIVED", "VALIDATION_STARTED", "VALIDATION_COMPLETED", "PROCESSING_STARTED", "PROCESSING_COMPLETED"}
-    
+
     assert.Equal(t, len(expectedSequence), len(events))
     for i, expected := range expectedSequence {
         assert.Equal(t, expected, events[i].Type)
@@ -2488,29 +2515,30 @@ func TestEventSequence(t *testing.T) {
 ```
 
 **4. Error Scenario Testing:**
+
 ```go
 func TestMediatorErrorHandling(t *testing.T) {
     mediator := NewPaymentMediator()
-    
+
     // Create component that always fails
     failingComponent := &MockComponent{id: "failing"}
     failingComponent.On("HandleEvent", mock.Anything).Return(fmt.Errorf("component failure"))
-    
+
     // Create normal component
     normalComponent := &MockComponent{id: "normal"}
     normalComponent.On("HandleEvent", mock.Anything).Return(nil)
-    
+
     mediator.AddComponent(failingComponent)
     mediator.AddComponent(normalComponent)
-    
+
     // Test error handling
     event := Event{Type: "test"}
     err := mediator.BroadcastEvent(event)
-    
+
     // Should return error but not affect other components
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "component failure")
-    
+
     // Normal component should still have been called
     normalComponent.AssertCalled(t, "HandleEvent", event)
 }
@@ -2522,6 +2550,7 @@ func TestMediatorErrorHandling(t *testing.T) {
 Mediator pattern should be avoided in certain scenarios:
 
 **1. Simple One-to-One Communication:**
+
 ```go
 // DON'T use mediator for simple direct communication
 type UserService struct {
@@ -2532,11 +2561,11 @@ func (us *UserService) CreateUser(user User) error {
     if err := us.validateUser(user); err != nil {
         return err
     }
-    
+
     if err := us.saveUser(user); err != nil {
         return err
     }
-    
+
     // Direct call is simpler than mediator
     return us.emailService.SendWelcomeEmail(user.Email)
 }
@@ -2546,6 +2575,7 @@ func (us *UserService) CreateUser(user User) error {
 ```
 
 **2. Performance-Critical Systems:**
+
 ```go
 // DON'T use mediator in high-frequency trading systems
 type HighFrequencyTrader struct {
@@ -2558,15 +2588,16 @@ func (hft *HighFrequencyTrader) PlaceOrder(order Order) error {
     if !hft.riskCheck.IsAllowed(order) {
         return errors.New("risk check failed")
     }
-    
+
     return hft.orderBook.AddOrder(order)
-    
+
     // Mediator would add unnecessary latency:
     // return mediator.ProcessOrder(order) // Too slow
 }
 ```
 
 **3. Simple Event Systems:**
+
 ```go
 // DON'T use mediator for simple pub/sub
 type SimplePublisher struct {
@@ -2584,6 +2615,7 @@ func (sp *SimplePublisher) Publish(event Event) {
 ```
 
 **4. Hierarchical Systems:**
+
 ```go
 // DON'T use mediator for natural hierarchies
 type OrderProcessor struct {
@@ -2597,27 +2629,28 @@ func (op *OrderProcessor) ProcessOrder(order Order) error {
     if err := op.paymentProcessor.ProcessPayment(order.Payment); err != nil {
         return err
     }
-    
+
     if err := op.inventoryManager.ReserveItems(order.Items); err != nil {
         return err
     }
-    
+
     return op.shippingService.CreateShipment(order)
 }
 ```
 
 **Better Alternatives:**
 
-| Scenario | Alternative | Reason |
-|----------|-------------|--------|
-| Simple notifications | Observer | Direct pub/sub |
-| Sequential processing | Chain of Responsibility | Linear workflow |
-| Hierarchical communication | Direct calls | Natural hierarchy |
-| Event streaming | Event Bus/Message Queue | Better for high volume |
-| Request-response | Direct service calls | Lower latency |
-| State management | State Machine | Better state modeling |
+| Scenario                   | Alternative             | Reason                 |
+| -------------------------- | ----------------------- | ---------------------- |
+| Simple notifications       | Observer                | Direct pub/sub         |
+| Sequential processing      | Chain of Responsibility | Linear workflow        |
+| Hierarchical communication | Direct calls            | Natural hierarchy      |
+| Event streaming            | Event Bus/Message Queue | Better for high volume |
+| Request-response           | Direct service calls    | Lower latency          |
+| State management           | State Machine           | Better state modeling  |
 
 **Decision Framework:**
+
 ```go
 type MediatorDecision struct {
     ComponentCount      int
@@ -2632,23 +2665,23 @@ func (md *MediatorDecision) ShouldUseMediator() (bool, string) {
     if md.ComponentCount < 3 {
         return false, "Too few components to benefit from mediator"
     }
-    
+
     if md.InteractionComplexity == "simple" && md.CommunicationPattern == "one-to-one" {
         return false, "Simple direct communication is better"
     }
-    
+
     if md.PerformanceNeeds == "high" && md.SystemSize == "small" {
         return false, "Performance overhead not justified for small systems"
     }
-    
+
     if md.CommunicationPattern == "many-to-many" && md.InteractionComplexity == "complex" {
         return true, "Mediator helps manage complex many-to-many interactions"
     }
-    
+
     if md.CouplingTolerance == "loose" && md.ComponentCount > 5 {
         return true, "Mediator reduces coupling in larger systems"
     }
-    
+
     return false, "Direct communication likely sufficient"
 }
 ```

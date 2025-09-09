@@ -526,8 +526,8 @@ func (s *BaseSagaStep) Cleanup(ctx context.Context) error {
 // ConcreteSagaStep represents a concrete implementation of SagaStep
 type ConcreteSagaStep struct {
 	BaseSagaStep
-	ExecuteFunc      func(ctx context.Context) error `json:"-" yaml:"-"`
-	CompensateFunc   func(ctx context.Context) error `json:"-" yaml:"-"`
+	ExecuteFunc    func(ctx context.Context) error `json:"-" yaml:"-"`
+	CompensateFunc func(ctx context.Context) error `json:"-" yaml:"-"`
 }
 
 // NewConcreteSagaStep creates a new ConcreteSagaStep

@@ -5,6 +5,7 @@
 **Abstract Factory** is a creational design pattern that provides an interface for creating families of related or dependent objects without specifying their concrete classes. It encapsulates a group of individual factories that have a common theme.
 
 **Key Intent:**
+
 - Create families of related products
 - Ensure products from a family are used together
 - Provide abstraction over concrete product creation
@@ -21,6 +22,7 @@
 5. **Complex Object Creation**: You have complex object creation logic that varies by family
 
 **Don't use when:**
+
 - You only have one product family (use Factory Method instead)
 - Product families rarely change (adds unnecessary complexity)
 - Simple object creation is sufficient
@@ -28,6 +30,7 @@
 ## Real-World Use Cases (Payments/Fintech)
 
 ### 1. Payment Gateway Abstraction
+
 ```go
 // Different payment gateway families with consistent interfaces
 type PaymentGatewayFactory interface {
@@ -50,6 +53,7 @@ func (s *StripeFactory) CreateLogger() PaymentLogger { return &StripeLogger{} }
 ```
 
 ### 2. Multi-Region Banking Systems
+
 ```go
 // Different regulatory compliance families
 type BankingSystemFactory interface {
@@ -69,6 +73,7 @@ type IndiaBankingFactory struct{}
 ```
 
 ### 3. Multi-Currency Trading Platforms
+
 ```go
 // Different market families with specific rules
 type TradingPlatformFactory interface {
@@ -88,6 +93,7 @@ type ForexTradingFactory struct{}
 ```
 
 ### 4. Multi-Tenant SaaS Platforms
+
 ```go
 // Different tenant tiers with varying capabilities
 type TenantServiceFactory interface {
@@ -154,14 +160,14 @@ type RazorpayProcessor struct {
 func (r *RazorpayProcessor) ProcessPayment(amount float64, currency string) error {
     // Razorpay-specific payment processing
     fmt.Printf("Processing ₹%.2f payment through Razorpay\n", amount)
-    
+
     if amount <= 0 {
         return fmt.Errorf("invalid amount: %.2f", amount)
     }
-    
+
     // Simulate API call delay
     time.Sleep(100 * time.Millisecond)
-    
+
     return nil
 }
 
@@ -182,7 +188,7 @@ func (r *RazorpayValidator) ValidateCard(cardNumber string) error {
     if len(cardNumber) < 13 || len(cardNumber) > 19 {
         return fmt.Errorf("invalid card number length")
     }
-    
+
     // Luhn algorithm validation would go here
     fmt.Printf("Validating card through Razorpay: %s***\n", cardNumber[:4])
     return nil
@@ -270,14 +276,14 @@ type StripeProcessor struct {
 
 func (s *StripeProcessor) ProcessPayment(amount float64, currency string) error {
     fmt.Printf("Processing $%.2f payment through Stripe\n", amount)
-    
+
     if amount <= 0 {
         return fmt.Errorf("invalid amount: %.2f", amount)
     }
-    
+
     // Simulate API call delay
     time.Sleep(150 * time.Millisecond)
-    
+
     return nil
 }
 
@@ -298,7 +304,7 @@ func (s *StripeValidator) ValidateCard(cardNumber string) error {
     if len(cardNumber) < 13 || len(cardNumber) > 19 {
         return fmt.Errorf("invalid card number length")
     }
-    
+
     fmt.Printf("Validating card through Stripe: %s***\n", cardNumber[:4])
     return nil
 }
@@ -395,35 +401,35 @@ func NewPaymentService(factory PaymentGatewayFactory) *PaymentService {
 
 func (p *PaymentService) ProcessTransaction(transactionID, userID, cardNumber string, amount float64, currency string) error {
     start := time.Now()
-    
+
     // Validate card
     if err := p.validator.ValidateCard(cardNumber); err != nil {
         p.logger.LogError(transactionID, err)
         return fmt.Errorf("card validation failed: %w", err)
     }
-    
+
     // Validate amount
     if err := p.validator.ValidateAmount(amount, currency); err != nil {
         p.logger.LogError(transactionID, err)
         return fmt.Errorf("amount validation failed: %w", err)
     }
-    
+
     // Validate risk profile
     if err := p.validator.ValidateRiskProfile(userID, amount); err != nil {
         p.logger.LogError(transactionID, err)
         return fmt.Errorf("risk validation failed: %w", err)
     }
-    
+
     // Process payment
     if err := p.processor.ProcessPayment(amount, currency); err != nil {
         p.logger.LogError(transactionID, err)
         return fmt.Errorf("payment processing failed: %w", err)
     }
-    
+
     // Log successful transaction
     p.logger.LogTransaction(transactionID, amount, "SUCCESS")
     p.logger.LogMetrics(time.Since(start), p.factory.GetGatewayName())
-    
+
     return nil
 }
 
@@ -475,27 +481,27 @@ func main() {
         RiskThreshold: 50000,
         LogFormat:     "json",
     }
-    
+
     stripeConfig := StripeConfig{
         SecretKey:      "sk_test_key",
         PublicKey:      "pk_test_key",
         WebhookURL:     "https://api.mysite.com/stripe/webhook",
         FraudDetection: true,
     }
-    
+
     // Create factories
     razorpayFactory := NewRazorpayFactory(razorpayConfig)
     stripeFactory := NewStripeFactory(stripeConfig)
-    
+
     // Register factories
     factoryManager := NewFactoryManager()
     factoryManager.RegisterFactory("razorpay", razorpayFactory)
     factoryManager.RegisterFactory("stripe", stripeFactory)
-    
+
     // Example 1: Use Razorpay for Indian market
     fmt.Println("=== Processing Indian Payment ===")
     razorpayService := NewPaymentService(razorpayFactory)
-    
+
     err := razorpayService.ProcessTransaction(
         "TXN_001",
         "USER_123",
@@ -503,20 +509,20 @@ func main() {
         15000,
         "INR",
     )
-    
+
     if err != nil {
         fmt.Printf("Transaction failed: %v\n", err)
     } else {
-        fmt.Printf("Transaction successful! Fee: ₹%.2f\n", 
+        fmt.Printf("Transaction successful! Fee: ₹%.2f\n",
             razorpayService.GetTransactionFee(15000))
     }
-    
+
     fmt.Println()
-    
+
     // Example 2: Use Stripe for US market
     fmt.Println("=== Processing US Payment ===")
     stripeService := NewPaymentService(stripeFactory)
-    
+
     err = stripeService.ProcessTransaction(
         "TXN_002",
         "USER_456",
@@ -524,22 +530,22 @@ func main() {
         299.99,
         "USD",
     )
-    
+
     if err != nil {
         fmt.Printf("Transaction failed: %v\n", err)
     } else {
-        fmt.Printf("Transaction successful! Fee: $%.2f\n", 
+        fmt.Printf("Transaction successful! Fee: $%.2f\n",
             stripeService.GetTransactionFee(299.99))
     }
-    
+
     fmt.Println()
-    
+
     // Example 3: Runtime factory selection
     fmt.Println("=== Runtime Factory Selection ===")
-    
+
     region := "US"
     var factoryName string
-    
+
     switch region {
     case "India":
         factoryName = "razorpay"
@@ -548,18 +554,18 @@ func main() {
     default:
         factoryName = "stripe" // default
     }
-    
+
     factory, err := factoryManager.GetFactory(factoryName)
     if err != nil {
         log.Fatal(err)
     }
-    
+
     service := NewPaymentService(factory)
-    fmt.Printf("Selected gateway: %s for region: %s\n", 
+    fmt.Printf("Selected gateway: %s for region: %s\n",
         factory.GetGatewayName(), region)
-    fmt.Printf("Supported currencies: %v\n", 
+    fmt.Printf("Supported currencies: %v\n",
         service.GetSupportedCurrencies())
-    fmt.Printf("Supported regions: %v\n", 
+    fmt.Printf("Supported regions: %v\n",
         factory.GetSupportedRegions())
 }
 ```
@@ -569,6 +575,7 @@ func main() {
 ### Variants
 
 1. **Registry-Based Abstract Factory**
+
 ```go
 type FactoryRegistry struct {
     factories map[string]PaymentGatewayFactory
@@ -584,6 +591,7 @@ func (r *FactoryRegistry) Create(name string) PaymentGatewayFactory {
 ```
 
 2. **Configuration-Driven Factory**
+
 ```go
 type ConfigurableFactory struct {
     config FactoryConfig
@@ -601,6 +609,7 @@ func (c *ConfigurableFactory) CreateFactory() PaymentGatewayFactory {
 ```
 
 3. **Plugin-Based Factory**
+
 ```go
 type PluginFactory interface {
     PaymentGatewayFactory
@@ -612,6 +621,7 @@ type PluginFactory interface {
 ### Trade-offs
 
 **Pros:**
+
 - **Family Consistency**: Ensures related products work together
 - **Easy Switching**: Can switch entire product families easily
 - **Runtime Selection**: Supports runtime factory selection
@@ -619,6 +629,7 @@ type PluginFactory interface {
 - **Isolation**: Each family's implementation is isolated
 
 **Cons:**
+
 - **Complexity**: More complex than simple Factory Method
 - **Interface Proliferation**: Many interfaces to maintain
 - **Overhead**: Additional abstraction layers
@@ -627,12 +638,12 @@ type PluginFactory interface {
 
 **When to Choose Abstract Factory vs Alternatives:**
 
-| Pattern | Use When | Avoid When |
-|---------|----------|------------|
-| Abstract Factory | Multiple related product families | Single product family |
-| Factory Method | Single product with variants | Multiple related products |
-| Builder | Complex object construction | Simple object creation |
-| Prototype | Expensive object creation | Cheap object creation |
+| Pattern          | Use When                          | Avoid When                |
+| ---------------- | --------------------------------- | ------------------------- |
+| Abstract Factory | Multiple related product families | Single product family     |
+| Factory Method   | Single product with variants      | Multiple related products |
+| Builder          | Complex object construction       | Simple object creation    |
+| Prototype        | Expensive object creation         | Cheap object creation     |
 
 ## Testable Example
 
@@ -739,7 +750,7 @@ func TestPaymentService_ProcessTransaction(t *testing.T) {
         validator: mockValidator,
         logger:    mockLogger,
     }
-    
+
     // Setup expectations
     mockValidator.On("ValidateCard", "4111111111111111").Return(nil)
     mockValidator.On("ValidateAmount", 100.0, "USD").Return(nil)
@@ -748,10 +759,10 @@ func TestPaymentService_ProcessTransaction(t *testing.T) {
     mockLogger.On("LogTransaction", "TXN_001", 100.0, "SUCCESS").Return()
     mockLogger.On("LogMetrics", mock.AnythingOfType("time.Duration"), "TestGateway").Return()
     mockFactory.On("GetGatewayName").Return("TestGateway")
-    
+
     // Create service
     service := NewPaymentService(mockFactory)
-    
+
     // Test successful transaction
     err := service.ProcessTransaction(
         "TXN_001",
@@ -760,7 +771,7 @@ func TestPaymentService_ProcessTransaction(t *testing.T) {
         100.0,
         "USD",
     )
-    
+
     // Assertions
     assert.NoError(t, err)
     mockValidator.AssertExpectations(t)
@@ -777,15 +788,15 @@ func TestPaymentService_ProcessTransaction_ValidationFailure(t *testing.T) {
         validator: mockValidator,
         logger:    mockLogger,
     }
-    
+
     // Setup expectations for validation failure
     validationError := fmt.Errorf("invalid card number")
     mockValidator.On("ValidateCard", "invalid").Return(validationError)
     mockLogger.On("LogError", "TXN_002", validationError).Return()
-    
+
     // Create service
     service := NewPaymentService(mockFactory)
-    
+
     // Test validation failure
     err := service.ProcessTransaction(
         "TXN_002",
@@ -794,7 +805,7 @@ func TestPaymentService_ProcessTransaction_ValidationFailure(t *testing.T) {
         100.0,
         "USD",
     )
-    
+
     // Assertions
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "card validation failed")
@@ -804,22 +815,22 @@ func TestPaymentService_ProcessTransaction_ValidationFailure(t *testing.T) {
 
 func TestFactoryManager(t *testing.T) {
     manager := NewFactoryManager()
-    
+
     // Test factory registration
     razorpayFactory := NewRazorpayFactory(RazorpayConfig{})
     manager.RegisterFactory("razorpay", razorpayFactory)
-    
+
     // Test factory retrieval
     factory, err := manager.GetFactory("razorpay")
     assert.NoError(t, err)
     assert.NotNil(t, factory)
     assert.Equal(t, "Razorpay", factory.GetGatewayName())
-    
+
     // Test non-existent factory
     _, err = manager.GetFactory("nonexistent")
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "factory not found")
-    
+
     // Test available factories
     available := manager.GetAvailableFactories()
     assert.Contains(t, available, "razorpay")
@@ -830,25 +841,25 @@ func TestAbstractFactory_ProductFamilyConsistency(t *testing.T) {
     razorpayFactory := NewRazorpayFactory(RazorpayConfig{
         RiskThreshold: 10000,
     })
-    
+
     processor := razorpayFactory.CreateProcessor()
     validator := razorpayFactory.CreateValidator()
     logger := razorpayFactory.CreateLogger()
-    
+
     // Verify product types
     assert.IsType(t, &RazorpayProcessor{}, processor)
     assert.IsType(t, &RazorpayValidator{}, validator)
     assert.IsType(t, &RazorpayLogger{}, logger)
-    
+
     // Test that Stripe factory creates Stripe products
     stripeFactory := NewStripeFactory(StripeConfig{
         FraudDetection: true,
     })
-    
+
     processor = stripeFactory.CreateProcessor()
     validator = stripeFactory.CreateValidator()
     logger = stripeFactory.CreateLogger()
-    
+
     // Verify product types
     assert.IsType(t, &StripeProcessor{}, processor)
     assert.IsType(t, &StripeValidator{}, validator)
@@ -861,11 +872,11 @@ func BenchmarkPaymentService_ProcessTransaction(b *testing.B) {
         APISecret:     "test_secret",
         RiskThreshold: 50000,
     })
-    
+
     service := NewPaymentService(razorpayFactory)
-    
+
     b.ResetTimer()
-    
+
     for i := 0; i < b.N; i++ {
         err := service.ProcessTransaction(
             fmt.Sprintf("TXN_%d", i),
@@ -884,6 +895,7 @@ func BenchmarkPaymentService_ProcessTransaction(b *testing.B) {
 ## Integration Tips
 
 ### 1. Configuration Management
+
 ```go
 type FactoryConfig struct {
     Default string                 `yaml:"default"`
@@ -897,19 +909,20 @@ type FactorySpec struct {
 
 func LoadFactoryFromConfig(config FactoryConfig) PaymentGatewayFactory {
     spec := config.Factories[config.Default]
-    
+
     switch spec.Type {
     case "razorpay":
         return createRazorpayFromConfig(spec.Config)
     case "stripe":
         return createStripeFromConfig(spec.Config)
     }
-    
+
     return nil
 }
 ```
 
 ### 2. Dependency Injection Integration
+
 ```go
 type Container struct {
     factories map[string]PaymentGatewayFactory
@@ -931,6 +944,7 @@ func (c *Container) GetService(name string) (*PaymentService, error) {
 ```
 
 ### 3. Plugin System Integration
+
 ```go
 type PluginManager struct {
     registry *FactoryRegistry
@@ -949,19 +963,20 @@ func (p *PluginManager) LoadPlugin(pluginPath string) error {
     if err != nil {
         return err
     }
-    
+
     if err := plugin.Load(); err != nil {
         return err
     }
-    
+
     p.plugins[plugin.Name()] = plugin
     p.registry.Register(plugin.Name(), plugin.CreateFactory())
-    
+
     return nil
 }
 ```
 
 ### 4. Circuit Breaker Integration
+
 ```go
 type ResilientPaymentService struct {
     services        map[string]*PaymentService
@@ -972,10 +987,10 @@ type ResilientPaymentService struct {
 func (r *ResilientPaymentService) ProcessTransaction(req TransactionRequest) error {
     // Select service based on load balancing
     serviceName := r.loadBalancer.SelectService(req.Region, req.Currency)
-    
+
     // Get circuit breaker for service
     cb := r.circuitBreakers[serviceName]
-    
+
     // Execute through circuit breaker
     return cb.Execute(func() error {
         service := r.services[serviceName]
@@ -995,10 +1010,12 @@ func (r *ResilientPaymentService) ProcessTransaction(req TransactionRequest) err
 ### 1. **How does Abstract Factory differ from Factory Method?**
 
 **Answer:**
+
 - **Factory Method**: Creates single products with variants. One creator interface, multiple concrete creators, each creating one product type.
 - **Abstract Factory**: Creates families of related products. One abstract factory interface, multiple concrete factories, each creating multiple related product types.
 
 **Example:**
+
 ```go
 // Factory Method - creates different payment processors
 type ProcessorFactory interface {
@@ -1028,6 +1045,7 @@ Use **Builder** when you need to construct complex objects step by step with opt
 This is a key limitation of Abstract Factory. Adding new products requires:
 
 1. **Modify all factory interfaces** (breaks Open/Closed Principle)
+
 ```go
 // Adding new product breaks existing factories
 type PaymentGatewayFactory interface {
@@ -1046,7 +1064,9 @@ type PaymentGatewayFactory interface {
 ### 4. **How do you ensure products from different families don't get mixed?**
 
 **Answer:**
+
 1. **Type System**: Use strong typing to prevent mixing
+
 ```go
 type RazorpayProduct interface {
     GetGateway() string // Returns "razorpay"
@@ -1058,6 +1078,7 @@ type StripeProduct interface {
 ```
 
 2. **Factory Ownership**: Services only accept products from their factory
+
 ```go
 type PaymentService struct {
     factoryName string
@@ -1067,7 +1088,7 @@ type PaymentService struct {
 func (p *PaymentService) AddProduct(product interface{}) error {
     if gatewayProduct, ok := product.(GatewayProduct); ok {
         if gatewayProduct.GetGateway() != p.factoryName {
-            return fmt.Errorf("product mismatch: expected %s, got %s", 
+            return fmt.Errorf("product mismatch: expected %s, got %s",
                 p.factoryName, gatewayProduct.GetGateway())
         }
     }
@@ -1077,6 +1098,7 @@ func (p *PaymentService) AddProduct(product interface{}) error {
 ```
 
 3. **Factory Validation**: Validate product compatibility
+
 ```go
 func (f *RazorpayFactory) ValidateProducts(products []interface{}) error {
     for _, product := range products {
@@ -1091,7 +1113,9 @@ func (f *RazorpayFactory) ValidateProducts(products []interface{}) error {
 ### 5. **How do you implement versioning in Abstract Factory?**
 
 **Answer:**
+
 1. **Versioned Factories**:
+
 ```go
 type PaymentGatewayFactoryV1 interface {
     CreateProcessor() PaymentProcessor
@@ -1106,6 +1130,7 @@ type PaymentGatewayFactoryV2 interface {
 ```
 
 2. **Version-aware Factory Selection**:
+
 ```go
 type FactoryManager struct {
     factories map[string]map[string]PaymentGatewayFactory // [gateway][version]
@@ -1124,6 +1149,7 @@ func (f *FactoryManager) GetFactory(gateway, version string) PaymentGatewayFacto
 ```
 
 3. **Backward Compatibility**:
+
 ```go
 type BackwardCompatibleFactory struct {
     v1Factory PaymentGatewayFactoryV1

@@ -5,6 +5,7 @@
 **Adapter** is a structural design pattern that allows objects with incompatible interfaces to collaborate. It acts as a wrapper between two objects, catching calls for one object and transforming them to format and interface recognizable by the second object.
 
 **Key Intent:**
+
 - Make incompatible interfaces work together
 - Allow existing code to work with new libraries or systems
 - Convert one interface to another that clients expect
@@ -23,6 +24,7 @@
 6. **API Standardization**: Want to standardize access to multiple external APIs
 
 **Don't use when:**
+
 - Interfaces are already compatible
 - You can modify the target interface directly
 - The adaptation requires significant data transformation
@@ -31,6 +33,7 @@
 ## Real-World Use Cases (Payments/Fintech)
 
 ### 1. Payment Gateway Adapter
+
 ```go
 // Different payment gateways with different interfaces
 type RazorpayGateway struct{}
@@ -59,12 +62,12 @@ func (r *RazorpayAdapter) ProcessPayment(req PaymentRequest) (*PaymentResponse, 
         "customer_id": req.CustomerID,
         "order_id": req.OrderID,
     }
-    
+
     order, err := r.gateway.CreateOrder(amount, req.Currency, notes)
     if err != nil {
         return nil, err
     }
-    
+
     // Convert Razorpay response to standard format
     return &PaymentResponse{
         TransactionID: order.ID,
@@ -76,6 +79,7 @@ func (r *RazorpayAdapter) ProcessPayment(req PaymentRequest) (*PaymentResponse, 
 ```
 
 ### 2. Banking System Integration
+
 ```go
 // Legacy mainframe banking system
 type LegacyBankingSystem struct{}
@@ -98,7 +102,7 @@ func (l *LegacyBankingAdapter) GetAccountBalance(accountID string) (decimal.Deci
     if err != nil {
         return decimal.Zero, err
     }
-    
+
     // Convert cents to decimal
     return decimal.NewFromInt(balanceInCents).Div(decimal.NewFromInt(100)), nil
 }
@@ -106,12 +110,12 @@ func (l *LegacyBankingAdapter) GetAccountBalance(accountID string) (decimal.Deci
 func (l *LegacyBankingAdapter) TransferFunds(from, to string, amount decimal.Decimal) (*TransferResult, error) {
     // Convert decimal to cents
     amountInCents := amount.Mul(decimal.NewFromInt(100)).IntPart()
-    
+
     transferID, err := l.legacySystem.FUND_XFER(from, to, amountInCents)
     if err != nil {
         return nil, err
     }
-    
+
     return &TransferResult{
         TransferID: transferID,
         Status: "completed",
@@ -121,6 +125,7 @@ func (l *LegacyBankingAdapter) TransferFunds(from, to string, amount decimal.Dec
 ```
 
 ### 3. Market Data Provider Adapter
+
 ```go
 // Different market data providers
 type BloombergAPI struct{}
@@ -145,7 +150,7 @@ func (b *BloombergAdapter) GetQuote(symbol string) (*Quote, error) {
     if err != nil {
         return nil, err
     }
-    
+
     return &Quote{
         Symbol: symbol,
         Price: quote.LastPrice,
@@ -157,6 +162,7 @@ func (b *BloombergAdapter) GetQuote(symbol string) (*Quote, error) {
 ```
 
 ### 4. Notification Service Adapter
+
 ```go
 // Different notification providers
 type TwilioSMS struct{}
@@ -183,12 +189,12 @@ func (t *TwilioAdapter) SendNotification(req NotificationRequest) (*Notification
     if req.Type != "SMS" {
         return nil, fmt.Errorf("unsupported notification type: %s", req.Type)
     }
-    
+
     response, err := t.client.SendMessage(req.Recipient, t.fromNumber, req.Message)
     if err != nil {
         return nil, err
     }
-    
+
     return &NotificationResponse{
         ID: response.SID,
         Status: "sent",
@@ -314,7 +320,7 @@ func (r *RazorpayGateway) CreateOrder(amount int, currency, receipt string, note
         CreatedAt: time.Now().Unix(),
         Notes:     notes,
     }
-    
+
     log.Printf("Razorpay: Created order %s for amount %d %s", order.ID, amount, currency)
     return order, nil
 }
@@ -328,7 +334,7 @@ func (r *RazorpayGateway) CapturePayment(paymentID string, amount int) (*Razorpa
         Status:    "captured",
         CreatedAt: time.Now().Unix(),
     }
-    
+
     log.Printf("Razorpay: Captured payment %s for amount %d", paymentID, amount)
     return payment, nil
 }
@@ -343,7 +349,7 @@ func (r *RazorpayGateway) RefundPayment(paymentID string, amount int) (*Razorpay
         Status:    "processed",
         CreatedAt: time.Now().Unix(),
     }
-    
+
     log.Printf("Razorpay: Processed refund %s for payment %s", refund.ID, paymentID)
     return refund, nil
 }
@@ -358,7 +364,7 @@ func (r *RazorpayGateway) FetchPayment(paymentID string) (*RazorpayPayment, erro
         Status:    "captured",
         CreatedAt: time.Now().Unix(),
     }
-    
+
     return payment, nil
 }
 
@@ -410,7 +416,7 @@ func (s *StripeGateway) CreatePaymentIntent(amount int64, currency string, descr
         Metadata:     metadata,
         Created:      time.Now().Unix(),
     }
-    
+
     log.Printf("Stripe: Created payment intent %s for amount %d %s", intent.ID, amount, currency)
     return intent, nil
 }
@@ -423,7 +429,7 @@ func (s *StripeGateway) ConfirmPaymentIntent(paymentIntentID string) (*StripePay
         Status:  "succeeded",
         Created: time.Now().Unix(),
     }
-    
+
     log.Printf("Stripe: Confirmed payment intent %s", paymentIntentID)
     return intent, nil
 }
@@ -438,7 +444,7 @@ func (s *StripeGateway) CreateRefund(paymentIntentID string, amount int64) (*Str
         Status:          "succeeded",
         Created:         time.Now().Unix(),
     }
-    
+
     log.Printf("Stripe: Created refund %s for payment intent %s", refund.ID, paymentIntentID)
     return refund, nil
 }
@@ -453,7 +459,7 @@ func (s *StripeGateway) RetrievePaymentIntent(paymentIntentID string) (*StripePa
         Status:   "succeeded",
         Created:  time.Now().Unix(),
     }
-    
+
     return intent, nil
 }
 
@@ -469,7 +475,7 @@ func NewRazorpayAdapter(gateway *RazorpayGateway) *RazorpayAdapter {
 func (r *RazorpayAdapter) ProcessPayment(req PaymentRequest) (*PaymentResponse, error) {
     // Convert decimal amount to paise (Razorpay uses paise)
     amountInPaise := int(req.Amount.Mul(decimal.NewFromInt(100)).IntPart())
-    
+
     // Convert metadata to interface{} map
     notes := make(map[string]interface{})
     for k, v := range req.Metadata {
@@ -477,7 +483,7 @@ func (r *RazorpayAdapter) ProcessPayment(req PaymentRequest) (*PaymentResponse, 
     }
     notes["customer_id"] = req.CustomerID
     notes["payment_method"] = req.PaymentMethod
-    
+
     // Create order using Razorpay API
     order, err := r.gateway.CreateOrder(
         amountInPaise,
@@ -488,7 +494,7 @@ func (r *RazorpayAdapter) ProcessPayment(req PaymentRequest) (*PaymentResponse, 
     if err != nil {
         return nil, fmt.Errorf("razorpay order creation failed: %w", err)
     }
-    
+
     // Convert Razorpay response to standard format
     return &PaymentResponse{
         TransactionID: order.ID,
@@ -503,13 +509,13 @@ func (r *RazorpayAdapter) ProcessPayment(req PaymentRequest) (*PaymentResponse, 
 func (r *RazorpayAdapter) RefundPayment(transactionID string, amount decimal.Decimal) (*RefundResponse, error) {
     // Convert amount to paise
     amountInPaise := int(amount.Mul(decimal.NewFromInt(100)).IntPart())
-    
+
     // Create refund using Razorpay API
     refund, err := r.gateway.RefundPayment(transactionID, amountInPaise)
     if err != nil {
         return nil, fmt.Errorf("razorpay refund failed: %w", err)
     }
-    
+
     // Convert to standard format
     return &RefundResponse{
         RefundID:      refund.ID,
@@ -526,7 +532,7 @@ func (r *RazorpayAdapter) GetPaymentStatus(transactionID string) (*PaymentStatus
     if err != nil {
         return nil, fmt.Errorf("razorpay payment fetch failed: %w", err)
     }
-    
+
     // Convert to standard format
     return &PaymentStatus{
         TransactionID: payment.ID,
@@ -564,7 +570,7 @@ func NewStripeAdapter(gateway *StripeGateway) *StripeAdapter {
 func (s *StripeAdapter) ProcessPayment(req PaymentRequest) (*PaymentResponse, error) {
     // Convert decimal amount to cents (Stripe uses cents)
     amountInCents := req.Amount.Mul(decimal.NewFromInt(100)).IntPart()
-    
+
     // Create payment intent using Stripe API
     intent, err := s.gateway.CreatePaymentIntent(
         amountInCents,
@@ -575,7 +581,7 @@ func (s *StripeAdapter) ProcessPayment(req PaymentRequest) (*PaymentResponse, er
     if err != nil {
         return nil, fmt.Errorf("stripe payment intent creation failed: %w", err)
     }
-    
+
     // Convert Stripe response to standard format
     return &PaymentResponse{
         TransactionID: intent.ID,
@@ -590,13 +596,13 @@ func (s *StripeAdapter) ProcessPayment(req PaymentRequest) (*PaymentResponse, er
 func (s *StripeAdapter) RefundPayment(transactionID string, amount decimal.Decimal) (*RefundResponse, error) {
     // Convert amount to cents
     amountInCents := amount.Mul(decimal.NewFromInt(100)).IntPart()
-    
+
     // Create refund using Stripe API
     refund, err := s.gateway.CreateRefund(transactionID, amountInCents)
     if err != nil {
         return nil, fmt.Errorf("stripe refund failed: %w", err)
     }
-    
+
     // Convert to standard format
     return &RefundResponse{
         RefundID:      refund.ID,
@@ -613,7 +619,7 @@ func (s *StripeAdapter) GetPaymentStatus(transactionID string) (*PaymentStatus, 
     if err != nil {
         return nil, fmt.Errorf("stripe payment intent retrieval failed: %w", err)
     }
-    
+
     // Convert to standard format
     return &PaymentStatus{
         TransactionID: intent.ID,
@@ -661,7 +667,7 @@ func (p *PaymentService) ProcessPayment(provider string, req PaymentRequest) (*P
     if !exists {
         return nil, fmt.Errorf("unsupported payment provider: %s", provider)
     }
-    
+
     return processor.ProcessPayment(req)
 }
 
@@ -670,7 +676,7 @@ func (p *PaymentService) RefundPayment(provider string, transactionID string, am
     if !exists {
         return nil, fmt.Errorf("unsupported payment provider: %s", provider)
     }
-    
+
     return processor.RefundPayment(transactionID, amount)
 }
 
@@ -679,7 +685,7 @@ func (p *PaymentService) GetPaymentStatus(provider string, transactionID string)
     if !exists {
         return nil, fmt.Errorf("unsupported payment provider: %s", provider)
     }
-    
+
     return processor.GetPaymentStatus(transactionID)
 }
 
@@ -694,20 +700,20 @@ func (p *PaymentService) GetSupportedProviders() []string {
 // Example usage
 func main() {
     fmt.Println("=== Adapter Pattern Demo ===\n")
-    
+
     // Create payment gateways
     razorpayGateway := NewRazorpayGateway("rzp_test_key", "rzp_test_secret")
     stripeGateway := NewStripeGateway("sk_test_stripe_key")
-    
+
     // Create adapters
     razorpayAdapter := NewRazorpayAdapter(razorpayGateway)
     stripeAdapter := NewStripeAdapter(stripeGateway)
-    
+
     // Create payment service and register adapters
     paymentService := NewPaymentService()
     paymentService.RegisterProcessor("razorpay", razorpayAdapter)
     paymentService.RegisterProcessor("stripe", stripeAdapter)
-    
+
     // Common payment request
     paymentRequest := PaymentRequest{
         CustomerID:    "CUST_123",
@@ -721,24 +727,24 @@ func main() {
             "campaign":   "summer_sale",
         },
     }
-    
+
     // Process payment with different providers
     providers := []string{"razorpay", "stripe"}
-    
+
     for _, provider := range providers {
         fmt.Printf("=== Processing with %s ===\n", provider)
-        
+
         // Process payment
         response, err := paymentService.ProcessPayment(provider, paymentRequest)
         if err != nil {
             fmt.Printf("Payment failed: %v\n", err)
             continue
         }
-        
+
         fmt.Printf("Payment Response:\n")
         responseJSON, _ := json.MarshalIndent(response, "", "  ")
         fmt.Printf("%s\n", responseJSON)
-        
+
         // Get payment status
         status, err := paymentService.GetPaymentStatus(provider, response.TransactionID)
         if err != nil {
@@ -748,7 +754,7 @@ func main() {
             statusJSON, _ := json.MarshalIndent(status, "", "  ")
             fmt.Printf("%s\n", statusJSON)
         }
-        
+
         // Process refund
         refundAmount := decimal.NewFromFloat(29.99)
         refund, err := paymentService.RefundPayment(provider, response.TransactionID, refundAmount)
@@ -759,20 +765,20 @@ func main() {
             refundJSON, _ := json.MarshalIndent(refund, "", "  ")
             fmt.Printf("%s\n", refundJSON)
         }
-        
+
         fmt.Println()
     }
-    
+
     // Show supported providers
     fmt.Printf("Supported providers: %v\n", paymentService.GetSupportedProviders())
-    
+
     // Demonstrate error handling with unsupported provider
     fmt.Println("\n=== Error Handling Demo ===")
     _, err := paymentService.ProcessPayment("unsupported_provider", paymentRequest)
     if err != nil {
         fmt.Printf("Expected error: %v\n", err)
     }
-    
+
     fmt.Println("\n=== Adapter Pattern Demo Complete ===")
 }
 ```
@@ -782,6 +788,7 @@ func main() {
 ### Variants
 
 1. **Object Adapter (Composition)**
+
 ```go
 type DatabaseAdapter struct {
     legacyDB LegacyDatabase // Composition
@@ -794,6 +801,7 @@ func (d *DatabaseAdapter) Query(sql string) (*Result, error) {
 ```
 
 2. **Class Adapter (Inheritance - simulated with embedding)**
+
 ```go
 type DatabaseAdapter struct {
     LegacyDatabase // Embedding (Go's way of inheritance)
@@ -806,6 +814,7 @@ func (d *DatabaseAdapter) Query(sql string) (*Result, error) {
 ```
 
 3. **Two-Way Adapter**
+
 ```go
 type TwoWayAdapter struct {
     serviceA ServiceA
@@ -822,6 +831,7 @@ func (t *TwoWayAdapter) ConvertBToA(req ServiceBRequest) ServiceARequest {
 ```
 
 4. **Pluggable Adapter**
+
 ```go
 type AdapterRegistry struct {
     adapters map[string]PaymentProcessor
@@ -843,6 +853,7 @@ func (r *AdapterRegistry) GetAdapter(name string) (PaymentProcessor, error) {
 ### Trade-offs
 
 **Pros:**
+
 - **Integration**: Enables integration with incompatible interfaces
 - **Reusability**: Allows reuse of existing functionality
 - **Flexibility**: Easy to switch between different implementations
@@ -850,6 +861,7 @@ func (r *AdapterRegistry) GetAdapter(name string) (PaymentProcessor, error) {
 - **Decoupling**: Decouples client code from specific implementations
 
 **Cons:**
+
 - **Complexity**: Adds an extra layer of abstraction
 - **Performance**: May introduce overhead due to extra calls
 - **Maintenance**: Need to maintain adapter code
@@ -858,13 +870,13 @@ func (r *AdapterRegistry) GetAdapter(name string) (PaymentProcessor, error) {
 
 **When to Choose Adapter vs Alternatives:**
 
-| Scenario | Pattern | Reason |
-|----------|---------|--------|
-| Incompatible interfaces | Adapter | Enables integration |
-| Need to modify interface | Decorator | Adds behavior |
-| Multiple implementations | Strategy | Runtime selection |
-| Hide complex subsystem | Facade | Simplify interface |
-| Legacy integration | Adapter | Gradual migration |
+| Scenario                 | Pattern   | Reason              |
+| ------------------------ | --------- | ------------------- |
+| Incompatible interfaces  | Adapter   | Enables integration |
+| Need to modify interface | Decorator | Adds behavior       |
+| Multiple implementations | Strategy  | Runtime selection   |
+| Hide complex subsystem   | Facade    | Simplify interface  |
+| Legacy integration       | Adapter   | Gradual migration   |
 
 ## Testable Example
 
@@ -932,7 +944,7 @@ func (m *MockStripeGateway) RetrievePaymentIntent(paymentIntentID string) (*Stri
 func TestRazorpayAdapter_ProcessPayment(t *testing.T) {
     mockGateway := &MockRazorpayGateway{}
     adapter := NewRazorpayAdapter(mockGateway)
-    
+
     // Setup mock expectations
     expectedOrder := &RazorpayOrder{
         ID:        "order_123",
@@ -942,10 +954,10 @@ func TestRazorpayAdapter_ProcessPayment(t *testing.T) {
         Status:    "created",
         CreatedAt: 1640995200,
     }
-    
+
     mockGateway.On("CreateOrder", 9999, "INR", "ORDER_456", mock.AnythingOfType("map[string]interface {}")).
         Return(expectedOrder, nil)
-    
+
     // Create payment request
     req := PaymentRequest{
         CustomerID:    "CUST_123",
@@ -958,10 +970,10 @@ func TestRazorpayAdapter_ProcessPayment(t *testing.T) {
             "test": "value",
         },
     }
-    
+
     // Process payment
     response, err := adapter.ProcessPayment(req)
-    
+
     // Assertions
     require.NoError(t, err)
     assert.Equal(t, "order_123", response.TransactionID)
@@ -969,14 +981,14 @@ func TestRazorpayAdapter_ProcessPayment(t *testing.T) {
     assert.Equal(t, decimal.NewFromFloat(99.99), response.Amount)
     assert.Equal(t, "INR", response.Currency)
     assert.Contains(t, response.PaymentURL, "order_123")
-    
+
     mockGateway.AssertExpectations(t)
 }
 
 func TestStripeAdapter_ProcessPayment(t *testing.T) {
     mockGateway := &MockStripeGateway{}
     adapter := NewStripeAdapter(mockGateway)
-    
+
     // Setup mock expectations
     expectedIntent := &StripePaymentIntent{
         ID:           "pi_123",
@@ -987,10 +999,10 @@ func TestStripeAdapter_ProcessPayment(t *testing.T) {
         ClientSecret: "pi_123_secret",
         Created:      1640995200,
     }
-    
+
     mockGateway.On("CreatePaymentIntent", int64(9999), "usd", "Test payment", mock.AnythingOfType("map[string]string")).
         Return(expectedIntent, nil)
-    
+
     // Create payment request
     req := PaymentRequest{
         CustomerID:    "CUST_123",
@@ -1003,10 +1015,10 @@ func TestStripeAdapter_ProcessPayment(t *testing.T) {
             "test": "value",
         },
     }
-    
+
     // Process payment
     response, err := adapter.ProcessPayment(req)
-    
+
     // Assertions
     require.NoError(t, err)
     assert.Equal(t, "pi_123", response.TransactionID)
@@ -1014,14 +1026,14 @@ func TestStripeAdapter_ProcessPayment(t *testing.T) {
     assert.Equal(t, decimal.NewFromFloat(99.99), response.Amount)
     assert.Equal(t, "usd", response.Currency)
     assert.Contains(t, response.PaymentURL, "pi_123_secret")
-    
+
     mockGateway.AssertExpectations(t)
 }
 
 func TestRazorpayAdapter_RefundPayment(t *testing.T) {
     mockGateway := &MockRazorpayGateway{}
     adapter := NewRazorpayAdapter(mockGateway)
-    
+
     // Setup mock expectations
     expectedRefund := &RazorpayRefund{
         ID:        "rfnd_123",
@@ -1031,27 +1043,27 @@ func TestRazorpayAdapter_RefundPayment(t *testing.T) {
         Status:    "processed",
         CreatedAt: 1640995200,
     }
-    
+
     mockGateway.On("RefundPayment", "pay_123", 2999).
         Return(expectedRefund, nil)
-    
+
     // Process refund
     response, err := adapter.RefundPayment("pay_123", decimal.NewFromFloat(29.99))
-    
+
     // Assertions
     require.NoError(t, err)
     assert.Equal(t, "rfnd_123", response.RefundID)
     assert.Equal(t, "pay_123", response.TransactionID)
     assert.Equal(t, decimal.NewFromFloat(29.99), response.Amount)
     assert.Equal(t, "processed", response.Status)
-    
+
     mockGateway.AssertExpectations(t)
 }
 
 func TestStripeAdapter_RefundPayment(t *testing.T) {
     mockGateway := &MockStripeGateway{}
     adapter := NewStripeAdapter(mockGateway)
-    
+
     // Setup mock expectations
     expectedRefund := &StripeRefund{
         ID:              "re_123",
@@ -1061,65 +1073,65 @@ func TestStripeAdapter_RefundPayment(t *testing.T) {
         Status:          "succeeded",
         Created:         1640995200,
     }
-    
+
     mockGateway.On("CreateRefund", "pi_123", int64(2999)).
         Return(expectedRefund, nil)
-    
+
     // Process refund
     response, err := adapter.RefundPayment("pi_123", decimal.NewFromFloat(29.99))
-    
+
     // Assertions
     require.NoError(t, err)
     assert.Equal(t, "re_123", response.RefundID)
     assert.Equal(t, "pi_123", response.TransactionID)
     assert.Equal(t, decimal.NewFromFloat(29.99), response.Amount)
     assert.Equal(t, "succeeded", response.Status)
-    
+
     mockGateway.AssertExpectations(t)
 }
 
 func TestPaymentService_ProcessPayment(t *testing.T) {
     paymentService := NewPaymentService()
-    
+
     // Create mock adapters
     mockRazorpayGateway := &MockRazorpayGateway{}
     razorpayAdapter := NewRazorpayAdapter(mockRazorpayGateway)
-    
+
     mockStripeGateway := &MockStripeGateway{}
     stripeAdapter := NewStripeAdapter(mockStripeGateway)
-    
+
     // Register adapters
     paymentService.RegisterProcessor("razorpay", razorpayAdapter)
     paymentService.RegisterProcessor("stripe", stripeAdapter)
-    
+
     // Setup expectations
     mockRazorpayGateway.On("CreateOrder", mock.Anything, mock.Anything, mock.Anything, mock.Anything).
         Return(&RazorpayOrder{ID: "order_123", Status: "created"}, nil)
-    
+
     mockStripeGateway.On("CreatePaymentIntent", mock.Anything, mock.Anything, mock.Anything, mock.Anything).
         Return(&StripePaymentIntent{ID: "pi_123", Status: "requires_payment_method"}, nil)
-    
+
     req := PaymentRequest{
         Amount:   decimal.NewFromFloat(100.00),
         Currency: "USD",
         OrderID:  "ORDER_123",
     }
-    
+
     // Test Razorpay
     response, err := paymentService.ProcessPayment("razorpay", req)
     assert.NoError(t, err)
     assert.Equal(t, "order_123", response.TransactionID)
-    
+
     // Test Stripe
     response, err = paymentService.ProcessPayment("stripe", req)
     assert.NoError(t, err)
     assert.Equal(t, "pi_123", response.TransactionID)
-    
+
     // Test unsupported provider
     _, err = paymentService.ProcessPayment("unsupported", req)
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "unsupported payment provider")
-    
+
     // Test supported providers
     providers := paymentService.GetSupportedProviders()
     assert.Contains(t, providers, "razorpay")
@@ -1129,7 +1141,7 @@ func TestPaymentService_ProcessPayment(t *testing.T) {
 
 func TestRazorpayAdapter_StatusConversion(t *testing.T) {
     adapter := &RazorpayAdapter{}
-    
+
     tests := []struct {
         razorpayStatus string
         expectedStatus string
@@ -1141,7 +1153,7 @@ func TestRazorpayAdapter_StatusConversion(t *testing.T) {
         {"failed", "failed"},
         {"unknown", "unknown"},
     }
-    
+
     for _, tt := range tests {
         t.Run(tt.razorpayStatus, func(t *testing.T) {
             result := adapter.convertRazorpayStatus(tt.razorpayStatus)
@@ -1152,7 +1164,7 @@ func TestRazorpayAdapter_StatusConversion(t *testing.T) {
 
 func TestStripeAdapter_StatusConversion(t *testing.T) {
     adapter := &StripeAdapter{}
-    
+
     tests := []struct {
         stripeStatus   string
         expectedStatus string
@@ -1165,7 +1177,7 @@ func TestStripeAdapter_StatusConversion(t *testing.T) {
         {"canceled", "cancelled"},
         {"unknown", "unknown"},
     }
-    
+
     for _, tt := range tests {
         t.Run(tt.stripeStatus, func(t *testing.T) {
             result := adapter.convertStripeStatus(tt.stripeStatus)
@@ -1179,17 +1191,17 @@ func TestAmountConversion(t *testing.T) {
         amount := decimal.NewFromFloat(99.99)
         amountInPaise := int(amount.Mul(decimal.NewFromInt(100)).IntPart())
         assert.Equal(t, 9999, amountInPaise)
-        
+
         // Convert back
         converted := decimal.NewFromInt(int64(amountInPaise)).Div(decimal.NewFromInt(100))
         assert.Equal(t, amount, converted)
     })
-    
+
     t.Run("Stripe amount conversion", func(t *testing.T) {
         amount := decimal.NewFromFloat(99.99)
         amountInCents := amount.Mul(decimal.NewFromInt(100)).IntPart()
         assert.Equal(t, int64(9999), amountInCents)
-        
+
         // Convert back
         converted := decimal.NewFromInt(amountInCents).Div(decimal.NewFromInt(100))
         assert.Equal(t, amount, converted)
@@ -1199,7 +1211,7 @@ func TestAmountConversion(t *testing.T) {
 func BenchmarkRazorpayAdapter_ProcessPayment(b *testing.B) {
     gateway := NewRazorpayGateway("test_key", "test_secret")
     adapter := NewRazorpayAdapter(gateway)
-    
+
     req := PaymentRequest{
         CustomerID:    "CUST_123",
         OrderID:       "ORDER_456",
@@ -1207,9 +1219,9 @@ func BenchmarkRazorpayAdapter_ProcessPayment(b *testing.B) {
         Currency:      "INR",
         PaymentMethod: "card",
     }
-    
+
     b.ResetTimer()
-    
+
     for i := 0; i < b.N; i++ {
         _, err := adapter.ProcessPayment(req)
         if err != nil {
@@ -1221,7 +1233,7 @@ func BenchmarkRazorpayAdapter_ProcessPayment(b *testing.B) {
 func BenchmarkStripeAdapter_ProcessPayment(b *testing.B) {
     gateway := NewStripeGateway("test_key")
     adapter := NewStripeAdapter(gateway)
-    
+
     req := PaymentRequest{
         CustomerID:    "CUST_123",
         OrderID:       "ORDER_456",
@@ -1229,9 +1241,9 @@ func BenchmarkStripeAdapter_ProcessPayment(b *testing.B) {
         Currency:      "usd",
         PaymentMethod: "card",
     }
-    
+
     b.ResetTimer()
-    
+
     for i := 0; i < b.N; i++ {
         _, err := adapter.ProcessPayment(req)
         if err != nil {
@@ -1244,6 +1256,7 @@ func BenchmarkStripeAdapter_ProcessPayment(b *testing.B) {
 ## Integration Tips
 
 ### 1. Configuration-Based Adapter Selection
+
 ```go
 type AdapterConfig struct {
     Provider string                 `yaml:"provider"`
@@ -1259,7 +1272,7 @@ func (f *AdapterFactory) CreateAdapter(provider string) (PaymentProcessor, error
     if !exists {
         return nil, fmt.Errorf("unknown provider: %s", provider)
     }
-    
+
     switch provider {
     case "razorpay":
         return f.createRazorpayAdapter(config.Config)
@@ -1272,6 +1285,7 @@ func (f *AdapterFactory) CreateAdapter(provider string) (PaymentProcessor, error
 ```
 
 ### 2. Health Check Integration
+
 ```go
 type HealthCheckableAdapter interface {
     PaymentProcessor
@@ -1290,6 +1304,7 @@ func (r *RazorpayAdapterWithHealthCheck) HealthCheck() error {
 ```
 
 ### 3. Metrics Integration
+
 ```go
 type MetricsAdapter struct {
     adapter PaymentProcessor
@@ -1300,7 +1315,7 @@ func (m *MetricsAdapter) ProcessPayment(req PaymentRequest) (*PaymentResponse, e
     start := time.Now()
     response, err := m.adapter.ProcessPayment(req)
     duration := time.Since(start)
-    
+
     if err != nil {
         m.metrics.IncCounter("payment_errors", map[string]string{
             "provider": m.getProviderName(),
@@ -1310,16 +1325,17 @@ func (m *MetricsAdapter) ProcessPayment(req PaymentRequest) (*PaymentResponse, e
             "provider": m.getProviderName(),
         })
     }
-    
+
     m.metrics.RecordDuration("payment_duration", duration, map[string]string{
         "provider": m.getProviderName(),
     })
-    
+
     return response, err
 }
 ```
 
 ### 4. Circuit Breaker Integration
+
 ```go
 type CircuitBreakerAdapter struct {
     adapter        PaymentProcessor
@@ -1330,11 +1346,11 @@ func (c *CircuitBreakerAdapter) ProcessPayment(req PaymentRequest) (*PaymentResp
     result, err := c.circuitBreaker.Execute(func() (interface{}, error) {
         return c.adapter.ProcessPayment(req)
     })
-    
+
     if err != nil {
         return nil, err
     }
-    
+
     return result.(*PaymentResponse), nil
 }
 ```
@@ -1352,6 +1368,7 @@ func (c *CircuitBreakerAdapter) ProcessPayment(req PaymentRequest) (*PaymentResp
 | **Use Case** | Integration with legacy/third-party systems | Hide complexity of subsystems |
 
 **Example:**
+
 ```go
 // Adapter - makes LegacyAPI compatible with ModernAPI
 type LegacyAPIAdapter struct {
@@ -1386,6 +1403,7 @@ func (f *PaymentFacade) ProcessPayment(req PaymentRequest) error {
 In Go, we primarily use Object Adapter (composition) since Go doesn't have inheritance. However, we can simulate Class Adapter using embedding:
 
 **Object Adapter (Composition):**
+
 ```go
 type PaymentAdapter struct {
     gateway PaymentGateway // Composition
@@ -1398,11 +1416,13 @@ func (p *PaymentAdapter) ProcessPayment(req Request) error {
 ```
 
 **Pros:**
+
 - More flexible (can adapt multiple objects)
 - Can adapt entire hierarchy
 - Runtime adapter selection
 
 **Class Adapter (Embedding in Go):**
+
 ```go
 type PaymentAdapter struct {
     PaymentGateway // Embedding
@@ -1415,11 +1435,13 @@ func (p *PaymentAdapter) ProcessPayment(req Request) error {
 ```
 
 **Pros:**
+
 - Direct access to adaptee methods
 - Slightly better performance
 - Smaller object footprint
 
 **Cons:**
+
 - Less flexible
 - Can only adapt one class
 
@@ -1429,6 +1451,7 @@ func (p *PaymentAdapter) ProcessPayment(req Request) error {
 Use a combination of patterns and strategies:
 
 1. **Chain of Adapters:**
+
 ```go
 type ChainedAdapter struct {
     adapters []Adapter
@@ -1448,6 +1471,7 @@ func (c *ChainedAdapter) Adapt(input interface{}) (interface{}, error) {
 ```
 
 2. **Composite Adapter:**
+
 ```go
 type CompositeAdapter struct {
     primaryAdapter   PaymentProcessor
@@ -1460,18 +1484,19 @@ func (c *CompositeAdapter) ProcessPayment(req PaymentRequest) (*PaymentResponse,
     if resp, err := c.primaryAdapter.ProcessPayment(req); err == nil {
         return resp, nil
     }
-    
+
     // Try secondary
     if resp, err := c.secondaryAdapter.ProcessPayment(req); err == nil {
         return resp, nil
     }
-    
+
     // Fallback
     return c.fallbackAdapter.ProcessPayment(req)
 }
 ```
 
 3. **Registry-Based Adapter:**
+
 ```go
 type AdapterRegistry struct {
     adapters map[string]Adapter
@@ -1492,17 +1517,18 @@ func (r *AdapterRegistry) GetAdapter(protocol string) (Adapter, error) {
 Testing adapters requires focusing on the adaptation logic:
 
 1. **Mock the Adaptee:**
+
 ```go
 func TestPaymentAdapter(t *testing.T) {
     mockGateway := &MockPaymentGateway{}
     adapter := NewPaymentAdapter(mockGateway)
-    
+
     // Test successful adaptation
     mockGateway.On("CreateOrder", mock.Anything).Return(&Order{}, nil)
-    
+
     req := PaymentRequest{Amount: decimal.NewFromFloat(100.0)}
     resp, err := adapter.ProcessPayment(req)
-    
+
     assert.NoError(t, err)
     assert.NotNil(t, resp)
     mockGateway.AssertExpectations(t)
@@ -1510,6 +1536,7 @@ func TestPaymentAdapter(t *testing.T) {
 ```
 
 2. **Test Data Conversion:**
+
 ```go
 func TestAmountConversion(t *testing.T) {
     tests := []struct {
@@ -1520,7 +1547,7 @@ func TestAmountConversion(t *testing.T) {
         {decimal.NewFromFloat(100.00), 10000},
         {decimal.NewFromFloat(0.01), 1},
     }
-    
+
     for _, tt := range tests {
         result := convertToSmallestUnit(tt.input)
         assert.Equal(t, tt.expected, result)
@@ -1529,36 +1556,38 @@ func TestAmountConversion(t *testing.T) {
 ```
 
 3. **Test Error Handling:**
+
 ```go
 func TestAdapterErrorHandling(t *testing.T) {
     mockGateway := &MockPaymentGateway{}
     adapter := NewPaymentAdapter(mockGateway)
-    
+
     mockGateway.On("CreateOrder", mock.Anything).
         Return(nil, errors.New("gateway error"))
-    
+
     req := PaymentRequest{Amount: decimal.NewFromFloat(100.0)}
     _, err := adapter.ProcessPayment(req)
-    
+
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "gateway error")
 }
 ```
 
 4. **Integration Tests:**
+
 ```go
 func TestAdapterIntegration(t *testing.T) {
     // Use real gateway in test environment
     gateway := NewRealPaymentGateway(testConfig)
     adapter := NewPaymentAdapter(gateway)
-    
+
     req := PaymentRequest{
         Amount:   decimal.NewFromFloat(1.00), // Small test amount
         Currency: "USD",
     }
-    
+
     resp, err := adapter.ProcessPayment(req)
-    
+
     assert.NoError(t, err)
     assert.NotEmpty(t, resp.TransactionID)
 }
@@ -1570,6 +1599,7 @@ func TestAdapterIntegration(t *testing.T) {
 Use versioned adapters and compatibility layers:
 
 1. **Versioned Adapters:**
+
 ```go
 type PaymentAdapterV1 struct {
     gateway PaymentGatewayV1
@@ -1597,6 +1627,7 @@ func (f *VersionedAdapterFactory) GetAdapter(provider, version string) (PaymentP
 ```
 
 2. **Backward Compatibility Layer:**
+
 ```go
 type BackwardCompatibleAdapter struct {
     newAdapter PaymentProcessorV2
@@ -1605,19 +1636,20 @@ type BackwardCompatibleAdapter struct {
 func (b *BackwardCompatibleAdapter) ProcessPayment(req PaymentRequestV1) (*PaymentResponseV1, error) {
     // Convert V1 request to V2
     v2Req := b.convertV1ToV2(req)
-    
+
     // Process with V2 adapter
     v2Resp, err := b.newAdapter.ProcessPayment(v2Req)
     if err != nil {
         return nil, err
     }
-    
+
     // Convert V2 response back to V1
     return b.convertV2ToV1(v2Resp), nil
 }
 ```
 
 3. **Migration Strategy:**
+
 ```go
 type MigrationAdapter struct {
     legacyAdapter PaymentProcessor
@@ -1634,7 +1666,7 @@ func (m *MigrationAdapter) ProcessPayment(req PaymentRequest) (*PaymentResponse,
         log.Println("New adapter failed, falling back to legacy")
         return m.legacyAdapter.ProcessPayment(req)
     }
-    
+
     // Use legacy adapter
     return m.legacyAdapter.ProcessPayment(req)
 }

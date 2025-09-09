@@ -5,6 +5,7 @@
 **Bridge** is a structural design pattern that separates an abstraction from its implementation so that the two can vary independently. It uses composition instead of inheritance to connect different hierarchies.
 
 **Key Intent:**
+
 - Decouple abstraction from implementation
 - Allow both abstraction and implementation to vary independently
 - Support multiple implementations for a single abstraction
@@ -23,6 +24,7 @@
 6. **Compilation Dependencies**: Want to reduce compile-time dependencies
 
 **Don't use when:**
+
 - Only one implementation exists
 - Abstraction and implementation are tightly coupled
 - Simple hierarchy without multiple implementations
@@ -31,6 +33,7 @@
 ## Real-World Use Cases (Payments/Fintech)
 
 ### 1. Payment Method Bridge
+
 ```go
 // Payment methods (abstraction) can use different processors (implementation)
 type PaymentMethod interface {
@@ -58,12 +61,12 @@ func (c *CreditCardPayment) ProcessPayment(amount decimal.Decimal) (*PaymentResu
         Amount: amount,
         Data:   c.cardInfo,
     }
-    
+
     result, err := c.processor.Process(req)
     if err != nil {
         return nil, err
     }
-    
+
     return &PaymentResult{
         TransactionID: result.ID,
         Status:       result.Status,
@@ -83,12 +86,13 @@ func (u *UPIPayment) ProcessPayment(amount decimal.Decimal) (*PaymentResult, err
         Amount: amount,
         Data:   map[string]interface{}{"upi_id": u.upiID},
     }
-    
+
     return u.processor.Process(req)
 }
 ```
 
 ### 2. Notification Bridge
+
 ```go
 // Different notification types (abstraction)
 type Notification interface {
@@ -130,6 +134,7 @@ func (e *EmailNotification) Send() error {
 ```
 
 ### 3. Database Bridge
+
 ```go
 // Different data access patterns (abstraction)
 type Repository interface {
@@ -181,6 +186,7 @@ func (t *TransactionRepository) Save(entity interface{}) error {
 ```
 
 ### 4. Trading Platform Bridge
+
 ```go
 // Different order types (abstraction)
 type Order interface {
@@ -211,12 +217,12 @@ func (m *MarketOrder) Execute() (*ExecutionResult, error) {
         Quantity: m.quantity,
         Side:     m.side,
     }
-    
+
     result, err := m.venue.ExecuteOrder(orderDetails)
     if err != nil {
         return nil, err
     }
-    
+
     return &ExecutionResult{
         OrderID:       result.ID,
         ExecutedPrice: result.Price,
@@ -242,12 +248,12 @@ func (l *LimitOrder) Execute() (*ExecutionResult, error) {
         LimitPrice: l.limitPrice,
         Side:       l.side,
     }
-    
+
     result, err := l.venue.ExecuteOrder(orderDetails)
     if err != nil {
         return nil, err
     }
-    
+
     return &ExecutionResult{
         OrderID:       result.ID,
         ExecutedPrice: result.Price,
@@ -355,12 +361,12 @@ func (c *CreditCardPayment) ProcessPayment(amount decimal.Decimal, currency stri
     if c.processor == nil {
         return nil, fmt.Errorf("no payment processor set")
     }
-    
+
     // Validate payment first
     if err := c.ValidatePayment(); err != nil {
         return nil, fmt.Errorf("payment validation failed: %w", err)
     }
-    
+
     // Prepare transaction request
     req := &TransactionRequest{
         PaymentType: "credit_card",
@@ -377,13 +383,13 @@ func (c *CreditCardPayment) ProcessPayment(amount decimal.Decimal, currency stri
             "processor":      c.processor.GetProcessorInfo().Name,
         },
     }
-    
+
     // Process through the bridge
     result, err := c.processor.ProcessTransaction(req)
     if err != nil {
         return nil, fmt.Errorf("transaction processing failed: %w", err)
     }
-    
+
     // Convert processor result to payment result
     return &PaymentResult{
         TransactionID: result.ID,
@@ -399,7 +405,7 @@ func (c *CreditCardPayment) ValidatePayment() error {
     if c.processor == nil {
         return fmt.Errorf("no payment processor set")
     }
-    
+
     req := &ValidationRequest{
         PaymentType: "credit_card",
         PaymentData: map[string]interface{}{
@@ -408,7 +414,7 @@ func (c *CreditCardPayment) ValidatePayment() error {
             "cvv":         c.cvv,
         },
     }
-    
+
     return c.processor.ValidateTransaction(req)
 }
 
@@ -471,12 +477,12 @@ func (d *DigitalWalletPayment) ProcessPayment(amount decimal.Decimal, currency s
     if d.processor == nil {
         return nil, fmt.Errorf("no payment processor set")
     }
-    
+
     // Validate payment first
     if err := d.ValidatePayment(); err != nil {
         return nil, fmt.Errorf("payment validation failed: %w", err)
     }
-    
+
     // Prepare transaction request
     req := &TransactionRequest{
         PaymentType: "digital_wallet",
@@ -493,13 +499,13 @@ func (d *DigitalWalletPayment) ProcessPayment(amount decimal.Decimal, currency s
             "processor":      d.processor.GetProcessorInfo().Name,
         },
     }
-    
+
     // Process through the bridge
     result, err := d.processor.ProcessTransaction(req)
     if err != nil {
         return nil, fmt.Errorf("transaction processing failed: %w", err)
     }
-    
+
     // Convert processor result to payment result
     return &PaymentResult{
         TransactionID: result.ID,
@@ -515,7 +521,7 @@ func (d *DigitalWalletPayment) ValidatePayment() error {
     if d.processor == nil {
         return fmt.Errorf("no payment processor set")
     }
-    
+
     req := &ValidationRequest{
         PaymentType: "digital_wallet",
         PaymentData: map[string]interface{}{
@@ -524,7 +530,7 @@ func (d *DigitalWalletPayment) ValidatePayment() error {
             "phone_number": d.phoneNumber,
         },
     }
-    
+
     return d.processor.ValidateTransaction(req)
 }
 
@@ -556,18 +562,18 @@ func NewRazorpayProcessor(apiKey, apiSecret string) *RazorpayProcessor {
 }
 
 func (r *RazorpayProcessor) ProcessTransaction(req *TransactionRequest) (*TransactionResult, error) {
-    log.Printf("Razorpay: Processing %s payment for %s %s", 
+    log.Printf("Razorpay: Processing %s payment for %s %s",
         req.PaymentType, req.Amount.String(), req.Currency)
-    
+
     // Simulate Razorpay API call
     transactionID := fmt.Sprintf("rzp_%d", time.Now().UnixNano())
-    
+
     // Calculate Razorpay fee (2% + ₹2)
     fee := req.Amount.Mul(decimal.NewFromFloat(0.02)).Add(decimal.NewFromInt(2))
-    
+
     // Simulate processing delay
     time.Sleep(time.Millisecond * 100)
-    
+
     return &TransactionResult{
         ID:          transactionID,
         Status:      "completed",
@@ -585,22 +591,22 @@ func (r *RazorpayProcessor) ValidateTransaction(req *ValidationRequest) error {
         if !ok || len(cardNumber) < 13 {
             return fmt.Errorf("invalid card number")
         }
-        
+
         expiryDate, ok := req.PaymentData["expiry_date"].(string)
         if !ok || len(expiryDate) != 5 {
             return fmt.Errorf("invalid expiry date format")
         }
-        
+
     case "digital_wallet":
         walletID, ok := req.PaymentData["wallet_id"].(string)
         if !ok || walletID == "" {
             return fmt.Errorf("invalid wallet ID")
         }
-        
+
     default:
         return fmt.Errorf("unsupported payment type: %s", req.PaymentType)
     }
-    
+
     return nil
 }
 
@@ -627,18 +633,18 @@ func NewStripeProcessor(secretKey string) *StripeProcessor {
 }
 
 func (s *StripeProcessor) ProcessTransaction(req *TransactionRequest) (*TransactionResult, error) {
-    log.Printf("Stripe: Processing %s payment for %s %s", 
+    log.Printf("Stripe: Processing %s payment for %s %s",
         req.PaymentType, req.Amount.String(), req.Currency)
-    
+
     // Simulate Stripe API call
     transactionID := fmt.Sprintf("pi_%d", time.Now().UnixNano())
-    
+
     // Calculate Stripe fee (2.9% + $0.30)
     fee := req.Amount.Mul(decimal.NewFromFloat(0.029)).Add(decimal.NewFromFloat(0.30))
-    
+
     // Simulate processing delay
     time.Sleep(time.Millisecond * 150)
-    
+
     return &TransactionResult{
         ID:          transactionID,
         Status:      "succeeded",
@@ -656,23 +662,23 @@ func (s *StripeProcessor) ValidateTransaction(req *ValidationRequest) error {
         if !ok || len(cardNumber) < 13 {
             return fmt.Errorf("invalid card number")
         }
-        
+
         cvv, ok := req.PaymentData["cvv"].(string)
         if !ok || len(cvv) < 3 {
             return fmt.Errorf("invalid CVV")
         }
-        
+
     case "digital_wallet":
         // Stripe has limited digital wallet support
         walletType, ok := req.PaymentData["wallet_type"].(string)
         if !ok || (walletType != "apple_pay" && walletType != "google_pay") {
             return fmt.Errorf("unsupported wallet type for Stripe: %s", walletType)
         }
-        
+
     default:
         return fmt.Errorf("unsupported payment type: %s", req.PaymentType)
     }
-    
+
     return nil
 }
 
@@ -701,18 +707,18 @@ func NewPayPalProcessor(clientID, clientSecret string) *PayPalProcessor {
 }
 
 func (p *PayPalProcessor) ProcessTransaction(req *TransactionRequest) (*TransactionResult, error) {
-    log.Printf("PayPal: Processing %s payment for %s %s", 
+    log.Printf("PayPal: Processing %s payment for %s %s",
         req.PaymentType, req.Amount.String(), req.Currency)
-    
+
     // Simulate PayPal API call
     transactionID := fmt.Sprintf("PAYID-%d", time.Now().UnixNano())
-    
+
     // Calculate PayPal fee (variable rate, simplified to 3.4% + $0.30)
     fee := req.Amount.Mul(decimal.NewFromFloat(0.034)).Add(decimal.NewFromFloat(0.30))
-    
+
     // Simulate processing delay
     time.Sleep(time.Millisecond * 200)
-    
+
     return &TransactionResult{
         ID:          transactionID,
         Status:      "COMPLETED",
@@ -731,18 +737,18 @@ func (p *PayPalProcessor) ValidateTransaction(req *ValidationRequest) error {
         if !ok || len(cardNumber) < 13 {
             return fmt.Errorf("invalid card number")
         }
-        
+
     case "digital_wallet":
         // PayPal itself is a digital wallet
         walletType, ok := req.PaymentData["wallet_type"].(string)
         if !ok || walletType != "paypal" {
             return fmt.Errorf("PayPal only supports PayPal wallet")
         }
-        
+
     default:
         return fmt.Errorf("unsupported payment type: %s", req.PaymentType)
     }
-    
+
     return nil
 }
 
@@ -775,29 +781,29 @@ func (ps *PaymentService) CreatePaymentMethod(paymentType, processor string, con
     if !exists {
         return nil, fmt.Errorf("processor not found: %s", processor)
     }
-    
+
     var paymentMethod PaymentMethod
-    
+
     switch paymentType {
     case "credit_card":
         cardNumber, _ := config["card_number"].(string)
         expiryDate, _ := config["expiry_date"].(string)
         cvv, _ := config["cvv"].(string)
         holderName, _ := config["holder_name"].(string)
-        
+
         paymentMethod = NewCreditCardPayment(cardNumber, expiryDate, cvv, holderName)
-        
+
     case "digital_wallet":
         walletID, _ := config["wallet_id"].(string)
         walletType, _ := config["wallet_type"].(string)
         phoneNumber, _ := config["phone_number"].(string)
-        
+
         paymentMethod = NewDigitalWalletPayment(walletID, walletType, phoneNumber)
-        
+
     default:
         return nil, fmt.Errorf("unsupported payment type: %s", paymentType)
     }
-    
+
     paymentMethod.SetProcessor(proc)
     return paymentMethod, nil
 }
@@ -813,55 +819,55 @@ func (ps *PaymentService) GetAvailableProcessors() []string {
 // Example usage
 func main() {
     fmt.Println("=== Bridge Pattern Demo ===\n")
-    
+
     // Create payment service
     paymentService := NewPaymentService()
-    
+
     // Register different processors
     paymentService.RegisterProcessor("razorpay", NewRazorpayProcessor("rzp_key", "rzp_secret"))
     paymentService.RegisterProcessor("stripe", NewStripeProcessor("sk_stripe_key"))
     paymentService.RegisterProcessor("paypal", NewPayPalProcessor("pp_client_id", "pp_secret"))
-    
+
     // Example 1: Credit Card Payment with different processors
     fmt.Println("=== Credit Card Payments ===")
-    
+
     creditCardConfig := map[string]interface{}{
         "card_number":  "4111111111111111",
         "expiry_date":  "12/25",
         "cvv":          "123",
         "holder_name":  "John Doe",
     }
-    
+
     processors := []string{"razorpay", "stripe", "paypal"}
     amount := decimal.NewFromFloat(99.99)
     currency := "USD"
-    
+
     for _, processor := range processors {
         fmt.Printf("\n--- Using %s processor ---\n", processor)
-        
+
         paymentMethod, err := paymentService.CreatePaymentMethod("credit_card", processor, creditCardConfig)
         if err != nil {
             fmt.Printf("Error creating payment method: %v\n", err)
             continue
         }
-        
+
         // Get payment details
         details := paymentMethod.GetPaymentDetails()
         fmt.Printf("Payment Details: %+v\n", details)
-        
+
         // Process payment
         result, err := paymentMethod.ProcessPayment(amount, currency)
         if err != nil {
             fmt.Printf("Payment failed: %v\n", err)
             continue
         }
-        
+
         fmt.Printf("Payment Result: %+v\n", result)
     }
-    
+
     // Example 2: Digital Wallet Payment
     fmt.Println("\n\n=== Digital Wallet Payments ===")
-    
+
     walletConfigs := []map[string]interface{}{
         {
             "wallet_id":    "user@paytm",
@@ -879,56 +885,56 @@ func main() {
             "phone_number": "+1-555-0456",
         },
     }
-    
+
     processorMap := map[string]string{
         "paytm":     "razorpay",
         "apple_pay": "stripe",
         "paypal":    "paypal",
     }
-    
+
     for _, config := range walletConfigs {
         walletType := config["wallet_type"].(string)
         processor := processorMap[walletType]
-        
+
         fmt.Printf("\n--- %s wallet with %s processor ---\n", walletType, processor)
-        
+
         paymentMethod, err := paymentService.CreatePaymentMethod("digital_wallet", processor, config)
         if err != nil {
             fmt.Printf("Error creating payment method: %v\n", err)
             continue
         }
-        
+
         // Process payment
         result, err := paymentMethod.ProcessPayment(decimal.NewFromFloat(50.00), "USD")
         if err != nil {
             fmt.Printf("Payment failed: %v\n", err)
             continue
         }
-        
+
         fmt.Printf("Payment Result: %+v\n", result)
     }
-    
+
     // Example 3: Runtime processor switching
     fmt.Println("\n\n=== Runtime Processor Switching ===")
-    
+
     creditCard := NewCreditCardPayment("4111111111111111", "12/25", "123", "Jane Doe")
-    
+
     for _, processor := range processors {
         fmt.Printf("\n--- Switching to %s ---\n", processor)
-        
+
         proc := paymentService.processors[processor]
         creditCard.SetProcessor(proc)
-        
+
         result, err := creditCard.ProcessPayment(decimal.NewFromFloat(25.00), "USD")
         if err != nil {
             fmt.Printf("Payment failed: %v\n", err)
             continue
         }
-        
-        fmt.Printf("Processor: %s, Transaction ID: %s, Fee: %s\n", 
+
+        fmt.Printf("Processor: %s, Transaction ID: %s, Fee: %s\n",
             proc.GetProcessorInfo().Name, result.TransactionID, result.Fee.String())
     }
-    
+
     fmt.Println("\n=== Bridge Pattern Demo Complete ===")
 }
 ```
@@ -938,6 +944,7 @@ func main() {
 ### Variants
 
 1. **Simple Bridge**
+
 ```go
 type Shape interface {
     Draw()
@@ -960,6 +967,7 @@ func (c *Circle) Draw() {
 ```
 
 2. **Extended Bridge with Factory**
+
 ```go
 type BridgeFactory struct {
     implementations map[string]Implementation
@@ -970,7 +978,7 @@ func (bf *BridgeFactory) CreateAbstraction(implType string) (Abstraction, error)
     if !exists {
         return nil, fmt.Errorf("implementation not found: %s", implType)
     }
-    
+
     abstraction := &ConcreteAbstraction{}
     abstraction.SetImplementation(impl)
     return abstraction, nil
@@ -978,6 +986,7 @@ func (bf *BridgeFactory) CreateAbstraction(implType string) (Abstraction, error)
 ```
 
 3. **Bridge with Configuration**
+
 ```go
 type ConfigurableBridge struct {
     abstraction    Abstraction
@@ -996,11 +1005,11 @@ func (cb *ConfigurableBridge) Execute() error {
         if cb.config.EnableLogging {
             log.Printf("Attempt %d", i+1)
         }
-        
+
         if err := cb.abstraction.Operation(); err == nil {
             return nil
         }
-        
+
         time.Sleep(cb.config.Timeout)
     }
     return fmt.Errorf("all attempts failed")
@@ -1008,6 +1017,7 @@ func (cb *ConfigurableBridge) Execute() error {
 ```
 
 4. **Bridge with Middleware**
+
 ```go
 type MiddlewareBridge struct {
     implementation Implementation
@@ -1026,15 +1036,15 @@ func (mb *MiddlewareBridge) Execute(req Request) (Response, error) {
             return nil, err
         }
     }
-    
+
     // Execute implementation
     resp, err := mb.implementation.Execute(req)
-    
+
     // Execute after middlewares
     for i := len(mb.middlewares) - 1; i >= 0; i-- {
         mb.middlewares[i].After(req, resp)
     }
-    
+
     return resp, err
 }
 ```
@@ -1042,6 +1052,7 @@ func (mb *MiddlewareBridge) Execute(req Request) (Response, error) {
 ### Trade-offs
 
 **Pros:**
+
 - **Decoupling**: Separates interface from implementation
 - **Flexibility**: Both sides can vary independently
 - **Runtime Switching**: Can change implementation at runtime
@@ -1049,6 +1060,7 @@ func (mb *MiddlewareBridge) Execute(req Request) (Response, error) {
 - **Extensibility**: Easy to add new abstractions and implementations
 
 **Cons:**
+
 - **Complexity**: Adds extra layer of indirection
 - **Performance**: May introduce overhead
 - **Learning Curve**: More complex than direct implementation
@@ -1057,13 +1069,13 @@ func (mb *MiddlewareBridge) Execute(req Request) (Response, error) {
 
 **When to Choose Bridge vs Alternatives:**
 
-| Scenario | Pattern | Reason |
-|----------|---------|--------|
-| Multiple implementations | Bridge | Independent variation |
-| Single implementation | Direct Implementation | Simpler |
-| Compile-time binding | Template Method | Better performance |
-| Runtime selection | Strategy | Similar but different intent |
-| Hide complexity | Facade | Simplify interface |
+| Scenario                 | Pattern               | Reason                       |
+| ------------------------ | --------------------- | ---------------------------- |
+| Multiple implementations | Bridge                | Independent variation        |
+| Single implementation    | Direct Implementation | Simpler                      |
+| Compile-time binding     | Template Method       | Better performance           |
+| Runtime selection        | Strategy              | Similar but different intent |
+| Hide complexity          | Facade                | Simplify interface           |
 
 ## Testable Example
 
@@ -1103,10 +1115,10 @@ func TestCreditCardPayment_ProcessPayment(t *testing.T) {
     mockProcessor := &MockPaymentProcessor{}
     creditCard := NewCreditCardPayment("4111111111111111", "12/25", "123", "John Doe")
     creditCard.SetProcessor(mockProcessor)
-    
+
     amount := decimal.NewFromFloat(100.0)
     currency := "USD"
-    
+
     // Setup expectations
     expectedResult := &TransactionResult{
         ID:          "test_transaction_123",
@@ -1116,14 +1128,14 @@ func TestCreditCardPayment_ProcessPayment(t *testing.T) {
         ProcessedAt: time.Now(),
         Reference:   "TEST_REF_123",
     }
-    
+
     mockProcessor.On("ValidateTransaction", mock.AnythingOfType("*main.ValidationRequest")).Return(nil)
     mockProcessor.On("ProcessTransaction", mock.AnythingOfType("*main.TransactionRequest")).Return(expectedResult, nil)
     mockProcessor.On("GetProcessorInfo").Return(&ProcessorInfo{Name: "MockProcessor"})
-    
+
     // Execute
     result, err := creditCard.ProcessPayment(amount, currency)
-    
+
     // Assert
     require.NoError(t, err)
     assert.Equal(t, expectedResult.ID, result.TransactionID)
@@ -1131,7 +1143,7 @@ func TestCreditCardPayment_ProcessPayment(t *testing.T) {
     assert.Equal(t, amount, result.Amount)
     assert.Equal(t, currency, result.Currency)
     assert.Equal(t, expectedResult.Fee, result.Fee)
-    
+
     mockProcessor.AssertExpectations(t)
 }
 
@@ -1139,31 +1151,31 @@ func TestCreditCardPayment_ValidatePayment(t *testing.T) {
     mockProcessor := &MockPaymentProcessor{}
     creditCard := NewCreditCardPayment("4111111111111111", "12/25", "123", "John Doe")
     creditCard.SetProcessor(mockProcessor)
-    
+
     // Test successful validation
     mockProcessor.On("ValidateTransaction", mock.AnythingOfType("*main.ValidationRequest")).Return(nil)
-    
+
     err := creditCard.ValidatePayment()
     assert.NoError(t, err)
-    
+
     // Test validation failure
     mockProcessor.On("ValidateTransaction", mock.AnythingOfType("*main.ValidationRequest")).Return(fmt.Errorf("validation failed"))
-    
+
     err = creditCard.ValidatePayment()
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "validation failed")
-    
+
     mockProcessor.AssertExpectations(t)
 }
 
 func TestCreditCardPayment_NoProcessor(t *testing.T) {
     creditCard := NewCreditCardPayment("4111111111111111", "12/25", "123", "John Doe")
-    
+
     // Test processing without processor
     _, err := creditCard.ProcessPayment(decimal.NewFromFloat(100.0), "USD")
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "no payment processor set")
-    
+
     // Test validation without processor
     err = creditCard.ValidatePayment()
     assert.Error(t, err)
@@ -1175,10 +1187,10 @@ func TestDigitalWalletPayment_ProcessPayment(t *testing.T) {
     mockProcessor := &MockPaymentProcessor{}
     wallet := NewDigitalWalletPayment("user@wallet.com", "digital_wallet", "+1-555-0123")
     wallet.SetProcessor(mockProcessor)
-    
+
     amount := decimal.NewFromFloat(50.0)
     currency := "USD"
-    
+
     // Setup expectations
     expectedResult := &TransactionResult{
         ID:          "wallet_transaction_456",
@@ -1188,21 +1200,21 @@ func TestDigitalWalletPayment_ProcessPayment(t *testing.T) {
         ProcessedAt: time.Now(),
         Reference:   "WALLET_REF_456",
     }
-    
+
     mockProcessor.On("ValidateTransaction", mock.AnythingOfType("*main.ValidationRequest")).Return(nil)
     mockProcessor.On("ProcessTransaction", mock.AnythingOfType("*main.TransactionRequest")).Return(expectedResult, nil)
     mockProcessor.On("GetProcessorInfo").Return(&ProcessorInfo{Name: "MockProcessor"})
-    
+
     // Execute
     result, err := wallet.ProcessPayment(amount, currency)
-    
+
     // Assert
     require.NoError(t, err)
     assert.Equal(t, expectedResult.ID, result.TransactionID)
     assert.Equal(t, expectedResult.Status, result.Status)
     assert.Equal(t, amount, result.Amount)
     assert.Equal(t, currency, result.Currency)
-    
+
     mockProcessor.AssertExpectations(t)
 }
 
@@ -1210,7 +1222,7 @@ func TestPaymentService_CreatePaymentMethod(t *testing.T) {
     paymentService := NewPaymentService()
     mockProcessor := &MockPaymentProcessor{}
     paymentService.RegisterProcessor("mock_processor", mockProcessor)
-    
+
     t.Run("Create Credit Card Payment", func(t *testing.T) {
         config := map[string]interface{}{
             "card_number":  "4111111111111111",
@@ -1218,48 +1230,48 @@ func TestPaymentService_CreatePaymentMethod(t *testing.T) {
             "cvv":          "123",
             "holder_name":  "John Doe",
         }
-        
+
         paymentMethod, err := paymentService.CreatePaymentMethod("credit_card", "mock_processor", config)
-        
+
         assert.NoError(t, err)
         assert.NotNil(t, paymentMethod)
-        
+
         details := paymentMethod.GetPaymentDetails()
         assert.Equal(t, "credit_card", details.PaymentType)
         assert.Contains(t, details.Details["masked_card_number"], "****")
     })
-    
+
     t.Run("Create Digital Wallet Payment", func(t *testing.T) {
         config := map[string]interface{}{
             "wallet_id":    "user@wallet.com",
             "wallet_type":  "digital_wallet",
             "phone_number": "+1-555-0123",
         }
-        
+
         paymentMethod, err := paymentService.CreatePaymentMethod("digital_wallet", "mock_processor", config)
-        
+
         assert.NoError(t, err)
         assert.NotNil(t, paymentMethod)
-        
+
         details := paymentMethod.GetPaymentDetails()
         assert.Equal(t, "digital_wallet", details.PaymentType)
         assert.Equal(t, "user@wallet.com", details.Details["wallet_id"])
     })
-    
+
     t.Run("Unknown Processor", func(t *testing.T) {
         config := map[string]interface{}{}
-        
+
         _, err := paymentService.CreatePaymentMethod("credit_card", "unknown_processor", config)
-        
+
         assert.Error(t, err)
         assert.Contains(t, err.Error(), "processor not found")
     })
-    
+
     t.Run("Unknown Payment Type", func(t *testing.T) {
         config := map[string]interface{}{}
-        
+
         _, err := paymentService.CreatePaymentMethod("unknown_type", "mock_processor", config)
-        
+
         assert.Error(t, err)
         assert.Contains(t, err.Error(), "unsupported payment type")
     })
@@ -1276,12 +1288,12 @@ func TestCreditCardPayment_CardTypeDetection(t *testing.T) {
         {"6011111111111117", "unknown"},
         {"123", "unknown"},
     }
-    
+
     for _, tt := range tests {
         t.Run(tt.cardNumber, func(t *testing.T) {
             creditCard := NewCreditCardPayment(tt.cardNumber, "12/25", "123", "Test User")
             details := creditCard.GetPaymentDetails()
-            
+
             assert.Equal(t, tt.expectedType, details.Details["card_type"])
         })
     }
@@ -1290,10 +1302,10 @@ func TestCreditCardPayment_CardTypeDetection(t *testing.T) {
 func TestCreditCardPayment_CardMasking(t *testing.T) {
     creditCard := NewCreditCardPayment("4111111111111111", "12/25", "123", "Test User")
     details := creditCard.GetPaymentDetails()
-    
+
     maskedCard := details.Details["masked_card_number"].(string)
     assert.Equal(t, "****-****-****-1111", maskedCard)
-    
+
     // Test short card number
     shortCard := NewCreditCardPayment("123", "12/25", "123", "Test User")
     shortDetails := shortCard.GetPaymentDetails()
@@ -1303,7 +1315,7 @@ func TestCreditCardPayment_CardMasking(t *testing.T) {
 
 func TestRazorpayProcessor_ProcessTransaction(t *testing.T) {
     processor := NewRazorpayProcessor("test_key", "test_secret")
-    
+
     req := &TransactionRequest{
         PaymentType: "credit_card",
         Amount:      decimal.NewFromFloat(100.0),
@@ -1312,9 +1324,9 @@ func TestRazorpayProcessor_ProcessTransaction(t *testing.T) {
             "card_number": "4111111111111111",
         },
     }
-    
+
     result, err := processor.ProcessTransaction(req)
-    
+
     assert.NoError(t, err)
     assert.NotNil(t, result)
     assert.Contains(t, result.ID, "rzp_")
@@ -1325,7 +1337,7 @@ func TestRazorpayProcessor_ProcessTransaction(t *testing.T) {
 
 func TestStripeProcessor_ProcessTransaction(t *testing.T) {
     processor := NewStripeProcessor("test_key")
-    
+
     req := &TransactionRequest{
         PaymentType: "credit_card",
         Amount:      decimal.NewFromFloat(100.0),
@@ -1334,9 +1346,9 @@ func TestStripeProcessor_ProcessTransaction(t *testing.T) {
             "card_number": "4111111111111111",
         },
     }
-    
+
     result, err := processor.ProcessTransaction(req)
-    
+
     assert.NoError(t, err)
     assert.NotNil(t, result)
     assert.Contains(t, result.ID, "pi_")
@@ -1351,7 +1363,7 @@ func TestProcessorValidation(t *testing.T) {
         "stripe":   NewStripeProcessor("test_key"),
         "paypal":   NewPayPalProcessor("client_id", "client_secret"),
     }
-    
+
     validReq := &ValidationRequest{
         PaymentType: "credit_card",
         PaymentData: map[string]interface{}{
@@ -1360,20 +1372,20 @@ func TestProcessorValidation(t *testing.T) {
             "cvv":          "123",
         },
     }
-    
+
     invalidReq := &ValidationRequest{
         PaymentType: "credit_card",
         PaymentData: map[string]interface{}{
             "card_number": "123", // Invalid card number
         },
     }
-    
+
     for name, processor := range processors {
         t.Run(name+"_valid", func(t *testing.T) {
             err := processor.ValidateTransaction(validReq)
             assert.NoError(t, err)
         })
-        
+
         t.Run(name+"_invalid", func(t *testing.T) {
             err := processor.ValidateTransaction(invalidReq)
             assert.Error(t, err)
@@ -1385,7 +1397,7 @@ func BenchmarkCreditCardPayment_ProcessPayment(b *testing.B) {
     mockProcessor := &MockPaymentProcessor{}
     creditCard := NewCreditCardPayment("4111111111111111", "12/25", "123", "John Doe")
     creditCard.SetProcessor(mockProcessor)
-    
+
     expectedResult := &TransactionResult{
         ID:          "benchmark_transaction",
         Status:      "completed",
@@ -1393,13 +1405,13 @@ func BenchmarkCreditCardPayment_ProcessPayment(b *testing.B) {
         Fee:         decimal.NewFromFloat(2.3),
         ProcessedAt: time.Now(),
     }
-    
+
     mockProcessor.On("ValidateTransaction", mock.Anything).Return(nil)
     mockProcessor.On("ProcessTransaction", mock.Anything).Return(expectedResult, nil)
     mockProcessor.On("GetProcessorInfo").Return(&ProcessorInfo{Name: "MockProcessor"})
-    
+
     b.ResetTimer()
-    
+
     for i := 0; i < b.N; i++ {
         _, err := creditCard.ProcessPayment(decimal.NewFromFloat(100.0), "USD")
         if err != nil {
@@ -1412,6 +1424,7 @@ func BenchmarkCreditCardPayment_ProcessPayment(b *testing.B) {
 ## Integration Tips
 
 ### 1. Configuration Management
+
 ```go
 type BridgeConfig struct {
     DefaultProcessor string                    `yaml:"default_processor"`
@@ -1426,7 +1439,7 @@ type ProcessorConfig struct {
 
 func LoadBridgeFromConfig(config BridgeConfig) (*PaymentService, error) {
     service := NewPaymentService()
-    
+
     for name, procConfig := range config.Processors {
         processor, err := createProcessor(procConfig.Type, procConfig.Config)
         if err != nil {
@@ -1434,12 +1447,13 @@ func LoadBridgeFromConfig(config BridgeConfig) (*PaymentService, error) {
         }
         service.RegisterProcessor(name, processor)
     }
-    
+
     return service, nil
 }
 ```
 
 ### 2. Health Check Integration
+
 ```go
 type HealthCheckableProcessor interface {
     PaymentProcessor
@@ -1457,6 +1471,7 @@ func (h *HealthCheckBridge) CheckHealth() error {
 ```
 
 ### 3. Metrics Collection
+
 ```go
 type MetricsBridge struct {
     abstraction Abstraction
@@ -1468,19 +1483,20 @@ func (m *MetricsBridge) Execute() error {
     start := time.Now()
     err := m.abstraction.Execute()
     duration := time.Since(start)
-    
+
     if err != nil {
         m.metrics.IncrementCounter("errors")
     } else {
         m.metrics.IncrementCounter("success")
     }
-    
+
     m.metrics.RecordDuration("execution_time", duration)
     return err
 }
 ```
 
 ### 4. Circuit Breaker Integration
+
 ```go
 type CircuitBreakerBridge struct {
     abstraction    Abstraction
@@ -1508,6 +1524,7 @@ func (c *CircuitBreakerBridge) Execute() error {
 | **Use Case** | Platform independence, multiple implementations | Legacy integration, third-party libraries |
 
 **Example:**
+
 ```go
 // Bridge - designed for multiple implementations
 type PaymentMethod interface {
@@ -1576,6 +1593,7 @@ type MergeSort struct{}
 Use factory patterns and registries:
 
 1. **Implementation Registry**:
+
 ```go
 type ImplementationRegistry struct {
     implementations map[string]Implementation
@@ -1591,6 +1609,7 @@ func (r *ImplementationRegistry) Get(name string) Implementation {
 ```
 
 2. **Factory with Bridge**:
+
 ```go
 type BridgeFactory struct {
     registry *ImplementationRegistry
@@ -1598,19 +1617,20 @@ type BridgeFactory struct {
 
 func (bf *BridgeFactory) CreateAbstraction(abstractionType, implType string) Abstraction {
     impl := bf.registry.Get(implType)
-    
+
     switch abstractionType {
     case "payment":
         payment := &PaymentAbstraction{}
         payment.SetImplementation(impl)
         return payment
     }
-    
+
     return nil
 }
 ```
 
 3. **Configuration-Driven Selection**:
+
 ```go
 type BridgeSelector struct {
     config map[string]string // abstraction -> implementation mapping
@@ -1620,7 +1640,7 @@ type BridgeSelector struct {
 func (bs *BridgeSelector) CreateBridge(abstractionType string) Abstraction {
     implType := bs.config[abstractionType]
     impl := bs.registry.Get(implType)
-    
+
     abstraction := createAbstraction(abstractionType)
     abstraction.SetImplementation(impl)
     return abstraction
@@ -1633,14 +1653,15 @@ func (bs *BridgeSelector) CreateBridge(abstractionType string) Abstraction {
 Focus on testing the bridge connection and both hierarchies:
 
 1. **Test Abstraction with Mock Implementation**:
+
 ```go
 func TestPaymentMethod_WithMockProcessor(t *testing.T) {
     mockProcessor := &MockPaymentProcessor{}
     payment := &CreditCardPayment{}
     payment.SetProcessor(mockProcessor)
-    
+
     mockProcessor.On("Process", mock.Anything).Return(nil)
-    
+
     err := payment.ProcessPayment(decimal.NewFromFloat(100))
     assert.NoError(t, err)
     mockProcessor.AssertExpectations(t)
@@ -1648,17 +1669,18 @@ func TestPaymentMethod_WithMockProcessor(t *testing.T) {
 ```
 
 2. **Test Implementation Independence**:
+
 ```go
 func TestPaymentMethod_ProcessorIndependence(t *testing.T) {
     payment := &CreditCardPayment{}
-    
+
     // Test with different processors
     processors := []PaymentProcessor{
         &RazorpayProcessor{},
         &StripeProcessor{},
         &PayPalProcessor{},
     }
-    
+
     for _, proc := range processors {
         payment.SetProcessor(proc)
         err := payment.ProcessPayment(decimal.NewFromFloat(100))
@@ -1668,20 +1690,21 @@ func TestPaymentMethod_ProcessorIndependence(t *testing.T) {
 ```
 
 3. **Test Bridge Flexibility**:
+
 ```go
 func TestBridge_RuntimeSwitching(t *testing.T) {
     abstraction := &PaymentAbstraction{}
-    
+
     // Start with one implementation
     impl1 := &ProcessorA{}
     abstraction.SetImplementation(impl1)
     result1 := abstraction.Execute()
-    
+
     // Switch to another implementation
     impl2 := &ProcessorB{}
     abstraction.SetImplementation(impl2)
     result2 := abstraction.Execute()
-    
+
     // Results should be different based on implementation
     assert.NotEqual(t, result1, result2)
 }
@@ -1693,6 +1716,7 @@ func TestBridge_RuntimeSwitching(t *testing.T) {
 Implement consistent error handling strategies:
 
 1. **Error Translation**:
+
 ```go
 type BridgeErrorTranslator struct {
     abstraction Abstraction
@@ -1721,6 +1745,7 @@ func (b *BridgeErrorTranslator) translateError(err error) error {
 ```
 
 2. **Error Wrapping**:
+
 ```go
 type AbstractionError struct {
     Code           string
@@ -1739,6 +1764,7 @@ func (ae *AbstractionError) Unwrap() error {
 ```
 
 3. **Retry Logic Across Bridge**:
+
 ```go
 type RetryableBridge struct {
     abstraction Abstraction
@@ -1748,21 +1774,21 @@ type RetryableBridge struct {
 
 func (rb *RetryableBridge) Execute() error {
     var lastErr error
-    
+
     for i := 0; i < rb.maxRetries; i++ {
         err := rb.abstraction.Execute()
         if err == nil {
             return nil
         }
-        
+
         lastErr = err
         if !rb.isRetryable(err) {
             break
         }
-        
+
         time.Sleep(rb.backoff * time.Duration(i+1))
     }
-    
+
     return lastErr
 }
 
