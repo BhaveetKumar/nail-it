@@ -35,10 +35,10 @@ type DatabaseSystemFactory interface {
 
 // AbstractFactory implements the Abstract Factory pattern
 type AbstractFactory struct {
-	paymentSystemFactory     PaymentSystemFactory
+	paymentSystemFactory      PaymentSystemFactory
 	notificationSystemFactory NotificationSystemFactory
-	databaseSystemFactory    DatabaseSystemFactory
-	mutex                    sync.RWMutex
+	databaseSystemFactory     DatabaseSystemFactory
+	mutex                     sync.RWMutex
 }
 
 var (
@@ -186,7 +186,7 @@ func (dsf *DatabaseSystemFactoryImpl) GetSystemName() string {
 
 // PaymentService uses the Abstract Factory pattern
 type PaymentService struct {
-	paymentGateway     PaymentGateway
+	paymentGateway      PaymentGateway
 	notificationChannel NotificationChannel
 	databaseConnection  DatabaseConnection
 }
@@ -238,7 +238,7 @@ func (ps *PaymentService) ProcessPayment(ctx context.Context, request *models.Pa
 	// Store payment in database
 	if err := ps.databaseConnection.Connect(ctx); err == nil {
 		defer ps.databaseConnection.Disconnect(ctx)
-		
+
 		query := "INSERT INTO payments (id, user_id, amount, currency, status) VALUES (?, ?, ?, ?, ?)"
 		_, err := ps.databaseConnection.ExecuteQuery(ctx, query, request.ID, request.UserID, request.Amount, request.Currency, response.Status)
 		if err != nil {
@@ -355,7 +355,7 @@ func (ds *DatabaseService) ExecuteQueryOnAllDatabases(ctx context.Context, query
 	// Execute on MySQL
 	if err := ds.mysqlConnection.Connect(ctx); err == nil {
 		defer ds.mysqlConnection.Disconnect(ctx)
-		
+
 		result, err := ds.mysqlConnection.ExecuteQuery(ctx, query, args...)
 		if err != nil {
 			log.Error("Failed to execute query on MySQL", "error", err)
@@ -367,7 +367,7 @@ func (ds *DatabaseService) ExecuteQueryOnAllDatabases(ctx context.Context, query
 	// Execute on PostgreSQL
 	if err := ds.postgresqlConnection.Connect(ctx); err == nil {
 		defer ds.postgresqlConnection.Disconnect(ctx)
-		
+
 		result, err := ds.postgresqlConnection.ExecuteQuery(ctx, query, args...)
 		if err != nil {
 			log.Error("Failed to execute query on PostgreSQL", "error", err)
@@ -379,7 +379,7 @@ func (ds *DatabaseService) ExecuteQueryOnAllDatabases(ctx context.Context, query
 	// Execute on MongoDB
 	if err := ds.mongodbConnection.Connect(ctx); err == nil {
 		defer ds.mongodbConnection.Disconnect(ctx)
-		
+
 		result, err := ds.mongodbConnection.ExecuteQuery(ctx, query, args...)
 		if err != nil {
 			log.Error("Failed to execute query on MongoDB", "error", err)

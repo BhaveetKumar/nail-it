@@ -37,13 +37,13 @@ type RefundRequest struct {
 
 // RefundResponse represents a refund response
 type RefundResponse struct {
-	RefundID      string                 `json:"refund_id"`
-	Status        string                 `json:"status"`
-	Amount        float64                `json:"amount"`
-	PaymentID     string                 `json:"payment_id"`
-	Gateway       string                 `json:"gateway"`
-	GatewayData   map[string]interface{} `json:"gateway_data,omitempty"`
-	ProcessedAt   time.Time              `json:"processed_at"`
+	RefundID    string                 `json:"refund_id"`
+	Status      string                 `json:"status"`
+	Amount      float64                `json:"amount"`
+	PaymentID   string                 `json:"payment_id"`
+	Gateway     string                 `json:"gateway"`
+	GatewayData map[string]interface{} `json:"gateway_data,omitempty"`
+	ProcessedAt time.Time              `json:"processed_at"`
 }
 
 // PaymentStatus represents payment status information
@@ -64,7 +64,7 @@ type BankDetails struct {
 
 // WalletDetails represents digital wallet details
 type WalletDetails struct {
-	WalletID  string `json:"wallet_id"`
+	WalletID   string `json:"wallet_id"`
 	WalletType string `json:"wallet_type"`
 	Provider   string `json:"provider"`
 }
@@ -113,11 +113,11 @@ type UpdateUserRequest struct {
 
 // CreatePaymentRequest represents the request to create a payment
 type CreatePaymentRequest struct {
-	UserID        string        `json:"user_id" binding:"required"`
-	Amount        float64       `json:"amount" binding:"required,gt=0"`
-	Currency      string        `json:"currency" binding:"required,len=3"`
-	PaymentMethod string        `json:"payment_method" binding:"required"`
-	BankDetails   *BankDetails  `json:"bank_details,omitempty"`
+	UserID        string         `json:"user_id" binding:"required"`
+	Amount        float64        `json:"amount" binding:"required,gt=0"`
+	Currency      string         `json:"currency" binding:"required,len=3"`
+	PaymentMethod string         `json:"payment_method" binding:"required"`
+	BankDetails   *BankDetails   `json:"bank_details,omitempty"`
 	WalletDetails *WalletDetails `json:"wallet_details,omitempty"`
 }
 
@@ -155,11 +155,11 @@ type KafkaEvent struct {
 
 // PaymentEvent represents a payment-related event
 type PaymentEvent struct {
-	Type       string      `json:"type"`
-	PaymentID  string      `json:"payment_id"`
-	Data       interface{} `json:"data"`
-	Timestamp  int64       `json:"timestamp"`
-	Source     string      `json:"source"`
+	Type      string      `json:"type"`
+	PaymentID string      `json:"payment_id"`
+	Data      interface{} `json:"data"`
+	Timestamp int64       `json:"timestamp"`
+	Source    string      `json:"source"`
 }
 
 // NotificationEvent represents a notification-related event

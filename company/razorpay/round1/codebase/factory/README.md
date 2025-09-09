@@ -5,6 +5,7 @@ This is a complete microservice implementation demonstrating the Factory design 
 ## Architecture Overview
 
 The service implements the Factory pattern for:
+
 - **Payment Gateway Factory**: Creates different payment gateway implementations
 - **Notification Channel Factory**: Creates different notification channel implementations
 - **Database Factory**: Creates different database connection implementations
@@ -13,6 +14,7 @@ The service implements the Factory pattern for:
 ## Features
 
 ### Core Functionality
+
 - **Payment Processing**: Multiple payment gateway support (Stripe, PayPal, Razorpay, Bank Transfer, Digital Wallet)
 - **Notification System**: Multiple notification channels (Email, SMS, Push, WhatsApp, Slack)
 - **Database Support**: Multiple database types (MySQL, PostgreSQL, MongoDB, SQLite)
@@ -24,6 +26,7 @@ The service implements the Factory pattern for:
 ### Factory Implementations
 
 #### 1. Payment Gateway Factory
+
 ```go
 // Factory for creating payment gateways
 factory := factory.GetPaymentGatewayFactory()
@@ -35,6 +38,7 @@ razorpayGateway, _ := factory.CreateGateway("razorpay")
 ```
 
 #### 2. Notification Channel Factory
+
 ```go
 // Factory for creating notification channels
 factory := factory.GetNotificationChannelFactory()
@@ -46,6 +50,7 @@ pushChannel, _ := factory.CreateChannel("push")
 ```
 
 #### 3. Database Factory
+
 ```go
 // Factory for creating database connections
 factory := factory.GetDatabaseFactory()
@@ -57,6 +62,7 @@ mongoConn, _ := factory.CreateDatabase("mongodb")
 ```
 
 #### 4. Abstract Factory
+
 ```go
 // Abstract factory for creating related objects
 abstractFactory := factory.GetAbstractFactory()
@@ -71,35 +77,42 @@ database := paymentSystemFactory.CreateDatabaseConnection()
 ## API Endpoints
 
 ### Payment Gateways
+
 - `GET /api/v1/payment-gateways` - List available payment gateways
 - `POST /api/v1/payments` - Process payment with specified gateway
 - `GET /api/v1/payments/:id` - Get payment status
 - `POST /api/v1/payments/:id/refund` - Process refund
 
 ### Notification Channels
+
 - `GET /api/v1/notification-channels` - List available notification channels
 - `POST /api/v1/notifications` - Send notification via specified channel
 - `POST /api/v1/notifications/multi-channel` - Send notification via multiple channels
 
 ### Database Operations
+
 - `GET /api/v1/databases` - List available database types
 - `POST /api/v1/databases/query` - Execute query on specified database
 - `POST /api/v1/databases/query-all` - Execute query on all databases
 
 ### Factory Information
+
 - `GET /api/v1/factories` - List all available factories
 - `GET /api/v1/factories/:type` - Get factory information
 - `GET /api/v1/system-info` - Get system information
 
 ### WebSocket
+
 - `GET /ws?user_id=:user_id&client_id=:client_id` - WebSocket connection
 
 ### Health Check
+
 - `GET /health` - Service health status
 
 ## Factory Types
 
 ### Payment Gateways
+
 - **Stripe**: Credit card payments
 - **PayPal**: PayPal payments
 - **Razorpay**: Indian payment gateway
@@ -107,6 +120,7 @@ database := paymentSystemFactory.CreateDatabaseConnection()
 - **Digital Wallet**: Mobile wallet payments
 
 ### Notification Channels
+
 - **Email**: SMTP-based email notifications
 - **SMS**: SMS notifications via API
 - **Push**: Mobile push notifications
@@ -114,6 +128,7 @@ database := paymentSystemFactory.CreateDatabaseConnection()
 - **Slack**: Slack webhook notifications
 
 ### Database Types
+
 - **MySQL**: Relational database
 - **PostgreSQL**: Advanced relational database
 - **MongoDB**: Document database
@@ -122,18 +137,21 @@ database := paymentSystemFactory.CreateDatabaseConnection()
 ## WebSocket Events
 
 ### Payment Events
+
 - `payment_created` - Payment created
 - `payment_processed` - Payment processed
 - `payment_failed` - Payment failed
 - `refund_processed` - Refund processed
 
 ### Notification Events
+
 - `notification_sent` - Notification sent
 - `notification_failed` - Notification failed
 
 ## Kafka Events
 
 ### Event Types
+
 - `payment_created` - Payment creation event
 - `payment_processed` - Payment processing event
 - `payment_failed` - Payment failure event
@@ -144,6 +162,7 @@ database := paymentSystemFactory.CreateDatabaseConnection()
 ## Setup Instructions
 
 ### Prerequisites
+
 - Go 1.21+
 - MySQL 8.0+
 - MongoDB 4.4+
@@ -153,12 +172,14 @@ database := paymentSystemFactory.CreateDatabaseConnection()
 ### Installation
 
 1. **Clone and setup**:
+
 ```bash
 cd factory
 go mod tidy
 ```
 
 2. **Start dependencies**:
+
 ```bash
 # Start MySQL
 docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 mysql:8.0
@@ -174,11 +195,13 @@ docker-compose up -d kafka zookeeper
 ```
 
 3. **Create database**:
+
 ```sql
 CREATE DATABASE factory_db;
 ```
 
 4. **Run the service**:
+
 ```bash
 go run main.go
 ```
@@ -198,16 +221,19 @@ The service uses a YAML configuration file (`configs/config.yaml`) with the foll
 ## Testing
 
 ### Unit Tests
+
 ```bash
 go test ./...
 ```
 
 ### Integration Tests
+
 ```bash
 go test -tags=integration ./...
 ```
 
 ### Load Testing
+
 ```bash
 # Install hey
 go install github.com/rakyll/hey@latest
@@ -222,11 +248,13 @@ hey -n 1000 -c 10 -m POST -H "Content-Type: application/json" -d '{"recipient":"
 ## Monitoring
 
 ### Health Check
+
 ```bash
 curl http://localhost:8080/health
 ```
 
 ### Factory Information
+
 ```bash
 curl http://localhost:8080/api/v1/factories
 curl http://localhost:8080/api/v1/factories/payment-gateways
@@ -235,14 +263,18 @@ curl http://localhost:8080/api/v1/factories/databases
 ```
 
 ### WebSocket Connection
+
 ```javascript
-const ws = new WebSocket('ws://localhost:8080/ws?user_id=user123&client_id=client456');
-ws.onmessage = function(event) {
-    console.log('Received:', JSON.parse(event.data));
+const ws = new WebSocket(
+  "ws://localhost:8080/ws?user_id=user123&client_id=client456"
+);
+ws.onmessage = function (event) {
+  console.log("Received:", JSON.parse(event.data));
 };
 ```
 
 ### Kafka Events
+
 ```bash
 # Consume events
 kafka-console-consumer --bootstrap-server localhost:9092 --topic factory-events --from-beginning
@@ -251,12 +283,14 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic factory-events 
 ## Performance Considerations
 
 ### Factory Benefits
+
 - **Object Creation Abstraction**: Centralized object creation logic
 - **Easy Extension**: Add new implementations without modifying existing code
 - **Configuration-Based**: Runtime selection of implementations
 - **Type Safety**: Compile-time type checking
 
 ### Optimization Strategies
+
 - **Connection Pooling**: Database connection reuse
 - **Caching**: Redis-based response caching
 - **Async Processing**: Non-blocking WebSocket and Kafka operations
@@ -265,6 +299,7 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic factory-events 
 ## Error Handling
 
 The service implements comprehensive error handling:
+
 - **Factory Errors**: Invalid factory types, creation failures
 - **Database Errors**: Connection failures, query errors
 - **Network Errors**: Timeout handling, retry logic
@@ -282,12 +317,14 @@ The service implements comprehensive error handling:
 ## Scalability
 
 ### Horizontal Scaling
+
 - **Stateless Design**: No server-side session storage
 - **Load Balancer Ready**: Multiple instance support
 - **Database Sharding**: User-based sharding strategy
 - **Cache Distribution**: Redis cluster support
 
 ### Vertical Scaling
+
 - **Connection Pool Tuning**: Database connection optimization
 - **Memory Management**: Efficient resource utilization
 - **CPU Optimization**: Concurrent request processing
@@ -297,16 +334,19 @@ The service implements comprehensive error handling:
 ### Common Issues
 
 1. **Factory Creation Failed**
+
    - Check factory type registration
    - Verify configuration parameters
    - Check factory implementation
 
 2. **Payment Gateway Failed**
+
    - Verify API keys and credentials
    - Check gateway configuration
    - Monitor gateway logs
 
 3. **Notification Channel Failed**
+
    - Verify channel configuration
    - Check API credentials
    - Monitor channel logs
@@ -317,6 +357,7 @@ The service implements comprehensive error handling:
    - Check network connectivity
 
 ### Logs
+
 ```bash
 # View application logs
 tail -f logs/app.log

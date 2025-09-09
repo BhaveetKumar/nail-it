@@ -9,21 +9,21 @@ import (
 
 // Config represents application configuration
 type Config struct {
-	Server   ServerConfig   `mapstructure:"server"`
-	Database DatabaseConfig `mapstructure:"database"`
-	Redis    RedisConfig    `mapstructure:"redis"`
-	Kafka    KafkaConfig    `mapstructure:"kafka"`
-	MongoDB  MongoDBConfig  `mapstructure:"mongodb"`
-	Stripe   StripeConfig   `mapstructure:"stripe"`
-	PayPal   PayPalConfig   `mapstructure:"paypal"`
-	Razorpay RazorpayConfig `mapstructure:"razorpay"`
-	BankTransfer BankTransferConfig `mapstructure:"bank_transfer"`
+	Server        ServerConfig        `mapstructure:"server"`
+	Database      DatabaseConfig      `mapstructure:"database"`
+	Redis         RedisConfig         `mapstructure:"redis"`
+	Kafka         KafkaConfig         `mapstructure:"kafka"`
+	MongoDB       MongoDBConfig       `mapstructure:"mongodb"`
+	Stripe        StripeConfig        `mapstructure:"stripe"`
+	PayPal        PayPalConfig        `mapstructure:"paypal"`
+	Razorpay      RazorpayConfig      `mapstructure:"razorpay"`
+	BankTransfer  BankTransferConfig  `mapstructure:"bank_transfer"`
 	DigitalWallet DigitalWalletConfig `mapstructure:"digital_wallet"`
-	Email    EmailConfig    `mapstructure:"email"`
-	SMS      SMSConfig      `mapstructure:"sms"`
-	Push     PushConfig     `mapstructure:"push"`
-	WhatsApp WhatsAppConfig `mapstructure:"whatsapp"`
-	Slack    SlackConfig    `mapstructure:"slack"`
+	Email         EmailConfig         `mapstructure:"email"`
+	SMS           SMSConfig           `mapstructure:"sms"`
+	Push          PushConfig          `mapstructure:"push"`
+	WhatsApp      WhatsAppConfig      `mapstructure:"whatsapp"`
+	Slack         SlackConfig         `mapstructure:"slack"`
 }
 
 type ServerConfig struct {

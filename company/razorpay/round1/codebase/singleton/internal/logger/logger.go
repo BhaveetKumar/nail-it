@@ -60,7 +60,7 @@ func (l *Logger) setupLogger() {
 func (l *Logger) Info(message string, fields ...interface{}) {
 	l.mutex.RLock()
 	defer l.mutex.RUnlock()
-	
+
 	entry := l.logger.WithFields(l.convertToFields(fields...))
 	entry.Info(message)
 }
@@ -69,7 +69,7 @@ func (l *Logger) Info(message string, fields ...interface{}) {
 func (l *Logger) Error(message string, fields ...interface{}) {
 	l.mutex.RLock()
 	defer l.mutex.RUnlock()
-	
+
 	entry := l.logger.WithFields(l.convertToFields(fields...))
 	entry.Error(message)
 }
@@ -78,7 +78,7 @@ func (l *Logger) Error(message string, fields ...interface{}) {
 func (l *Logger) Warn(message string, fields ...interface{}) {
 	l.mutex.RLock()
 	defer l.mutex.RUnlock()
-	
+
 	entry := l.logger.WithFields(l.convertToFields(fields...))
 	entry.Warn(message)
 }
@@ -87,7 +87,7 @@ func (l *Logger) Warn(message string, fields ...interface{}) {
 func (l *Logger) Debug(message string, fields ...interface{}) {
 	l.mutex.RLock()
 	defer l.mutex.RUnlock()
-	
+
 	entry := l.logger.WithFields(l.convertToFields(fields...))
 	entry.Debug(message)
 }
@@ -96,7 +96,7 @@ func (l *Logger) Debug(message string, fields ...interface{}) {
 func (l *Logger) Fatal(message string, fields ...interface{}) {
 	l.mutex.RLock()
 	defer l.mutex.RUnlock()
-	
+
 	entry := l.logger.WithFields(l.convertToFields(fields...))
 	entry.Fatal(message)
 }
@@ -105,7 +105,7 @@ func (l *Logger) Fatal(message string, fields ...interface{}) {
 func (l *Logger) WithField(key string, value interface{}) *logrus.Entry {
 	l.mutex.RLock()
 	defer l.mutex.RUnlock()
-	
+
 	return l.logger.WithField(key, value)
 }
 
@@ -113,14 +113,14 @@ func (l *Logger) WithField(key string, value interface{}) *logrus.Entry {
 func (l *Logger) WithFields(fields logrus.Fields) *logrus.Entry {
 	l.mutex.RLock()
 	defer l.mutex.RUnlock()
-	
+
 	return l.logger.WithFields(fields)
 }
 
 // convertToFields converts variadic interface{} to logrus.Fields
 func (l *Logger) convertToFields(fields ...interface{}) logrus.Fields {
 	result := make(logrus.Fields)
-	
+
 	for i := 0; i < len(fields); i += 2 {
 		if i+1 < len(fields) {
 			if key, ok := fields[i].(string); ok {
@@ -128,7 +128,7 @@ func (l *Logger) convertToFields(fields ...interface{}) logrus.Fields {
 			}
 		}
 	}
-	
+
 	return result
 }
 
