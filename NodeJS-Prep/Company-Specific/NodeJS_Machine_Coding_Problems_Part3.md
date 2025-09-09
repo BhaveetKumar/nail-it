@@ -356,10 +356,39 @@ notificationService.start(3009);
 ### **Discussion Points**
 
 1. **Channel Selection**: How to choose the best notification channel?
+   - **User Preferences**: Respect user's preferred communication channels
+   - **Message Urgency**: Use appropriate channels based on message importance
+   - **Channel Reliability**: Consider delivery success rates and latency
+   - **Cost Optimization**: Balance delivery cost with message importance
+   - **Fallback Strategy**: Use alternative channels when primary fails
+
 2. **Template Management**: How to manage notification templates effectively?
+   - **Version Control**: Track template changes and maintain version history
+   - **A/B Testing**: Test different template variations for effectiveness
+   - **Localization**: Support multiple languages and cultural adaptations
+   - **Dynamic Content**: Use variables and conditional logic in templates
+   - **Template Validation**: Ensure templates are valid and render correctly
+
 3. **Delivery Tracking**: How to implement reliable delivery tracking?
+   - **Status Updates**: Track sent, delivered, opened, clicked, and failed states
+   - **Webhook Integration**: Receive real-time status updates from providers
+   - **Retry Mechanisms**: Automatically retry failed deliveries
+   - **Analytics**: Collect delivery metrics for optimization
+   - **Compliance**: Maintain delivery records for regulatory requirements
+
 4. **Retry Logic**: How to design effective retry strategies?
+   - **Exponential Backoff**: Increase delay between retry attempts
+   - **Max Retries**: Set reasonable limits on retry attempts
+   - **Failure Classification**: Distinguish between transient and permanent failures
+   - **Circuit Breaker**: Stop retrying when failure rate is too high
+   - **Dead Letter Queue**: Move permanently failed notifications to DLQ
+
 5. **User Preferences**: How to respect user notification preferences?
+   - **Granular Controls**: Allow users to control notification types and frequency
+   - **Opt-out Management**: Handle unsubscribe requests promptly
+   - **Preference Inheritance**: Apply preferences across all notification channels
+   - **Time-based Controls**: Respect user's timezone and quiet hours
+   - **Frequency Limits**: Prevent notification spam with rate limiting
 
 ### **Follow-up Questions**
 
