@@ -97,6 +97,7 @@ This repository provides a complete learning path for Node.js developers targeti
 - [**Company-Specific Problems**](./company/razorpay/) - Razorpay-specific coding problems
 
 #### **Node.js Machine Coding Problems**
+
 - [**Node.js Machine Coding Problems - Part 1**](./Company-Specific/NodeJS_Machine_Coding_Problems.md) - **🚀 NEW** - Problems 1-3: Messaging API, Price Comparison, Cab Booking with detailed discussions
 - [**Node.js Machine Coding Problems - Part 2**](./Company-Specific/NodeJS_Machine_Coding_Problems_Part2.md) - **🚀 NEW** - Problems 4-9: Payment Gateway, Rate Limiter, Batch Scheduler, Inventory, Notification, File Upload
 - [**Node.js Machine Coding Problems - Part 3**](./Company-Specific/NodeJS_Machine_Coding_Problems_Part3.md) - **🚀 NEW** - Problems 10-15: Analytics, Shopping Cart, Cache Invalidation, Transactional Saga

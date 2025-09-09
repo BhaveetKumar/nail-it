@@ -93,6 +93,17 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Express.js, Multi-channel providers, Template engine, Queue system, Analytics
 
+### 8. [Cache System](./08_CacheSystem.md)
+**Distributed Caching Solution**
+- Multiple eviction strategies (LRU, LFU, TTL, custom)
+- Distributed cache with consistency guarantees
+- Smart invalidation and cache warming
+- Performance monitoring and analytics
+- Fallback mechanisms and fault tolerance
+- Redis integration and persistence
+
+**Key Technologies**: Express.js, Redis, Multiple algorithms, Distributed systems, Performance monitoring
+
 ## 🚀 **Common Patterns & Best Practices**
 
 ### Architecture Patterns
