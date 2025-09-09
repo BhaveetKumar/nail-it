@@ -1628,3 +1628,347 @@ class PaymentReconciliationService {
 3. **Analytics Dashboard**: Real-time payment analytics
 4. **Multi-tenant Support**: White-label payment solutions
 5. **API Versioning**: Backward compatibility management
+
+## **Follow-up Questions**
+
+### **1. How would you implement advanced fraud detection and risk management?**
+
+**Answer:**
+```javascript
+class AdvancedFraudDetection {
+  constructor() {
+    this.riskRules = new Map();
+    this.mlModel = new MLFraudModel();
+    this.riskScoring = new RiskScoring();
+    this.blacklistManager = new BlacklistManager();
+  }
+
+  async analyzeTransaction(transaction) {
+    const riskFactors = await this.collectRiskFactors(transaction);
+    const riskScore = await this.calculateRiskScore(riskFactors);
+    const riskLevel = this.determineRiskLevel(riskScore);
+    
+    const analysis = {
+      transactionId: transaction.id,
+      riskScore,
+      riskLevel,
+      riskFactors,
+      recommendations: await this.getRecommendations(riskLevel, riskFactors),
+      timestamp: new Date()
+    };
+
+    // Store analysis for future learning
+    await this.storeAnalysis(analysis);
+    
+    return analysis;
+  }
+
+  async collectRiskFactors(transaction) {
+    const factors = {
+      // Transaction factors
+      amount: transaction.amount,
+      currency: transaction.currency,
+      paymentMethod: transaction.paymentMethod,
+      
+      // User factors
+      userHistory: await this.getUserHistory(transaction.userId),
+      deviceFingerprint: transaction.deviceFingerprint,
+      ipAddress: transaction.ipAddress,
+      location: transaction.location,
+      
+      // Behavioral factors
+      velocity: await this.calculateVelocity(transaction),
+      patterns: await this.analyzePatterns(transaction),
+      
+      // External factors
+      blacklistStatus: await this.checkBlacklist(transaction),
+      merchantRisk: await this.getMerchantRisk(transaction.merchantId)
+    };
+
+    return factors;
+  }
+
+  async calculateRiskScore(factors) {
+    let score = 0;
+    
+    // Amount-based scoring
+    if (factors.amount > 10000) score += 20;
+    if (factors.amount > 50000) score += 30;
+    
+    // Velocity-based scoring
+    if (factors.velocity.transactionsPerHour > 10) score += 25;
+    if (factors.velocity.amountPerHour > 100000) score += 30;
+    
+    // Location-based scoring
+    if (factors.location.isHighRisk) score += 15;
+    if (factors.location.distanceFromHome > 1000) score += 20;
+    
+    // Device-based scoring
+    if (factors.deviceFingerprint.isNew) score += 10;
+    if (factors.deviceFingerprint.isSuspicious) score += 25;
+    
+    // Blacklist scoring
+    if (factors.blacklistStatus.isBlacklisted) score += 100;
+    
+    // ML model scoring
+    const mlScore = await this.mlModel.predict(factors);
+    score += mlScore * 30;
+    
+    return Math.min(score, 100);
+  }
+
+  determineRiskLevel(score) {
+    if (score >= 80) return 'high';
+    if (score >= 50) return 'medium';
+    if (score >= 20) return 'low';
+    return 'minimal';
+  }
+
+  async getRecommendations(riskLevel, factors) {
+    const recommendations = [];
+    
+    switch (riskLevel) {
+      case 'high':
+        recommendations.push('BLOCK_TRANSACTION');
+        recommendations.push('FLAG_FOR_MANUAL_REVIEW');
+        break;
+      case 'medium':
+        recommendations.push('REQUIRE_ADDITIONAL_VERIFICATION');
+        recommendations.push('MONITOR_FOR_PATTERNS');
+        break;
+      case 'low':
+        recommendations.push('PROCEED_WITH_CAUTION');
+        break;
+      default:
+        recommendations.push('PROCEED_NORMALLY');
+    }
+    
+    return recommendations;
+  }
+}
+
+class MLFraudModel {
+  constructor() {
+    this.model = null;
+    this.features = [
+      'amount', 'hour_of_day', 'day_of_week', 'payment_method',
+      'user_age', 'transaction_frequency', 'avg_transaction_amount',
+      'location_risk_score', 'device_trust_score'
+    ];
+  }
+
+  async predict(factors) {
+    // Convert factors to feature vector
+    const features = this.extractFeatures(factors);
+    
+    // Use pre-trained model for prediction
+    const prediction = await this.model.predict(features);
+    
+    return prediction.probability;
+  }
+
+  extractFeatures(factors) {
+    return {
+      amount: factors.amount,
+      hour_of_day: new Date().getHours(),
+      day_of_week: new Date().getDay(),
+      payment_method: this.encodePaymentMethod(factors.paymentMethod),
+      user_age: factors.userHistory.accountAge,
+      transaction_frequency: factors.velocity.transactionsPerDay,
+      avg_transaction_amount: factors.userHistory.avgTransactionAmount,
+      location_risk_score: factors.location.riskScore,
+      device_trust_score: factors.deviceFingerprint.trustScore
+    };
+  }
+
+  encodePaymentMethod(method) {
+    const encodings = {
+      'credit_card': 1,
+      'debit_card': 2,
+      'upi': 3,
+      'net_banking': 4,
+      'wallet': 5
+    };
+    return encodings[method] || 0;
+  }
+}
+```
+
+### **2. How to implement multi-currency support and international payments?**
+
+**Answer:**
+```javascript
+class MultiCurrencySupport {
+  constructor() {
+    this.exchangeRates = new Map();
+    this.currencyConfigs = new Map();
+    this.paymentMethods = new Map();
+    this.rateProvider = new ExchangeRateProvider();
+  }
+
+  async processInternationalPayment(payment) {
+    // Validate currency support
+    await this.validateCurrencySupport(payment.currency);
+    
+    // Get exchange rate
+    const exchangeRate = await this.getExchangeRate(payment.currency, 'USD');
+    
+    // Convert amount to base currency
+    const baseAmount = this.convertAmount(payment.amount, exchangeRate);
+    
+    // Check payment method availability
+    const availableMethods = await this.getAvailablePaymentMethods(payment.currency, payment.country);
+    
+    // Process payment with converted amount
+    const result = await this.processPayment({
+      ...payment,
+      amount: baseAmount,
+      originalAmount: payment.amount,
+      originalCurrency: payment.currency,
+      exchangeRate
+    });
+    
+    return result;
+  }
+
+  async validateCurrencySupport(currency) {
+    const config = this.currencyConfigs.get(currency);
+    if (!config) {
+      throw new Error(`Currency ${currency} not supported`);
+    }
+    
+    if (!config.enabled) {
+      throw new Error(`Currency ${currency} is currently disabled`);
+    }
+    
+    return true;
+  }
+
+  async getExchangeRate(fromCurrency, toCurrency) {
+    const rateKey = `${fromCurrency}_${toCurrency}`;
+    let rate = this.exchangeRates.get(rateKey);
+    
+    if (!rate || this.isRateExpired(rate)) {
+      rate = await this.rateProvider.getRate(fromCurrency, toCurrency);
+      this.exchangeRates.set(rateKey, {
+        rate: rate.rate,
+        timestamp: new Date(),
+        source: rate.source
+      });
+    }
+    
+    return rate.rate;
+  }
+
+  convertAmount(amount, exchangeRate) {
+    return Math.round(amount * exchangeRate * 100) / 100; // Round to 2 decimal places
+  }
+
+  async getAvailablePaymentMethods(currency, country) {
+    const methods = [];
+    
+    // Get country-specific payment methods
+    const countryMethods = this.paymentMethods.get(country) || [];
+    
+    // Get currency-specific payment methods
+    const currencyMethods = this.currencyConfigs.get(currency)?.paymentMethods || [];
+    
+    // Combine and deduplicate
+    const allMethods = [...new Set([...countryMethods, ...currencyMethods])];
+    
+    // Filter by availability
+    for (const method of allMethods) {
+      if (await this.isPaymentMethodAvailable(method, currency, country)) {
+        methods.push(method);
+      }
+    }
+    
+    return methods;
+  }
+
+  async isPaymentMethodAvailable(method, currency, country) {
+    const methodConfig = this.paymentMethods.get(method);
+    if (!methodConfig) return false;
+    
+    // Check currency support
+    if (!methodConfig.supportedCurrencies.includes(currency)) {
+      return false;
+    }
+    
+    // Check country support
+    if (!methodConfig.supportedCountries.includes(country)) {
+      return false;
+    }
+    
+    // Check if method is enabled
+    return methodConfig.enabled;
+  }
+
+  isRateExpired(rate) {
+    const maxAge = 5 * 60 * 1000; // 5 minutes
+    return Date.now() - rate.timestamp.getTime() > maxAge;
+  }
+}
+
+class ExchangeRateProvider {
+  constructor() {
+    this.providers = [
+      new FixerIOProvider(),
+      new CurrencyLayerProvider(),
+      new OpenExchangeRatesProvider()
+    ];
+    this.fallbackRates = new Map();
+  }
+
+  async getRate(fromCurrency, toCurrency) {
+    for (const provider of this.providers) {
+      try {
+        const rate = await provider.getRate(fromCurrency, toCurrency);
+        if (rate) {
+          return {
+            rate: rate.rate,
+            source: provider.name,
+            timestamp: new Date()
+          };
+        }
+      } catch (error) {
+        console.error(`Provider ${provider.name} failed:`, error);
+      }
+    }
+    
+    // Fallback to cached rates
+    const fallbackRate = this.fallbackRates.get(`${fromCurrency}_${toCurrency}`);
+    if (fallbackRate) {
+      return fallbackRate;
+    }
+    
+    throw new Error(`Unable to get exchange rate for ${fromCurrency} to ${toCurrency}`);
+  }
+}
+
+class InternationalPaymentProcessor {
+  constructor() {
+    this.multiCurrency = new MultiCurrencySupport();
+    this.compliance = new ComplianceManager();
+    this.kyc = new KYCManager();
+  }
+
+  async processPayment(payment) {
+    // Check compliance requirements
+    await this.compliance.checkRequirements(payment);
+    
+    // Perform KYC if required
+    if (await this.kyc.isRequired(payment)) {
+      await this.kyc.performKYC(payment.userId);
+    }
+    
+    // Process with multi-currency support
+    const result = await this.multiCurrency.processInternationalPayment(payment);
+    
+    // Log for compliance
+    await this.compliance.logTransaction(result);
+    
+    return result;
+  }
+}
+```

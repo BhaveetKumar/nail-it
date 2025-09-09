@@ -1319,3 +1319,802 @@ class MessageModerationService {
   }
 }
 ```
+
+## **Follow-up Questions**
+
+### **1. How would you implement message encryption and end-to-end security?**
+
+**Answer:**
+```javascript
+class MessageEncryption {
+  constructor() {
+    this.encryptionKey = process.env.ENCRYPTION_KEY;
+    this.algorithm = 'aes-256-gcm';
+  }
+
+  async encryptMessage(message, recipientPublicKey) {
+    try {
+      // Generate random IV for each message
+      const iv = crypto.randomBytes(16);
+      
+      // Create cipher
+      const cipher = crypto.createCipher(this.algorithm, this.encryptionKey);
+      cipher.setAAD(Buffer.from(message.id)); // Additional authenticated data
+      
+      // Encrypt message content
+      let encrypted = cipher.update(message.content, 'utf8', 'hex');
+      encrypted += cipher.final('hex');
+      
+      // Get authentication tag
+      const authTag = cipher.getAuthTag();
+      
+      // Encrypt metadata separately
+      const metadata = {
+        timestamp: message.timestamp,
+        senderId: message.senderId,
+        messageType: message.type
+      };
+      
+      const encryptedMetadata = await this.encryptMetadata(metadata, recipientPublicKey);
+      
+      return {
+        id: message.id,
+        encryptedContent: encrypted,
+        iv: iv.toString('hex'),
+        authTag: authTag.toString('hex'),
+        encryptedMetadata: encryptedMetadata,
+        algorithm: this.algorithm
+      };
+    } catch (error) {
+      throw new Error(`Encryption failed: ${error.message}`);
+    }
+  }
+
+  async decryptMessage(encryptedMessage, recipientPrivateKey) {
+    try {
+      const decipher = crypto.createDecipher(
+        this.algorithm, 
+        this.encryptionKey
+      );
+      
+      decipher.setAAD(Buffer.from(encryptedMessage.id));
+      decipher.setAuthTag(Buffer.from(encryptedMessage.authTag, 'hex'));
+      
+      let decrypted = decipher.update(encryptedMessage.encryptedContent, 'hex', 'utf8');
+      decrypted += decipher.final('utf8');
+      
+      // Decrypt metadata
+      const metadata = await this.decryptMetadata(
+        encryptedMessage.encryptedMetadata, 
+        recipientPrivateKey
+      );
+      
+      return {
+        id: encryptedMessage.id,
+        content: decrypted,
+        ...metadata
+      };
+    } catch (error) {
+      throw new Error(`Decryption failed: ${error.message}`);
+    }
+  }
+
+  async encryptMetadata(metadata, publicKey) {
+    const metadataString = JSON.stringify(metadata);
+    const encrypted = crypto.publicEncrypt({
+      key: publicKey,
+      padding: crypto.constants.RSA_PKCS1_OAEP_PADDING
+    }, Buffer.from(metadataString));
+    
+    return encrypted.toString('base64');
+  }
+
+  async decryptMetadata(encryptedMetadata, privateKey) {
+    const decrypted = crypto.privateDecrypt({
+      key: privateKey,
+      padding: crypto.constants.RSA_PKCS1_OAEP_PADDING
+    }, Buffer.from(encryptedMetadata, 'base64'));
+    
+    return JSON.parse(decrypted.toString());
+  }
+}
+
+class EndToEndSecurity {
+  constructor() {
+    this.keyExchange = new KeyExchange();
+    this.messageEncryption = new MessageEncryption();
+    this.forwardSecrecy = new ForwardSecrecy();
+  }
+
+  async establishSecureChannel(userId1, userId2) {
+    // Generate ephemeral keys for forward secrecy
+    const ephemeralKey1 = this.forwardSecrecy.generateEphemeralKey();
+    const ephemeralKey2 = this.forwardSecrecy.generateEphemeralKey();
+    
+    // Perform key exchange
+    const sharedSecret = await this.keyExchange.performKeyExchange(
+      ephemeralKey1, 
+      ephemeralKey2
+    );
+    
+    // Store session keys
+    await this.storeSessionKey(userId1, userId2, sharedSecret);
+    
+    return {
+      sessionId: uuidv4(),
+      establishedAt: new Date(),
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
+    };
+  }
+
+  async sendSecureMessage(senderId, recipientId, message) {
+    // Get session key
+    const sessionKey = await this.getSessionKey(senderId, recipientId);
+    
+    if (!sessionKey) {
+      throw new Error('No secure channel established');
+    }
+    
+    // Encrypt message
+    const encryptedMessage = await this.messageEncryption.encryptMessage(
+      message, 
+      sessionKey
+    );
+    
+    // Add security headers
+    encryptedMessage.securityHeaders = {
+      senderId,
+      recipientId,
+      timestamp: new Date(),
+      nonce: crypto.randomBytes(16).toString('hex')
+    };
+    
+    return encryptedMessage;
+  }
+}
+```
+
+### **2. How to handle message delivery failures and retry mechanisms?**
+
+**Answer:**
+```javascript
+class MessageDeliveryManager {
+  constructor() {
+    this.deliveryQueue = new Map();
+    this.retryPolicies = new Map();
+    this.dlq = new DeadLetterQueue();
+    this.circuitBreaker = new CircuitBreaker();
+  }
+
+  async sendMessage(message) {
+    const deliveryAttempt = {
+      id: uuidv4(),
+      messageId: message.id,
+      recipientId: message.recipientId,
+      attempts: 0,
+      maxAttempts: 3,
+      nextRetryAt: new Date(),
+      status: 'pending'
+    };
+
+    this.deliveryQueue.set(deliveryAttempt.id, deliveryAttempt);
+    
+    try {
+      await this.attemptDelivery(deliveryAttempt, message);
+    } catch (error) {
+      await this.handleDeliveryFailure(deliveryAttempt, error);
+    }
+  }
+
+  async attemptDelivery(deliveryAttempt, message) {
+    // Check circuit breaker
+    if (this.circuitBreaker.isOpen(message.recipientId)) {
+      throw new Error('Circuit breaker is open');
+    }
+
+    deliveryAttempt.attempts++;
+    deliveryAttempt.lastAttemptAt = new Date();
+
+    try {
+      // Attempt delivery
+      const result = await this.deliverToRecipient(message);
+      
+      if (result.success) {
+        deliveryAttempt.status = 'delivered';
+        deliveryAttempt.deliveredAt = new Date();
+        this.deliveryQueue.delete(deliveryAttempt.id);
+        this.circuitBreaker.recordSuccess(message.recipientId);
+      } else {
+        throw new Error(result.error);
+      }
+    } catch (error) {
+      this.circuitBreaker.recordFailure(message.recipientId);
+      throw error;
+    }
+  }
+
+  async handleDeliveryFailure(deliveryAttempt, error) {
+    if (deliveryAttempt.attempts >= deliveryAttempt.maxAttempts) {
+      // Move to dead letter queue
+      await this.dlq.addMessage(deliveryAttempt, error);
+      deliveryAttempt.status = 'failed';
+      this.deliveryQueue.delete(deliveryAttempt.id);
+    } else {
+      // Schedule retry
+      const retryDelay = this.calculateRetryDelay(deliveryAttempt.attempts);
+      deliveryAttempt.nextRetryAt = new Date(Date.now() + retryDelay);
+      deliveryAttempt.status = 'retrying';
+      
+      // Schedule retry
+      setTimeout(() => {
+        this.retryDelivery(deliveryAttempt);
+      }, retryDelay);
+    }
+  }
+
+  calculateRetryDelay(attemptNumber) {
+    // Exponential backoff with jitter
+    const baseDelay = 1000; // 1 second
+    const maxDelay = 30000; // 30 seconds
+    const jitter = Math.random() * 0.1; // 10% jitter
+    
+    const delay = Math.min(
+      baseDelay * Math.pow(2, attemptNumber - 1),
+      maxDelay
+    );
+    
+    return delay * (1 + jitter);
+  }
+
+  async retryDelivery(deliveryAttempt) {
+    const message = await this.getMessage(deliveryAttempt.messageId);
+    if (!message) {
+      this.deliveryQueue.delete(deliveryAttempt.id);
+      return;
+    }
+
+    try {
+      await this.attemptDelivery(deliveryAttempt, message);
+    } catch (error) {
+      await this.handleDeliveryFailure(deliveryAttempt, error);
+    }
+  }
+}
+
+class CircuitBreaker {
+  constructor() {
+    this.states = new Map(); // recipientId -> state
+    this.failureCounts = new Map();
+    this.lastFailureTimes = new Map();
+    this.threshold = 5; // failures before opening
+    this.timeout = 60000; // 1 minute
+  }
+
+  isOpen(recipientId) {
+    const state = this.states.get(recipientId) || 'closed';
+    return state === 'open';
+  }
+
+  recordSuccess(recipientId) {
+    this.states.set(recipientId, 'closed');
+    this.failureCounts.set(recipientId, 0);
+  }
+
+  recordFailure(recipientId) {
+    const count = (this.failureCounts.get(recipientId) || 0) + 1;
+    this.failureCounts.set(recipientId, count);
+    this.lastFailureTimes.set(recipientId, Date.now());
+
+    if (count >= this.threshold) {
+      this.states.set(recipientId, 'open');
+      // Auto-close after timeout
+      setTimeout(() => {
+        this.states.set(recipientId, 'half-open');
+      }, this.timeout);
+    }
+  }
+}
+```
+
+### **3. How to implement message reactions and replies?**
+
+**Answer:**
+```javascript
+class MessageReactions {
+  constructor() {
+    this.reactions = new Map(); // messageId -> reactions
+    this.reactionTypes = ['like', 'love', 'laugh', 'angry', 'sad', 'wow'];
+  }
+
+  async addReaction(messageId, userId, reactionType) {
+    if (!this.reactionTypes.includes(reactionType)) {
+      throw new Error('Invalid reaction type');
+    }
+
+    const messageReactions = this.reactions.get(messageId) || new Map();
+    
+    // Remove existing reaction from user
+    for (const [type, users] of messageReactions) {
+      const userIndex = users.indexOf(userId);
+      if (userIndex !== -1) {
+        users.splice(userIndex, 1);
+        if (users.length === 0) {
+          messageReactions.delete(type);
+        }
+      }
+    }
+
+    // Add new reaction
+    if (!messageReactions.has(reactionType)) {
+      messageReactions.set(reactionType, []);
+    }
+    messageReactions.get(reactionType).push(userId);
+
+    this.reactions.set(messageId, messageReactions);
+
+    // Notify message sender
+    await this.notifyReaction(messageId, userId, reactionType);
+
+    return {
+      messageId,
+      reactionType,
+      userId,
+      timestamp: new Date(),
+      totalReactions: this.getTotalReactions(messageId)
+    };
+  }
+
+  async removeReaction(messageId, userId) {
+    const messageReactions = this.reactions.get(messageId);
+    if (!messageReactions) return;
+
+    let removed = false;
+    for (const [type, users] of messageReactions) {
+      const userIndex = users.indexOf(userId);
+      if (userIndex !== -1) {
+        users.splice(userIndex, 1);
+        removed = true;
+        if (users.length === 0) {
+          messageReactions.delete(type);
+        }
+      }
+    }
+
+    if (removed) {
+      this.reactions.set(messageId, messageReactions);
+    }
+
+    return { messageId, userId, removed };
+  }
+
+  getReactions(messageId) {
+    const messageReactions = this.reactions.get(messageId) || new Map();
+    const result = {};
+    
+    for (const [type, users] of messageReactions) {
+      result[type] = {
+        count: users.length,
+        users: users
+      };
+    }
+    
+    return result;
+  }
+
+  getTotalReactions(messageId) {
+    const messageReactions = this.reactions.get(messageId) || new Map();
+    let total = 0;
+    
+    for (const [type, users] of messageReactions) {
+      total += users.length;
+    }
+    
+    return total;
+  }
+}
+
+class MessageReplies {
+  constructor() {
+    this.replies = new Map(); // parentMessageId -> replies
+    this.threads = new Map(); // messageId -> thread info
+  }
+
+  async addReply(parentMessageId, replyMessage) {
+    const reply = {
+      id: uuidv4(),
+      parentMessageId,
+      content: replyMessage.content,
+      senderId: replyMessage.senderId,
+      timestamp: new Date(),
+      threadId: this.getThreadId(parentMessageId)
+    };
+
+    // Add to replies
+    const messageReplies = this.replies.get(parentMessageId) || [];
+    messageReplies.push(reply);
+    this.replies.set(parentMessageId, messageReplies);
+
+    // Update thread info
+    const threadInfo = this.threads.get(parentMessageId) || {
+      id: reply.threadId,
+      messageCount: 0,
+      lastActivity: new Date(),
+      participants: new Set()
+    };
+    
+    threadInfo.messageCount++;
+    threadInfo.lastActivity = new Date();
+    threadInfo.participants.add(reply.senderId);
+    this.threads.set(parentMessageId, threadInfo);
+
+    // Notify parent message sender
+    await this.notifyReply(parentMessageId, reply);
+
+    return reply;
+  }
+
+  getReplies(parentMessageId, limit = 50, offset = 0) {
+    const messageReplies = this.replies.get(parentMessageId) || [];
+    return messageReplies
+      .sort((a, b) => a.timestamp - b.timestamp)
+      .slice(offset, offset + limit);
+  }
+
+  getThreadInfo(parentMessageId) {
+    return this.threads.get(parentMessageId);
+  }
+
+  getThreadId(parentMessageId) {
+    const threadInfo = this.threads.get(parentMessageId);
+    return threadInfo ? threadInfo.id : uuidv4();
+  }
+}
+```
+
+### **4. How to handle file attachments in messages?**
+
+**Answer:**
+```javascript
+class MessageAttachments {
+  constructor() {
+    this.attachments = new Map(); // messageId -> attachments
+    this.fileStorage = new FileStorage();
+    this.maxFileSize = 10 * 1024 * 1024; // 10MB
+    this.allowedTypes = ['image', 'video', 'audio', 'document'];
+  }
+
+  async addAttachment(messageId, fileData) {
+    // Validate file
+    await this.validateFile(fileData);
+
+    // Generate unique file ID
+    const fileId = uuidv4();
+    const fileName = `${fileId}_${fileData.originalName}`;
+
+    // Store file
+    const fileUrl = await this.fileStorage.store(fileName, fileData.buffer);
+
+    const attachment = {
+      id: fileId,
+      messageId,
+      fileName: fileData.originalName,
+      fileUrl,
+      fileSize: fileData.size,
+      mimeType: fileData.mimeType,
+      fileType: this.getFileType(fileData.mimeType),
+      uploadedAt: new Date(),
+      metadata: await this.extractMetadata(fileData)
+    };
+
+    // Add to message attachments
+    const messageAttachments = this.attachments.get(messageId) || [];
+    messageAttachments.push(attachment);
+    this.attachments.set(messageId, messageAttachments);
+
+    return attachment;
+  }
+
+  async validateFile(fileData) {
+    // Check file size
+    if (fileData.size > this.maxFileSize) {
+      throw new Error('File size exceeds limit');
+    }
+
+    // Check file type
+    const fileType = this.getFileType(fileData.mimeType);
+    if (!this.allowedTypes.includes(fileType)) {
+      throw new Error('File type not allowed');
+    }
+
+    // Scan for malware
+    const scanResult = await this.scanFile(fileData.buffer);
+    if (scanResult.threats.length > 0) {
+      throw new Error('File contains threats');
+    }
+  }
+
+  getFileType(mimeType) {
+    if (mimeType.startsWith('image/')) return 'image';
+    if (mimeType.startsWith('video/')) return 'video';
+    if (mimeType.startsWith('audio/')) return 'audio';
+    if (mimeType.startsWith('application/')) return 'document';
+    return 'unknown';
+  }
+
+  async extractMetadata(fileData) {
+    const metadata = {
+      size: fileData.size,
+      mimeType: fileData.mimeType,
+      uploadedAt: new Date()
+    };
+
+    // Extract image metadata
+    if (fileData.mimeType.startsWith('image/')) {
+      metadata.imageInfo = await this.extractImageMetadata(fileData.buffer);
+    }
+
+    // Extract video metadata
+    if (fileData.mimeType.startsWith('video/')) {
+      metadata.videoInfo = await this.extractVideoMetadata(fileData.buffer);
+    }
+
+    return metadata;
+  }
+
+  async extractImageMetadata(buffer) {
+    // Use sharp or similar library to extract image metadata
+    return {
+      width: 1920,
+      height: 1080,
+      format: 'jpeg',
+      colorSpace: 'sRGB'
+    };
+  }
+
+  async extractVideoMetadata(buffer) {
+    // Use ffprobe or similar to extract video metadata
+    return {
+      duration: 120,
+      width: 1920,
+      height: 1080,
+      format: 'mp4',
+      bitrate: 5000000
+    };
+  }
+
+  async scanFile(buffer) {
+    // Integrate with antivirus service
+    return {
+      threats: [],
+      scanTime: new Date(),
+      engine: 'clamav'
+    };
+  }
+
+  getAttachments(messageId) {
+    return this.attachments.get(messageId) || [];
+  }
+
+  async deleteAttachment(messageId, attachmentId) {
+    const messageAttachments = this.attachments.get(messageId) || [];
+    const attachmentIndex = messageAttachments.findIndex(a => a.id === attachmentId);
+    
+    if (attachmentIndex === -1) {
+      throw new Error('Attachment not found');
+    }
+
+    const attachment = messageAttachments[attachmentIndex];
+    
+    // Delete from storage
+    await this.fileStorage.delete(attachment.fileUrl);
+    
+    // Remove from message
+    messageAttachments.splice(attachmentIndex, 1);
+    this.attachments.set(messageId, messageAttachments);
+
+    return { deleted: true, attachmentId };
+  }
+}
+```
+
+### **5. How to implement message search and filtering?**
+
+**Answer:**
+```javascript
+class MessageSearch {
+  constructor() {
+    this.searchIndex = new Map(); // userId -> search index
+    this.fullTextSearch = new FullTextSearch();
+    this.filters = new MessageFilters();
+  }
+
+  async indexMessage(message) {
+    const searchableContent = {
+      id: message.id,
+      content: message.content,
+      senderId: message.senderId,
+      recipientId: message.recipientId,
+      timestamp: message.timestamp,
+      messageType: message.type,
+      tags: this.extractTags(message.content)
+    };
+
+    // Index for sender
+    await this.addToIndex(message.senderId, searchableContent);
+    
+    // Index for recipient
+    await this.addToIndex(message.recipientId, searchableContent);
+  }
+
+  async addToIndex(userId, content) {
+    const userIndex = this.searchIndex.get(userId) || new Map();
+    
+    // Add to full-text search
+    await this.fullTextSearch.index(content.id, content.content);
+    
+    // Add to user index
+    userIndex.set(content.id, content);
+    this.searchIndex.set(userId, userIndex);
+  }
+
+  async searchMessages(userId, query, filters = {}) {
+    const userIndex = this.searchIndex.get(userId) || new Map();
+    let results = Array.from(userIndex.values());
+
+    // Apply text search
+    if (query.text) {
+      const textResults = await this.fullTextSearch.search(query.text);
+      const textResultIds = new Set(textResults.map(r => r.id));
+      results = results.filter(msg => textResultIds.has(msg.id));
+    }
+
+    // Apply filters
+    if (filters.senderId) {
+      results = results.filter(msg => msg.senderId === filters.senderId);
+    }
+
+    if (filters.recipientId) {
+      results = results.filter(msg => msg.recipientId === filters.recipientId);
+    }
+
+    if (filters.messageType) {
+      results = results.filter(msg => msg.messageType === filters.messageType);
+    }
+
+    if (filters.dateRange) {
+      results = results.filter(msg => 
+        msg.timestamp >= filters.dateRange.start &&
+        msg.timestamp <= filters.dateRange.end
+      );
+    }
+
+    if (filters.tags) {
+      results = results.filter(msg => 
+        filters.tags.some(tag => msg.tags.includes(tag))
+      );
+    }
+
+    // Sort results
+    results.sort((a, b) => b.timestamp - a.timestamp);
+
+    // Pagination
+    const page = filters.page || 1;
+    const limit = filters.limit || 20;
+    const offset = (page - 1) * limit;
+
+    return {
+      results: results.slice(offset, offset + limit),
+      total: results.length,
+      page,
+      limit,
+      hasMore: offset + limit < results.length
+    };
+  }
+
+  extractTags(content) {
+    // Extract hashtags and mentions
+    const hashtags = content.match(/#\w+/g) || [];
+    const mentions = content.match(/@\w+/g) || [];
+    
+    return [
+      ...hashtags.map(tag => tag.substring(1)),
+      ...mentions.map(mention => mention.substring(1))
+    ];
+  }
+
+  async getConversationHistory(userId1, userId2, limit = 50) {
+    const userIndex = this.searchIndex.get(userId1) || new Map();
+    const results = Array.from(userIndex.values())
+      .filter(msg => 
+        (msg.senderId === userId1 && msg.recipientId === userId2) ||
+        (msg.senderId === userId2 && msg.recipientId === userId1)
+      )
+      .sort((a, b) => a.timestamp - b.timestamp)
+      .slice(-limit);
+
+    return results;
+  }
+
+  async getMessageStats(userId, timeRange) {
+    const userIndex = this.searchIndex.get(userId) || new Map();
+    const messages = Array.from(userIndex.values())
+      .filter(msg => 
+        msg.timestamp >= timeRange.start &&
+        msg.timestamp <= timeRange.end
+      );
+
+    const stats = {
+      totalMessages: messages.length,
+      sentMessages: messages.filter(msg => msg.senderId === userId).length,
+      receivedMessages: messages.filter(msg => msg.recipientId === userId).length,
+      uniqueContacts: new Set(messages.map(msg => 
+        msg.senderId === userId ? msg.recipientId : msg.senderId
+      )).size,
+      messageTypes: this.groupByType(messages),
+      dailyActivity: this.getDailyActivity(messages)
+    };
+
+    return stats;
+  }
+
+  groupByType(messages) {
+    const types = {};
+    messages.forEach(msg => {
+      types[msg.messageType] = (types[msg.messageType] || 0) + 1;
+    });
+    return types;
+  }
+
+  getDailyActivity(messages) {
+    const daily = {};
+    messages.forEach(msg => {
+      const date = msg.timestamp.toISOString().split('T')[0];
+      daily[date] = (daily[date] || 0) + 1;
+    });
+    return daily;
+  }
+}
+
+class FullTextSearch {
+  constructor() {
+    this.index = new Map(); // term -> messageIds
+    this.stopWords = new Set(['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by']);
+  }
+
+  async index(messageId, content) {
+    const terms = this.tokenize(content);
+    
+    terms.forEach(term => {
+      if (!this.index.has(term)) {
+        this.index.set(term, new Set());
+      }
+      this.index.get(term).add(messageId);
+    });
+  }
+
+  async search(query) {
+    const terms = this.tokenize(query);
+    const results = new Map(); // messageId -> score
+
+    terms.forEach(term => {
+      if (this.index.has(term)) {
+        this.index.get(term).forEach(messageId => {
+          results.set(messageId, (results.get(messageId) || 0) + 1);
+        });
+      }
+    });
+
+    // Sort by score
+    return Array.from(results.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(([messageId, score]) => ({ id: messageId, score }));
+  }
+
+  tokenize(text) {
+    return text.toLowerCase()
+      .replace(/[^\w\s]/g, ' ')
+      .split(/\s+/)
+      .filter(term => term.length > 2 && !this.stopWords.has(term));
+  }
+}
+```
