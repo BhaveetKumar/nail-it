@@ -49,6 +49,28 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Redis, Express.js, Multiple algorithms, Distributed systems
 
+### 4. [URL Shortener](./04_UrlShortener.md)
+**Link Management System**
+- URL shortening with Base62 encoding
+- Custom aliases and expiration support
+- Comprehensive analytics and tracking
+- Geographic and device analytics
+- Rate limiting and abuse prevention
+- CDN integration for global distribution
+
+**Key Technologies**: Express.js, Redis, Analytics, Geolocation, Base62 encoding
+
+### 5. [Task Scheduler](./05_TaskScheduler.md)
+**Job Management System**
+- Distributed task scheduling with cron support
+- Multiple worker nodes and load balancing
+- Job priority queues and dependency management
+- Fault tolerance and worker monitoring
+- Real-time job status and performance metrics
+- Comprehensive job history and analytics
+
+**Key Technologies**: Node-cron, Express.js, Worker management, Fault tolerance, Monitoring
+
 ## 🚀 **Common Patterns & Best Practices**
 
 ### Architecture Patterns
