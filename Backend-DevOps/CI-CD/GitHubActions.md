@@ -4,15 +4,117 @@
 
 ## 📚 Concept
 
-GitHub Actions is a CI/CD platform that allows you to automate workflows directly in your GitHub repository. It provides powerful automation capabilities for building, testing, and deploying applications.
+**Detailed Explanation:**
+GitHub Actions is a comprehensive CI/CD platform that enables developers to automate software development workflows directly within GitHub repositories. It provides a powerful, flexible, and scalable solution for building, testing, and deploying applications with minimal configuration overhead.
 
-### Key Features
-- **Workflow Automation**: Define custom workflows with YAML
-- **Event-Driven**: Trigger workflows on various GitHub events
-- **Matrix Builds**: Run jobs across multiple configurations
-- **Secrets Management**: Secure storage of sensitive data
-- **Artifact Management**: Store and share build artifacts
-- **Self-Hosted Runners**: Run workflows on your own infrastructure
+**Core Philosophy:**
+
+- **Event-Driven Automation**: Workflows are triggered by GitHub events (push, pull request, release, etc.)
+- **YAML-Based Configuration**: Simple, declarative workflow definitions
+- **Integrated Ecosystem**: Seamless integration with GitHub's features and third-party services
+- **Scalable Infrastructure**: Runs on GitHub's cloud infrastructure with optional self-hosted runners
+- **Marketplace Integration**: Access to thousands of pre-built actions
+
+**Why GitHub Actions Matters:**
+
+- **Developer Productivity**: Automate repetitive tasks and reduce manual errors
+- **Quality Assurance**: Ensure code quality through automated testing and validation
+- **Deployment Automation**: Streamline deployment processes across multiple environments
+- **Collaboration**: Enable team collaboration through automated workflows
+- **Cost Efficiency**: Pay-per-use model with generous free tier for open source projects
+- **Security**: Built-in security features and compliance capabilities
+
+**Key Features:**
+
+**1. Workflow Automation:**
+
+- **YAML Configuration**: Define workflows using simple YAML syntax
+- **Custom Actions**: Create reusable workflow components
+- **Conditional Logic**: Implement complex branching and conditional execution
+- **Parallel Execution**: Run multiple jobs simultaneously for faster builds
+- **Dependency Management**: Define job dependencies and execution order
+
+**2. Event-Driven Triggers:**
+
+- **Push Events**: Trigger on code pushes to specific branches
+- **Pull Request Events**: Run workflows on PR creation, updates, or merges
+- **Release Events**: Automate release processes and deployments
+- **Scheduled Events**: Run workflows on cron schedules
+- **Webhook Events**: Trigger on external events via webhooks
+- **Manual Triggers**: Allow manual workflow execution
+
+**3. Matrix Builds:**
+
+- **Multi-Platform Testing**: Test across multiple operating systems
+- **Version Matrix**: Test against multiple language versions
+- **Configuration Matrix**: Test different configurations simultaneously
+- **Parallel Execution**: Run matrix jobs in parallel for efficiency
+- **Dynamic Matrix**: Generate matrix configurations dynamically
+
+**4. Secrets Management:**
+
+- **Repository Secrets**: Store sensitive data at repository level
+- **Environment Secrets**: Store secrets specific to deployment environments
+- **Organization Secrets**: Share secrets across multiple repositories
+- **Encrypted Storage**: All secrets are encrypted at rest and in transit
+- **Access Control**: Granular permissions for secret access
+
+**5. Artifact Management:**
+
+- **Build Artifacts**: Store and share build outputs
+- **Dependency Caching**: Cache dependencies for faster builds
+- **Artifact Retention**: Configurable retention policies
+- **Cross-Job Sharing**: Share artifacts between workflow jobs
+- **External Storage**: Integration with cloud storage services
+
+**6. Self-Hosted Runners:**
+
+- **Custom Infrastructure**: Run workflows on your own hardware
+- **Specialized Environments**: Use custom software and configurations
+- **Cost Control**: Reduce costs for high-volume usage
+- **Security Compliance**: Meet specific security and compliance requirements
+- **Performance Optimization**: Optimize for specific workloads
+
+**Discussion Questions & Answers:**
+
+**Q1: How do you design an effective GitHub Actions workflow for a microservices architecture?**
+
+**Answer:** Microservices workflow design:
+
+- **Service-Specific Workflows**: Create separate workflows for each microservice
+- **Shared Actions**: Use reusable actions for common tasks (testing, building, deploying)
+- **Dependency Management**: Implement proper service dependency ordering
+- **Environment Promotion**: Use environment-specific workflows (dev → staging → prod)
+- **Artifact Sharing**: Share common artifacts between services
+- **Monitoring Integration**: Include health checks and monitoring setup
+- **Rollback Capabilities**: Implement automated rollback mechanisms
+- **Security Scanning**: Include security scanning for each service
+
+**Q2: What are the key considerations for optimizing GitHub Actions performance and costs?**
+
+**Answer:** Performance and cost optimization:
+
+- **Caching Strategy**: Implement comprehensive caching for dependencies and build artifacts
+- **Matrix Optimization**: Use matrix builds efficiently to avoid unnecessary jobs
+- **Parallel Execution**: Maximize parallel job execution where possible
+- **Resource Management**: Use appropriate runner types and resource allocation
+- **Build Optimization**: Optimize build processes to reduce execution time
+- **Artifact Management**: Implement smart artifact retention policies
+- **Self-Hosted Runners**: Consider self-hosted runners for high-volume usage
+- **Workflow Efficiency**: Eliminate redundant steps and optimize workflow logic
+
+**Q3: How do you implement security best practices in GitHub Actions workflows?**
+
+**Answer:** Security implementation:
+
+- **Least Privilege**: Use minimal required permissions for workflows and actions
+- **Secret Management**: Store all sensitive data in encrypted secrets
+- **Action Security**: Use verified actions and pin action versions
+- **Environment Protection**: Implement environment protection rules
+- **Dependency Scanning**: Include automated dependency vulnerability scanning
+- **Code Scanning**: Implement static analysis and security scanning
+- **Access Control**: Use proper access controls for workflows and environments
+- **Audit Logging**: Enable comprehensive audit logging for all actions
 
 ## 🏗️ GitHub Actions Architecture
 
@@ -53,11 +155,11 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   release:
-    types: [ published ]
+    types: [published]
 
 env:
   REGISTRY: ghcr.io
@@ -72,126 +174,126 @@ jobs:
       matrix:
         go-version: [1.19, 1.20, 1.21]
         os: [ubuntu-latest, windows-latest, macos-latest]
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: ${{ matrix.go-version }}
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go-version }}
 
-    - name: Cache Go modules
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.cache/go-build
-          ~/go/pkg/mod
-        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-        restore-keys: |
-          ${{ runner.os }}-go-
+      - name: Cache Go modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
 
-    - name: Install dependencies
-      run: go mod download
+      - name: Install dependencies
+        run: go mod download
 
-    - name: Run tests
-      run: |
-        go test -v -race -coverprofile=coverage.out ./...
-        go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
+      - name: Run tests
+        run: |
+          go test -v -race -coverprofile=coverage.out ./...
+          go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
 
-    - name: Run benchmarks
-      run: go test -bench=. -benchmem ./...
+      - name: Run benchmarks
+        run: go test -bench=. -benchmem ./...
 
-    - name: Run linter
-      uses: golangci/golangci-lint-action@v3
-      with:
-        version: latest
-        args: --timeout=5m
+      - name: Run linter
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: latest
+          args: --timeout=5m
 
-    - name: Run security scan
-      uses: securecodewarrior/github-action-add-sarif@v1
-      with:
-        sarif-file: 'gosec-results.sarif'
+      - name: Run security scan
+        uses: securecodewarrior/github-action-add-sarif@v1
+        with:
+          sarif-file: "gosec-results.sarif"
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage.out
-        flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: false
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.out
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
 
-    - name: Upload test results
-      uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: test-results-${{ matrix.go-version }}-${{ matrix.os }}
-        path: |
-          coverage.out
-          test-results.xml
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-results-${{ matrix.go-version }}-${{ matrix.os }}
+          path: |
+            coverage.out
+            test-results.xml
 
   # Security Scanning
   security:
     name: Security Scan
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        scan-type: 'fs'
-        scan-ref: '.'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: "fs"
+          scan-ref: "."
+          format: "sarif"
+          output: "trivy-results.sarif"
 
-    - name: Upload Trivy scan results
-      uses: github/codeql-action/upload-sarif@v2
-      with:
-        sarif_file: 'trivy-results.sarif'
+      - name: Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: "trivy-results.sarif"
 
-    - name: Run Snyk security scan
-      uses: snyk/actions/go@master
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      with:
-        args: --severity-threshold=high
+      - name: Run Snyk security scan
+        uses: snyk/actions/go@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
 
   # Build and Package
   build:
     name: Build Application
     runs-on: ubuntu-latest
     needs: [test, security]
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.21'
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.21"
 
-    - name: Build application
-      run: |
-        go build -ldflags="-s -w -X main.version=${{ github.sha }}" -o app ./cmd/server
+      - name: Build application
+        run: |
+          go build -ldflags="-s -w -X main.version=${{ github.sha }}" -o app ./cmd/server
 
-    - name: Build Docker image
-      run: |
-        docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
-        docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest .
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest .
 
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: build-artifacts
-        path: |
-          app
-          Dockerfile
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: |
+            app
+            Dockerfile
 
   # Docker Registry
   push:
@@ -199,39 +301,39 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Log in to Container Registry
-      uses: docker/login-action@v2
-      with:
-        registry: ${{ env.REGISTRY }}
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Extract metadata
-      id: meta
-      uses: docker/metadata-action@v4
-      with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-        tags: |
-          type=ref,event=branch
-          type=ref,event=pr
-          type=semver,pattern={{version}}
-          type=semver,pattern={{major}}.{{minor}}
-          type=sha,prefix={{branch}}-
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix={{branch}}-
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v4
-      with:
-        context: .
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   # Deploy to Staging
   deploy-staging:
@@ -240,29 +342,29 @@ jobs:
     needs: [build, push]
     if: github.ref == 'refs/heads/develop'
     environment: staging
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-west-2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
 
-    - name: Deploy to EKS
-      run: |
-        aws eks update-kubeconfig --region us-west-2 --name staging-cluster
-        kubectl set image deployment/app-deployment app=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} -n staging
-        kubectl rollout status deployment/app-deployment -n staging
+      - name: Deploy to EKS
+        run: |
+          aws eks update-kubeconfig --region us-west-2 --name staging-cluster
+          kubectl set image deployment/app-deployment app=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} -n staging
+          kubectl rollout status deployment/app-deployment -n staging
 
-    - name: Run smoke tests
-      run: |
-        kubectl get pods -n staging
-        kubectl get services -n staging
-        # Add smoke test commands here
+      - name: Run smoke tests
+        run: |
+          kubectl get pods -n staging
+          kubectl get services -n staging
+          # Add smoke test commands here
 
   # Deploy to Production
   deploy-production:
@@ -271,37 +373,37 @@ jobs:
     needs: [build, push]
     if: github.event_name == 'release'
     environment: production
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-west-2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
 
-    - name: Deploy to EKS
-      run: |
-        aws eks update-kubeconfig --region us-west-2 --name production-cluster
-        kubectl set image deployment/app-deployment app=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }} -n production
-        kubectl rollout status deployment/app-deployment -n production
+      - name: Deploy to EKS
+        run: |
+          aws eks update-kubeconfig --region us-west-2 --name production-cluster
+          kubectl set image deployment/app-deployment app=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }} -n production
+          kubectl rollout status deployment/app-deployment -n production
 
-    - name: Run health checks
-      run: |
-        kubectl get pods -n production
-        kubectl get services -n production
-        # Add health check commands here
+      - name: Run health checks
+        run: |
+          kubectl get pods -n production
+          kubectl get services -n production
+          # Add health check commands here
 
-    - name: Notify deployment
-      uses: 8398a7/action-slack@v3
-      with:
-        status: ${{ job.status }}
-        channel: '#deployments'
-        webhook_url: ${{ secrets.SLACK_WEBHOOK }}
-      if: always()
+      - name: Notify deployment
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          channel: "#deployments"
+          webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+        if: always()
 
   # Cleanup
   cleanup:
@@ -309,27 +411,27 @@ jobs:
     runs-on: ubuntu-latest
     needs: [deploy-staging, deploy-production]
     if: always()
-    
+
     steps:
-    - name: Clean up old artifacts
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            run_id: context.runId,
-          });
-          
-          for (const artifact of artifacts.data.artifacts) {
-            if (artifact.name.includes('test-results') || artifact.name.includes('build-artifacts')) {
-              await github.rest.actions.deleteArtifact({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                artifact_id: artifact.id,
-              });
+      - name: Clean up old artifacts
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId,
+            });
+
+            for (const artifact of artifacts.data.artifacts) {
+              if (artifact.name.includes('test-results') || artifact.name.includes('build-artifacts')) {
+                await github.rest.actions.deleteArtifact({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  artifact_id: artifact.id,
+                });
+              }
             }
-          }
 ```
 
 ### Go Application Workflow
@@ -340,12 +442,12 @@ name: Go Application CI/CD
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 env:
-  GO_VERSION: '1.21'
+  GO_VERSION: "1.21"
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
@@ -356,115 +458,115 @@ jobs:
     strategy:
       matrix:
         go-version: [1.19, 1.20, 1.21]
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: ${{ matrix.go-version }}
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go-version }}
 
-    - name: Cache Go modules
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.cache/go-build
-          ~/go/pkg/mod
-        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-        restore-keys: |
-          ${{ runner.os }}-go-
+      - name: Cache Go modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
 
-    - name: Install dependencies
-      run: go mod download
+      - name: Install dependencies
+        run: go mod download
 
-    - name: Run tests
-      run: |
-        go test -v -race -coverprofile=coverage.out ./...
-        go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
+      - name: Run tests
+        run: |
+          go test -v -race -coverprofile=coverage.out ./...
+          go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
 
-    - name: Run benchmarks
-      run: go test -bench=. -benchmem ./...
+      - name: Run benchmarks
+        run: go test -bench=. -benchmem ./...
 
-    - name: Run linter
-      uses: golangci/golangci-lint-action@v3
-      with:
-        version: latest
-        args: --timeout=5m
+      - name: Run linter
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: latest
+          args: --timeout=5m
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage.out
-        flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: false
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.out
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
 
   build:
     name: Build
     runs-on: ubuntu-latest
     needs: test
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: ${{ env.GO_VERSION }}
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ env.GO_VERSION }}
 
-    - name: Build application
-      run: |
-        go build -ldflags="-s -w -X main.version=${{ github.sha }}" -o app ./cmd/server
+      - name: Build application
+        run: |
+          go build -ldflags="-s -w -X main.version=${{ github.sha }}" -o app ./cmd/server
 
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: build-artifacts
-        path: app
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: app
 
   docker:
     name: Docker Build
     runs-on: ubuntu-latest
     needs: test
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-    - name: Log in to Container Registry
-      uses: docker/login-action@v2
-      with:
-        registry: ${{ env.REGISTRY }}
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Extract metadata
-      id: meta
-      uses: docker/metadata-action@v4
-      with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-        tags: |
-          type=ref,event=branch
-          type=ref,event=pr
-          type=semver,pattern={{version}}
-          type=semver,pattern={{major}}.{{minor}}
-          type=sha,prefix={{branch}}-
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix={{branch}}-
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v4
-      with:
-        context: .
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   deploy:
     name: Deploy
@@ -472,29 +574,29 @@ jobs:
     needs: [build, docker]
     if: github.ref == 'refs/heads/main'
     environment: production
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-west-2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
 
-    - name: Deploy to EKS
-      run: |
-        aws eks update-kubeconfig --region us-west-2 --name production-cluster
-        kubectl set image deployment/app-deployment app=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} -n production
-        kubectl rollout status deployment/app-deployment -n production
+      - name: Deploy to EKS
+        run: |
+          aws eks update-kubeconfig --region us-west-2 --name production-cluster
+          kubectl set image deployment/app-deployment app=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} -n production
+          kubectl rollout status deployment/app-deployment -n production
 
-    - name: Run health checks
-      run: |
-        kubectl get pods -n production
-        kubectl get services -n production
-        # Add health check commands here
+      - name: Run health checks
+        run: |
+          kubectl get pods -n production
+          kubectl get services -n production
+          # Add health check commands here
 ```
 
 ### Node.js Application Workflow
@@ -505,12 +607,12 @@ name: Node.js Application CI/CD
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 env:
-  NODE_VERSION: '18'
+  NODE_VERSION: "18"
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
@@ -521,109 +623,109 @@ jobs:
     strategy:
       matrix:
         node-version: [16, 18, 20]
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Run tests
-      run: |
-        npm test
-        npm run test:coverage
+      - name: Run tests
+        run: |
+          npm test
+          npm run test:coverage
 
-    - name: Run linter
-      run: npm run lint
+      - name: Run linter
+        run: npm run lint
 
-    - name: Run security audit
-      run: npm audit --audit-level=high
+      - name: Run security audit
+        run: npm audit --audit-level=high
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage/lcov.info
-        flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: false
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
 
   build:
     name: Build
     runs-on: ubuntu-latest
     needs: test
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Build application
-      run: npm run build
+      - name: Build application
+        run: npm run build
 
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: build-artifacts
-        path: |
-          dist/
-          package.json
-          package-lock.json
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: |
+            dist/
+            package.json
+            package-lock.json
 
   docker:
     name: Docker Build
     runs-on: ubuntu-latest
     needs: test
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-    - name: Log in to Container Registry
-      uses: docker/login-action@v2
-      with:
-        registry: ${{ env.REGISTRY }}
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Extract metadata
-      id: meta
-      uses: docker/metadata-action@v4
-      with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-        tags: |
-          type=ref,event=branch
-          type=ref,event=pr
-          type=semver,pattern={{version}}
-          type=semver,pattern={{major}}.{{minor}}
-          type=sha,prefix={{branch}}-
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix={{branch}}-
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v4
-      with:
-        context: .
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   deploy:
     name: Deploy
@@ -631,29 +733,29 @@ jobs:
     needs: [build, docker]
     if: github.ref == 'refs/heads/main'
     environment: production
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-west-2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
 
-    - name: Deploy to EKS
-      run: |
-        aws eks update-kubeconfig --region us-west-2 --name production-cluster
-        kubectl set image deployment/app-deployment app=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} -n production
-        kubectl rollout status deployment/app-deployment -n production
+      - name: Deploy to EKS
+        run: |
+          aws eks update-kubeconfig --region us-west-2 --name production-cluster
+          kubectl set image deployment/app-deployment app=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} -n production
+          kubectl rollout status deployment/app-deployment -n production
 
-    - name: Run health checks
-      run: |
-        kubectl get pods -n production
-        kubectl get services -n production
-        # Add health check commands here
+      - name: Run health checks
+        run: |
+          kubectl get pods -n production
+          kubectl get services -n production
+          # Add health check commands here
 ```
 
 ### Python Application Workflow
@@ -664,12 +766,12 @@ name: Python Application CI/CD
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 env:
-  PYTHON_VERSION: '3.11'
+  PYTHON_VERSION: "3.11"
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
@@ -680,126 +782,126 @@ jobs:
     strategy:
       matrix:
         python-version: [3.9, 3.10, 3.11]
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Cache pip dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -r requirements-dev.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
 
-    - name: Run tests
-      run: |
-        pytest --cov=src --cov-report=xml --cov-report=html
+      - name: Run tests
+        run: |
+          pytest --cov=src --cov-report=xml --cov-report=html
 
-    - name: Run linter
-      run: |
-        flake8 src/
-        black --check src/
-        isort --check-only src/
+      - name: Run linter
+        run: |
+          flake8 src/
+          black --check src/
+          isort --check-only src/
 
-    - name: Run type checker
-      run: mypy src/
+      - name: Run type checker
+        run: mypy src/
 
-    - name: Run security scan
-      run: bandit -r src/
+      - name: Run security scan
+        run: bandit -r src/
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage.xml
-        flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: false
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
 
   build:
     name: Build
     runs-on: ubuntu-latest
     needs: test
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: Build package
-      run: |
-        python setup.py sdist bdist_wheel
+      - name: Build package
+        run: |
+          python setup.py sdist bdist_wheel
 
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: build-artifacts
-        path: |
-          dist/
-          *.whl
-          *.tar.gz
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: |
+            dist/
+            *.whl
+            *.tar.gz
 
   docker:
     name: Docker Build
     runs-on: ubuntu-latest
     needs: test
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-    - name: Log in to Container Registry
-      uses: docker/login-action@v2
-      with:
-        registry: ${{ env.REGISTRY }}
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Extract metadata
-      id: meta
-      uses: docker/metadata-action@v4
-      with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-        tags: |
-          type=ref,event=branch
-          type=ref,event=pr
-          type=semver,pattern={{version}}
-          type=semver,pattern={{major}}.{{minor}}
-          type=sha,prefix={{branch}}-
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix={{branch}}-
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v4
-      with:
-        context: .
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   deploy:
     name: Deploy
@@ -807,34 +909,35 @@ jobs:
     needs: [build, docker]
     if: github.ref == 'refs/heads/main'
     environment: production
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-west-2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
 
-    - name: Deploy to EKS
-      run: |
-        aws eks update-kubeconfig --region us-west-2 --name production-cluster
-        kubectl set image deployment/app-deployment app=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} -n production
-        kubectl rollout status deployment/app-deployment -n production
+      - name: Deploy to EKS
+        run: |
+          aws eks update-kubeconfig --region us-west-2 --name production-cluster
+          kubectl set image deployment/app-deployment app=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} -n production
+          kubectl rollout status deployment/app-deployment -n production
 
-    - name: Run health checks
-      run: |
-        kubectl get pods -n production
-        kubectl get services -n production
-        # Add health check commands here
+      - name: Run health checks
+        run: |
+          kubectl get pods -n production
+          kubectl get services -n production
+          # Add health check commands here
 ```
 
 ## 🚀 Best Practices
 
 ### 1. Workflow Organization
+
 ```yaml
 # Organize workflows by purpose
 name: Feature Branch Workflow
@@ -858,6 +961,7 @@ on:
 ```
 
 ### 2. Security Best Practices
+
 ```yaml
 # Use secrets for sensitive data
 - name: Deploy to production
@@ -873,6 +977,7 @@ environment: production
 ```
 
 ### 3. Performance Optimization
+
 ```yaml
 # Use caching for dependencies
 - name: Cache Go modules
@@ -895,18 +1000,21 @@ strategy:
 ## 🏢 Industry Insights
 
 ### GitHub's Actions Usage
+
 - **Open Source**: Public repositories
 - **Enterprise**: Private repositories
 - **Marketplace**: Custom actions
 - **Self-Hosted**: Custom runners
 
 ### Netflix's GitHub Actions Strategy
+
 - **Microservices**: Individual service pipelines
 - **Security**: Automated security scanning
 - **Deployment**: Multi-environment deployment
 - **Monitoring**: Automated monitoring setup
 
 ### Spotify's GitHub Actions Approach
+
 - **Music Processing**: Audio file processing
 - **Data Pipeline**: ETL operations
 - **Real-time Analytics**: User listening data
@@ -915,13 +1023,16 @@ strategy:
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What are GitHub Actions?**
+
    - CI/CD platform
    - Workflow automation
    - Event-driven execution
    - Integrated with GitHub
 
 2. **What are GitHub Actions triggers?**
+
    - Push events
    - Pull request events
    - Release events
@@ -934,7 +1045,9 @@ strategy:
    - Rate limits
 
 ### Intermediate Level
+
 4. **How do you optimize GitHub Actions performance?**
+
    ```yaml
    # Use caching and matrix builds
    - name: Cache dependencies
@@ -942,13 +1055,14 @@ strategy:
      with:
        path: ~/.cache
        key: ${{ runner.os }}-cache-${{ hashFiles('**/lockfile') }}
-   
+
    strategy:
      matrix:
        version: [1.19, 1.20, 1.21]
    ```
 
 5. **How do you handle GitHub Actions secrets?**
+
    - Use repository secrets
    - Use environment secrets
    - Use organization secrets
@@ -961,13 +1075,16 @@ strategy:
    - Use dependency scanning
 
 ### Advanced Level
+
 7. **How do you implement GitHub Actions patterns?**
+
    - Reusable workflows
    - Composite actions
    - Custom actions
    - Workflow templates
 
 8. **How do you handle GitHub Actions scaling?**
+
    - Self-hosted runners
    - Matrix builds
    - Parallel jobs

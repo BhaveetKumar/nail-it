@@ -1,0 +1,189 @@
+server:
+  port: 8080
+  host: "0.0.0.0"
+  read_timeout: 30s
+  write_timeout: 30s
+  idle_timeout: 120s
+
+database:
+  mysql:
+    host: "localhost"
+    port: 3306
+    username: "root"
+    password: "password"
+    database: "composite_db"
+    charset: "utf8mb4"
+    parse_time: true
+    loc: "Local"
+    max_idle_conns: 10
+    max_open_conns: 100
+    conn_max_lifetime: 3600s
+
+  mongodb:
+    uri: "mongodb://localhost:27017"
+    database: "composite_db"
+    timeout: 30s
+    max_pool_size: 100
+    min_pool_size: 10
+
+redis:
+  host: "localhost"
+  port: 6379
+  password: ""
+  db: 0
+  pool_size: 10
+  min_idle_conns: 5
+  dial_timeout: 5s
+  read_timeout: 3s
+  write_timeout: 3s
+
+kafka:
+  brokers:
+    - "localhost:9092"
+  producer:
+    retry_max: 3
+    retry_backoff: 100ms
+    required_acks: 1
+    compression: "snappy"
+  consumer:
+    group_id: "composite-service"
+    auto_offset_reset: "earliest"
+    enable_auto_commit: true
+    auto_commit_interval: 1s
+
+composite:
+  name: "composite-service"
+  version: "1.0.0"
+  description: "Composite Pattern Implementation Service"
+  max_depth: 10
+  max_children: 1000
+  types:
+    - "filesystem"
+    - "menu_system"
+    - "folder"
+    - "file"
+    - "menu"
+
+cache:
+  enabled: true
+  type: "memory"
+  ttl: 5m
+  max_size: 1000
+  cleanup_interval: 10m
+
+message_queue:
+  enabled: true
+  brokers:
+    - "localhost:9092"
+  topics:
+    - "components"
+    - "filesystems"
+    - "menus"
+    - "notifications"
+    - "analytics"
+    - "audit"
+
+websocket:
+  enabled: true
+  port: 8080
+  read_buffer_size: 1024
+  write_buffer_size: 1024
+  handshake_timeout: 10s
+  ping_period: 54s
+  pong_wait: 60s
+  max_message_size: 512
+
+security:
+  enabled: true
+  jwt_secret: "your-secret-key-change-in-production"
+  token_expiry: 24h
+  allowed_origins:
+    - "*"
+  rate_limit_enabled: true
+  rate_limit_requests: 100
+  rate_limit_window: 1m
+
+monitoring:
+  enabled: true
+  port: 9090
+  path: "/metrics"
+  collect_interval: 30s
+
+logging:
+  level: "info"
+  format: "json"
+  output: "stdout"
+  file:
+    enabled: false
+    path: "logs/composite.log"
+    max_size: 100
+    max_backups: 3
+    max_age: 28
+
+health_check:
+  enabled: true
+  interval: 30s
+  timeout: 5s
+  retry_count: 3
+
+metrics:
+  enabled: true
+  port: 9090
+  path: "/metrics"
+  collect_interval: 30s
+
+api:
+  version: "v1"
+  prefix: "/api/v1"
+  timeout: 30s
+  max_request_size: 1048576  # 1MB
+  enable_cors: true
+  enable_compression: true
+  enable_rate_limiting: true
+
+business_logic:
+  component_management:
+    enable_auto_optimization: true
+    enable_statistics_collection: true
+    enable_tree_traversal: true
+    enable_validation: true
+    timeout: 30s
+    retry_count: 3
+
+  filesystem_operations:
+    enable_path_validation: true
+    enable_permission_checking: true
+    enable_size_calculation: true
+    enable_content_management: true
+    max_file_size: 100MB
+    max_path_length: 4096
+
+  menu_operations:
+    enable_url_validation: true
+    enable_icon_management: true
+    enable_ordering: true
+    enable_visibility_control: true
+    max_menu_depth: 5
+    max_menu_items: 100
+
+  performance:
+    enable_connection_pooling: true
+    enable_async_processing: true
+    enable_compression: true
+    enable_encryption: false
+    batch_size: 100
+
+  memory_management:
+    enable_gc_optimization: true
+    enable_memory_monitoring: true
+    enable_cleanup_scheduling: true
+    cleanup_threshold: 0.8
+    max_memory_usage: 512MB
+
+  tree_operations:
+    enable_depth_limiting: true
+    enable_children_limiting: true
+    enable_optimization: true
+    enable_statistics: true
+    max_tree_depth: 10
+    max_children_per_node: 1000
