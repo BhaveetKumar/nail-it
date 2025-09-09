@@ -7,6 +7,7 @@
 Amazon RDS (Relational Database Service) is a managed database service that makes it easy to set up, operate, and scale relational databases in the cloud. It provides cost-efficient, resizable capacity while automating time-consuming administration tasks.
 
 ### Key Features
+
 - **Managed Service**: Automated backups, patching, and monitoring
 - **Multi-AZ Deployment**: High availability and fault tolerance
 - **Read Replicas**: Improved read performance and scalability
@@ -105,7 +106,7 @@ data "aws_subnets" "private" {
     name   = "vpc-id"
     values = [data.aws_vpc.main.id]
   }
-  
+
   filter {
     name   = "tag:Type"
     values = ["private"]
@@ -494,7 +495,7 @@ func (d *Database) UpdateUser(ctx context.Context, id int, name, email string) (
 
 func (d *Database) DeleteUser(ctx context.Context, id int) error {
     query := `DELETE FROM users WHERE id = $1`
-    
+
     result, err := d.db.ExecContext(ctx, query, id)
     if err != nil {
         return fmt.Errorf("failed to delete user: %w", err)
@@ -705,6 +706,7 @@ func main() {
 ## 🚀 Best Practices
 
 ### 1. Database Design
+
 ```sql
 -- Create users table with proper indexing
 CREATE TABLE users (
@@ -721,6 +723,7 @@ CREATE INDEX idx_users_created_at ON users(created_at);
 ```
 
 ### 2. Connection Pooling
+
 ```go
 // Configure connection pool
 db.SetMaxOpenConns(25)
@@ -729,6 +732,7 @@ db.SetConnMaxLifetime(5 * time.Minute)
 ```
 
 ### 3. Monitoring
+
 ```hcl
 # CloudWatch alarms for RDS
 resource "aws_cloudwatch_metric_alarm" "database_cpu" {
@@ -743,12 +747,14 @@ resource "aws_cloudwatch_metric_alarm" "database_cpu" {
 ## 🏢 Industry Insights
 
 ### RDS Usage Patterns
+
 - **Multi-AZ Deployment**: High availability for production workloads
 - **Read Replicas**: Scale read operations across multiple instances
 - **Automated Backups**: Point-in-time recovery and automated snapshots
 - **Performance Insights**: Monitor and optimize database performance
 
 ### Enterprise RDS Strategy
+
 - **Database Migration**: Use AWS DMS for database migration
 - **Cross-Region Replication**: Global read replicas for disaster recovery
 - **Security**: Encryption at rest and in transit, VPC security groups
@@ -757,12 +763,15 @@ resource "aws_cloudwatch_metric_alarm" "database_cpu" {
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is AWS RDS?**
+
    - Managed relational database service
    - Automated backups and patching
    - Multi-AZ deployment for high availability
 
 2. **What database engines does RDS support?**
+
    - MySQL, PostgreSQL, MariaDB
    - Oracle, SQL Server
    - Aurora (MySQL and PostgreSQL compatible)
@@ -774,13 +783,16 @@ resource "aws_cloudwatch_metric_alarm" "database_cpu" {
    - Scalability
 
 ### Intermediate Level
+
 4. **How do you implement high availability with RDS?**
+
    - Multi-AZ deployment
    - Read replicas
    - Automated failover
    - Cross-region replication
 
 5. **How do you optimize RDS performance?**
+
    - Read replicas for read scaling
    - Performance Insights
    - Proper indexing
@@ -793,13 +805,16 @@ resource "aws_cloudwatch_metric_alarm" "database_cpu" {
    - Network isolation
 
 ### Advanced Level
+
 7. **How do you implement database migration to RDS?**
+
    - AWS DMS for data migration
    - Schema conversion tools
    - Blue-green deployment
    - Rollback strategies
 
 8. **How do you handle RDS scaling?**
+
    - Vertical scaling (instance class)
    - Horizontal scaling (read replicas)
    - Storage scaling

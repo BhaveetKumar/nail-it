@@ -7,6 +7,7 @@
 AWS Identity and Access Management (IAM) is a web service that helps you securely control access to AWS resources. You use IAM to control who is authenticated (signed in) and authorized (has permissions) to use resources.
 
 ### Key Features
+
 - **Users and Groups**: Identity management
 - **Roles**: Temporary access credentials
 - **Policies**: Permission management
@@ -807,7 +808,7 @@ func setupRoutes(iamService *IAMService) *gin.Engine {
         // Get user policies
         api.GET("/users/:username/policies", func(c *gin.Context) {
             username := c.Param("username")
-            
+
             policies, err := iamService.GetUserPolicies(c.Request.Context(), username)
             if err != nil {
                 log.Printf("Error getting user policies: %v", err)
@@ -833,7 +834,7 @@ func setupRoutes(iamService *IAMService) *gin.Engine {
         // Get group policies
         api.GET("/groups/:groupname/policies", func(c *gin.Context) {
             groupname := c.Param("groupname")
-            
+
             policies, err := iamService.GetGroupPolicies(c.Request.Context(), groupname)
             if err != nil {
                 log.Printf("Error getting group policies: %v", err)
@@ -859,7 +860,7 @@ func setupRoutes(iamService *IAMService) *gin.Engine {
         // Get role policies
         api.GET("/roles/:rolename/policies", func(c *gin.Context) {
             rolename := c.Param("rolename")
-            
+
             policies, err := iamService.GetRolePolicies(c.Request.Context(), rolename)
             if err != nil {
                 log.Printf("Error getting role policies: %v", err)
@@ -1000,6 +1001,7 @@ func main() {
 ## 🚀 Best Practices
 
 ### 1. Principle of Least Privilege
+
 ```json
 {
   "Version": "2012-10-17",
@@ -1014,6 +1016,7 @@ func main() {
 ```
 
 ### 2. MFA Enforcement
+
 ```json
 {
   "Version": "2012-10-17",
@@ -1033,6 +1036,7 @@ func main() {
 ```
 
 ### 3. Cross-Account Access
+
 ```json
 {
   "Version": "2012-10-17",
@@ -1056,12 +1060,14 @@ func main() {
 ## 🏢 Industry Insights
 
 ### IAM Usage Patterns
+
 - **Role-Based Access Control**: Assign permissions to roles, not users
 - **Temporary Credentials**: Use STS for temporary access
 - **Cross-Account Access**: Secure access between AWS accounts
 - **Federation**: Integrate with external identity providers
 
 ### Enterprise IAM Strategy
+
 - **Centralized Identity Management**: Single source of truth
 - **Automated Provisioning**: Automated user lifecycle management
 - **Audit and Compliance**: Comprehensive logging and monitoring
@@ -1070,12 +1076,15 @@ func main() {
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is AWS IAM?**
+
    - Identity and Access Management service
    - User and permission management
    - Security for AWS resources
 
 2. **What are IAM users, groups, and roles?**
+
    - Users: Individual identities
    - Groups: Collections of users
    - Roles: Temporary access credentials
@@ -1086,12 +1095,15 @@ func main() {
    - Allow or deny access to resources
 
 ### Intermediate Level
+
 4. **How do you implement least privilege access?**
+
    - Grant minimum required permissions
    - Regular access reviews
    - Principle of least privilege
 
 5. **How do you handle cross-account access?**
+
    - Cross-account roles
    - External ID for additional security
    - Trust relationships
@@ -1102,12 +1114,15 @@ func main() {
    - MFA enforcement policies
 
 ### Advanced Level
+
 7. **How do you implement identity federation?**
+
    - SAML 2.0 federation
    - OpenID Connect
    - Custom identity brokers
 
 8. **How do you handle IAM at scale?**
+
    - Automated provisioning
    - Role-based access control
    - Centralized identity management

@@ -7,6 +7,7 @@
 BigQuery is Google Cloud's fully managed, serverless data warehouse that enables super-fast SQL queries using the processing power of Google's infrastructure. It's designed to handle petabyte-scale data and provides real-time analytics capabilities.
 
 ### Key Features
+
 - **Serverless**: No infrastructure management required
 - **Scalability**: Handle petabyte-scale data
 - **Real-time Analytics**: Stream data and query in real-time
@@ -454,9 +455,9 @@ resource "google_bigquery_data_transfer_config" "daily_analytics" {
       COUNT(DISTINCT user_id) as metric_value
     FROM `${var.project_id}.${google_bigquery_dataset.main.dataset_id}.user_events`
     WHERE DATE(event_timestamp) = CURRENT_DATE() - 1
-    
+
     UNION ALL
-    
+
     SELECT
       CURRENT_DATE() as report_date,
       'revenue_metrics' as metric_type,
@@ -592,7 +593,7 @@ func NewBigQueryService(projectID, datasetID string) (*BigQueryService, error) {
 
 func (bq *BigQueryService) InsertUserEvent(ctx context.Context, event UserEvent) error {
     table := bq.client.Dataset(bq.datasetID).Table("user_events")
-    
+
     inserter := table.Inserter()
     if err := inserter.Put(ctx, event); err != nil {
         return fmt.Errorf("failed to insert user event: %w", err)
@@ -603,7 +604,7 @@ func (bq *BigQueryService) InsertUserEvent(ctx context.Context, event UserEvent)
 
 func (bq *BigQueryService) InsertSalesData(ctx context.Context, sales SalesData) error {
     table := bq.client.Dataset(bq.datasetID).Table("sales_data")
-    
+
     inserter := table.Inserter()
     if err := inserter.Put(ctx, sales); err != nil {
         return fmt.Errorf("failed to insert sales data: %w", err)
@@ -991,6 +992,7 @@ func main() {
 ## 🚀 Best Practices
 
 ### 1. Table Design
+
 ```sql
 -- Use partitioning for large tables
 CREATE TABLE user_events (
@@ -1003,6 +1005,7 @@ CLUSTER BY user_id, event_type;
 ```
 
 ### 2. Query Optimization
+
 ```sql
 -- Use clustering for better performance
 SELECT *
@@ -1013,6 +1016,7 @@ WHERE category = 'electronics'
 ```
 
 ### 3. Cost Optimization
+
 ```sql
 -- Use approximate functions for large datasets
 SELECT APPROX_COUNT_DISTINCT(user_id) as unique_users
@@ -1023,12 +1027,14 @@ WHERE event_timestamp >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 30 DAY);
 ## 🏢 Industry Insights
 
 ### BigQuery Usage Patterns
+
 - **Data Warehousing**: Centralized data storage and analysis
 - **Real-time Analytics**: Stream processing and real-time insights
 - **Machine Learning**: Built-in ML capabilities and model training
 - **Business Intelligence**: Dashboards and reporting
 
 ### Enterprise BigQuery Strategy
+
 - **Data Governance**: Access control and data lineage
 - **Cost Management**: Query optimization and slot management
 - **Security**: Encryption and compliance
@@ -1037,12 +1043,15 @@ WHERE event_timestamp >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 30 DAY);
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is BigQuery?**
+
    - Serverless data warehouse
    - Petabyte-scale analytics
    - Real-time querying
 
 2. **What are the benefits of BigQuery?**
+
    - No infrastructure management
    - Automatic scaling
    - Built-in ML capabilities
@@ -1054,13 +1063,16 @@ WHERE event_timestamp >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 30 DAY);
    - Views: Virtual tables
 
 ### Intermediate Level
+
 4. **How do you optimize BigQuery queries?**
+
    - Use partitioning and clustering
    - Optimize SELECT statements
    - Use approximate functions
    - Cache results
 
 5. **How do you handle BigQuery costs?**
+
    - Use slot commitments
    - Optimize queries
    - Use streaming inserts efficiently
@@ -1073,13 +1085,16 @@ WHERE event_timestamp >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 30 DAY);
    - Audit logging
 
 ### Advanced Level
+
 7. **How do you implement real-time analytics with BigQuery?**
+
    - Streaming inserts
    - Real-time views
    - Dataflow integration
    - Pub/Sub integration
 
 8. **How do you use BigQuery ML?**
+
    - Model training
    - Model evaluation
    - Model deployment

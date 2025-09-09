@@ -7,6 +7,7 @@
 Amazon Elastic Kubernetes Service (EKS) is a managed Kubernetes service that makes it easy to run Kubernetes on AWS without needing to install and operate your own Kubernetes control plane or nodes. EKS runs the Kubernetes control plane across multiple AWS availability zones to ensure high availability.
 
 ### Key Features
+
 - **Managed Control Plane**: AWS manages the Kubernetes control plane
 - **High Availability**: Multi-AZ deployment
 - **Security**: IAM integration and VPC networking
@@ -819,32 +820,32 @@ spec:
         app: web-app
     spec:
       containers:
-      - name: web-app
-        image: nginx:alpine
-        ports:
-        - containerPort: 80
-        env:
-        - name: ENVIRONMENT
-          value: "production"
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "100m"
-          limits:
-            memory: "256Mi"
-            cpu: "200m"
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 5
+        - name: web-app
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+          env:
+            - name: ENVIRONMENT
+              value: "production"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
 ---
 apiVersion: v1
 kind: Service
@@ -855,9 +856,9 @@ spec:
   selector:
     app: web-app
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
+    - protocol: TCP
+      port: 80
+      targetPort: 80
   type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
@@ -872,25 +873,26 @@ metadata:
     alb.ingress.kubernetes.io/load-balancer-name: web-app-alb
 spec:
   rules:
-  - host: web-app.example.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: web-app-service
-            port:
-              number: 80
+    - host: web-app.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web-app-service
+                port:
+                  number: 80
 ```
 
 ## 🚀 Best Practices
 
 ### 1. Cluster Security
+
 ```hcl
 # Enable cluster logging
 enabled_cluster_log_types = [
-  "api", "audit", "authenticator", 
+  "api", "audit", "authenticator",
   "controllerManager", "scheduler"
 ]
 
@@ -900,6 +902,7 @@ endpoint_public_access  = false
 ```
 
 ### 2. Node Group Configuration
+
 ```hcl
 # Use multiple instance types
 instance_types = ["t3.medium", "t3.large", "t3.xlarge"]
@@ -913,6 +916,7 @@ scaling_config {
 ```
 
 ### 3. Networking
+
 ```hcl
 # Use private subnets for worker nodes
 subnet_ids = aws_subnet.private[*].id
@@ -927,12 +931,14 @@ resource "aws_eks_addon" "vpc_cni" {
 ## 🏢 Industry Insights
 
 ### EKS Usage Patterns
+
 - **Managed Control Plane**: AWS manages Kubernetes control plane
 - **Worker Node Management**: Use managed node groups or self-managed nodes
 - **Add-ons**: VPC CNI, CoreDNS, kube-proxy, EBS CSI driver
 - **Load Balancing**: AWS Load Balancer Controller for ALB/NLB
 
 ### Enterprise EKS Strategy
+
 - **Multi-AZ Deployment**: High availability across availability zones
 - **Security**: IAM integration, VPC networking, encryption
 - **Monitoring**: CloudWatch, Prometheus, Grafana
@@ -941,12 +947,15 @@ resource "aws_eks_addon" "vpc_cni" {
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is AWS EKS?**
+
    - Managed Kubernetes service
    - AWS manages control plane
    - High availability and security
 
 2. **What are the benefits of EKS?**
+
    - Managed control plane
    - High availability
    - Security integration
@@ -959,13 +968,16 @@ resource "aws_eks_addon" "vpc_cni" {
    - EBS CSI driver for storage
 
 ### Intermediate Level
+
 4. **How do you secure an EKS cluster?**
+
    - IAM integration
    - VPC networking
    - Pod security policies
    - Network policies
 
 5. **How do you implement load balancing with EKS?**
+
    - AWS Load Balancer Controller
    - Application Load Balancer
    - Network Load Balancer
@@ -978,13 +990,16 @@ resource "aws_eks_addon" "vpc_cni" {
    - Custom metrics
 
 ### Advanced Level
+
 7. **How do you implement multi-tenancy with EKS?**
+
    - Namespace isolation
    - Resource quotas
    - Network policies
    - RBAC
 
 8. **How do you handle EKS upgrades?**
+
    - Control plane upgrades
    - Node group updates
    - Add-on updates

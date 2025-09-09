@@ -7,6 +7,7 @@
 AWS CloudFormation is a service that helps you model and set up AWS resources so you can spend less time managing those resources and more time focusing on your applications. You create a template that describes all the AWS resources you want, and CloudFormation takes care of provisioning and configuring those resources for you.
 
 ### Key Features
+
 - **Infrastructure as Code**: Declarative resource management
 - **Template-based**: JSON or YAML templates
 - **Stack Management**: Group related resources
@@ -48,8 +49,8 @@ AWS CloudFormation is a service that helps you model and set up AWS resources so
 
 ```yaml
 # infrastructure.yaml
-AWSTemplateFormatVersion: '2010-09-09'
-Description: 'Complete web application infrastructure with RDS, EC2, and ALB'
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Complete web application infrastructure with RDS, EC2, and ALB"
 
 Parameters:
   Environment:
@@ -95,7 +96,7 @@ Resources:
       EnableDnsSupport: true
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-vpc'
+          Value: !Sub "${Environment}-vpc"
         - Key: Environment
           Value: !Ref Environment
 
@@ -104,7 +105,7 @@ Resources:
     Properties:
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-igw'
+          Value: !Sub "${Environment}-igw"
         - Key: Environment
           Value: !Ref Environment
 
@@ -119,12 +120,12 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
-      AvailabilityZone: !Select [0, !GetAZs '']
+      AvailabilityZone: !Select [0, !GetAZs ""]
       CidrBlock: 10.0.1.0/24
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-public-subnet-1'
+          Value: !Sub "${Environment}-public-subnet-1"
         - Key: Environment
           Value: !Ref Environment
 
@@ -132,12 +133,12 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
-      AvailabilityZone: !Select [1, !GetAZs '']
+      AvailabilityZone: !Select [1, !GetAZs ""]
       CidrBlock: 10.0.2.0/24
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-public-subnet-2'
+          Value: !Sub "${Environment}-public-subnet-2"
         - Key: Environment
           Value: !Ref Environment
 
@@ -146,11 +147,11 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
-      AvailabilityZone: !Select [0, !GetAZs '']
+      AvailabilityZone: !Select [0, !GetAZs ""]
       CidrBlock: 10.0.3.0/24
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-private-subnet-1'
+          Value: !Sub "${Environment}-private-subnet-1"
         - Key: Environment
           Value: !Ref Environment
 
@@ -158,11 +159,11 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
-      AvailabilityZone: !Select [1, !GetAZs '']
+      AvailabilityZone: !Select [1, !GetAZs ""]
       CidrBlock: 10.0.4.0/24
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-private-subnet-2'
+          Value: !Sub "${Environment}-private-subnet-2"
         - Key: Environment
           Value: !Ref Environment
 
@@ -173,7 +174,7 @@ Resources:
       VpcId: !Ref VPC
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-public-rt'
+          Value: !Sub "${Environment}-public-rt"
         - Key: Environment
           Value: !Ref Environment
 
@@ -203,7 +204,7 @@ Resources:
       VpcId: !Ref VPC
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-private-rt'
+          Value: !Sub "${Environment}-private-rt"
         - Key: Environment
           Value: !Ref Environment
 
@@ -223,7 +224,7 @@ Resources:
   WebServerSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: !Sub '${Environment}-web-sg'
+      GroupName: !Sub "${Environment}-web-sg"
       GroupDescription: Security group for web servers
       VpcId: !Ref VPC
       SecurityGroupIngress:
@@ -241,14 +242,14 @@ Resources:
           CidrIp: 0.0.0.0/0
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-web-sg'
+          Value: !Sub "${Environment}-web-sg"
         - Key: Environment
           Value: !Ref Environment
 
   LoadBalancerSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: !Sub '${Environment}-alb-sg'
+      GroupName: !Sub "${Environment}-alb-sg"
       GroupDescription: Security group for Application Load Balancer
       VpcId: !Ref VPC
       SecurityGroupIngress:
@@ -262,14 +263,14 @@ Resources:
           CidrIp: 0.0.0.0/0
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-alb-sg'
+          Value: !Sub "${Environment}-alb-sg"
         - Key: Environment
           Value: !Ref Environment
 
   DatabaseSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: !Sub '${Environment}-db-sg'
+      GroupName: !Sub "${Environment}-db-sg"
       GroupDescription: Security group for database
       VpcId: !Ref VPC
       SecurityGroupIngress:
@@ -279,7 +280,7 @@ Resources:
           SourceSecurityGroupId: !Ref WebServerSecurityGroup
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-db-sg'
+          Value: !Sub "${Environment}-db-sg"
         - Key: Environment
           Value: !Ref Environment
 
@@ -287,7 +288,7 @@ Resources:
   ApplicationLoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
-      Name: !Sub '${Environment}-alb'
+      Name: !Sub "${Environment}-alb"
       Scheme: internet-facing
       Type: application
       Subnets:
@@ -297,7 +298,7 @@ Resources:
         - !Ref LoadBalancerSecurityGroup
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-alb'
+          Value: !Sub "${Environment}-alb"
         - Key: Environment
           Value: !Ref Environment
 
@@ -305,7 +306,7 @@ Resources:
   TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: !Sub '${Environment}-tg'
+      Name: !Sub "${Environment}-tg"
       Port: 80
       Protocol: HTTP
       VpcId: !Ref VPC
@@ -317,7 +318,7 @@ Resources:
       UnhealthyThresholdCount: 3
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-tg'
+          Value: !Sub "${Environment}-tg"
         - Key: Environment
           Value: !Ref Environment
 
@@ -336,9 +337,9 @@ Resources:
   LaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
     Properties:
-      LaunchTemplateName: !Sub '${Environment}-lt'
+      LaunchTemplateName: !Sub "${Environment}-lt"
       LaunchTemplateData:
-        ImageId: ami-0c02fb55956c7d316  # Amazon Linux 2 AMI
+        ImageId: ami-0c02fb55956c7d316 # Amazon Linux 2 AMI
         InstanceType: !Ref InstanceType
         KeyName: !Ref KeyPairName
         SecurityGroupIds:
@@ -351,15 +352,15 @@ Resources:
             systemctl start docker
             systemctl enable docker
             usermod -a -G docker ec2-user
-            
+
             # Install Docker Compose
             curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
             chmod +x /usr/local/bin/docker-compose
-            
+
             # Create application directory
             mkdir -p /opt/app
             cd /opt/app
-            
+
             # Create docker-compose.yml
             cat > docker-compose.yml << 'EOF'
             version: '3.8'
@@ -372,7 +373,7 @@ Resources:
                   - ./nginx.conf:/etc/nginx/nginx.conf
                 restart: unless-stopped
             EOF
-            
+
             # Create nginx configuration
             cat > nginx.conf << 'EOF'
             events {
@@ -392,14 +393,14 @@ Resources:
                 }
             }
             EOF
-            
+
             # Start the application
             docker-compose up -d
         TagSpecifications:
           - ResourceType: instance
             Tags:
               - Key: Name
-                Value: !Sub '${Environment}-instance'
+                Value: !Sub "${Environment}-instance"
               - Key: Environment
                 Value: !Ref Environment
 
@@ -407,7 +408,7 @@ Resources:
   AutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
-      AutoScalingGroupName: !Sub '${Environment}-asg'
+      AutoScalingGroupName: !Sub "${Environment}-asg"
       VPCZoneIdentifier:
         - !Ref PrivateSubnet1
         - !Ref PrivateSubnet2
@@ -423,7 +424,7 @@ Resources:
       HealthCheckGracePeriod: 300
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-asg'
+          Value: !Sub "${Environment}-asg"
           PropagateAtLaunch: true
         - Key: Environment
           Value: !Ref Environment
@@ -450,7 +451,7 @@ Resources:
   CPUAlarmHigh:
     Type: AWS::CloudWatch::Alarm
     Properties:
-      AlarmName: !Sub '${Environment}-cpu-high'
+      AlarmName: !Sub "${Environment}-cpu-high"
       AlarmDescription: Alarm when CPU exceeds 70%
       MetricName: CPUUtilization
       Namespace: AWS/EC2
@@ -468,7 +469,7 @@ Resources:
   CPUAlarmLow:
     Type: AWS::CloudWatch::Alarm
     Properties:
-      AlarmName: !Sub '${Environment}-cpu-low'
+      AlarmName: !Sub "${Environment}-cpu-low"
       AlarmDescription: Alarm when CPU falls below 20%
       MetricName: CPUUtilization
       Namespace: AWS/EC2
@@ -487,14 +488,14 @@ Resources:
   DBSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
     Properties:
-      DBSubnetGroupName: !Sub '${Environment}-db-subnet-group'
+      DBSubnetGroupName: !Sub "${Environment}-db-subnet-group"
       DBSubnetGroupDescription: Subnet group for RDS database
       SubnetIds:
         - !Ref PrivateSubnet1
         - !Ref PrivateSubnet2
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-db-subnet-group'
+          Value: !Sub "${Environment}-db-subnet-group"
         - Key: Environment
           Value: !Ref Environment
 
@@ -502,11 +503,11 @@ Resources:
   Database:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBInstanceIdentifier: !Sub '${Environment}-database'
+      DBInstanceIdentifier: !Sub "${Environment}-database"
       DBName: myapp
       DBInstanceClass: !Ref DBInstanceClass
       Engine: postgres
-      EngineVersion: '14.7'
+      EngineVersion: "14.7"
       MasterUsername: admin
       MasterUserPassword: !Ref DBPassword
       AllocatedStorage: 20
@@ -517,13 +518,13 @@ Resources:
         - !Ref DatabaseSecurityGroup
       DBSubnetGroupName: !Ref DBSubnetGroup
       BackupRetentionPeriod: 7
-      BackupWindow: '03:00-04:00'
-      MaintenanceWindow: 'sun:04:00-sun:05:00'
+      BackupWindow: "03:00-04:00"
+      MaintenanceWindow: "sun:04:00-sun:05:00"
       MultiAZ: !If [IsProduction, true, false]
       DeletionProtection: !If [IsProduction, true, false]
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-database'
+          Value: !Sub "${Environment}-database"
         - Key: Environment
           Value: !Ref Environment
 
@@ -531,7 +532,7 @@ Resources:
   LogsBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub '${Environment}-app-logs-${AWS::AccountId}'
+      BucketName: !Sub "${Environment}-app-logs-${AWS::AccountId}"
       VersioningConfiguration:
         Status: Enabled
       LifecycleConfiguration:
@@ -546,7 +547,7 @@ Resources:
         RestrictPublicBuckets: true
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-app-logs'
+          Value: !Sub "${Environment}-app-logs"
         - Key: Environment
           Value: !Ref Environment
 
@@ -554,9 +555,9 @@ Resources:
   EC2Role:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub '${Environment}-ec2-role'
+      RoleName: !Sub "${Environment}-ec2-role"
       AssumeRolePolicyDocument:
-        Version: '2012-10-17'
+        Version: "2012-10-17"
         Statement:
           - Effect: Allow
             Principal:
@@ -567,7 +568,7 @@ Resources:
         - arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
       Tags:
         - Key: Name
-          Value: !Sub '${Environment}-ec2-role'
+          Value: !Sub "${Environment}-ec2-role"
         - Key: Environment
           Value: !Ref Environment
 
@@ -583,31 +584,31 @@ Outputs:
     Description: VPC ID
     Value: !Ref VPC
     Export:
-      Name: !Sub '${Environment}-VPC-ID'
+      Name: !Sub "${Environment}-VPC-ID"
 
   LoadBalancerDNS:
     Description: Application Load Balancer DNS name
     Value: !GetAtt ApplicationLoadBalancer.DNSName
     Export:
-      Name: !Sub '${Environment}-ALB-DNS'
+      Name: !Sub "${Environment}-ALB-DNS"
 
   DatabaseEndpoint:
     Description: RDS instance endpoint
     Value: !GetAtt Database.Endpoint.Address
     Export:
-      Name: !Sub '${Environment}-DB-Endpoint'
+      Name: !Sub "${Environment}-DB-Endpoint"
 
   LogsBucketName:
     Description: S3 bucket for application logs
     Value: !Ref LogsBucket
     Export:
-      Name: !Sub '${Environment}-Logs-Bucket'
+      Name: !Sub "${Environment}-Logs-Bucket"
 
   AutoScalingGroupName:
     Description: Auto Scaling Group name
     Value: !Ref AutoScalingGroup
     Export:
-      Name: !Sub '${Environment}-ASG-Name'
+      Name: !Sub "${Environment}-ASG-Name"
 ```
 
 ### CloudFormation Deployment Script
@@ -672,11 +673,11 @@ fi
 print_status "Checking if stack exists..."
 if aws cloudformation describe-stacks --stack-name $STACK_NAME --region $REGION &> /dev/null; then
     print_warning "Stack $STACK_NAME already exists. Updating..."
-    
+
     # Create change set
     CHANGE_SET_NAME="update-$(date +%Y%m%d-%H%M%S)"
     print_status "Creating change set: $CHANGE_SET_NAME"
-    
+
     aws cloudformation create-change-set \
         --stack-name $STACK_NAME \
         --change-set-name $CHANGE_SET_NAME \
@@ -684,21 +685,21 @@ if aws cloudformation describe-stacks --stack-name $STACK_NAME --region $REGION 
         --parameters file://$PARAMETERS_FILE \
         --capabilities CAPABILITY_IAM \
         --region $REGION
-    
+
     # Wait for change set creation
     print_status "Waiting for change set creation..."
     aws cloudformation wait change-set-create-complete \
         --stack-name $STACK_NAME \
         --change-set-name $CHANGE_SET_NAME \
         --region $REGION
-    
+
     # Describe change set
     print_status "Change set created. Reviewing changes..."
     aws cloudformation describe-change-set \
         --stack-name $STACK_NAME \
         --change-set-name $CHANGE_SET_NAME \
         --region $REGION
-    
+
     # Ask for confirmation
     read -p "Do you want to execute the change set? (y/n): " -n 1 -r
     echo
@@ -708,13 +709,13 @@ if aws cloudformation describe-stacks --stack-name $STACK_NAME --region $REGION 
             --stack-name $STACK_NAME \
             --change-set-name $CHANGE_SET_NAME \
             --region $REGION
-        
+
         # Wait for stack update
         print_status "Waiting for stack update to complete..."
         aws cloudformation wait stack-update-complete \
             --stack-name $STACK_NAME \
             --region $REGION
-        
+
         print_status "Stack update completed successfully!"
     else
         print_warning "Change set execution cancelled."
@@ -726,7 +727,7 @@ if aws cloudformation describe-stacks --stack-name $STACK_NAME --region $REGION 
     fi
 else
     print_status "Stack $STACK_NAME does not exist. Creating new stack..."
-    
+
     # Create stack
     aws cloudformation create-stack \
         --stack-name $STACK_NAME \
@@ -734,13 +735,13 @@ else
         --parameters file://$PARAMETERS_FILE \
         --capabilities CAPABILITY_IAM \
         --region $REGION
-    
+
     # Wait for stack creation
     print_status "Waiting for stack creation to complete..."
     aws cloudformation wait stack-create-complete \
         --stack-name $STACK_NAME \
         --region $REGION
-    
+
     print_status "Stack creation completed successfully!"
 fi
 
@@ -772,6 +773,7 @@ print_status "Deployment completed successfully!"
 ## 🚀 Best Practices
 
 ### 1. Template Organization
+
 ```yaml
 # Use conditions for environment-specific resources
 Conditions:
@@ -783,6 +785,7 @@ MultiAZ: !If [IsProduction, true, false]
 ```
 
 ### 2. Parameter Validation
+
 ```yaml
 Parameters:
   InstanceType:
@@ -793,24 +796,27 @@ Parameters:
 ```
 
 ### 3. Outputs and Exports
+
 ```yaml
 Outputs:
   VPCId:
     Description: VPC ID
     Value: !Ref VPC
     Export:
-      Name: !Sub '${Environment}-VPC-ID'
+      Name: !Sub "${Environment}-VPC-ID"
 ```
 
 ## 🏢 Industry Insights
 
 ### CloudFormation Usage Patterns
+
 - **Infrastructure as Code**: Version control for infrastructure
 - **Stack Management**: Group related resources
 - **Change Sets**: Preview changes before execution
 - **Nested Stacks**: Modular template organization
 
 ### Enterprise CloudFormation Strategy
+
 - **Template Validation**: Automated template validation
 - **Stack Policies**: Resource protection policies
 - **Cross-Stack References**: Share resources between stacks
@@ -819,12 +825,15 @@ Outputs:
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is AWS CloudFormation?**
+
    - Infrastructure as Code service
    - Declarative resource management
    - Template-based provisioning
 
 2. **What are CloudFormation templates?**
+
    - JSON or YAML files
    - Resource definitions
    - Parameter and output specifications
@@ -836,12 +845,15 @@ Outputs:
    - Cost tracking
 
 ### Intermediate Level
+
 4. **How do you handle dependencies in CloudFormation?**
+
    - Automatic dependency resolution
    - DependsOn attribute
    - Reference-based dependencies
 
 5. **How do you implement change management with CloudFormation?**
+
    - Change sets
    - Stack policies
    - Rollback on failure
@@ -852,12 +864,15 @@ Outputs:
    - Template modules
 
 ### Advanced Level
+
 7. **How do you implement CI/CD with CloudFormation?**
+
    - Automated deployment pipelines
    - Template validation
    - Change set automation
 
 8. **How do you handle secrets in CloudFormation?**
+
    - AWS Systems Manager Parameter Store
    - AWS Secrets Manager
    - NoEcho parameters
