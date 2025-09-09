@@ -31,8 +31,8 @@ Design and implement a notification service that can send notifications via mult
 ### **Node.js Implementation**
 
 ```javascript
-const express = require('express');
-const { v4: uuidv4 } = require('uuid');
+const express = require("express");
+const { v4: uuidv4 } = require("uuid");
 
 class NotificationService {
   constructor() {
@@ -42,7 +42,7 @@ class NotificationService {
     this.channels = {
       email: new EmailChannel(),
       sms: new SMSChannel(),
-      push: new PushChannel()
+      push: new PushChannel(),
     };
     this.userPreferences = new Map();
     this.setupRoutes();
@@ -52,17 +52,32 @@ class NotificationService {
   setupRoutes() {
     this.app.use(express.json());
 
-    this.app.post('/api/notifications', this.sendNotification.bind(this));
-    this.app.post('/api/notifications/batch', this.sendBatchNotifications.bind(this));
-    this.app.get('/api/notifications/:notificationId', this.getNotification.bind(this));
-    this.app.get('/api/notifications/user/:userId', this.getUserNotifications.bind(this));
-    this.app.post('/api/templates', this.createTemplate.bind(this));
-    this.app.put('/api/preferences/:userId', this.updatePreferences.bind(this));
+    this.app.post("/api/notifications", this.sendNotification.bind(this));
+    this.app.post(
+      "/api/notifications/batch",
+      this.sendBatchNotifications.bind(this)
+    );
+    this.app.get(
+      "/api/notifications/:notificationId",
+      this.getNotification.bind(this)
+    );
+    this.app.get(
+      "/api/notifications/user/:userId",
+      this.getUserNotifications.bind(this)
+    );
+    this.app.post("/api/templates", this.createTemplate.bind(this));
+    this.app.put("/api/preferences/:userId", this.updatePreferences.bind(this));
   }
 
   async sendNotification(req, res) {
     try {
-      const { userId, channel, templateId, data, priority = 'normal' } = req.body;
+      const {
+        userId,
+        channel,
+        templateId,
+        data,
+        priority = "normal",
+      } = req.body;
 
       const notification = {
         id: uuidv4(),
@@ -71,13 +86,13 @@ class NotificationService {
         templateId,
         data,
         priority,
-        status: 'pending',
+        status: "pending",
         createdAt: new Date(),
         sentAt: null,
         deliveredAt: null,
         failedAt: null,
         retryCount: 0,
-        maxRetries: 3
+        maxRetries: 3,
       };
 
       this.notifications.set(notification.id, notification);
@@ -85,10 +100,10 @@ class NotificationService {
       // Check user preferences
       const preferences = this.userPreferences.get(userId);
       if (preferences && !preferences.channels[channel]) {
-        notification.status = 'blocked';
+        notification.status = "blocked";
         notification.failedAt = new Date();
-        notification.failureReason = 'User has disabled this channel';
-        
+        notification.failureReason = "User has disabled this channel";
+
         this.notifications.set(notification.id, notification);
         return res.json(notification);
       }
@@ -120,7 +135,7 @@ class NotificationService {
       // Send notification
       const result = await channel.send(notification.userId, content);
 
-      notification.status = 'sent';
+      notification.status = "sent";
       notification.sentAt = new Date();
       notification.messageId = result.messageId;
 
@@ -130,19 +145,18 @@ class NotificationService {
       setTimeout(() => {
         this.trackDelivery(notification.id, result.messageId);
       }, 1000);
-
     } catch (error) {
       notification.retryCount++;
       notification.failureReason = error.message;
 
       if (notification.retryCount < notification.maxRetries) {
-        notification.status = 'retrying';
+        notification.status = "retrying";
         // Retry after delay
         setTimeout(() => {
           this.processNotification(notification);
         }, this.getRetryDelay(notification.retryCount));
       } else {
-        notification.status = 'failed';
+        notification.status = "failed";
         notification.failedAt = new Date();
       }
 
@@ -152,16 +166,16 @@ class NotificationService {
 
   renderTemplate(template, data) {
     let content = template.content;
-    
+
     // Simple template rendering
     for (const [key, value] of Object.entries(data)) {
       const placeholder = `{{${key}}}`;
-      content = content.replace(new RegExp(placeholder, 'g'), value);
+      content = content.replace(new RegExp(placeholder, "g"), value);
     }
 
     return {
       subject: template.subject,
-      body: content
+      body: content,
     };
   }
 
@@ -173,12 +187,12 @@ class NotificationService {
     const delivered = Math.random() > 0.1; // 90% delivery rate
 
     if (delivered) {
-      notification.status = 'delivered';
+      notification.status = "delivered";
       notification.deliveredAt = new Date();
     } else {
-      notification.status = 'failed';
+      notification.status = "failed";
       notification.failedAt = new Date();
-      notification.failureReason = 'Delivery failed';
+      notification.failureReason = "Delivery failed";
     }
 
     this.notifications.set(notificationId, notification);
@@ -201,10 +215,10 @@ class NotificationService {
           const notification = {
             id: uuidv4(),
             ...notificationData,
-            status: 'pending',
+            status: "pending",
             createdAt: new Date(),
             retryCount: 0,
-            maxRetries: 3
+            maxRetries: 3,
           };
 
           this.notifications.set(notification.id, notification);
@@ -213,7 +227,7 @@ class NotificationService {
         } catch (error) {
           errors.push({
             notification: notificationData,
-            error: error.message
+            error: error.message,
           });
         }
       }
@@ -222,7 +236,7 @@ class NotificationService {
         successful: results.length,
         failed: errors.length,
         results,
-        errors
+        errors,
       });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -232,29 +246,31 @@ class NotificationService {
   setupTemplates() {
     const templates = [
       {
-        id: 'welcome_email',
-        name: 'Welcome Email',
-        channel: 'email',
-        subject: 'Welcome to {{appName}}!',
-        content: 'Hello {{userName}}, welcome to {{appName}}! We are excited to have you on board.'
+        id: "welcome_email",
+        name: "Welcome Email",
+        channel: "email",
+        subject: "Welcome to {{appName}}!",
+        content:
+          "Hello {{userName}}, welcome to {{appName}}! We are excited to have you on board.",
       },
       {
-        id: 'order_confirmation',
-        name: 'Order Confirmation',
-        channel: 'email',
-        subject: 'Order Confirmation - {{orderId}}',
-        content: 'Your order {{orderId}} has been confirmed. Total amount: {{amount}}'
+        id: "order_confirmation",
+        name: "Order Confirmation",
+        channel: "email",
+        subject: "Order Confirmation - {{orderId}}",
+        content:
+          "Your order {{orderId}} has been confirmed. Total amount: {{amount}}",
       },
       {
-        id: 'otp_sms',
-        name: 'OTP SMS',
-        channel: 'sms',
+        id: "otp_sms",
+        name: "OTP SMS",
+        channel: "sms",
         subject: null,
-        content: 'Your OTP is {{otp}}. Valid for 5 minutes.'
-      }
+        content: "Your OTP is {{otp}}. Valid for 5 minutes.",
+      },
     ];
 
-    templates.forEach(template => {
+    templates.forEach((template) => {
       this.templates.set(template.id, template);
     });
   }
@@ -269,7 +285,7 @@ class NotificationService {
         channel,
         subject,
         content,
-        createdAt: new Date()
+        createdAt: new Date(),
       };
 
       this.templates.set(template.id, template);
@@ -288,9 +304,9 @@ class NotificationService {
       const preferences = {
         userId,
         channels: channels || { email: true, sms: true, push: true },
-        frequency: frequency || 'immediate',
-        quietHours: quietHours || { start: '22:00', end: '08:00' },
-        updatedAt: new Date()
+        frequency: frequency || "immediate",
+        quietHours: quietHours || { start: "22:00", end: "08:00" },
+        updatedAt: new Date(),
       };
 
       this.userPreferences.set(userId, preferences);
@@ -312,12 +328,13 @@ class NotificationService {
 class EmailChannel {
   async send(userId, content) {
     // Simulate email sending
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    if (Math.random() < 0.05) { // 5% failure rate
-      throw new Error('Email sending failed');
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    if (Math.random() < 0.05) {
+      // 5% failure rate
+      throw new Error("Email sending failed");
     }
-    
+
     return { messageId: `email_${uuidv4()}` };
   }
 }
@@ -325,12 +342,13 @@ class EmailChannel {
 class SMSChannel {
   async send(userId, content) {
     // Simulate SMS sending
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
-    if (Math.random() < 0.08) { // 8% failure rate
-      throw new Error('SMS sending failed');
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    if (Math.random() < 0.08) {
+      // 8% failure rate
+      throw new Error("SMS sending failed");
     }
-    
+
     return { messageId: `sms_${uuidv4()}` };
   }
 }
@@ -338,12 +356,13 @@ class SMSChannel {
 class PushChannel {
   async send(userId, content) {
     // Simulate push notification sending
-    await new Promise(resolve => setTimeout(resolve, 200));
-    
-    if (Math.random() < 0.03) { // 3% failure rate
-      throw new Error('Push notification failed');
+    await new Promise((resolve) => setTimeout(resolve, 200));
+
+    if (Math.random() < 0.03) {
+      // 3% failure rate
+      throw new Error("Push notification failed");
     }
-    
+
     return { messageId: `push_${uuidv4()}` };
   }
 }
@@ -356,6 +375,7 @@ notificationService.start(3009);
 ### **Discussion Points**
 
 1. **Channel Selection**: How to choose the best notification channel?
+
    - **User Preferences**: Respect user's preferred communication channels
    - **Message Urgency**: Use appropriate channels based on message importance
    - **Channel Reliability**: Consider delivery success rates and latency
@@ -363,6 +383,7 @@ notificationService.start(3009);
    - **Fallback Strategy**: Use alternative channels when primary fails
 
 2. **Template Management**: How to manage notification templates effectively?
+
    - **Version Control**: Track template changes and maintain version history
    - **A/B Testing**: Test different template variations for effectiveness
    - **Localization**: Support multiple languages and cultural adaptations
@@ -370,6 +391,7 @@ notificationService.start(3009);
    - **Template Validation**: Ensure templates are valid and render correctly
 
 3. **Delivery Tracking**: How to implement reliable delivery tracking?
+
    - **Status Updates**: Track sent, delivered, opened, clicked, and failed states
    - **Webhook Integration**: Receive real-time status updates from providers
    - **Retry Mechanisms**: Automatically retry failed deliveries
@@ -377,6 +399,7 @@ notificationService.start(3009);
    - **Compliance**: Maintain delivery records for regulatory requirements
 
 4. **Retry Logic**: How to design effective retry strategies?
+
    - **Exponential Backoff**: Increase delay between retry attempts
    - **Max Retries**: Set reasonable limits on retry attempts
    - **Failure Classification**: Distinguish between transient and permanent failures
@@ -418,11 +441,11 @@ Design and implement a file upload service that handles file uploads, validation
 ### **Node.js Implementation**
 
 ```javascript
-const express = require('express');
-const multer = require('multer');
-const { v4: uuidv4 } = require('uuid');
-const fs = require('fs').promises;
-const path = require('path');
+const express = require("express");
+const multer = require("multer");
+const { v4: uuidv4 } = require("uuid");
+const fs = require("fs").promises;
+const path = require("path");
 
 class FileUploadService {
   constructor() {
@@ -438,35 +461,53 @@ class FileUploadService {
       storage: multer.memoryStorage(),
       limits: {
         fileSize: 100 * 1024 * 1024, // 100MB
-        files: 10
+        files: 10,
       },
       fileFilter: (req, file, cb) => {
-        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf', 'text/plain'];
+        const allowedTypes = [
+          "image/jpeg",
+          "image/png",
+          "image/gif",
+          "application/pdf",
+          "text/plain",
+        ];
         if (allowedTypes.includes(file.mimetype)) {
           cb(null, true);
         } else {
-          cb(new Error('File type not allowed'), false);
+          cb(new Error("File type not allowed"), false);
         }
-      }
+      },
     });
   }
 
   setupRoutes() {
     this.app.use(express.json());
 
-    this.app.post('/api/upload', this.upload.single('file'), this.uploadFile.bind(this));
-    this.app.post('/api/upload/multiple', this.upload.array('files', 10), this.uploadMultipleFiles.bind(this));
-    this.app.post('/api/upload/chunk', this.upload.single('chunk'), this.uploadChunk.bind(this));
-    this.app.get('/api/files/:fileId', this.getFile.bind(this));
-    this.app.get('/api/files', this.getFiles.bind(this));
-    this.app.delete('/api/files/:fileId', this.deleteFile.bind(this));
-    this.app.get('/api/files/:fileId/download', this.downloadFile.bind(this));
+    this.app.post(
+      "/api/upload",
+      this.upload.single("file"),
+      this.uploadFile.bind(this)
+    );
+    this.app.post(
+      "/api/upload/multiple",
+      this.upload.array("files", 10),
+      this.uploadMultipleFiles.bind(this)
+    );
+    this.app.post(
+      "/api/upload/chunk",
+      this.upload.single("chunk"),
+      this.uploadChunk.bind(this)
+    );
+    this.app.get("/api/files/:fileId", this.getFile.bind(this));
+    this.app.get("/api/files", this.getFiles.bind(this));
+    this.app.delete("/api/files/:fileId", this.deleteFile.bind(this));
+    this.app.get("/api/files/:fileId/download", this.downloadFile.bind(this));
   }
 
   async uploadFile(req, res) {
     try {
       if (!req.file) {
-        return res.status(400).json({ error: 'No file uploaded' });
+        return res.status(400).json({ error: "No file uploaded" });
       }
 
       const file = {
@@ -475,12 +516,12 @@ class FileUploadService {
         filename: `${uuidv4()}${path.extname(req.file.originalname)}`,
         mimetype: req.file.mimetype,
         size: req.file.size,
-        uploadedBy: req.body.userId || 'anonymous',
+        uploadedBy: req.body.userId || "anonymous",
         uploadedAt: new Date(),
         metadata: {
           encoding: req.file.encoding,
-          fieldname: req.file.fieldname
-        }
+          fieldname: req.file.fieldname,
+        },
       };
 
       // Store file
@@ -495,7 +536,7 @@ class FileUploadService {
         originalName: file.originalName,
         size: file.size,
         mimetype: file.mimetype,
-        uploadedAt: file.uploadedAt
+        uploadedAt: file.uploadedAt,
       });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -505,7 +546,7 @@ class FileUploadService {
   async uploadMultipleFiles(req, res) {
     try {
       if (!req.files || req.files.length === 0) {
-        return res.status(400).json({ error: 'No files uploaded' });
+        return res.status(400).json({ error: "No files uploaded" });
       }
 
       const results = [];
@@ -519,12 +560,12 @@ class FileUploadService {
             filename: `${uuidv4()}${path.extname(file.originalname)}`,
             mimetype: file.mimetype,
             size: file.size,
-            uploadedBy: req.body.userId || 'anonymous',
+            uploadedBy: req.body.userId || "anonymous",
             uploadedAt: new Date(),
             metadata: {
               encoding: file.encoding,
-              fieldname: file.fieldname
-            }
+              fieldname: file.fieldname,
+            },
           };
 
           await this.storage.store(fileData.filename, file.buffer);
@@ -535,12 +576,12 @@ class FileUploadService {
             filename: fileData.filename,
             originalName: fileData.originalName,
             size: fileData.size,
-            mimetype: fileData.mimetype
+            mimetype: fileData.mimetype,
           });
         } catch (error) {
           errors.push({
             filename: file.originalname,
-            error: error.message
+            error: error.message,
           });
         }
       }
@@ -549,7 +590,7 @@ class FileUploadService {
         successful: results.length,
         failed: errors.length,
         results,
-        errors
+        errors,
       });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -561,7 +602,7 @@ class FileUploadService {
       const { fileId, chunkIndex, totalChunks, fileName } = req.body;
 
       if (!req.file) {
-        return res.status(400).json({ error: 'No chunk uploaded' });
+        return res.status(400).json({ error: "No chunk uploaded" });
       }
 
       const chunk = {
@@ -570,7 +611,7 @@ class FileUploadService {
         totalChunks: parseInt(totalChunks),
         fileName,
         data: req.file.buffer,
-        uploadedAt: new Date()
+        uploadedAt: new Date(),
       };
 
       // Store chunk
@@ -588,7 +629,7 @@ class FileUploadService {
         fileId,
         chunkIndex,
         totalChunks,
-        completed: allChunks.length === totalChunks
+        completed: allChunks.length === totalChunks,
       });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -600,7 +641,7 @@ class FileUploadService {
     chunks.sort((a, b) => a.chunkIndex - b.chunkIndex);
 
     // Combine chunks
-    const buffers = chunks.map(chunk => chunk.data);
+    const buffers = chunks.map((chunk) => chunk.data);
     const fileBuffer = Buffer.concat(buffers);
 
     // Store complete file
@@ -616,26 +657,26 @@ class FileUploadService {
       filename,
       mimetype: this.getMimeType(fileName),
       size: fileBuffer.length,
-      uploadedBy: 'anonymous',
+      uploadedBy: "anonymous",
       uploadedAt: new Date(),
       metadata: {
         reassembled: true,
-        chunkCount: chunks.length
-      }
+        chunkCount: chunks.length,
+      },
     };
   }
 
   getMimeType(filename) {
     const ext = path.extname(filename).toLowerCase();
     const mimeTypes = {
-      '.jpg': 'image/jpeg',
-      '.jpeg': 'image/jpeg',
-      '.png': 'image/png',
-      '.gif': 'image/gif',
-      '.pdf': 'application/pdf',
-      '.txt': 'text/plain'
+      ".jpg": "image/jpeg",
+      ".jpeg": "image/jpeg",
+      ".png": "image/png",
+      ".gif": "image/gif",
+      ".pdf": "application/pdf",
+      ".txt": "text/plain",
     };
-    return mimeTypes[ext] || 'application/octet-stream';
+    return mimeTypes[ext] || "application/octet-stream";
   }
 
   async getFile(req, res) {
@@ -644,7 +685,7 @@ class FileUploadService {
       const file = this.files.get(fileId);
 
       if (!file) {
-        return res.status(404).json({ error: 'File not found' });
+        return res.status(404).json({ error: "File not found" });
       }
 
       res.json(file);
@@ -660,24 +701,27 @@ class FileUploadService {
       let files = Array.from(this.files.values());
 
       if (userId) {
-        files = files.filter(file => file.uploadedBy === userId);
+        files = files.filter((file) => file.uploadedBy === userId);
       }
 
       if (mimetype) {
-        files = files.filter(file => file.mimetype === mimetype);
+        files = files.filter((file) => file.mimetype === mimetype);
       }
 
       // Sort by upload date
       files.sort((a, b) => b.uploadedAt - a.uploadedAt);
 
       // Pagination
-      const paginatedFiles = files.slice(parseInt(offset), parseInt(offset) + parseInt(limit));
+      const paginatedFiles = files.slice(
+        parseInt(offset),
+        parseInt(offset) + parseInt(limit)
+      );
 
       res.json({
         files: paginatedFiles,
         total: files.length,
         limit: parseInt(limit),
-        offset: parseInt(offset)
+        offset: parseInt(offset),
       });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -690,15 +734,15 @@ class FileUploadService {
       const file = this.files.get(fileId);
 
       if (!file) {
-        return res.status(404).json({ error: 'File not found' });
+        return res.status(404).json({ error: "File not found" });
       }
 
       const fileBuffer = await this.storage.retrieve(file.filename);
 
       res.set({
-        'Content-Type': file.mimetype,
-        'Content-Length': file.size,
-        'Content-Disposition': `attachment; filename="${file.originalName}"`
+        "Content-Type": file.mimetype,
+        "Content-Length": file.size,
+        "Content-Disposition": `attachment; filename="${file.originalName}"`,
       });
 
       res.send(fileBuffer);
@@ -713,7 +757,7 @@ class FileUploadService {
       const file = this.files.get(fileId);
 
       if (!file) {
-        return res.status(404).json({ error: 'File not found' });
+        return res.status(404).json({ error: "File not found" });
       }
 
       // Delete from storage
@@ -722,7 +766,7 @@ class FileUploadService {
       // Remove from metadata
       this.files.delete(fileId);
 
-      res.json({ message: 'File deleted successfully' });
+      res.json({ message: "File deleted successfully" });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -738,8 +782,8 @@ class FileUploadService {
 // Storage Implementation
 class LocalStorage {
   constructor() {
-    this.uploadDir = './uploads';
-    this.chunksDir = './chunks';
+    this.uploadDir = "./uploads";
+    this.chunksDir = "./chunks";
     this.ensureDirectories();
   }
 
@@ -748,7 +792,7 @@ class LocalStorage {
       await fs.mkdir(this.uploadDir, { recursive: true });
       await fs.mkdir(this.chunksDir, { recursive: true });
     } catch (error) {
-      console.error('Error creating directories:', error);
+      console.error("Error creating directories:", error);
     }
   }
 
@@ -768,19 +812,22 @@ class LocalStorage {
   }
 
   async storeChunk(chunk) {
-    const chunkPath = path.join(this.chunksDir, `${chunk.fileId}_${chunk.chunkIndex}`);
+    const chunkPath = path.join(
+      this.chunksDir,
+      `${chunk.fileId}_${chunk.chunkIndex}`
+    );
     await fs.writeFile(chunkPath, chunk.data);
   }
 
   async getChunks(fileId) {
     const files = await fs.readdir(this.chunksDir);
-    const chunkFiles = files.filter(file => file.startsWith(`${fileId}_`));
-    
+    const chunkFiles = files.filter((file) => file.startsWith(`${fileId}_`));
+
     const chunks = [];
     for (const chunkFile of chunkFiles) {
       const chunkPath = path.join(this.chunksDir, chunkFile);
       const data = await fs.readFile(chunkPath);
-      const chunkIndex = parseInt(chunkFile.split('_')[1]);
+      const chunkIndex = parseInt(chunkFile.split("_")[1]);
       chunks.push({ chunkIndex, data });
     }
 
@@ -789,8 +836,8 @@ class LocalStorage {
 
   async cleanupChunks(fileId) {
     const files = await fs.readdir(this.chunksDir);
-    const chunkFiles = files.filter(file => file.startsWith(`${fileId}_`));
-    
+    const chunkFiles = files.filter((file) => file.startsWith(`${fileId}_`));
+
     for (const chunkFile of chunkFiles) {
       const chunkPath = path.join(this.chunksDir, chunkFile);
       await fs.unlink(chunkPath);
@@ -806,6 +853,7 @@ fileUploadService.start(3010);
 ### **Discussion Points**
 
 1. **File Validation**: How to implement comprehensive file validation?
+
    - **File Type Validation**: Check file extensions and MIME types
    - **File Size Limits**: Enforce maximum file size restrictions
    - **Content Scanning**: Scan file content for malicious code
@@ -813,6 +861,7 @@ fileUploadService.start(3010);
    - **Metadata Validation**: Validate file metadata and properties
 
 2. **Chunked Uploads**: How to handle large file uploads efficiently?
+
    - **Chunk Management**: Break large files into manageable chunks
    - **Resume Capability**: Allow users to resume interrupted uploads
    - **Parallel Processing**: Upload multiple chunks simultaneously
@@ -820,6 +869,7 @@ fileUploadService.start(3010);
    - **Error Recovery**: Handle chunk upload failures gracefully
 
 3. **Storage Backends**: How to support multiple storage providers?
+
    - **Abstraction Layer**: Create unified interface for different storage providers
    - **Provider Selection**: Choose optimal storage based on file type and size
    - **Failover Support**: Switch to backup storage when primary fails
@@ -827,6 +877,7 @@ fileUploadService.start(3010);
    - **Geographic Distribution**: Store files closer to users
 
 4. **Security**: How to prevent malicious file uploads?
+
    - **Input Sanitization**: Sanitize file names and metadata
    - **Access Control**: Implement proper authentication and authorization
    - **Encryption**: Encrypt files at rest and in transit
@@ -868,8 +919,8 @@ Design and implement an analytics aggregator that collects, processes, and provi
 ### **Node.js Implementation**
 
 ```javascript
-const express = require('express');
-const { v4: uuidv4 } = require('uuid');
+const express = require("express");
+const { v4: uuidv4 } = require("uuid");
 
 class AnalyticsAggregator {
   constructor() {
@@ -885,12 +936,15 @@ class AnalyticsAggregator {
   setupRoutes() {
     this.app.use(express.json());
 
-    this.app.post('/api/events', this.trackEvent.bind(this));
-    this.app.post('/api/metrics', this.recordMetric.bind(this));
-    this.app.get('/api/metrics/:metricId', this.getMetric.bind(this));
-    this.app.get('/api/analytics/dashboard/:dashboardId', this.getDashboard.bind(this));
-    this.app.get('/api/analytics/insights', this.getInsights.bind(this));
-    this.app.post('/api/analytics/query', this.queryAnalytics.bind(this));
+    this.app.post("/api/events", this.trackEvent.bind(this));
+    this.app.post("/api/metrics", this.recordMetric.bind(this));
+    this.app.get("/api/metrics/:metricId", this.getMetric.bind(this));
+    this.app.get(
+      "/api/analytics/dashboard/:dashboardId",
+      this.getDashboard.bind(this)
+    );
+    this.app.get("/api/analytics/insights", this.getInsights.bind(this));
+    this.app.post("/api/analytics/query", this.queryAnalytics.bind(this));
   }
 
   async trackEvent(req, res) {
@@ -903,7 +957,7 @@ class AnalyticsAggregator {
         userId,
         properties: properties || {},
         timestamp: timestamp ? new Date(timestamp) : new Date(),
-        processed: false
+        processed: false,
       };
 
       this.events.set(event.id, event);
@@ -913,7 +967,7 @@ class AnalyticsAggregator {
 
       res.status(201).json({
         eventId: event.id,
-        processed: event.processed
+        processed: event.processed,
       });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -934,20 +988,20 @@ class AnalyticsAggregator {
       event.processed = true;
       this.events.set(event.id, event);
     } catch (error) {
-      console.error('Error processing event:', error);
+      console.error("Error processing event:", error);
     }
   }
 
   async updateRealTimeMetrics(event) {
     const metricKey = `event_${event.eventType}`;
-    
+
     if (!this.metrics.has(metricKey)) {
       this.metrics.set(metricKey, {
         id: metricKey,
         name: `Event: ${event.eventType}`,
-        type: 'counter',
+        type: "counter",
         value: 0,
-        lastUpdated: new Date()
+        lastUpdated: new Date(),
       });
     }
 
@@ -960,10 +1014,10 @@ class AnalyticsAggregator {
 
   getEventHandlers(eventType) {
     const handlers = {
-      'user_signup': [this.handleUserSignup.bind(this)],
-      'purchase': [this.handlePurchase.bind(this)],
-      'page_view': [this.handlePageView.bind(this)],
-      'button_click': [this.handleButtonClick.bind(this)]
+      user_signup: [this.handleUserSignup.bind(this)],
+      purchase: [this.handlePurchase.bind(this)],
+      page_view: [this.handlePageView.bind(this)],
+      button_click: [this.handleButtonClick.bind(this)],
     };
 
     return handlers[eventType] || [];
@@ -971,26 +1025,26 @@ class AnalyticsAggregator {
 
   async handleUserSignup(event) {
     // Track user signup metrics
-    const metricKey = 'user_signups_daily';
+    const metricKey = "user_signups_daily";
     await this.incrementMetric(metricKey, 1);
   }
 
   async handlePurchase(event) {
     // Track purchase metrics
     const amount = event.properties.amount || 0;
-    await this.incrementMetric('total_revenue', amount);
-    await this.incrementMetric('purchase_count', 1);
+    await this.incrementMetric("total_revenue", amount);
+    await this.incrementMetric("purchase_count", 1);
   }
 
   async handlePageView(event) {
     // Track page view metrics
-    const page = event.properties.page || 'unknown';
+    const page = event.properties.page || "unknown";
     await this.incrementMetric(`page_views_${page}`, 1);
   }
 
   async handleButtonClick(event) {
     // Track button click metrics
-    const button = event.properties.button || 'unknown';
+    const button = event.properties.button || "unknown";
     await this.incrementMetric(`button_clicks_${button}`, 1);
   }
 
@@ -999,9 +1053,9 @@ class AnalyticsAggregator {
       this.metrics.set(metricKey, {
         id: metricKey,
         name: metricKey,
-        type: 'counter',
+        type: "counter",
         value: 0,
-        lastUpdated: new Date()
+        lastUpdated: new Date(),
       });
     }
 
@@ -1014,7 +1068,7 @@ class AnalyticsAggregator {
 
   async recordMetric(req, res) {
     try {
-      const { name, value, type = 'gauge', tags = {} } = req.body;
+      const { name, value, type = "gauge", tags = {} } = req.body;
 
       const metric = {
         id: uuidv4(),
@@ -1022,7 +1076,7 @@ class AnalyticsAggregator {
         value,
         type,
         tags,
-        timestamp: new Date()
+        timestamp: new Date(),
       };
 
       this.metrics.set(metric.id, metric);
@@ -1039,7 +1093,7 @@ class AnalyticsAggregator {
       const metric = this.metrics.get(metricId);
 
       if (!metric) {
-        return res.status(404).json({ error: 'Metric not found' });
+        return res.status(404).json({ error: "Metric not found" });
       }
 
       res.json(metric);
@@ -1054,7 +1108,7 @@ class AnalyticsAggregator {
       const dashboard = this.dashboards.get(dashboardId);
 
       if (!dashboard) {
-        return res.status(404).json({ error: 'Dashboard not found' });
+        return res.status(404).json({ error: "Dashboard not found" });
       }
 
       // Get current metric values
@@ -1069,7 +1123,7 @@ class AnalyticsAggregator {
       res.json({
         ...dashboard,
         metrics,
-        lastUpdated: new Date()
+        lastUpdated: new Date(),
       });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -1078,12 +1132,12 @@ class AnalyticsAggregator {
 
   async getInsights(req, res) {
     try {
-      const { timeRange = '24h', metricIds } = req.query;
+      const { timeRange = "24h", metricIds } = req.query;
 
       const insights = {
         timeRange,
         generatedAt: new Date(),
-        insights: []
+        insights: [],
       };
 
       // Generate insights based on metrics
@@ -1104,25 +1158,25 @@ class AnalyticsAggregator {
 
   async generateInsight(metric, timeRange) {
     // Simple insight generation
-    if (metric.type === 'counter' && metric.value > 1000) {
+    if (metric.type === "counter" && metric.value > 1000) {
       return {
         metricId: metric.id,
         metricName: metric.name,
-        type: 'high_value',
+        type: "high_value",
         message: `${metric.name} has reached ${metric.value} (high value)`,
-        severity: 'info',
-        value: metric.value
+        severity: "info",
+        value: metric.value,
       };
     }
 
-    if (metric.type === 'gauge' && metric.value < 0) {
+    if (metric.type === "gauge" && metric.value < 0) {
       return {
         metricId: metric.id,
         metricName: metric.name,
-        type: 'negative_value',
+        type: "negative_value",
         message: `${metric.name} has a negative value: ${metric.value}`,
-        severity: 'warning',
-        value: metric.value
+        severity: "warning",
+        value: metric.value,
       };
     }
 
@@ -1136,24 +1190,24 @@ class AnalyticsAggregator {
       let results = [];
 
       switch (query.type) {
-        case 'metric_summary':
+        case "metric_summary":
           results = await this.getMetricSummary(query.metricIds, timeRange);
           break;
-        case 'event_analysis':
+        case "event_analysis":
           results = await this.getEventAnalysis(query.eventType, timeRange);
           break;
-        case 'user_behavior':
+        case "user_behavior":
           results = await this.getUserBehavior(query.userId, timeRange);
           break;
         default:
-          return res.status(400).json({ error: 'Invalid query type' });
+          return res.status(400).json({ error: "Invalid query type" });
       }
 
       res.json({
         query,
         timeRange,
         results,
-        generatedAt: new Date()
+        generatedAt: new Date(),
       });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -1162,7 +1216,7 @@ class AnalyticsAggregator {
 
   async getMetricSummary(metricIds, timeRange) {
     const summary = {};
-    
+
     for (const metricId of metricIds) {
       const metric = this.metrics.get(metricId);
       if (metric) {
@@ -1170,7 +1224,7 @@ class AnalyticsAggregator {
           name: metric.name,
           value: metric.value,
           type: metric.type,
-          lastUpdated: metric.lastUpdated
+          lastUpdated: metric.lastUpdated,
         };
       }
     }
@@ -1179,23 +1233,25 @@ class AnalyticsAggregator {
   }
 
   async getEventAnalysis(eventType, timeRange) {
-    const events = Array.from(this.events.values())
-      .filter(event => event.eventType === eventType);
+    const events = Array.from(this.events.values()).filter(
+      (event) => event.eventType === eventType
+    );
 
     return {
       totalEvents: events.length,
-      uniqueUsers: new Set(events.map(e => e.userId)).size,
+      uniqueUsers: new Set(events.map((e) => e.userId)).size,
       eventType,
-      timeRange
+      timeRange,
     };
   }
 
   async getUserBehavior(userId, timeRange) {
-    const userEvents = Array.from(this.events.values())
-      .filter(event => event.userId === userId);
+    const userEvents = Array.from(this.events.values()).filter(
+      (event) => event.userId === userId
+    );
 
     const eventTypes = {};
-    userEvents.forEach(event => {
+    userEvents.forEach((event) => {
       eventTypes[event.eventType] = (eventTypes[event.eventType] || 0) + 1;
     });
 
@@ -1203,7 +1259,7 @@ class AnalyticsAggregator {
       userId,
       totalEvents: userEvents.length,
       eventTypes,
-      timeRange
+      timeRange,
     };
   }
 
@@ -1220,8 +1276,9 @@ class AnalyticsAggregator {
   }
 
   async processPendingEvents() {
-    const pendingEvents = Array.from(this.events.values())
-      .filter(event => !event.processed);
+    const pendingEvents = Array.from(this.events.values()).filter(
+      (event) => !event.processed
+    );
 
     for (const event of pendingEvents) {
       await this.processEvent(event);
@@ -1234,27 +1291,29 @@ class AnalyticsAggregator {
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
     const aggregation = {
-      id: `daily_${today.toISOString().split('T')[0]}`,
+      id: `daily_${today.toISOString().split("T")[0]}`,
       date: today,
       metrics: {},
       events: {},
-      generatedAt: new Date()
+      generatedAt: new Date(),
     };
 
     // Aggregate metrics
     for (const [metricId, metric] of this.metrics) {
       aggregation.metrics[metricId] = {
         value: metric.value,
-        type: metric.type
+        type: metric.type,
       };
     }
 
     // Aggregate events
-    const todayEvents = Array.from(this.events.values())
-      .filter(event => event.timestamp >= today);
+    const todayEvents = Array.from(this.events.values()).filter(
+      (event) => event.timestamp >= today
+    );
 
-    todayEvents.forEach(event => {
-      aggregation.events[event.eventType] = (aggregation.events[event.eventType] || 0) + 1;
+    todayEvents.forEach((event) => {
+      aggregation.events[event.eventType] =
+        (aggregation.events[event.eventType] || 0) + 1;
     });
 
     this.aggregations.set(aggregation.id, aggregation);
@@ -1275,6 +1334,7 @@ analyticsAggregator.start(3011);
 ### **Discussion Points**
 
 1. **Data Collection**: How to efficiently collect data from multiple sources?
+
    - **Event Streaming**: Use message queues and event streams for real-time data collection
    - **Batch Processing**: Collect data in batches to reduce overhead
    - **Data Validation**: Validate data quality and format at collection time
@@ -1282,6 +1342,7 @@ analyticsAggregator.start(3011);
    - **Error Handling**: Implement robust error handling for failed data collection
 
 2. **Real-time Processing**: How to handle real-time data processing?
+
    - **Stream Processing**: Use stream processing engines for real-time analytics
    - **Windowing**: Implement time-based and count-based windows for aggregations
    - **Backpressure**: Handle high-volume data streams with backpressure mechanisms
@@ -1289,6 +1350,7 @@ analyticsAggregator.start(3011);
    - **Latency Optimization**: Minimize processing latency for real-time insights
 
 3. **Data Aggregation**: How to design effective aggregation strategies?
+
    - **Multi-level Aggregation**: Aggregate data at different time granularities
    - **Rollup Strategies**: Use rollup tables for fast query performance
    - **Incremental Aggregation**: Update aggregations incrementally as new data arrives
@@ -1296,6 +1358,7 @@ analyticsAggregator.start(3011);
    - **Data Partitioning**: Partition data by time, geography, or other dimensions
 
 4. **Insight Generation**: How to generate meaningful insights from data?
+
    - **Statistical Analysis**: Apply statistical methods to identify patterns and trends
    - **Anomaly Detection**: Detect unusual patterns or outliers in the data
    - **Correlation Analysis**: Find relationships between different metrics

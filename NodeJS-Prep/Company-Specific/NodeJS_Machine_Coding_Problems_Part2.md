@@ -1079,6 +1079,7 @@ scheduler.start(3007);
 ### **Discussion Points**
 
 1. **Job Prioritization**: How to implement efficient priority queuing?
+
    - **Priority Levels**: Define clear priority levels (critical, high, normal, low)
    - **Queue Management**: Use priority queues to ensure high-priority jobs run first
    - **Preemption**: Allow high-priority jobs to interrupt lower-priority ones
@@ -1086,6 +1087,7 @@ scheduler.start(3007);
    - **Dynamic Priority**: Adjust priority based on job age or system conditions
 
 2. **Retry Logic**: How to design effective retry strategies?
+
    - **Exponential Backoff**: Increase delay between retries exponentially
    - **Fixed Delay**: Use consistent delay between retry attempts
    - **Jitter**: Add randomness to prevent thundering herd problems
@@ -1093,6 +1095,7 @@ scheduler.start(3007);
    - **Failure Classification**: Distinguish between transient and permanent failures
 
 3. **Dependencies**: How to handle complex job dependencies?
+
    - **Dependency Graph**: Build and maintain a directed acyclic graph of job dependencies
    - **Topological Sort**: Use topological sorting to determine execution order
    - **Circular Detection**: Detect and prevent circular dependencies
@@ -1100,6 +1103,7 @@ scheduler.start(3007);
    - **Parallel Execution**: Execute independent jobs in parallel when possible
 
 4. **Monitoring**: How to track job performance and failures?
+
    - **Metrics Collection**: Track job execution times, success rates, and failure patterns
    - **Real-time Dashboards**: Show current job status and system health
    - **Alerting**: Send notifications for critical job failures or system issues
@@ -1116,6 +1120,7 @@ scheduler.start(3007);
 ### **Follow-up Questions**
 
 1. **How would you implement job scheduling with resource constraints?**
+
    ```javascript
    class ResourceConstrainedScheduler {
      constructor() {
@@ -1123,68 +1128,70 @@ scheduler.start(3007);
          cpu: 100, // CPU percentage
          memory: 1024, // Memory in MB
          disk: 10000, // Disk space in MB
-         network: 100 // Network bandwidth in Mbps
+         network: 100, // Network bandwidth in Mbps
        };
-       
+
        this.currentUsage = {
          cpu: 0,
          memory: 0,
          disk: 0,
-         network: 0
+         network: 0,
        };
-       
+
        this.jobResources = new Map(); // jobId -> resource usage
        this.resourceQueues = new Map(); // resource type -> queue of waiting jobs
      }
-     
+
      async scheduleJob(job, requiredResources) {
        // Check if resources are available
        const available = this.checkResourceAvailability(requiredResources);
-       
+
        if (!available) {
          // Queue job for later execution
          await this.queueJobForResources(job, requiredResources);
          return { scheduled: false, queued: true };
        }
-       
+
        // Allocate resources and schedule job
        this.allocateResourceUsage(requiredResources);
        this.jobResources.set(job.id, requiredResources);
-       
+
        // Schedule job execution
        await this.executeJob(job);
-       
+
        return { scheduled: true, resources: requiredResources };
      }
-     
+
      checkResourceAvailability(required) {
        return (
          this.currentUsage.cpu + required.cpu <= this.resourceLimits.cpu &&
-         this.currentUsage.memory + required.memory <= this.resourceLimits.memory &&
+         this.currentUsage.memory + required.memory <=
+           this.resourceLimits.memory &&
          this.currentUsage.disk + required.disk <= this.resourceLimits.disk &&
-         this.currentUsage.network + required.network <= this.resourceLimits.network
+         this.currentUsage.network + required.network <=
+           this.resourceLimits.network
        );
      }
-     
+
      async allocateResourceUsage(resources) {
        this.currentUsage.cpu += resources.cpu;
        this.currentUsage.memory += resources.memory;
        this.currentUsage.disk += resources.disk;
        this.currentUsage.network += resources.network;
      }
-     
+
      async releaseResources(jobId) {
        const resources = this.jobResources.get(jobId);
        if (!resources) return;
-       
+
        // Release resources
        this.currentUsage.cpu -= resources.cpu;
        this.currentUsage.memory -= resources.memory;
        this.currentUsage.disk -= resources.disk;
        this.currentUsage.network -= resources.network;
-       
+
        this.jobResources.delete(jobId);
-       
+
        // Check if any queued jobs can now be executed
        await this.processResourceQueues();
      }
@@ -1192,6 +1199,7 @@ scheduler.start(3007);
    ```
 
 2. **How to handle job timeouts and cancellation?**
+
    ```javascript
    class JobTimeoutManager {
      constructor() {
@@ -1199,27 +1207,27 @@ scheduler.start(3007);
        this.maxExecutionTime = 3600000; // 1 hour default
        this.heartbeatInterval = 30000; // 30 seconds
      }
-     
+
      async executeWithTimeout(job, execution) {
        // Set up timeout
        const timeout = setTimeout(async () => {
          await this.handleJobTimeout(job, execution);
        }, this.maxExecutionTime);
-       
+
        this.timeouts.set(job.id, timeout);
-       
+
        try {
          // Start heartbeat monitoring
          const heartbeat = this.startHeartbeat(job.id);
-         
+
          // Execute job with progress tracking
          const result = await this.executeWithProgress(job, execution);
-         
+
          // Clear timeout and heartbeat
          clearTimeout(timeout);
          clearInterval(heartbeat);
          this.timeouts.delete(job.id);
-         
+
          return result;
        } catch (error) {
          clearTimeout(timeout);
@@ -1227,29 +1235,29 @@ scheduler.start(3007);
          throw error;
        }
      }
-     
+
      async handleJobTimeout(job, execution) {
        console.log(`Job ${job.id} timed out after ${this.maxExecutionTime}ms`);
-       
+
        // Mark job as timed out
        execution.status = "timeout";
        execution.endTime = new Date();
        execution.duration = execution.endTime - execution.startTime;
-       
+
        // Try to gracefully terminate the job
        await this.terminateJob(job.id);
-       
+
        // Send timeout alert
        await this.triggerTimeoutAlert(job, execution);
      }
-     
+
      async cancelJob(jobId) {
        const timeout = this.timeouts.get(jobId);
        if (timeout) {
          clearTimeout(timeout);
          this.timeouts.delete(jobId);
        }
-       
+
        // Mark job as cancelled
        const execution = await this.getJobExecution(jobId);
        if (execution) {
@@ -1257,16 +1265,17 @@ scheduler.start(3007);
          execution.endTime = new Date();
          execution.duration = execution.endTime - execution.startTime;
        }
-       
+
        // Terminate job process
        await this.terminateJob(jobId);
-       
+
        console.log(`Job ${jobId} cancelled`);
      }
    }
    ```
 
 3. **How to implement job result caching and reuse?**
+
    ```javascript
    class JobResultCache {
      constructor() {
@@ -1274,44 +1283,44 @@ scheduler.start(3007);
        this.cacheTTL = 3600000; // 1 hour
        this.maxCacheSize = 1000;
      }
-     
+
      generateCacheKey(job) {
        // Generate cache key based on job type and input
        const inputHash = this.hashObject(job.config);
        return `${job.type}:${inputHash}`;
      }
-     
+
      async getCachedResult(job) {
        const cacheKey = this.generateCacheKey(job);
        const cached = this.cache.get(cacheKey);
-       
+
        if (cached && !this.isExpired(cached)) {
          console.log(`Cache hit for job ${job.id}`);
          return cached.result;
        }
-       
+
        return null;
      }
-     
+
      async setCachedResult(job, result) {
        const cacheKey = this.generateCacheKey(job);
-       
+
        // Check cache size limit
        if (this.cache.size >= this.maxCacheSize) {
          await this.evictOldestEntry();
        }
-       
+
        const cacheEntry = {
          result,
          timestamp: Date.now(),
          jobId: job.id,
-         ttl: this.cacheTTL
+         ttl: this.cacheTTL,
        };
-       
+
        this.cache.set(cacheKey, cacheEntry);
        console.log(`Cached result for job ${job.id}`);
      }
-     
+
      async executeJobWithCache(job) {
        // Check cache first
        const cachedResult = await this.getCachedResult(job);
@@ -1319,68 +1328,69 @@ scheduler.start(3007);
          return {
            result: cachedResult,
            fromCache: true,
-           cacheHit: true
+           cacheHit: true,
          };
        }
-       
+
        // Execute job if not in cache
        const result = await this.executeJob(job);
-       
+
        // Cache the result
        await this.setCachedResult(job, result);
-       
+
        return {
          result,
          fromCache: false,
-         cacheHit: false
+         cacheHit: false,
        };
      }
    }
    ```
 
 4. **How to handle job scheduling conflicts and overlaps?**
+
    ```javascript
    class JobConflictResolver {
      constructor() {
        this.scheduledJobs = new Map(); // timeSlot -> job
        this.conflictResolution = {
          strategy: "reschedule", // "reschedule", "queue", "cancel", "merge"
-         maxRetries: 3
+         maxRetries: 3,
        };
      }
-     
+
      async scheduleJob(job, preferredTime) {
        const timeSlot = this.getTimeSlot(preferredTime);
-       
+
        // Check for conflicts
        const conflict = this.detectConflict(job, timeSlot);
-       
+
        if (conflict) {
          return await this.resolveConflict(job, conflict, timeSlot);
        }
-       
+
        // No conflict, schedule normally
        this.scheduledJobs.set(timeSlot, job);
        return { scheduled: true, timeSlot, conflict: false };
      }
-     
+
      detectConflict(job, timeSlot) {
        const existingJob = this.scheduledJobs.get(timeSlot);
-       
+
        if (!existingJob) return null;
-       
+
        // Check if jobs have conflicting resource requirements
        if (this.hasResourceConflict(job, existingJob)) {
          return {
            type: "resource_conflict",
            existingJob,
-           timeSlot
+           timeSlot,
          };
        }
-       
+
        return null;
      }
-     
+
      async resolveConflict(job, conflict, timeSlot) {
        switch (this.conflictResolution.strategy) {
          case "reschedule":
@@ -1392,13 +1402,16 @@ scheduler.start(3007);
          case "merge":
            return await this.mergeJobs(job, conflict, timeSlot);
          default:
-           throw new Error(`Unknown conflict resolution strategy: ${this.conflictResolution.strategy}`);
+           throw new Error(
+             `Unknown conflict resolution strategy: ${this.conflictResolution.strategy}`
+           );
        }
      }
    }
    ```
 
 5. **How to implement job scheduling with SLA guarantees?**
+
    ```javascript
    class SLAGuaranteedScheduler {
      constructor() {
@@ -1406,45 +1419,48 @@ scheduler.start(3007);
        this.slaMonitoring = new Map(); // jobId -> SLA tracking
        this.slaViolations = [];
      }
-     
+
      defineSLA(jobType, sla) {
        this.slaDefinitions.set(jobType, {
          maxExecutionTime: sla.maxExecutionTime,
          maxQueueTime: sla.maxQueueTime,
          successRate: sla.successRate,
          availability: sla.availability,
-         priority: sla.priority || "normal"
+         priority: sla.priority || "normal",
        });
      }
-     
+
      async scheduleJobWithSLA(job) {
        const sla = this.slaDefinitions.get(job.type);
        if (!sla) {
          throw new Error(`No SLA defined for job type: ${job.type}`);
        }
-       
+
        // Calculate SLA requirements
        const slaRequirements = this.calculateSLARequirements(job, sla);
-       
+
        // Schedule job with SLA constraints
-       const scheduleResult = await this.scheduleWithSLAConstraints(job, slaRequirements);
-       
+       const scheduleResult = await this.scheduleWithSLAConstraints(
+         job,
+         slaRequirements
+       );
+
        // Start SLA monitoring
        await this.startSLAMonitoring(job, sla);
-       
+
        return scheduleResult;
      }
-     
+
      calculateSLARequirements(job, sla) {
        return {
          maxExecutionTime: sla.maxExecutionTime,
          maxQueueTime: sla.maxQueueTime,
          requiredResources: this.estimateResources(job),
          priority: sla.priority,
-         deadline: Date.now() + sla.maxExecutionTime + sla.maxQueueTime
+         deadline: Date.now() + sla.maxExecutionTime + sla.maxQueueTime,
        };
      }
-     
+
      async startSLAMonitoring(job, sla) {
        const monitoring = {
          jobId: job.id,
@@ -1453,11 +1469,11 @@ scheduler.start(3007);
          queueTime: 0,
          executionTime: 0,
          status: "queued",
-         violations: []
+         violations: [],
        };
-       
+
        this.slaMonitoring.set(job.id, monitoring);
-       
+
        // Start monitoring timers
        this.startQueueTimeMonitoring(job.id);
        this.startExecutionTimeMonitoring(job.id);
@@ -2037,6 +2053,7 @@ inventoryService.start(3008);
 ### **Discussion Points**
 
 1. **Stock Accuracy**: How to maintain accurate inventory levels?
+
    - **Atomic Operations**: Use database transactions to ensure consistency
    - **Real-time Updates**: Update inventory immediately when changes occur
    - **Audit Trails**: Maintain complete history of all inventory movements
@@ -2044,6 +2061,7 @@ inventoryService.start(3008);
    - **Locking Mechanisms**: Use row-level locking to prevent race conditions
 
 2. **Reservation Management**: How to handle reservation conflicts?
+
    - **Optimistic Locking**: Use version numbers to detect conflicts
    - **Pessimistic Locking**: Lock inventory records during reservation
    - **Queue Management**: Queue conflicting reservations for processing
@@ -2051,6 +2069,7 @@ inventoryService.start(3008);
    - **Priority System**: Handle reservations based on priority levels
 
 3. **Bulk Operations**: How to optimize bulk inventory adjustments?
+
    - **Batch Processing**: Process multiple adjustments in single transaction
    - **Async Processing**: Use background jobs for large bulk operations
    - **Progress Tracking**: Show progress for long-running bulk operations
@@ -2058,6 +2077,7 @@ inventoryService.start(3008);
    - **Rollback Capability**: Ability to rollback failed bulk operations
 
 4. **Alert System**: How to design effective low stock alerts?
+
    - **Threshold Configuration**: Configurable thresholds per product/warehouse
    - **Multi-level Alerts**: Different alert levels (warning, critical, emergency)
    - **Smart Notifications**: Avoid alert fatigue with intelligent grouping
