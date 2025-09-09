@@ -1,0 +1,180 @@
+server:
+  port: 8080
+  host: "0.0.0.0"
+  read_timeout: 30s
+  write_timeout: 30s
+  idle_timeout: 120s
+
+database:
+  mysql:
+    host: "localhost"
+    port: 3306
+    username: "root"
+    password: "password"
+    database: "bridge_db"
+    charset: "utf8mb4"
+    parse_time: true
+    loc: "Local"
+    max_idle_conns: 10
+    max_open_conns: 100
+    conn_max_lifetime: 3600s
+
+  mongodb:
+    uri: "mongodb://localhost:27017"
+    database: "bridge_db"
+    timeout: 30s
+    max_pool_size: 100
+    min_pool_size: 10
+
+redis:
+  host: "localhost"
+  port: 6379
+  password: ""
+  db: 0
+  pool_size: 10
+  min_idle_conns: 5
+  dial_timeout: 5s
+  read_timeout: 3s
+  write_timeout: 3s
+
+kafka:
+  brokers:
+    - "localhost:9092"
+  producer:
+    retry_max: 3
+    retry_backoff: 100ms
+    required_acks: 1
+    compression: "snappy"
+  consumer:
+    group_id: "bridge-service"
+    auto_offset_reset: "earliest"
+    enable_auto_commit: true
+    auto_commit_interval: 1s
+
+payment_gateways:
+  razorpay:
+    name: "razorpay"
+    api_key: "rzp_test_1234567890"
+    secret_key: "secret_1234567890"
+    base_url: "https://api.razorpay.com"
+    environment: "test"
+    timeout: 30s
+    retry_count: 3
+    retry_delay: 1s
+
+  stripe:
+    name: "stripe"
+    api_key: "sk_test_1234567890"
+    secret_key: "secret_1234567890"
+    base_url: "https://api.stripe.com"
+    environment: "test"
+    timeout: 30s
+    retry_count: 3
+    retry_delay: 1s
+
+  payumoney:
+    name: "payumoney"
+    api_key: "payu_1234567890"
+    secret_key: "secret_1234567890"
+    base_url: "https://test.payu.in"
+    environment: "test"
+    timeout: 30s
+    retry_count: 3
+    retry_delay: 1s
+
+notification_channels:
+  email:
+    name: "email"
+    api_key: "email_api_key"
+    secret_key: "email_secret"
+    base_url: "https://api.sendgrid.com"
+    environment: "test"
+    timeout: 30s
+    retry_count: 3
+    retry_delay: 1s
+
+  sms:
+    name: "sms"
+    api_key: "sms_api_key"
+    secret_key: "sms_secret"
+    base_url: "https://api.twilio.com"
+    environment: "test"
+    timeout: 30s
+    retry_count: 3
+    retry_delay: 1s
+
+  push:
+    name: "push"
+    api_key: "push_api_key"
+    secret_key: "push_secret"
+    base_url: "https://fcm.googleapis.com"
+    environment: "test"
+    timeout: 30s
+    retry_count: 3
+    retry_delay: 1s
+
+  whatsapp:
+    name: "whatsapp"
+    api_key: "whatsapp_api_key"
+    secret_key: "whatsapp_secret"
+    base_url: "https://api.whatsapp.com"
+    environment: "test"
+    timeout: 30s
+    retry_count: 3
+    retry_delay: 1s
+
+logging:
+  level: "info"
+  format: "json"
+  output: "stdout"
+  file:
+    enabled: false
+    path: "logs/bridge.log"
+    max_size: 100
+    max_backups: 3
+    max_age: 28
+
+metrics:
+  enabled: true
+  port: 9090
+  path: "/metrics"
+  collect_interval: 30s
+
+websocket:
+  enabled: true
+  read_buffer_size: 1024
+  write_buffer_size: 1024
+  handshake_timeout: 10s
+  ping_period: 54s
+  pong_wait: 60s
+  max_message_size: 512
+
+security:
+  cors:
+    enabled: true
+    origins:
+      - "http://localhost:3000"
+      - "http://localhost:8080"
+    methods:
+      - "GET"
+      - "POST"
+      - "PUT"
+      - "DELETE"
+      - "OPTIONS"
+    headers:
+      - "Content-Type"
+      - "Authorization"
+    credentials: true
+
+  rate_limiting:
+    enabled: true
+    requests_per_minute: 100
+    burst_size: 20
+
+  api_key:
+    enabled: false
+    header_name: "X-API-Key"
+    required_endpoints:
+      - "/api/v1/payments"
+      - "/api/v1/notifications"
+      - "/api/v1/bridge"
