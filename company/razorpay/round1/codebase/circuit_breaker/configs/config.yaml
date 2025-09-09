@@ -1,0 +1,119 @@
+server:
+  port: ":8080"
+  read_timeout: 30s
+  write_timeout: 30s
+  idle_timeout: 120s
+
+database:
+  mysql:
+    host: "localhost"
+    port: 3306
+    username: "root"
+    password: "password"
+    database: "circuit_breaker_db"
+    max_idle_conns: 10
+    max_open_conns: 100
+    conn_max_lifetime: 3600
+  mongodb:
+    uri: "mongodb://localhost:27017"
+    database: "circuit_breaker_db"
+    max_pool_size: 100
+    min_pool_size: 10
+    max_idle_time: 30s
+
+kafka:
+  brokers:
+    - "localhost:9092"
+  group_id: "circuit-breaker-group"
+  topic: "circuit-breaker-events"
+  consumer_timeout: 10s
+  producer_timeout: 10s
+
+websocket:
+  read_buffer_size: 1024
+  write_buffer_size: 1024
+  handshake_timeout: 10s
+  ping_period: 54s
+  pong_wait: 60s
+  write_wait: 10s
+
+circuit_breaker:
+  name: "Circuit Breaker Service"
+  version: "1.0.0"
+  description: "Circuit Breaker pattern service for fault tolerance and resilience"
+  max_circuit_breakers: 1000
+  cleanup_interval: "1h"
+  validation_enabled: true
+  caching_enabled: true
+  monitoring_enabled: true
+  auditing_enabled: true
+  default_failure_threshold: 5
+  default_success_threshold: 3
+  default_timeout: "30s"
+  default_reset_timeout: "60s"
+  supported_types:
+    - "PaymentCircuitBreaker"
+    - "OrderCircuitBreaker"
+    - "UserCircuitBreaker"
+    - "NotificationCircuitBreaker"
+    - "InventoryCircuitBreaker"
+    - "ShippingCircuitBreaker"
+  validation_rules:
+    circuit_breaker:
+      id:
+        required: true
+        min_length: 2
+        max_length: 100
+      name:
+        required: true
+        min_length: 2
+        max_length: 100
+      description:
+        required: true
+        min_length: 10
+        max_length: 500
+      failure_threshold:
+        required: true
+        min: 1
+        max: 100
+      success_threshold:
+        required: true
+        min: 1
+        max: 100
+      timeout:
+        required: true
+        min: "1s"
+        max: "1h"
+      reset_timeout:
+        required: true
+        min: "1s"
+        max: "1h"
+      max_requests:
+        required: true
+        min: 1
+        max: 1000
+      request_volume_threshold:
+        required: true
+        min: 1
+        max: 1000
+      sleep_window:
+        required: true
+        min: "1s"
+        max: "1h"
+      error_threshold:
+        required: true
+        min: 0.0
+        max: 1.0
+      slow_call_threshold:
+        required: true
+        min: "1s"
+        max: "1h"
+      slow_call_ratio_threshold:
+        required: true
+        min: 0.0
+        max: 1.0
+  metadata:
+    environment: "development"
+    region: "us-east-1"
+    team: "backend"
+    project: "circuit-breaker-service"
