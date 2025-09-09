@@ -25,6 +25,8 @@ This repository contains comprehensive preparation materials for software engine
 #### **System Design & Architecture**
 
 - [**System Design Concepts Guide**](./Technical-Fundamentals/System_Design_Concepts_Guide.md) - HLD/LLD, scalability, microservices
+- [**System Design Patterns Complete Guide**](./System_Design_Patterns_Complete_Guide.md) - **🚀 NEW** - Essential system design patterns with Go implementations
+- [**Advanced System Design Scenarios**](./Advanced_System_Design_Scenarios.md) - **🚀 NEW** - Complex system design scenarios for senior interviews
 - [**Google System Design Advanced**](./Company-Specific/Google_System_Design_Advanced.md) - Advanced system design patterns
 - [**Google Distributed Systems Guide**](./Company-Specific/Google_Distributed_Systems_Guide.md) - Distributed systems concepts
 
@@ -97,6 +99,7 @@ This repository contains comprehensive preparation materials for software engine
 ### **💼 Behavioral & Soft Skills**
 
 - [**Behavioral Questions Complete Guide**](./Core-Guides/Behavioral_Questions_Complete_Guide.md) - STAR method and common questions
+- [**Interview Preparation Complete Checklist**](./Interview_Preparation_Complete_Checklist.md) - **🚀 NEW** - Comprehensive checklist for interview preparation
 
 ## 🚀 **Getting Started**
 
@@ -135,13 +138,14 @@ This repository contains comprehensive preparation materials for software engine
 
 ## 📊 **Repository Statistics**
 
-- **Total Files**: 300+ comprehensive guides and examples
+- **Total Files**: 320+ comprehensive guides and examples
 - **DSA Problems**: 500+ LeetCode problems with Go solutions
-- **System Design**: 50+ design patterns and architectures
+- **System Design**: 70+ design patterns and architectures with advanced scenarios
 - **Backend-DevOps**: 47 comprehensive guides covering AWS, GCP, and modern DevOps
 - **AI/ML Content**: Complete learning path from fundamentals to advanced
 - **TinyML**: 9 comprehensive sections covering all aspects
-- **Company-Specific**: Tailored content for Google, Razorpay, and more
+- **Company-Specific**: Tailored content for 6 major tech companies
+- **Interview Preparation**: Complete checklist and preparation strategies
 
 ## 🎯 **Key Features**
 
@@ -149,12 +153,15 @@ This repository contains comprehensive preparation materials for software engine
 
 - ✅ **Data Structures & Algorithms**: 500+ problems with optimal solutions
 - ✅ **System Design**: HLD/LLD, scalability, microservices, distributed systems
+- ✅ **System Design Patterns**: 10+ essential patterns with Go implementations
+- ✅ **Advanced System Design**: Complex scenarios for senior engineering interviews
 - ✅ **Backend Engineering**: APIs, databases, caching, authentication, microservices
 - ✅ **Cloud Platforms**: Complete AWS & GCP mastery with 14+ services each
 - ✅ **DevOps & Infrastructure**: CI/CD, containers, Kubernetes, Terraform, monitoring
 - ✅ **AI/ML**: Complete learning path from fundamentals to production
 - ✅ **TinyML**: Edge AI, optimization, hardware deployment
-- ✅ **Company-Specific**: Tailored content for top tech companies
+- ✅ **Company-Specific**: Tailored content for 6 major tech companies
+- ✅ **Interview Preparation**: Complete checklist and preparation strategies
 
 ### **Production-Ready Content**
 
@@ -170,10 +177,12 @@ This repository has been designed to help you:
 
 - **Master Technical Concepts**: Deep understanding of all required topics
 - **Ace Coding Interviews**: 500+ problems with optimal solutions
-- **Excel in System Design**: Real-world architecture patterns
+- **Excel in System Design**: Real-world architecture patterns and advanced scenarios
+- **Master System Design Patterns**: Essential patterns with production-ready implementations
 - **Master Backend-DevOps**: Complete AWS & GCP expertise with production-ready examples
 - **Prepare for AI/ML Roles**: Complete learning path and practical examples
-- **Land Your Dream Job**: Company-specific preparation and strategies
+- **Land Your Dream Job**: Company-specific preparation and comprehensive strategies
+- **Track Your Progress**: Complete checklist and preparation timeline
 
 ---
 
