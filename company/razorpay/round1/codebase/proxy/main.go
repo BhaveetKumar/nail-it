@@ -2,8 +2,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -11,16 +9,16 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/gin-gonic/gin"
-	"github.com/gorilla/websocket"
-	"github.com/go-redis/redis/v8"
 	"github.com/Shopify/sarama"
+	"github.com/gin-gonic/gin"
+	"github.com/go-redis/redis/v8"
+	"github.com/gorilla/websocket"
+	"github.com/patrickmn/go-cache"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.uber.org/zap"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"go.uber.org/zap"
-	"github.com/patrickmn/go-cache"
 
 	"proxy/internal/proxy"
 )
@@ -40,7 +38,7 @@ func main() {
 
 	// Initialize services
 	proxyManager := initProxyManager(logger)
-	
+
 	// Initialize databases
 	mysqlDB := initMySQL()
 	mongoDB := initMongoDB()
@@ -139,24 +137,24 @@ func initProxyManager(logger *zap.Logger) *proxy.ProxyManager {
 			},
 		},
 		Cache: proxy.CacheConfig{
-			Enabled:     true,
-			Type:        "memory",
-			TTL:         5 * time.Minute,
-			MaxSize:     1000,
+			Enabled:         true,
+			Type:            "memory",
+			TTL:             5 * time.Minute,
+			MaxSize:         1000,
 			CleanupInterval: 10 * time.Minute,
 		},
 		RateLimit: proxy.RateLimitConfig{
-			Enabled:     true,
+			Enabled:           true,
 			RequestsPerMinute: 100,
-			BurstSize:   20,
-			WindowSize:  time.Minute,
+			BurstSize:         20,
+			WindowSize:        time.Minute,
 		},
 		CircuitBreaker: proxy.CircuitBreakerConfig{
-			Enabled:           true,
-			FailureThreshold:  5,
-			SuccessThreshold:  3,
-			Timeout:           30 * time.Second,
-			MaxRequests:       10,
+			Enabled:          true,
+			FailureThreshold: 5,
+			SuccessThreshold: 3,
+			Timeout:          30 * time.Second,
+			MaxRequests:      10,
 		},
 		Security: proxy.SecurityConfig{
 			Enabled:        true,
@@ -169,10 +167,10 @@ func initProxyManager(logger *zap.Logger) *proxy.ProxyManager {
 			SanitizeInput:  true,
 		},
 		Monitoring: proxy.MonitoringConfig{
-			Enabled:       true,
-			MetricsPort:   9090,
-			LogLevel:      "info",
-			LogFormat:     "json",
+			Enabled:         true,
+			MetricsPort:     9090,
+			LogLevel:        "info",
+			LogFormat:       "json",
 			CollectInterval: 30 * time.Second,
 		},
 		LoadBalancing: proxy.LoadBalancingConfig{
@@ -341,8 +339,8 @@ func setupRoutes(
 		}
 
 		c.JSON(status, gin.H{
-			"status":  "healthy",
-			"services": healthChecks,
+			"status":    "healthy",
+			"services":  healthChecks,
 			"timestamp": time.Now(),
 		})
 	})
@@ -437,9 +435,9 @@ func (ml *MockLogger) Warn(msg string, fields ...interface{}) {
 
 type MockMetrics struct{}
 
-func (mm *MockMetrics) IncrementCounter(name string, labels map[string]string) {}
+func (mm *MockMetrics) IncrementCounter(name string, labels map[string]string)               {}
 func (mm *MockMetrics) RecordHistogram(name string, value float64, labels map[string]string) {}
-func (mm *MockMetrics) RecordGauge(name string, value float64, labels map[string]string) {}
+func (mm *MockMetrics) RecordGauge(name string, value float64, labels map[string]string)     {}
 
 type MockCircuitBreaker struct{}
 
@@ -485,11 +483,13 @@ func (ms *MockSecurity) CheckRateLimit(ctx context.Context, key string) bool {
 	return true
 }
 
-func (ms *MockSecurity) AuditLog(ctx context.Context, action string, userID string, details map[string]interface{}) {}
+func (ms *MockSecurity) AuditLog(ctx context.Context, action string, userID string, details map[string]interface{}) {
+}
 
 type MockMonitoring struct{}
 
-func (mm *MockMonitoring) RecordRequest(ctx context.Context, service string, duration time.Duration, success bool) {}
+func (mm *MockMonitoring) RecordRequest(ctx context.Context, service string, duration time.Duration, success bool) {
+}
 func (mm *MockMonitoring) RecordError(ctx context.Context, service string, err error) {}
 func (mm *MockMonitoring) GetServiceMetrics(service string) (*proxy.ServiceMetrics, error) {
 	return &proxy.ServiceMetrics{

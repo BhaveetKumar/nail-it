@@ -49,24 +49,24 @@ func NewServiceProxy(
 // Process processes a request through the proxy
 func (sp *ServiceProxy) Process(ctx context.Context, request interface{}) (interface{}, error) {
 	start := time.Now()
-	
+
 	// Security validation
 	if err := sp.security.ValidateInput(request); err != nil {
 		sp.logger.Error("Input validation failed", "error", err)
 		sp.metrics.IncrementCounter("proxy_validation_errors", map[string]string{"service": sp.GetName()})
 		return nil, fmt.Errorf("input validation failed: %w", err)
 	}
-	
+
 	// Sanitize input
 	request = sp.security.SanitizeInput(request)
-	
+
 	// Rate limiting
 	if !sp.rateLimiter.Allow(sp.GetName()) {
 		sp.logger.Warn("Rate limit exceeded", "service", sp.GetName())
 		sp.metrics.IncrementCounter("proxy_rate_limit_hits", map[string]string{"service": sp.GetName()})
 		return nil, fmt.Errorf("rate limit exceeded")
 	}
-	
+
 	// Check cache
 	cacheKey := sp.generateCacheKey(request)
 	if cached, found := sp.cache.Get(cacheKey); found {
@@ -74,14 +74,14 @@ func (sp *ServiceProxy) Process(ctx context.Context, request interface{}) (inter
 		sp.metrics.IncrementCounter("proxy_cache_hits", map[string]string{"service": sp.GetName()})
 		return cached, nil
 	}
-	
+
 	// Process through circuit breaker
 	result, err := sp.circuitBreaker.Execute(ctx, func() (interface{}, error) {
 		return sp.service.Process(ctx, request)
 	})
-	
+
 	duration := time.Since(start)
-	
+
 	// Record metrics
 	sp.monitoring.RecordRequest(ctx, sp.GetName(), duration, err == nil)
 	if err != nil {
@@ -92,9 +92,9 @@ func (sp *ServiceProxy) Process(ctx context.Context, request interface{}) (inter
 		// Cache successful results
 		sp.cache.Set(cacheKey, result, 5*time.Minute)
 	}
-	
+
 	sp.metrics.RecordHistogram("proxy_latency", float64(duration.Milliseconds()), map[string]string{"service": sp.GetName()})
-	
+
 	return result, err
 }
 
@@ -115,11 +115,11 @@ func (sp *ServiceProxy) generateCacheKey(request interface{}) string {
 
 // CacheProxy implements caching functionality
 type CacheProxy struct {
-	cache    Cache
-	logger   Logger
-	metrics  Metrics
-	config   CacheConfig
-	mu       sync.RWMutex
+	cache   Cache
+	logger  Logger
+	metrics Metrics
+	config  CacheConfig
+	mu      sync.RWMutex
 }
 
 // NewCacheProxy creates a new cache proxy
@@ -137,14 +137,14 @@ func (cp *CacheProxy) Get(key string) (interface{}, bool) {
 	if !cp.config.Enabled {
 		return nil, false
 	}
-	
+
 	value, found := cp.cache.Get(key)
 	if found {
 		cp.metrics.IncrementCounter("cache_hits", map[string]string{"type": "proxy"})
 	} else {
 		cp.metrics.IncrementCounter("cache_misses", map[string]string{"type": "proxy"})
 	}
-	
+
 	return value, found
 }
 
@@ -153,7 +153,7 @@ func (cp *CacheProxy) Set(key string, value interface{}, expiration time.Duratio
 	if !cp.config.Enabled {
 		return
 	}
-	
+
 	cp.cache.Set(key, value, expiration)
 	cp.metrics.IncrementCounter("cache_sets", map[string]string{"type": "proxy"})
 }
@@ -172,12 +172,12 @@ func (cp *CacheProxy) Clear() {
 
 // SecurityProxy implements security functionality
 type SecurityProxy struct {
-	auth       Authentication
-	authorize  Authorization
-	logger     Logger
-	metrics    Metrics
-	config     SecurityConfig
-	mu         sync.RWMutex
+	auth      Authentication
+	authorize Authorization
+	logger    Logger
+	metrics   Metrics
+	config    SecurityConfig
+	mu        sync.RWMutex
 }
 
 // NewSecurityProxy creates a new security proxy
@@ -202,12 +202,12 @@ func (sp *SecurityProxy) ValidateInput(input interface{}) error {
 	if !sp.config.ValidateInput {
 		return nil
 	}
-	
+
 	// Basic validation logic
 	if input == nil {
 		return fmt.Errorf("input cannot be nil")
 	}
-	
+
 	sp.metrics.IncrementCounter("security_validations", map[string]string{"type": "input"})
 	return nil
 }
@@ -217,7 +217,7 @@ func (sp *SecurityProxy) SanitizeInput(input interface{}) interface{} {
 	if !sp.config.SanitizeInput {
 		return input
 	}
-	
+
 	// Basic sanitization logic
 	sp.metrics.IncrementCounter("security_sanitizations", map[string]string{"type": "input"})
 	return input
@@ -265,9 +265,9 @@ func (mp *MonitoringProxy) RecordRequest(ctx context.Context, service string, du
 	if !mp.config.Enabled {
 		return
 	}
-	
+
 	mp.monitoring.RecordRequest(ctx, service, duration, success)
-	
+
 	labels := map[string]string{"service": service, "success": fmt.Sprintf("%t", success)}
 	mp.metrics.IncrementCounter("monitoring_requests", labels)
 	mp.metrics.RecordHistogram("monitoring_duration", float64(duration.Milliseconds()), labels)
@@ -278,9 +278,9 @@ func (mp *MonitoringProxy) RecordError(ctx context.Context, service string, err 
 	if !mp.config.Enabled {
 		return
 	}
-	
+
 	mp.monitoring.RecordError(ctx, service, err)
-	
+
 	labels := map[string]string{"service": service, "error_type": fmt.Sprintf("%T", err)}
 	mp.metrics.IncrementCounter("monitoring_errors", labels)
 }
@@ -290,6 +290,6 @@ func (mp *MonitoringProxy) GetServiceMetrics(service string) (*ServiceMetrics, e
 	if !mp.config.Enabled {
 		return nil, fmt.Errorf("monitoring disabled")
 	}
-	
+
 	return mp.monitoring.GetServiceMetrics(service)
 }

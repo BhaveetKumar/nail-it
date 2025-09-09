@@ -9,12 +9,12 @@ import (
 
 // ProxyManager manages all proxy services
 type ProxyManager struct {
-	services    map[string]*ServiceProxy
-	config      ProxyConfig
-	logger      Logger
-	metrics     Metrics
-	mu          sync.RWMutex
-	stats       *ProxyStats
+	services map[string]*ServiceProxy
+	config   ProxyConfig
+	logger   Logger
+	metrics  Metrics
+	mu       sync.RWMutex
+	stats    *ProxyStats
 }
 
 // NewProxyManager creates a new proxy manager
@@ -32,7 +32,7 @@ func NewProxyManager(config ProxyConfig, logger Logger, metrics Metrics) *ProxyM
 func (pm *ProxyManager) RegisterService(service Service, proxy *ServiceProxy) {
 	pm.mu.Lock()
 	defer pm.mu.Unlock()
-	
+
 	pm.services[service.GetName()] = proxy
 	pm.logger.Info("Service registered", "service", service.GetName())
 }
@@ -42,17 +42,17 @@ func (pm *ProxyManager) ProcessRequest(ctx context.Context, serviceName string, 
 	pm.mu.RLock()
 	proxy, exists := pm.services[serviceName]
 	pm.mu.RUnlock()
-	
+
 	if !exists {
 		pm.metrics.IncrementCounter("proxy_service_not_found", map[string]string{"service": serviceName})
 		return nil, fmt.Errorf("service %s not found", serviceName)
 	}
-	
+
 	// Update stats
 	pm.mu.Lock()
 	pm.stats.TotalRequests++
 	pm.mu.Unlock()
-	
+
 	// Process through proxy
 	return proxy.Process(ctx, request)
 }
@@ -62,20 +62,20 @@ func (pm *ProxyManager) GetServiceHealth(ctx context.Context, serviceName string
 	pm.mu.RLock()
 	proxy, exists := pm.services[serviceName]
 	pm.mu.RUnlock()
-	
+
 	if !exists {
 		return nil, fmt.Errorf("service %s not found", serviceName)
 	}
-	
+
 	start := time.Now()
 	healthy := proxy.IsHealthy(ctx)
 	latency := time.Since(start)
-	
+
 	status := "healthy"
 	if !healthy {
 		status = "unhealthy"
 	}
-	
+
 	return &HealthCheck{
 		Service:   serviceName,
 		Healthy:   healthy,
@@ -94,9 +94,9 @@ func (pm *ProxyManager) GetAllServicesHealth(ctx context.Context) ([]*HealthChec
 		services = append(services, service)
 	}
 	pm.mu.RUnlock()
-	
+
 	healthChecks := make([]*HealthCheck, 0, len(services))
-	
+
 	for _, service := range services {
 		health, err := pm.GetServiceHealth(ctx, service.GetName())
 		if err != nil {
@@ -105,7 +105,7 @@ func (pm *ProxyManager) GetAllServicesHealth(ctx context.Context) ([]*HealthChec
 		}
 		healthChecks = append(healthChecks, health)
 	}
-	
+
 	return healthChecks, nil
 }
 
@@ -113,7 +113,7 @@ func (pm *ProxyManager) GetAllServicesHealth(ctx context.Context) ([]*HealthChec
 func (pm *ProxyManager) GetStats() *ProxyStats {
 	pm.mu.RLock()
 	defer pm.mu.RUnlock()
-	
+
 	// Create a copy to avoid race conditions
 	stats := *pm.stats
 	return &stats
@@ -123,7 +123,7 @@ func (pm *ProxyManager) GetStats() *ProxyStats {
 func (pm *ProxyManager) ResetStats() {
 	pm.mu.Lock()
 	defer pm.mu.Unlock()
-	
+
 	pm.stats = &ProxyStats{
 		LastReset: time.Now(),
 	}
@@ -134,11 +134,11 @@ func (pm *ProxyManager) GetServiceMetrics(serviceName string) (*ServiceMetrics, 
 	pm.mu.RLock()
 	proxy, exists := pm.services[serviceName]
 	pm.mu.RUnlock()
-	
+
 	if !exists {
 		return nil, fmt.Errorf("service %s not found", serviceName)
 	}
-	
+
 	// This would typically come from the monitoring system
 	// For now, return mock data
 	return &ServiceMetrics{
@@ -183,11 +183,11 @@ func NewLoadBalancerProxy(
 		logger:      logger,
 		metrics:     metrics,
 	}
-	
+
 	if healthCheck {
 		go lb.startHealthCheck()
 	}
-	
+
 	return lb
 }
 
@@ -195,11 +195,11 @@ func NewLoadBalancerProxy(
 func (lb *LoadBalancerProxy) SelectService(services []Service) Service {
 	lb.mu.RLock()
 	defer lb.mu.RUnlock()
-	
+
 	if len(services) == 0 {
 		return nil
 	}
-	
+
 	switch lb.algorithm {
 	case "round_robin":
 		return lb.roundRobin(services)
@@ -237,7 +237,7 @@ func (lb *LoadBalancerProxy) leastConnections(services []Service) Service {
 func (lb *LoadBalancerProxy) startHealthCheck() {
 	ticker := time.NewTicker(lb.interval)
 	defer ticker.Stop()
-	
+
 	for range ticker.C {
 		lb.performHealthCheck()
 	}
@@ -246,16 +246,16 @@ func (lb *LoadBalancerProxy) startHealthCheck() {
 // performHealthCheck performs health checks on all services
 func (lb *LoadBalancerProxy) performHealthCheck() {
 	ctx := context.Background()
-	
+
 	lb.mu.RLock()
 	services := make([]Service, len(lb.services))
 	copy(services, lb.services)
 	lb.mu.RUnlock()
-	
+
 	for _, service := range services {
 		healthy := service.IsHealthy(ctx)
 		lb.metrics.RecordGauge("service_health", float64(boolToInt(healthy)), map[string]string{"service": service.GetName()})
-		
+
 		if !healthy {
 			lb.logger.Warn("Service unhealthy", "service", service.GetName())
 		}

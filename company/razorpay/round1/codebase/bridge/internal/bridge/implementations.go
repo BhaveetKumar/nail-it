@@ -22,7 +22,7 @@ func NewRazorpayPaymentGateway(config PaymentGatewayConfig) *RazorpayPaymentGate
 func (r *RazorpayPaymentGateway) ProcessPayment(ctx context.Context, req PaymentRequest) (*PaymentResponse, error) {
 	// Simulate Razorpay API call
 	time.Sleep(100 * time.Millisecond)
-	
+
 	response := &PaymentResponse{
 		ID:            req.ID,
 		Status:        "success",
@@ -34,7 +34,7 @@ func (r *RazorpayPaymentGateway) ProcessPayment(ctx context.Context, req Payment
 		CreatedAt:     req.CreatedAt,
 		ProcessedAt:   time.Now(),
 	}
-	
+
 	return response, nil
 }
 
@@ -61,7 +61,7 @@ func NewStripePaymentGateway(config PaymentGatewayConfig) *StripePaymentGateway 
 func (s *StripePaymentGateway) ProcessPayment(ctx context.Context, req PaymentRequest) (*PaymentResponse, error) {
 	// Simulate Stripe API call
 	time.Sleep(120 * time.Millisecond)
-	
+
 	response := &PaymentResponse{
 		ID:            req.ID,
 		Status:        "success",
@@ -73,7 +73,7 @@ func (s *StripePaymentGateway) ProcessPayment(ctx context.Context, req PaymentRe
 		CreatedAt:     req.CreatedAt,
 		ProcessedAt:   time.Now(),
 	}
-	
+
 	return response, nil
 }
 
@@ -100,7 +100,7 @@ func NewPayUMPaymentGateway(config PaymentGatewayConfig) *PayUMPaymentGateway {
 func (p *PayUMPaymentGateway) ProcessPayment(ctx context.Context, req PaymentRequest) (*PaymentResponse, error) {
 	// Simulate PayUMoney API call
 	time.Sleep(150 * time.Millisecond)
-	
+
 	response := &PaymentResponse{
 		ID:            req.ID,
 		Status:        "success",
@@ -112,7 +112,7 @@ func (p *PayUMPaymentGateway) ProcessPayment(ctx context.Context, req PaymentReq
 		CreatedAt:     req.CreatedAt,
 		ProcessedAt:   time.Now(),
 	}
-	
+
 	return response, nil
 }
 
@@ -139,7 +139,7 @@ func NewEmailNotificationChannel(config NotificationChannelConfig) *EmailNotific
 func (e *EmailNotificationChannel) SendNotification(ctx context.Context, req NotificationRequest) (*NotificationResponse, error) {
 	// Simulate email sending
 	time.Sleep(200 * time.Millisecond)
-	
+
 	response := &NotificationResponse{
 		ID:        req.ID,
 		Status:    "sent",
@@ -149,7 +149,7 @@ func (e *EmailNotificationChannel) SendNotification(ctx context.Context, req Not
 		CreatedAt: req.CreatedAt,
 		SentAt:    time.Now(),
 	}
-	
+
 	return response, nil
 }
 
@@ -169,7 +169,7 @@ func NewSMSNotificationChannel(config NotificationChannelConfig) *SMSNotificatio
 func (s *SMSNotificationChannel) SendNotification(ctx context.Context, req NotificationRequest) (*NotificationResponse, error) {
 	// Simulate SMS sending
 	time.Sleep(100 * time.Millisecond)
-	
+
 	response := &NotificationResponse{
 		ID:        req.ID,
 		Status:    "sent",
@@ -179,7 +179,7 @@ func (s *SMSNotificationChannel) SendNotification(ctx context.Context, req Notif
 		CreatedAt: req.CreatedAt,
 		SentAt:    time.Now(),
 	}
-	
+
 	return response, nil
 }
 
@@ -199,7 +199,7 @@ func NewPushNotificationChannel(config NotificationChannelConfig) *PushNotificat
 func (p *PushNotificationChannel) SendNotification(ctx context.Context, req NotificationRequest) (*NotificationResponse, error) {
 	// Simulate push notification sending
 	time.Sleep(80 * time.Millisecond)
-	
+
 	response := &NotificationResponse{
 		ID:        req.ID,
 		Status:    "sent",
@@ -209,7 +209,7 @@ func (p *PushNotificationChannel) SendNotification(ctx context.Context, req Noti
 		CreatedAt: req.CreatedAt,
 		SentAt:    time.Now(),
 	}
-	
+
 	return response, nil
 }
 
@@ -229,7 +229,7 @@ func NewWhatsAppNotificationChannel(config NotificationChannelConfig) *WhatsAppN
 func (w *WhatsAppNotificationChannel) SendNotification(ctx context.Context, req NotificationRequest) (*NotificationResponse, error) {
 	// Simulate WhatsApp sending
 	time.Sleep(300 * time.Millisecond)
-	
+
 	response := &NotificationResponse{
 		ID:        req.ID,
 		Status:    "sent",
@@ -239,6 +239,6 @@ func (w *WhatsAppNotificationChannel) SendNotification(ctx context.Context, req 
 		CreatedAt: req.CreatedAt,
 		SentAt:    time.Now(),
 	}
-	
+
 	return response, nil
 }

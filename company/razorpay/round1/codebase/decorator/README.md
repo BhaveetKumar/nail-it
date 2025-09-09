@@ -79,6 +79,7 @@ The Decorator Pattern allows behavior to be added to objects dynamically without
 ## Features
 
 ### Core Components
+
 - **Payment Component**: Payment processing and transactions
 - **Notification Component**: Email, SMS, push notifications
 - **User Component**: User management and authentication
@@ -88,6 +89,7 @@ The Decorator Pattern allows behavior to be added to objects dynamically without
 - **Audit Component**: Audit logging and compliance
 
 ### Decorators
+
 - **Logging Decorator**: Request/response logging
 - **Metrics Decorator**: Performance metrics collection
 - **Cache Decorator**: Response caching
@@ -107,6 +109,7 @@ The Decorator Pattern allows behavior to be added to objects dynamically without
 ## API Endpoints
 
 ### Component Execution
+
 ```bash
 # Execute component with decorators
 POST /api/v1/components/{component}/execute
@@ -122,6 +125,7 @@ Content-Type: application/json
 ```
 
 ### Health Checks
+
 ```bash
 # Check specific component health
 GET /api/v1/components/{component}/health
@@ -131,12 +135,14 @@ GET /health
 ```
 
 ### Metrics
+
 ```bash
 # Get component metrics
 GET /api/v1/components/{component}/metrics
 ```
 
 ### Decorator Management
+
 ```bash
 # List all decorators
 GET /api/v1/decorators/
@@ -146,6 +152,7 @@ GET /api/v1/decorators/{component}/chain?decorators=logging,metrics,cache
 ```
 
 ### Component Management
+
 ```bash
 # List all components
 GET /api/v1/management/components
@@ -158,6 +165,7 @@ DELETE /api/v1/management/decorators/{decorator}
 ```
 
 ### WebSocket
+
 ```bash
 # Connect for real-time updates
 WS /ws
@@ -200,31 +208,34 @@ require (
 ## Running the Service
 
 1. **Start dependencies**:
+
    ```bash
    # Start MySQL
    docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=decorator_db -p 3306:3306 mysql:8.0
-   
+
    # Start MongoDB
    docker run -d --name mongodb -p 27017:27017 mongo:6.0
-   
+
    # Start Redis
    docker run -d --name redis -p 6379:6379 redis:7.0
-   
+
    # Start Kafka
    docker run -d --name kafka -p 9092:9092 apache/kafka:3.4.0
    ```
 
 2. **Run the service**:
+
    ```bash
    go mod tidy
    go run main.go
    ```
 
 3. **Test the service**:
+
    ```bash
    # Health check
    curl http://localhost:8080/health
-   
+
    # Execute payment component with decorators
    curl -X POST http://localhost:8080/api/v1/components/payment/execute \
      -H "Content-Type: application/json" \
@@ -234,6 +245,7 @@ require (
 ## Design Patterns Used
 
 ### Decorator Pattern
+
 - **Component Interface**: Defines the contract for components
 - **Decorator Interface**: Defines the contract for decorators
 - **Concrete Components**: Implement core business logic
@@ -241,6 +253,7 @@ require (
 - **Decorator Manager**: Manages component and decorator registration
 
 ### Additional Patterns
+
 - **Factory Pattern**: Component and decorator creation
 - **Strategy Pattern**: Different decorator implementations
 - **Observer Pattern**: WebSocket real-time updates
@@ -269,24 +282,28 @@ require (
 ## Decorator Chain Examples
 
 ### Basic Chain
+
 ```
 Component → Logging → Metrics → Cache
 ```
 
 ### Security Chain
+
 ```
 Component → Security → Validation → Encryption → Logging
 ```
 
 ### Performance Chain
+
 ```
 Component → Cache → Compression → Metrics → Monitoring
 ```
 
 ### Full Chain
+
 ```
-Component → Security → Validation → RateLimit → CircuitBreaker → 
-Retry → Cache → Compression → Encryption → Logging → Metrics → 
+Component → Security → Validation → RateLimit → CircuitBreaker →
+Retry → Cache → Compression → Encryption → Logging → Metrics →
 Monitoring → Notification → Analytics → Audit
 ```
 

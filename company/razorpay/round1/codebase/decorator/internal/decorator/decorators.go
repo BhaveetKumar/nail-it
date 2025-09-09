@@ -9,8 +9,8 @@ import (
 
 // BaseDecorator provides a base implementation for decorators
 type BaseDecorator struct {
-	component Component
-	name      string
+	component   Component
+	name        string
 	description string
 }
 

@@ -1,8 +1,8 @@
-# 🔢 Two Sum
+# 🔢 Two Sum - Array Problem
 
-> **Classic array problem using hash map for optimal solution**
+> **Find two numbers in an array that add up to a target value**
 
-## 📋 **Problem Statement**
+## 📚 Problem Statement
 
 Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.
 
@@ -10,111 +10,32 @@ You may assume that each input would have **exactly one solution**, and you may 
 
 You can return the answer in any order.
 
-## 🎯 **Examples**
+## 🎯 Examples
 
 ```javascript
-// Example 1
+// Example 1:
 Input: nums = [2,7,11,15], target = 9
 Output: [0,1]
 Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
 
-// Example 2
+// Example 2:
 Input: nums = [3,2,4], target = 6
 Output: [1,2]
-Explanation: Because nums[2] + nums[1] == 6, we return [1, 2].
 
-// Example 3
+// Example 3:
 Input: nums = [3,3], target = 6
 Output: [0,1]
-Explanation: Because nums[0] + nums[1] == 6, we return [0, 1].
 ```
 
-## 🧠 **Approach**
+## 🚀 Solutions
 
-### **Brute Force Approach**
-- Check every pair of numbers in the array
-- Time Complexity: O(n²)
-- Space Complexity: O(1)
-
-### **Hash Map Approach (Optimal)**
-- Use a hash map to store numbers and their indices
-- For each number, check if complement exists in map
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-## 🔍 **Dry Run**
-
-```
-nums = [2, 7, 11, 15], target = 9
-
-Step 1: i=0, nums[0]=2, complement=9-2=7
-        map = {}, complement not found
-        map = {2: 0}
-
-Step 2: i=1, nums[1]=7, complement=9-7=2
-        map = {2: 0}, complement found!
-        return [0, 1]
-```
-
-## 💻 **Solution**
-
-### **Hash Map Solution (Optimal)**
+### **Solution 1: Brute Force (O(n²))**
 
 ```javascript
 /**
- * Two Sum - Hash Map Approach
- * Time Complexity: O(n)
- * Space Complexity: O(n)
- * 
- * @param {number[]} nums
- * @param {number} target
- * @return {number[]}
- */
-function twoSum(nums, target) {
-    const map = new Map();
-    
-    for (let i = 0; i < nums.length; i++) {
-        const complement = target - nums[i];
-        
-        if (map.has(complement)) {
-            return [map.get(complement), i];
-        }
-        
-        map.set(nums[i], i);
-    }
-    
-    return [];
-}
-
-// Alternative implementation using object
-function twoSumObject(nums, target) {
-    const numMap = {};
-    
-    for (let i = 0; i < nums.length; i++) {
-        const complement = target - nums[i];
-        
-        if (complement in numMap) {
-            return [numMap[complement], i];
-        }
-        
-        numMap[nums[i]] = i;
-    }
-    
-    return [];
-}
-```
-
-### **Brute Force Solution**
-
-```javascript
-/**
- * Two Sum - Brute Force Approach
+ * Brute Force Approach
  * Time Complexity: O(n²)
  * Space Complexity: O(1)
- * 
- * @param {number[]} nums
- * @param {number} target
- * @return {number[]}
  */
 function twoSumBruteForce(nums, target) {
     for (let i = 0; i < nums.length; i++) {
@@ -124,67 +45,181 @@ function twoSumBruteForce(nums, target) {
             }
         }
     }
-    
     return [];
-}
-```
-
-## 🧪 **Test Cases**
-
-```javascript
-// Test helper function
-function test(actual, expected, testName) {
-    const isEqual = JSON.stringify(actual.sort()) === JSON.stringify(expected.sort());
-    console.log(`${isEqual ? '✅' : '❌'} ${testName}`);
-    if (!isEqual) {
-        console.log(`Expected: ${expected}`);
-        console.log(`Actual: ${actual}`);
-    }
 }
 
 // Test cases
-test(twoSum([2, 7, 11, 15], 9), [0, 1], "Example 1");
-test(twoSum([3, 2, 4], 6), [1, 2], "Example 2");
-test(twoSum([3, 3], 6), [0, 1], "Example 3");
-test(twoSum([1, 2, 3, 4, 5], 8), [2, 4], "Custom test 1");
-test(twoSum([-1, -2, -3, -4, -5], -8), [2, 4], "Negative numbers");
-test(twoSum([0, 4, 3, 0], 0), [0, 3], "Zero target");
-test(twoSum([1, 2], 4), [], "No solution");
+console.log(twoSumBruteForce([2, 7, 11, 15], 9)); // [0, 1]
+console.log(twoSumBruteForce([3, 2, 4], 6));      // [1, 2]
+console.log(twoSumBruteForce([3, 3], 6));         // [0, 1]
 ```
 
-## 📊 **Complexity Analysis**
+### **Solution 2: Hash Map (O(n)) - Optimal**
 
-### **Hash Map Approach**
-- **Time Complexity**: O(n) - Single pass through array
-- **Space Complexity**: O(n) - Hash map stores up to n elements
-- **Best Case**: O(1) - Solution found at index 1
-- **Worst Case**: O(n) - Solution found at last index
-
-### **Brute Force Approach**
-- **Time Complexity**: O(n²) - Nested loops
-- **Space Complexity**: O(1) - No extra space used
-- **Best Case**: O(1) - Solution found at first pair
-- **Worst Case**: O(n²) - Solution found at last pair
-
-## 🎯 **Key Insights**
-
-1. **Hash Map Trade-off**: Use extra space to reduce time complexity
-2. **One Pass**: Can find solution in single iteration
-3. **Complement Strategy**: Look for target - current number
-4. **Index Storage**: Store both value and index in map
-5. **Early Return**: Return immediately when solution found
-
-## 🔄 **Variations**
-
-### **Two Sum II - Sorted Array**
 ```javascript
-// Array is sorted, use two pointers
-function twoSumSorted(numbers, target) {
+/**
+ * Hash Map Approach - Optimal Solution
+ * Time Complexity: O(n)
+ * Space Complexity: O(n)
+ */
+function twoSum(nums, target) {
+    const numMap = new Map();
+    
+    for (let i = 0; i < nums.length; i++) {
+        const complement = target - nums[i];
+        
+        if (numMap.has(complement)) {
+            return [numMap.get(complement), i];
+        }
+        
+        numMap.set(nums[i], i);
+    }
+    
+    return [];
+}
+
+// Test cases
+console.log(twoSum([2, 7, 11, 15], 9)); // [0, 1]
+console.log(twoSum([3, 2, 4], 6));      // [1, 2]
+console.log(twoSum([3, 3], 6));         // [0, 1]
+```
+
+### **Solution 3: Two Pointers (O(n log n)) - For Sorted Array**
+
+```javascript
+/**
+ * Two Pointers Approach - For Sorted Array
+ * Time Complexity: O(n log n) due to sorting
+ * Space Complexity: O(1)
+ */
+function twoSumTwoPointers(nums, target) {
+    // Create array with original indices
+    const indexedNums = nums.map((num, index) => ({ value: num, index }));
+    
+    // Sort by value
+    indexedNums.sort((a, b) => a.value - b.value);
+    
     let left = 0;
-    let right = numbers.length - 1;
+    let right = indexedNums.length - 1;
     
     while (left < right) {
-        const sum = numbers[left] + numbers[right];
+        const sum = indexedNums[left].value + indexedNums[right].value;
+        
+        if (sum === target) {
+            return [indexedNums[left].index, indexedNums[right].index];
+        } else if (sum < target) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+    
+    return [];
+}
+
+// Test cases
+console.log(twoSumTwoPointers([2, 7, 11, 15], 9)); // [0, 1]
+console.log(twoSumTwoPointers([3, 2, 4], 6));      // [1, 2]
+console.log(twoSumTwoPointers([3, 3], 6));         // [0, 1]
+```
+
+## 🧪 Test Cases
+
+```javascript
+// Comprehensive test suite
+function runTests() {
+    const testCases = [
+        {
+            input: { nums: [2, 7, 11, 15], target: 9 },
+            expected: [0, 1],
+            description: "Basic case"
+        },
+        {
+            input: { nums: [3, 2, 4], target: 6 },
+            expected: [1, 2],
+            description: "Different indices"
+        },
+        {
+            input: { nums: [3, 3], target: 6 },
+            expected: [0, 1],
+            description: "Same numbers"
+        },
+        {
+            input: { nums: [1, 2, 3, 4, 5], target: 8 },
+            expected: [2, 4],
+            description: "Larger array"
+        },
+        {
+            input: { nums: [-1, -2, -3, -4, -5], target: -8 },
+            expected: [2, 4],
+            description: "Negative numbers"
+        },
+        {
+            input: { nums: [0, 4, 3, 0], target: 0 },
+            expected: [0, 3],
+            description: "Zero values"
+        }
+    ];
+    
+    testCases.forEach((testCase, index) => {
+        const result = twoSum(testCase.input.nums, testCase.input.target);
+        const passed = JSON.stringify(result.sort()) === JSON.stringify(testCase.expected.sort());
+        
+        console.log(`Test ${index + 1}: ${testCase.description}`);
+        console.log(`Input: nums = [${testCase.input.nums}], target = ${testCase.input.target}`);
+        console.log(`Expected: [${testCase.expected}], Got: [${result}]`);
+        console.log(`Result: ${passed ? '✅ PASS' : '❌ FAIL'}\n`);
+    });
+}
+
+runTests();
+```
+
+## 📊 Performance Analysis
+
+```javascript
+// Performance comparison
+function performanceTest() {
+    const largeArray = Array.from({ length: 10000 }, (_, i) => i);
+    const target = 19999; // Last two elements
+    
+    console.log('Performance Test with 10,000 elements:');
+    
+    // Brute Force
+    console.time('Brute Force');
+    twoSumBruteForce(largeArray, target);
+    console.timeEnd('Brute Force');
+    
+    // Hash Map
+    console.time('Hash Map');
+    twoSum(largeArray, target);
+    console.timeEnd('Hash Map');
+    
+    // Two Pointers
+    console.time('Two Pointers');
+    twoSumTwoPointers(largeArray, target);
+    console.timeEnd('Two Pointers');
+}
+
+performanceTest();
+```
+
+## 🎯 Variations
+
+### **Variation 1: Two Sum II - Input Array is Sorted**
+
+```javascript
+/**
+ * Two Sum II - Input Array is Sorted
+ * Given a sorted array, find two numbers that add up to target
+ * Return 1-indexed positions
+ */
+function twoSumSorted(nums, target) {
+    let left = 0;
+    let right = nums.length - 1;
+    
+    while (left < right) {
+        const sum = nums[left] + nums[right];
         
         if (sum === target) {
             return [left + 1, right + 1]; // 1-indexed
@@ -197,86 +232,101 @@ function twoSumSorted(numbers, target) {
     
     return [];
 }
+
+// Test
+console.log(twoSumSorted([2, 7, 11, 15], 9)); // [1, 2]
 ```
 
-### **Two Sum - Return Values**
-```javascript
-// Return the actual values instead of indices
-function twoSumValues(nums, target) {
-    const map = new Map();
-    
-    for (let i = 0; i < nums.length; i++) {
-        const complement = target - nums[i];
-        
-        if (map.has(complement)) {
-            return [complement, nums[i]];
-        }
-        
-        map.set(nums[i], i);
-    }
-    
-    return [];
-}
-```
+### **Variation 2: Two Sum - All Pairs**
 
-### **Two Sum - All Pairs**
 ```javascript
-// Return all possible pairs
+/**
+ * Find all pairs that add up to target
+ * Return all possible combinations
+ */
 function twoSumAllPairs(nums, target) {
-    const map = new Map();
     const result = [];
+    const seen = new Set();
     
     for (let i = 0; i < nums.length; i++) {
         const complement = target - nums[i];
         
-        if (map.has(complement)) {
-            result.push([map.get(complement), i]);
+        if (seen.has(complement)) {
+            // Find the index of complement
+            const complementIndex = nums.indexOf(complement);
+            result.push([complementIndex, i]);
         }
         
-        map.set(nums[i], i);
+        seen.add(nums[i]);
     }
     
     return result;
 }
+
+// Test
+console.log(twoSumAllPairs([1, 2, 3, 4, 5], 6)); // [[0, 4], [1, 3]]
 ```
 
-## 🎓 **Interview Tips**
+### **Variation 3: Two Sum - Closest to Target**
 
-### **Google Interview**
-- **Start with brute force**: Show you understand the problem
-- **Optimize step by step**: Explain the trade-off between time and space
-- **Handle edge cases**: Empty array, no solution, duplicate numbers
-- **Code quality**: Write clean, readable code with proper variable names
+```javascript
+/**
+ * Find two numbers whose sum is closest to target
+ * Return the sum, not the indices
+ */
+function twoSumClosest(nums, target) {
+    nums.sort((a, b) => a - b);
+    
+    let left = 0;
+    let right = nums.length - 1;
+    let closestSum = nums[0] + nums[1];
+    let minDiff = Math.abs(closestSum - target);
+    
+    while (left < right) {
+        const sum = nums[left] + nums[right];
+        const diff = Math.abs(sum - target);
+        
+        if (diff < minDiff) {
+            minDiff = diff;
+            closestSum = sum;
+        }
+        
+        if (sum < target) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+    
+    return closestSum;
+}
 
-### **Meta Interview**
-- **Think out loud**: Explain your thought process
-- **Consider alternatives**: Discuss different approaches
-- **Test your solution**: Walk through examples
-- **Optimize further**: Can you improve space or time complexity?
+// Test
+console.log(twoSumClosest([-1, 2, 1, -4], 1)); // 2
+```
 
-### **Amazon Interview**
-- **Real-world context**: How would this apply to a payment system?
-- **Scalability**: What if the array has millions of elements?
-- **Error handling**: What if input is invalid?
-- **Production code**: Write code you'd be comfortable deploying
+## 🎯 Interview Tips
 
-## 📚 **Related Problems**
+### **Key Points to Mention:**
+1. **Hash Map is optimal** for unsorted arrays (O(n) time, O(n) space)
+2. **Two Pointers** work well for sorted arrays (O(n) time, O(1) space)
+3. **Brute Force** is simple but inefficient (O(n²) time)
+4. **Edge cases**: Empty array, no solution, duplicate numbers
 
-- [**Two Sum II**](./TwoSumII.md) - Sorted array version
-- [**3Sum**](./ThreeSum.md) - Three numbers that sum to target
-- [**4Sum**](./FourSum.md) - Four numbers that sum to target
-- [**Two Sum - Data Structure**](./TwoSumDataStructure.md) - Design a data structure
+### **Follow-up Questions:**
+1. What if the array is sorted?
+2. What if we need to find all pairs?
+3. What if we need the closest sum to target?
+4. How would you handle very large arrays?
 
-## 🎉 **Summary**
-
-Two Sum is a fundamental problem that teaches:
-- **Hash map usage** for O(1) lookups
-- **Space-time trade-offs** in algorithm design
-- **One-pass solutions** for efficiency
-- **Complement strategy** for sum problems
-
-Master this problem as it forms the foundation for many other array and sum-related problems!
+### **Common Mistakes:**
+1. Using the same element twice
+2. Not handling edge cases
+3. Returning values instead of indices
+4. Not considering space complexity
 
 ---
 
-**🚀 Ready to solve more array problems? Check out the next problem!**
+**🎉 Master the Two Sum problem to build a strong foundation for array manipulation!**
+
+**Good luck with your coding interviews! 🚀**

@@ -2,8 +2,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -12,6 +10,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-redis/redis/v8"
 	"github.com/gorilla/websocket"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -315,10 +314,10 @@ func setupRoutes(
 	{
 		bridgeGroup.POST("/payment-with-notification", func(c *gin.Context) {
 			var req struct {
-				Gateway       string                        `json:"gateway"`
-				Channel       string                        `json:"channel"`
-				Payment       bridge.PaymentRequest         `json:"payment"`
-				Notification  bridge.NotificationRequest    `json:"notification"`
+				Gateway      string                     `json:"gateway"`
+				Channel      string                     `json:"channel"`
+				Payment      bridge.PaymentRequest      `json:"payment"`
+				Notification bridge.NotificationRequest `json:"notification"`
 			}
 			if err := c.ShouldBindJSON(&req); err != nil {
 				c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

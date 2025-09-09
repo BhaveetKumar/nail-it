@@ -32,7 +32,7 @@ func NewDecoratorManager(config DecoratorConfig, logger Logger, metrics Metrics)
 func (dm *DecoratorManager) RegisterComponent(component Component) {
 	dm.mu.Lock()
 	defer dm.mu.Unlock()
-	
+
 	dm.components[component.GetName()] = component
 	dm.logger.Info("Component registered", "component", component.GetName())
 }
@@ -41,7 +41,7 @@ func (dm *DecoratorManager) RegisterComponent(component Component) {
 func (dm *DecoratorManager) RegisterDecorator(decorator Decorator) {
 	dm.mu.Lock()
 	defer dm.mu.Unlock()
-	
+
 	dm.decorators[decorator.GetName()] = decorator
 	dm.logger.Info("Decorator registered", "decorator", decorator.GetName())
 }
@@ -51,30 +51,30 @@ func (dm *DecoratorManager) CreateDecoratedComponent(componentName string, decor
 	dm.mu.RLock()
 	component, exists := dm.components[componentName]
 	dm.mu.RUnlock()
-	
+
 	if !exists {
 		return nil, fmt.Errorf("component %s not found", componentName)
 	}
-	
+
 	// Start with the base component
 	current := component
-	
+
 	// Apply decorators in order
 	for _, decoratorName := range decoratorNames {
 		dm.mu.RLock()
 		decorator, exists := dm.decorators[decoratorName]
 		dm.mu.RUnlock()
-		
+
 		if !exists {
 			return nil, fmt.Errorf("decorator %s not found", decoratorName)
 		}
-		
+
 		// Create a new instance of the decorator
 		newDecorator := dm.cloneDecorator(decorator)
 		newDecorator.SetComponent(current)
 		current = newDecorator
 	}
-	
+
 	return current, nil
 }
 
@@ -125,7 +125,7 @@ func (dm *DecoratorManager) ExecuteComponent(ctx context.Context, componentName 
 	if err != nil {
 		return nil, err
 	}
-	
+
 	return component.Execute(ctx, request)
 }
 
@@ -134,24 +134,24 @@ func (dm *DecoratorManager) GetComponentHealth(ctx context.Context, componentNam
 	dm.mu.RLock()
 	component, exists := dm.components[componentName]
 	dm.mu.RUnlock()
-	
+
 	if !exists {
 		return nil, fmt.Errorf("component %s not found", componentName)
 	}
-	
+
 	start := time.Now()
-	
+
 	// Try to execute a simple request
 	_, err := component.Execute(ctx, map[string]interface{}{"health_check": true})
-	
+
 	latency := time.Since(start)
 	healthy := err == nil
-	
+
 	status := "healthy"
 	if !healthy {
 		status = "unhealthy"
 	}
-	
+
 	return &HealthCheck{
 		Component: componentName,
 		Healthy:   healthy,
@@ -170,9 +170,9 @@ func (dm *DecoratorManager) GetAllComponentsHealth(ctx context.Context) ([]*Heal
 		components = append(components, component)
 	}
 	dm.mu.RUnlock()
-	
+
 	healthChecks := make([]*HealthCheck, 0, len(components))
-	
+
 	for _, component := range components {
 		health, err := dm.GetComponentHealth(ctx, component.GetName())
 		if err != nil {
@@ -181,7 +181,7 @@ func (dm *DecoratorManager) GetAllComponentsHealth(ctx context.Context) ([]*Heal
 		}
 		healthChecks = append(healthChecks, health)
 	}
-	
+
 	return healthChecks, nil
 }
 
@@ -190,28 +190,28 @@ func (dm *DecoratorManager) GetComponentMetrics(componentName string) (*Componen
 	dm.mu.RLock()
 	_, exists := dm.components[componentName]
 	dm.mu.RUnlock()
-	
+
 	if !exists {
 		return nil, fmt.Errorf("component %s not found", componentName)
 	}
-	
+
 	// This would typically come from the metrics system
 	// For now, return mock data
 	return &ComponentMetrics{
-		ComponentName:        componentName,
-		TotalRequests:        1000,
-		SuccessfulRequests:   950,
-		FailedRequests:       50,
-		AverageLatency:       150.5,
-		MaxLatency:           500.0,
-		MinLatency:           50.0,
-		SuccessRate:          95.0,
-		LastRequest:          time.Now(),
-		LastError:            time.Now().Add(-time.Hour),
-		CacheHits:            200,
-		CacheMisses:          800,
-		RateLimitHits:        10,
-		CircuitBreakerTrips:  5,
+		ComponentName:       componentName,
+		TotalRequests:       1000,
+		SuccessfulRequests:  950,
+		FailedRequests:      50,
+		AverageLatency:      150.5,
+		MaxLatency:          500.0,
+		MinLatency:          50.0,
+		SuccessRate:         95.0,
+		LastRequest:         time.Now(),
+		LastError:           time.Now().Add(-time.Hour),
+		CacheHits:           200,
+		CacheMisses:         800,
+		RateLimitHits:       10,
+		CircuitBreakerTrips: 5,
 	}, nil
 }
 
@@ -220,27 +220,27 @@ func (dm *DecoratorManager) GetDecoratorChain(componentName string, decoratorNam
 	dm.mu.RLock()
 	_, exists := dm.components[componentName]
 	dm.mu.RUnlock()
-	
+
 	if !exists {
 		return nil, fmt.Errorf("component %s not found", componentName)
 	}
-	
+
 	// Validate decorators exist
 	for _, decoratorName := range decoratorNames {
 		dm.mu.RLock()
 		_, exists := dm.decorators[decoratorName]
 		dm.mu.RUnlock()
-		
+
 		if !exists {
 			return nil, fmt.Errorf("decorator %s not found", decoratorName)
 		}
 	}
-	
+
 	// Return the chain
 	chain := make([]string, 0, len(decoratorNames)+1)
 	chain = append(chain, componentName)
 	chain = append(chain, decoratorNames...)
-	
+
 	return chain, nil
 }
 
@@ -248,12 +248,12 @@ func (dm *DecoratorManager) GetDecoratorChain(componentName string, decoratorNam
 func (dm *DecoratorManager) ListComponents() []string {
 	dm.mu.RLock()
 	defer dm.mu.RUnlock()
-	
+
 	components := make([]string, 0, len(dm.components))
 	for name := range dm.components {
 		components = append(components, name)
 	}
-	
+
 	return components
 }
 
@@ -261,12 +261,12 @@ func (dm *DecoratorManager) ListComponents() []string {
 func (dm *DecoratorManager) ListDecorators() []string {
 	dm.mu.RLock()
 	defer dm.mu.RUnlock()
-	
+
 	decorators := make([]string, 0, len(dm.decorators))
 	for name := range dm.decorators {
 		decorators = append(decorators, name)
 	}
-	
+
 	return decorators
 }
 
@@ -274,14 +274,14 @@ func (dm *DecoratorManager) ListDecorators() []string {
 func (dm *DecoratorManager) RemoveComponent(componentName string) error {
 	dm.mu.Lock()
 	defer dm.mu.Unlock()
-	
+
 	if _, exists := dm.components[componentName]; !exists {
 		return fmt.Errorf("component %s not found", componentName)
 	}
-	
+
 	delete(dm.components, componentName)
 	dm.logger.Info("Component removed", "component", componentName)
-	
+
 	return nil
 }
 
@@ -289,13 +289,13 @@ func (dm *DecoratorManager) RemoveComponent(componentName string) error {
 func (dm *DecoratorManager) RemoveDecorator(decoratorName string) error {
 	dm.mu.Lock()
 	defer dm.mu.Unlock()
-	
+
 	if _, exists := dm.decorators[decoratorName]; !exists {
 		return fmt.Errorf("decorator %s not found", decoratorName)
 	}
-	
+
 	delete(dm.decorators, decoratorName)
 	dm.logger.Info("Decorator removed", "decorator", decoratorName)
-	
+
 	return nil
 }

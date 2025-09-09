@@ -33,17 +33,20 @@ The Bridge Pattern decouples an abstraction from its implementation, allowing th
 ## Features
 
 ### Payment Gateways
+
 - **Razorpay**: Indian payment gateway
-- **Stripe**: International payment gateway  
+- **Stripe**: International payment gateway
 - **PayUMoney**: Alternative Indian payment gateway
 
 ### Notification Channels
+
 - **Email**: SendGrid integration
 - **SMS**: Twilio integration
 - **Push**: Firebase Cloud Messaging
 - **WhatsApp**: WhatsApp Business API
 
 ### Core Services
+
 - **Payment Manager**: Handles payment processing across gateways
 - **Notification Manager**: Manages notification sending across channels
 - **Bridge Service**: Combines payment and notification services
@@ -52,6 +55,7 @@ The Bridge Pattern decouples an abstraction from its implementation, allowing th
 ## API Endpoints
 
 ### Payment Processing
+
 ```bash
 # Process payment with specific gateway
 POST /api/v1/payments/{gateway}
@@ -80,6 +84,7 @@ Content-Type: application/json
 ```
 
 ### Notification Sending
+
 ```bash
 # Send notification via specific channel
 POST /api/v1/notifications/{channel}
@@ -98,6 +103,7 @@ Content-Type: application/json
 ```
 
 ### Bridge Service
+
 ```bash
 # Process payment with notification
 POST /api/v1/bridge/payment-with-notification
@@ -125,6 +131,7 @@ Content-Type: application/json
 ```
 
 ### Metrics
+
 ```bash
 # Get payment metrics
 GET /api/v1/metrics/payments
@@ -137,6 +144,7 @@ GET /health
 ```
 
 ### WebSocket
+
 ```bash
 # Connect to WebSocket for real-time updates
 WS /ws
@@ -172,31 +180,34 @@ require (
 ## Running the Service
 
 1. **Start dependencies**:
+
    ```bash
    # Start MySQL
    docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=bridge_db -p 3306:3306 mysql:8.0
-   
+
    # Start MongoDB
    docker run -d --name mongodb -p 27017:27017 mongo:6.0
-   
+
    # Start Redis
    docker run -d --name redis -p 6379:6379 redis:7.0
-   
+
    # Start Kafka
    docker run -d --name kafka -p 9092:9092 apache/kafka:3.4.0
    ```
 
 2. **Run the service**:
+
    ```bash
    go mod tidy
    go run main.go
    ```
 
 3. **Test the service**:
+
    ```bash
    # Health check
    curl http://localhost:8080/health
-   
+
    # Process payment
    curl -X POST http://localhost:8080/api/v1/payments/razorpay \
      -H "Content-Type: application/json" \
@@ -206,19 +217,23 @@ require (
 ## Design Patterns Used
 
 ### Bridge Pattern
+
 - **Abstraction**: `PaymentGateway` and `NotificationChannel` interfaces
 - **Implementation**: Specific gateway and channel implementations
 - **Benefit**: Easy to add new gateways/channels without changing existing code
 
 ### Factory Pattern
+
 - Gateway and channel creation
 - Configuration-based instantiation
 
 ### Strategy Pattern
+
 - Different payment processing strategies
 - Different notification sending strategies
 
 ### Observer Pattern
+
 - WebSocket real-time updates
 - Metrics collection
 

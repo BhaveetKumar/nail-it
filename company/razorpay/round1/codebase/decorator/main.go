@@ -2,8 +2,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -11,16 +9,16 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/gin-gonic/gin"
-	"github.com/gorilla/websocket"
-	"github.com/go-redis/redis/v8"
 	"github.com/Shopify/sarama"
+	"github.com/gin-gonic/gin"
+	"github.com/go-redis/redis/v8"
+	"github.com/gorilla/websocket"
+	"github.com/patrickmn/go-cache"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.uber.org/zap"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"go.uber.org/zap"
-	"github.com/patrickmn/go-cache"
 
 	"decorator/internal/decorator"
 )
@@ -40,7 +38,7 @@ func main() {
 
 	// Initialize services
 	decoratorManager := initDecoratorManager(logger)
-	
+
 	// Initialize databases
 	mysqlDB := initMySQL()
 	mongoDB := initMongoDB()
@@ -135,18 +133,18 @@ func initDecoratorManager(logger *zap.Logger) *decorator.DecoratorManager {
 			MaxRequestSize:   1024 * 1024, // 1MB
 		},
 		RateLimit: decorator.RateLimitConfig{
-			Enabled:     true,
+			Enabled:           true,
 			RequestsPerMinute: 100,
-			BurstSize:   20,
-			WindowSize:  time.Minute,
-			KeyFunc:     "user_id",
+			BurstSize:         20,
+			WindowSize:        time.Minute,
+			KeyFunc:           "user_id",
 		},
 		CircuitBreaker: decorator.CircuitBreakerConfig{
-			Enabled:           true,
-			FailureThreshold:  5,
-			SuccessThreshold:  3,
-			Timeout:           30 * time.Second,
-			MaxRequests:       10,
+			Enabled:          true,
+			FailureThreshold: 5,
+			SuccessThreshold: 3,
+			Timeout:          30 * time.Second,
+			MaxRequests:      10,
 		},
 		Retry: decorator.RetryConfig{
 			Enabled:       true,
@@ -156,11 +154,11 @@ func initDecoratorManager(logger *zap.Logger) *decorator.DecoratorManager {
 			BackoffFactor: 2.0,
 		},
 		Monitoring: decorator.MonitoringConfig{
-			Enabled:       true,
-			Port:          9090,
-			LogLevel:      "info",
+			Enabled:         true,
+			Port:            9090,
+			LogLevel:        "info",
 			CollectInterval: 30 * time.Second,
-			CustomMetrics: []string{"request_duration", "cache_hits", "rate_limit_hits"},
+			CustomMetrics:   []string{"request_duration", "cache_hits", "rate_limit_hits"},
 		},
 		Validation: decorator.ValidationConfig{
 			Enabled:    true,
@@ -188,11 +186,11 @@ func initDecoratorManager(logger *zap.Logger) *decorator.DecoratorManager {
 			Encryption:  false,
 		},
 		Notification: decorator.NotificationConfig{
-			Enabled:     true,
-			Channels:    []string{"email", "sms", "push"},
-			RetryCount:  3,
-			RetryDelay:  time.Second,
-			BatchSize:   100,
+			Enabled:    true,
+			Channels:   []string{"email", "sms", "push"},
+			RetryCount: 3,
+			RetryDelay: time.Second,
+			BatchSize:  100,
 		},
 		Analytics: decorator.AnalyticsConfig{
 			Enabled:       true,
@@ -369,9 +367,9 @@ func setupRoutes(
 		}
 
 		c.JSON(status, gin.H{
-			"status":    "healthy",
+			"status":     "healthy",
 			"components": healthChecks,
-			"timestamp": time.Now(),
+			"timestamp":  time.Now(),
 		})
 	})
 
@@ -381,8 +379,8 @@ func setupRoutes(
 		componentGroup.POST("/:component/execute", func(c *gin.Context) {
 			componentName := c.Param("component")
 			var request struct {
-				Data         interface{} `json:"data"`
-				Decorators   []string    `json:"decorators"`
+				Data       interface{} `json:"data"`
+				Decorators []string    `json:"decorators"`
 			}
 			if err := c.ShouldBindJSON(&request); err != nil {
 				c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -442,7 +440,7 @@ func setupRoutes(
 		decoratorGroup.GET("/:component/chain", func(c *gin.Context) {
 			componentName := c.Param("component")
 			decorators := c.QueryArray("decorators")
-			
+
 			chain, err := decoratorManager.GetDecoratorChain(componentName, decorators)
 			if err != nil {
 				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
@@ -520,9 +518,9 @@ func (ml *MockLogger) Warn(msg string, fields ...interface{}) {
 
 type MockMetrics struct{}
 
-func (mm *MockMetrics) IncrementCounter(name string, labels map[string]string) {}
-func (mm *MockMetrics) RecordHistogram(name string, value float64, labels map[string]string) {}
-func (mm *MockMetrics) RecordGauge(name string, value float64, labels map[string]string) {}
+func (mm *MockMetrics) IncrementCounter(name string, labels map[string]string)                     {}
+func (mm *MockMetrics) RecordHistogram(name string, value float64, labels map[string]string)       {}
+func (mm *MockMetrics) RecordGauge(name string, value float64, labels map[string]string)           {}
 func (mm *MockMetrics) RecordTiming(name string, duration time.Duration, labels map[string]string) {}
 
 type MockSecurity struct{}
@@ -539,7 +537,8 @@ func (ms *MockSecurity) CheckPermission(ctx context.Context, userID string, reso
 	return true
 }
 
-func (ms *MockSecurity) AuditLog(ctx context.Context, action string, userID string, details map[string]interface{}) {}
+func (ms *MockSecurity) AuditLog(ctx context.Context, action string, userID string, details map[string]interface{}) {
+}
 
 type MockRateLimiter struct{}
 
@@ -575,11 +574,11 @@ func (mcb *MockCircuitBreaker) Reset() {}
 
 func (mcb *MockCircuitBreaker) GetStats() decorator.CircuitBreakerStats {
 	return decorator.CircuitBreakerStats{
-		State:           "closed",
-		TotalRequests:   1000,
+		State:              "closed",
+		TotalRequests:      1000,
 		SuccessfulRequests: 950,
-		FailedRequests:  50,
-		FailureRate:     5.0,
+		FailedRequests:     50,
+		FailureRate:        5.0,
 	}
 }
 
@@ -603,25 +602,26 @@ func (mr *MockRetry) ShouldRetry(attempt int, err error) bool {
 
 type MockMonitoring struct{}
 
-func (mm *MockMonitoring) RecordRequest(ctx context.Context, component string, duration time.Duration, success bool) {}
-func (mm *MockMonitoring) RecordError(ctx context.Context, component string, err error) {}
+func (mm *MockMonitoring) RecordRequest(ctx context.Context, component string, duration time.Duration, success bool) {
+}
+func (mm *MockMonitoring) RecordError(ctx context.Context, component string, err error)            {}
 func (mm *MockMonitoring) RecordCustomMetric(name string, value float64, labels map[string]string) {}
 func (mm *MockMonitoring) GetComponentMetrics(component string) (*decorator.ComponentMetrics, error) {
 	return &decorator.ComponentMetrics{
-		ComponentName:        component,
-		TotalRequests:        1000,
-		SuccessfulRequests:   950,
-		FailedRequests:       50,
-		AverageLatency:       150.5,
-		MaxLatency:           500.0,
-		MinLatency:           50.0,
-		SuccessRate:          95.0,
-		LastRequest:          time.Now(),
-		LastError:            time.Now().Add(-time.Hour),
-		CacheHits:            200,
-		CacheMisses:          800,
-		RateLimitHits:        10,
-		CircuitBreakerTrips:  5,
+		ComponentName:       component,
+		TotalRequests:       1000,
+		SuccessfulRequests:  950,
+		FailedRequests:      50,
+		AverageLatency:      150.5,
+		MaxLatency:          500.0,
+		MinLatency:          50.0,
+		SuccessRate:         95.0,
+		LastRequest:         time.Now(),
+		LastError:           time.Now().Add(-time.Hour),
+		CacheHits:           200,
+		CacheMisses:         800,
+		RateLimitHits:       10,
+		CircuitBreakerTrips: 5,
 	}, nil
 }
 

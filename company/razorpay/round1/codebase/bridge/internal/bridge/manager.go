@@ -34,18 +34,18 @@ func (pm *PaymentManager) ProcessPayment(ctx context.Context, gatewayName string
 	pm.mu.RLock()
 	gateway, exists := pm.gateways[gatewayName]
 	pm.mu.RUnlock()
-	
+
 	if !exists {
 		return nil, fmt.Errorf("gateway %s not found", gatewayName)
 	}
-	
+
 	// Update metrics
 	pm.mu.Lock()
 	pm.metrics.TotalProcessed++
 	pm.metrics.TotalAmount += req.Amount
 	pm.metrics.LastProcessed = time.Now()
 	pm.mu.Unlock()
-	
+
 	// Process payment
 	response, err := gateway.ProcessPayment(ctx, req)
 	if err != nil {
@@ -54,7 +54,7 @@ func (pm *PaymentManager) ProcessPayment(ctx context.Context, gatewayName string
 		pm.mu.Unlock()
 		return nil, err
 	}
-	
+
 	// Update success metrics
 	pm.mu.Lock()
 	pm.metrics.SuccessfulPayments++
@@ -63,7 +63,7 @@ func (pm *PaymentManager) ProcessPayment(ctx context.Context, gatewayName string
 		pm.metrics.SuccessRate = float64(pm.metrics.SuccessfulPayments) / float64(pm.metrics.TotalProcessed) * 100
 	}
 	pm.mu.Unlock()
-	
+
 	return response, nil
 }
 
@@ -72,11 +72,11 @@ func (pm *PaymentManager) RefundPayment(ctx context.Context, gatewayName string,
 	pm.mu.RLock()
 	gateway, exists := pm.gateways[gatewayName]
 	pm.mu.RUnlock()
-	
+
 	if !exists {
 		return fmt.Errorf("gateway %s not found", gatewayName)
 	}
-	
+
 	return gateway.RefundPayment(ctx, transactionID, amount)
 }
 
@@ -114,17 +114,17 @@ func (nm *NotificationManager) SendNotification(ctx context.Context, channelName
 	nm.mu.RLock()
 	channel, exists := nm.channels[channelName]
 	nm.mu.RUnlock()
-	
+
 	if !exists {
 		return nil, fmt.Errorf("channel %s not found", channelName)
 	}
-	
+
 	// Update metrics
 	nm.mu.Lock()
 	nm.metrics.TotalSent++
 	nm.metrics.LastSent = time.Now()
 	nm.mu.Unlock()
-	
+
 	// Send notification
 	response, err := channel.SendNotification(ctx, req)
 	if err != nil {
@@ -133,7 +133,7 @@ func (nm *NotificationManager) SendNotification(ctx context.Context, channelName
 		nm.mu.Unlock()
 		return nil, err
 	}
-	
+
 	// Update success metrics
 	nm.mu.Lock()
 	nm.metrics.SuccessfulSends++
@@ -141,7 +141,7 @@ func (nm *NotificationManager) SendNotification(ctx context.Context, channelName
 		nm.metrics.SuccessRate = float64(nm.metrics.SuccessfulSends) / float64(nm.metrics.TotalSent) * 100
 	}
 	nm.mu.Unlock()
-	
+
 	return response, nil
 }
 
@@ -173,20 +173,20 @@ func (bs *BridgeService) ProcessPaymentWithNotification(ctx context.Context, gat
 	if err != nil {
 		return nil, nil, fmt.Errorf("payment processing failed: %w", err)
 	}
-	
+
 	// Update notification request with payment details
 	notificationReq.Metadata["payment_id"] = paymentResp.ID
 	notificationReq.Metadata["transaction_id"] = paymentResp.TransactionID
 	notificationReq.Metadata["amount"] = paymentResp.Amount
 	notificationReq.Metadata["currency"] = paymentResp.Currency
-	
+
 	// Send notification
 	notificationResp, err := bs.notificationManager.SendNotification(ctx, channelName, notificationReq)
 	if err != nil {
 		// Payment succeeded but notification failed - log but don't fail the transaction
 		return paymentResp, nil, fmt.Errorf("notification sending failed: %w", err)
 	}
-	
+
 	return paymentResp, notificationResp, nil
 }
 

@@ -73,28 +73,28 @@ type NotificationChannelConfig struct {
 
 // PaymentMetrics represents payment processing metrics
 type PaymentMetrics struct {
-	TotalProcessed    int64   `json:"total_processed"`
-	SuccessfulPayments int64   `json:"successful_payments"`
-	FailedPayments    int64   `json:"failed_payments"`
-	TotalAmount       float64 `json:"total_amount"`
-	AverageAmount     float64 `json:"average_amount"`
-	SuccessRate       float64 `json:"success_rate"`
-	LastProcessed     time.Time `json:"last_processed"`
+	TotalProcessed     int64     `json:"total_processed"`
+	SuccessfulPayments int64     `json:"successful_payments"`
+	FailedPayments     int64     `json:"failed_payments"`
+	TotalAmount        float64   `json:"total_amount"`
+	AverageAmount      float64   `json:"average_amount"`
+	SuccessRate        float64   `json:"success_rate"`
+	LastProcessed      time.Time `json:"last_processed"`
 }
 
 // NotificationMetrics represents notification sending metrics
 type NotificationMetrics struct {
-	TotalSent        int64   `json:"total_sent"`
-	SuccessfulSends  int64   `json:"successful_sends"`
-	FailedSends      int64   `json:"failed_sends"`
-	SuccessRate      float64 `json:"success_rate"`
-	LastSent         time.Time `json:"last_sent"`
+	TotalSent       int64     `json:"total_sent"`
+	SuccessfulSends int64     `json:"successful_sends"`
+	FailedSends     int64     `json:"failed_sends"`
+	SuccessRate     float64   `json:"success_rate"`
+	LastSent        time.Time `json:"last_sent"`
 }
 
 // ErrorResponse represents an error response
 type ErrorResponse struct {
-	Error     string `json:"error"`
-	Code      string `json:"code"`
-	Message   string `json:"message"`
+	Error     string    `json:"error"`
+	Code      string    `json:"code"`
+	Message   string    `json:"message"`
 	Timestamp time.Time `json:"timestamp"`
 }

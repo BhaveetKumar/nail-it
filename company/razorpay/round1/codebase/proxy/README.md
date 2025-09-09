@@ -47,6 +47,7 @@ The Proxy Pattern provides a placeholder or surrogate for another object to cont
 ## Features
 
 ### Core Proxy Functionality
+
 - **Service Proxying**: Route requests to appropriate backend services
 - **Load Balancing**: Distribute load across multiple service instances
 - **Health Checking**: Monitor service health and remove unhealthy instances
@@ -57,6 +58,7 @@ The Proxy Pattern provides a placeholder or surrogate for another object to cont
 - **Monitoring**: Comprehensive metrics and logging
 
 ### Supported Services
+
 - **Payment Service**: Payment processing and transactions
 - **Notification Service**: Email, SMS, push notifications
 - **User Service**: User management and authentication
@@ -64,6 +66,7 @@ The Proxy Pattern provides a placeholder or surrogate for another object to cont
 - **Inventory Service**: Product inventory management
 
 ### Load Balancing Algorithms
+
 - **Round Robin**: Distribute requests evenly
 - **Random**: Random service selection
 - **Least Connections**: Select service with fewest active connections
@@ -71,6 +74,7 @@ The Proxy Pattern provides a placeholder or surrogate for another object to cont
 ## API Endpoints
 
 ### Service Processing
+
 ```bash
 # Process request through specific service
 POST /api/v1/services/{service}/process
@@ -87,6 +91,7 @@ Content-Type: application/json
 ```
 
 ### Health Checks
+
 ```bash
 # Check specific service health
 GET /api/v1/services/{service}/health
@@ -96,6 +101,7 @@ GET /health
 ```
 
 ### Metrics
+
 ```bash
 # Get service metrics
 GET /api/v1/services/{service}/metrics
@@ -105,6 +111,7 @@ GET /api/v1/stats
 ```
 
 ### WebSocket
+
 ```bash
 # Connect for real-time updates
 WS /ws
@@ -147,31 +154,34 @@ require (
 ## Running the Service
 
 1. **Start dependencies**:
+
    ```bash
    # Start MySQL
    docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=proxy_db -p 3306:3306 mysql:8.0
-   
+
    # Start MongoDB
    docker run -d --name mongodb -p 27017:27017 mongo:6.0
-   
+
    # Start Redis
    docker run -d --name redis -p 6379:6379 redis:7.0
-   
+
    # Start Kafka
    docker run -d --name kafka -p 9092:9092 apache/kafka:3.4.0
    ```
 
 2. **Run the service**:
+
    ```bash
    go mod tidy
    go run main.go
    ```
 
 3. **Test the service**:
+
    ```bash
    # Health check
    curl http://localhost:8080/health
-   
+
    # Process payment request
    curl -X POST http://localhost:8080/api/v1/services/payment-service/process \
      -H "Content-Type: application/json" \
@@ -181,12 +191,14 @@ require (
 ## Design Patterns Used
 
 ### Proxy Pattern
+
 - **ServiceProxy**: Controls access to backend services
 - **CacheProxy**: Manages caching operations
 - **SecurityProxy**: Handles security concerns
 - **MonitoringProxy**: Manages monitoring and metrics
 
 ### Additional Patterns
+
 - **Factory Pattern**: Service and proxy creation
 - **Strategy Pattern**: Load balancing algorithms
 - **Observer Pattern**: WebSocket real-time updates

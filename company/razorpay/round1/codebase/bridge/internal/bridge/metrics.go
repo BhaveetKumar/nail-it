@@ -25,12 +25,12 @@ func NewMetricsCollector() *MetricsCollector {
 func (mc *MetricsCollector) RecordPaymentSuccess(amount float64) {
 	mc.mu.Lock()
 	defer mc.mu.Unlock()
-	
+
 	mc.paymentMetrics.TotalProcessed++
 	mc.paymentMetrics.SuccessfulPayments++
 	mc.paymentMetrics.TotalAmount += amount
 	mc.paymentMetrics.LastProcessed = time.Now()
-	
+
 	if mc.paymentMetrics.TotalProcessed > 0 {
 		mc.paymentMetrics.AverageAmount = mc.paymentMetrics.TotalAmount / float64(mc.paymentMetrics.TotalProcessed)
 		mc.paymentMetrics.SuccessRate = float64(mc.paymentMetrics.SuccessfulPayments) / float64(mc.paymentMetrics.TotalProcessed) * 100
@@ -41,11 +41,11 @@ func (mc *MetricsCollector) RecordPaymentSuccess(amount float64) {
 func (mc *MetricsCollector) RecordPaymentFailure() {
 	mc.mu.Lock()
 	defer mc.mu.Unlock()
-	
+
 	mc.paymentMetrics.TotalProcessed++
 	mc.paymentMetrics.FailedPayments++
 	mc.paymentMetrics.LastProcessed = time.Now()
-	
+
 	if mc.paymentMetrics.TotalProcessed > 0 {
 		mc.paymentMetrics.SuccessRate = float64(mc.paymentMetrics.SuccessfulPayments) / float64(mc.paymentMetrics.TotalProcessed) * 100
 	}
@@ -55,11 +55,11 @@ func (mc *MetricsCollector) RecordPaymentFailure() {
 func (mc *MetricsCollector) RecordNotificationSuccess() {
 	mc.mu.Lock()
 	defer mc.mu.Unlock()
-	
+
 	mc.notificationMetrics.TotalSent++
 	mc.notificationMetrics.SuccessfulSends++
 	mc.notificationMetrics.LastSent = time.Now()
-	
+
 	if mc.notificationMetrics.TotalSent > 0 {
 		mc.notificationMetrics.SuccessRate = float64(mc.notificationMetrics.SuccessfulSends) / float64(mc.notificationMetrics.TotalSent) * 100
 	}
@@ -69,11 +69,11 @@ func (mc *MetricsCollector) RecordNotificationSuccess() {
 func (mc *MetricsCollector) RecordNotificationFailure() {
 	mc.mu.Lock()
 	defer mc.mu.Unlock()
-	
+
 	mc.notificationMetrics.TotalSent++
 	mc.notificationMetrics.FailedSends++
 	mc.notificationMetrics.LastSent = time.Now()
-	
+
 	if mc.notificationMetrics.TotalSent > 0 {
 		mc.notificationMetrics.SuccessRate = float64(mc.notificationMetrics.SuccessfulSends) / float64(mc.notificationMetrics.TotalSent) * 100
 	}
@@ -97,7 +97,7 @@ func (mc *MetricsCollector) GetNotificationMetrics() NotificationMetrics {
 func (mc *MetricsCollector) ResetMetrics() {
 	mc.mu.Lock()
 	defer mc.mu.Unlock()
-	
+
 	mc.paymentMetrics = &PaymentMetrics{}
 	mc.notificationMetrics = &NotificationMetrics{}
 }
@@ -130,11 +130,11 @@ func (ms *MetricsService) GetNotificationMetrics(ctx context.Context) (*Notifica
 func (ms *MetricsService) GetHealthStatus(ctx context.Context) map[string]interface{} {
 	paymentMetrics := ms.collector.GetPaymentMetrics()
 	notificationMetrics := ms.collector.GetNotificationMetrics()
-	
+
 	return map[string]interface{}{
-		"status": "healthy",
-		"timestamp": time.Now(),
-		"payment_metrics": paymentMetrics,
+		"status":               "healthy",
+		"timestamp":            time.Now(),
+		"payment_metrics":      paymentMetrics,
 		"notification_metrics": notificationMetrics,
 	}
 }

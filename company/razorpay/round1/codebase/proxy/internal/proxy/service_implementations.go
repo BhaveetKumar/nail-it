@@ -24,7 +24,7 @@ func NewPaymentService(config ServiceConfig) *PaymentService {
 func (ps *PaymentService) Process(ctx context.Context, request interface{}) (interface{}, error) {
 	// Simulate payment processing
 	time.Sleep(100 * time.Millisecond)
-	
+
 	// Mock payment response
 	response := map[string]interface{}{
 		"transaction_id": fmt.Sprintf("txn_%d", time.Now().Unix()),
@@ -33,7 +33,7 @@ func (ps *PaymentService) Process(ctx context.Context, request interface{}) (int
 		"currency":       "INR",
 		"timestamp":      time.Now(),
 	}
-	
+
 	return response, nil
 }
 
@@ -66,7 +66,7 @@ func NewNotificationService(config ServiceConfig) *NotificationService {
 func (ns *NotificationService) Process(ctx context.Context, request interface{}) (interface{}, error) {
 	// Simulate notification sending
 	time.Sleep(50 * time.Millisecond)
-	
+
 	// Mock notification response
 	response := map[string]interface{}{
 		"message_id": fmt.Sprintf("msg_%d", time.Now().Unix()),
@@ -74,7 +74,7 @@ func (ns *NotificationService) Process(ctx context.Context, request interface{})
 		"channel":    "email",
 		"timestamp":  time.Now(),
 	}
-	
+
 	return response, nil
 }
 
@@ -107,7 +107,7 @@ func NewUserService(config ServiceConfig) *UserService {
 func (us *UserService) Process(ctx context.Context, request interface{}) (interface{}, error) {
 	// Simulate user processing
 	time.Sleep(75 * time.Millisecond)
-	
+
 	// Mock user response
 	response := map[string]interface{}{
 		"user_id":   fmt.Sprintf("user_%d", time.Now().Unix()),
@@ -116,7 +116,7 @@ func (us *UserService) Process(ctx context.Context, request interface{}) (interf
 		"status":    "active",
 		"timestamp": time.Now(),
 	}
-	
+
 	return response, nil
 }
 
@@ -149,16 +149,16 @@ func NewOrderService(config ServiceConfig) *OrderService {
 func (os *OrderService) Process(ctx context.Context, request interface{}) (interface{}, error) {
 	// Simulate order processing
 	time.Sleep(150 * time.Millisecond)
-	
+
 	// Mock order response
 	response := map[string]interface{}{
-		"order_id":   fmt.Sprintf("order_%d", time.Now().Unix()),
-		"status":     "confirmed",
-		"total":      250.75,
-		"currency":   "INR",
-		"timestamp":  time.Now(),
+		"order_id":  fmt.Sprintf("order_%d", time.Now().Unix()),
+		"status":    "confirmed",
+		"total":     250.75,
+		"currency":  "INR",
+		"timestamp": time.Now(),
 	}
-	
+
 	return response, nil
 }
 
@@ -191,7 +191,7 @@ func NewInventoryService(config ServiceConfig) *InventoryService {
 func (is *InventoryService) Process(ctx context.Context, request interface{}) (interface{}, error) {
 	// Simulate inventory processing
 	time.Sleep(80 * time.Millisecond)
-	
+
 	// Mock inventory response
 	response := map[string]interface{}{
 		"product_id": fmt.Sprintf("prod_%d", time.Now().Unix()),
@@ -199,7 +199,7 @@ func (is *InventoryService) Process(ctx context.Context, request interface{}) (i
 		"available":  true,
 		"timestamp":  time.Now(),
 	}
-	
+
 	return response, nil
 }
 
