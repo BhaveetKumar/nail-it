@@ -28,7 +28,7 @@ func NewEmailNotificationStrategy(smtpHost string, smtpPort int, timeout time.Du
 func (e *EmailNotificationStrategy) SendNotification(ctx context.Context, request NotificationRequest) (*NotificationResponse, error) {
 	// Simulate Email notification sending
 	time.Sleep(50 * time.Millisecond)
-	
+
 	response := &NotificationResponse{
 		NotificationID: request.NotificationID,
 		Status:         "sent",
@@ -37,7 +37,7 @@ func (e *EmailNotificationStrategy) SendNotification(ctx context.Context, reques
 		DeliveryID:     fmt.Sprintf("email_%s", request.NotificationID),
 		Metadata:       request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -92,7 +92,7 @@ func NewSMSNotificationStrategy(apiKey string, timeout time.Duration) *SMSNotifi
 func (s *SMSNotificationStrategy) SendNotification(ctx context.Context, request NotificationRequest) (*NotificationResponse, error) {
 	// Simulate SMS notification sending
 	time.Sleep(30 * time.Millisecond)
-	
+
 	response := &NotificationResponse{
 		NotificationID: request.NotificationID,
 		Status:         "sent",
@@ -101,7 +101,7 @@ func (s *SMSNotificationStrategy) SendNotification(ctx context.Context, request 
 		DeliveryID:     fmt.Sprintf("sms_%s", request.NotificationID),
 		Metadata:       request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -156,7 +156,7 @@ func NewPushNotificationStrategy(apiKey string, timeout time.Duration) *PushNoti
 func (p *PushNotificationStrategy) SendNotification(ctx context.Context, request NotificationRequest) (*NotificationResponse, error) {
 	// Simulate Push notification sending
 	time.Sleep(20 * time.Millisecond)
-	
+
 	response := &NotificationResponse{
 		NotificationID: request.NotificationID,
 		Status:         "sent",
@@ -165,7 +165,7 @@ func (p *PushNotificationStrategy) SendNotification(ctx context.Context, request
 		DeliveryID:     fmt.Sprintf("push_%s", request.NotificationID),
 		Metadata:       request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -220,7 +220,7 @@ func NewWebhookNotificationStrategy(apiKey string, timeout time.Duration) *Webho
 func (w *WebhookNotificationStrategy) SendNotification(ctx context.Context, request NotificationRequest) (*NotificationResponse, error) {
 	// Simulate Webhook notification sending
 	time.Sleep(100 * time.Millisecond)
-	
+
 	response := &NotificationResponse{
 		NotificationID: request.NotificationID,
 		Status:         "sent",
@@ -229,7 +229,7 @@ func (w *WebhookNotificationStrategy) SendNotification(ctx context.Context, requ
 		DeliveryID:     fmt.Sprintf("webhook_%s", request.NotificationID),
 		Metadata:       request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -281,7 +281,7 @@ func NewSlackNotificationStrategy(apiKey string, timeout time.Duration) *SlackNo
 func (s *SlackNotificationStrategy) SendNotification(ctx context.Context, request NotificationRequest) (*NotificationResponse, error) {
 	// Simulate Slack notification sending
 	time.Sleep(80 * time.Millisecond)
-	
+
 	response := &NotificationResponse{
 		NotificationID: request.NotificationID,
 		Status:         "sent",
@@ -290,7 +290,7 @@ func (s *SlackNotificationStrategy) SendNotification(ctx context.Context, reques
 		DeliveryID:     fmt.Sprintf("slack_%s", request.NotificationID),
 		Metadata:       request.Metadata,
 	}
-	
+
 	return response, nil
 }
 

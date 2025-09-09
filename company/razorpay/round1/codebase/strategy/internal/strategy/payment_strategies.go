@@ -26,7 +26,7 @@ func NewStripePaymentStrategy(apiKey string, timeout time.Duration) *StripePayme
 func (s *StripePaymentStrategy) ProcessPayment(ctx context.Context, request PaymentRequest) (*PaymentResponse, error) {
 	// Simulate Stripe payment processing
 	time.Sleep(100 * time.Millisecond)
-	
+
 	response := &PaymentResponse{
 		PaymentID:     request.PaymentID,
 		Status:        "completed",
@@ -37,7 +37,7 @@ func (s *StripePaymentStrategy) ProcessPayment(ctx context.Context, request Paym
 		ProcessedAt:   time.Now(),
 		Metadata:      request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -92,7 +92,7 @@ func NewRazorpayPaymentStrategy(apiKey string, timeout time.Duration) *RazorpayP
 func (r *RazorpayPaymentStrategy) ProcessPayment(ctx context.Context, request PaymentRequest) (*PaymentResponse, error) {
 	// Simulate Razorpay payment processing
 	time.Sleep(150 * time.Millisecond)
-	
+
 	response := &PaymentResponse{
 		PaymentID:     request.PaymentID,
 		Status:        "completed",
@@ -103,7 +103,7 @@ func (r *RazorpayPaymentStrategy) ProcessPayment(ctx context.Context, request Pa
 		ProcessedAt:   time.Now(),
 		Metadata:      request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -158,7 +158,7 @@ func NewPayPalPaymentStrategy(apiKey string, timeout time.Duration) *PayPalPayme
 func (p *PayPalPaymentStrategy) ProcessPayment(ctx context.Context, request PaymentRequest) (*PaymentResponse, error) {
 	// Simulate PayPal payment processing
 	time.Sleep(200 * time.Millisecond)
-	
+
 	response := &PaymentResponse{
 		PaymentID:     request.PaymentID,
 		Status:        "completed",
@@ -169,7 +169,7 @@ func (p *PayPalPaymentStrategy) ProcessPayment(ctx context.Context, request Paym
 		ProcessedAt:   time.Now(),
 		Metadata:      request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -224,7 +224,7 @@ func NewBankTransferPaymentStrategy(apiKey string, timeout time.Duration) *BankT
 func (b *BankTransferPaymentStrategy) ProcessPayment(ctx context.Context, request PaymentRequest) (*PaymentResponse, error) {
 	// Simulate Bank Transfer payment processing
 	time.Sleep(300 * time.Millisecond)
-	
+
 	response := &PaymentResponse{
 		PaymentID:     request.PaymentID,
 		Status:        "pending",
@@ -235,7 +235,7 @@ func (b *BankTransferPaymentStrategy) ProcessPayment(ctx context.Context, reques
 		ProcessedAt:   time.Now(),
 		Metadata:      request.Metadata,
 	}
-	
+
 	return response, nil
 }
 

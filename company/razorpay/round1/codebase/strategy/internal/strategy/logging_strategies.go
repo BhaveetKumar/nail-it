@@ -24,7 +24,7 @@ func NewFileLoggingStrategy() *FileLoggingStrategy {
 func (f *FileLoggingStrategy) Log(ctx context.Context, level LogLevel, message string, fields map[string]interface{}) error {
 	// Simulate file logging
 	time.Sleep(f.timeout)
-	
+
 	// Mock file logging
 	fmt.Printf("[FILE] %s: %s %v\n", level.String(), message, fields)
 	return nil
@@ -68,7 +68,7 @@ func NewConsoleLoggingStrategy() *ConsoleLoggingStrategy {
 func (c *ConsoleLoggingStrategy) Log(ctx context.Context, level LogLevel, message string, fields map[string]interface{}) error {
 	// Simulate console logging
 	time.Sleep(c.timeout)
-	
+
 	// Mock console logging
 	fmt.Printf("[CONSOLE] %s: %s %v\n", level.String(), message, fields)
 	return nil
@@ -112,7 +112,7 @@ func NewDatabaseLoggingStrategy() *DatabaseLoggingStrategy {
 func (d *DatabaseLoggingStrategy) Log(ctx context.Context, level LogLevel, message string, fields map[string]interface{}) error {
 	// Simulate database logging
 	time.Sleep(d.timeout)
-	
+
 	// Mock database logging
 	fmt.Printf("[DATABASE] %s: %s %v\n", level.String(), message, fields)
 	return nil
@@ -156,7 +156,7 @@ func NewRemoteLoggingStrategy() *RemoteLoggingStrategy {
 func (r *RemoteLoggingStrategy) Log(ctx context.Context, level LogLevel, message string, fields map[string]interface{}) error {
 	// Simulate remote logging
 	time.Sleep(r.timeout)
-	
+
 	// Mock remote logging
 	fmt.Printf("[REMOTE] %s: %s %v\n", level.String(), message, fields)
 	return nil

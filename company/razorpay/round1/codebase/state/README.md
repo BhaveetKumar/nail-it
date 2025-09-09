@@ -5,6 +5,7 @@ This is a complete microservice implementation demonstrating the State design pa
 ## Architecture Overview
 
 The service implements the State pattern for:
+
 - **State Management**: Manage entity states and transitions
 - **State Machine**: Define state machines with states and transitions
 - **State Events**: Handle events that trigger state transitions
@@ -17,6 +18,7 @@ The service implements the State pattern for:
 ## Features
 
 ### Core Functionality
+
 - **State Machine**: Define and manage state machines
 - **State Transitions**: Handle state transitions based on events
 - **State History**: Track complete state transition history
@@ -30,6 +32,7 @@ The service implements the State pattern for:
 ### State Types
 
 #### 1. Payment States
+
 ```go
 // Payment state machine with states:
 // pending -> completed, failed, cancelled
@@ -52,6 +55,7 @@ type PaymentState struct {
 ```
 
 **Available States:**
+
 - **Pending**: Payment is pending processing
 - **Completed**: Payment has been completed successfully
 - **Failed**: Payment has failed
@@ -59,6 +63,7 @@ type PaymentState struct {
 - **Refunded**: Payment has been refunded
 
 #### 2. Order States
+
 ```go
 // Order state machine with states:
 // created -> confirmed, cancelled
@@ -82,6 +87,7 @@ type OrderState struct {
 ```
 
 #### 3. User States
+
 ```go
 // User state machine with states:
 // inactive -> active, suspended
@@ -101,6 +107,7 @@ type UserState struct {
 ```
 
 #### 4. Inventory States
+
 ```go
 // Inventory state machine with states:
 // available -> out_of_stock, discontinued
@@ -120,6 +127,7 @@ type InventoryState struct {
 ```
 
 #### 5. Notification States
+
 ```go
 // Notification state machine with states:
 // pending -> sent, failed
@@ -141,6 +149,7 @@ type NotificationState struct {
 ```
 
 #### 6. Refund States
+
 ```go
 // Refund state machine with states:
 // requested -> approved, rejected
@@ -162,6 +171,7 @@ type RefundState struct {
 ```
 
 #### 7. Audit States
+
 ```go
 // Audit state machine with states:
 // pending -> completed, failed
@@ -183,6 +193,7 @@ type AuditState struct {
 ```
 
 #### 8. System States
+
 ```go
 // System state machine with states:
 // starting -> running, failed
@@ -204,6 +215,7 @@ type SystemState struct {
 ## API Endpoints
 
 ### State Machine Management
+
 - `GET /api/v1/state-machines` - Get all state machines
 - `GET /api/v1/state-machines/:name` - Get state machine by name
 - `POST /api/v1/state-machines` - Create state machine
@@ -211,6 +223,7 @@ type SystemState struct {
 - `DELETE /api/v1/state-machines/:name` - Delete state machine
 
 ### State Management
+
 - `GET /api/v1/states` - Get all states
 - `GET /api/v1/states/:name` - Get state by name
 - `POST /api/v1/states` - Create state
@@ -218,6 +231,7 @@ type SystemState struct {
 - `DELETE /api/v1/states/:name` - Delete state
 
 ### Entity Management
+
 - `POST /api/v1/entities` - Create entity
 - `GET /api/v1/entities/:id` - Get entity by ID
 - `PUT /api/v1/entities/:id` - Update entity
@@ -227,42 +241,50 @@ type SystemState struct {
 - `GET /api/v1/entities/type/:type` - Get entities by type
 
 ### State Transitions
+
 - `POST /api/v1/entities/:id/transition` - Transition entity state
 - `GET /api/v1/entities/:id/transitions` - Get possible transitions
 - `GET /api/v1/entities/:id/history` - Get entity state history
 
 ### State Events
+
 - `POST /api/v1/events` - Create state event
 - `GET /api/v1/events` - Get all events
 - `GET /api/v1/events/:id` - Get event by ID
 - `GET /api/v1/events/type/:type` - Get events by type
 
 ### State Metrics
+
 - `GET /api/v1/state-metrics` - Get state metrics
 - `GET /api/v1/state-metrics/:type` - Get metrics by entity type
 - `GET /api/v1/state-metrics/transitions` - Get transition metrics
 - `POST /api/v1/state-metrics/reset` - Reset state metrics
 
 ### State Validation
+
 - `POST /api/v1/validate/transition` - Validate state transition
 - `POST /api/v1/validate/entity` - Validate entity state
 - `POST /api/v1/validate/event` - Validate state event
 
 ### WebSocket
+
 - `GET /ws?user_id=:user_id&client_id=:client_id` - WebSocket connection
 
 ### Health Check
+
 - `GET /health` - Service health status
 
 ## WebSocket Events
 
 ### State Events
+
 - `state.transitioned` - State transitioned
 - `state.failed` - State transition failed
 - `state.validated` - State validated
 - `state.invalidated` - State invalidated
 
 ### Entity Events
+
 - `entity.created` - Entity created
 - `entity.updated` - Entity updated
 - `entity.deleted` - Entity deleted
@@ -271,6 +293,7 @@ type SystemState struct {
 ## Kafka Events
 
 ### State Events
+
 - All state operations are streamed to Kafka for external consumption
 - State transition and event events
 - State metrics and validation events
@@ -278,6 +301,7 @@ type SystemState struct {
 ## Setup Instructions
 
 ### Prerequisites
+
 - Go 1.21+
 - MySQL 8.0+
 - MongoDB 4.4+
@@ -287,12 +311,14 @@ type SystemState struct {
 ### Installation
 
 1. **Clone and setup**:
+
 ```bash
 cd state
 go mod tidy
 ```
 
 2. **Start dependencies**:
+
 ```bash
 # Start MySQL
 docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 mysql:8.0
@@ -308,11 +334,13 @@ docker-compose up -d kafka zookeeper
 ```
 
 3. **Create database**:
+
 ```sql
 CREATE DATABASE state_db;
 ```
 
 4. **Run the service**:
+
 ```bash
 go run main.go
 ```
@@ -331,16 +359,19 @@ The service uses a YAML configuration file (`configs/config.yaml`) with the foll
 ## Testing
 
 ### Unit Tests
+
 ```bash
 go test ./...
 ```
 
 ### Integration Tests
+
 ```bash
 go test -tags=integration ./...
 ```
 
 ### Load Testing
+
 ```bash
 # Install hey
 go install github.com/rakyll/hey@latest
@@ -355,17 +386,20 @@ hey -n 1000 -c 10 -m POST -H "Content-Type: application/json" -d '{"type":"payme
 ## Monitoring
 
 ### Health Check
+
 ```bash
 curl http://localhost:8080/health
 ```
 
 ### State Metrics
+
 ```bash
 curl http://localhost:8080/api/v1/state-metrics
 curl http://localhost:8080/api/v1/state-metrics/payment
 ```
 
 ### WebSocket Connection
+
 ```javascript
 const ws = new WebSocket(
   "ws://localhost:8080/ws?user_id=user123&client_id=client456"
@@ -376,6 +410,7 @@ ws.onmessage = function (event) {
 ```
 
 ### Kafka Events
+
 ```bash
 # Consume state events
 kafka-console-consumer --bootstrap-server localhost:9092 --topic state-events --from-beginning
@@ -384,6 +419,7 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic state-events --
 ## Performance Considerations
 
 ### State Benefits
+
 - **Encapsulation**: States encapsulate behavior
 - **Transitions**: Clear state transition rules
 - **History**: Complete state transition history
@@ -392,6 +428,7 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic state-events --
 - **Persistence**: State information persistence
 
 ### Optimization Strategies
+
 - **State Caching**: Cache state information
 - **Batch Processing**: Process multiple state transitions
 - **Async Processing**: Process state transitions asynchronously
@@ -401,6 +438,7 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic state-events --
 ## Error Handling
 
 The service implements comprehensive error handling:
+
 - **State Validation**: Validate state transitions
 - **Error Recovery**: Recover from state errors
 - **Error Logging**: Comprehensive error logging
@@ -419,12 +457,14 @@ The service implements comprehensive error handling:
 ## Scalability
 
 ### Horizontal Scaling
+
 - **Stateless Design**: No server-side session storage
 - **Load Balancer Ready**: Multiple instance support
 - **State Distribution**: Distribute states across instances
 - **Metrics Aggregation**: Aggregate metrics across instances
 
 ### Vertical Scaling
+
 - **Memory Management**: Efficient state memory usage
 - **CPU Optimization**: Concurrent state processing
 - **Connection Pooling**: Database connection optimization
@@ -435,18 +475,21 @@ The service implements comprehensive error handling:
 ### Common Issues
 
 1. **State Transition Failed**
+
    - Check state validation rules
    - Verify state machine configuration
    - Check entity state
    - Monitor state metrics
 
 2. **Invalid State Transition**
+
    - Check transition rules
    - Verify state machine states
    - Check entity type
    - Monitor validation errors
 
 3. **High State Transition Latency**
+
    - Check state performance metrics
    - Verify external service performance
    - Check network connectivity
@@ -459,6 +502,7 @@ The service implements comprehensive error handling:
    - Monitor state machine health
 
 ### Logs
+
 ```bash
 # View application logs
 tail -f logs/app.log

@@ -12,7 +12,6 @@ import (
 	"state/internal/server"
 	"state/internal/state"
 	"state/internal/websocket"
-	"time"
 )
 
 func main() {
@@ -69,7 +68,7 @@ func main() {
 	// Initialize state components
 	stateManager := state.NewStateManager()
 	metrics := state.NewStateMetrics()
-	
+
 	// Initialize state machine
 	stateMachine := state.NewStateMachine("payment_state_machine", "pending", []string{"completed", "failed", "cancelled", "refunded"})
 

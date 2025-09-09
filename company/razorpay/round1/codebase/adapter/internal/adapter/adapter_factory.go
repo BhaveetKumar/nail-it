@@ -1,6 +1,7 @@
 package adapter
 
 import (
+	"context"
 	"fmt"
 	"time"
 )
@@ -73,7 +74,7 @@ func (af *AdapterFactoryImpl) CreateCacheAdapter(cacheType string) (CacheAdapter
 	case "memcached":
 		return NewMemcachedCacheAdapter("localhost:11211", 5*time.Second), nil
 	case "memory":
-		return NewMemoryCacheAdapter(5*time.Second), nil
+		return NewMemoryCacheAdapter(5 * time.Second), nil
 	default:
 		return nil, fmt.Errorf("unsupported cache type: %s", cacheType)
 	}
@@ -119,7 +120,7 @@ func (af *AdapterFactoryImpl) CreateAuthenticationAdapter(authType string) (Auth
 	case "ldap":
 		return NewLDAPAuthenticationAdapter("ldap://localhost:389", "dc=example,dc=com", 5*time.Second), nil
 	case "basic":
-		return NewBasicAuthenticationAdapter(5*time.Second), nil
+		return NewBasicAuthenticationAdapter(5 * time.Second), nil
 	default:
 		return nil, fmt.Errorf("unsupported authentication type: %s", authType)
 	}
@@ -127,22 +128,22 @@ func (af *AdapterFactoryImpl) CreateAuthenticationAdapter(authType string) (Auth
 
 // MySQLDatabaseAdapter adapts MySQL database
 type MySQLDatabaseAdapter struct {
-	host     string
-	username string
-	password string
-	database string
-	timeout  time.Duration
+	host      string
+	username  string
+	password  string
+	database  string
+	timeout   time.Duration
 	connected bool
 }
 
 // NewMySQLDatabaseAdapter creates a new MySQL database adapter
 func NewMySQLDatabaseAdapter(host, username, password, database string, timeout time.Duration) *MySQLDatabaseAdapter {
 	return &MySQLDatabaseAdapter{
-		host:     host,
-		username: username,
-		password: password,
-		database: database,
-		timeout:  timeout,
+		host:      host,
+		username:  username,
+		password:  password,
+		database:  database,
+		timeout:   timeout,
 		connected: true,
 	}
 }
@@ -227,22 +228,22 @@ func (t *MySQLTransaction) Execute(ctx context.Context, query string, args ...in
 
 // PostgreSQLDatabaseAdapter adapts PostgreSQL database
 type PostgreSQLDatabaseAdapter struct {
-	host     string
-	username string
-	password string
-	database string
-	timeout  time.Duration
+	host      string
+	username  string
+	password  string
+	database  string
+	timeout   time.Duration
 	connected bool
 }
 
 // NewPostgreSQLDatabaseAdapter creates a new PostgreSQL database adapter
 func NewPostgreSQLDatabaseAdapter(host, username, password, database string, timeout time.Duration) *PostgreSQLDatabaseAdapter {
 	return &PostgreSQLDatabaseAdapter{
-		host:     host,
-		username: username,
-		password: password,
-		database: database,
-		timeout:  timeout,
+		host:      host,
+		username:  username,
+		password:  password,
+		database:  database,
+		timeout:   timeout,
 		connected: true,
 	}
 }
@@ -327,18 +328,18 @@ func (t *PostgreSQLTransaction) Execute(ctx context.Context, query string, args 
 
 // MongoDBDatabaseAdapter adapts MongoDB database
 type MongoDBDatabaseAdapter struct {
-	uri      string
-	database string
-	timeout  time.Duration
+	uri       string
+	database  string
+	timeout   time.Duration
 	connected bool
 }
 
 // NewMongoDBDatabaseAdapter creates a new MongoDB database adapter
 func NewMongoDBDatabaseAdapter(uri, database string, timeout time.Duration) *MongoDBDatabaseAdapter {
 	return &MongoDBDatabaseAdapter{
-		uri:      uri,
-		database: database,
-		timeout:  timeout,
+		uri:       uri,
+		database:  database,
+		timeout:   timeout,
 		connected: true,
 	}
 }

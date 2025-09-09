@@ -24,10 +24,10 @@ func (h *PaymentCommandHandler) Handle(ctx context.Context, command Command) (*C
 	if !ok {
 		return nil, fmt.Errorf("invalid command type for payment handler")
 	}
-	
+
 	// Simulate payment processing
 	time.Sleep(100 * time.Millisecond)
-	
+
 	result := &PaymentCommandResult{
 		CommandID:     paymentCmd.CommandID,
 		PaymentID:     fmt.Sprintf("pay_%s", paymentCmd.CommandID),
@@ -39,7 +39,7 @@ func (h *PaymentCommandHandler) Handle(ctx context.Context, command Command) (*C
 		ProcessedAt:   time.Now(),
 		Metadata:      paymentCmd.Metadata,
 	}
-	
+
 	return &CommandResult{
 		CommandID:  paymentCmd.CommandID,
 		Success:    true,
@@ -86,10 +86,10 @@ func (h *UserCommandHandler) Handle(ctx context.Context, command Command) (*Comm
 	if !ok {
 		return nil, fmt.Errorf("invalid command type for user handler")
 	}
-	
+
 	// Simulate user operation
 	time.Sleep(50 * time.Millisecond)
-	
+
 	result := &UserCommandResult{
 		CommandID:   userCmd.CommandID,
 		UserID:      userCmd.UserID,
@@ -99,7 +99,7 @@ func (h *UserCommandHandler) Handle(ctx context.Context, command Command) (*Comm
 		ProcessedAt: time.Now(),
 		Metadata:    userCmd.Metadata,
 	}
-	
+
 	return &CommandResult{
 		CommandID:  userCmd.CommandID,
 		Success:    true,
@@ -146,10 +146,10 @@ func (h *OrderCommandHandler) Handle(ctx context.Context, command Command) (*Com
 	if !ok {
 		return nil, fmt.Errorf("invalid command type for order handler")
 	}
-	
+
 	// Simulate order processing
 	time.Sleep(150 * time.Millisecond)
-	
+
 	result := &OrderCommandResult{
 		CommandID:   orderCmd.CommandID,
 		OrderID:     orderCmd.OrderID,
@@ -162,7 +162,7 @@ func (h *OrderCommandHandler) Handle(ctx context.Context, command Command) (*Com
 		ProcessedAt: time.Now(),
 		Metadata:    orderCmd.Metadata,
 	}
-	
+
 	return &CommandResult{
 		CommandID:  orderCmd.CommandID,
 		Success:    true,
@@ -209,10 +209,10 @@ func (h *NotificationCommandHandler) Handle(ctx context.Context, command Command
 	if !ok {
 		return nil, fmt.Errorf("invalid command type for notification handler")
 	}
-	
+
 	// Simulate notification sending
 	time.Sleep(80 * time.Millisecond)
-	
+
 	result := &NotificationCommandResult{
 		CommandID:      notifCmd.CommandID,
 		NotificationID: fmt.Sprintf("notif_%s", notifCmd.CommandID),
@@ -224,7 +224,7 @@ func (h *NotificationCommandHandler) Handle(ctx context.Context, command Command
 		DeliveryID:     fmt.Sprintf("delivery_%s", notifCmd.CommandID),
 		Metadata:       notifCmd.Metadata,
 	}
-	
+
 	return &CommandResult{
 		CommandID:  notifCmd.CommandID,
 		Success:    true,
@@ -271,10 +271,10 @@ func (h *InventoryCommandHandler) Handle(ctx context.Context, command Command) (
 	if !ok {
 		return nil, fmt.Errorf("invalid command type for inventory handler")
 	}
-	
+
 	// Simulate inventory operation
 	time.Sleep(60 * time.Millisecond)
-	
+
 	result := &InventoryCommandResult{
 		CommandID:   invCmd.CommandID,
 		ProductID:   invCmd.ProductID,
@@ -286,7 +286,7 @@ func (h *InventoryCommandHandler) Handle(ctx context.Context, command Command) (
 		ProcessedAt: time.Now(),
 		Metadata:    invCmd.Metadata,
 	}
-	
+
 	return &CommandResult{
 		CommandID:  invCmd.CommandID,
 		Success:    true,
@@ -333,10 +333,10 @@ func (h *RefundCommandHandler) Handle(ctx context.Context, command Command) (*Co
 	if !ok {
 		return nil, fmt.Errorf("invalid command type for refund handler")
 	}
-	
+
 	// Simulate refund processing
 	time.Sleep(120 * time.Millisecond)
-	
+
 	result := &RefundCommandResult{
 		CommandID:   refundCmd.CommandID,
 		RefundID:    fmt.Sprintf("refund_%s", refundCmd.CommandID),
@@ -349,7 +349,7 @@ func (h *RefundCommandHandler) Handle(ctx context.Context, command Command) (*Co
 		ProcessedAt: time.Now(),
 		Metadata:    refundCmd.Metadata,
 	}
-	
+
 	return &CommandResult{
 		CommandID:  refundCmd.CommandID,
 		Success:    true,
@@ -396,10 +396,10 @@ func (h *AuditCommandHandler) Handle(ctx context.Context, command Command) (*Com
 	if !ok {
 		return nil, fmt.Errorf("invalid command type for audit handler")
 	}
-	
+
 	// Simulate audit logging
 	time.Sleep(30 * time.Millisecond)
-	
+
 	result := &AuditCommandResult{
 		CommandID:   auditCmd.CommandID,
 		AuditID:     fmt.Sprintf("audit_%s", auditCmd.CommandID),
@@ -414,7 +414,7 @@ func (h *AuditCommandHandler) Handle(ctx context.Context, command Command) (*Com
 		ProcessedAt: time.Now(),
 		Metadata:    auditCmd.Metadata,
 	}
-	
+
 	return &CommandResult{
 		CommandID:  auditCmd.CommandID,
 		Success:    true,
@@ -461,10 +461,10 @@ func (h *SystemCommandHandler) Handle(ctx context.Context, command Command) (*Co
 	if !ok {
 		return nil, fmt.Errorf("invalid command type for system handler")
 	}
-	
+
 	// Simulate system operation
 	time.Sleep(40 * time.Millisecond)
-	
+
 	result := &SystemCommandResult{
 		CommandID:   sysCmd.CommandID,
 		Action:      sysCmd.Action,
@@ -473,7 +473,7 @@ func (h *SystemCommandHandler) Handle(ctx context.Context, command Command) (*Co
 		ProcessedAt: time.Now(),
 		Metadata:    sysCmd.Metadata,
 	}
-	
+
 	return &CommandResult{
 		CommandID:  sysCmd.CommandID,
 		Success:    true,

@@ -11,12 +11,12 @@ import (
 
 // BaseObserver represents a base observer implementation
 type BaseObserver struct {
-	ID          string   `json:"id"`
-	EventTypes  []string `json:"event_types"`
-	Async       bool     `json:"async"`
-	Enabled     bool     `json:"enabled"`
-	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
+	ID         string    `json:"id"`
+	EventTypes []string  `json:"event_types"`
+	Async      bool      `json:"async"`
+	Enabled    bool      `json:"enabled"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
 }
 
 // NewBaseObserver creates a new base observer
@@ -78,18 +78,18 @@ func (po *PaymentObserver) OnEvent(ctx context.Context, event Event) error {
 	if !po.IsEnabled() {
 		return nil
 	}
-	
+
 	paymentEvent, ok := event.(*PaymentEvent)
 	if !ok {
 		return fmt.Errorf("expected PaymentEvent, got %T", event)
 	}
-	
-	po.logger.Info("Processing payment event", 
+
+	po.logger.Info("Processing payment event",
 		"event_id", event.GetID(),
 		"event_type", event.GetType(),
 		"payment_id", paymentEvent.PaymentID,
 		"user_id", paymentEvent.UserID)
-	
+
 	return po.handler(ctx, paymentEvent)
 }
 
@@ -119,18 +119,18 @@ func (uo *UserObserver) OnEvent(ctx context.Context, event Event) error {
 	if !uo.IsEnabled() {
 		return nil
 	}
-	
+
 	userEvent, ok := event.(*UserEvent)
 	if !ok {
 		return fmt.Errorf("expected UserEvent, got %T", event)
 	}
-	
-	uo.logger.Info("Processing user event", 
+
+	uo.logger.Info("Processing user event",
 		"event_id", event.GetID(),
 		"event_type", event.GetType(),
 		"user_id", userEvent.UserID,
 		"email", userEvent.Email)
-	
+
 	return uo.handler(ctx, userEvent)
 }
 
@@ -161,18 +161,18 @@ func (oo *OrderObserver) OnEvent(ctx context.Context, event Event) error {
 	if !oo.IsEnabled() {
 		return nil
 	}
-	
+
 	orderEvent, ok := event.(*OrderEvent)
 	if !ok {
 		return fmt.Errorf("expected OrderEvent, got %T", event)
 	}
-	
-	oo.logger.Info("Processing order event", 
+
+	oo.logger.Info("Processing order event",
 		"event_id", event.GetID(),
 		"event_type", event.GetType(),
 		"order_id", orderEvent.OrderID,
 		"user_id", orderEvent.UserID)
-	
+
 	return oo.handler(ctx, orderEvent)
 }
 
@@ -202,18 +202,18 @@ func (po *ProductObserver) OnEvent(ctx context.Context, event Event) error {
 	if !po.IsEnabled() {
 		return nil
 	}
-	
+
 	productEvent, ok := event.(*ProductEvent)
 	if !ok {
 		return fmt.Errorf("expected ProductEvent, got %T", event)
 	}
-	
-	po.logger.Info("Processing product event", 
+
+	po.logger.Info("Processing product event",
 		"event_id", event.GetID(),
 		"event_type", event.GetType(),
 		"product_id", productEvent.ProductID,
 		"name", productEvent.Name)
-	
+
 	return po.handler(ctx, productEvent)
 }
 
@@ -242,18 +242,18 @@ func (no *NotificationObserver) OnEvent(ctx context.Context, event Event) error 
 	if !no.IsEnabled() {
 		return nil
 	}
-	
+
 	notificationEvent, ok := event.(*NotificationEvent)
 	if !ok {
 		return fmt.Errorf("expected NotificationEvent, got %T", event)
 	}
-	
-	no.logger.Info("Processing notification event", 
+
+	no.logger.Info("Processing notification event",
 		"event_id", event.GetID(),
 		"event_type", event.GetType(),
 		"notification_id", notificationEvent.NotificationID,
 		"user_id", notificationEvent.UserID)
-	
+
 	return no.handler(ctx, notificationEvent)
 }
 
@@ -280,18 +280,18 @@ func (ao *AuditObserver) OnEvent(ctx context.Context, event Event) error {
 	if !ao.IsEnabled() {
 		return nil
 	}
-	
+
 	auditEvent, ok := event.(*AuditEvent)
 	if !ok {
 		return fmt.Errorf("expected AuditEvent, got %T", event)
 	}
-	
-	ao.logger.Info("Processing audit event", 
+
+	ao.logger.Info("Processing audit event",
 		"event_id", event.GetID(),
 		"event_type", event.GetType(),
 		"entity_type", auditEvent.EntityType,
 		"entity_id", auditEvent.EntityID)
-	
+
 	return ao.handler(ctx, auditEvent)
 }
 
@@ -321,18 +321,18 @@ func (so *SystemObserver) OnEvent(ctx context.Context, event Event) error {
 	if !so.IsEnabled() {
 		return nil
 	}
-	
+
 	systemEvent, ok := event.(*SystemEvent)
 	if !ok {
 		return fmt.Errorf("expected SystemEvent, got %T", event)
 	}
-	
-	so.logger.Info("Processing system event", 
+
+	so.logger.Info("Processing system event",
 		"event_id", event.GetID(),
 		"event_type", event.GetType(),
 		"component", systemEvent.Component,
 		"level", systemEvent.Level)
-	
+
 	return so.handler(ctx, systemEvent)
 }
 
@@ -349,7 +349,7 @@ func NewCompositeObserver(id string, observers []Observer) *CompositeObserver {
 	for _, observer := range observers {
 		eventTypes = append(eventTypes, observer.GetEventTypes()...)
 	}
-	
+
 	return &CompositeObserver{
 		BaseObserver: NewBaseObserver(id, eventTypes, true),
 		observers:    observers,
@@ -361,39 +361,39 @@ func (co *CompositeObserver) OnEvent(ctx context.Context, event Event) error {
 	if !co.IsEnabled() {
 		return nil
 	}
-	
-	co.logger.Info("Processing composite event", 
+
+	co.logger.Info("Processing composite event",
 		"event_id", event.GetID(),
 		"event_type", event.GetType(),
 		"observer_count", len(co.observers))
-	
+
 	var wg sync.WaitGroup
 	errChan := make(chan error, len(co.observers))
-	
+
 	for _, observer := range co.observers {
 		wg.Add(1)
 		go func(obs Observer) {
 			defer wg.Done()
-			
+
 			if err := obs.OnEvent(ctx, event); err != nil {
 				errChan <- err
 			}
 		}(observer)
 	}
-	
+
 	wg.Wait()
 	close(errChan)
-	
+
 	// Collect errors
 	var errors []error
 	for err := range errChan {
 		errors = append(errors, err)
 	}
-	
+
 	if len(errors) > 0 {
 		return fmt.Errorf("composite observer failed with %d errors: %v", len(errors), errors)
 	}
-	
+
 	return nil
 }
 
@@ -419,15 +419,15 @@ func (fo *FilteredObserver) OnEvent(ctx context.Context, event Event) error {
 	if !fo.IsEnabled() {
 		return nil
 	}
-	
+
 	if !fo.filter.ShouldProcess(event) {
-		fo.logger.Debug("Event filtered out", 
+		fo.logger.Debug("Event filtered out",
 			"event_id", event.GetID(),
 			"event_type", event.GetType(),
 			"filter", fo.filter.GetFilterName())
 		return nil
 	}
-	
+
 	return fo.observer.OnEvent(ctx, event)
 }
 
@@ -455,28 +455,28 @@ func (ro *RetryObserver) OnEvent(ctx context.Context, event Event) error {
 	if !ro.IsEnabled() {
 		return nil
 	}
-	
+
 	var lastErr error
-	
+
 	for attempt := 1; attempt <= ro.maxRetries; attempt++ {
 		err := ro.observer.OnEvent(ctx, event)
 		if err == nil {
 			return nil
 		}
-		
+
 		lastErr = err
-		
+
 		if attempt < ro.maxRetries {
-			ro.logger.Debug("Retrying observer", 
+			ro.logger.Debug("Retrying observer",
 				"event_id", event.GetID(),
 				"observer_id", ro.observer.GetObserverID(),
 				"attempt", attempt,
 				"delay", ro.retryDelay)
-			
+
 			time.Sleep(ro.retryDelay)
 		}
 	}
-	
+
 	return lastErr
 }
 
@@ -502,17 +502,17 @@ func (mo *MetricsObserver) OnEvent(ctx context.Context, event Event) error {
 	if !mo.IsEnabled() {
 		return nil
 	}
-	
+
 	startTime := time.Now()
-	
+
 	err := mo.observer.OnEvent(ctx, event)
-	
+
 	processingTime := time.Since(startTime)
 	mo.metrics.RecordProcessingTime(event.GetType(), processingTime)
-	
+
 	if err != nil {
 		mo.metrics.IncrementErrorCount(event.GetType())
 	}
-	
+
 	return err
 }

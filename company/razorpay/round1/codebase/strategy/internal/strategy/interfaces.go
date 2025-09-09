@@ -119,44 +119,44 @@ type StrategyMetrics interface {
 
 // StrategyConfig holds configuration for strategies
 type StrategyConfig struct {
-	DefaultStrategy string            `json:"default_strategy"`
-	Strategies      map[string]Config `json:"strategies"`
-	FallbackStrategy string           `json:"fallback_strategy"`
-	Timeout         time.Duration     `json:"timeout"`
-	RetryCount      int               `json:"retry_count"`
-	CircuitBreaker  CircuitBreakerConfig `json:"circuit_breaker"`
+	DefaultStrategy  string               `json:"default_strategy"`
+	Strategies       map[string]Config    `json:"strategies"`
+	FallbackStrategy string               `json:"fallback_strategy"`
+	Timeout          time.Duration        `json:"timeout"`
+	RetryCount       int                  `json:"retry_count"`
+	CircuitBreaker   CircuitBreakerConfig `json:"circuit_breaker"`
 }
 
 // Config holds configuration for a specific strategy
 type Config struct {
-	Enabled     bool              `json:"enabled"`
-	Priority    int               `json:"priority"`
-	Timeout     time.Duration     `json:"timeout"`
-	RetryCount  int               `json:"retry_count"`
-	Parameters  map[string]string `json:"parameters"`
-	Fallback    string            `json:"fallback"`
+	Enabled    bool              `json:"enabled"`
+	Priority   int               `json:"priority"`
+	Timeout    time.Duration     `json:"timeout"`
+	RetryCount int               `json:"retry_count"`
+	Parameters map[string]string `json:"parameters"`
+	Fallback   string            `json:"fallback"`
 }
 
 // CircuitBreakerConfig holds circuit breaker configuration
 type CircuitBreakerConfig struct {
-	Enabled           bool          `json:"enabled"`
-	FailureThreshold  int           `json:"failure_threshold"`
-	RecoveryTimeout   time.Duration `json:"recovery_timeout"`
-	HalfOpenMaxCalls  int           `json:"half_open_max_calls"`
+	Enabled          bool          `json:"enabled"`
+	FailureThreshold int           `json:"failure_threshold"`
+	RecoveryTimeout  time.Duration `json:"recovery_timeout"`
+	HalfOpenMaxCalls int           `json:"half_open_max_calls"`
 }
 
 // StrategyMetricsData holds metrics for a strategy
 type StrategyMetricsData struct {
-	StrategyName     string        `json:"strategy_name"`
-	TotalCalls       int64         `json:"total_calls"`
-	SuccessfulCalls  int64         `json:"successful_calls"`
-	FailedCalls      int64         `json:"failed_calls"`
-	AverageDuration  time.Duration `json:"average_duration"`
-	MinDuration      time.Duration `json:"min_duration"`
-	MaxDuration      time.Duration `json:"max_duration"`
-	LastCallTime     time.Time     `json:"last_call_time"`
-	SuccessRate      float64       `json:"success_rate"`
-	Availability     float64       `json:"availability"`
+	StrategyName    string        `json:"strategy_name"`
+	TotalCalls      int64         `json:"total_calls"`
+	SuccessfulCalls int64         `json:"successful_calls"`
+	FailedCalls     int64         `json:"failed_calls"`
+	AverageDuration time.Duration `json:"average_duration"`
+	MinDuration     time.Duration `json:"min_duration"`
+	MaxDuration     time.Duration `json:"max_duration"`
+	LastCallTime    time.Time     `json:"last_call_time"`
+	SuccessRate     float64       `json:"success_rate"`
+	Availability    float64       `json:"availability"`
 }
 
 // LogLevel represents logging levels

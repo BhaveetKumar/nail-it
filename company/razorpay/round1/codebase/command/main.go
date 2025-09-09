@@ -1,8 +1,7 @@
 package main
 
 import (
-	"context"
-	"log"
+	"command/internal/command"
 	"command/internal/config"
 	"command/internal/database"
 	"command/internal/handlers"
@@ -10,9 +9,9 @@ import (
 	"command/internal/logger"
 	"command/internal/redis"
 	"command/internal/server"
-	"command/internal/command"
 	"command/internal/websocket"
-	"time"
+	"context"
+	"log"
 )
 
 func main() {
@@ -69,7 +68,7 @@ func main() {
 	// Initialize command components
 	auditor := command.NewCommandAuditor()
 	metrics := command.NewCommandMetrics()
-	
+
 	// Initialize command invoker
 	invoker := command.NewCommandInvoker(auditor, nil, metrics, cfg.Command)
 

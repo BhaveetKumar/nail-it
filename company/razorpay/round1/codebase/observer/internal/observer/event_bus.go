@@ -11,25 +11,25 @@ import (
 
 // EventBusImpl implements EventBus interface
 type EventBusImpl struct {
-	subscribers map[string][]Observer
-	mutex       sync.RWMutex
-	logger      *logger.Logger
-	metrics     EventMetrics
-	retry       EventRetry
-	deadLetter  EventDeadLetter
-	rateLimiter EventRateLimiter
+	subscribers    map[string][]Observer
+	mutex          sync.RWMutex
+	logger         *logger.Logger
+	metrics        EventMetrics
+	retry          EventRetry
+	deadLetter     EventDeadLetter
+	rateLimiter    EventRateLimiter
 	circuitBreaker EventCircuitBreaker
 }
 
 // NewEventBus creates a new event bus
 func NewEventBus() *EventBusImpl {
 	return &EventBusImpl{
-		subscribers: make(map[string][]Observer),
-		logger:      logger.GetLogger(),
-		metrics:     NewEventMetrics(),
-		retry:       NewEventRetry(),
-		deadLetter:  NewEventDeadLetter(),
-		rateLimiter: NewEventRateLimiter(),
+		subscribers:    make(map[string][]Observer),
+		logger:         logger.GetLogger(),
+		metrics:        NewEventMetrics(),
+		retry:          NewEventRetry(),
+		deadLetter:     NewEventDeadLetter(),
+		rateLimiter:    NewEventRateLimiter(),
 		circuitBreaker: NewEventCircuitBreaker(),
 	}
 }
@@ -38,21 +38,21 @@ func NewEventBus() *EventBusImpl {
 func (eb *EventBusImpl) Subscribe(eventType string, observer Observer) error {
 	eb.mutex.Lock()
 	defer eb.mutex.Unlock()
-	
+
 	// Check if observer is already subscribed
 	for _, existingObserver := range eb.subscribers[eventType] {
 		if existingObserver.GetObserverID() == observer.GetObserverID() {
-			return fmt.Errorf("observer %s is already subscribed to event type %s", 
+			return fmt.Errorf("observer %s is already subscribed to event type %s",
 				observer.GetObserverID(), eventType)
 		}
 	}
-	
+
 	eb.subscribers[eventType] = append(eb.subscribers[eventType], observer)
-	
-	eb.logger.Info("Observer subscribed to event type", 
-		"observer_id", observer.GetObserverID(), 
+
+	eb.logger.Info("Observer subscribed to event type",
+		"observer_id", observer.GetObserverID(),
 		"event_type", eventType)
-	
+
 	return nil
 }
 
@@ -60,24 +60,24 @@ func (eb *EventBusImpl) Subscribe(eventType string, observer Observer) error {
 func (eb *EventBusImpl) Unsubscribe(eventType string, observerID string) error {
 	eb.mutex.Lock()
 	defer eb.mutex.Unlock()
-	
+
 	observers, exists := eb.subscribers[eventType]
 	if !exists {
 		return fmt.Errorf("no subscribers found for event type %s", eventType)
 	}
-	
+
 	for i, observer := range observers {
 		if observer.GetObserverID() == observerID {
 			eb.subscribers[eventType] = append(observers[:i], observers[i+1:]...)
-			
-			eb.logger.Info("Observer unsubscribed from event type", 
-				"observer_id", observerID, 
+
+			eb.logger.Info("Observer unsubscribed from event type",
+				"observer_id", observerID,
 				"event_type", eventType)
-			
+
 			return nil
 		}
 	}
-	
+
 	return fmt.Errorf("observer %s not found for event type %s", observerID, eventType)
 }
 
@@ -86,48 +86,48 @@ func (eb *EventBusImpl) Publish(ctx context.Context, event Event) error {
 	eb.mutex.RLock()
 	observers, exists := eb.subscribers[event.GetType()]
 	eb.mutex.RUnlock()
-	
+
 	if !exists {
 		eb.logger.Debug("No subscribers found for event type", "event_type", event.GetType())
 		return nil
 	}
-	
+
 	eb.metrics.IncrementEventCount(event.GetType())
-	
+
 	// Check rate limit
 	if !eb.rateLimiter.Allow(event.GetType()) {
 		eb.logger.Warn("Rate limit exceeded for event type", "event_type", event.GetType())
 		return fmt.Errorf("rate limit exceeded for event type %s", event.GetType())
 	}
-	
+
 	// Publish to all subscribers
 	for _, observer := range observers {
 		go eb.publishToObserver(ctx, event, observer)
 	}
-	
+
 	return nil
 }
 
 // publishToObserver publishes an event to a specific observer
 func (eb *EventBusImpl) publishToObserver(ctx context.Context, event Event, observer Observer) {
 	startTime := time.Now()
-	
+
 	// Use circuit breaker
 	err := eb.circuitBreaker.Execute(ctx, event.GetType(), func() error {
 		return eb.processEventWithRetry(ctx, event, observer)
 	})
-	
+
 	processingTime := time.Since(startTime)
 	eb.metrics.RecordProcessingTime(event.GetType(), processingTime)
-	
+
 	if err != nil {
 		eb.metrics.IncrementErrorCount(event.GetType())
-		eb.logger.Error("Failed to process event", 
+		eb.logger.Error("Failed to process event",
 			"event_id", event.GetID(),
 			"event_type", event.GetType(),
 			"observer_id", observer.GetObserverID(),
 			"error", err)
-		
+
 		// Send to dead letter queue
 		eb.deadLetter.HandleFailedEvent(ctx, event, err)
 	}
@@ -136,31 +136,31 @@ func (eb *EventBusImpl) publishToObserver(ctx context.Context, event Event, obse
 // processEventWithRetry processes an event with retry logic
 func (eb *EventBusImpl) processEventWithRetry(ctx context.Context, event Event, observer Observer) error {
 	var lastErr error
-	
+
 	for attempt := 1; attempt <= eb.retry.GetMaxRetries(); attempt++ {
 		err := observer.OnEvent(ctx, event)
 		if err == nil {
 			return nil
 		}
-		
+
 		lastErr = err
-		
+
 		if !eb.retry.ShouldRetry(event, attempt, err) {
 			break
 		}
-		
+
 		if attempt < eb.retry.GetMaxRetries() {
 			delay := eb.retry.GetRetryDelay(attempt)
-			eb.logger.Debug("Retrying event processing", 
+			eb.logger.Debug("Retrying event processing",
 				"event_id", event.GetID(),
 				"observer_id", observer.GetObserverID(),
 				"attempt", attempt,
 				"delay", delay)
-			
+
 			time.Sleep(delay)
 		}
 	}
-	
+
 	return lastErr
 }
 
@@ -168,7 +168,7 @@ func (eb *EventBusImpl) processEventWithRetry(ctx context.Context, event Event, 
 func (eb *EventBusImpl) GetSubscriberCount(eventType string) int {
 	eb.mutex.RLock()
 	defer eb.mutex.RUnlock()
-	
+
 	return len(eb.subscribers[eventType])
 }
 
@@ -176,12 +176,12 @@ func (eb *EventBusImpl) GetSubscriberCount(eventType string) int {
 func (eb *EventBusImpl) GetEventTypes() []string {
 	eb.mutex.RLock()
 	defer eb.mutex.RUnlock()
-	
+
 	eventTypes := make([]string, 0, len(eb.subscribers))
 	for eventType := range eb.subscribers {
 		eventTypes = append(eventTypes, eventType)
 	}
-	
+
 	return eventTypes
 }
 
@@ -189,10 +189,10 @@ func (eb *EventBusImpl) GetEventTypes() []string {
 func (eb *EventBusImpl) GetSubscribers(eventType string) []Observer {
 	eb.mutex.RLock()
 	defer eb.mutex.RUnlock()
-	
+
 	subscribers := make([]Observer, len(eb.subscribers[eventType]))
 	copy(subscribers, eb.subscribers[eventType])
-	
+
 	return subscribers
 }
 
@@ -205,7 +205,7 @@ func (eb *EventBusImpl) GetMetrics() EventMetricsData {
 func (eb *EventBusImpl) ClearSubscribers() {
 	eb.mutex.Lock()
 	defer eb.mutex.Unlock()
-	
+
 	eb.subscribers = make(map[string][]Observer)
 }
 
@@ -233,14 +233,14 @@ func (eb *EventBusWithFilters) Publish(ctx context.Context, event Event) error {
 	// Apply filters
 	for _, filter := range eb.filters {
 		if !filter.ShouldProcess(event) {
-			eb.logger.Debug("Event filtered out", 
+			eb.logger.Debug("Event filtered out",
 				"event_id", event.GetID(),
 				"event_type", event.GetType(),
 				"filter", filter.GetFilterName())
 			return nil
 		}
 	}
-	
+
 	return eb.EventBusImpl.Publish(ctx, event)
 }
 
@@ -271,14 +271,14 @@ func (eb *EventBusWithTransformation) Publish(ctx context.Context, event Event) 
 		var err error
 		transformedEvent, err = transformer.Transform(transformedEvent)
 		if err != nil {
-			eb.logger.Error("Failed to transform event", 
+			eb.logger.Error("Failed to transform event",
 				"event_id", event.GetID(),
 				"transformer", transformer.GetTransformerName(),
 				"error", err)
 			return err
 		}
 	}
-	
+
 	return eb.EventBusImpl.Publish(ctx, transformedEvent)
 }
 
@@ -294,14 +294,14 @@ type EventBusWithBatching struct {
 // NewEventBusWithBatching creates a new event bus with batching
 func NewEventBusWithBatching() *EventBusWithBatching {
 	eb := &EventBusWithBatching{
-		EventBusImpl:  NewEventBus(),
+		EventBusImpl:   NewEventBus(),
 		batchProcessor: NewEventBatchProcessor(),
 		eventBuffer:    make([]Event, 0),
 	}
-	
+
 	// Start batch processing timer
 	eb.startBatchTimer()
-	
+
 	return eb
 }
 
@@ -309,14 +309,14 @@ func NewEventBusWithBatching() *EventBusWithBatching {
 func (eb *EventBusWithBatching) Publish(ctx context.Context, event Event) error {
 	eb.bufferMutex.Lock()
 	defer eb.bufferMutex.Unlock()
-	
+
 	eb.eventBuffer = append(eb.eventBuffer, event)
-	
+
 	// Process batch if buffer is full
 	if len(eb.eventBuffer) >= eb.batchProcessor.GetBatchSize() {
 		return eb.processBatch(ctx)
 	}
-	
+
 	return nil
 }
 
@@ -325,14 +325,14 @@ func (eb *EventBusWithBatching) processBatch(ctx context.Context) error {
 	if len(eb.eventBuffer) == 0 {
 		return nil
 	}
-	
+
 	// Create a copy of the buffer
 	batch := make([]Event, len(eb.eventBuffer))
 	copy(batch, eb.eventBuffer)
-	
+
 	// Clear the buffer
 	eb.eventBuffer = eb.eventBuffer[:0]
-	
+
 	// Process the batch
 	return eb.batchProcessor.ProcessBatch(ctx, batch)
 }
@@ -342,11 +342,11 @@ func (eb *EventBusWithBatching) startBatchTimer() {
 	eb.batchTimer = time.AfterFunc(eb.batchProcessor.GetBatchTimeout(), func() {
 		eb.bufferMutex.Lock()
 		defer eb.bufferMutex.Unlock()
-		
+
 		if len(eb.eventBuffer) > 0 {
 			eb.processBatch(context.Background())
 		}
-		
+
 		// Restart timer
 		eb.startBatchTimer()
 	})
@@ -362,8 +362,8 @@ func (eb *EventBusWithBatching) Stop() {
 // EventBusWithOrdering extends EventBus with ordering capabilities
 type EventBusWithOrdering struct {
 	*EventBusImpl
-	ordering EventOrdering
-	partitions map[string][]Event
+	ordering       EventOrdering
+	partitions     map[string][]Event
 	partitionMutex sync.Mutex
 }
 
@@ -381,16 +381,16 @@ func (eb *EventBusWithOrdering) Publish(ctx context.Context, event Event) error 
 	if !eb.ordering.ShouldOrder(event.GetType()) {
 		return eb.EventBusImpl.Publish(ctx, event)
 	}
-	
+
 	eb.partitionMutex.Lock()
 	defer eb.partitionMutex.Unlock()
-	
+
 	orderingKey := eb.ordering.GetOrderingKey(event)
 	eb.partitions[orderingKey] = append(eb.partitions[orderingKey], event)
-	
+
 	// Process events in order for this partition
 	go eb.processPartition(ctx, orderingKey)
-	
+
 	return nil
 }
 
@@ -401,7 +401,7 @@ func (eb *EventBusWithOrdering) processPartition(ctx context.Context, orderingKe
 	copy(events, eb.partitions[orderingKey])
 	eb.partitions[orderingKey] = eb.partitions[orderingKey][:0]
 	eb.partitionMutex.Unlock()
-	
+
 	// Process events in order
 	for _, event := range events {
 		eb.EventBusImpl.Publish(ctx, event)

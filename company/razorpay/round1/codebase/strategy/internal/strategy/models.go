@@ -86,100 +86,100 @@ type PricingResponse struct {
 
 // AuthRequest represents an authentication request
 type AuthRequest struct {
-	AuthID       string            `json:"auth_id" validate:"required"`
-	UserID       string            `json:"user_id" validate:"required"`
-	Method       string            `json:"method" validate:"required"`
-	Credentials  map[string]string `json:"credentials" validate:"required"`
-	IPAddress    string            `json:"ip_address"`
-	UserAgent    string            `json:"user_agent"`
-	Metadata     map[string]string `json:"metadata"`
-	CreatedAt    time.Time         `json:"created_at"`
-	UpdatedAt    time.Time         `json:"updated_at"`
+	AuthID      string            `json:"auth_id" validate:"required"`
+	UserID      string            `json:"user_id" validate:"required"`
+	Method      string            `json:"method" validate:"required"`
+	Credentials map[string]string `json:"credentials" validate:"required"`
+	IPAddress   string            `json:"ip_address"`
+	UserAgent   string            `json:"user_agent"`
+	Metadata    map[string]string `json:"metadata"`
+	CreatedAt   time.Time         `json:"created_at"`
+	UpdatedAt   time.Time         `json:"updated_at"`
 }
 
 // AuthResponse represents an authentication response
 type AuthResponse struct {
-	AuthID      string            `json:"auth_id"`
-	UserID      string            `json:"user_id"`
-	Status      string            `json:"status"`
-	Token       string            `json:"token"`
-	ExpiresAt   time.Time         `json:"expires_at"`
-	Method      string            `json:"method"`
-	AuthenticatedAt time.Time      `json:"authenticated_at"`
-	Metadata    map[string]string `json:"metadata"`
-	Error       string            `json:"error,omitempty"`
+	AuthID          string            `json:"auth_id"`
+	UserID          string            `json:"user_id"`
+	Status          string            `json:"status"`
+	Token           string            `json:"token"`
+	ExpiresAt       time.Time         `json:"expires_at"`
+	Method          string            `json:"method"`
+	AuthenticatedAt time.Time         `json:"authenticated_at"`
+	Metadata        map[string]string `json:"metadata"`
+	Error           string            `json:"error,omitempty"`
 }
 
 // CacheRequest represents a cache request
 type CacheRequest struct {
-	Key        string        `json:"key" validate:"required"`
-	Value      interface{}   `json:"value"`
-	TTL        time.Duration `json:"ttl"`
-	Operation  string        `json:"operation" validate:"required"`
-	CreatedAt  time.Time     `json:"created_at"`
-	UpdatedAt  time.Time     `json:"updated_at"`
+	Key       string        `json:"key" validate:"required"`
+	Value     interface{}   `json:"value"`
+	TTL       time.Duration `json:"ttl"`
+	Operation string        `json:"operation" validate:"required"`
+	CreatedAt time.Time     `json:"created_at"`
+	UpdatedAt time.Time     `json:"updated_at"`
 }
 
 // CacheResponse represents a cache response
 type CacheResponse struct {
-	Key       string      `json:"key"`
-	Value     interface{} `json:"value"`
-	Hit       bool        `json:"hit"`
+	Key       string        `json:"key"`
+	Value     interface{}   `json:"value"`
+	Hit       bool          `json:"hit"`
 	TTL       time.Duration `json:"ttl"`
-	ExpiresAt time.Time   `json:"expires_at"`
-	Error     string      `json:"error,omitempty"`
+	ExpiresAt time.Time     `json:"expires_at"`
+	Error     string        `json:"error,omitempty"`
 }
 
 // LogRequest represents a log request
 type LogRequest struct {
-	LogID     string            `json:"log_id" validate:"required"`
-	Level     LogLevel          `json:"level" validate:"required"`
-	Message   string            `json:"message" validate:"required"`
+	LogID     string                 `json:"log_id" validate:"required"`
+	Level     LogLevel               `json:"level" validate:"required"`
+	Message   string                 `json:"message" validate:"required"`
 	Fields    map[string]interface{} `json:"fields"`
-	Timestamp time.Time         `json:"timestamp"`
-	Service   string            `json:"service"`
-	Version   string            `json:"version"`
+	Timestamp time.Time              `json:"timestamp"`
+	Service   string                 `json:"service"`
+	Version   string                 `json:"version"`
 }
 
 // LogResponse represents a log response
 type LogResponse struct {
-	LogID     string    `json:"log_id"`
-	Status    string    `json:"status"`
-	LoggedAt  time.Time `json:"logged_at"`
-	Error     string    `json:"error,omitempty"`
+	LogID    string    `json:"log_id"`
+	Status   string    `json:"status"`
+	LoggedAt time.Time `json:"logged_at"`
+	Error    string    `json:"error,omitempty"`
 }
 
 // DataProcessingRequest represents a data processing request
 type DataProcessingRequest struct {
-	RequestID   string      `json:"request_id" validate:"required"`
-	Data        interface{} `json:"data" validate:"required"`
-	Format      string      `json:"format" validate:"required"`
-	Operation   string      `json:"operation" validate:"required"`
-	Parameters  map[string]string `json:"parameters"`
-	CreatedAt   time.Time   `json:"created_at"`
-	UpdatedAt   time.Time   `json:"updated_at"`
+	RequestID  string            `json:"request_id" validate:"required"`
+	Data       interface{}       `json:"data" validate:"required"`
+	Format     string            `json:"format" validate:"required"`
+	Operation  string            `json:"operation" validate:"required"`
+	Parameters map[string]string `json:"parameters"`
+	CreatedAt  time.Time         `json:"created_at"`
+	UpdatedAt  time.Time         `json:"updated_at"`
 }
 
 // DataProcessingResponse represents a data processing response
 type DataProcessingResponse struct {
-	RequestID    string      `json:"request_id"`
-	ProcessedData interface{} `json:"processed_data"`
-	Format       string      `json:"format"`
-	Operation    string      `json:"operation"`
-	ProcessedAt  time.Time   `json:"processed_at"`
-	Metadata     map[string]string `json:"metadata"`
-	Error        string      `json:"error,omitempty"`
+	RequestID     string            `json:"request_id"`
+	ProcessedData interface{}       `json:"processed_data"`
+	Format        string            `json:"format"`
+	Operation     string            `json:"operation"`
+	ProcessedAt   time.Time         `json:"processed_at"`
+	Metadata      map[string]string `json:"metadata"`
+	Error         string            `json:"error,omitempty"`
 }
 
 // StrategyRequest represents a generic strategy request
 type StrategyRequest struct {
-	RequestID   string            `json:"request_id" validate:"required"`
-	StrategyType string           `json:"strategy_type" validate:"required"`
-	StrategyName string           `json:"strategy_name" validate:"required"`
-	Data        interface{}       `json:"data" validate:"required"`
-	Parameters  map[string]string `json:"parameters"`
-	CreatedAt   time.Time         `json:"created_at"`
-	UpdatedAt   time.Time         `json:"updated_at"`
+	RequestID    string            `json:"request_id" validate:"required"`
+	StrategyType string            `json:"strategy_type" validate:"required"`
+	StrategyName string            `json:"strategy_name" validate:"required"`
+	Data         interface{}       `json:"data" validate:"required"`
+	Parameters   map[string]string `json:"parameters"`
+	CreatedAt    time.Time         `json:"created_at"`
+	UpdatedAt    time.Time         `json:"updated_at"`
 }
 
 // StrategyResponse represents a generic strategy response
@@ -195,27 +195,27 @@ type StrategyResponse struct {
 
 // StrategyInfo represents information about a strategy
 type StrategyInfo struct {
-	Name                string            `json:"name"`
-	Type                string            `json:"type"`
-	Description         string            `json:"description"`
-	Version             string            `json:"version"`
-	Author              string            `json:"author"`
-	SupportedFeatures   []string          `json:"supported_features"`
-	Configuration       map[string]string `json:"configuration"`
-	IsAvailable         bool              `json:"is_available"`
-	LastHealthCheck     time.Time         `json:"last_health_check"`
-	CreatedAt           time.Time         `json:"created_at"`
-	UpdatedAt           time.Time         `json:"updated_at"`
+	Name              string            `json:"name"`
+	Type              string            `json:"type"`
+	Description       string            `json:"description"`
+	Version           string            `json:"version"`
+	Author            string            `json:"author"`
+	SupportedFeatures []string          `json:"supported_features"`
+	Configuration     map[string]string `json:"configuration"`
+	IsAvailable       bool              `json:"is_available"`
+	LastHealthCheck   time.Time         `json:"last_health_check"`
+	CreatedAt         time.Time         `json:"created_at"`
+	UpdatedAt         time.Time         `json:"updated_at"`
 }
 
 // StrategyHealth represents the health status of a strategy
 type StrategyHealth struct {
-	StrategyName string            `json:"strategy_name"`
-	Status       string            `json:"status"`
-	Message      string            `json:"message"`
-	LastCheck    time.Time         `json:"last_check"`
+	StrategyName string                 `json:"strategy_name"`
+	Status       string                 `json:"status"`
+	Message      string                 `json:"message"`
+	LastCheck    time.Time              `json:"last_check"`
 	Metrics      map[string]interface{} `json:"metrics"`
-	Error        string            `json:"error,omitempty"`
+	Error        string                 `json:"error,omitempty"`
 }
 
 // StrategySelection represents strategy selection criteria

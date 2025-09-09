@@ -83,12 +83,12 @@ type EventReplay interface {
 
 // ReplayStatus represents the status of event replay
 type ReplayStatus struct {
-	IsRunning    bool      `json:"is_running"`
-	StartTime    time.Time `json:"start_time"`
-	EndTime      time.Time `json:"end_time"`
-	ProcessedCount int64   `json:"processed_count"`
-	ErrorCount   int64     `json:"error_count"`
-	LastError    string    `json:"last_error,omitempty"`
+	IsRunning      bool      `json:"is_running"`
+	StartTime      time.Time `json:"start_time"`
+	EndTime        time.Time `json:"end_time"`
+	ProcessedCount int64     `json:"processed_count"`
+	ErrorCount     int64     `json:"error_count"`
+	LastError      string    `json:"last_error,omitempty"`
 }
 
 // EventMetrics tracks event metrics
@@ -101,12 +101,12 @@ type EventMetrics interface {
 
 // EventMetricsData represents event metrics
 type EventMetricsData struct {
-	EventCounts      map[string]int64         `json:"event_counts"`
-	ErrorCounts      map[string]int64         `json:"error_counts"`
-	ProcessingTimes  map[string]time.Duration `json:"processing_times"`
-	TotalEvents      int64                    `json:"total_events"`
-	TotalErrors      int64                    `json:"total_errors"`
-	AverageTime      time.Duration            `json:"average_time"`
+	EventCounts     map[string]int64         `json:"event_counts"`
+	ErrorCounts     map[string]int64         `json:"error_counts"`
+	ProcessingTimes map[string]time.Duration `json:"processing_times"`
+	TotalEvents     int64                    `json:"total_events"`
+	TotalErrors     int64                    `json:"total_errors"`
+	AverageTime     time.Duration            `json:"average_time"`
 }
 
 // EventRetry handles event retry logic
@@ -142,7 +142,7 @@ type EventScheduler interface {
 
 // ScheduledEvent represents a scheduled event
 type ScheduledEvent struct {
-	Event     Event     `json:"event"`
+	Event       Event     `json:"event"`
 	ScheduledAt time.Time `json:"scheduled_at"`
 	CreatedAt   time.Time `json:"created_at"`
 }
@@ -207,12 +207,12 @@ type EventCircuitBreaker interface {
 
 // CircuitBreakerState represents circuit breaker state
 type CircuitBreakerState struct {
-	State         string        `json:"state"` // "closed", "open", "half-open"
-	FailureCount  int           `json:"failure_count"`
-	LastFailure   time.Time     `json:"last_failure,omitempty"`
-	NextAttempt   time.Time     `json:"next_attempt,omitempty"`
-	SuccessCount  int           `json:"success_count"`
-	Timeout       time.Duration `json:"timeout"`
+	State        string        `json:"state"` // "closed", "open", "half-open"
+	FailureCount int           `json:"failure_count"`
+	LastFailure  time.Time     `json:"last_failure,omitempty"`
+	NextAttempt  time.Time     `json:"next_attempt,omitempty"`
+	SuccessCount int           `json:"success_count"`
+	Timeout      time.Duration `json:"timeout"`
 }
 
 // EventBatchProcessor processes events in batches
@@ -259,11 +259,11 @@ type EventEnrichment interface {
 
 // EnrichmentRule represents an enrichment rule
 type EnrichmentRule struct {
-	EventType    string                 `json:"event_type"`
-	Fields       []string               `json:"fields"`
-	Source       string                 `json:"source"`
-	Transform    map[string]interface{} `json:"transform,omitempty"`
-	Condition    string                 `json:"condition,omitempty"`
+	EventType string                 `json:"event_type"`
+	Fields    []string               `json:"fields"`
+	Source    string                 `json:"source"`
+	Transform map[string]interface{} `json:"transform,omitempty"`
+	Condition string                 `json:"condition,omitempty"`
 }
 
 // EventRouting routes events to appropriate handlers
@@ -276,10 +276,10 @@ type EventRouting interface {
 
 // RoutingRule represents a routing rule
 type RoutingRule struct {
-	ID          string   `json:"id"`
-	EventTypes  []string `json:"event_types"`
-	Conditions  []string `json:"conditions"`
-	Handlers    []string `json:"handlers"`
-	Priority    int      `json:"priority"`
-	Enabled     bool     `json:"enabled"`
+	ID         string   `json:"id"`
+	EventTypes []string `json:"event_types"`
+	Conditions []string `json:"conditions"`
+	Handlers   []string `json:"handlers"`
+	Priority   int      `json:"priority"`
+	Enabled    bool     `json:"enabled"`
 }

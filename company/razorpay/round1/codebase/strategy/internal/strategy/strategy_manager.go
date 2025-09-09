@@ -9,26 +9,26 @@ import (
 
 // StrategyManagerImpl implements StrategyManager interface
 type StrategyManagerImpl struct {
-	strategies      map[string]interface{}
-	defaultStrategy string
+	strategies       map[string]interface{}
+	defaultStrategy  string
 	fallbackStrategy string
-	timeout         time.Duration
-	retryCount      int
-	circuitBreaker  *CircuitBreaker
-	metrics         StrategyMetrics
-	mu              sync.RWMutex
+	timeout          time.Duration
+	retryCount       int
+	circuitBreaker   *CircuitBreaker
+	metrics          StrategyMetrics
+	mu               sync.RWMutex
 }
 
 // NewStrategyManager creates a new strategy manager
 func NewStrategyManager(defaultStrategy, fallbackStrategy string, timeout time.Duration, retryCount int, metrics StrategyMetrics) *StrategyManagerImpl {
 	return &StrategyManagerImpl{
-		strategies:      make(map[string]interface{}),
-		defaultStrategy: defaultStrategy,
+		strategies:       make(map[string]interface{}),
+		defaultStrategy:  defaultStrategy,
 		fallbackStrategy: fallbackStrategy,
-		timeout:         timeout,
-		retryCount:      retryCount,
-		circuitBreaker:  NewCircuitBreaker(5, 30*time.Second, 3),
-		metrics:         metrics,
+		timeout:          timeout,
+		retryCount:       retryCount,
+		circuitBreaker:   NewCircuitBreaker(5, 30*time.Second, 3),
+		metrics:          metrics,
 	}
 }
 
@@ -36,12 +36,12 @@ func NewStrategyManager(defaultStrategy, fallbackStrategy string, timeout time.D
 func (sm *StrategyManagerImpl) GetStrategy(strategyName string) (interface{}, error) {
 	sm.mu.RLock()
 	defer sm.mu.RUnlock()
-	
+
 	strategy, exists := sm.strategies[strategyName]
 	if !exists {
 		return nil, fmt.Errorf("strategy not found: %s", strategyName)
 	}
-	
+
 	return strategy, nil
 }
 
@@ -49,12 +49,12 @@ func (sm *StrategyManagerImpl) GetStrategy(strategyName string) (interface{}, er
 func (sm *StrategyManagerImpl) GetAvailableStrategies() []string {
 	sm.mu.RLock()
 	defer sm.mu.RUnlock()
-	
+
 	strategies := make([]string, 0, len(sm.strategies))
 	for name := range sm.strategies {
 		strategies = append(strategies, name)
 	}
-	
+
 	return strategies
 }
 
@@ -62,15 +62,15 @@ func (sm *StrategyManagerImpl) GetAvailableStrategies() []string {
 func (sm *StrategyManagerImpl) RegisterStrategy(strategyName string, strategy interface{}) error {
 	sm.mu.Lock()
 	defer sm.mu.Unlock()
-	
+
 	if strategyName == "" {
 		return fmt.Errorf("strategy name cannot be empty")
 	}
-	
+
 	if strategy == nil {
 		return fmt.Errorf("strategy cannot be nil")
 	}
-	
+
 	sm.strategies[strategyName] = strategy
 	return nil
 }
@@ -79,15 +79,15 @@ func (sm *StrategyManagerImpl) RegisterStrategy(strategyName string, strategy in
 func (sm *StrategyManagerImpl) UnregisterStrategy(strategyName string) error {
 	sm.mu.Lock()
 	defer sm.mu.Unlock()
-	
+
 	if strategyName == "" {
 		return fmt.Errorf("strategy name cannot be empty")
 	}
-	
+
 	if _, exists := sm.strategies[strategyName]; !exists {
 		return fmt.Errorf("strategy not found: %s", strategyName)
 	}
-	
+
 	delete(sm.strategies, strategyName)
 	return nil
 }
@@ -96,16 +96,16 @@ func (sm *StrategyManagerImpl) UnregisterStrategy(strategyName string) error {
 func (sm *StrategyManagerImpl) GetDefaultStrategy() (interface{}, error) {
 	sm.mu.RLock()
 	defer sm.mu.RUnlock()
-	
+
 	if sm.defaultStrategy == "" {
 		return nil, fmt.Errorf("no default strategy set")
 	}
-	
+
 	strategy, exists := sm.strategies[sm.defaultStrategy]
 	if !exists {
 		return nil, fmt.Errorf("default strategy not found: %s", sm.defaultStrategy)
 	}
-	
+
 	return strategy, nil
 }
 
@@ -113,15 +113,15 @@ func (sm *StrategyManagerImpl) GetDefaultStrategy() (interface{}, error) {
 func (sm *StrategyManagerImpl) SetDefaultStrategy(strategyName string) error {
 	sm.mu.Lock()
 	defer sm.mu.Unlock()
-	
+
 	if strategyName == "" {
 		return fmt.Errorf("strategy name cannot be empty")
 	}
-	
+
 	if _, exists := sm.strategies[strategyName]; !exists {
 		return fmt.Errorf("strategy not found: %s", strategyName)
 	}
-	
+
 	sm.defaultStrategy = strategyName
 	return nil
 }
@@ -129,17 +129,17 @@ func (sm *StrategyManagerImpl) SetDefaultStrategy(strategyName string) error {
 // ExecuteStrategy executes a strategy with circuit breaker protection
 func (sm *StrategyManagerImpl) ExecuteStrategy(ctx context.Context, strategyName string, executeFunc func() (interface{}, error)) (interface{}, error) {
 	start := time.Now()
-	
+
 	// Check circuit breaker
 	if !sm.circuitBreaker.CanExecute() {
 		sm.metrics.RecordStrategyCall(strategyName, time.Since(start), false)
 		return nil, fmt.Errorf("circuit breaker is open for strategy: %s", strategyName)
 	}
-	
+
 	// Execute strategy with retry
 	var result interface{}
 	var err error
-	
+
 	for i := 0; i <= sm.retryCount; i++ {
 		result, err = executeFunc()
 		if err == nil {
@@ -147,12 +147,12 @@ func (sm *StrategyManagerImpl) ExecuteStrategy(ctx context.Context, strategyName
 			sm.metrics.RecordStrategyCall(strategyName, time.Since(start), true)
 			return result, nil
 		}
-		
+
 		if i < sm.retryCount {
 			time.Sleep(time.Duration(i+1) * 100 * time.Millisecond)
 		}
 	}
-	
+
 	sm.circuitBreaker.RecordFailure()
 	sm.metrics.RecordStrategyCall(strategyName, time.Since(start), false)
 	return nil, fmt.Errorf("strategy execution failed after %d retries: %w", sm.retryCount, err)
@@ -162,12 +162,12 @@ func (sm *StrategyManagerImpl) ExecuteStrategy(ctx context.Context, strategyName
 func (sm *StrategyManagerImpl) GetStrategyHealth(strategyName string) (*StrategyHealth, error) {
 	sm.mu.RLock()
 	defer sm.mu.RUnlock()
-	
+
 	strategy, exists := sm.strategies[strategyName]
 	if !exists {
 		return nil, fmt.Errorf("strategy not found: %s", strategyName)
 	}
-	
+
 	// Check if strategy is available
 	var isAvailable bool
 	switch s := strategy.(type) {
@@ -188,12 +188,12 @@ func (sm *StrategyManagerImpl) GetStrategyHealth(strategyName string) (*Strategy
 	default:
 		isAvailable = true
 	}
-	
+
 	status := "healthy"
 	if !isAvailable {
 		status = "unhealthy"
 	}
-	
+
 	health := &StrategyHealth{
 		StrategyName: strategyName,
 		Status:       status,
@@ -201,7 +201,7 @@ func (sm *StrategyManagerImpl) GetStrategyHealth(strategyName string) (*Strategy
 		LastCheck:    time.Now(),
 		Metrics:      make(map[string]interface{}),
 	}
-	
+
 	// Add metrics if available
 	if sm.metrics != nil {
 		metrics, err := sm.metrics.GetStrategyMetrics(strategyName)
@@ -211,18 +211,18 @@ func (sm *StrategyManagerImpl) GetStrategyHealth(strategyName string) (*Strategy
 			health.Metrics["average_duration"] = metrics.AverageDuration
 		}
 	}
-	
+
 	return health, nil
 }
 
 // GetCircuitBreakerStatus returns circuit breaker status
 func (sm *StrategyManagerImpl) GetCircuitBreakerStatus() map[string]interface{} {
 	return map[string]interface{}{
-		"state":           sm.circuitBreaker.GetState(),
-		"failure_count":   sm.circuitBreaker.GetFailureCount(),
-		"success_count":   sm.circuitBreaker.GetSuccessCount(),
-		"last_failure":    sm.circuitBreaker.GetLastFailureTime(),
-		"next_retry":      sm.circuitBreaker.GetNextRetryTime(),
+		"state":         sm.circuitBreaker.GetState(),
+		"failure_count": sm.circuitBreaker.GetFailureCount(),
+		"success_count": sm.circuitBreaker.GetSuccessCount(),
+		"last_failure":  sm.circuitBreaker.GetLastFailureTime(),
+		"next_retry":    sm.circuitBreaker.GetNextRetryTime(),
 	}
 }
 
@@ -236,13 +236,13 @@ type CircuitBreaker struct {
 	failureThreshold int
 	recoveryTimeout  time.Duration
 	halfOpenMaxCalls int
-	
-	state         string
-	failureCount  int
-	successCount  int
-	lastFailure   time.Time
-	nextRetry     time.Time
-	mu            sync.RWMutex
+
+	state        string
+	failureCount int
+	successCount int
+	lastFailure  time.Time
+	nextRetry    time.Time
+	mu           sync.RWMutex
 }
 
 // NewCircuitBreaker creates a new circuit breaker
@@ -251,7 +251,7 @@ func NewCircuitBreaker(failureThreshold int, recoveryTimeout time.Duration, half
 		failureThreshold: failureThreshold,
 		recoveryTimeout:  recoveryTimeout,
 		halfOpenMaxCalls: halfOpenMaxCalls,
-		state:           "closed",
+		state:            "closed",
 	}
 }
 
@@ -259,7 +259,7 @@ func NewCircuitBreaker(failureThreshold int, recoveryTimeout time.Duration, half
 func (cb *CircuitBreaker) CanExecute() bool {
 	cb.mu.RLock()
 	defer cb.mu.RUnlock()
-	
+
 	switch cb.state {
 	case "closed":
 		return true
@@ -276,9 +276,9 @@ func (cb *CircuitBreaker) CanExecute() bool {
 func (cb *CircuitBreaker) RecordSuccess() {
 	cb.mu.Lock()
 	defer cb.mu.Unlock()
-	
+
 	cb.successCount++
-	
+
 	if cb.state == "half-open" {
 		if cb.successCount >= cb.halfOpenMaxCalls {
 			cb.state = "closed"
@@ -292,10 +292,10 @@ func (cb *CircuitBreaker) RecordSuccess() {
 func (cb *CircuitBreaker) RecordFailure() {
 	cb.mu.Lock()
 	defer cb.mu.Unlock()
-	
+
 	cb.failureCount++
 	cb.lastFailure = time.Now()
-	
+
 	if cb.state == "closed" {
 		if cb.failureCount >= cb.failureThreshold {
 			cb.state = "open"
@@ -346,7 +346,7 @@ func (cb *CircuitBreaker) GetNextRetryTime() time.Time {
 func (cb *CircuitBreaker) Reset() {
 	cb.mu.Lock()
 	defer cb.mu.Unlock()
-	
+
 	cb.state = "closed"
 	cb.failureCount = 0
 	cb.successCount = 0

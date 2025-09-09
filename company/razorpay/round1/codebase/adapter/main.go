@@ -1,8 +1,7 @@
 package main
 
 import (
-	"context"
-	"log"
+	"adapter/internal/adapter"
 	"adapter/internal/config"
 	"adapter/internal/database"
 	"adapter/internal/handlers"
@@ -10,9 +9,9 @@ import (
 	"adapter/internal/logger"
 	"adapter/internal/redis"
 	"adapter/internal/server"
-	"adapter/internal/adapter"
 	"adapter/internal/websocket"
-	"time"
+	"context"
+	"log"
 )
 
 func main() {
@@ -69,7 +68,7 @@ func main() {
 	// Initialize adapter components
 	adapterManager := adapter.NewAdapterManager()
 	metrics := adapter.NewAdapterMetrics()
-	
+
 	// Initialize adapter factory
 	adapterFactory := adapter.NewAdapterFactory(cfg.Adapter)
 

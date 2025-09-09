@@ -28,7 +28,7 @@ func NewEmailNotificationAdapter(smtpHost string, smtpPort int, timeout time.Dur
 func (e *EmailNotificationAdapter) SendNotification(ctx context.Context, request NotificationRequest) (*NotificationResponse, error) {
 	// Simulate Email notification sending
 	time.Sleep(50 * time.Millisecond)
-	
+
 	response := &NotificationResponse{
 		NotificationID: request.NotificationID,
 		Status:         "sent",
@@ -38,7 +38,7 @@ func (e *EmailNotificationAdapter) SendNotification(ctx context.Context, request
 		DeliveryID:     fmt.Sprintf("email_%s", request.NotificationID),
 		Metadata:       request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -46,7 +46,7 @@ func (e *EmailNotificationAdapter) SendNotification(ctx context.Context, request
 func (e *EmailNotificationAdapter) GetNotificationStatus(ctx context.Context, notificationID string) (*NotificationStatus, error) {
 	// Simulate Email status check
 	time.Sleep(30 * time.Millisecond)
-	
+
 	status := &NotificationStatus{
 		NotificationID: notificationID,
 		Status:         "delivered",
@@ -55,7 +55,7 @@ func (e *EmailNotificationAdapter) GetNotificationStatus(ctx context.Context, no
 		LastUpdated:    time.Now(),
 		Metadata:       make(map[string]string),
 	}
-	
+
 	return status, nil
 }
 
@@ -89,7 +89,7 @@ func NewSMSNotificationAdapter(apiKey string, timeout time.Duration) *SMSNotific
 func (s *SMSNotificationAdapter) SendNotification(ctx context.Context, request NotificationRequest) (*NotificationResponse, error) {
 	// Simulate SMS notification sending
 	time.Sleep(30 * time.Millisecond)
-	
+
 	response := &NotificationResponse{
 		NotificationID: request.NotificationID,
 		Status:         "sent",
@@ -99,7 +99,7 @@ func (s *SMSNotificationAdapter) SendNotification(ctx context.Context, request N
 		DeliveryID:     fmt.Sprintf("sms_%s", request.NotificationID),
 		Metadata:       request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -107,7 +107,7 @@ func (s *SMSNotificationAdapter) SendNotification(ctx context.Context, request N
 func (s *SMSNotificationAdapter) GetNotificationStatus(ctx context.Context, notificationID string) (*NotificationStatus, error) {
 	// Simulate SMS status check
 	time.Sleep(20 * time.Millisecond)
-	
+
 	status := &NotificationStatus{
 		NotificationID: notificationID,
 		Status:         "delivered",
@@ -116,7 +116,7 @@ func (s *SMSNotificationAdapter) GetNotificationStatus(ctx context.Context, noti
 		LastUpdated:    time.Now(),
 		Metadata:       make(map[string]string),
 	}
-	
+
 	return status, nil
 }
 
@@ -150,7 +150,7 @@ func NewPushNotificationAdapter(apiKey string, timeout time.Duration) *PushNotif
 func (p *PushNotificationAdapter) SendNotification(ctx context.Context, request NotificationRequest) (*NotificationResponse, error) {
 	// Simulate Push notification sending
 	time.Sleep(20 * time.Millisecond)
-	
+
 	response := &NotificationResponse{
 		NotificationID: request.NotificationID,
 		Status:         "sent",
@@ -160,7 +160,7 @@ func (p *PushNotificationAdapter) SendNotification(ctx context.Context, request 
 		DeliveryID:     fmt.Sprintf("push_%s", request.NotificationID),
 		Metadata:       request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -168,7 +168,7 @@ func (p *PushNotificationAdapter) SendNotification(ctx context.Context, request 
 func (p *PushNotificationAdapter) GetNotificationStatus(ctx context.Context, notificationID string) (*NotificationStatus, error) {
 	// Simulate Push status check
 	time.Sleep(15 * time.Millisecond)
-	
+
 	status := &NotificationStatus{
 		NotificationID: notificationID,
 		Status:         "delivered",
@@ -177,7 +177,7 @@ func (p *PushNotificationAdapter) GetNotificationStatus(ctx context.Context, not
 		LastUpdated:    time.Now(),
 		Metadata:       make(map[string]string),
 	}
-	
+
 	return status, nil
 }
 
@@ -211,7 +211,7 @@ func NewWebhookNotificationAdapter(apiKey string, timeout time.Duration) *Webhoo
 func (w *WebhookNotificationAdapter) SendNotification(ctx context.Context, request NotificationRequest) (*NotificationResponse, error) {
 	// Simulate Webhook notification sending
 	time.Sleep(100 * time.Millisecond)
-	
+
 	response := &NotificationResponse{
 		NotificationID: request.NotificationID,
 		Status:         "sent",
@@ -221,7 +221,7 @@ func (w *WebhookNotificationAdapter) SendNotification(ctx context.Context, reque
 		DeliveryID:     fmt.Sprintf("webhook_%s", request.NotificationID),
 		Metadata:       request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -229,7 +229,7 @@ func (w *WebhookNotificationAdapter) SendNotification(ctx context.Context, reque
 func (w *WebhookNotificationAdapter) GetNotificationStatus(ctx context.Context, notificationID string) (*NotificationStatus, error) {
 	// Simulate Webhook status check
 	time.Sleep(50 * time.Millisecond)
-	
+
 	status := &NotificationStatus{
 		NotificationID: notificationID,
 		Status:         "delivered",
@@ -238,7 +238,7 @@ func (w *WebhookNotificationAdapter) GetNotificationStatus(ctx context.Context, 
 		LastUpdated:    time.Now(),
 		Metadata:       make(map[string]string),
 	}
-	
+
 	return status, nil
 }
 
@@ -272,7 +272,7 @@ func NewSlackNotificationAdapter(apiKey string, timeout time.Duration) *SlackNot
 func (s *SlackNotificationAdapter) SendNotification(ctx context.Context, request NotificationRequest) (*NotificationResponse, error) {
 	// Simulate Slack notification sending
 	time.Sleep(80 * time.Millisecond)
-	
+
 	response := &NotificationResponse{
 		NotificationID: request.NotificationID,
 		Status:         "sent",
@@ -282,7 +282,7 @@ func (s *SlackNotificationAdapter) SendNotification(ctx context.Context, request
 		DeliveryID:     fmt.Sprintf("slack_%s", request.NotificationID),
 		Metadata:       request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -290,7 +290,7 @@ func (s *SlackNotificationAdapter) SendNotification(ctx context.Context, request
 func (s *SlackNotificationAdapter) GetNotificationStatus(ctx context.Context, notificationID string) (*NotificationStatus, error) {
 	// Simulate Slack status check
 	time.Sleep(40 * time.Millisecond)
-	
+
 	status := &NotificationStatus{
 		NotificationID: notificationID,
 		Status:         "delivered",
@@ -299,7 +299,7 @@ func (s *SlackNotificationAdapter) GetNotificationStatus(ctx context.Context, no
 		LastUpdated:    time.Now(),
 		Metadata:       make(map[string]string),
 	}
-	
+
 	return status, nil
 }
 

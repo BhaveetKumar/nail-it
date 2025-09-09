@@ -4,17 +4,16 @@ import (
 	"context"
 	"fmt"
 	"sort"
-	"time"
 )
 
 // StrategySelectorImpl implements StrategySelector interface
 type StrategySelectorImpl struct {
-	paymentManager      StrategyManager
-	notificationManager StrategyManager
-	pricingManager      StrategyManager
-	authManager         StrategyManager
-	cachingManager      StrategyManager
-	loggingManager      StrategyManager
+	paymentManager        StrategyManager
+	notificationManager   StrategyManager
+	pricingManager        StrategyManager
+	authManager           StrategyManager
+	cachingManager        StrategyManager
+	loggingManager        StrategyManager
 	dataProcessingManager StrategyManager
 }
 
@@ -29,12 +28,12 @@ func NewStrategySelector(
 	dataProcessingManager StrategyManager,
 ) *StrategySelectorImpl {
 	return &StrategySelectorImpl{
-		paymentManager:      paymentManager,
-		notificationManager: notificationManager,
-		pricingManager:      pricingManager,
-		authManager:         authManager,
-		cachingManager:      cachingManager,
-		loggingManager:      loggingManager,
+		paymentManager:        paymentManager,
+		notificationManager:   notificationManager,
+		pricingManager:        pricingManager,
+		authManager:           authManager,
+		cachingManager:        cachingManager,
+		loggingManager:        loggingManager,
 		dataProcessingManager: dataProcessingManager,
 	}
 }
@@ -43,7 +42,7 @@ func NewStrategySelector(
 func (ss *StrategySelectorImpl) SelectPaymentStrategy(ctx context.Context, request PaymentRequest) (PaymentStrategy, error) {
 	// Get available strategies
 	strategies := ss.paymentManager.GetAvailableStrategies()
-	
+
 	// Filter strategies based on currency support
 	var supportedStrategies []PaymentStrategy
 	for _, strategyName := range strategies {
@@ -51,12 +50,12 @@ func (ss *StrategySelectorImpl) SelectPaymentStrategy(ctx context.Context, reque
 		if err != nil {
 			continue
 		}
-		
+
 		paymentStrategy, ok := strategy.(PaymentStrategy)
 		if !ok {
 			continue
 		}
-		
+
 		// Check if strategy supports the currency
 		supportedCurrencies := paymentStrategy.GetSupportedCurrencies()
 		for _, currency := range supportedCurrencies {
@@ -66,16 +65,16 @@ func (ss *StrategySelectorImpl) SelectPaymentStrategy(ctx context.Context, reque
 			}
 		}
 	}
-	
+
 	if len(supportedStrategies) == 0 {
 		return nil, fmt.Errorf("no payment strategy supports currency: %s", request.Currency)
 	}
-	
+
 	// Select strategy based on priority (fastest processing time)
 	sort.Slice(supportedStrategies, func(i, j int) bool {
 		return supportedStrategies[i].GetProcessingTime() < supportedStrategies[j].GetProcessingTime()
 	})
-	
+
 	return supportedStrategies[0], nil
 }
 
@@ -83,7 +82,7 @@ func (ss *StrategySelectorImpl) SelectPaymentStrategy(ctx context.Context, reque
 func (ss *StrategySelectorImpl) SelectNotificationStrategy(ctx context.Context, request NotificationRequest) (NotificationStrategy, error) {
 	// Get available strategies
 	strategies := ss.notificationManager.GetAvailableStrategies()
-	
+
 	// Filter strategies based on channel support
 	var supportedStrategies []NotificationStrategy
 	for _, strategyName := range strategies {
@@ -91,12 +90,12 @@ func (ss *StrategySelectorImpl) SelectNotificationStrategy(ctx context.Context, 
 		if err != nil {
 			continue
 		}
-		
+
 		notificationStrategy, ok := strategy.(NotificationStrategy)
 		if !ok {
 			continue
 		}
-		
+
 		// Check if strategy supports the channel
 		supportedChannels := notificationStrategy.GetSupportedChannels()
 		for _, channel := range supportedChannels {
@@ -106,16 +105,16 @@ func (ss *StrategySelectorImpl) SelectNotificationStrategy(ctx context.Context, 
 			}
 		}
 	}
-	
+
 	if len(supportedStrategies) == 0 {
 		return nil, fmt.Errorf("no notification strategy supports channel: %s", request.Channel)
 	}
-	
+
 	// Select strategy based on priority (fastest delivery time)
 	sort.Slice(supportedStrategies, func(i, j int) bool {
 		return supportedStrategies[i].GetDeliveryTime() < supportedStrategies[j].GetDeliveryTime()
 	})
-	
+
 	return supportedStrategies[0], nil
 }
 
@@ -123,7 +122,7 @@ func (ss *StrategySelectorImpl) SelectNotificationStrategy(ctx context.Context, 
 func (ss *StrategySelectorImpl) SelectPricingStrategy(ctx context.Context, request PricingRequest) (PricingStrategy, error) {
 	// Get available strategies
 	strategies := ss.pricingManager.GetAvailableStrategies()
-	
+
 	// Filter strategies based on product support
 	var supportedStrategies []PricingStrategy
 	for _, strategyName := range strategies {
@@ -131,12 +130,12 @@ func (ss *StrategySelectorImpl) SelectPricingStrategy(ctx context.Context, reque
 		if err != nil {
 			continue
 		}
-		
+
 		pricingStrategy, ok := strategy.(PricingStrategy)
 		if !ok {
 			continue
 		}
-		
+
 		// Check if strategy supports the product
 		supportedProducts := pricingStrategy.GetSupportedProducts()
 		for _, product := range supportedProducts {
@@ -146,16 +145,16 @@ func (ss *StrategySelectorImpl) SelectPricingStrategy(ctx context.Context, reque
 			}
 		}
 	}
-	
+
 	if len(supportedStrategies) == 0 {
 		return nil, fmt.Errorf("no pricing strategy supports product: %s", request.ProductID)
 	}
-	
+
 	// Select strategy based on priority (fastest calculation time)
 	sort.Slice(supportedStrategies, func(i, j int) bool {
 		return supportedStrategies[i].GetCalculationTime() < supportedStrategies[j].GetCalculationTime()
 	})
-	
+
 	return supportedStrategies[0], nil
 }
 
@@ -163,7 +162,7 @@ func (ss *StrategySelectorImpl) SelectPricingStrategy(ctx context.Context, reque
 func (ss *StrategySelectorImpl) SelectAuthenticationStrategy(ctx context.Context, request AuthRequest) (AuthenticationStrategy, error) {
 	// Get available strategies
 	strategies := ss.authManager.GetAvailableStrategies()
-	
+
 	// Filter strategies based on method support
 	var supportedStrategies []AuthenticationStrategy
 	for _, strategyName := range strategies {
@@ -171,12 +170,12 @@ func (ss *StrategySelectorImpl) SelectAuthenticationStrategy(ctx context.Context
 		if err != nil {
 			continue
 		}
-		
+
 		authStrategy, ok := strategy.(AuthenticationStrategy)
 		if !ok {
 			continue
 		}
-		
+
 		// Check if strategy supports the method
 		supportedMethods := authStrategy.GetSupportedMethods()
 		for _, method := range supportedMethods {
@@ -186,16 +185,16 @@ func (ss *StrategySelectorImpl) SelectAuthenticationStrategy(ctx context.Context
 			}
 		}
 	}
-	
+
 	if len(supportedStrategies) == 0 {
 		return nil, fmt.Errorf("no authentication strategy supports method: %s", request.Method)
 	}
-	
+
 	// Select strategy based on priority (fastest auth time)
 	sort.Slice(supportedStrategies, func(i, j int) bool {
 		return supportedStrategies[i].GetAuthTime() < supportedStrategies[j].GetAuthTime()
 	})
-	
+
 	return supportedStrategies[0], nil
 }
 
@@ -203,7 +202,7 @@ func (ss *StrategySelectorImpl) SelectAuthenticationStrategy(ctx context.Context
 func (ss *StrategySelectorImpl) SelectCachingStrategy(ctx context.Context, key string) (CachingStrategy, error) {
 	// Get available strategies
 	strategies := ss.cachingManager.GetAvailableStrategies()
-	
+
 	// Filter strategies based on type support
 	var supportedStrategies []CachingStrategy
 	for _, strategyName := range strategies {
@@ -211,12 +210,12 @@ func (ss *StrategySelectorImpl) SelectCachingStrategy(ctx context.Context, key s
 		if err != nil {
 			continue
 		}
-		
+
 		cachingStrategy, ok := strategy.(CachingStrategy)
 		if !ok {
 			continue
 		}
-		
+
 		// Check if strategy supports the type
 		supportedTypes := cachingStrategy.GetSupportedTypes()
 		for _, cacheType := range supportedTypes {
@@ -226,16 +225,16 @@ func (ss *StrategySelectorImpl) SelectCachingStrategy(ctx context.Context, key s
 			}
 		}
 	}
-	
+
 	if len(supportedStrategies) == 0 {
 		return nil, fmt.Errorf("no caching strategy available")
 	}
-	
+
 	// Select strategy based on priority (fastest access time)
 	sort.Slice(supportedStrategies, func(i, j int) bool {
 		return supportedStrategies[i].GetAccessTime() < supportedStrategies[j].GetAccessTime()
 	})
-	
+
 	return supportedStrategies[0], nil
 }
 
@@ -243,7 +242,7 @@ func (ss *StrategySelectorImpl) SelectCachingStrategy(ctx context.Context, key s
 func (ss *StrategySelectorImpl) SelectLoggingStrategy(ctx context.Context, level LogLevel) (LoggingStrategy, error) {
 	// Get available strategies
 	strategies := ss.loggingManager.GetAvailableStrategies()
-	
+
 	// Filter strategies based on level support
 	var supportedStrategies []LoggingStrategy
 	for _, strategyName := range strategies {
@@ -251,12 +250,12 @@ func (ss *StrategySelectorImpl) SelectLoggingStrategy(ctx context.Context, level
 		if err != nil {
 			continue
 		}
-		
+
 		loggingStrategy, ok := strategy.(LoggingStrategy)
 		if !ok {
 			continue
 		}
-		
+
 		// Check if strategy supports the level
 		supportedLevels := loggingStrategy.GetSupportedLevels()
 		for _, supportedLevel := range supportedLevels {
@@ -266,16 +265,16 @@ func (ss *StrategySelectorImpl) SelectLoggingStrategy(ctx context.Context, level
 			}
 		}
 	}
-	
+
 	if len(supportedStrategies) == 0 {
 		return nil, fmt.Errorf("no logging strategy supports level: %s", level.String())
 	}
-	
+
 	// Select strategy based on priority (fastest log time)
 	sort.Slice(supportedStrategies, func(i, j int) bool {
 		return supportedStrategies[i].GetLogTime() < supportedStrategies[j].GetLogTime()
 	})
-	
+
 	return supportedStrategies[0], nil
 }
 
@@ -283,7 +282,7 @@ func (ss *StrategySelectorImpl) SelectLoggingStrategy(ctx context.Context, level
 func (ss *StrategySelectorImpl) SelectDataProcessingStrategy(ctx context.Context, data interface{}) (DataProcessingStrategy, error) {
 	// Get available strategies
 	strategies := ss.dataProcessingManager.GetAvailableStrategies()
-	
+
 	// Filter strategies based on format support
 	var supportedStrategies []DataProcessingStrategy
 	for _, strategyName := range strategies {
@@ -291,12 +290,12 @@ func (ss *StrategySelectorImpl) SelectDataProcessingStrategy(ctx context.Context
 		if err != nil {
 			continue
 		}
-		
+
 		dataProcessingStrategy, ok := strategy.(DataProcessingStrategy)
 		if !ok {
 			continue
 		}
-		
+
 		// Check if strategy supports the format
 		supportedFormats := dataProcessingStrategy.GetSupportedFormats()
 		for _, format := range supportedFormats {
@@ -306,23 +305,23 @@ func (ss *StrategySelectorImpl) SelectDataProcessingStrategy(ctx context.Context
 			}
 		}
 	}
-	
+
 	if len(supportedStrategies) == 0 {
 		return nil, fmt.Errorf("no data processing strategy available")
 	}
-	
+
 	// Select strategy based on priority (fastest processing time)
 	sort.Slice(supportedStrategies, func(i, j int) bool {
 		return supportedStrategies[i].GetProcessingTime() < supportedStrategies[j].GetProcessingTime()
 	})
-	
+
 	return supportedStrategies[0], nil
 }
 
 // SelectStrategyByPriority selects strategy based on priority and criteria
 func (ss *StrategySelectorImpl) SelectStrategyByPriority(ctx context.Context, selection StrategySelection) (interface{}, error) {
 	var manager StrategyManager
-	
+
 	switch selection.StrategyType {
 	case "payment":
 		manager = ss.paymentManager
@@ -341,10 +340,10 @@ func (ss *StrategySelectorImpl) SelectStrategyByPriority(ctx context.Context, se
 	default:
 		return nil, fmt.Errorf("unsupported strategy type: %s", selection.StrategyType)
 	}
-	
+
 	// Get available strategies
 	strategies := manager.GetAvailableStrategies()
-	
+
 	// Filter strategies based on criteria
 	var supportedStrategies []interface{}
 	for _, strategyName := range strategies {
@@ -352,22 +351,22 @@ func (ss *StrategySelectorImpl) SelectStrategyByPriority(ctx context.Context, se
 		if err != nil {
 			continue
 		}
-		
+
 		// Check if strategy meets criteria
 		if ss.meetsCriteria(strategy, selection.Criteria) {
 			supportedStrategies = append(supportedStrategies, strategy)
 		}
 	}
-	
+
 	if len(supportedStrategies) == 0 {
 		return nil, fmt.Errorf("no strategy meets criteria for type: %s", selection.StrategyType)
 	}
-	
+
 	// Select strategy based on priority
 	sort.Slice(supportedStrategies, func(i, j int) bool {
 		return ss.getStrategyPriority(supportedStrategies[i]) < ss.getStrategyPriority(supportedStrategies[j])
 	})
-	
+
 	return supportedStrategies[0], nil
 }
 

@@ -1,6 +1,8 @@
 package observer
 
 import (
+	"context"
+	"fmt"
 	"sync"
 	"time"
 )
@@ -26,7 +28,7 @@ func NewEventMetrics() *EventMetricsImpl {
 func (em *EventMetricsImpl) IncrementEventCount(eventType string) {
 	em.mutex.Lock()
 	defer em.mutex.Unlock()
-	
+
 	em.eventCounts[eventType]++
 }
 
@@ -34,7 +36,7 @@ func (em *EventMetricsImpl) IncrementEventCount(eventType string) {
 func (em *EventMetricsImpl) IncrementErrorCount(eventType string) {
 	em.mutex.Lock()
 	defer em.mutex.Unlock()
-	
+
 	em.errorCounts[eventType]++
 }
 
@@ -42,13 +44,13 @@ func (em *EventMetricsImpl) IncrementErrorCount(eventType string) {
 func (em *EventMetricsImpl) RecordProcessingTime(eventType string, duration time.Duration) {
 	em.mutex.Lock()
 	defer em.mutex.Unlock()
-	
+
 	if em.processingTimes[eventType] == nil {
 		em.processingTimes[eventType] = make([]time.Duration, 0)
 	}
-	
+
 	em.processingTimes[eventType] = append(em.processingTimes[eventType], duration)
-	
+
 	// Keep only the last 1000 processing times to prevent memory growth
 	if len(em.processingTimes[eventType]) > 1000 {
 		em.processingTimes[eventType] = em.processingTimes[eventType][len(em.processingTimes[eventType])-1000:]
@@ -59,7 +61,7 @@ func (em *EventMetricsImpl) RecordProcessingTime(eventType string, duration time
 func (em *EventMetricsImpl) GetMetrics() EventMetricsData {
 	em.mutex.RLock()
 	defer em.mutex.RUnlock()
-	
+
 	// Calculate total events and errors
 	var totalEvents, totalErrors int64
 	for _, count := range em.eventCounts {
@@ -68,7 +70,7 @@ func (em *EventMetricsImpl) GetMetrics() EventMetricsData {
 	for _, count := range em.errorCounts {
 		totalErrors += count
 	}
-	
+
 	// Calculate average processing time
 	var totalProcessingTime time.Duration
 	var totalProcessingCount int
@@ -78,23 +80,23 @@ func (em *EventMetricsImpl) GetMetrics() EventMetricsData {
 			totalProcessingCount++
 		}
 	}
-	
+
 	var averageTime time.Duration
 	if totalProcessingCount > 0 {
 		averageTime = totalProcessingTime / time.Duration(totalProcessingCount)
 	}
-	
+
 	// Create copies of maps to avoid race conditions
 	eventCounts := make(map[string]int64)
 	for k, v := range em.eventCounts {
 		eventCounts[k] = v
 	}
-	
+
 	errorCounts := make(map[string]int64)
 	for k, v := range em.errorCounts {
 		errorCounts[k] = v
 	}
-	
+
 	processingTimes := make(map[string]time.Duration)
 	for k, times := range em.processingTimes {
 		if len(times) > 0 {
@@ -105,7 +107,7 @@ func (em *EventMetricsImpl) GetMetrics() EventMetricsData {
 			processingTimes[k] = sum / time.Duration(len(times))
 		}
 	}
-	
+
 	return EventMetricsData{
 		EventCounts:     eventCounts,
 		ErrorCounts:     errorCounts,
@@ -120,7 +122,7 @@ func (em *EventMetricsImpl) GetMetrics() EventMetricsData {
 func (em *EventMetricsImpl) Reset() {
 	em.mutex.Lock()
 	defer em.mutex.Unlock()
-	
+
 	em.eventCounts = make(map[string]int64)
 	em.errorCounts = make(map[string]int64)
 	em.processingTimes = make(map[string][]time.Duration)
@@ -147,12 +149,12 @@ func (er *EventRetryImpl) ShouldRetry(event Event, attempt int, err error) bool 
 	if attempt >= er.maxRetries {
 		return false
 	}
-	
+
 	// Don't retry certain types of errors
 	if err == nil {
 		return false
 	}
-	
+
 	// Add logic to determine if error is retryable
 	// For now, retry all errors
 	return true
@@ -189,21 +191,21 @@ func NewEventDeadLetter() *EventDeadLetterImpl {
 func (edl *EventDeadLetterImpl) HandleFailedEvent(ctx context.Context, event Event, err error) error {
 	edl.mutex.Lock()
 	defer edl.mutex.Unlock()
-	
+
 	failedEvent := FailedEvent{
 		Event:    event,
 		Error:    err.Error(),
 		Attempts: 1,
 		FailedAt: time.Now(),
 	}
-	
+
 	edl.failedEvents = append(edl.failedEvents, failedEvent)
-	
+
 	// Keep only the last 1000 failed events to prevent memory growth
 	if len(edl.failedEvents) > 1000 {
 		edl.failedEvents = edl.failedEvents[len(edl.failedEvents)-1000:]
 	}
-	
+
 	return nil
 }
 
@@ -211,18 +213,18 @@ func (edl *EventDeadLetterImpl) HandleFailedEvent(ctx context.Context, event Eve
 func (edl *EventDeadLetterImpl) GetFailedEvents(ctx context.Context, limit, offset int) ([]FailedEvent, error) {
 	edl.mutex.RLock()
 	defer edl.mutex.RUnlock()
-	
+
 	start := offset
 	end := offset + limit
-	
+
 	if start >= len(edl.failedEvents) {
 		return []FailedEvent{}, nil
 	}
-	
+
 	if end > len(edl.failedEvents) {
 		end = len(edl.failedEvents)
 	}
-	
+
 	return edl.failedEvents[start:end], nil
 }
 
@@ -230,7 +232,7 @@ func (edl *EventDeadLetterImpl) GetFailedEvents(ctx context.Context, limit, offs
 func (edl *EventDeadLetterImpl) RetryFailedEvent(ctx context.Context, eventID string) error {
 	edl.mutex.Lock()
 	defer edl.mutex.Unlock()
-	
+
 	for i, failedEvent := range edl.failedEvents {
 		if failedEvent.Event.GetID() == eventID {
 			// Remove from failed events
@@ -238,7 +240,7 @@ func (edl *EventDeadLetterImpl) RetryFailedEvent(ctx context.Context, eventID st
 			return nil
 		}
 	}
-	
+
 	return fmt.Errorf("failed event with ID %s not found", eventID)
 }
 
@@ -260,12 +262,12 @@ func (erl *EventRateLimiterImpl) Allow(eventType string) bool {
 	erl.mutex.RLock()
 	limit, exists := erl.rateLimits[eventType]
 	erl.mutex.RUnlock()
-	
+
 	if !exists {
 		// No rate limit set, allow
 		return true
 	}
-	
+
 	// Simple rate limiting implementation
 	// In a real implementation, you would use a more sophisticated algorithm
 	// like token bucket or sliding window
@@ -276,11 +278,11 @@ func (erl *EventRateLimiterImpl) Allow(eventType string) bool {
 func (erl *EventRateLimiterImpl) GetRateLimit(eventType string) RateLimit {
 	erl.mutex.RLock()
 	defer erl.mutex.RUnlock()
-	
+
 	if limit, exists := erl.rateLimits[eventType]; exists {
 		return limit
 	}
-	
+
 	// Default rate limit
 	return RateLimit{
 		Requests: 1000,
@@ -293,7 +295,7 @@ func (erl *EventRateLimiterImpl) GetRateLimit(eventType string) RateLimit {
 func (erl *EventRateLimiterImpl) SetRateLimit(eventType string, limit RateLimit) error {
 	erl.mutex.Lock()
 	defer erl.mutex.Unlock()
-	
+
 	erl.rateLimits[eventType] = limit
 	return nil
 }
@@ -323,7 +325,7 @@ func (ecb *EventCircuitBreakerImpl) Execute(ctx context.Context, eventType strin
 		ecb.states[eventType] = state
 	}
 	ecb.mutex.Unlock()
-	
+
 	// Check circuit breaker state
 	if state.State == "open" {
 		if time.Since(state.LastFailure) < state.Timeout {
@@ -335,18 +337,18 @@ func (ecb *EventCircuitBreakerImpl) Execute(ctx context.Context, eventType strin
 		ecb.states[eventType] = state
 		ecb.mutex.Unlock()
 	}
-	
+
 	// Execute function
 	err := fn()
-	
+
 	ecb.mutex.Lock()
 	defer ecb.mutex.Unlock()
-	
+
 	if err != nil {
 		// Function failed
 		state.FailureCount++
 		state.LastFailure = time.Now()
-		
+
 		if state.FailureCount >= 5 { // Threshold for opening circuit
 			state.State = "open"
 			state.NextAttempt = time.Now().Add(state.Timeout)
@@ -359,7 +361,7 @@ func (ecb *EventCircuitBreakerImpl) Execute(ctx context.Context, eventType strin
 			state.FailureCount = 0
 		}
 	}
-	
+
 	ecb.states[eventType] = state
 	return err
 }
@@ -368,11 +370,11 @@ func (ecb *EventCircuitBreakerImpl) Execute(ctx context.Context, eventType strin
 func (ecb *EventCircuitBreakerImpl) GetState(eventType string) CircuitBreakerState {
 	ecb.mutex.RLock()
 	defer ecb.mutex.RUnlock()
-	
+
 	if state, exists := ecb.states[eventType]; exists {
 		return state
 	}
-	
+
 	return CircuitBreakerState{
 		State:   "closed",
 		Timeout: time.Minute,
@@ -383,12 +385,12 @@ func (ecb *EventCircuitBreakerImpl) GetState(eventType string) CircuitBreakerSta
 func (ecb *EventCircuitBreakerImpl) Reset(eventType string) error {
 	ecb.mutex.Lock()
 	defer ecb.mutex.Unlock()
-	
+
 	ecb.states[eventType] = CircuitBreakerState{
 		State:   "closed",
 		Timeout: time.Minute,
 	}
-	
+
 	return nil
 }
 
@@ -412,12 +414,12 @@ func (ebp *EventBatchProcessorImpl) ProcessBatch(ctx context.Context, events []E
 	// Simple batch processing implementation
 	// In a real implementation, you would process events in parallel
 	// and handle errors appropriately
-	
+
 	for _, event := range events {
 		// Process each event
 		_ = event
 	}
-	
+
 	return nil
 }
 
@@ -425,7 +427,7 @@ func (ebp *EventBatchProcessorImpl) ProcessBatch(ctx context.Context, events []E
 func (ebp *EventBatchProcessorImpl) GetBatchSize() int {
 	ebp.mutex.RLock()
 	defer ebp.mutex.RUnlock()
-	
+
 	return ebp.batchSize
 }
 
@@ -433,7 +435,7 @@ func (ebp *EventBatchProcessorImpl) GetBatchSize() int {
 func (ebp *EventBatchProcessorImpl) GetBatchTimeout() time.Duration {
 	ebp.mutex.RLock()
 	defer ebp.mutex.RUnlock()
-	
+
 	return ebp.batchTimeout
 }
 
@@ -441,11 +443,11 @@ func (ebp *EventBatchProcessorImpl) GetBatchTimeout() time.Duration {
 func (ebp *EventBatchProcessorImpl) SetBatchSize(size int) error {
 	ebp.mutex.Lock()
 	defer ebp.mutex.Unlock()
-	
+
 	if size <= 0 {
 		return fmt.Errorf("batch size must be positive")
 	}
-	
+
 	ebp.batchSize = size
 	return nil
 }
@@ -454,11 +456,11 @@ func (ebp *EventBatchProcessorImpl) SetBatchSize(size int) error {
 func (ebp *EventBatchProcessorImpl) SetBatchTimeout(timeout time.Duration) error {
 	ebp.mutex.Lock()
 	defer ebp.mutex.Unlock()
-	
+
 	if timeout <= 0 {
 		return fmt.Errorf("batch timeout must be positive")
 	}
-	
+
 	ebp.batchTimeout = timeout
 	return nil
 }

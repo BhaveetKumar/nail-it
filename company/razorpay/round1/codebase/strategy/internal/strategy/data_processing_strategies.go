@@ -24,7 +24,7 @@ func NewJSONDataProcessingStrategy() *JSONDataProcessingStrategy {
 func (j *JSONDataProcessingStrategy) ProcessData(ctx context.Context, data interface{}) (interface{}, error) {
 	// Simulate JSON processing
 	time.Sleep(j.timeout)
-	
+
 	// Mock JSON processing
 	processedData := map[string]interface{}{
 		"processed": true,
@@ -32,7 +32,7 @@ func (j *JSONDataProcessingStrategy) ProcessData(ctx context.Context, data inter
 		"data":      data,
 		"timestamp": time.Now(),
 	}
-	
+
 	return processedData, nil
 }
 
@@ -40,12 +40,12 @@ func (j *JSONDataProcessingStrategy) ProcessData(ctx context.Context, data inter
 func (j *JSONDataProcessingStrategy) ValidateData(ctx context.Context, data interface{}) error {
 	// Simulate JSON validation
 	time.Sleep(j.timeout / 2)
-	
+
 	// Mock validation
 	if data == nil {
 		return fmt.Errorf("data cannot be nil")
 	}
-	
+
 	return nil
 }
 
@@ -87,7 +87,7 @@ func NewXMLDataProcessingStrategy() *XMLDataProcessingStrategy {
 func (x *XMLDataProcessingStrategy) ProcessData(ctx context.Context, data interface{}) (interface{}, error) {
 	// Simulate XML processing
 	time.Sleep(x.timeout)
-	
+
 	// Mock XML processing
 	processedData := map[string]interface{}{
 		"processed": true,
@@ -95,7 +95,7 @@ func (x *XMLDataProcessingStrategy) ProcessData(ctx context.Context, data interf
 		"data":      data,
 		"timestamp": time.Now(),
 	}
-	
+
 	return processedData, nil
 }
 
@@ -103,12 +103,12 @@ func (x *XMLDataProcessingStrategy) ProcessData(ctx context.Context, data interf
 func (x *XMLDataProcessingStrategy) ValidateData(ctx context.Context, data interface{}) error {
 	// Simulate XML validation
 	time.Sleep(x.timeout / 2)
-	
+
 	// Mock validation
 	if data == nil {
 		return fmt.Errorf("data cannot be nil")
 	}
-	
+
 	return nil
 }
 
@@ -150,7 +150,7 @@ func NewCSVDataProcessingStrategy() *CSVDataProcessingStrategy {
 func (c *CSVDataProcessingStrategy) ProcessData(ctx context.Context, data interface{}) (interface{}, error) {
 	// Simulate CSV processing
 	time.Sleep(c.timeout)
-	
+
 	// Mock CSV processing
 	processedData := map[string]interface{}{
 		"processed": true,
@@ -158,7 +158,7 @@ func (c *CSVDataProcessingStrategy) ProcessData(ctx context.Context, data interf
 		"data":      data,
 		"timestamp": time.Now(),
 	}
-	
+
 	return processedData, nil
 }
 
@@ -166,12 +166,12 @@ func (c *CSVDataProcessingStrategy) ProcessData(ctx context.Context, data interf
 func (c *CSVDataProcessingStrategy) ValidateData(ctx context.Context, data interface{}) error {
 	// Simulate CSV validation
 	time.Sleep(c.timeout / 2)
-	
+
 	// Mock validation
 	if data == nil {
 		return fmt.Errorf("data cannot be nil")
 	}
-	
+
 	return nil
 }
 
@@ -213,7 +213,7 @@ func NewBinaryDataProcessingStrategy() *BinaryDataProcessingStrategy {
 func (b *BinaryDataProcessingStrategy) ProcessData(ctx context.Context, data interface{}) (interface{}, error) {
 	// Simulate binary processing
 	time.Sleep(b.timeout)
-	
+
 	// Mock binary processing
 	processedData := map[string]interface{}{
 		"processed": true,
@@ -221,7 +221,7 @@ func (b *BinaryDataProcessingStrategy) ProcessData(ctx context.Context, data int
 		"data":      data,
 		"timestamp": time.Now(),
 	}
-	
+
 	return processedData, nil
 }
 
@@ -229,12 +229,12 @@ func (b *BinaryDataProcessingStrategy) ProcessData(ctx context.Context, data int
 func (b *BinaryDataProcessingStrategy) ValidateData(ctx context.Context, data interface{}) error {
 	// Simulate binary validation
 	time.Sleep(b.timeout / 2)
-	
+
 	// Mock validation
 	if data == nil {
 		return fmt.Errorf("data cannot be nil")
 	}
-	
+
 	return nil
 }
 

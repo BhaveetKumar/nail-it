@@ -26,18 +26,18 @@ func NewJWTAuthenticationStrategy() *JWTAuthenticationStrategy {
 func (j *JWTAuthenticationStrategy) Authenticate(ctx context.Context, request AuthRequest) (*AuthResponse, error) {
 	// Simulate JWT authentication
 	time.Sleep(j.timeout)
-	
+
 	response := &AuthResponse{
-		AuthID:      request.AuthID,
-		UserID:      request.UserID,
-		Status:      "authenticated",
-		Token:       fmt.Sprintf("jwt_token_%s", request.AuthID),
-		ExpiresAt:   time.Now().Add(24 * time.Hour),
-		Method:      "jwt",
+		AuthID:          request.AuthID,
+		UserID:          request.UserID,
+		Status:          "authenticated",
+		Token:           fmt.Sprintf("jwt_token_%s", request.AuthID),
+		ExpiresAt:       time.Now().Add(24 * time.Hour),
+		Method:          "jwt",
 		AuthenticatedAt: time.Now(),
-		Metadata:    request.Metadata,
+		Metadata:        request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -91,18 +91,18 @@ func NewOAuthAuthenticationStrategy() *OAuthAuthenticationStrategy {
 func (o *OAuthAuthenticationStrategy) Authenticate(ctx context.Context, request AuthRequest) (*AuthResponse, error) {
 	// Simulate OAuth authentication
 	time.Sleep(o.timeout)
-	
+
 	response := &AuthResponse{
-		AuthID:      request.AuthID,
-		UserID:      request.UserID,
-		Status:      "authenticated",
-		Token:       fmt.Sprintf("oauth_token_%s", request.AuthID),
-		ExpiresAt:   time.Now().Add(1 * time.Hour),
-		Method:      "oauth",
+		AuthID:          request.AuthID,
+		UserID:          request.UserID,
+		Status:          "authenticated",
+		Token:           fmt.Sprintf("oauth_token_%s", request.AuthID),
+		ExpiresAt:       time.Now().Add(1 * time.Hour),
+		Method:          "oauth",
 		AuthenticatedAt: time.Now(),
-		Metadata:    request.Metadata,
+		Metadata:        request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -152,18 +152,18 @@ func NewBasicAuthenticationStrategy() *BasicAuthenticationStrategy {
 func (b *BasicAuthenticationStrategy) Authenticate(ctx context.Context, request AuthRequest) (*AuthResponse, error) {
 	// Simulate Basic authentication
 	time.Sleep(b.timeout)
-	
+
 	response := &AuthResponse{
-		AuthID:      request.AuthID,
-		UserID:      request.UserID,
-		Status:      "authenticated",
-		Token:       fmt.Sprintf("basic_token_%s", request.AuthID),
-		ExpiresAt:   time.Now().Add(8 * time.Hour),
-		Method:      "basic",
+		AuthID:          request.AuthID,
+		UserID:          request.UserID,
+		Status:          "authenticated",
+		Token:           fmt.Sprintf("basic_token_%s", request.AuthID),
+		ExpiresAt:       time.Now().Add(8 * time.Hour),
+		Method:          "basic",
 		AuthenticatedAt: time.Now(),
-		Metadata:    request.Metadata,
+		Metadata:        request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -216,18 +216,18 @@ func NewAPIKeyAuthenticationStrategy() *APIKeyAuthenticationStrategy {
 func (a *APIKeyAuthenticationStrategy) Authenticate(ctx context.Context, request AuthRequest) (*AuthResponse, error) {
 	// Simulate API Key authentication
 	time.Sleep(a.timeout)
-	
+
 	response := &AuthResponse{
-		AuthID:      request.AuthID,
-		UserID:      request.UserID,
-		Status:      "authenticated",
-		Token:       fmt.Sprintf("api_key_token_%s", request.AuthID),
-		ExpiresAt:   time.Now().Add(30 * 24 * time.Hour), // 30 days
-		Method:      "api_key",
+		AuthID:          request.AuthID,
+		UserID:          request.UserID,
+		Status:          "authenticated",
+		Token:           fmt.Sprintf("api_key_token_%s", request.AuthID),
+		ExpiresAt:       time.Now().Add(30 * 24 * time.Hour), // 30 days
+		Method:          "api_key",
 		AuthenticatedAt: time.Now(),
-		Metadata:    request.Metadata,
+		Metadata:        request.Metadata,
 	}
-	
+
 	return response, nil
 }
 

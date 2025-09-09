@@ -21,51 +21,51 @@ type State interface {
 
 // StateEntity represents an entity that can have states
 type StateEntity struct {
-	ID          string                 `json:"id"`
-	Type        string                 `json:"type"`
-	CurrentState string                `json:"current_state"`
-	PreviousState string               `json:"previous_state"`
-	StateHistory []*StateHistoryEntry  `json:"state_history"`
-	Data        map[string]interface{} `json:"data"`
-	Metadata    map[string]string      `json:"metadata"`
-	CreatedAt   time.Time              `json:"created_at"`
-	UpdatedAt   time.Time              `json:"updated_at"`
+	ID            string                 `json:"id"`
+	Type          string                 `json:"type"`
+	CurrentState  string                 `json:"current_state"`
+	PreviousState string                 `json:"previous_state"`
+	StateHistory  []*StateHistoryEntry   `json:"state_history"`
+	Data          map[string]interface{} `json:"data"`
+	Metadata      map[string]string      `json:"metadata"`
+	CreatedAt     time.Time              `json:"created_at"`
+	UpdatedAt     time.Time              `json:"updated_at"`
 }
 
 // StateEvent represents an event that can trigger state transitions
 type StateEvent struct {
-	ID          string                 `json:"id"`
-	Type        string                 `json:"type"`
-	EntityID    string                 `json:"entity_id"`
-	EntityType  string                 `json:"entity_type"`
-	Data        map[string]interface{} `json:"data"`
-	Metadata    map[string]string      `json:"metadata"`
-	CreatedAt   time.Time              `json:"created_at"`
+	ID         string                 `json:"id"`
+	Type       string                 `json:"type"`
+	EntityID   string                 `json:"entity_id"`
+	EntityType string                 `json:"entity_type"`
+	Data       map[string]interface{} `json:"data"`
+	Metadata   map[string]string      `json:"metadata"`
+	CreatedAt  time.Time              `json:"created_at"`
 }
 
 // StateTransition represents a state transition
 type StateTransition struct {
-	ID            string                 `json:"id"`
-	EntityID      string                 `json:"entity_id"`
-	FromState     string                 `json:"from_state"`
-	ToState       string                 `json:"to_state"`
-	Event         *StateEvent            `json:"event"`
-	Data          map[string]interface{} `json:"data"`
-	Metadata      map[string]string      `json:"metadata"`
-	TransitionedAt time.Time             `json:"transitioned_at"`
+	ID             string                 `json:"id"`
+	EntityID       string                 `json:"entity_id"`
+	FromState      string                 `json:"from_state"`
+	ToState        string                 `json:"to_state"`
+	Event          *StateEvent            `json:"event"`
+	Data           map[string]interface{} `json:"data"`
+	Metadata       map[string]string      `json:"metadata"`
+	TransitionedAt time.Time              `json:"transitioned_at"`
 }
 
 // StateHistoryEntry represents a state history entry
 type StateHistoryEntry struct {
-	ID            string                 `json:"id"`
-	EntityID      string                 `json:"entity_id"`
-	State         string                 `json:"state"`
-	Event         *StateEvent            `json:"event"`
-	Data          map[string]interface{} `json:"data"`
-	Metadata      map[string]string      `json:"metadata"`
-	EnteredAt     time.Time              `json:"entered_at"`
-	ExitedAt      time.Time              `json:"exited_at"`
-	Duration      time.Duration          `json:"duration"`
+	ID        string                 `json:"id"`
+	EntityID  string                 `json:"entity_id"`
+	State     string                 `json:"state"`
+	Event     *StateEvent            `json:"event"`
+	Data      map[string]interface{} `json:"data"`
+	Metadata  map[string]string      `json:"metadata"`
+	EnteredAt time.Time              `json:"entered_at"`
+	ExitedAt  time.Time              `json:"exited_at"`
+	Duration  time.Duration          `json:"duration"`
 }
 
 // StateMachine manages state transitions
@@ -131,23 +131,23 @@ type StateMetrics interface {
 
 // StateConfig holds configuration for state management
 type StateConfig struct {
-	MaxHistorySize    int           `json:"max_history_size"`
-	EnableMetrics     bool          `json:"enable_metrics"`
-	EnableValidation  bool          `json:"enable_validation"`
-	EnableEventBus    bool          `json:"enable_event_bus"`
-	EnablePersistence bool          `json:"enable_persistence"`
-	DefaultTimeout    time.Duration `json:"default_timeout"`
-	MaxRetries        int           `json:"max_retries"`
-	RetryDelay        time.Duration `json:"retry_delay"`
+	MaxHistorySize    int                  `json:"max_history_size"`
+	EnableMetrics     bool                 `json:"enable_metrics"`
+	EnableValidation  bool                 `json:"enable_validation"`
+	EnableEventBus    bool                 `json:"enable_event_bus"`
+	EnablePersistence bool                 `json:"enable_persistence"`
+	DefaultTimeout    time.Duration        `json:"default_timeout"`
+	MaxRetries        int                  `json:"max_retries"`
+	RetryDelay        time.Duration        `json:"retry_delay"`
 	CircuitBreaker    CircuitBreakerConfig `json:"circuit_breaker"`
 }
 
 // CircuitBreakerConfig holds circuit breaker configuration
 type CircuitBreakerConfig struct {
-	Enabled           bool          `json:"enabled"`
-	FailureThreshold  int           `json:"failure_threshold"`
-	RecoveryTimeout   time.Duration `json:"recovery_timeout"`
-	HalfOpenMaxCalls  int           `json:"half_open_max_calls"`
+	Enabled          bool          `json:"enabled"`
+	FailureThreshold int           `json:"failure_threshold"`
+	RecoveryTimeout  time.Duration `json:"recovery_timeout"`
+	HalfOpenMaxCalls int           `json:"half_open_max_calls"`
 }
 
 // ValidationRule represents a validation rule
@@ -163,16 +163,16 @@ type ValidationRule struct {
 
 // StateMetricsData holds metrics for state transitions
 type StateMetricsData struct {
-	EntityType         string        `json:"entity_type"`
-	TotalTransitions   int64         `json:"total_transitions"`
-	SuccessfulTransitions int64      `json:"successful_transitions"`
-	FailedTransitions  int64         `json:"failed_transitions"`
-	AverageDuration    time.Duration `json:"average_duration"`
-	MinDuration        time.Duration `json:"min_duration"`
-	MaxDuration        time.Duration `json:"max_duration"`
-	LastTransition     time.Time     `json:"last_transition"`
-	SuccessRate        float64       `json:"success_rate"`
-	Availability       float64       `json:"availability"`
+	EntityType            string        `json:"entity_type"`
+	TotalTransitions      int64         `json:"total_transitions"`
+	SuccessfulTransitions int64         `json:"successful_transitions"`
+	FailedTransitions     int64         `json:"failed_transitions"`
+	AverageDuration       time.Duration `json:"average_duration"`
+	MinDuration           time.Duration `json:"min_duration"`
+	MaxDuration           time.Duration `json:"max_duration"`
+	LastTransition        time.Time     `json:"last_transition"`
+	SuccessRate           float64       `json:"success_rate"`
+	Availability          float64       `json:"availability"`
 }
 
 // StateStatus represents state status

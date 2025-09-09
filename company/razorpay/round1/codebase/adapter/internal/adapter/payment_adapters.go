@@ -26,7 +26,7 @@ func NewStripePaymentAdapter(apiKey string, timeout time.Duration) *StripePaymen
 func (s *StripePaymentAdapter) ProcessPayment(ctx context.Context, request PaymentRequest) (*PaymentResponse, error) {
 	// Simulate Stripe payment processing
 	time.Sleep(100 * time.Millisecond)
-	
+
 	response := &PaymentResponse{
 		PaymentID:     request.PaymentID,
 		Status:        "completed",
@@ -36,7 +36,7 @@ func (s *StripePaymentAdapter) ProcessPayment(ctx context.Context, request Payme
 		ProcessedAt:   time.Now(),
 		Metadata:      request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -44,7 +44,7 @@ func (s *StripePaymentAdapter) ProcessPayment(ctx context.Context, request Payme
 func (s *StripePaymentAdapter) RefundPayment(ctx context.Context, request RefundRequest) (*RefundResponse, error) {
 	// Simulate Stripe refund processing
 	time.Sleep(80 * time.Millisecond)
-	
+
 	response := &RefundResponse{
 		RefundID:    request.RefundID,
 		PaymentID:   request.PaymentID,
@@ -54,7 +54,7 @@ func (s *StripePaymentAdapter) RefundPayment(ctx context.Context, request Refund
 		ProcessedAt: time.Now(),
 		Metadata:    request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -62,7 +62,7 @@ func (s *StripePaymentAdapter) RefundPayment(ctx context.Context, request Refund
 func (s *StripePaymentAdapter) GetPaymentStatus(ctx context.Context, paymentID string) (*PaymentStatus, error) {
 	// Simulate Stripe status check
 	time.Sleep(50 * time.Millisecond)
-	
+
 	status := &PaymentStatus{
 		PaymentID:   paymentID,
 		Status:      "completed",
@@ -71,7 +71,7 @@ func (s *StripePaymentAdapter) GetPaymentStatus(ctx context.Context, paymentID s
 		LastUpdated: time.Now(),
 		Metadata:    make(map[string]string),
 	}
-	
+
 	return status, nil
 }
 
@@ -105,7 +105,7 @@ func NewRazorpayPaymentAdapter(apiKey string, timeout time.Duration) *RazorpayPa
 func (r *RazorpayPaymentAdapter) ProcessPayment(ctx context.Context, request PaymentRequest) (*PaymentResponse, error) {
 	// Simulate Razorpay payment processing
 	time.Sleep(120 * time.Millisecond)
-	
+
 	response := &PaymentResponse{
 		PaymentID:     request.PaymentID,
 		Status:        "completed",
@@ -115,7 +115,7 @@ func (r *RazorpayPaymentAdapter) ProcessPayment(ctx context.Context, request Pay
 		ProcessedAt:   time.Now(),
 		Metadata:      request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -123,7 +123,7 @@ func (r *RazorpayPaymentAdapter) ProcessPayment(ctx context.Context, request Pay
 func (r *RazorpayPaymentAdapter) RefundPayment(ctx context.Context, request RefundRequest) (*RefundResponse, error) {
 	// Simulate Razorpay refund processing
 	time.Sleep(100 * time.Millisecond)
-	
+
 	response := &RefundResponse{
 		RefundID:    request.RefundID,
 		PaymentID:   request.PaymentID,
@@ -133,7 +133,7 @@ func (r *RazorpayPaymentAdapter) RefundPayment(ctx context.Context, request Refu
 		ProcessedAt: time.Now(),
 		Metadata:    request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -141,7 +141,7 @@ func (r *RazorpayPaymentAdapter) RefundPayment(ctx context.Context, request Refu
 func (r *RazorpayPaymentAdapter) GetPaymentStatus(ctx context.Context, paymentID string) (*PaymentStatus, error) {
 	// Simulate Razorpay status check
 	time.Sleep(60 * time.Millisecond)
-	
+
 	status := &PaymentStatus{
 		PaymentID:   paymentID,
 		Status:      "completed",
@@ -150,7 +150,7 @@ func (r *RazorpayPaymentAdapter) GetPaymentStatus(ctx context.Context, paymentID
 		LastUpdated: time.Now(),
 		Metadata:    make(map[string]string),
 	}
-	
+
 	return status, nil
 }
 
@@ -184,7 +184,7 @@ func NewPayPalPaymentAdapter(apiKey string, timeout time.Duration) *PayPalPaymen
 func (p *PayPalPaymentAdapter) ProcessPayment(ctx context.Context, request PaymentRequest) (*PaymentResponse, error) {
 	// Simulate PayPal payment processing
 	time.Sleep(150 * time.Millisecond)
-	
+
 	response := &PaymentResponse{
 		PaymentID:     request.PaymentID,
 		Status:        "completed",
@@ -194,7 +194,7 @@ func (p *PayPalPaymentAdapter) ProcessPayment(ctx context.Context, request Payme
 		ProcessedAt:   time.Now(),
 		Metadata:      request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -202,7 +202,7 @@ func (p *PayPalPaymentAdapter) ProcessPayment(ctx context.Context, request Payme
 func (p *PayPalPaymentAdapter) RefundPayment(ctx context.Context, request RefundRequest) (*RefundResponse, error) {
 	// Simulate PayPal refund processing
 	time.Sleep(120 * time.Millisecond)
-	
+
 	response := &RefundResponse{
 		RefundID:    request.RefundID,
 		PaymentID:   request.PaymentID,
@@ -212,7 +212,7 @@ func (p *PayPalPaymentAdapter) RefundPayment(ctx context.Context, request Refund
 		ProcessedAt: time.Now(),
 		Metadata:    request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -220,7 +220,7 @@ func (p *PayPalPaymentAdapter) RefundPayment(ctx context.Context, request Refund
 func (p *PayPalPaymentAdapter) GetPaymentStatus(ctx context.Context, paymentID string) (*PaymentStatus, error) {
 	// Simulate PayPal status check
 	time.Sleep(70 * time.Millisecond)
-	
+
 	status := &PaymentStatus{
 		PaymentID:   paymentID,
 		Status:      "completed",
@@ -229,7 +229,7 @@ func (p *PayPalPaymentAdapter) GetPaymentStatus(ctx context.Context, paymentID s
 		LastUpdated: time.Now(),
 		Metadata:    make(map[string]string),
 	}
-	
+
 	return status, nil
 }
 
@@ -263,7 +263,7 @@ func NewBankTransferPaymentAdapter(apiKey string, timeout time.Duration) *BankTr
 func (b *BankTransferPaymentAdapter) ProcessPayment(ctx context.Context, request PaymentRequest) (*PaymentResponse, error) {
 	// Simulate Bank Transfer payment processing
 	time.Sleep(200 * time.Millisecond)
-	
+
 	response := &PaymentResponse{
 		PaymentID:     request.PaymentID,
 		Status:        "pending",
@@ -273,7 +273,7 @@ func (b *BankTransferPaymentAdapter) ProcessPayment(ctx context.Context, request
 		ProcessedAt:   time.Now(),
 		Metadata:      request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -281,7 +281,7 @@ func (b *BankTransferPaymentAdapter) ProcessPayment(ctx context.Context, request
 func (b *BankTransferPaymentAdapter) RefundPayment(ctx context.Context, request RefundRequest) (*RefundResponse, error) {
 	// Simulate Bank Transfer refund processing
 	time.Sleep(180 * time.Millisecond)
-	
+
 	response := &RefundResponse{
 		RefundID:    request.RefundID,
 		PaymentID:   request.PaymentID,
@@ -291,7 +291,7 @@ func (b *BankTransferPaymentAdapter) RefundPayment(ctx context.Context, request 
 		ProcessedAt: time.Now(),
 		Metadata:    request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -299,7 +299,7 @@ func (b *BankTransferPaymentAdapter) RefundPayment(ctx context.Context, request 
 func (b *BankTransferPaymentAdapter) GetPaymentStatus(ctx context.Context, paymentID string) (*PaymentStatus, error) {
 	// Simulate Bank Transfer status check
 	time.Sleep(100 * time.Millisecond)
-	
+
 	status := &PaymentStatus{
 		PaymentID:   paymentID,
 		Status:      "pending",
@@ -308,7 +308,7 @@ func (b *BankTransferPaymentAdapter) GetPaymentStatus(ctx context.Context, payme
 		LastUpdated: time.Now(),
 		Metadata:    make(map[string]string),
 	}
-	
+
 	return status, nil
 }
 

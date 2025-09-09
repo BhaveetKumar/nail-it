@@ -117,70 +117,70 @@ type AdapterMetrics interface {
 
 // AdapterConfig holds configuration for adapters
 type AdapterConfig struct {
-	Adapters map[string]AdapterTypeConfig `json:"adapters"`
-	DefaultTimeout time.Duration `json:"default_timeout"`
-	MaxRetries int `json:"max_retries"`
-	RetryDelay time.Duration `json:"retry_delay"`
-	CircuitBreaker CircuitBreakerConfig `json:"circuit_breaker"`
+	Adapters       map[string]AdapterTypeConfig `json:"adapters"`
+	DefaultTimeout time.Duration                `json:"default_timeout"`
+	MaxRetries     int                          `json:"max_retries"`
+	RetryDelay     time.Duration                `json:"retry_delay"`
+	CircuitBreaker CircuitBreakerConfig         `json:"circuit_breaker"`
 }
 
 // AdapterTypeConfig holds configuration for a specific adapter type
 type AdapterTypeConfig struct {
-	DefaultAdapter string `json:"default_adapter"`
-	Adapters map[string]AdapterInstanceConfig `json:"adapters"`
+	DefaultAdapter string                           `json:"default_adapter"`
+	Adapters       map[string]AdapterInstanceConfig `json:"adapters"`
 }
 
 // AdapterInstanceConfig holds configuration for a specific adapter instance
 type AdapterInstanceConfig struct {
-	Enabled bool `json:"enabled"`
-	Priority int `json:"priority"`
-	Timeout time.Duration `json:"timeout"`
-	RetryCount int `json:"retry_count"`
+	Enabled    bool              `json:"enabled"`
+	Priority   int               `json:"priority"`
+	Timeout    time.Duration     `json:"timeout"`
+	RetryCount int               `json:"retry_count"`
 	Parameters map[string]string `json:"parameters"`
-	Fallback string `json:"fallback"`
+	Fallback   string            `json:"fallback"`
 }
 
 // CircuitBreakerConfig holds circuit breaker configuration
 type CircuitBreakerConfig struct {
-	Enabled bool `json:"enabled"`
-	FailureThreshold int `json:"failure_threshold"`
-	RecoveryTimeout time.Duration `json:"recovery_timeout"`
-	HalfOpenMaxCalls int `json:"half_open_max_calls"`
+	Enabled          bool          `json:"enabled"`
+	FailureThreshold int           `json:"failure_threshold"`
+	RecoveryTimeout  time.Duration `json:"recovery_timeout"`
+	HalfOpenMaxCalls int           `json:"half_open_max_calls"`
 }
 
 // AdapterHealth represents the health status of an adapter
 type AdapterHealth struct {
-	AdapterType string `json:"adapter_type"`
-	AdapterName string `json:"adapter_name"`
-	Status string `json:"status"`
-	Message string `json:"message"`
-	LastCheck time.Time `json:"last_check"`
-	Metrics map[string]interface{} `json:"metrics"`
-	Error string `json:"error,omitempty"`
+	AdapterType string                 `json:"adapter_type"`
+	AdapterName string                 `json:"adapter_name"`
+	Status      string                 `json:"status"`
+	Message     string                 `json:"message"`
+	LastCheck   time.Time              `json:"last_check"`
+	Metrics     map[string]interface{} `json:"metrics"`
+	Error       string                 `json:"error,omitempty"`
 }
 
 // AdapterMetricsData holds metrics for an adapter
 type AdapterMetricsData struct {
-	AdapterType string `json:"adapter_type"`
-	AdapterName string `json:"adapter_name"`
-	TotalCalls int64 `json:"total_calls"`
-	SuccessfulCalls int64 `json:"successful_calls"`
-	FailedCalls int64 `json:"failed_calls"`
+	AdapterType     string        `json:"adapter_type"`
+	AdapterName     string        `json:"adapter_name"`
+	TotalCalls      int64         `json:"total_calls"`
+	SuccessfulCalls int64         `json:"successful_calls"`
+	FailedCalls     int64         `json:"failed_calls"`
 	AverageDuration time.Duration `json:"average_duration"`
-	MinDuration time.Duration `json:"min_duration"`
-	MaxDuration time.Duration `json:"max_duration"`
-	LastCallTime time.Time `json:"last_call_time"`
-	SuccessRate float64 `json:"success_rate"`
-	Availability float64 `json:"availability"`
+	MinDuration     time.Duration `json:"min_duration"`
+	MaxDuration     time.Duration `json:"max_duration"`
+	LastCallTime    time.Time     `json:"last_call_time"`
+	SuccessRate     float64       `json:"success_rate"`
+	Availability    float64       `json:"availability"`
 }
 
 // AdapterStatus represents adapter status
 type AdapterStatus string
 
 const (
-	AdapterStatusActive AdapterStatus = "active"
-	AdapterStatusInactive AdapterStatus = "inactive"
-	AdapterStatusError AdapterStatus = "error"
+	AdapterStatusActive      AdapterStatus = "active"
+	AdapterStatusInactive    AdapterStatus = "inactive"
+	AdapterStatusError       AdapterStatus = "error"
 	AdapterStatusUnavailable AdapterStatus = "unavailable"
 )
 

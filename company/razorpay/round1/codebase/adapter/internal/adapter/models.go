@@ -55,13 +55,13 @@ type RefundResponse struct {
 
 // PaymentStatus represents payment status
 type PaymentStatus struct {
-	PaymentID     string            `json:"payment_id"`
-	Status        string            `json:"status"`
-	Amount        float64           `json:"amount"`
-	Currency      string            `json:"currency"`
-	LastUpdated   time.Time         `json:"last_updated"`
-	Metadata      map[string]string `json:"metadata"`
-	Error         string            `json:"error,omitempty"`
+	PaymentID   string            `json:"payment_id"`
+	Status      string            `json:"status"`
+	Amount      float64           `json:"amount"`
+	Currency    string            `json:"currency"`
+	LastUpdated time.Time         `json:"last_updated"`
+	Metadata    map[string]string `json:"metadata"`
+	Error       string            `json:"error,omitempty"`
 }
 
 // NotificationRequest represents a notification request
@@ -145,23 +145,23 @@ type Credentials struct {
 
 // AuthResponse represents an authentication response
 type AuthResponse struct {
-	UserID      string            `json:"user_id"`
-	Token       string            `json:"token"`
-	RefreshToken string           `json:"refresh_token"`
-	ExpiresAt   time.Time         `json:"expires_at"`
-	UserInfo    map[string]interface{} `json:"user_info"`
-	Metadata    map[string]string `json:"metadata"`
-	Error       string            `json:"error,omitempty"`
+	UserID       string                 `json:"user_id"`
+	Token        string                 `json:"token"`
+	RefreshToken string                 `json:"refresh_token"`
+	ExpiresAt    time.Time              `json:"expires_at"`
+	UserInfo     map[string]interface{} `json:"user_info"`
+	Metadata     map[string]string      `json:"metadata"`
+	Error        string                 `json:"error,omitempty"`
 }
 
 // TokenValidation represents token validation result
 type TokenValidation struct {
-	Valid     bool              `json:"valid"`
-	UserID    string            `json:"user_id"`
-	ExpiresAt time.Time         `json:"expires_at"`
+	Valid     bool                   `json:"valid"`
+	UserID    string                 `json:"user_id"`
+	ExpiresAt time.Time              `json:"expires_at"`
 	UserInfo  map[string]interface{} `json:"user_info"`
-	Metadata  map[string]string `json:"metadata"`
-	Error     string            `json:"error,omitempty"`
+	Metadata  map[string]string      `json:"metadata"`
+	Error     string                 `json:"error,omitempty"`
 }
 
 // AdapterRequest represents a generic adapter request
@@ -188,24 +188,24 @@ type AdapterResponse struct {
 
 // AdapterInfo represents information about an adapter
 type AdapterInfo struct {
-	AdapterType string            `json:"adapter_type"`
-	AdapterName string            `json:"adapter_name"`
-	Description string            `json:"description"`
-	Version     string            `json:"version"`
-	Status      string            `json:"status"`
-	IsAvailable bool              `json:"is_available"`
-	LastHealthCheck time.Time     `json:"last_health_check"`
-	Metadata    map[string]string `json:"metadata"`
-	CreatedAt   time.Time         `json:"created_at"`
-	UpdatedAt   time.Time         `json:"updated_at"`
+	AdapterType     string            `json:"adapter_type"`
+	AdapterName     string            `json:"adapter_name"`
+	Description     string            `json:"description"`
+	Version         string            `json:"version"`
+	Status          string            `json:"status"`
+	IsAvailable     bool              `json:"is_available"`
+	LastHealthCheck time.Time         `json:"last_health_check"`
+	Metadata        map[string]string `json:"metadata"`
+	CreatedAt       time.Time         `json:"created_at"`
+	UpdatedAt       time.Time         `json:"updated_at"`
 }
 
 // AdapterTrend represents a trend data point for adapters
 type AdapterTrend struct {
-	Timestamp   time.Time `json:"timestamp"`
-	AdapterType string    `json:"adapter_type"`
-	AdapterName string    `json:"adapter_name"`
-	Count       int       `json:"count"`
-	SuccessRate float64   `json:"success_rate"`
+	Timestamp   time.Time     `json:"timestamp"`
+	AdapterType string        `json:"adapter_type"`
+	AdapterName string        `json:"adapter_name"`
+	Count       int           `json:"count"`
+	SuccessRate float64       `json:"success_rate"`
 	AvgDuration time.Duration `json:"avg_duration"`
 }

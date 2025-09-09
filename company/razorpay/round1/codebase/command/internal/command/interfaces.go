@@ -21,13 +21,13 @@ type Command interface {
 
 // CommandResult represents the result of command execution
 type CommandResult struct {
-	CommandID    string                 `json:"command_id"`
-	Success      bool                   `json:"success"`
-	Data         interface{}            `json:"data,omitempty"`
-	Error        string                 `json:"error,omitempty"`
-	ExecutedAt   time.Time              `json:"executed_at"`
-	Duration     time.Duration          `json:"duration"`
-	Metadata     map[string]interface{} `json:"metadata,omitempty"`
+	CommandID  string                 `json:"command_id"`
+	Success    bool                   `json:"success"`
+	Data       interface{}            `json:"data,omitempty"`
+	Error      string                 `json:"error,omitempty"`
+	ExecutedAt time.Time              `json:"executed_at"`
+	Duration   time.Duration          `json:"duration"`
+	Metadata   map[string]interface{} `json:"metadata,omitempty"`
 }
 
 // CommandHandler handles command execution
@@ -103,70 +103,70 @@ type CommandMetrics interface {
 
 // CommandConfig holds configuration for commands
 type CommandConfig struct {
-	MaxRetries        int           `json:"max_retries"`
-	RetryDelay        time.Duration `json:"retry_delay"`
-	Timeout           time.Duration `json:"timeout"`
-	EnableAuditing    bool          `json:"enable_auditing"`
-	EnableMetrics     bool          `json:"enable_metrics"`
-	EnableValidation  bool          `json:"enable_validation"`
-	EnableScheduling  bool          `json:"enable_scheduling"`
-	EnableQueuing     bool          `json:"enable_queuing"`
-	MaxQueueSize      int           `json:"max_queue_size"`
-	MaxHistorySize    int           `json:"max_history_size"`
-	CircuitBreaker    CircuitBreakerConfig `json:"circuit_breaker"`
+	MaxRetries       int                  `json:"max_retries"`
+	RetryDelay       time.Duration        `json:"retry_delay"`
+	Timeout          time.Duration        `json:"timeout"`
+	EnableAuditing   bool                 `json:"enable_auditing"`
+	EnableMetrics    bool                 `json:"enable_metrics"`
+	EnableValidation bool                 `json:"enable_validation"`
+	EnableScheduling bool                 `json:"enable_scheduling"`
+	EnableQueuing    bool                 `json:"enable_queuing"`
+	MaxQueueSize     int                  `json:"max_queue_size"`
+	MaxHistorySize   int                  `json:"max_history_size"`
+	CircuitBreaker   CircuitBreakerConfig `json:"circuit_breaker"`
 }
 
 // CircuitBreakerConfig holds circuit breaker configuration
 type CircuitBreakerConfig struct {
-	Enabled           bool          `json:"enabled"`
-	FailureThreshold  int           `json:"failure_threshold"`
-	RecoveryTimeout   time.Duration `json:"recovery_timeout"`
-	HalfOpenMaxCalls  int           `json:"half_open_max_calls"`
+	Enabled          bool          `json:"enabled"`
+	FailureThreshold int           `json:"failure_threshold"`
+	RecoveryTimeout  time.Duration `json:"recovery_timeout"`
+	HalfOpenMaxCalls int           `json:"half_open_max_calls"`
 }
 
 // CommandExecution represents a command execution record
 type CommandExecution struct {
-	CommandID    string        `json:"command_id"`
-	CommandType  string        `json:"command_type"`
-	Description  string        `json:"description"`
-	Status       string        `json:"status"`
-	StartTime    time.Time     `json:"start_time"`
-	EndTime      time.Time     `json:"end_time"`
-	Duration     time.Duration `json:"duration"`
-	Result       *CommandResult `json:"result,omitempty"`
-	Error        string        `json:"error,omitempty"`
-	RetryCount   int           `json:"retry_count"`
-	Metadata     map[string]interface{} `json:"metadata,omitempty"`
+	CommandID   string                 `json:"command_id"`
+	CommandType string                 `json:"command_type"`
+	Description string                 `json:"description"`
+	Status      string                 `json:"status"`
+	StartTime   time.Time              `json:"start_time"`
+	EndTime     time.Time              `json:"end_time"`
+	Duration    time.Duration          `json:"duration"`
+	Result      *CommandResult         `json:"result,omitempty"`
+	Error       string                 `json:"error,omitempty"`
+	RetryCount  int                    `json:"retry_count"`
+	Metadata    map[string]interface{} `json:"metadata,omitempty"`
 }
 
 // ScheduledCommand represents a scheduled command
 type ScheduledCommand struct {
-	CommandID    string        `json:"command_id"`
-	Command      Command       `json:"command"`
-	ScheduledAt  time.Time     `json:"scheduled_at"`
-	ExecuteAt    time.Time     `json:"execute_at"`
-	Interval     time.Duration `json:"interval,omitempty"`
-	Recurring    bool          `json:"recurring"`
-	Status       string        `json:"status"`
-	CreatedAt    time.Time     `json:"created_at"`
-	UpdatedAt    time.Time     `json:"updated_at"`
+	CommandID   string        `json:"command_id"`
+	Command     Command       `json:"command"`
+	ScheduledAt time.Time     `json:"scheduled_at"`
+	ExecuteAt   time.Time     `json:"execute_at"`
+	Interval    time.Duration `json:"interval,omitempty"`
+	Recurring   bool          `json:"recurring"`
+	Status      string        `json:"status"`
+	CreatedAt   time.Time     `json:"created_at"`
+	UpdatedAt   time.Time     `json:"updated_at"`
 }
 
 // AuditLog represents an audit log entry
 type AuditLog struct {
-	LogID        string        `json:"log_id"`
-	CommandID    string        `json:"command_id"`
-	CommandType  string        `json:"command_type"`
-	Action       string        `json:"action"`
-	Status       string        `json:"status"`
-	UserID       string        `json:"user_id,omitempty"`
-	IPAddress    string        `json:"ip_address,omitempty"`
-	UserAgent    string        `json:"user_agent,omitempty"`
-	Timestamp    time.Time     `json:"timestamp"`
-	Duration     time.Duration `json:"duration"`
-	Data         interface{}   `json:"data,omitempty"`
-	Error        string        `json:"error,omitempty"`
-	Metadata     map[string]interface{} `json:"metadata,omitempty"`
+	LogID       string                 `json:"log_id"`
+	CommandID   string                 `json:"command_id"`
+	CommandType string                 `json:"command_type"`
+	Action      string                 `json:"action"`
+	Status      string                 `json:"status"`
+	UserID      string                 `json:"user_id,omitempty"`
+	IPAddress   string                 `json:"ip_address,omitempty"`
+	UserAgent   string                 `json:"user_agent,omitempty"`
+	Timestamp   time.Time              `json:"timestamp"`
+	Duration    time.Duration          `json:"duration"`
+	Data        interface{}            `json:"data,omitempty"`
+	Error       string                 `json:"error,omitempty"`
+	Metadata    map[string]interface{} `json:"metadata,omitempty"`
 }
 
 // ValidationRule represents a validation rule
@@ -182,16 +182,16 @@ type ValidationRule struct {
 
 // CommandMetricsData holds metrics for a command type
 type CommandMetricsData struct {
-	CommandType     string        `json:"command_type"`
-	TotalExecutions int64         `json:"total_executions"`
-	SuccessfulExecutions int64    `json:"successful_executions"`
-	FailedExecutions int64        `json:"failed_executions"`
-	AverageDuration time.Duration `json:"average_duration"`
-	MinDuration     time.Duration `json:"min_duration"`
-	MaxDuration     time.Duration `json:"max_duration"`
-	LastExecution   time.Time     `json:"last_execution"`
-	SuccessRate     float64       `json:"success_rate"`
-	Availability    float64       `json:"availability"`
+	CommandType          string        `json:"command_type"`
+	TotalExecutions      int64         `json:"total_executions"`
+	SuccessfulExecutions int64         `json:"successful_executions"`
+	FailedExecutions     int64         `json:"failed_executions"`
+	AverageDuration      time.Duration `json:"average_duration"`
+	MinDuration          time.Duration `json:"min_duration"`
+	MaxDuration          time.Duration `json:"max_duration"`
+	LastExecution        time.Time     `json:"last_execution"`
+	SuccessRate          float64       `json:"success_rate"`
+	Availability         float64       `json:"availability"`
 }
 
 // CommandStatus represents command execution status
@@ -215,9 +215,9 @@ func (cs CommandStatus) String() string {
 type CommandPriority int
 
 const (
-	CommandPriorityLow    CommandPriority = 1
-	CommandPriorityNormal CommandPriority = 2
-	CommandPriorityHigh   CommandPriority = 3
+	CommandPriorityLow      CommandPriority = 1
+	CommandPriorityNormal   CommandPriority = 2
+	CommandPriorityHigh     CommandPriority = 3
 	CommandPriorityCritical CommandPriority = 4
 )
 

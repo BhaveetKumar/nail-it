@@ -2,14 +2,14 @@ package observer
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"time"
+
+	"observer-service/internal/logger"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"observer-service/internal/logger"
 )
 
 // EventStoreImpl implements EventStore interface
@@ -29,33 +29,33 @@ func NewEventStore(collection *mongo.Collection) *EventStoreImpl {
 // Store stores an event
 func (es *EventStoreImpl) Store(ctx context.Context, event Event) error {
 	eventDoc := bson.M{
-		"id":        event.GetID(),
-		"type":      event.GetType(),
-		"timestamp": event.GetTimestamp(),
-		"data":      event.GetData(),
-		"source":    event.GetSource(),
-		"version":   "1.0",
+		"id":         event.GetID(),
+		"type":       event.GetType(),
+		"timestamp":  event.GetTimestamp(),
+		"data":       event.GetData(),
+		"source":     event.GetSource(),
+		"version":    "1.0",
 		"created_at": time.Now(),
 	}
-	
+
 	// Add metadata if available
 	if baseEvent, ok := event.(*BaseEvent); ok {
 		eventDoc["metadata"] = baseEvent.GetMetadata()
 	}
-	
+
 	_, err := es.collection.InsertOne(ctx, eventDoc)
 	if err != nil {
-		es.logger.Error("Failed to store event", 
+		es.logger.Error("Failed to store event",
 			"event_id", event.GetID(),
 			"event_type", event.GetType(),
 			"error", err)
 		return fmt.Errorf("failed to store event: %w", err)
 	}
-	
-	es.logger.Debug("Event stored successfully", 
+
+	es.logger.Debug("Event stored successfully",
 		"event_id", event.GetID(),
 		"event_type", event.GetType())
-	
+
 	return nil
 }
 
@@ -66,16 +66,16 @@ func (es *EventStoreImpl) GetEvents(ctx context.Context, eventType string, limit
 		SetSort(bson.D{{"timestamp", -1}}).
 		SetLimit(int64(limit)).
 		SetSkip(int64(offset))
-	
+
 	cursor, err := es.collection.Find(ctx, filter, opts)
 	if err != nil {
-		es.logger.Error("Failed to get events", 
+		es.logger.Error("Failed to get events",
 			"event_type", eventType,
 			"error", err)
 		return nil, fmt.Errorf("failed to get events: %w", err)
 	}
 	defer cursor.Close(ctx)
-	
+
 	var events []Event
 	for cursor.Next(ctx) {
 		var eventDoc bson.M
@@ -83,41 +83,41 @@ func (es *EventStoreImpl) GetEvents(ctx context.Context, eventType string, limit
 			es.logger.Error("Failed to decode event", "error", err)
 			continue
 		}
-		
+
 		event, err := es.documentToEvent(eventDoc)
 		if err != nil {
 			es.logger.Error("Failed to convert document to event", "error", err)
 			continue
 		}
-		
+
 		events = append(events, event)
 	}
-	
+
 	return events, nil
 }
 
 // GetEventByID retrieves an event by ID
 func (es *EventStoreImpl) GetEventByID(ctx context.Context, eventID string) (Event, error) {
 	filter := bson.M{"id": eventID}
-	
+
 	var eventDoc bson.M
 	err := es.collection.FindOne(ctx, filter).Decode(&eventDoc)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
 			return nil, fmt.Errorf("event with ID %s not found", eventID)
 		}
-		es.logger.Error("Failed to get event by ID", 
+		es.logger.Error("Failed to get event by ID",
 			"event_id", eventID,
 			"error", err)
 		return nil, fmt.Errorf("failed to get event by ID: %w", err)
 	}
-	
+
 	event, err := es.documentToEvent(eventDoc)
 	if err != nil {
 		es.logger.Error("Failed to convert document to event", "error", err)
 		return nil, fmt.Errorf("failed to convert document to event: %w", err)
 	}
-	
+
 	return event, nil
 }
 
@@ -129,19 +129,19 @@ func (es *EventStoreImpl) GetEventsByTimeRange(ctx context.Context, start, end t
 			"$lte": end,
 		},
 	}
-	
+
 	opts := options.Find().SetSort(bson.D{{"timestamp", -1}})
-	
+
 	cursor, err := es.collection.Find(ctx, filter, opts)
 	if err != nil {
-		es.logger.Error("Failed to get events by time range", 
+		es.logger.Error("Failed to get events by time range",
 			"start", start,
 			"end", end,
 			"error", err)
 		return nil, fmt.Errorf("failed to get events by time range: %w", err)
 	}
 	defer cursor.Close(ctx)
-	
+
 	var events []Event
 	for cursor.Next(ctx) {
 		var eventDoc bson.M
@@ -149,16 +149,16 @@ func (es *EventStoreImpl) GetEventsByTimeRange(ctx context.Context, start, end t
 			es.logger.Error("Failed to decode event", "error", err)
 			continue
 		}
-		
+
 		event, err := es.documentToEvent(eventDoc)
 		if err != nil {
 			es.logger.Error("Failed to convert document to event", "error", err)
 			continue
 		}
-		
+
 		events = append(events, event)
 	}
-	
+
 	return events, nil
 }
 
@@ -168,22 +168,22 @@ func (es *EventStoreImpl) documentToEvent(doc bson.M) (Event, error) {
 	if !ok {
 		return nil, fmt.Errorf("invalid event type")
 	}
-	
+
 	eventID, ok := doc["id"].(string)
 	if !ok {
 		return nil, fmt.Errorf("invalid event ID")
 	}
-	
+
 	timestamp, ok := doc["timestamp"].(time.Time)
 	if !ok {
 		return nil, fmt.Errorf("invalid timestamp")
 	}
-	
+
 	source, ok := doc["source"].(string)
 	if !ok {
 		source = "unknown"
 	}
-	
+
 	baseEvent := &BaseEvent{
 		ID:        eventID,
 		Type:      eventType,
@@ -192,7 +192,7 @@ func (es *EventStoreImpl) documentToEvent(doc bson.M) (Event, error) {
 		Source:    source,
 		Version:   "1.0",
 	}
-	
+
 	// Add metadata if available
 	if metadata, ok := doc["metadata"].(bson.M); ok {
 		baseEvent.Metadata = make(map[string]interface{})
@@ -200,7 +200,7 @@ func (es *EventStoreImpl) documentToEvent(doc bson.M) (Event, error) {
 			baseEvent.Metadata[k] = v
 		}
 	}
-	
+
 	// Create specific event type based on event type
 	switch eventType {
 	case EventTypePaymentCreated, EventTypePaymentUpdated, EventTypePaymentCompleted, EventTypePaymentFailed, EventTypePaymentRefunded:
@@ -228,7 +228,7 @@ func (es *EventStoreImpl) createPaymentEvent(baseEvent *BaseEvent, doc bson.M) (
 	if !ok {
 		return nil, fmt.Errorf("invalid payment event data")
 	}
-	
+
 	paymentID, _ := data["payment_id"].(string)
 	userID, _ := data["user_id"].(string)
 	amount, _ := data["amount"].(float64)
@@ -236,7 +236,7 @@ func (es *EventStoreImpl) createPaymentEvent(baseEvent *BaseEvent, doc bson.M) (
 	status, _ := data["status"].(string)
 	gateway, _ := data["gateway"].(string)
 	transactionID, _ := data["transaction_id"].(string)
-	
+
 	return &PaymentEvent{
 		BaseEvent:     baseEvent,
 		PaymentID:     paymentID,
@@ -255,13 +255,13 @@ func (es *EventStoreImpl) createUserEvent(baseEvent *BaseEvent, doc bson.M) (*Us
 	if !ok {
 		return nil, fmt.Errorf("invalid user event data")
 	}
-	
+
 	userID, _ := data["user_id"].(string)
 	email, _ := data["email"].(string)
 	name, _ := data["name"].(string)
 	status, _ := data["status"].(string)
 	action, _ := data["action"].(string)
-	
+
 	return &UserEvent{
 		BaseEvent: baseEvent,
 		UserID:    userID,
@@ -278,14 +278,14 @@ func (es *EventStoreImpl) createOrderEvent(baseEvent *BaseEvent, doc bson.M) (*O
 	if !ok {
 		return nil, fmt.Errorf("invalid order event data")
 	}
-	
+
 	orderID, _ := data["order_id"].(string)
 	userID, _ := data["user_id"].(string)
 	paymentID, _ := data["payment_id"].(string)
 	totalAmount, _ := data["total_amount"].(float64)
 	currency, _ := data["currency"].(string)
 	status, _ := data["status"].(string)
-	
+
 	var items []OrderItem
 	if itemsData, ok := data["items"].(bson.A); ok {
 		for _, itemData := range itemsData {
@@ -300,7 +300,7 @@ func (es *EventStoreImpl) createOrderEvent(baseEvent *BaseEvent, doc bson.M) (*O
 			}
 		}
 	}
-	
+
 	return &OrderEvent{
 		BaseEvent:   baseEvent,
 		OrderID:     orderID,
@@ -319,7 +319,7 @@ func (es *EventStoreImpl) createProductEvent(baseEvent *BaseEvent, doc bson.M) (
 	if !ok {
 		return nil, fmt.Errorf("invalid product event data")
 	}
-	
+
 	productID, _ := data["product_id"].(string)
 	name, _ := data["name"].(string)
 	category, _ := data["category"].(string)
@@ -328,7 +328,7 @@ func (es *EventStoreImpl) createProductEvent(baseEvent *BaseEvent, doc bson.M) (
 	stock, _ := data["stock"].(int32)
 	status, _ := data["status"].(string)
 	action, _ := data["action"].(string)
-	
+
 	return &ProductEvent{
 		BaseEvent: baseEvent,
 		ProductID: productID,
@@ -348,7 +348,7 @@ func (es *EventStoreImpl) createNotificationEvent(baseEvent *BaseEvent, doc bson
 	if !ok {
 		return nil, fmt.Errorf("invalid notification event data")
 	}
-	
+
 	notificationID, _ := data["notification_id"].(string)
 	userID, _ := data["user_id"].(string)
 	channel, _ := data["channel"].(string)
@@ -356,12 +356,12 @@ func (es *EventStoreImpl) createNotificationEvent(baseEvent *BaseEvent, doc bson
 	subject, _ := data["subject"].(string)
 	message, _ := data["message"].(string)
 	status, _ := data["status"].(string)
-	
+
 	var sentAt *time.Time
 	if sentAtData, ok := data["sent_at"].(time.Time); ok {
 		sentAt = &sentAtData
 	}
-	
+
 	return &NotificationEvent{
 		BaseEvent:      baseEvent,
 		NotificationID: notificationID,
@@ -381,14 +381,14 @@ func (es *EventStoreImpl) createAuditEvent(baseEvent *BaseEvent, doc bson.M) (*A
 	if !ok {
 		return nil, fmt.Errorf("invalid audit event data")
 	}
-	
+
 	entityType, _ := data["entity_type"].(string)
 	entityID, _ := data["entity_id"].(string)
 	action, _ := data["action"].(string)
 	userID, _ := data["user_id"].(string)
 	ipAddress, _ := data["ip_address"].(string)
 	userAgent, _ := data["user_agent"].(string)
-	
+
 	var changes map[string]interface{}
 	if changesData, ok := data["changes"].(bson.M); ok {
 		changes = make(map[string]interface{})
@@ -396,7 +396,7 @@ func (es *EventStoreImpl) createAuditEvent(baseEvent *BaseEvent, doc bson.M) (*A
 			changes[k] = v
 		}
 	}
-	
+
 	return &AuditEvent{
 		BaseEvent:  baseEvent,
 		EntityType: entityType,
@@ -415,11 +415,11 @@ func (es *EventStoreImpl) createSystemEvent(baseEvent *BaseEvent, doc bson.M) (*
 	if !ok {
 		return nil, fmt.Errorf("invalid system event data")
 	}
-	
+
 	component, _ := data["component"].(string)
 	level, _ := data["level"].(string)
 	message, _ := data["message"].(string)
-	
+
 	var details map[string]interface{}
 	if detailsData, ok := data["details"].(bson.M); ok {
 		details = make(map[string]interface{})
@@ -427,7 +427,7 @@ func (es *EventStoreImpl) createSystemEvent(baseEvent *BaseEvent, doc bson.M) (*
 			details[k] = v
 		}
 	}
-	
+
 	return &SystemEvent{
 		BaseEvent: baseEvent,
 		Component: component,
@@ -441,7 +441,7 @@ func (es *EventStoreImpl) createSystemEvent(baseEvent *BaseEvent, doc bson.M) (*
 func (es *EventStoreImpl) CreateIndexes(ctx context.Context) error {
 	indexes := []mongo.IndexModel{
 		{
-			Keys: bson.D{{"id", 1}},
+			Keys:    bson.D{{"id", 1}},
 			Options: options.Index().SetUnique(true),
 		},
 		{
@@ -460,13 +460,13 @@ func (es *EventStoreImpl) CreateIndexes(ctx context.Context) error {
 			Keys: bson.D{{"created_at", -1}},
 		},
 	}
-	
+
 	_, err := es.collection.Indexes().CreateMany(ctx, indexes)
 	if err != nil {
 		es.logger.Error("Failed to create indexes", "error", err)
 		return fmt.Errorf("failed to create indexes: %w", err)
 	}
-	
+
 	es.logger.Info("Event store indexes created successfully")
 	return nil
 }
@@ -478,7 +478,7 @@ func (es *EventStoreImpl) GetEventCount(ctx context.Context) (int64, error) {
 		es.logger.Error("Failed to get event count", "error", err)
 		return 0, fmt.Errorf("failed to get event count: %w", err)
 	}
-	
+
 	return count, nil
 }
 
@@ -487,12 +487,12 @@ func (es *EventStoreImpl) GetEventCountByType(ctx context.Context, eventType str
 	filter := bson.M{"type": eventType}
 	count, err := es.collection.CountDocuments(ctx, filter)
 	if err != nil {
-		es.logger.Error("Failed to get event count by type", 
+		es.logger.Error("Failed to get event count by type",
 			"event_type", eventType,
 			"error", err)
 		return 0, fmt.Errorf("failed to get event count by type: %w", err)
 	}
-	
+
 	return count, nil
 }
 
@@ -500,18 +500,18 @@ func (es *EventStoreImpl) GetEventCountByType(ctx context.Context, eventType str
 func (es *EventStoreImpl) DeleteOldEvents(ctx context.Context, olderThan time.Duration) (int64, error) {
 	cutoffTime := time.Now().Add(-olderThan)
 	filter := bson.M{"timestamp": bson.M{"$lt": cutoffTime}}
-	
+
 	result, err := es.collection.DeleteMany(ctx, filter)
 	if err != nil {
-		es.logger.Error("Failed to delete old events", 
+		es.logger.Error("Failed to delete old events",
 			"cutoff_time", cutoffTime,
 			"error", err)
 		return 0, fmt.Errorf("failed to delete old events: %w", err)
 	}
-	
-	es.logger.Info("Deleted old events", 
+
+	es.logger.Info("Deleted old events",
 		"count", result.DeletedCount,
 		"cutoff_time", cutoffTime)
-	
+
 	return result.DeletedCount, nil
 }

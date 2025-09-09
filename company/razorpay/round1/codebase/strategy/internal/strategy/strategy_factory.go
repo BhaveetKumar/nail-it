@@ -1,6 +1,7 @@
 package strategy
 
 import (
+	"context"
 	"fmt"
 	"time"
 )
@@ -148,7 +149,7 @@ func NewStandardPricingStrategy() *StandardPricingStrategy {
 // CalculatePrice calculates standard price
 func (s *StandardPricingStrategy) CalculatePrice(ctx context.Context, request PricingRequest) (*PricingResponse, error) {
 	time.Sleep(s.timeout)
-	
+
 	response := &PricingResponse{
 		PricingID:     request.PricingID,
 		ProductID:     request.ProductID,
@@ -160,7 +161,7 @@ func (s *StandardPricingStrategy) CalculatePrice(ctx context.Context, request Pr
 		CalculatedAt:  time.Now(),
 		Metadata:      request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -212,10 +213,10 @@ func NewDiscountPricingStrategy() *DiscountPricingStrategy {
 // CalculatePrice calculates price with discount
 func (d *DiscountPricingStrategy) CalculatePrice(ctx context.Context, request PricingRequest) (*PricingResponse, error) {
 	time.Sleep(d.timeout)
-	
+
 	basePrice := request.BasePrice * float64(request.Quantity)
 	discountPrice := 0.0
-	
+
 	// Apply discount based on discount code
 	if request.DiscountCode != "" {
 		switch request.DiscountCode {
@@ -227,9 +228,9 @@ func (d *DiscountPricingStrategy) CalculatePrice(ctx context.Context, request Pr
 			discountPrice = basePrice * 0.5
 		}
 	}
-	
+
 	finalPrice := basePrice - discountPrice
-	
+
 	response := &PricingResponse{
 		PricingID:     request.PricingID,
 		ProductID:     request.ProductID,
@@ -241,7 +242,7 @@ func (d *DiscountPricingStrategy) CalculatePrice(ctx context.Context, request Pr
 		CalculatedAt:  time.Now(),
 		Metadata:      request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -293,13 +294,13 @@ func NewDynamicPricingStrategy() *DynamicPricingStrategy {
 // CalculatePrice calculates dynamic price
 func (d *DynamicPricingStrategy) CalculatePrice(ctx context.Context, request PricingRequest) (*PricingResponse, error) {
 	time.Sleep(d.timeout)
-	
+
 	basePrice := request.BasePrice * float64(request.Quantity)
-	
+
 	// Apply dynamic pricing based on time, demand, etc.
 	multiplier := 1.0
 	hour := time.Now().Hour()
-	
+
 	if hour >= 9 && hour <= 17 {
 		multiplier = 1.2 // Peak hours
 	} else if hour >= 18 && hour <= 22 {
@@ -307,9 +308,9 @@ func (d *DynamicPricingStrategy) CalculatePrice(ctx context.Context, request Pri
 	} else {
 		multiplier = 0.9 // Off-peak hours
 	}
-	
+
 	finalPrice := basePrice * multiplier
-	
+
 	response := &PricingResponse{
 		PricingID:     request.PricingID,
 		ProductID:     request.ProductID,
@@ -321,7 +322,7 @@ func (d *DynamicPricingStrategy) CalculatePrice(ctx context.Context, request Pri
 		CalculatedAt:  time.Now(),
 		Metadata:      request.Metadata,
 	}
-	
+
 	return response, nil
 }
 
@@ -373,13 +374,13 @@ func NewTieredPricingStrategy() *TieredPricingStrategy {
 // CalculatePrice calculates tiered price
 func (t *TieredPricingStrategy) CalculatePrice(ctx context.Context, request PricingRequest) (*PricingResponse, error) {
 	time.Sleep(t.timeout)
-	
+
 	basePrice := request.BasePrice * float64(request.Quantity)
-	
+
 	// Apply tiered pricing
 	var finalPrice float64
 	quantity := request.Quantity
-	
+
 	if quantity <= 10 {
 		finalPrice = basePrice
 	} else if quantity <= 50 {
@@ -389,7 +390,7 @@ func (t *TieredPricingStrategy) CalculatePrice(ctx context.Context, request Pric
 	} else {
 		finalPrice = basePrice * 0.85 // 15% discount
 	}
-	
+
 	response := &PricingResponse{
 		PricingID:     request.PricingID,
 		ProductID:     request.ProductID,
@@ -401,7 +402,7 @@ func (t *TieredPricingStrategy) CalculatePrice(ctx context.Context, request Pric
 		CalculatedAt:  time.Now(),
 		Metadata:      request.Metadata,
 	}
-	
+
 	return response, nil
 }
 

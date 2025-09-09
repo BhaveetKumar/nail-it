@@ -25,7 +25,7 @@ func NewRedisCachingStrategy() *RedisCachingStrategy {
 func (r *RedisCachingStrategy) Get(ctx context.Context, key string) (interface{}, error) {
 	// Simulate Redis get operation
 	time.Sleep(r.timeout)
-	
+
 	// Mock data
 	if key == "user:123" {
 		return map[string]interface{}{
@@ -34,7 +34,7 @@ func (r *RedisCachingStrategy) Get(ctx context.Context, key string) (interface{}
 			"email": "john@example.com",
 		}, nil
 	}
-	
+
 	return nil, fmt.Errorf("key not found: %s", key)
 }
 
@@ -81,11 +81,11 @@ func (r *RedisCachingStrategy) IsAvailable() bool {
 
 // MemoryCachingStrategy implements CachingStrategy for in-memory cache
 type MemoryCachingStrategy struct {
-	cache    map[string]interface{}
-	ttl      map[string]time.Time
-	timeout  time.Duration
+	cache     map[string]interface{}
+	ttl       map[string]time.Time
+	timeout   time.Duration
 	available bool
-	mu       sync.RWMutex
+	mu        sync.RWMutex
 }
 
 // NewMemoryCachingStrategy creates a new in-memory caching strategy
@@ -102,10 +102,10 @@ func NewMemoryCachingStrategy() *MemoryCachingStrategy {
 func (m *MemoryCachingStrategy) Get(ctx context.Context, key string) (interface{}, error) {
 	// Simulate memory get operation
 	time.Sleep(m.timeout)
-	
+
 	m.mu.RLock()
 	defer m.mu.RUnlock()
-	
+
 	// Check if key exists and is not expired
 	if value, exists := m.cache[key]; exists {
 		if ttl, ttlExists := m.ttl[key]; ttlExists {
@@ -119,7 +119,7 @@ func (m *MemoryCachingStrategy) Get(ctx context.Context, key string) (interface{
 			return value, nil
 		}
 	}
-	
+
 	return nil, fmt.Errorf("key not found: %s", key)
 }
 
@@ -127,15 +127,15 @@ func (m *MemoryCachingStrategy) Get(ctx context.Context, key string) (interface{
 func (m *MemoryCachingStrategy) Set(ctx context.Context, key string, value interface{}, ttl time.Duration) error {
 	// Simulate memory set operation
 	time.Sleep(m.timeout)
-	
+
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	
+
 	m.cache[key] = value
 	if ttl > 0 {
 		m.ttl[key] = time.Now().Add(ttl)
 	}
-	
+
 	return nil
 }
 
@@ -143,13 +143,13 @@ func (m *MemoryCachingStrategy) Set(ctx context.Context, key string, value inter
 func (m *MemoryCachingStrategy) Delete(ctx context.Context, key string) error {
 	// Simulate memory delete operation
 	time.Sleep(m.timeout)
-	
+
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	
+
 	delete(m.cache, key)
 	delete(m.ttl, key)
-	
+
 	return nil
 }
 
@@ -157,13 +157,13 @@ func (m *MemoryCachingStrategy) Delete(ctx context.Context, key string) error {
 func (m *MemoryCachingStrategy) Clear(ctx context.Context) error {
 	// Simulate memory clear operation
 	time.Sleep(m.timeout)
-	
+
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	
+
 	m.cache = make(map[string]interface{})
 	m.ttl = make(map[string]time.Time)
-	
+
 	return nil
 }
 
@@ -205,7 +205,7 @@ func NewDatabaseCachingStrategy() *DatabaseCachingStrategy {
 func (d *DatabaseCachingStrategy) Get(ctx context.Context, key string) (interface{}, error) {
 	// Simulate database get operation
 	time.Sleep(d.timeout)
-	
+
 	// Mock data
 	if key == "user:456" {
 		return map[string]interface{}{
@@ -214,7 +214,7 @@ func (d *DatabaseCachingStrategy) Get(ctx context.Context, key string) (interfac
 			"email": "jane@example.com",
 		}, nil
 	}
-	
+
 	return nil, fmt.Errorf("key not found: %s", key)
 }
 
@@ -261,10 +261,10 @@ func (d *DatabaseCachingStrategy) IsAvailable() bool {
 
 // HybridCachingStrategy implements CachingStrategy for hybrid cache (Redis + Memory)
 type HybridCachingStrategy struct {
-	redisStrategy   CachingStrategy
-	memoryStrategy  CachingStrategy
-	timeout         time.Duration
-	available       bool
+	redisStrategy  CachingStrategy
+	memoryStrategy CachingStrategy
+	timeout        time.Duration
+	available      bool
 }
 
 // NewHybridCachingStrategy creates a new hybrid caching strategy
@@ -284,7 +284,7 @@ func (h *HybridCachingStrategy) Get(ctx context.Context, key string) (interface{
 	if err == nil {
 		return value, nil
 	}
-	
+
 	// Try Redis cache
 	value, err = h.redisStrategy.Get(ctx, key)
 	if err == nil {
@@ -292,7 +292,7 @@ func (h *HybridCachingStrategy) Get(ctx context.Context, key string) (interface{
 		h.memoryStrategy.Set(ctx, key, value, 5*time.Minute)
 		return value, nil
 	}
-	
+
 	return nil, fmt.Errorf("key not found: %s", key)
 }
 
@@ -301,11 +301,11 @@ func (h *HybridCachingStrategy) Set(ctx context.Context, key string, value inter
 	// Set in both caches
 	err1 := h.memoryStrategy.Set(ctx, key, value, ttl)
 	err2 := h.redisStrategy.Set(ctx, key, value, ttl)
-	
+
 	if err1 != nil && err2 != nil {
 		return fmt.Errorf("failed to set in both caches: %v, %v", err1, err2)
 	}
-	
+
 	return nil
 }
 
@@ -314,11 +314,11 @@ func (h *HybridCachingStrategy) Delete(ctx context.Context, key string) error {
 	// Delete from both caches
 	err1 := h.memoryStrategy.Delete(ctx, key)
 	err2 := h.redisStrategy.Delete(ctx, key)
-	
+
 	if err1 != nil && err2 != nil {
 		return fmt.Errorf("failed to delete from both caches: %v, %v", err1, err2)
 	}
-	
+
 	return nil
 }
 
@@ -327,11 +327,11 @@ func (h *HybridCachingStrategy) Clear(ctx context.Context) error {
 	// Clear both caches
 	err1 := h.memoryStrategy.Clear(ctx)
 	err2 := h.redisStrategy.Clear(ctx)
-	
+
 	if err1 != nil && err2 != nil {
 		return fmt.Errorf("failed to clear both caches: %v, %v", err1, err2)
 	}
-	
+
 	return nil
 }
 
