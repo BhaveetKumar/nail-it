@@ -5,6 +5,7 @@ This is a complete microservice implementation demonstrating the Repository desi
 ## Architecture Overview
 
 The service implements the Repository pattern for:
+
 - **Data Access Abstraction**: Clean separation between business logic and data access
 - **Multiple Data Sources**: Support for MySQL, MongoDB, and Redis
 - **Caching Layer**: Redis-based caching for performance optimization
@@ -15,6 +16,7 @@ The service implements the Repository pattern for:
 ## Features
 
 ### Core Functionality
+
 - **User Management**: Complete CRUD operations for users
 - **Payment Processing**: Payment creation, tracking, and management
 - **Order Management**: Order creation, status tracking, and fulfillment
@@ -27,6 +29,7 @@ The service implements the Repository pattern for:
 ### Repository Implementations
 
 #### 1. Basic Repository
+
 ```go
 // Generic repository interface
 type Repository[T Entity] interface {
@@ -43,6 +46,7 @@ type Repository[T Entity] interface {
 ```
 
 #### 2. Cached Repository
+
 ```go
 // Repository with caching capabilities
 type CachedRepository[T Entity] interface {
@@ -55,6 +59,7 @@ type CachedRepository[T Entity] interface {
 ```
 
 #### 3. Transactional Repository
+
 ```go
 // Repository with transaction support
 type TransactionalRepository[T Entity] interface {
@@ -65,6 +70,7 @@ type TransactionalRepository[T Entity] interface {
 ```
 
 #### 4. Specification Repository
+
 ```go
 // Repository with specification support
 type SpecificationRepository[T Entity] interface {
@@ -75,6 +81,7 @@ type SpecificationRepository[T Entity] interface {
 ```
 
 #### 5. Unit of Work
+
 ```go
 // Unit of Work for transaction management
 type UnitOfWork interface {
@@ -92,6 +99,7 @@ type UnitOfWork interface {
 ## API Endpoints
 
 ### Users
+
 - `POST /api/v1/users` - Create user
 - `GET /api/v1/users/:id` - Get user by ID
 - `PUT /api/v1/users/:id` - Update user
@@ -100,6 +108,7 @@ type UnitOfWork interface {
 - `GET /api/v1/users/search` - Search users
 
 ### Payments
+
 - `POST /api/v1/payments` - Create payment
 - `GET /api/v1/payments/:id` - Get payment by ID
 - `PUT /api/v1/payments/:id` - Update payment
@@ -108,6 +117,7 @@ type UnitOfWork interface {
 - `GET /api/v1/payments/user/:user_id` - Get payments by user
 
 ### Orders
+
 - `POST /api/v1/orders` - Create order
 - `GET /api/v1/orders/:id` - Get order by ID
 - `PUT /api/v1/orders/:id` - Update order
@@ -116,6 +126,7 @@ type UnitOfWork interface {
 - `GET /api/v1/orders/user/:user_id` - Get orders by user
 
 ### Products
+
 - `POST /api/v1/products` - Create product
 - `GET /api/v1/products/:id` - Get product by ID
 - `PUT /api/v1/products/:id` - Update product
@@ -124,6 +135,7 @@ type UnitOfWork interface {
 - `GET /api/v1/products/category/:category` - Get products by category
 
 ### Repository Operations
+
 - `GET /api/v1/repositories` - List available repository types
 - `GET /api/v1/repositories/:type` - Get repository information
 - `POST /api/v1/repositories/query` - Execute custom query
@@ -131,29 +143,35 @@ type UnitOfWork interface {
 - `POST /api/v1/repositories/cache/warm` - Warm cache
 
 ### WebSocket
+
 - `GET /ws?user_id=:user_id&client_id=:client_id` - WebSocket connection
 
 ### Health Check
+
 - `GET /health` - Service health status
 
 ## Repository Types
 
 ### MySQL Repository
+
 - **Purpose**: Primary transactional data storage
 - **Features**: ACID compliance, complex queries, relationships
 - **Use Cases**: User data, payment records, order management
 
 ### MongoDB Repository
+
 - **Purpose**: Document-based storage for analytics
 - **Features**: Flexible schema, aggregation, full-text search
 - **Use Cases**: Product catalog, audit logs, analytics data
 
 ### Cached Repository
+
 - **Purpose**: Performance optimization with Redis
 - **Features**: TTL-based expiration, cache invalidation
 - **Use Cases**: Frequently accessed data, session management
 
 ### Specification Repository
+
 - **Purpose**: Flexible query building
 - **Features**: Composite specifications, type-safe queries
 - **Use Cases**: Complex search, filtering, reporting
@@ -161,21 +179,25 @@ type UnitOfWork interface {
 ## WebSocket Events
 
 ### User Events
+
 - `user_created` - User created
 - `user_updated` - User updated
 - `user_deleted` - User deleted
 
 ### Payment Events
+
 - `payment_created` - Payment created
 - `payment_updated` - Payment status updated
 - `payment_deleted` - Payment deleted
 
 ### Order Events
+
 - `order_created` - Order created
 - `order_updated` - Order status updated
 - `order_deleted` - Order deleted
 
 ### Product Events
+
 - `product_created` - Product created
 - `product_updated` - Product updated
 - `product_deleted` - Product deleted
@@ -183,6 +205,7 @@ type UnitOfWork interface {
 ## Kafka Events
 
 ### Event Types
+
 - `user_created` - User creation event
 - `user_updated` - User update event
 - `user_deleted` - User deletion event
@@ -199,6 +222,7 @@ type UnitOfWork interface {
 ## Setup Instructions
 
 ### Prerequisites
+
 - Go 1.21+
 - MySQL 8.0+
 - MongoDB 4.4+
@@ -208,12 +232,14 @@ type UnitOfWork interface {
 ### Installation
 
 1. **Clone and setup**:
+
 ```bash
 cd repository
 go mod tidy
 ```
 
 2. **Start dependencies**:
+
 ```bash
 # Start MySQL
 docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 mysql:8.0
@@ -229,11 +255,13 @@ docker-compose up -d kafka zookeeper
 ```
 
 3. **Create database**:
+
 ```sql
 CREATE DATABASE repository_db;
 ```
 
 4. **Run the service**:
+
 ```bash
 go run main.go
 ```
@@ -252,16 +280,19 @@ The service uses a YAML configuration file (`configs/config.yaml`) with the foll
 ## Testing
 
 ### Unit Tests
+
 ```bash
 go test ./...
 ```
 
 ### Integration Tests
+
 ```bash
 go test -tags=integration ./...
 ```
 
 ### Load Testing
+
 ```bash
 # Install hey
 go install github.com/rakyll/hey@latest
@@ -276,11 +307,13 @@ hey -n 1000 -c 10 -m POST -H "Content-Type: application/json" -d '{"user_id":"us
 ## Monitoring
 
 ### Health Check
+
 ```bash
 curl http://localhost:8080/health
 ```
 
 ### Repository Information
+
 ```bash
 curl http://localhost:8080/api/v1/repositories
 curl http://localhost:8080/api/v1/repositories/mysql
@@ -289,19 +322,24 @@ curl http://localhost:8080/api/v1/repositories/cached
 ```
 
 ### Cache Statistics
+
 ```bash
 curl http://localhost:8080/api/v1/repositories/cache/stats
 ```
 
 ### WebSocket Connection
+
 ```javascript
-const ws = new WebSocket('ws://localhost:8080/ws?user_id=user123&client_id=client456');
-ws.onmessage = function(event) {
-    console.log('Received:', JSON.parse(event.data));
+const ws = new WebSocket(
+  "ws://localhost:8080/ws?user_id=user123&client_id=client456"
+);
+ws.onmessage = function (event) {
+  console.log("Received:", JSON.parse(event.data));
 };
 ```
 
 ### Kafka Events
+
 ```bash
 # Consume events
 kafka-console-consumer --bootstrap-server localhost:9092 --topic repository-events --from-beginning
@@ -310,6 +348,7 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic repository-even
 ## Performance Considerations
 
 ### Repository Benefits
+
 - **Data Access Abstraction**: Clean separation of concerns
 - **Testability**: Easy to mock and test
 - **Flexibility**: Easy to change data sources
@@ -317,6 +356,7 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic repository-even
 - **Transactions**: ACID compliance with Unit of Work
 
 ### Optimization Strategies
+
 - **Connection Pooling**: Database connection reuse
 - **Caching**: Redis-based response caching
 - **Async Processing**: Non-blocking WebSocket and Kafka operations
@@ -326,6 +366,7 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic repository-even
 ## Error Handling
 
 The service implements comprehensive error handling:
+
 - **Repository Errors**: Data access failures, validation errors
 - **Database Errors**: Connection failures, query errors
 - **Cache Errors**: Redis connection failures, cache misses
@@ -344,12 +385,14 @@ The service implements comprehensive error handling:
 ## Scalability
 
 ### Horizontal Scaling
+
 - **Stateless Design**: No server-side session storage
 - **Load Balancer Ready**: Multiple instance support
 - **Database Sharding**: User-based sharding strategy
 - **Cache Distribution**: Redis cluster support
 
 ### Vertical Scaling
+
 - **Connection Pool Tuning**: Database connection optimization
 - **Memory Management**: Efficient resource utilization
 - **CPU Optimization**: Concurrent request processing
@@ -359,16 +402,19 @@ The service implements comprehensive error handling:
 ### Common Issues
 
 1. **Repository Creation Failed**
+
    - Check database connections
    - Verify configuration parameters
    - Check repository factory initialization
 
 2. **Cache Misses**
+
    - Verify Redis connection
    - Check cache TTL configuration
    - Monitor cache statistics
 
 3. **Transaction Failures**
+
    - Check database transaction support
    - Verify Unit of Work implementation
    - Monitor transaction logs
@@ -379,6 +425,7 @@ The service implements comprehensive error handling:
    - Monitor query performance
 
 ### Logs
+
 ```bash
 # View application logs
 tail -f logs/app.log

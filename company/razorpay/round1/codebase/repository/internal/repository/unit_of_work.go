@@ -4,25 +4,28 @@ import (
 	"context"
 	"database/sql"
 	"sync"
+	"time"
+
+	"repository-service/internal/logger"
+	"repository-service/internal/redis"
 
 	"go.mongodb.org/mongo-driver/mongo"
-	"repository-service/internal/logger"
 )
 
 // UnitOfWorkImpl implements UnitOfWork interface
 type UnitOfWorkImpl struct {
-	mysqlDB       *sql.DB
-	mongoDB       *mongo.Database
-	redisClient   *redis.RedisManager
-	tx            *sql.Tx
-	session       mongo.Session
-	userRepo      Repository[*User]
-	paymentRepo   Repository[*Payment]
-	orderRepo     Repository[*Order]
-	productRepo   Repository[*Product]
-	active        bool
-	mutex         sync.RWMutex
-	logger        *logger.Logger
+	mysqlDB     *sql.DB
+	mongoDB     *mongo.Database
+	redisClient *redis.RedisManager
+	tx          *sql.Tx
+	session     mongo.Session
+	userRepo    Repository[*User]
+	paymentRepo Repository[*Payment]
+	orderRepo   Repository[*Order]
+	productRepo Repository[*Product]
+	active      bool
+	mutex       sync.RWMutex
+	logger      *logger.Logger
 }
 
 // NewUnitOfWork creates a new unit of work
@@ -39,14 +42,14 @@ func NewUnitOfWork(mysqlDB *sql.DB, mongoDB *mongo.Database, redisClient *redis.
 func (uow *UnitOfWorkImpl) Begin() error {
 	uow.mutex.Lock()
 	defer uow.mutex.Unlock()
-	
+
 	if uow.active {
 		return &RepositoryError{
 			Code:    ErrCodeTransaction,
 			Message: "Transaction already active",
 		}
 	}
-	
+
 	// Begin MySQL transaction
 	tx, err := uow.mysqlDB.Begin()
 	if err != nil {
@@ -56,7 +59,7 @@ func (uow *UnitOfWorkImpl) Begin() error {
 			Err:     err,
 		}
 	}
-	
+
 	// Begin MongoDB session
 	session, err := uow.mongoDB.Client().StartSession()
 	if err != nil {
@@ -67,7 +70,7 @@ func (uow *UnitOfWorkImpl) Begin() error {
 			Err:     err,
 		}
 	}
-	
+
 	// Start MongoDB transaction
 	err = session.StartTransaction()
 	if err != nil {
@@ -79,17 +82,17 @@ func (uow *UnitOfWorkImpl) Begin() error {
 			Err:     err,
 		}
 	}
-	
+
 	uow.tx = tx
 	uow.session = session
 	uow.active = true
-	
+
 	// Create repositories with transaction context
 	uow.userRepo = NewMySQLRepository[*User](uow.tx, "users")
 	uow.paymentRepo = NewMySQLRepository[*Payment](uow.tx, "payments")
 	uow.orderRepo = NewMySQLRepository[*Order](uow.tx, "orders")
 	uow.productRepo = NewMySQLRepository[*Product](uow.tx, "products")
-	
+
 	uow.logger.Info("Unit of work transaction started")
 	return nil
 }
@@ -98,14 +101,14 @@ func (uow *UnitOfWorkImpl) Begin() error {
 func (uow *UnitOfWorkImpl) Commit() error {
 	uow.mutex.Lock()
 	defer uow.mutex.Unlock()
-	
+
 	if !uow.active {
 		return &RepositoryError{
 			Code:    ErrCodeTransaction,
 			Message: "No active transaction to commit",
 		}
 	}
-	
+
 	// Commit MongoDB transaction
 	err := uow.session.CommitTransaction(context.Background())
 	if err != nil {
@@ -120,7 +123,7 @@ func (uow *UnitOfWorkImpl) Commit() error {
 			Err:     err,
 		}
 	}
-	
+
 	// Commit MySQL transaction
 	err = uow.tx.Commit()
 	if err != nil {
@@ -133,11 +136,11 @@ func (uow *UnitOfWorkImpl) Commit() error {
 			Err:     err,
 		}
 	}
-	
+
 	// End MongoDB session
 	uow.session.EndSession(context.Background())
 	uow.active = false
-	
+
 	uow.logger.Info("Unit of work transaction committed successfully")
 	return nil
 }
@@ -146,30 +149,30 @@ func (uow *UnitOfWorkImpl) Commit() error {
 func (uow *UnitOfWorkImpl) Rollback() error {
 	uow.mutex.Lock()
 	defer uow.mutex.Unlock()
-	
+
 	if !uow.active {
 		return &RepositoryError{
 			Code:    ErrCodeTransaction,
 			Message: "No active transaction to rollback",
 		}
 	}
-	
+
 	// Rollback MongoDB transaction
 	err := uow.session.AbortTransaction(context.Background())
 	if err != nil {
 		uow.logger.Error("Failed to rollback MongoDB transaction", "error", err)
 	}
-	
+
 	// Rollback MySQL transaction
 	err = uow.tx.Rollback()
 	if err != nil {
 		uow.logger.Error("Failed to rollback MySQL transaction", "error", err)
 	}
-	
+
 	// End MongoDB session
 	uow.session.EndSession(context.Background())
 	uow.active = false
-	
+
 	uow.logger.Info("Unit of work transaction rolled back")
 	return nil
 }
@@ -297,20 +300,20 @@ func (tr *TransactionalRepository[T]) WithTransaction(ctx context.Context, fn fu
 	if err != nil {
 		return err
 	}
-	
+
 	defer func() {
 		if r := recover(); r != nil {
 			tr.uow.Rollback()
 			panic(r)
 		}
 	}()
-	
+
 	err = fn(tr.uow)
 	if err != nil {
 		tr.uow.Rollback()
 		return err
 	}
-	
+
 	return tr.uow.Commit()
 }
 
@@ -332,46 +335,46 @@ func (tm *TransactionManager) ExecuteInTransaction(ctx context.Context, fn func(
 	if err != nil {
 		return err
 	}
-	
+
 	defer func() {
 		if r := recover(); r != nil {
 			tm.uow.Rollback()
 			panic(r)
 		}
 	}()
-	
+
 	err = fn(tm.uow)
 	if err != nil {
 		tm.uow.Rollback()
 		return err
 	}
-	
+
 	return tm.uow.Commit()
 }
 
 // ExecuteInTransactionWithRetry executes a function within a transaction with retry logic
 func (tm *TransactionManager) ExecuteInTransactionWithRetry(ctx context.Context, fn func(*UnitOfWorkImpl) error, maxRetries int) error {
 	var lastErr error
-	
+
 	for i := 0; i <= maxRetries; i++ {
 		err := tm.ExecuteInTransaction(ctx, fn)
 		if err == nil {
 			return nil
 		}
-		
+
 		lastErr = err
-		
+
 		// Check if error is retryable
 		if !isRetryableError(err) {
 			break
 		}
-		
+
 		if i < maxRetries {
 			// Wait before retry
 			time.Sleep(time.Duration(i+1) * time.Second)
 		}
 	}
-	
+
 	return lastErr
 }
 
