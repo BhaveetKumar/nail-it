@@ -1735,6 +1735,7 @@ cabSystem.start(3002);
 ### **Discussion Points**
 
 1. **Driver Matching**: How to optimize driver assignment algorithm?
+
    - **Distance-based**: Find the nearest available driver using Haversine formula
    - **ETA-based**: Consider traffic conditions and estimated arrival time
    - **Driver Preferences**: Factor in driver's preferred areas and ride types
@@ -1742,6 +1743,7 @@ cabSystem.start(3002);
    - **Machine Learning**: Use ML models to predict optimal driver-ride matches
 
 2. **Real-time Updates**: How to efficiently broadcast location updates?
+
    - **WebSocket Connections**: Maintain persistent connections for real-time updates
    - **Location Batching**: Batch location updates to reduce network overhead
    - **Selective Broadcasting**: Only send updates to relevant users (passenger/driver)
@@ -1749,6 +1751,7 @@ cabSystem.start(3002);
    - **Fallback to Polling**: Use HTTP polling when WebSocket is unavailable
 
 3. **Surge Pricing**: How to implement dynamic pricing based on demand?
+
    - **Demand Calculation**: Monitor active requests vs available drivers in real-time
    - **Geographic Zones**: Apply surge pricing to specific high-demand areas
    - **Time-based Factors**: Consider peak hours, events, and weather conditions
@@ -1756,6 +1759,7 @@ cabSystem.start(3002);
    - **Transparency**: Show surge pricing to users before booking
 
 4. **Geolocation**: How to handle location accuracy and privacy?
+
    - **GPS Accuracy**: Handle varying GPS accuracy levels and signal strength
    - **Location Validation**: Validate coordinates are within service area
    - **Privacy Controls**: Allow users to control location sharing granularity
@@ -1772,120 +1776,153 @@ cabSystem.start(3002);
 ### **Follow-up Questions**
 
 1. **How would you implement ride sharing (multiple passengers)?**
+
    ```javascript
    class RideSharing {
      async findSharedRide(userId, pickupLocation, destination) {
-       const existingRides = await this.findCompatibleRides(pickupLocation, destination);
-       
+       const existingRides = await this.findCompatibleRides(
+         pickupLocation,
+         destination
+       );
+
        if (existingRides.length > 0) {
-         const bestMatch = this.selectBestRideMatch(existingRides, pickupLocation);
-         return await this.joinExistingRide(userId, bestMatch.id, pickupLocation);
+         const bestMatch = this.selectBestRideMatch(
+           existingRides,
+           pickupLocation
+         );
+         return await this.joinExistingRide(
+           userId,
+           bestMatch.id,
+           pickupLocation
+         );
        } else {
-         return await this.createNewSharedRide(userId, pickupLocation, destination);
+         return await this.createNewSharedRide(
+           userId,
+           pickupLocation,
+           destination
+         );
        }
      }
-     
+
      async findCompatibleRides(pickupLocation, destination) {
        const rides = await this.getActiveRides();
-       
-       return rides.filter(ride => {
+
+       return rides.filter((ride) => {
          const routeCompatibility = this.calculateRouteCompatibility(
-           ride.route, pickupLocation, destination
+           ride.route,
+           pickupLocation,
+           destination
          );
          const capacityAvailable = ride.passengers.length < ride.maxPassengers;
          const timeCompatibility = this.isTimeCompatible(ride, new Date());
-         
-         return routeCompatibility > 0.7 && capacityAvailable && timeCompatibility;
+
+         return (
+           routeCompatibility > 0.7 && capacityAvailable && timeCompatibility
+         );
        });
      }
-     
+
      calculateRouteCompatibility(route, pickupLocation, destination) {
        const routeDistance = this.calculateRouteDistance(route);
-       const detourDistance = this.calculateDetourDistance(route, pickupLocation, destination);
-       
+       const detourDistance = this.calculateDetourDistance(
+         route,
+         pickupLocation,
+         destination
+       );
+
        // Compatibility decreases as detour increases
-       return Math.max(0, 1 - (detourDistance / routeDistance));
+       return Math.max(0, 1 - detourDistance / routeDistance);
      }
-     
+
      async joinExistingRide(userId, rideId, pickupLocation) {
        const ride = await this.getRide(rideId);
-       
+
        // Add passenger to ride
        ride.passengers.push({
          userId,
          pickupLocation,
          status: "waiting",
-         joinedAt: new Date()
+         joinedAt: new Date(),
        });
-       
+
        // Update route to include new pickup point
        ride.route = this.optimizeRoute(ride.route, pickupLocation);
-       
+
        await this.updateRide(ride);
        await this.notifyDriver(ride.driverId, "New passenger joined");
-       
+
        return ride;
      }
    }
    ```
 
 2. **How to handle driver cancellations and reassignment?**
+
    ```javascript
    class RideReassignment {
      async handleDriverCancellation(rideId, reason) {
        const ride = await this.getRide(rideId);
-       
+
        // Log cancellation
        await this.logCancellation(rideId, ride.driverId, reason);
-       
+
        // Find alternative driver
        const alternativeDriver = await this.findAlternativeDriver(ride);
-       
+
        if (alternativeDriver) {
          await this.reassignRide(rideId, alternativeDriver.id);
          await this.notifyPassenger(ride.userId, "Driver reassigned");
        } else {
          await this.cancelRide(rideId, "No alternative driver available");
-         await this.notifyPassenger(ride.userId, "Ride cancelled - no drivers available");
+         await this.notifyPassenger(
+           ride.userId,
+           "Ride cancelled - no drivers available"
+         );
        }
      }
-     
+
      async findAlternativeDriver(ride) {
        const availableDrivers = await this.getAvailableDrivers();
-       
+
        // Filter drivers by location and preferences
-       const suitableDrivers = availableDrivers.filter(driver => {
-         const distance = this.calculateDistance(ride.pickupLocation, driver.currentLocation);
-         const eta = this.calculateETA(driver.currentLocation, ride.pickupLocation);
-         
+       const suitableDrivers = availableDrivers.filter((driver) => {
+         const distance = this.calculateDistance(
+           ride.pickupLocation,
+           driver.currentLocation
+         );
+         const eta = this.calculateETA(
+           driver.currentLocation,
+           ride.pickupLocation
+         );
+
          return distance < 5000 && eta < 15; // Within 5km and 15 minutes
        });
-       
+
        if (suitableDrivers.length === 0) {
          return null;
        }
-       
+
        // Select best driver based on multiple factors
        return this.selectBestDriver(suitableDrivers, ride);
      }
-     
+
      async reassignRide(rideId, newDriverId) {
        const ride = await this.getRide(rideId);
        const oldDriverId = ride.driverId;
-       
+
        // Update ride with new driver
        ride.driverId = newDriverId;
        ride.reassignedAt = new Date();
        ride.reassignmentCount = (ride.reassignmentCount || 0) + 1;
-       
+
        await this.updateRide(ride);
-       
+
        // Notify new driver
        await this.notifyDriver(newDriverId, {
          type: "ride_reassignment",
-         ride: ride
+         ride: ride,
        });
-       
+
        // Update driver status
        await this.updateDriverStatus(newDriverId, "assigned");
        await this.updateDriverStatus(oldDriverId, "available");
@@ -1894,6 +1931,7 @@ cabSystem.start(3002);
    ```
 
 3. **How to implement ride scheduling for future bookings?**
+
    ```javascript
    class RideScheduling {
      async scheduleRide(userId, pickupLocation, destination, scheduledTime) {
@@ -1904,41 +1942,46 @@ cabSystem.start(3002);
          destination,
          scheduledTime: new Date(scheduledTime),
          status: "scheduled",
-         createdAt: new Date()
+         createdAt: new Date(),
        };
-       
+
        await this.storeScheduledRide(ride);
        await this.scheduleDriverAssignment(ride);
-       
+
        return ride;
      }
-     
+
      async scheduleDriverAssignment(ride) {
-       const assignmentTime = new Date(ride.scheduledTime.getTime() - 30 * 60 * 1000); // 30 minutes before
-       
+       const assignmentTime = new Date(
+         ride.scheduledTime.getTime() - 30 * 60 * 1000
+       ); // 30 minutes before
+
        // Schedule driver assignment
        setTimeout(async () => {
          await this.assignDriverToScheduledRide(ride.id);
        }, assignmentTime - new Date());
      }
-     
+
      async assignDriverToScheduledRide(rideId) {
        const ride = await this.getScheduledRide(rideId);
-       
+
        if (ride.status !== "scheduled") {
          return; // Ride already cancelled or assigned
        }
-       
+
        const driver = await this.findDriverForScheduledRide(ride);
-       
+
        if (driver) {
          ride.driverId = driver.id;
          ride.status = "assigned";
          ride.assignedAt = new Date();
-         
+
          await this.updateScheduledRide(ride);
          await this.notifyDriver(driver.id, "Scheduled ride assigned");
-         await this.notifyPassenger(ride.userId, "Driver assigned for scheduled ride");
+         await this.notifyPassenger(
+           ride.userId,
+           "Driver assigned for scheduled ride"
+         );
        } else {
          // Try again in 10 minutes
          setTimeout(() => {
@@ -1950,6 +1993,7 @@ cabSystem.start(3002);
    ```
 
 4. **How to handle emergency situations and safety features?**
+
    ```javascript
    class SafetyFeatures {
      async handleEmergencyAlert(rideId, alertType, location) {
@@ -1960,11 +2004,11 @@ cabSystem.start(3002);
          alertType, // "panic", "accident", "harassment", "medical"
          location,
          timestamp: new Date(),
-         status: "active"
+         status: "active",
        };
-       
+
        await this.storeEmergencyAlert(emergencyAlert);
-       
+
        // Immediate actions based on alert type
        switch (alertType) {
          case "panic":
@@ -1981,21 +2025,21 @@ cabSystem.start(3002);
            break;
        }
      }
-     
+
      async handlePanicAlert(ride, alert) {
        // Notify emergency contacts
        await this.notifyEmergencyContacts(ride.userId, alert);
-       
+
        // Notify local authorities
        await this.notifyAuthorities(alert);
-       
+
        // Track ride location continuously
        await this.startEmergencyTracking(ride.id);
-       
+
        // Notify support team
        await this.notifySupportTeam(alert);
      }
-     
+
      async startEmergencyTracking(rideId) {
        const trackingInterval = setInterval(async () => {
          const ride = await this.getRide(rideId);
@@ -2003,7 +2047,7 @@ cabSystem.start(3002);
            clearInterval(trackingInterval);
            return;
          }
-         
+
          // Store location for emergency tracking
          await this.storeEmergencyLocation(rideId, ride.currentLocation);
        }, 5000); // Track every 5 seconds
@@ -2012,17 +2056,21 @@ cabSystem.start(3002);
    ```
 
 5. **How to implement driver earnings and commission tracking?**
+
    ```javascript
    class DriverEarnings {
      async calculateRideEarnings(rideId) {
        const ride = await this.getRide(rideId);
        const driver = await this.getDriver(ride.driverId);
-       
+
        const baseFare = ride.actualFare;
-       const commissionRate = this.getCommissionRate(driver.tier, ride.rideType);
+       const commissionRate = this.getCommissionRate(
+         driver.tier,
+         ride.rideType
+       );
        const commission = baseFare * commissionRate;
        const driverEarnings = baseFare - commission;
-       
+
        const earnings = {
          rideId,
          driverId: ride.driverId,
@@ -2031,35 +2079,39 @@ cabSystem.start(3002);
          driverEarnings,
          commissionRate,
          rideType: ride.rideType,
-         completedAt: ride.completedAt
+         completedAt: ride.completedAt,
        };
-       
+
        await this.storeEarnings(earnings);
        await this.updateDriverBalance(ride.driverId, driverEarnings);
-       
+
        return earnings;
      }
-     
+
      getCommissionRate(driverTier, rideType) {
        const commissionRates = {
-         "bronze": { "standard": 0.25, "premium": 0.20, "luxury": 0.15 },
-         "silver": { "standard": 0.20, "premium": 0.15, "luxury": 0.10 },
-         "gold": { "standard": 0.15, "premium": 0.10, "luxury": 0.05 },
-         "platinum": { "standard": 0.10, "premium": 0.05, "luxury": 0.02 }
+         bronze: { standard: 0.25, premium: 0.2, luxury: 0.15 },
+         silver: { standard: 0.2, premium: 0.15, luxury: 0.1 },
+         gold: { standard: 0.15, premium: 0.1, luxury: 0.05 },
+         platinum: { standard: 0.1, premium: 0.05, luxury: 0.02 },
        };
-       
+
        return commissionRates[driverTier][rideType] || 0.25;
      }
-     
+
      async calculateDailyEarnings(driverId, date) {
        const startOfDay = new Date(date);
        startOfDay.setHours(0, 0, 0, 0);
-       
+
        const endOfDay = new Date(date);
        endOfDay.setHours(23, 59, 59, 999);
-       
-       const earnings = await this.getEarningsInRange(driverId, startOfDay, endOfDay);
-       
+
+       const earnings = await this.getEarningsInRange(
+         driverId,
+         startOfDay,
+         endOfDay
+       );
+
        const summary = {
          date,
          driverId,
@@ -2067,11 +2119,12 @@ cabSystem.start(3002);
          totalEarnings: earnings.reduce((sum, e) => sum + e.driverEarnings, 0),
          totalCommission: earnings.reduce((sum, e) => sum + e.commission, 0),
          averageEarningsPerRide: 0,
-         rideTypeBreakdown: this.breakdownByRideType(earnings)
+         rideTypeBreakdown: this.breakdownByRideType(earnings),
        };
-       
-       summary.averageEarningsPerRide = summary.totalEarnings / summary.totalRides;
-       
+
+       summary.averageEarningsPerRide =
+         summary.totalEarnings / summary.totalRides;
+
        return summary;
      }
    }

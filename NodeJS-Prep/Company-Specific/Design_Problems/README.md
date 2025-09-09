@@ -104,6 +104,61 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Express.js, Redis, Multiple algorithms, Distributed systems, Performance monitoring
 
+### 9. [Social Media Feed](./09_SocialMediaFeed.md)
+**News Feed System**
+- Personalized feed generation with ML-based ranking
+- Real-time content updates and social interactions
+- Content discovery with trending topics and hashtags
+- User engagement tracking and analytics
+- Feed caching and performance optimization
+- Social features (likes, comments, shares, follows)
+
+**Key Technologies**: Express.js, WebSocket, ML algorithms, Caching, Real-time updates, Analytics
+
+### 10. [E-Commerce Platform](./10_ECommercePlatform.md)
+**Online Shopping System**
+- Comprehensive product catalog with search and filtering
+- Shopping cart functionality with persistence
+- Order processing and payment integration
+- Inventory management with real-time tracking
+- User management and order history
+- Business intelligence and analytics
+
+**Key Technologies**: Express.js, Payment integration, Inventory management, Search engine, Analytics
+
+### 11. [Load Balancer](./11_LoadBalancer.md)
+**Traffic Distribution System**
+- Multiple load balancing algorithms (round-robin, least connections, weighted, IP hash)
+- Health monitoring and automatic failover
+- Session persistence and sticky sessions
+- SSL termination and certificate management
+- Performance metrics and monitoring
+- High availability and fault tolerance
+
+**Key Technologies**: Express.js, HTTP proxy, Health checking, Session management, SSL/TLS, Monitoring
+
+### 12. [Distributed Lock](./12_DistributedLock.md)
+**Coordination Service**
+- Mutual exclusion across multiple processes and machines
+- Multiple lock types (exclusive, shared, read-write)
+- Deadlock prevention with automatic expiration
+- Lock renewal for long-running operations
+- Fair lock acquisition with queuing
+- Redis backend with high availability
+
+**Key Technologies**: Express.js, Redis, Lock algorithms, Queue management, High availability
+
+### 13. [Event Sourcing](./13_EventSourcing.md)
+**Event-Driven Architecture**
+- Event storage and retrieval with versioning
+- Event replay and state reconstruction
+- CQRS pattern implementation
+- Event projections and read models
+- Snapshot management for performance
+- Event versioning and migration
+
+**Key Technologies**: Express.js, Event store, CQRS, Projections, Snapshots, Event replay
+
 ## 🚀 **Common Patterns & Best Practices**
 
 ### Architecture Patterns
