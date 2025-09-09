@@ -7,6 +7,7 @@
 Cloud SQL is a fully managed relational database service that makes it easy to set up, maintain, manage, and administer your relational databases on Google Cloud Platform. It supports MySQL, PostgreSQL, and SQL Server databases with automatic backups, replication, and scaling.
 
 ### Key Features
+
 - **Fully Managed**: Automated backups, updates, and maintenance
 - **High Availability**: Automatic failover and replication
 - **Scalability**: Vertical and horizontal scaling
@@ -1016,6 +1017,7 @@ func main() {
 ## 🚀 Best Practices
 
 ### 1. Connection Management
+
 ```go
 // Configure connection pool
 db.SetMaxOpenConns(25)
@@ -1024,6 +1026,7 @@ db.SetConnMaxLifetime(5 * time.Minute)
 ```
 
 ### 2. Security
+
 ```hcl
 # Use private IP
 ip_configuration {
@@ -1034,6 +1037,7 @@ ip_configuration {
 ```
 
 ### 3. Monitoring
+
 ```hcl
 # Enable query insights
 insights_config {
@@ -1046,12 +1050,14 @@ insights_config {
 ## 🏢 Industry Insights
 
 ### Cloud SQL Usage Patterns
+
 - **Managed Service**: Automated backups and maintenance
 - **High Availability**: Regional instances with automatic failover
 - **Read Replicas**: Scale read operations
 - **Security**: Encryption and IAM integration
 
 ### Enterprise Cloud SQL Strategy
+
 - **Multi-Region**: Cross-region replication for disaster recovery
 - **Performance**: Query optimization and connection pooling
 - **Cost Management**: Right-sizing and reserved instances
@@ -1060,12 +1066,15 @@ insights_config {
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is Cloud SQL?**
+
    - Managed relational database service
    - Supports MySQL, PostgreSQL, SQL Server
    - Automated backups and maintenance
 
 2. **What are the benefits of Cloud SQL?**
+
    - Fully managed service
    - High availability
    - Automatic scaling
@@ -1077,13 +1086,16 @@ insights_config {
    - SQL Server
 
 ### Intermediate Level
+
 4. **How do you implement high availability with Cloud SQL?**
+
    - Regional instances
    - Automatic failover
    - Read replicas
    - Cross-region replication
 
 5. **How do you secure Cloud SQL instances?**
+
    - Private IP addresses
    - SSL/TLS encryption
    - IAM integration
@@ -1096,13 +1108,16 @@ insights_config {
    - Proper indexing
 
 ### Advanced Level
+
 7. **How do you implement disaster recovery with Cloud SQL?**
+
    - Cross-region replication
    - Automated backups
    - Point-in-time recovery
    - Failover procedures
 
 8. **How do you handle Cloud SQL scaling?**
+
    - Vertical scaling
    - Read replicas
    - Connection pooling

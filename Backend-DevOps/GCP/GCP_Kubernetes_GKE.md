@@ -7,6 +7,7 @@
 Google Kubernetes Engine (GKE) is a managed environment for deploying, managing, and scaling containerized applications using Google infrastructure. GKE provides a fully managed Kubernetes service with automatic scaling, updates, and security features.
 
 ### Key Features
+
 - **Managed Kubernetes**: Google manages the control plane
 - **Auto-scaling**: Automatic node and pod scaling
 - **Security**: Built-in security features and compliance
@@ -865,32 +866,32 @@ spec:
         app: web-app
     spec:
       containers:
-      - name: web-app
-        image: nginx:alpine
-        ports:
-        - containerPort: 80
-        env:
-        - name: ENVIRONMENT
-          value: "production"
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "100m"
-          limits:
-            memory: "256Mi"
-            cpu: "200m"
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 5
+        - name: web-app
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+          env:
+            - name: ENVIRONMENT
+              value: "production"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
 ---
 apiVersion: v1
 kind: Service
@@ -901,9 +902,9 @@ spec:
   selector:
     app: web-app
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
+    - protocol: TCP
+      port: 80
+      targetPort: 80
   type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
@@ -917,25 +918,26 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   tls:
-  - hosts:
-    - web-app.example.com
-    secretName: web-app-tls
+    - hosts:
+        - web-app.example.com
+      secretName: web-app-tls
   rules:
-  - host: web-app.example.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: web-app-service
-            port:
-              number: 80
+    - host: web-app.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web-app-service
+                port:
+                  number: 80
 ```
 
 ## 🚀 Best Practices
 
 ### 1. Cluster Security
+
 ```hcl
 # Enable private cluster
 private_cluster_config {
@@ -950,6 +952,7 @@ network_policy {
 ```
 
 ### 2. Node Pool Configuration
+
 ```hcl
 # Use multiple node pools
 resource "google_container_node_pool" "spot" {
@@ -965,6 +968,7 @@ resource "google_container_node_pool" "spot" {
 ```
 
 ### 3. Monitoring and Logging
+
 ```hcl
 # Enable monitoring
 monitoring_config {
@@ -980,12 +984,14 @@ logging_config {
 ## 🏢 Industry Insights
 
 ### GKE Usage Patterns
+
 - **Managed Kubernetes**: Google manages control plane
 - **Auto-scaling**: Cluster and pod autoscaling
 - **Security**: Workload identity and network policies
 - **Integration**: Seamless GCP service integration
 
 ### Enterprise GKE Strategy
+
 - **Multi-cluster**: Multiple clusters for different environments
 - **Security**: Private clusters and network policies
 - **Monitoring**: Prometheus and Grafana integration
@@ -994,12 +1000,15 @@ logging_config {
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is GKE?**
+
    - Managed Kubernetes service
    - Google manages control plane
    - Auto-scaling and security features
 
 2. **What are the benefits of GKE?**
+
    - Managed service
    - Auto-scaling
    - Security features
@@ -1011,13 +1020,16 @@ logging_config {
    - Separate scaling policies
 
 ### Intermediate Level
+
 4. **How do you secure a GKE cluster?**
+
    - Private clusters
    - Network policies
    - Workload identity
    - Binary authorization
 
 5. **How do you implement auto-scaling with GKE?**
+
    - Cluster autoscaling
    - Horizontal pod autoscaling
    - Vertical pod autoscaling
@@ -1030,13 +1042,16 @@ logging_config {
    - Custom metrics
 
 ### Advanced Level
+
 7. **How do you implement multi-cluster GKE?**
+
    - Multiple clusters
    - Cross-cluster networking
    - Centralized management
    - Workload distribution
 
 8. **How do you handle GKE upgrades?**
+
    - Release channels
    - Node pool upgrades
    - Cluster upgrades

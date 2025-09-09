@@ -7,6 +7,7 @@
 Google Cloud Identity and Access Management (IAM) lets administrators authorize who can take action on specific resources, giving you full control and visibility to manage cloud resources centrally. IAM provides a unified view of security policy across your entire organization.
 
 ### Key Features
+
 - **Fine-grained Access Control**: Granular permissions for resources
 - **Role-based Access**: Predefined and custom roles
 - **Service Accounts**: Identity for applications and services
@@ -958,6 +959,7 @@ func main() {
 ## 🚀 Best Practices
 
 ### 1. Principle of Least Privilege
+
 ```hcl
 # Grant minimum required permissions
 resource "google_project_iam_binding" "minimal_access" {
@@ -968,6 +970,7 @@ resource "google_project_iam_binding" "minimal_access" {
 ```
 
 ### 2. Service Account Management
+
 ```hcl
 # Use service accounts for applications
 resource "google_service_account" "app_service" {
@@ -978,6 +981,7 @@ resource "google_service_account" "app_service" {
 ```
 
 ### 3. Organization Policies
+
 ```hcl
 # Enforce security policies
 resource "google_organization_policy" "restrict_public_ip" {
@@ -995,12 +999,14 @@ resource "google_organization_policy" "restrict_public_ip" {
 ## 🏢 Industry Insights
 
 ### IAM Usage Patterns
+
 - **Role-Based Access Control**: Assign permissions to roles, not users
 - **Service Accounts**: Identity for applications and services
 - **Organization Policies**: Centralized policy enforcement
 - **Audit Logging**: Comprehensive access monitoring
 
 ### Enterprise IAM Strategy
+
 - **Centralized Management**: Single source of truth for access control
 - **Automated Provisioning**: Automated user lifecycle management
 - **Compliance**: Audit trails and policy enforcement
@@ -1009,12 +1015,15 @@ resource "google_organization_policy" "restrict_public_ip" {
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is GCP IAM?**
+
    - Identity and Access Management service
    - Fine-grained access control
    - Role-based permissions
 
 2. **What are the main IAM components?**
+
    - Users and groups
    - Service accounts
    - Roles and permissions
@@ -1026,13 +1035,16 @@ resource "google_organization_policy" "restrict_public_ip" {
    - Used for service-to-service authentication
 
 ### Intermediate Level
+
 4. **How do you implement least privilege access?**
+
    - Grant minimum required permissions
    - Use custom roles
    - Regular access reviews
    - Principle of least privilege
 
 5. **How do you manage service accounts?**
+
    - Create service accounts for applications
    - Use workload identity
    - Rotate service account keys
@@ -1045,13 +1057,16 @@ resource "google_organization_policy" "restrict_public_ip" {
    - Monitor policy violations
 
 ### Advanced Level
+
 7. **How do you implement IAM at scale?**
+
    - Automated provisioning
    - Role-based access control
    - Centralized policy management
    - Audit and compliance
 
 8. **How do you handle IAM security?**
+
    - Multi-factor authentication
    - Conditional access
    - Audit logging
