@@ -424,11 +424,111 @@ func main() {
 }
 ```
 
+**Discussion Questions & Answers:**
+
+**Q1: How do you choose between consistency and availability in a distributed system?**
+
+**Answer:** The choice depends on your application's requirements:
+- **Choose Consistency (CP)**: When data integrity is critical (financial systems, inventory management, user authentication)
+- **Choose Availability (AP)**: When system uptime is more important than perfect consistency (social media feeds, content delivery, real-time analytics)
+- **Consider Eventual Consistency**: A compromise that provides availability with eventual data consistency
+
+**Q2: Can you have all three properties (CAP) in a distributed system?**
+
+**Answer:** No, the CAP theorem proves that you cannot have all three properties simultaneously in a distributed system. However, you can:
+- Have all three in non-distributed systems (CA systems)
+- Use different consistency levels for different operations
+- Implement eventual consistency as a compromise
+- Design systems that gracefully degrade during partitions
+
+**Q3: How does the CAP theorem apply to modern cloud systems?**
+
+**Answer:** Modern cloud systems often use:
+- **Multi-region deployments** with eventual consistency
+- **Consistency levels** (strong, eventual, session, bounded staleness)
+- **Conflict resolution** mechanisms for eventual consistency
+- **Circuit breakers** to handle partition scenarios
+- **Caching layers** to improve availability while maintaining consistency
+
+**Q4: What are the practical implications of choosing AP over CP?**
+
+**Answer:** Choosing AP (Availability + Partition Tolerance) means:
+- **Benefits**: High availability, better user experience, handles network failures gracefully
+- **Trade-offs**: Data may be temporarily inconsistent, requires conflict resolution, more complex application logic
+- **Use Cases**: Social media, content delivery, real-time systems, analytics platforms
+
+**Q5: How do you handle data consistency in an AP system?**
+
+**Answer:** Several strategies for handling consistency in AP systems:
+- **Eventual Consistency**: Data becomes consistent over time
+- **Conflict Resolution**: Use timestamps, vector clocks, or application logic
+- **Read Repair**: Fix inconsistencies during read operations
+- **Anti-Entropy**: Background processes to sync data
+- **CRDTs**: Conflict-free Replicated Data Types for automatic conflict resolution
+
 ---
 
 ## ⚖️ Load Balancing
 
 ### **3. Load Balancing Algorithms**
+
+**Detailed Explanation:**
+
+Load balancing is a critical component of scalable systems that distributes incoming requests across multiple servers to ensure optimal resource utilization, high availability, and improved performance.
+
+**Why Load Balancing is Important:**
+
+1. **Scalability**: Distribute load across multiple servers
+2. **High Availability**: Route traffic away from failed servers
+3. **Performance**: Optimize response times and throughput
+4. **Resource Utilization**: Ensure all servers are used efficiently
+5. **Fault Tolerance**: Handle server failures gracefully
+
+**Load Balancing Algorithms:**
+
+**Round Robin:**
+- Distributes requests sequentially across servers
+- Simple and fair distribution
+- Good for servers with similar capacity
+- May not consider server load or response time
+
+**Weighted Round Robin:**
+- Assigns different weights to servers based on capacity
+- Servers with higher weights receive more requests
+- Better for heterogeneous server environments
+- More complex than simple round robin
+
+**Least Connections:**
+- Routes requests to the server with the fewest active connections
+- Good for long-lived connections
+- Considers current server load
+- May not account for server capacity differences
+
+**IP Hash:**
+- Uses client IP to determine server assignment
+- Ensures same client always goes to same server
+- Good for session affinity requirements
+- May cause uneven distribution
+
+**Health Checks:**
+- Monitors server health and availability
+- Removes unhealthy servers from rotation
+- Adds servers back when they recover
+- Essential for production systems
+
+**Load Balancing Strategies:**
+
+**Layer 4 (Transport Layer):**
+- Routes based on IP and port
+- Faster processing
+- Less intelligent routing
+- Examples: HAProxy, F5
+
+**Layer 7 (Application Layer):**
+- Routes based on HTTP headers, content
+- More intelligent routing
+- Slower processing
+- Examples: NGINX, AWS ALB
 
 ```go
 package main
@@ -604,11 +704,150 @@ func main() {
 }
 ```
 
+**Discussion Questions & Answers:**
+
+**Q1: How do you choose the right load balancing algorithm for your system?**
+
+**Answer:** Consider these factors:
+- **Server Capacity**: Use weighted algorithms for heterogeneous servers
+- **Connection Type**: Use least connections for long-lived connections
+- **Session Requirements**: Use IP hash for session affinity
+- **Simplicity**: Use round robin for simple, uniform servers
+- **Performance**: Consider the overhead of each algorithm
+- **Monitoring**: Choose algorithms that provide good observability
+
+**Q2: What are the trade-offs between Layer 4 and Layer 7 load balancing?**
+
+**Answer:** 
+**Layer 4 (Transport Layer):**
+- **Pros**: Faster processing, lower latency, simpler configuration
+- **Cons**: Less intelligent routing, no content-based decisions
+- **Use Cases**: High-throughput applications, simple routing needs
+
+**Layer 7 (Application Layer):**
+- **Pros**: Intelligent routing, content-based decisions, better security
+- **Cons**: Higher latency, more complex configuration, higher resource usage
+- **Use Cases**: Complex routing requirements, API gateways, microservices
+
+**Q3: How do you handle server failures in a load balancer?**
+
+**Answer:** Implement comprehensive failure handling:
+- **Health Checks**: Regular monitoring of server health
+- **Circuit Breakers**: Temporarily remove failing servers
+- **Graceful Degradation**: Reduce load on failing servers
+- **Automatic Recovery**: Add servers back when they recover
+- **Monitoring**: Alert on failure patterns and trends
+- **Fallback Strategies**: Route to backup servers or show maintenance pages
+
+**Q4: What are the challenges of load balancing in a microservices architecture?**
+
+**Answer:** Key challenges include:
+- **Service Discovery**: Finding available service instances
+- **Health Monitoring**: Tracking health of many small services
+- **Load Balancing**: Distributing load across service instances
+- **Circuit Breaking**: Preventing cascade failures
+- **Service Mesh**: Managing communication between services
+- **Configuration**: Managing load balancer configs for many services
+
+**Q5: How do you implement sticky sessions in a load balancer?**
+
+**Answer:** Several approaches for session affinity:
+- **IP Hash**: Route based on client IP address
+- **Cookie-based**: Use application cookies to track sessions
+- **Session ID**: Include session identifier in requests
+- **Consistent Hashing**: Use consistent hashing for better distribution
+- **Database Sessions**: Store sessions in shared database
+- **Redis Sessions**: Use Redis for session storage
+
 ---
 
 ## 💾 Caching Strategies
 
 ### **4. Cache Implementation**
+
+**Detailed Explanation:**
+
+Caching is a fundamental technique for improving system performance by storing frequently accessed data in fast storage. It reduces latency, decreases database load, and improves user experience.
+
+**Why Caching is Important:**
+
+1. **Performance**: Reduces response time by serving data from memory
+2. **Scalability**: Reduces load on backend systems
+3. **Cost Efficiency**: Reduces database queries and infrastructure costs
+4. **User Experience**: Faster page loads and interactions
+5. **Reliability**: Provides fallback when backend systems are slow
+
+**Cache Types:**
+
+**In-Memory Cache:**
+- Stored in application memory (Redis, Memcached)
+- Fastest access but limited by memory size
+- Lost when application restarts
+- Good for frequently accessed data
+
+**Distributed Cache:**
+- Shared across multiple application instances
+- Survives application restarts
+- Can be scaled independently
+- Examples: Redis Cluster, Hazelcast
+
+**CDN Cache:**
+- Caches static content at edge locations
+- Reduces latency for global users
+- Examples: CloudFlare, AWS CloudFront
+
+**Database Cache:**
+- Caches query results
+- Reduces database load
+- Examples: MySQL Query Cache, PostgreSQL Buffer Cache
+
+**Cache Strategies:**
+
+**Cache-Aside (Lazy Loading):**
+- Application checks cache first
+- Loads from database if cache miss
+- Updates cache after loading
+- Most common pattern
+
+**Write-Through:**
+- Writes to both cache and database
+- Ensures data consistency
+- Higher write latency
+- Good for critical data
+
+**Write-Behind (Write-Back):**
+- Writes to cache immediately
+- Writes to database asynchronously
+- Fastest writes
+- Risk of data loss
+
+**Refresh-Ahead:**
+- Refreshes cache before expiration
+- Reduces cache misses
+- More complex implementation
+- Good for predictable access patterns
+
+**Cache Eviction Policies:**
+
+**LRU (Least Recently Used):**
+- Evicts least recently accessed items
+- Good for temporal locality
+- Simple to implement
+
+**LFU (Least Frequently Used):**
+- Evicts least frequently accessed items
+- Good for frequency-based access
+- More complex to implement
+
+**TTL (Time To Live):**
+- Evicts items after fixed time
+- Simple and predictable
+- May evict still-useful data
+
+**Random:**
+- Evicts random items
+- Simple implementation
+- May evict important data
 
 ```go
 package main
@@ -754,6 +993,65 @@ func main() {
     fmt.Printf("Cache size: %d\n", cache.Size())
 }
 ```
+
+**Discussion Questions & Answers:**
+
+**Q1: How do you choose the right caching strategy for your application?**
+
+**Answer:** Consider these factors:
+- **Data Access Patterns**: Use cache-aside for read-heavy, write-through for write-heavy
+- **Consistency Requirements**: Use write-through for strong consistency, write-behind for eventual consistency
+- **Performance Needs**: Use write-behind for fastest writes, cache-aside for balanced performance
+- **Data Criticality**: Use write-through for critical data, write-behind for less critical data
+- **System Complexity**: Start with cache-aside, add complexity as needed
+
+**Q2: What are the trade-offs between different cache eviction policies?**
+
+**Answer:**
+**LRU (Least Recently Used):**
+- **Pros**: Good for temporal locality, simple to implement
+- **Cons**: May evict frequently used items if not accessed recently
+- **Use Cases**: Web applications, user sessions
+
+**LFU (Least Frequently Used):**
+- **Pros**: Good for frequency-based access patterns
+- **Cons**: More complex implementation, may keep old popular items
+- **Use Cases**: Content recommendation systems, popular items
+
+**TTL (Time To Live):**
+- **Pros**: Simple and predictable, good for time-sensitive data
+- **Cons**: May evict still-useful data, requires tuning
+- **Use Cases**: API responses, temporary data
+
+**Q3: How do you handle cache invalidation in a distributed system?**
+
+**Answer:** Several strategies for cache invalidation:
+- **TTL-based**: Let items expire naturally
+- **Event-driven**: Invalidate on data changes
+- **Version-based**: Use version numbers to detect stale data
+- **Tag-based**: Invalidate by tags or categories
+- **Write-through**: Update cache on every write
+- **Cache-aside**: Let application handle invalidation
+
+**Q4: What are the challenges of caching in a microservices architecture?**
+
+**Answer:** Key challenges include:
+- **Cache Consistency**: Keeping caches in sync across services
+- **Cache Dependencies**: Managing cache dependencies between services
+- **Cache Warming**: Preloading caches after service restarts
+- **Cache Partitioning**: Distributing cache data across services
+- **Cache Monitoring**: Tracking cache performance across services
+- **Cache Security**: Securing cached data across service boundaries
+
+**Q5: How do you implement cache warming strategies?**
+
+**Answer:** Several approaches for cache warming:
+- **Lazy Loading**: Load data on first access
+- **Eager Loading**: Preload data during startup
+- **Scheduled Warming**: Refresh cache at regular intervals
+- **Event-driven Warming**: Warm cache on specific events
+- **Predictive Warming**: Use ML to predict what to cache
+- **Hybrid Approach**: Combine multiple strategies
 
 ---
 

@@ -19,6 +19,18 @@
 - [**Razorpay Lead SDE Preparation Plan**](./Razorpay_Lead_SDE_Interview_Preparation_Plan.md) - Complete preparation strategy
 - [**Razorpay Advanced Interview Scenarios**](./Razorpay_Advanced_Interview_Scenarios.md) - Real interview scenarios and solutions
 
+### **📘 Meta (Facebook) Interview Preparation**
+- [**Meta Facebook Interview Preparation**](./Meta_Facebook_Interview_Preparation.md) - Complete preparation strategy for Meta interviews
+
+### **🛒 Amazon Interview Preparation**
+- [**Amazon Interview Preparation**](./Amazon_Interview_Preparation.md) - Complete preparation strategy for Amazon interviews
+
+### **🪟 Microsoft Interview Preparation**
+- [**Microsoft Interview Preparation**](./Microsoft_Interview_Preparation.md) - Complete preparation strategy for Microsoft interviews
+
+### **🎬 Netflix Interview Preparation**
+- [**Netflix Interview Preparation**](./Netflix_Interview_Preparation.md) - Complete preparation strategy for Netflix interviews
+
 ## 🎯 **Purpose**
 
 This folder contains company-specific preparation materials tailored for different organizations. These guides provide:
@@ -42,11 +54,39 @@ This folder contains company-specific preparation materials tailored for differe
 2. Study [**Razorpay Advanced Interview Scenarios**](./Razorpay_Advanced_Interview_Scenarios.md)
 3. Practice with company-specific problems in the [**company/razorpay/**](../company/razorpay/) folder
 
+### **For Meta (Facebook) Interviews**
+1. Start with [**Meta Facebook Interview Preparation**](./Meta_Facebook_Interview_Preparation.md)
+2. Focus on system design for social media platforms
+3. Practice behavioral questions around Meta's values
+4. Study graph algorithms and dynamic programming
+
+### **For Amazon Interviews**
+1. Begin with [**Amazon Interview Preparation**](./Amazon_Interview_Preparation.md)
+2. Master Amazon Leadership Principles
+3. Practice AWS-specific system design questions
+4. Study e-commerce and recommendation systems
+
+### **For Microsoft Interviews**
+1. Start with [**Microsoft Interview Preparation**](./Microsoft_Interview_Preparation.md)
+2. Focus on Azure services and architecture
+3. Practice behavioral questions around Microsoft's values
+4. Study productivity and collaboration systems
+
+### **For Netflix Interviews**
+1. Begin with [**Netflix Interview Preparation**](./Netflix_Interview_Preparation.md)
+2. Focus on streaming and recommendation systems
+3. Practice behavioral questions around Netflix's culture
+4. Study real-time systems and data pipelines
+
 ## 📊 **Content Statistics**
 
 - **Google Guides**: 9 comprehensive preparation materials
 - **Razorpay Guides**: 2 tailored preparation guides
-- **Interview Questions**: 100+ company-specific questions
+- **Meta Guides**: 1 comprehensive preparation guide
+- **Amazon Guides**: 1 comprehensive preparation guide
+- **Microsoft Guides**: 1 comprehensive preparation guide
+- **Netflix Guides**: 1 comprehensive preparation guide
+- **Interview Questions**: 200+ company-specific questions
 - **Preparation Plans**: Structured roadmaps for each company
 - **Resource Lists**: Curated learning materials
 
