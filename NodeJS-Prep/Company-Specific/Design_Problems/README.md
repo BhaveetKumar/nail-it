@@ -159,6 +159,17 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Express.js, Event store, CQRS, Projections, Snapshots, Event replay
 
+### 14. [Recommendation System](./14_RecommendationSystem.md)
+**Content Discovery Engine**
+- Personalized recommendations with multiple algorithms
+- Collaborative filtering (user-based and item-based)
+- Content-based filtering with item features
+- Hybrid recommendation approach
+- Real-time recommendation updates
+- Performance optimization with caching
+
+**Key Technologies**: Express.js, Machine Learning, Collaborative filtering, Content-based filtering, Caching, Real-time processing
+
 ## 🚀 **Common Patterns & Best Practices**
 
 ### Architecture Patterns
