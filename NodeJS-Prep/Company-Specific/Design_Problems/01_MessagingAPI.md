@@ -968,3 +968,354 @@ async function registerUser(username, email) {
 2. **Analytics**: Message delivery metrics
 3. **Compliance**: Message retention policies
 4. **Multi-tenancy**: Organization-based messaging
+
+## 💬 **Discussion Points**
+
+### **Scalability Considerations**
+
+**Q: How would you handle 1 million concurrent users?**
+**A:** 
+- **Horizontal Scaling**: Deploy multiple server instances behind a load balancer
+- **WebSocket Connection Management**: Use Redis for connection state sharing across servers
+- **Database Sharding**: Partition users and messages by user ID or geographic region
+- **Message Queuing**: Use Redis Streams or Apache Kafka for message queuing and processing
+- **CDN Integration**: Use CloudFlare or AWS CloudFront for global message delivery
+- **Connection Pooling**: Implement connection pooling for database and Redis connections
+
+**Q: What happens when a server crashes with active WebSocket connections?**
+**A:**
+- **Connection Recovery**: Clients implement exponential backoff reconnection logic
+- **State Synchronization**: Use Redis to store connection state and message delivery status
+- **Message Replay**: Implement message acknowledgment and replay mechanism
+- **Health Checks**: Load balancer removes unhealthy servers from rotation
+- **Graceful Shutdown**: Implement graceful shutdown to notify clients before server restart
+
+### **Data Consistency & Reliability**
+
+**Q: How do you ensure message delivery guarantees?**
+**A:**
+- **Message Acknowledgments**: Implement ACK/NACK mechanism for message delivery
+- **Retry Logic**: Exponential backoff retry for failed message deliveries
+- **Message Persistence**: Store messages in database before sending
+- **Delivery Status Tracking**: Track message status (sent, delivered, read)
+- **Dead Letter Queue**: Handle permanently failed messages
+- **Idempotency**: Use message IDs to prevent duplicate processing
+
+**Q: How do you handle message ordering in group chats?**
+**A:**
+- **Sequence Numbers**: Assign incremental sequence numbers to messages
+- **Vector Clocks**: Use vector clocks for distributed message ordering
+- **Client-side Ordering**: Sort messages by timestamp and sequence number
+- **Conflict Resolution**: Use last-write-wins or custom conflict resolution
+- **Message Buffering**: Buffer out-of-order messages until gaps are filled
+
+### **Security & Privacy**
+
+**Q: How do you implement end-to-end encryption?**
+**A:**
+- **Key Exchange**: Use Diffie-Hellman key exchange for group chats
+- **Message Encryption**: Encrypt messages with AES-256 before sending
+- **Key Rotation**: Implement periodic key rotation for security
+- **Forward Secrecy**: Use ephemeral keys for each message
+- **Key Storage**: Store encrypted keys on server, decryption keys on client
+- **Metadata Protection**: Minimize metadata exposure
+
+**Q: How do you prevent message spoofing and tampering?**
+**A:**
+- **Digital Signatures**: Sign messages with sender's private key
+- **Message Integrity**: Use HMAC for message integrity verification
+- **Authentication**: Verify user identity with JWT tokens
+- **Rate Limiting**: Prevent message flooding and spam
+- **Content Validation**: Validate message content and format
+- **Audit Logging**: Log all message operations for security auditing
+
+## ❓ **Follow-up Questions**
+
+### **System Design Deep Dive**
+
+**Q1: How would you implement message search functionality?**
+**A:** 
+```javascript
+// Elasticsearch Integration for Message Search
+class MessageSearchService {
+  async searchMessages(query, userId, options = {}) {
+    const searchQuery = {
+      index: 'messages',
+      body: {
+        query: {
+          bool: {
+            must: [
+              { match: { content: query } },
+              { 
+                bool: {
+                  should: [
+                    { term: { senderId: userId } },
+                    { term: { recipientId: userId } },
+                    { term: { 'groupMembers': userId } }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        sort: [{ timestamp: { order: 'desc' } }],
+        from: options.offset || 0,
+        size: options.limit || 20
+      }
+    };
+    
+    return await this.elasticsearch.search(searchQuery);
+  }
+}
+```
+
+**Q2: How do you handle file sharing in messages?**
+**A:**
+```javascript
+// File Upload and Sharing Implementation
+class FileSharingService {
+  async uploadFile(file, userId) {
+    // Generate unique file ID
+    const fileId = this.generateFileId();
+    
+    // Upload to cloud storage (AWS S3, Google Cloud Storage)
+    const uploadResult = await this.cloudStorage.upload(file, fileId);
+    
+    // Store file metadata in database
+    const fileMetadata = {
+      fileId,
+      originalName: file.originalname,
+      size: file.size,
+      mimeType: file.mimetype,
+      uploaderId: userId,
+      uploadUrl: uploadResult.url,
+      createdAt: new Date()
+    };
+    
+    await this.database.files.insert(fileMetadata);
+    
+    return fileMetadata;
+  }
+  
+  async shareFile(fileId, recipientIds, messageId) {
+    // Create file share record
+    const fileShare = {
+      fileId,
+      messageId,
+      recipientIds,
+      sharedAt: new Date()
+    };
+    
+    await this.database.fileShares.insert(fileShare);
+    
+    // Send file share notification
+    this.notificationService.notifyFileShare(recipientIds, fileId);
+  }
+}
+```
+
+**Q3: How do you implement message reactions and threading?**
+**A:**
+```javascript
+// Message Reactions and Threading
+class MessageInteractionService {
+  async addReaction(messageId, userId, emoji) {
+    const reaction = {
+      messageId,
+      userId,
+      emoji,
+      createdAt: new Date()
+    };
+    
+    // Store reaction in database
+    await this.database.reactions.insert(reaction);
+    
+    // Broadcast reaction to all connected clients
+    this.broadcastReaction(messageId, reaction);
+    
+    return reaction;
+  }
+  
+  async createThread(parentMessageId, replyMessage) {
+    const thread = {
+      parentMessageId,
+      threadId: this.generateThreadId(),
+      createdAt: new Date()
+    };
+    
+    // Store thread metadata
+    await this.database.threads.insert(thread);
+    
+    // Send reply message
+    const message = await this.sendMessage(replyMessage);
+    
+    // Link message to thread
+    await this.database.messages.update(message.id, { threadId: thread.threadId });
+    
+    return { thread, message };
+  }
+}
+```
+
+### **Performance & Optimization**
+
+**Q4: How do you optimize for mobile clients with poor connectivity?**
+**A:**
+```javascript
+// Mobile Optimization Service
+class MobileOptimizationService {
+  async handleOfflineMessages(userId) {
+    // Store messages locally when offline
+    const offlineMessages = await this.localStorage.getOfflineMessages(userId);
+    
+    // Sync when connection is restored
+    for (const message of offlineMessages) {
+      try {
+        await this.messageService.sendMessage(message);
+        await this.localStorage.removeOfflineMessage(message.id);
+      } catch (error) {
+        // Keep message for retry
+        console.error('Failed to sync offline message:', error);
+      }
+    }
+  }
+  
+  async optimizeMessageDelivery(message, recipientConnection) {
+    // Check connection quality
+    const connectionQuality = this.assessConnectionQuality(recipientConnection);
+    
+    if (connectionQuality === 'poor') {
+      // Compress message content
+      message.content = await this.compressContent(message.content);
+      
+      // Send in smaller chunks
+      return this.sendInChunks(message, recipientConnection);
+    }
+    
+    return this.sendMessage(message, recipientConnection);
+  }
+}
+```
+
+**Q5: How do you implement message read receipts?**
+**A:**
+```javascript
+// Read Receipts Implementation
+class ReadReceiptService {
+  async markAsRead(messageId, userId) {
+    const readReceipt = {
+      messageId,
+      userId,
+      readAt: new Date()
+    };
+    
+    // Store read receipt
+    await this.database.readReceipts.insert(readReceipt);
+    
+    // Update message read status
+    await this.database.messages.updateReadStatus(messageId, userId);
+    
+    // Notify sender about read receipt
+    const message = await this.database.messages.findById(messageId);
+    this.notifyReadReceipt(message.senderId, messageId, userId);
+    
+    return readReceipt;
+  }
+  
+  async getReadReceipts(messageId) {
+    return await this.database.readReceipts.findByMessageId(messageId);
+  }
+}
+```
+
+### **Advanced Features**
+
+**Q6: How do you implement message encryption for group chats?**
+**A:**
+```javascript
+// End-to-End Encryption for Group Chats
+class GroupEncryptionService {
+  async createGroupKey(groupId, members) {
+    // Generate group encryption key
+    const groupKey = this.generateEncryptionKey();
+    
+    // Encrypt group key for each member
+    const encryptedKeys = {};
+    for (const memberId of members) {
+      const memberPublicKey = await this.getMemberPublicKey(memberId);
+      encryptedKeys[memberId] = await this.encrypt(groupKey, memberPublicKey);
+    }
+    
+    // Store encrypted keys
+    await this.database.groupKeys.insert({
+      groupId,
+      encryptedKeys,
+      createdAt: new Date()
+    });
+    
+    return groupKey;
+  }
+  
+  async encryptMessage(message, groupId) {
+    const groupKey = await this.getGroupKey(groupId);
+    const encryptedContent = await this.encrypt(message.content, groupKey);
+    
+    return {
+      ...message,
+      content: encryptedContent,
+      encrypted: true
+    };
+  }
+}
+```
+
+**Q7: How do you handle message moderation and content filtering?**
+**A:**
+```javascript
+// Message Moderation Service
+class MessageModerationService {
+  async moderateMessage(message) {
+    // Check for inappropriate content
+    const contentCheck = await this.contentFilter.check(message.content);
+    
+    if (contentCheck.flagged) {
+      // Store flagged message for review
+      await this.database.flaggedMessages.insert({
+        messageId: message.id,
+        reason: contentCheck.reason,
+        confidence: contentCheck.confidence,
+        flaggedAt: new Date()
+      });
+      
+      // Notify moderators
+      this.notifyModerators(message, contentCheck);
+      
+      // Block message if confidence is high
+      if (contentCheck.confidence > 0.8) {
+        return { blocked: true, reason: contentCheck.reason };
+      }
+    }
+    
+    return { blocked: false };
+  }
+  
+  async autoModerate(message) {
+    // Use AI/ML for content moderation
+    const moderationResult = await this.aiModeration.analyze(message.content);
+    
+    if (moderationResult.violation) {
+      // Apply automatic actions
+      switch (moderationResult.severity) {
+        case 'low':
+          return { action: 'warn', message: 'Content flagged for review' };
+        case 'medium':
+          return { action: 'block', message: 'Message blocked due to policy violation' };
+        case 'high':
+          return { action: 'ban', message: 'User temporarily banned' };
+      }
+    }
+    
+    return { action: 'allow' };
+  }
+}
+```

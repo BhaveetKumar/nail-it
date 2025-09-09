@@ -417,18 +417,199 @@ describe("Messaging API", () => {
 ### **Discussion Points**
 
 1. **WebSocket vs Server-Sent Events**: Why WebSocket for real-time messaging?
+   - **WebSocket** provides full-duplex communication, allowing both client and server to send messages at any time
+   - **Server-Sent Events (SSE)** are unidirectional (server to client only) and better for one-way notifications
+   - For messaging apps, WebSocket is preferred because users need to send messages (client to server) and receive them (server to client)
+   - WebSocket has lower latency and overhead compared to HTTP polling
+   - SSE is simpler to implement but limited to server-initiated communication
+
 2. **Message Ordering**: How to ensure messages arrive in correct order?
+   - **Sequence Numbers**: Assign incremental sequence numbers to messages within each conversation
+   - **Timestamps**: Use high-precision timestamps with server-side clock synchronization
+   - **Vector Clocks**: For distributed systems, use vector clocks to track causality
+   - **Client-side Ordering**: Sort messages by sequence number/timestamp on the client
+   - **Out-of-order Handling**: Buffer messages and reorder them before displaying
+
 3. **Scalability**: How to scale WebSocket connections across multiple servers?
+   - **Load Balancer**: Use sticky sessions or WebSocket-aware load balancers
+   - **Message Broker**: Use Redis Pub/Sub or RabbitMQ to broadcast messages across servers
+   - **Shared State**: Store user connections and message routing in Redis
+   - **Horizontal Scaling**: Add more server instances behind the load balancer
+   - **Connection Pooling**: Manage WebSocket connections efficiently
+
 4. **Message Persistence**: When to persist messages vs keep in memory?
+   - **Persist Always**: For important conversations, audit trails, and message history
+   - **Memory for Active**: Keep recent messages in memory for fast access
+   - **Hybrid Approach**: Memory for real-time delivery, database for persistence
+   - **TTL Strategy**: Use Redis with TTL for temporary message storage
+   - **Archive Strategy**: Move old messages to cold storage
+
 5. **Security**: How to prevent message spoofing and ensure authentication?
+   - **JWT Tokens**: Validate tokens on WebSocket connection and message sending
+   - **Message Signing**: Sign messages with HMAC to prevent tampering
+   - **Rate Limiting**: Implement per-user rate limiting to prevent spam
+   - **Input Validation**: Sanitize and validate all message content
+   - **Encryption**: Use TLS for transport and end-to-end encryption for sensitive messages
 
 ### **Follow-up Questions**
 
-1. How would you implement message encryption for privacy?
-2. How to handle message delivery failures and retries?
-3. How to implement message reactions and replies?
-4. How to handle file attachments and media messages?
-5. How to implement message search and filtering?
+1. **How would you implement message encryption for privacy?**
+   ```javascript
+   // End-to-end encryption implementation
+   class MessageEncryption {
+     async encryptMessage(message, recipientPublicKey) {
+       const symmetricKey = crypto.randomBytes(32);
+       const encryptedMessage = crypto.createCipher('aes-256-gcm', symmetricKey);
+       const encrypted = Buffer.concat([encryptedMessage.update(message, 'utf8'), encryptedMessage.final()]);
+       
+       const encryptedKey = crypto.publicEncrypt(recipientPublicKey, symmetricKey);
+       return {
+         encryptedMessage: encrypted.toString('base64'),
+         encryptedKey: encryptedKey.toString('base64'),
+         iv: encryptedMessage.getAuthTag().toString('base64')
+       };
+     }
+     
+     async decryptMessage(encryptedData, privateKey) {
+       const symmetricKey = crypto.privateDecrypt(privateKey, Buffer.from(encryptedData.encryptedKey, 'base64'));
+       const decipher = crypto.createDecipher('aes-256-gcm', symmetricKey);
+       decipher.setAuthTag(Buffer.from(encryptedData.iv, 'base64'));
+       
+       const decrypted = Buffer.concat([decipher.update(Buffer.from(encryptedData.encryptedMessage, 'base64')), decipher.final()]);
+       return decrypted.toString('utf8');
+     }
+   }
+   ```
+
+2. **How to handle message delivery failures and retries?**
+   ```javascript
+   class MessageDelivery {
+     async sendWithRetry(message, maxRetries = 3) {
+       for (let attempt = 1; attempt <= maxRetries; attempt++) {
+         try {
+           await this.sendMessage(message);
+           return { success: true, attempt };
+         } catch (error) {
+           if (attempt === maxRetries) {
+             await this.handleDeliveryFailure(message, error);
+             return { success: false, error };
+           }
+           await this.delay(Math.pow(2, attempt) * 1000); // Exponential backoff
+         }
+       }
+     }
+     
+     async handleDeliveryFailure(message, error) {
+       // Store in dead letter queue
+       await this.storeInDLQ(message, error);
+       // Notify user of delivery failure
+       await this.notifyUser(message.senderID, 'Message delivery failed');
+     }
+   }
+   ```
+
+3. **How to implement message reactions and replies?**
+   ```javascript
+   class MessageReactions {
+     async addReaction(messageId, userId, emoji) {
+       const reaction = {
+         id: uuidv4(),
+         messageId,
+         userId,
+         emoji,
+         timestamp: new Date()
+       };
+       
+       await this.storeReaction(reaction);
+       await this.broadcastReaction(messageId, reaction);
+     }
+     
+     async replyToMessage(originalMessageId, replyContent, senderId) {
+       const reply = {
+         id: uuidv4(),
+         originalMessageId,
+         content: replyContent,
+         senderId,
+         timestamp: new Date(),
+         type: 'reply'
+       };
+       
+       await this.storeMessage(reply);
+       await this.broadcastMessage(reply);
+     }
+   }
+   ```
+
+4. **How to handle file attachments and media messages?**
+   ```javascript
+   class MediaHandler {
+     async uploadFile(file, messageId) {
+       const fileId = uuidv4();
+       const filePath = await this.storeFile(file, fileId);
+       
+       const mediaMessage = {
+         id: uuidv4(),
+         messageId,
+         fileId,
+         fileName: file.originalname,
+         fileSize: file.size,
+         mimeType: file.mimetype,
+         filePath,
+         uploadedAt: new Date()
+       };
+       
+       await this.storeMediaMessage(mediaMessage);
+       return mediaMessage;
+     }
+     
+     async getFileUrl(fileId) {
+       const mediaMessage = await this.getMediaMessage(fileId);
+       return this.generateSignedUrl(mediaMessage.filePath);
+     }
+   }
+   ```
+
+5. **How to implement message search and filtering?**
+   ```javascript
+   class MessageSearch {
+     async searchMessages(query, userId, filters = {}) {
+       const searchQuery = {
+         bool: {
+           must: [
+             { match: { content: query } },
+             { term: { userId: userId } }
+           ],
+           filter: this.buildFilters(filters)
+         }
+       };
+       
+       const results = await this.elasticsearch.search({
+         index: 'messages',
+         body: { query: searchQuery }
+       });
+       
+       return results.hits.hits.map(hit => hit._source);
+     }
+     
+     buildFilters(filters) {
+       const filterArray = [];
+       if (filters.dateRange) {
+         filterArray.push({
+           range: {
+             timestamp: {
+               gte: filters.dateRange.start,
+               lte: filters.dateRange.end
+             }
+           }
+         });
+       }
+       if (filters.conversationId) {
+         filterArray.push({ term: { conversationId: filters.conversationId } });
+       }
+       return filterArray;
+     }
+   }
+   ```
 
 ---
 
@@ -777,18 +958,320 @@ priceService.start(3001);
 ### **Discussion Points**
 
 1. **Rate Limiting**: How to handle vendor API rate limits?
+   - **Token Bucket Algorithm**: Implement token bucket for each vendor to respect their rate limits
+   - **Queue Management**: Queue requests when rate limit is exceeded and process them when tokens are available
+   - **Priority Queuing**: Prioritize critical price updates over less important requests
+   - **Circuit Breaker**: Temporarily stop requests to a vendor if they consistently fail
+   - **Backoff Strategy**: Use exponential backoff when rate limits are hit
+
 2. **Caching Strategy**: What to cache and for how long?
+   - **Price Data**: Cache for 5-15 minutes depending on product volatility
+   - **Product Catalog**: Cache for hours since it changes less frequently
+   - **Search Results**: Cache for 1-5 minutes to balance freshness and performance
+   - **User Preferences**: Cache indefinitely until user updates them
+   - **Vendor Status**: Cache for 30 seconds to quickly detect API issues
+
 3. **Data Consistency**: How to handle stale price data?
+   - **TTL Strategy**: Set appropriate TTL values based on data volatility
+   - **Versioning**: Use version numbers to track data freshness
+   - **Staleness Indicators**: Show users when data might be outdated
+   - **Background Refresh**: Continuously update cache in the background
+   - **Fallback Strategy**: Use cached data when real-time data is unavailable
+
 4. **Error Handling**: How to gracefully handle vendor API failures?
+   - **Retry Logic**: Implement exponential backoff for transient failures
+   - **Fallback Data**: Use cached data when APIs are down
+   - **Partial Results**: Return available data even if some vendors fail
+   - **Error Reporting**: Log and monitor API failures for vendor management
+   - **Graceful Degradation**: Continue serving users with reduced functionality
+
 5. **Scalability**: How to scale price fetching across multiple servers?
+   - **Horizontal Scaling**: Add more worker nodes to handle increased load
+   - **Load Balancing**: Distribute API calls across multiple servers
+   - **Async Processing**: Use message queues for non-blocking price updates
+   - **Database Sharding**: Partition data by vendor or product category
+   - **CDN Integration**: Cache static product data at edge locations
 
 ### **Follow-up Questions**
 
-1. How would you implement real-time price updates via WebSocket?
-2. How to handle vendor API changes and versioning?
-3. How to implement price prediction based on historical data?
-4. How to handle product matching across different vendor catalogs?
-5. How to implement price tracking for specific user preferences?
+1. **How would you implement real-time price updates via WebSocket?**
+   ```javascript
+   class RealTimePriceUpdates {
+     constructor() {
+       this.wss = new WebSocket.Server({ port: 8080 });
+       this.subscriptions = new Map(); // productId -> Set of WebSocket connections
+       this.setupWebSocket();
+     }
+     
+     setupWebSocket() {
+       this.wss.on('connection', (ws) => {
+         ws.on('message', (data) => {
+           const message = JSON.parse(data);
+           if (message.type === 'subscribe') {
+             this.subscribeToProduct(ws, message.productId);
+           } else if (message.type === 'unsubscribe') {
+             this.unsubscribeFromProduct(ws, message.productId);
+           }
+         });
+         
+         ws.on('close', () => {
+           this.removeConnection(ws);
+         });
+       });
+     }
+     
+     subscribeToProduct(ws, productId) {
+       if (!this.subscriptions.has(productId)) {
+         this.subscriptions.set(productId, new Set());
+       }
+       this.subscriptions.get(productId).add(ws);
+     }
+     
+     async broadcastPriceUpdate(productId, newPrice) {
+       const connections = this.subscriptions.get(productId);
+       if (connections) {
+         const update = {
+           type: 'price_update',
+           productId,
+           price: newPrice,
+           timestamp: new Date()
+         };
+         
+         connections.forEach(ws => {
+           if (ws.readyState === WebSocket.OPEN) {
+             ws.send(JSON.stringify(update));
+           }
+         });
+       }
+     }
+   }
+   ```
+
+2. **How to handle vendor API changes and versioning?**
+   ```javascript
+   class VendorAPIManager {
+     constructor() {
+       this.vendorConfigs = new Map();
+       this.apiVersions = new Map();
+     }
+     
+     async updateVendorAPI(vendorId, newConfig) {
+       const currentConfig = this.vendorConfigs.get(vendorId);
+       
+       // Test new API configuration
+       const testResult = await this.testAPIConfiguration(newConfig);
+       if (!testResult.success) {
+         throw new Error(`API configuration test failed: ${testResult.error}`);
+       }
+       
+       // Store version history
+       this.apiVersions.set(`${vendorId}_${Date.now()}`, currentConfig);
+       
+       // Update configuration
+       this.vendorConfigs.set(vendorId, newConfig);
+       
+       // Notify monitoring systems
+       await this.notifyAPIConfigurationChange(vendorId, newConfig);
+     }
+     
+     async testAPIConfiguration(config) {
+       try {
+         const response = await axios.get(config.baseURL + '/health', {
+           headers: { 'Authorization': `Bearer ${config.apiKey}` },
+           timeout: 5000
+         });
+         return { success: response.status === 200 };
+       } catch (error) {
+         return { success: false, error: error.message };
+       }
+     }
+     
+     getVendorConfig(vendorId) {
+       return this.vendorConfigs.get(vendorId);
+     }
+   }
+   ```
+
+3. **How to implement price prediction based on historical data?**
+   ```javascript
+   class PricePrediction {
+     async predictPrice(productId, timeHorizon = '24h') {
+       const historicalData = await this.getHistoricalPrices(productId, '30d');
+       
+       // Simple moving average prediction
+       const movingAverage = this.calculateMovingAverage(historicalData, 7);
+       
+       // Trend analysis
+       const trend = this.analyzeTrend(historicalData);
+       
+       // Seasonal patterns
+       const seasonalFactor = this.calculateSeasonalFactor(historicalData);
+       
+       // Predict future price
+       const prediction = {
+         productId,
+         currentPrice: historicalData[historicalData.length - 1].price,
+         predictedPrice: movingAverage * (1 + trend) * seasonalFactor,
+         confidence: this.calculateConfidence(historicalData),
+         timeHorizon,
+         factors: {
+           trend,
+           seasonalFactor,
+           volatility: this.calculateVolatility(historicalData)
+         }
+       };
+       
+       return prediction;
+     }
+     
+     calculateMovingAverage(prices, window) {
+       const recentPrices = prices.slice(-window);
+       return recentPrices.reduce((sum, p) => sum + p.price, 0) / recentPrices.length;
+     }
+     
+     analyzeTrend(prices) {
+       const firstHalf = prices.slice(0, Math.floor(prices.length / 2));
+       const secondHalf = prices.slice(Math.floor(prices.length / 2));
+       
+       const firstAvg = firstHalf.reduce((sum, p) => sum + p.price, 0) / firstHalf.length;
+       const secondAvg = secondHalf.reduce((sum, p) => sum + p.price, 0) / secondHalf.length;
+       
+       return (secondAvg - firstAvg) / firstAvg;
+     }
+   }
+   ```
+
+4. **How to handle product matching across different vendor catalogs?**
+   ```javascript
+   class ProductMatcher {
+     async matchProducts(vendorProducts) {
+       const productGroups = new Map();
+       
+       for (const vendorProduct of vendorProducts) {
+         const normalizedProduct = this.normalizeProduct(vendorProduct);
+         const productKey = this.generateProductKey(normalizedProduct);
+         
+         if (!productGroups.has(productKey)) {
+           productGroups.set(productKey, []);
+         }
+         productGroups.get(productKey).push(vendorProduct);
+       }
+       
+       return Array.from(productGroups.values());
+     }
+     
+     normalizeProduct(product) {
+       return {
+         name: this.normalizeText(product.name),
+         brand: this.normalizeText(product.brand),
+         model: this.normalizeText(product.model),
+         category: this.normalizeText(product.category),
+         specifications: this.normalizeSpecifications(product.specifications)
+       };
+     }
+     
+     generateProductKey(normalizedProduct) {
+       const keyComponents = [
+         normalizedProduct.brand,
+         normalizedProduct.model,
+         normalizedProduct.category
+       ].filter(Boolean);
+       
+       return keyComponents.join('_').toLowerCase();
+     }
+     
+     normalizeText(text) {
+       return text.toLowerCase()
+         .replace(/[^\w\s]/g, '')
+         .replace(/\s+/g, ' ')
+         .trim();
+     }
+     
+     async findSimilarProducts(product, threshold = 0.8) {
+       const normalizedProduct = this.normalizeProduct(product);
+       const similarities = [];
+       
+       for (const [key, group] of this.productGroups) {
+         const similarity = this.calculateSimilarity(normalizedProduct, group[0]);
+         if (similarity >= threshold) {
+           similarities.push({ key, group, similarity });
+         }
+       }
+       
+       return similarities.sort((a, b) => b.similarity - a.similarity);
+     }
+   }
+   ```
+
+5. **How to implement price tracking for specific user preferences?**
+   ```javascript
+   class UserPriceTracking {
+     async createPriceWatch(userId, productId, targetPrice, alertType = 'below') {
+       const priceWatch = {
+         id: uuidv4(),
+         userId,
+         productId,
+         targetPrice,
+         alertType,
+         isActive: true,
+         createdAt: new Date(),
+         lastChecked: new Date()
+       };
+       
+       await this.storePriceWatch(priceWatch);
+       await this.schedulePriceCheck(priceWatch);
+       
+       return priceWatch;
+     }
+     
+     async checkPriceWatches() {
+       const activeWatches = await this.getActivePriceWatches();
+       
+       for (const watch of activeWatches) {
+         try {
+           const currentPrice = await this.getCurrentPrice(watch.productId);
+           await this.evaluatePriceWatch(watch, currentPrice);
+         } catch (error) {
+           console.error(`Error checking price watch ${watch.id}:`, error);
+         }
+       }
+     }
+     
+     async evaluatePriceWatch(watch, currentPrice) {
+       let shouldAlert = false;
+       
+       if (watch.alertType === 'below' && currentPrice <= watch.targetPrice) {
+         shouldAlert = true;
+       } else if (watch.alertType === 'above' && currentPrice >= watch.targetPrice) {
+         shouldAlert = true;
+       }
+       
+       if (shouldAlert) {
+         await this.sendPriceAlert(watch, currentPrice);
+         watch.isActive = false; // Deactivate after alert
+         await this.updatePriceWatch(watch);
+       }
+       
+       watch.lastChecked = new Date();
+       await this.updatePriceWatch(watch);
+     }
+     
+     async sendPriceAlert(watch, currentPrice) {
+       const alert = {
+         id: uuidv4(),
+         userId: watch.userId,
+         productId: watch.productId,
+         targetPrice: watch.targetPrice,
+         currentPrice,
+         alertType: watch.alertType,
+         sentAt: new Date()
+       };
+       
+       await this.storeAlert(alert);
+       await this.notifyUser(watch.userId, alert);
+     }
+   }
+   ```
 
 ---
 

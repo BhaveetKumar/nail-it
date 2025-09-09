@@ -96,6 +96,11 @@ This repository provides a complete learning path for Node.js developers targeti
 - [**Razorpay Advanced Interview Scenarios**](./Company-Specific/Razorpay_Advanced_Interview_Scenarios.md) - Real interview scenarios
 - [**Company-Specific Problems**](./company/razorpay/) - Razorpay-specific coding problems
 
+#### **Node.js Machine Coding Problems**
+- [**Node.js Machine Coding Problems - Part 1**](./Company-Specific/NodeJS_Machine_Coding_Problems.md) - **🚀 NEW** - Problems 1-3: Messaging API, Price Comparison, Cab Booking with detailed discussions
+- [**Node.js Machine Coding Problems - Part 2**](./Company-Specific/NodeJS_Machine_Coding_Problems_Part2.md) - **🚀 NEW** - Problems 4-9: Payment Gateway, Rate Limiter, Batch Scheduler, Inventory, Notification, File Upload
+- [**Node.js Machine Coding Problems - Part 3**](./Company-Specific/NodeJS_Machine_Coding_Problems_Part3.md) - **🚀 NEW** - Problems 10-15: Analytics, Shopping Cart, Cache Invalidation, Transactional Saga
+
 ### **💼 Behavioral & Soft Skills**
 
 - [**Behavioral Questions Complete Guide**](./Core-Guides/Behavioral_Questions_Complete_Guide.md) - STAR method and common questions
@@ -125,10 +130,11 @@ This repository provides a complete learning path for Node.js developers targeti
 
 ## 📊 **Repository Statistics**
 
-- **Total Files**: 250+ comprehensive guides and examples
+- **Total Files**: 260+ comprehensive guides and examples
 - **DSA Problems**: 500+ LeetCode problems with Node.js solutions
 - **System Design**: 50+ design patterns and architectures
 - **Node.js Guides**: Complete async programming, API design, and database guides
+- **Machine Coding Problems**: 15 comprehensive problems with detailed discussions and follow-up questions
 - **AI/ML Content**: Complete learning path from fundamentals to advanced
 - **Company Guides**: Specific preparation for Google, Meta, Razorpay
 - **Code Examples**: Production-ready Node.js implementations with best practices

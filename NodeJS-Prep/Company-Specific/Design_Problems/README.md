@@ -71,6 +71,28 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Node-cron, Express.js, Worker management, Fault tolerance, Monitoring
 
+### 6. [File Storage](./06_FileStorage.md)
+**Distributed File Management System**
+- Multi-node file storage with redundancy
+- File versioning and history tracking
+- Metadata search and filtering capabilities
+- CDN integration for global distribution
+- Access control and file sharing
+- Backup and recovery operations
+
+**Key Technologies**: Express.js, Multer, File system, CDN, Metadata search, Access control
+
+### 7. [Notification Service](./07_NotificationService.md)
+**Multi-Channel Communication System**
+- Email, SMS, push notifications, and webhooks
+- Template-based message generation
+- Scheduled and recurring notifications
+- Real-time delivery tracking and analytics
+- User preferences and opt-out management
+- Rate limiting and spam prevention
+
+**Key Technologies**: Express.js, Multi-channel providers, Template engine, Queue system, Analytics
+
 ## 🚀 **Common Patterns & Best Practices**
 
 ### Architecture Patterns
