@@ -5,6 +5,7 @@
 **Circuit Breaker** is a design pattern that prevents cascading failures in distributed systems by monitoring the success/failure rate of operations and "opening the circuit" when the failure rate exceeds a threshold, thus preventing further calls to the failing service.
 
 **Key Intent:**
+
 - Prevent cascading failures in distributed systems
 - Provide fast failure detection and recovery
 - Improve system resilience and fault tolerance
@@ -23,6 +24,7 @@
 6. **Graceful Degradation**: Want to provide fallback mechanisms
 
 **Don't use when:**
+
 - Operations are purely local (no network calls)
 - Failure rates are consistently low
 - System can handle all failures gracefully
@@ -31,6 +33,7 @@
 ## Real-World Use Cases (Payments/Fintech)
 
 ### 1. Payment Gateway Integration
+
 ```go
 // Protecting payment gateway calls
 type PaymentGatewayCircuitBreaker struct {
@@ -46,7 +49,7 @@ func (p *PaymentGatewayCircuitBreaker) ProcessPayment(req PaymentRequest) (*Paym
             return p.callRazorpay(req)
         })
     }
-    
+
     // Try Stripe with circuit breaker
     return p.stripeCircuit.Execute(func() (interface{}, error) {
         return p.callStripe(req)
@@ -65,6 +68,7 @@ func (p *PaymentGatewayCircuitBreaker) ProcessPaymentWithFallback(req PaymentReq
 ```
 
 ### 2. Banking Service Mesh
+
 ```go
 // Circuit breakers for microservices
 type BankingServiceMesh struct {
@@ -82,11 +86,11 @@ func (b *BankingServiceMesh) TransferFunds(req TransferRequest) error {
     if err != nil {
         return fmt.Errorf("failed to check balance: %w", err)
     }
-    
+
     if balance.(decimal.Decimal).LessThan(req.Amount) {
         return fmt.Errorf("insufficient funds")
     }
-    
+
     // Process transfer with circuit breaker
     _, err = b.transactionServiceCB.Execute(func() (interface{}, error) {
         return nil, b.transactionService.Transfer(req)
@@ -94,12 +98,12 @@ func (b *BankingServiceMesh) TransferFunds(req TransferRequest) error {
     if err != nil {
         return fmt.Errorf("transfer failed: %w", err)
     }
-    
+
     // Send notification (non-critical, can fail)
     b.notificationServiceCB.Execute(func() (interface{}, error) {
         return nil, b.notificationService.SendTransferNotification(req)
     })
-    
+
     // Audit logging (critical for compliance)
     return b.auditServiceCB.Execute(func() (interface{}, error) {
         return nil, b.auditService.LogTransaction(req)
@@ -108,6 +112,7 @@ func (b *BankingServiceMesh) TransferFunds(req TransferRequest) error {
 ```
 
 ### 3. Trading Platform Circuit Protection
+
 ```go
 // Circuit breakers for trading operations
 type TradingPlatform struct {
@@ -126,7 +131,7 @@ func (t *TradingPlatform) PlaceOrder(order *Order) (*OrderResponse, error) {
         // Use stale market data if circuit is open
         marketData = t.getCachedMarketData(order.Symbol)
     }
-    
+
     // Risk check with circuit breaker
     _, err = t.riskManagementCB.Execute(func() (interface{}, error) {
         return nil, t.riskService.ValidateOrder(order, marketData)
@@ -134,7 +139,7 @@ func (t *TradingPlatform) PlaceOrder(order *Order) (*OrderResponse, error) {
     if err != nil {
         return nil, fmt.Errorf("risk validation failed: %w", err)
     }
-    
+
     // Execute order with circuit breaker
     return t.orderExecutionCB.Execute(func() (interface{}, error) {
         return t.orderService.ExecuteOrder(order)
@@ -143,6 +148,7 @@ func (t *TradingPlatform) PlaceOrder(order *Order) (*OrderResponse, error) {
 ```
 
 ### 4. Fraud Detection System
+
 ```go
 // Circuit breaker for fraud detection services
 type FraudDetectionSystem struct {
@@ -154,28 +160,28 @@ type FraudDetectionSystem struct {
 
 func (f *FraudDetectionSystem) AnalyzeTransaction(tx *Transaction) (*FraudScore, error) {
     var scores []float64
-    
+
     // ML Model analysis (high latency)
     if mlScore, err := f.mlModelCB.Execute(func() (interface{}, error) {
         return f.mlModel.Predict(tx)
     }); err == nil {
         scores = append(scores, mlScore.(float64))
     }
-    
+
     // Rule engine analysis (fast)
     if ruleScore, err := f.ruleEngineCB.Execute(func() (interface{}, error) {
         return f.ruleEngine.Evaluate(tx)
     }); err == nil {
         scores = append(scores, ruleScore.(float64))
     }
-    
+
     // External data check (may be slow)
     if extScore, err := f.externalDataCB.Execute(func() (interface{}, error) {
         return f.externalData.CheckReputation(tx.UserID)
     }); err == nil {
         scores = append(scores, extScore.(float64))
     }
-    
+
     // Blacklist check (critical, must succeed)
     isBlacklisted, err := f.blacklistCB.Execute(func() (interface{}, error) {
         return f.blacklistService.IsBlacklisted(tx.UserID)
@@ -183,7 +189,7 @@ func (f *FraudDetectionSystem) AnalyzeTransaction(tx *Transaction) (*FraudScore,
     if err != nil {
         return nil, fmt.Errorf("blacklist check failed: %w", err)
     }
-    
+
     return &FraudScore{
         Score:        f.calculateAggregateScore(scores),
         IsBlacklisted: isBlacklisted.(bool),
@@ -294,7 +300,7 @@ type CircuitBreaker struct {
     recentCalls  []CallResult
     mu           sync.RWMutex
     stateChanged chan CircuitState
-    
+
     // Callbacks
     onStateChange func(from, to CircuitState)
     onCallResult  func(result CallResult)
@@ -312,7 +318,7 @@ func NewCircuitBreaker(config CircuitBreakerConfig) *CircuitBreaker {
             StateTransitionTime: time.Now(),
         },
     }
-    
+
     return cb
 }
 
@@ -340,14 +346,14 @@ func (cb *CircuitBreaker) ExecuteWithContext(ctx context.Context, fn func() (int
         cb.recordRejection()
         return nil, fmt.Errorf("circuit breaker is %s", cb.state)
     }
-    
+
     start := time.Now()
-    
+
     // Execute the function
     result, err := cb.executeCall(ctx, fn)
-    
+
     duration := time.Since(start)
-    
+
     // Record the call result
     callResult := CallResult{
         Success:   err == nil,
@@ -356,9 +362,9 @@ func (cb *CircuitBreaker) ExecuteWithContext(ctx context.Context, fn func() (int
         SlowCall:  duration > cb.config.SlowCallThreshold,
         Timestamp: time.Now(),
     }
-    
+
     cb.recordCallResult(callResult)
-    
+
     return result, err
 }
 
@@ -368,7 +374,7 @@ func (cb *CircuitBreaker) executeCall(ctx context.Context, fn func() (interface{
         result interface{}
         err    error
     }, 1)
-    
+
     // Execute function in a goroutine
     go func() {
         defer func() {
@@ -379,14 +385,14 @@ func (cb *CircuitBreaker) executeCall(ctx context.Context, fn func() (interface{
                 }{nil, fmt.Errorf("panic recovered: %v", r)}
             }
         }()
-        
+
         result, err := fn()
         resultChan <- struct {
             result interface{}
             err    error
         }{result, err}
     }()
-    
+
     // Wait for result or context cancellation
     select {
     case res := <-resultChan:
@@ -399,7 +405,7 @@ func (cb *CircuitBreaker) executeCall(ctx context.Context, fn func() (interface{
 func (cb *CircuitBreaker) allowRequest() bool {
     cb.mu.RLock()
     defer cb.mu.RUnlock()
-    
+
     switch cb.state {
     case CircuitStateClosed:
         return true
@@ -428,15 +434,15 @@ func (cb *CircuitBreaker) allowRequest() bool {
 func (cb *CircuitBreaker) recordCallResult(result CallResult) {
     cb.mu.Lock()
     defer cb.mu.Unlock()
-    
+
     // Update statistics
     cb.stats.TotalRequests++
-    
+
     if result.Success {
         cb.stats.SuccessfulRequests++
         now := time.Now()
         cb.stats.LastSuccessTime = &now
-        
+
         if cb.state == CircuitStateHalfOpen {
             cb.stats.HalfOpenSuccesses++
             // Check if we should close the circuit
@@ -448,24 +454,24 @@ func (cb *CircuitBreaker) recordCallResult(result CallResult) {
         cb.stats.FailedRequests++
         now := time.Now()
         cb.stats.LastFailureTime = &now
-        
+
         if cb.state == CircuitStateHalfOpen {
             // Any failure in half-open state opens the circuit
             cb.transitionToOpen()
         }
     }
-    
+
     if result.SlowCall {
         cb.stats.SlowRequests++
     }
-    
+
     if cb.state == CircuitStateHalfOpen {
         cb.stats.HalfOpenRequests++
     }
-    
+
     // Add to recent calls window
     cb.recentCalls = append(cb.recentCalls, result)
-    
+
     // Remove old calls outside the window
     cutoff := time.Now().Add(-cb.config.SleepWindow)
     for i, call := range cb.recentCalls {
@@ -474,15 +480,15 @@ func (cb *CircuitBreaker) recordCallResult(result CallResult) {
             break
         }
     }
-    
+
     // Update rates
     cb.updateRates()
-    
+
     // Check if circuit should be opened (only if closed)
     if cb.state == CircuitStateClosed && cb.shouldOpenCircuit() {
         cb.transitionToOpen()
     }
-    
+
     // Update average response time
     if cb.stats.TotalRequests > 0 {
         totalTime := time.Duration(cb.stats.TotalRequests-1) * cb.stats.AverageResponseTime + result.Duration
@@ -490,7 +496,7 @@ func (cb *CircuitBreaker) recordCallResult(result CallResult) {
     } else {
         cb.stats.AverageResponseTime = result.Duration
     }
-    
+
     // Call callback if set
     if cb.onCallResult != nil {
         go cb.onCallResult(result)
@@ -509,10 +515,10 @@ func (cb *CircuitBreaker) updateRates() {
         cb.stats.SlowCallRate = 0
         return
     }
-    
+
     failures := 0
     slowCalls := 0
-    
+
     for _, call := range cb.recentCalls {
         if !call.Success {
             failures++
@@ -521,7 +527,7 @@ func (cb *CircuitBreaker) updateRates() {
             slowCalls++
         }
     }
-    
+
     cb.stats.FailureRate = float64(failures) / float64(len(cb.recentCalls))
     cb.stats.SlowCallRate = float64(slowCalls) / float64(len(cb.recentCalls))
 }
@@ -531,17 +537,17 @@ func (cb *CircuitBreaker) shouldOpenCircuit() bool {
     if len(cb.recentCalls) < cb.config.RequestVolumeThreshold {
         return false
     }
-    
+
     // Check failure rate
     if cb.stats.FailureRate >= cb.config.ErrorThreshold {
         return true
     }
-    
+
     // Check slow call rate
     if cb.stats.SlowCallRate >= cb.config.SlowCallRateThreshold {
         return true
     }
-    
+
     return false
 }
 
@@ -553,9 +559,9 @@ func (cb *CircuitBreaker) transitionToOpen() {
         cb.stats.StateTransitionTime = time.Now()
         cb.stats.HalfOpenRequests = 0
         cb.stats.HalfOpenSuccesses = 0
-        
+
         log.Printf("Circuit breaker '%s' opened", cb.config.Name)
-        
+
         if cb.onStateChange != nil {
             go cb.onStateChange(oldState, CircuitStateOpen)
         }
@@ -570,9 +576,9 @@ func (cb *CircuitBreaker) transitionToHalfOpen() {
         cb.stats.StateTransitionTime = time.Now()
         cb.stats.HalfOpenRequests = 0
         cb.stats.HalfOpenSuccesses = 0
-        
+
         log.Printf("Circuit breaker '%s' half-opened", cb.config.Name)
-        
+
         if cb.onStateChange != nil {
             go cb.onStateChange(oldState, CircuitStateHalfOpen)
         }
@@ -587,14 +593,14 @@ func (cb *CircuitBreaker) transitionToClosed() {
         cb.stats.StateTransitionTime = time.Now()
         cb.stats.HalfOpenRequests = 0
         cb.stats.HalfOpenSuccesses = 0
-        
+
         // Reset failure tracking
         cb.recentCalls = make([]CallResult, 0)
         cb.stats.FailureRate = 0
         cb.stats.SlowCallRate = 0
-        
+
         log.Printf("Circuit breaker '%s' closed", cb.config.Name)
-        
+
         if cb.onStateChange != nil {
             go cb.onStateChange(oldState, CircuitStateClosed)
         }
@@ -624,7 +630,7 @@ func (cb *CircuitBreaker) GetConfig() CircuitBreakerConfig {
 func (cb *CircuitBreaker) Reset() {
     cb.mu.Lock()
     defer cb.mu.Unlock()
-    
+
     oldState := cb.state
     cb.state = CircuitStateClosed
     cb.stats = CircuitBreakerStats{
@@ -632,7 +638,7 @@ func (cb *CircuitBreaker) Reset() {
         StateTransitionTime: time.Now(),
     }
     cb.recentCalls = make([]CallResult, 0)
-    
+
     if cb.onStateChange != nil && oldState != CircuitStateClosed {
         go cb.onStateChange(oldState, CircuitStateClosed)
     }
@@ -666,11 +672,11 @@ func (r *CircuitBreakerRegistry) Get(name string) (*CircuitBreaker, bool) {
 func (r *CircuitBreakerRegistry) GetOrCreate(name string, config CircuitBreakerConfig) *CircuitBreaker {
     r.mu.Lock()
     defer r.mu.Unlock()
-    
+
     if breaker, exists := r.breakers[name]; exists {
         return breaker
     }
-    
+
     breaker := NewCircuitBreaker(config)
     r.breakers[name] = breaker
     return breaker
@@ -679,7 +685,7 @@ func (r *CircuitBreakerRegistry) GetOrCreate(name string, config CircuitBreakerC
 func (r *CircuitBreakerRegistry) List() map[string]*CircuitBreaker {
     r.mu.RLock()
     defer r.mu.RUnlock()
-    
+
     result := make(map[string]*CircuitBreaker)
     for name, breaker := range r.breakers {
         result[name] = breaker
@@ -720,14 +726,14 @@ func NewPaymentService(gateway PaymentGateway) *PaymentService {
     config := DefaultCircuitBreakerConfig("payment-gateway")
     config.FailureThreshold = 3
     config.Timeout = time.Second * 30
-    
+
     cb := NewCircuitBreaker(config)
-    
+
     // Set up monitoring callbacks
     cb.OnStateChange(func(from, to CircuitState) {
         log.Printf("Payment gateway circuit breaker: %s -> %s", from, to)
     })
-    
+
     return &PaymentService{
         circuitBreaker: cb,
         gateway:        gateway,
@@ -738,11 +744,11 @@ func (s *PaymentService) ProcessPayment(req PaymentRequest) (*PaymentResponse, e
     result, err := s.circuitBreaker.Execute(func() (interface{}, error) {
         return s.gateway.ProcessPayment(req)
     })
-    
+
     if err != nil {
         return nil, fmt.Errorf("payment processing failed: %w", err)
     }
-    
+
     return result.(*PaymentResponse), nil
 }
 
@@ -764,17 +770,17 @@ func NewMockPaymentGateway(failureRate, slowRate float64, baseLatency time.Durat
 func (g *MockPaymentGateway) ProcessPayment(req PaymentRequest) (*PaymentResponse, error) {
     // Simulate base latency
     time.Sleep(g.baseLatency)
-    
+
     // Simulate slow calls
     if rand.Float64() < g.slowRate {
         time.Sleep(time.Second * 6) // Slow call
     }
-    
+
     // Simulate failures
     if rand.Float64() < g.failureRate {
         return nil, errors.New("payment gateway error")
     }
-    
+
     return &PaymentResponse{
         TransactionID: fmt.Sprintf("TXN_%d", time.Now().UnixNano()),
         Status:        "SUCCESS",
@@ -785,26 +791,26 @@ func (g *MockPaymentGateway) ProcessPayment(req PaymentRequest) (*PaymentRespons
 // Example usage and monitoring
 func main() {
     fmt.Println("=== Circuit Breaker Pattern Demo ===\n")
-    
+
     // Create registry
     registry := NewCircuitBreakerRegistry()
-    
+
     // Create mock gateway with 30% failure rate and 20% slow calls
     gateway := NewMockPaymentGateway(0.3, 0.2, time.Millisecond*100)
-    
+
     // Create payment service
     paymentService := NewPaymentService(gateway)
-    
+
     // Register circuit breaker
     registry.Register("payment-gateway", paymentService.circuitBreaker)
-    
+
     // Simulate payment requests
     fmt.Println("Simulating payment requests...")
-    
+
     successCount := 0
     failureCount := 0
     rejectedCount := 0
-    
+
     for i := 0; i < 50; i++ {
         req := PaymentRequest{
             ID:       fmt.Sprintf("PAY_%d", i+1),
@@ -812,7 +818,7 @@ func main() {
             Currency: "USD",
             CardID:   "CARD_123",
         }
-        
+
         resp, err := paymentService.ProcessPayment(req)
         if err != nil {
             if fmt.Sprintf("%v", err) == "circuit breaker is OPEN" ||
@@ -827,7 +833,7 @@ func main() {
             successCount++
             fmt.Printf("Request %d: SUCCESS (%s)\n", i+1, resp.TransactionID)
         }
-        
+
         // Print stats every 10 requests
         if (i+1)%10 == 0 {
             stats := paymentService.circuitBreaker.GetStats()
@@ -840,28 +846,28 @@ func main() {
             fmt.Printf("Rejected Requests: %d\n", stats.RejectedRequests)
             fmt.Println()
         }
-        
+
         // Small delay between requests
         time.Sleep(time.Millisecond * 100)
     }
-    
+
     // Final summary
     fmt.Printf("\n=== Final Summary ===\n")
     fmt.Printf("Total Requests: 50\n")
     fmt.Printf("Successful: %d\n", successCount)
     fmt.Printf("Failed: %d\n", failureCount)
     fmt.Printf("Rejected by Circuit Breaker: %d\n", rejectedCount)
-    
+
     stats := paymentService.circuitBreaker.GetStats()
     fmt.Printf("\nFinal Circuit State: %s\n", stats.State)
     fmt.Printf("Total Circuit Requests: %d\n", stats.TotalRequests)
     fmt.Printf("Circuit Success Rate: %.2f%%\n", float64(stats.SuccessfulRequests)/float64(stats.TotalRequests)*100)
-    
+
     // Demonstrate recovery
     if stats.State == CircuitStateOpen {
         fmt.Printf("\nWaiting for circuit to recover...\n")
         time.Sleep(time.Second * 61) // Wait for timeout
-        
+
         fmt.Println("Trying requests after timeout...")
         for i := 0; i < 5; i++ {
             req := PaymentRequest{
@@ -870,21 +876,21 @@ func main() {
                 Currency: "USD",
                 CardID:   "CARD_456",
             }
-            
+
             resp, err := paymentService.ProcessPayment(req)
             if err != nil {
                 fmt.Printf("Recovery Request %d: FAILED (%v)\n", i+1, err)
             } else {
                 fmt.Printf("Recovery Request %d: SUCCESS (%s)\n", i+1, resp.TransactionID)
             }
-            
+
             time.Sleep(time.Millisecond * 200)
         }
-        
+
         finalStats := paymentService.circuitBreaker.GetStats()
         fmt.Printf("\nFinal State After Recovery: %s\n", finalStats.State)
     }
-    
+
     fmt.Println("\n=== Circuit Breaker Demo Complete ===")
 }
 ```
@@ -894,6 +900,7 @@ func main() {
 ### Variants
 
 1. **Simple Circuit Breaker**
+
 ```go
 type SimpleCircuitBreaker struct {
     failures    int
@@ -911,13 +918,13 @@ func (cb *SimpleCircuitBreaker) Execute(fn func() error) error {
             return fmt.Errorf("circuit breaker is open")
         }
     }
-    
+
     err := fn()
-    
+
     if err != nil {
         cb.failures++
         cb.lastFailure = time.Now()
-        
+
         if cb.failures >= cb.threshold {
             cb.state = CircuitStateOpen
         }
@@ -925,12 +932,13 @@ func (cb *SimpleCircuitBreaker) Execute(fn func() error) error {
         cb.failures = 0
         cb.state = CircuitStateClosed
     }
-    
+
     return err
 }
 ```
 
 2. **Bulkhead Circuit Breaker**
+
 ```go
 type BulkheadCircuitBreaker struct {
     breakers map[string]*CircuitBreaker
@@ -945,7 +953,7 @@ func (b *BulkheadCircuitBreaker) Execute(resource string, fn func() error) error
     default:
         return fmt.Errorf("bulkhead capacity exceeded")
     }
-    
+
     // Get resource-specific circuit breaker
     breaker := b.breakers[resource]
     return breaker.Execute(fn)
@@ -953,6 +961,7 @@ func (b *BulkheadCircuitBreaker) Execute(resource string, fn func() error) error
 ```
 
 3. **Adaptive Circuit Breaker**
+
 ```go
 type AdaptiveCircuitBreaker struct {
     *CircuitBreaker
@@ -964,7 +973,7 @@ func (a *AdaptiveCircuitBreaker) updateThreshold() {
     if a.adaptiveThreshold {
         // Adjust threshold based on recent performance
         recentSuccessRate := a.calculateRecentSuccessRate()
-        
+
         if recentSuccessRate > 0.95 {
             a.config.ErrorThreshold = 0.7 // More tolerant
         } else if recentSuccessRate < 0.8 {
@@ -975,6 +984,7 @@ func (a *AdaptiveCircuitBreaker) updateThreshold() {
 ```
 
 4. **Hystrix-style Circuit Breaker**
+
 ```go
 type HystrixCircuitBreaker struct {
     *CircuitBreaker
@@ -995,14 +1005,14 @@ func (h *HystrixCircuitBreaker) Execute(fn func() (interface{}, error)) (interfa
         }
         return nil, fmt.Errorf("thread pool exhausted")
     }
-    
+
     // Execute with circuit breaker
     result, err := h.CircuitBreaker.Execute(fn)
-    
+
     if err != nil && h.fallback != nil {
         return h.fallback()
     }
-    
+
     return result, err
 }
 ```
@@ -1010,6 +1020,7 @@ func (h *HystrixCircuitBreaker) Execute(fn func() (interface{}, error)) (interfa
 ### Trade-offs
 
 **Pros:**
+
 - **Fail Fast**: Prevents long waits during service failures
 - **Resource Protection**: Protects resources from overload
 - **Automatic Recovery**: Automatically attempts recovery
@@ -1017,6 +1028,7 @@ func (h *HystrixCircuitBreaker) Execute(fn func() (interface{}, error)) (interfa
 - **Resilience**: Improves overall system resilience
 
 **Cons:**
+
 - **False Positives**: May open circuit during temporary issues
 - **Complexity**: Adds complexity to system architecture
 - **Configuration**: Requires careful tuning of thresholds
@@ -1025,13 +1037,13 @@ func (h *HystrixCircuitBreaker) Execute(fn func() (interface{}, error)) (interfa
 
 **When to Choose Circuit Breaker vs Alternatives:**
 
-| Scenario | Pattern | Reason |
-|----------|---------|--------|
-| External service calls | Circuit Breaker | Protects against cascade failures |
-| Internal method calls | Timeout | Lower overhead |
-| Batch processing | Bulkhead | Resource isolation |
-| Critical operations | Retry + Circuit Breaker | Comprehensive resilience |
-| Non-critical operations | Timeout only | Simpler implementation |
+| Scenario                | Pattern                 | Reason                            |
+| ----------------------- | ----------------------- | --------------------------------- |
+| External service calls  | Circuit Breaker         | Protects against cascade failures |
+| Internal method calls   | Timeout                 | Lower overhead                    |
+| Batch processing        | Bulkhead                | Resource isolation                |
+| Critical operations     | Retry + Circuit Breaker | Comprehensive resilience          |
+| Non-critical operations | Timeout only            | Simpler implementation            |
 
 ## Testable Example
 
@@ -1050,23 +1062,23 @@ import (
 func TestCircuitBreaker_ClosedState(t *testing.T) {
     config := DefaultCircuitBreakerConfig("test")
     config.FailureThreshold = 3
-    
+
     cb := NewCircuitBreaker(config)
-    
+
     // Should be closed initially
     assert.Equal(t, CircuitStateClosed, cb.GetState())
-    
+
     // Successful calls should keep circuit closed
     for i := 0; i < 5; i++ {
         result, err := cb.Execute(func() (interface{}, error) {
             return "success", nil
         })
-        
+
         assert.NoError(t, err)
         assert.Equal(t, "success", result)
         assert.Equal(t, CircuitStateClosed, cb.GetState())
     }
-    
+
     stats := cb.GetStats()
     assert.Equal(t, int64(5), stats.TotalRequests)
     assert.Equal(t, int64(5), stats.SuccessfulRequests)
@@ -1078,32 +1090,32 @@ func TestCircuitBreaker_OpenState(t *testing.T) {
     config.FailureThreshold = 3
     config.RequestVolumeThreshold = 3
     config.ErrorThreshold = 0.5
-    
+
     cb := NewCircuitBreaker(config)
-    
+
     // Generate enough failures to open circuit
     for i := 0; i < 5; i++ {
         _, err := cb.Execute(func() (interface{}, error) {
             return nil, fmt.Errorf("simulated error")
         })
-        
+
         assert.Error(t, err)
         assert.Contains(t, err.Error(), "simulated error")
     }
-    
+
     // Circuit should be open now
     assert.Equal(t, CircuitStateOpen, cb.GetState())
-    
+
     // Subsequent calls should be rejected
     result, err := cb.Execute(func() (interface{}, error) {
         t.Fatal("This should not be called when circuit is open")
         return nil, nil
     })
-    
+
     assert.Error(t, err)
     assert.Nil(t, result)
     assert.Contains(t, err.Error(), "circuit breaker is OPEN")
-    
+
     stats := cb.GetStats()
     assert.True(t, stats.RejectedRequests > 0)
 }
@@ -1115,35 +1127,35 @@ func TestCircuitBreaker_HalfOpenState(t *testing.T) {
     config.Timeout = time.Millisecond * 100 // Short timeout for testing
     config.MaxRequests = 3
     config.RequestVolumeThreshold = 2
-    
+
     cb := NewCircuitBreaker(config)
-    
+
     // Open the circuit
     for i := 0; i < 3; i++ {
         cb.Execute(func() (interface{}, error) {
             return nil, fmt.Errorf("error")
         })
     }
-    
+
     assert.Equal(t, CircuitStateOpen, cb.GetState())
-    
+
     // Wait for timeout
     time.Sleep(time.Millisecond * 150)
-    
+
     // Next call should transition to half-open
     result, err := cb.Execute(func() (interface{}, error) {
         return "success", nil
     })
-    
+
     assert.NoError(t, err)
     assert.Equal(t, "success", result)
     assert.Equal(t, CircuitStateHalfOpen, cb.GetState())
-    
+
     // Another successful call should close the circuit
     result, err = cb.Execute(func() (interface{}, error) {
         return "success", nil
     })
-    
+
     assert.NoError(t, err)
     assert.Equal(t, "success", result)
     assert.Equal(t, CircuitStateClosed, cb.GetState())
@@ -1154,24 +1166,24 @@ func TestCircuitBreaker_HalfOpenToOpen(t *testing.T) {
     config.FailureThreshold = 2
     config.Timeout = time.Millisecond * 100
     config.RequestVolumeThreshold = 2
-    
+
     cb := NewCircuitBreaker(config)
-    
+
     // Open the circuit
     for i := 0; i < 3; i++ {
         cb.Execute(func() (interface{}, error) {
             return nil, fmt.Errorf("error")
         })
     }
-    
+
     // Wait for timeout
     time.Sleep(time.Millisecond * 150)
-    
+
     // Fail in half-open state
     _, err := cb.Execute(func() (interface{}, error) {
         return nil, fmt.Errorf("still failing")
     })
-    
+
     assert.Error(t, err)
     assert.Equal(t, CircuitStateOpen, cb.GetState())
 }
@@ -1181,9 +1193,9 @@ func TestCircuitBreaker_SlowCalls(t *testing.T) {
     config.SlowCallThreshold = time.Millisecond * 100
     config.SlowCallRateThreshold = 0.5
     config.RequestVolumeThreshold = 3
-    
+
     cb := NewCircuitBreaker(config)
-    
+
     // Make slow calls
     for i := 0; i < 4; i++ {
         cb.Execute(func() (interface{}, error) {
@@ -1191,10 +1203,10 @@ func TestCircuitBreaker_SlowCalls(t *testing.T) {
             return "slow success", nil
         })
     }
-    
+
     // Circuit should open due to slow calls
     assert.Equal(t, CircuitStateOpen, cb.GetState())
-    
+
     stats := cb.GetStats()
     assert.True(t, stats.SlowCallRate >= config.SlowCallRateThreshold)
 }
@@ -1202,17 +1214,17 @@ func TestCircuitBreaker_SlowCalls(t *testing.T) {
 func TestCircuitBreaker_ContextCancellation(t *testing.T) {
     config := DefaultCircuitBreakerConfig("test")
     cb := NewCircuitBreaker(config)
-    
+
     ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*50)
     defer cancel()
-    
+
     start := time.Now()
     result, err := cb.ExecuteWithContext(ctx, func() (interface{}, error) {
         time.Sleep(time.Millisecond * 100) // Longer than context timeout
         return "should not reach here", nil
     })
     duration := time.Since(start)
-    
+
     assert.Error(t, err)
     assert.Nil(t, result)
     assert.Contains(t, err.Error(), "context deadline exceeded")
@@ -1222,11 +1234,11 @@ func TestCircuitBreaker_ContextCancellation(t *testing.T) {
 func TestCircuitBreaker_PanicRecovery(t *testing.T) {
     config := DefaultCircuitBreakerConfig("test")
     cb := NewCircuitBreaker(config)
-    
+
     result, err := cb.Execute(func() (interface{}, error) {
         panic("test panic")
     })
-    
+
     assert.Error(t, err)
     assert.Nil(t, result)
     assert.Contains(t, err.Error(), "panic recovered")
@@ -1236,28 +1248,28 @@ func TestCircuitBreaker_Callbacks(t *testing.T) {
     config := DefaultCircuitBreakerConfig("test")
     config.FailureThreshold = 2
     config.RequestVolumeThreshold = 2
-    
+
     cb := NewCircuitBreaker(config)
-    
+
     var stateChanges []string
     var callResults []bool
-    
+
     cb.OnStateChange(func(from, to CircuitState) {
         stateChanges = append(stateChanges, fmt.Sprintf("%s->%s", from, to))
     })
-    
+
     cb.OnCallResult(func(result CallResult) {
         callResults = append(callResults, result.Success)
     })
-    
+
     // Make some calls to trigger state changes
     cb.Execute(func() (interface{}, error) { return nil, fmt.Errorf("error") })
     cb.Execute(func() (interface{}, error) { return nil, fmt.Errorf("error") })
     cb.Execute(func() (interface{}, error) { return "success", nil })
-    
+
     // Wait for callbacks to be called
     time.Sleep(time.Millisecond * 10)
-    
+
     assert.Len(t, stateChanges, 1)
     assert.Equal(t, "CLOSED->OPEN", stateChanges[0])
     assert.Len(t, callResults, 2) // Only executed calls, not rejected ones
@@ -1269,23 +1281,23 @@ func TestCircuitBreaker_Reset(t *testing.T) {
     config := DefaultCircuitBreakerConfig("test")
     config.FailureThreshold = 2
     config.RequestVolumeThreshold = 2
-    
+
     cb := NewCircuitBreaker(config)
-    
+
     // Open the circuit
     for i := 0; i < 3; i++ {
         cb.Execute(func() (interface{}, error) {
             return nil, fmt.Errorf("error")
         })
     }
-    
+
     assert.Equal(t, CircuitStateOpen, cb.GetState())
-    
+
     // Reset the circuit
     cb.Reset()
-    
+
     assert.Equal(t, CircuitStateClosed, cb.GetState())
-    
+
     stats := cb.GetStats()
     assert.Equal(t, int64(0), stats.TotalRequests)
     assert.Equal(t, int64(0), stats.FailedRequests)
@@ -1294,37 +1306,37 @@ func TestCircuitBreaker_Reset(t *testing.T) {
 
 func TestCircuitBreakerRegistry(t *testing.T) {
     registry := NewCircuitBreakerRegistry()
-    
+
     // Test GetOrCreate
     config := DefaultCircuitBreakerConfig("test1")
     cb1 := registry.GetOrCreate("test1", config)
     cb2 := registry.GetOrCreate("test1", config) // Should return same instance
-    
+
     assert.Same(t, cb1, cb2)
-    
+
     // Test Get
     cb3, exists := registry.Get("test1")
     assert.True(t, exists)
     assert.Same(t, cb1, cb3)
-    
+
     cb4, exists := registry.Get("nonexistent")
     assert.False(t, exists)
     assert.Nil(t, cb4)
-    
+
     // Test List
     registry.Register("test2", NewCircuitBreaker(DefaultCircuitBreakerConfig("test2")))
-    
+
     breakers := registry.List()
     assert.Len(t, breakers, 2)
     assert.Contains(t, breakers, "test1")
     assert.Contains(t, breakers, "test2")
-    
+
     // Test Remove
     registry.Remove("test1")
-    
+
     _, exists = registry.Get("test1")
     assert.False(t, exists)
-    
+
     breakers = registry.List()
     assert.Len(t, breakers, 1)
     assert.Contains(t, breakers, "test2")
@@ -1334,11 +1346,11 @@ func TestPaymentService_CircuitBreaker(t *testing.T) {
     // Create mock gateway that fails 50% of the time
     gateway := NewMockPaymentGateway(0.5, 0.0, time.Millisecond*10)
     service := NewPaymentService(gateway)
-    
+
     successCount := 0
     failureCount := 0
     rejectedCount := 0
-    
+
     // Make 20 requests
     for i := 0; i < 20; i++ {
         req := PaymentRequest{
@@ -1347,7 +1359,7 @@ func TestPaymentService_CircuitBreaker(t *testing.T) {
             Currency: "USD",
             CardID:   "CARD_123",
         }
-        
+
         _, err := service.ProcessPayment(req)
         if err != nil {
             if fmt.Sprintf("%v", err) == "circuit breaker is OPEN" {
@@ -1359,11 +1371,11 @@ func TestPaymentService_CircuitBreaker(t *testing.T) {
             successCount++
         }
     }
-    
+
     // Should have some failures and potentially some rejections
     assert.True(t, failureCount > 0)
     assert.True(t, successCount+failureCount+rejectedCount == 20)
-    
+
     stats := service.circuitBreaker.GetStats()
     assert.True(t, stats.TotalRequests > 0)
     assert.True(t, stats.FailedRequests > 0)
@@ -1372,9 +1384,9 @@ func TestPaymentService_CircuitBreaker(t *testing.T) {
 func BenchmarkCircuitBreaker_Execute(b *testing.B) {
     config := DefaultCircuitBreakerConfig("benchmark")
     cb := NewCircuitBreaker(config)
-    
+
     b.ResetTimer()
-    
+
     for i := 0; i < b.N; i++ {
         cb.Execute(func() (interface{}, error) {
             return "success", nil
@@ -1385,9 +1397,9 @@ func BenchmarkCircuitBreaker_Execute(b *testing.B) {
 func BenchmarkCircuitBreaker_ExecuteWithFailures(b *testing.B) {
     config := DefaultCircuitBreakerConfig("benchmark")
     cb := NewCircuitBreaker(config)
-    
+
     b.ResetTimer()
-    
+
     for i := 0; i < b.N; i++ {
         cb.Execute(func() (interface{}, error) {
             if i%4 == 0 { // 25% failure rate
@@ -1402,6 +1414,7 @@ func BenchmarkCircuitBreaker_ExecuteWithFailures(b *testing.B) {
 ## Integration Tips
 
 ### 1. HTTP Client Integration
+
 ```go
 type CircuitBreakerHTTPClient struct {
     client         *http.Client
@@ -1421,25 +1434,26 @@ func (c *CircuitBreakerHTTPClient) Do(req *http.Request) (*http.Response, error)
         if err != nil {
             return nil, err
         }
-        
+
         // Consider 5xx status codes as failures
         if resp.StatusCode >= 500 {
             resp.Body.Close()
             return nil, fmt.Errorf("server error: %d", resp.StatusCode)
         }
-        
+
         return resp, nil
     })
-    
+
     if err != nil {
         return nil, err
     }
-    
+
     return result.(*http.Response), nil
 }
 ```
 
 ### 2. Database Connection Integration
+
 ```go
 type CircuitBreakerDB struct {
     db             *sql.DB
@@ -1457,11 +1471,11 @@ func (c *CircuitBreakerDB) QueryContext(ctx context.Context, query string, args 
     result, err := c.circuitBreaker.ExecuteWithContext(ctx, func() (interface{}, error) {
         return c.db.QueryContext(ctx, query, args...)
     })
-    
+
     if err != nil {
         return nil, err
     }
-    
+
     return result.(*sql.Rows), nil
 }
 
@@ -1469,23 +1483,24 @@ func (c *CircuitBreakerDB) ExecContext(ctx context.Context, query string, args .
     result, err := c.circuitBreaker.ExecuteWithContext(ctx, func() (interface{}, error) {
         return c.db.ExecContext(ctx, query, args...)
     })
-    
+
     if err != nil {
         return nil, err
     }
-    
+
     return result.(sql.Result), nil
 }
 ```
 
 ### 3. gRPC Integration
+
 ```go
 func CircuitBreakerUnaryInterceptor(cb *CircuitBreaker) grpc.UnaryClientInterceptor {
     return func(ctx context.Context, method string, req, reply interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
         _, err := cb.ExecuteWithContext(ctx, func() (interface{}, error) {
             return nil, invoker(ctx, method, req, reply, cc, opts...)
         })
-        
+
         return err
     }
 }
@@ -1495,17 +1510,18 @@ func CircuitBreakerStreamInterceptor(cb *CircuitBreaker) grpc.StreamClientInterc
         result, err := cb.ExecuteWithContext(ctx, func() (interface{}, error) {
             return streamer(ctx, desc, cc, method, opts...)
         })
-        
+
         if err != nil {
             return nil, err
         }
-        
+
         return result.(grpc.ClientStream), nil
     }
 }
 ```
 
 ### 4. Monitoring Integration
+
 ```go
 type PrometheusCircuitBreaker struct {
     *CircuitBreaker
@@ -1516,49 +1532,49 @@ type PrometheusCircuitBreaker struct {
 
 func NewPrometheusCircuitBreaker(name string, config CircuitBreakerConfig) *PrometheusCircuitBreaker {
     cb := NewCircuitBreaker(config)
-    
+
     stateGauge := prometheus.NewGauge(prometheus.GaugeOpts{
         Name: "circuit_breaker_state",
         Help: "Current state of the circuit breaker (0=closed, 1=open, 2=half-open)",
         ConstLabels: prometheus.Labels{"circuit": name},
     })
-    
+
     requestsCounter := prometheus.NewCounterVec(prometheus.CounterOpts{
         Name: "circuit_breaker_requests_total",
         Help: "Total number of requests through the circuit breaker",
         ConstLabels: prometheus.Labels{"circuit": name},
     }, []string{"result"})
-    
+
     durationHist := prometheus.NewHistogram(prometheus.HistogramOpts{
         Name: "circuit_breaker_request_duration_seconds",
         Help: "Request duration through the circuit breaker",
         ConstLabels: prometheus.Labels{"circuit": name},
     })
-    
+
     prometheus.MustRegister(stateGauge, requestsCounter, durationHist)
-    
+
     pcb := &PrometheusCircuitBreaker{
         CircuitBreaker:  cb,
         stateGauge:      stateGauge,
         requestsCounter: requestsCounter,
         durationHist:    durationHist,
     }
-    
+
     // Set up callbacks
     cb.OnStateChange(func(from, to CircuitState) {
         pcb.stateGauge.Set(float64(to))
     })
-    
+
     cb.OnCallResult(func(result CallResult) {
         status := "success"
         if !result.Success {
             status = "failure"
         }
-        
+
         pcb.requestsCounter.WithLabelValues(status).Inc()
         pcb.durationHist.Observe(result.Duration.Seconds())
     })
-    
+
     return pcb
 }
 ```
@@ -1577,6 +1593,7 @@ func NewPrometheusCircuitBreaker(name string, config CircuitBreakerConfig) *Prom
 | **Resource Usage** | Reduces load on failing service | Increases load on failing service |
 
 **Example:**
+
 ```go
 // Retry - keeps trying
 func withRetry(fn func() error, maxAttempts int) error {
@@ -1599,6 +1616,7 @@ func withCircuitBreaker(cb *CircuitBreaker, fn func() error) error {
 ```
 
 **Best Practice**: Use them together
+
 ```go
 func resilientCall(cb *CircuitBreaker, fn func() error) error {
     return cb.Execute(func() (interface{}, error) {
@@ -1614,6 +1632,7 @@ func resilientCall(cb *CircuitBreaker, fn func() error) error {
 Circuit breaker tuning requires understanding your system's characteristics:
 
 1. **Failure Threshold**: Based on expected error rate
+
 ```go
 // For high-reliability services
 config.FailureThreshold = 3      // Open after 3 failures
@@ -1625,6 +1644,7 @@ config.ErrorThreshold = 0.5     // 50% error rate
 ```
 
 2. **Timeout Duration**: Based on service recovery time
+
 ```go
 // Fast-recovering services
 config.Timeout = time.Second * 30
@@ -1634,6 +1654,7 @@ config.Timeout = time.Minute * 5
 ```
 
 3. **Request Volume Threshold**: Based on traffic patterns
+
 ```go
 // High-traffic services
 config.RequestVolumeThreshold = 100
@@ -1643,6 +1664,7 @@ config.RequestVolumeThreshold = 5
 ```
 
 4. **Monitoring-based Tuning**:
+
 ```go
 type AdaptiveConfig struct {
     baseConfig CircuitBreakerConfig
@@ -1651,15 +1673,15 @@ type AdaptiveConfig struct {
 
 func (a *AdaptiveConfig) GetConfig() CircuitBreakerConfig {
     config := a.baseConfig
-    
+
     if a.metrics.AvgResponseTime > time.Second*5 {
         config.SlowCallThreshold = time.Second * 3
     }
-    
+
     if a.metrics.ErrorRate > 0.3 {
         config.ErrorThreshold = 0.2 // Be more sensitive
     }
-    
+
     return config
 }
 ```
@@ -1670,6 +1692,7 @@ func (a *AdaptiveConfig) GetConfig() CircuitBreakerConfig {
 Distributed circuit breakers require coordination:
 
 1. **Per-Instance Circuit Breakers**:
+
 ```go
 // Each service instance has its own circuit breaker
 type DistributedService struct {
@@ -1685,6 +1708,7 @@ func (s *DistributedService) CallExternalService() error {
 ```
 
 2. **Shared State Circuit Breaker**:
+
 ```go
 type SharedStateCircuitBreaker struct {
     stateStore StateStore // Redis, etcd, etc.
@@ -1695,23 +1719,24 @@ type SharedStateCircuitBreaker struct {
 func (s *SharedStateCircuitBreaker) Execute(fn func() error) error {
     // Check shared state
     sharedState := s.stateStore.GetState()
-    
+
     if sharedState.State == CircuitStateOpen {
         return fmt.Errorf("circuit breaker is open (shared state)")
     }
-    
+
     // Execute locally and update shared state
     err := fn()
     s.stateStore.UpdateStats(CallResult{
         Success:   err == nil,
         Timestamp: time.Now(),
     })
-    
+
     return err
 }
 ```
 
 3. **Event-Driven Circuit Breaker**:
+
 ```go
 type EventDrivenCircuitBreaker struct {
     localCircuitBreaker *CircuitBreaker
@@ -1720,7 +1745,7 @@ type EventDrivenCircuitBreaker struct {
 
 func (e *EventDrivenCircuitBreaker) Execute(fn func() error) error {
     result := e.localCircuitBreaker.Execute(fn)
-    
+
     // Publish circuit breaker events
     if e.localCircuitBreaker.GetState() == CircuitStateOpen {
         e.eventBus.Publish(CircuitOpenedEvent{
@@ -1729,7 +1754,7 @@ func (e *EventDrivenCircuitBreaker) Execute(fn func() error) error {
             Timestamp: time.Now(),
         })
     }
-    
+
     return result
 }
 
@@ -1748,6 +1773,7 @@ func (e *EventDrivenCircuitBreaker) OnCircuitOpened(event CircuitOpenedEvent) {
 Fallback mechanisms provide alternative behavior when circuit is open:
 
 1. **Static Fallback**:
+
 ```go
 type FallbackCircuitBreaker struct {
     circuitBreaker *CircuitBreaker
@@ -1756,16 +1782,17 @@ type FallbackCircuitBreaker struct {
 
 func (f *FallbackCircuitBreaker) Execute(fn func() (interface{}, error)) (interface{}, error) {
     result, err := f.circuitBreaker.Execute(fn)
-    
+
     if err != nil && f.circuitBreaker.GetState() == CircuitStateOpen {
         return f.fallbackValue, nil
     }
-    
+
     return result, err
 }
 ```
 
 2. **Dynamic Fallback**:
+
 ```go
 type DynamicFallbackCircuitBreaker struct {
     circuitBreaker *CircuitBreaker
@@ -1774,18 +1801,19 @@ type DynamicFallbackCircuitBreaker struct {
 
 func (d *DynamicFallbackCircuitBreaker) Execute(fn func() (interface{}, error)) (interface{}, error) {
     result, err := d.circuitBreaker.Execute(fn)
-    
+
     if err != nil && d.circuitBreaker.GetState() == CircuitStateOpen {
         if d.fallbackFn != nil {
             return d.fallbackFn()
         }
     }
-    
+
     return result, err
 }
 ```
 
 3. **Cache-Based Fallback**:
+
 ```go
 type CacheFallbackCircuitBreaker struct {
     circuitBreaker *CircuitBreaker
@@ -1795,25 +1823,26 @@ type CacheFallbackCircuitBreaker struct {
 
 func (c *CacheFallbackCircuitBreaker) Execute(fn func() (interface{}, error)) (interface{}, error) {
     result, err := c.circuitBreaker.Execute(fn)
-    
+
     if err == nil {
         // Cache successful result
         c.cache.Set(c.cacheKeyFn(), result, time.Hour)
         return result, nil
     }
-    
+
     if c.circuitBreaker.GetState() == CircuitStateOpen {
         // Return cached value if circuit is open
         if cached, found := c.cache.Get(c.cacheKeyFn()); found {
             return cached, nil
         }
     }
-    
+
     return result, err
 }
 ```
 
 4. **Multi-Level Fallback**:
+
 ```go
 type MultiLevelFallback struct {
     primary   *CircuitBreaker
@@ -1826,12 +1855,12 @@ func (m *MultiLevelFallback) Execute(fn func() (interface{}, error)) (interface{
     if result, err := m.primary.Execute(fn); err == nil {
         return result, nil
     }
-    
+
     // Try secondary fallback
     if result, err := m.secondary.Execute(m.secondaryFn); err == nil {
         return result, nil
     }
-    
+
     // Try tertiary fallback
     return m.tertiary.Execute(m.tertiaryFn)
 }
@@ -1843,21 +1872,22 @@ func (m *MultiLevelFallback) Execute(fn func() (interface{}, error)) (interface{
 Testing circuit breakers requires simulating various failure scenarios:
 
 1. **Unit Tests for State Transitions**:
+
 ```go
 func TestCircuitBreakerStates(t *testing.T) {
     cb := NewCircuitBreaker(testConfig)
-    
+
     // Test closed -> open
     for i := 0; i < 5; i++ {
         cb.Execute(failingFunction)
     }
     assert.Equal(t, CircuitStateOpen, cb.GetState())
-    
+
     // Test open -> half-open
     time.Sleep(cb.config.Timeout)
     cb.Execute(successFunction)
     assert.Equal(t, CircuitStateHalfOpen, cb.GetState())
-    
+
     // Test half-open -> closed
     for i := 0; i < cb.config.SuccessThreshold; i++ {
         cb.Execute(successFunction)
@@ -1867,6 +1897,7 @@ func TestCircuitBreakerStates(t *testing.T) {
 ```
 
 2. **Integration Tests with Mock Services**:
+
 ```go
 type MockService struct {
     failureRate    float64
@@ -1879,9 +1910,9 @@ func TestPaymentServiceWithCircuitBreaker(t *testing.T) {
         failureRate:  0.6, // 60% failure rate
         responseTime: time.Second * 2,
     }
-    
+
     service := NewPaymentServiceWithCircuitBreaker(mockGateway)
-    
+
     // Test that circuit opens after failures
     var rejectedCount int
     for i := 0; i < 20; i++ {
@@ -1890,25 +1921,26 @@ func TestPaymentServiceWithCircuitBreaker(t *testing.T) {
             rejectedCount++
         }
     }
-    
+
     assert.True(t, rejectedCount > 0)
 }
 ```
 
 3. **Load Testing**:
+
 ```go
 func TestCircuitBreakerUnderLoad(t *testing.T) {
     cb := NewCircuitBreaker(testConfig)
-    
+
     var wg sync.WaitGroup
     var successCount, failureCount int64
-    
+
     // Simulate 100 concurrent requests
     for i := 0; i < 100; i++ {
         wg.Add(1)
         go func() {
             defer wg.Done()
-            
+
             _, err := cb.Execute(randomFunction)
             if err == nil {
                 atomic.AddInt64(&successCount, 1)
@@ -1917,19 +1949,20 @@ func TestCircuitBreakerUnderLoad(t *testing.T) {
             }
         }()
     }
-    
+
     wg.Wait()
-    
+
     assert.True(t, successCount+failureCount == 100)
     assert.True(t, cb.GetStats().TotalRequests <= 100) // Some may be rejected
 }
 ```
 
 4. **Chaos Testing**:
+
 ```go
 func TestCircuitBreakerChaos(t *testing.T) {
     cb := NewCircuitBreaker(testConfig)
-    
+
     scenarios := []struct {
         name        string
         duration    time.Duration
@@ -1941,7 +1974,7 @@ func TestCircuitBreakerChaos(t *testing.T) {
         {"high_latency", time.Second * 5, 0.1, time.Second * 2},
         {"recovery", time.Second * 10, 0.1, time.Millisecond * 100},
     }
-    
+
     for _, scenario := range scenarios {
         t.Run(scenario.name, func(t *testing.T) {
             runChaosScenario(t, cb, scenario)
