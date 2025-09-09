@@ -8,6 +8,7 @@
 Jenkins is a powerful, open-source automation server that has become the de facto standard for continuous integration and continuous delivery (CI/CD) in enterprise environments. It provides a robust platform for automating software development processes, from code compilation to deployment.
 
 **Core Philosophy:**
+
 - **Automation First**: Eliminate manual, repetitive tasks in software development
 - **Extensibility**: Plugin-based architecture allows customization for any workflow
 - **Self-Hosted Control**: Complete control over infrastructure and security
@@ -15,6 +16,7 @@ Jenkins is a powerful, open-source automation server that has become the de fact
 - **Community Driven**: Large ecosystem of plugins and community support
 
 **Why Jenkins Matters:**
+
 - **Enterprise Adoption**: Widely used in large organizations for mission-critical systems
 - **Flexibility**: Can be adapted to any development workflow or technology stack
 - **Maturity**: Battle-tested platform with years of development and refinement
@@ -25,6 +27,7 @@ Jenkins is a powerful, open-source automation server that has become the de fact
 **Key Features:**
 
 **1. Pipeline as Code:**
+
 - **Declarative Pipelines**: YAML-like syntax for defining pipelines
 - **Scripted Pipelines**: Full Groovy scripting capabilities
 - **Version Control**: Pipelines stored in source control with code
@@ -32,6 +35,7 @@ Jenkins is a powerful, open-source automation server that has become the de fact
 - **Benefits**: Repeatable, auditable, and collaborative pipeline development
 
 **2. Plugin Ecosystem:**
+
 - **Extensive Library**: Over 1,500 plugins available
 - **Customization**: Adapt Jenkins to any workflow or tool
 - **Integration**: Connect with virtually any development tool
@@ -39,6 +43,7 @@ Jenkins is a powerful, open-source automation server that has become the de fact
 - **Quality**: Plugin compatibility and security testing
 
 **3. Distributed Builds:**
+
 - **Master-Slave Architecture**: Centralized control with distributed execution
 - **Agent Management**: Dynamic agent provisioning and management
 - **Resource Optimization**: Distribute builds across multiple machines
@@ -46,6 +51,7 @@ Jenkins is a powerful, open-source automation server that has become the de fact
 - **Fault Tolerance**: Isolated build environments
 
 **4. Blue Ocean:**
+
 - **Modern UI**: Intuitive, visual pipeline interface
 - **Pipeline Visualization**: Clear visualization of pipeline execution
 - **Branch Management**: Easy management of multiple branches
@@ -53,6 +59,7 @@ Jenkins is a powerful, open-source automation server that has become the de fact
 - **User Experience**: Improved developer experience
 
 **5. Multibranch Pipelines:**
+
 - **Automatic Detection**: Automatically detect and build new branches
 - **Branch Strategy**: Support for GitFlow, GitHub Flow, and custom strategies
 - **Pull Request Builds**: Automatic building of pull requests
@@ -60,6 +67,7 @@ Jenkins is a powerful, open-source automation server that has become the de fact
 - **Cleanup**: Automatic cleanup of old branches
 
 **6. Self-Hosted Control:**
+
 - **Infrastructure Control**: Complete control over build infrastructure
 - **Security**: Custom security policies and compliance requirements
 - **Data Privacy**: Keep sensitive data on-premises
@@ -71,6 +79,7 @@ Jenkins is a powerful, open-source automation server that has become the de fact
 **Q1: How do you design a scalable Jenkins architecture for a large enterprise?**
 
 **Answer:** Enterprise Jenkins architecture design:
+
 - **Master Node**: High-availability master with clustering and load balancing
 - **Agent Strategy**: Use Kubernetes agents for dynamic scaling and resource optimization
 - **Network Design**: Implement proper network segmentation and security zones
@@ -83,6 +92,7 @@ Jenkins is a powerful, open-source automation server that has become the de fact
 **Q2: What are the key considerations for migrating from Jenkins to cloud-native CI/CD solutions?**
 
 **Answer:** Migration considerations:
+
 - **Cost Analysis**: Compare total cost of ownership including infrastructure and maintenance
 - **Feature Parity**: Ensure cloud solution provides equivalent functionality
 - **Customization**: Evaluate ability to customize workflows and integrate with existing tools
@@ -95,6 +105,7 @@ Jenkins is a powerful, open-source automation server that has become the de fact
 **Q3: How do you implement security best practices in Jenkins?**
 
 **Answer:** Jenkins security implementation:
+
 - **Authentication**: Implement strong authentication mechanisms (LDAP, OAuth, etc.)
 - **Authorization**: Use role-based access control (RBAC) for fine-grained permissions
 - **Credentials Management**: Use Jenkins credentials store and external secret management
@@ -139,7 +150,7 @@ Jenkins is a powerful, open-source automation server that has become the de fact
 // Jenkinsfile
 pipeline {
     agent any
-    
+
     environment {
         DOCKER_REGISTRY = 'your-registry.com'
         IMAGE_NAME = 'your-app'
@@ -147,14 +158,14 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials('aws-access-key')
         AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
     }
-    
+
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
         timeout(time: 30, unit: 'MINUTES')
         timestamps()
         ansiColor('xterm')
     }
-    
+
     stages {
         stage('Checkout') {
             steps {
@@ -167,7 +178,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Build') {
             parallel {
                 stage('Build Go App') {
@@ -189,25 +200,25 @@ pipeline {
                         }
                     }
                 }
-                
+
                 stage('Build Docker Image') {
                     steps {
                         script {
                             def imageTag = "${env.DOCKER_REGISTRY}/${env.IMAGE_NAME}:${env.GIT_COMMIT_SHORT}"
                             def latestTag = "${env.DOCKER_REGISTRY}/${env.IMAGE_NAME}:latest"
-                            
+
                             sh """
                                 docker build -t ${imageTag} .
                                 docker tag ${imageTag} ${latestTag}
                             """
-                            
+
                             env.DOCKER_IMAGE = imageTag
                         }
                     }
                 }
             }
         }
-        
+
         stage('Test') {
             parallel {
                 stage('Unit Tests') {
@@ -226,7 +237,7 @@ pipeline {
                         }
                     }
                 }
-                
+
                 stage('Integration Tests') {
                     steps {
                         sh """
@@ -235,7 +246,7 @@ pipeline {
                         """
                     }
                 }
-                
+
                 stage('Security Scan') {
                     steps {
                         script {
@@ -248,7 +259,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Quality Gate') {
             steps {
                 script {
@@ -256,17 +267,17 @@ pipeline {
                         script: 'go test -v -coverprofile=coverage.out ./... | grep -o "coverage: [0-9.]*%" | cut -d" " -f2 | cut -d"%" -f1',
                         returnStdout: true
                     ).trim()
-                    
+
                     def coverage = qualityGate as Float
                     if (coverage < 80.0) {
                         error "Coverage ${coverage}% is below threshold of 80%"
                     }
-                    
+
                     echo "Quality gate passed with ${coverage}% coverage"
                 }
             }
         }
-        
+
         stage('Push to Registry') {
             when {
                 anyOf {
@@ -284,7 +295,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Deploy to Staging') {
             when {
                 branch 'develop'
@@ -308,7 +319,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Deploy to Production') {
             when {
                 branch 'main'
@@ -332,7 +343,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Smoke Tests') {
             when {
                 anyOf {
@@ -353,7 +364,7 @@ pipeline {
             }
         }
     }
-    
+
     post {
         always {
             cleanWs()
@@ -403,7 +414,7 @@ pipeline {
 node {
     def dockerImage
     def gitCommit
-    
+
     stage('Checkout') {
         checkout scm
         gitCommit = sh(
@@ -411,24 +422,24 @@ node {
             returnStdout: true
         ).trim()
     }
-    
+
     stage('Build') {
         dockerImage = docker.build("your-registry.com/your-app:${gitCommit}")
     }
-    
+
     stage('Test') {
         dockerImage.inside {
             sh 'go test -v -race ./...'
         }
     }
-    
+
     stage('Push') {
         docker.withRegistry('https://your-registry.com', 'docker-registry-credentials') {
             dockerImage.push()
             dockerImage.push('latest')
         }
     }
-    
+
     stage('Deploy') {
         if (env.BRANCH_NAME == 'main') {
             sh 'kubectl set image deployment/app-deployment app=your-registry.com/your-app:${gitCommit} -n production'
@@ -445,32 +456,32 @@ node {
 // Jenkinsfile for Multibranch Pipeline
 pipeline {
     agent any
-    
+
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
         timeout(time: 30, unit: 'MINUTES')
         timestamps()
     }
-    
+
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-        
+
         stage('Build') {
             steps {
                 sh 'go build -o app ./cmd/server'
             }
         }
-        
+
         stage('Test') {
             steps {
                 sh 'go test -v ./...'
             }
         }
-        
+
         stage('Deploy') {
             when {
                 anyOf {
@@ -498,7 +509,7 @@ jenkins:
   numExecutors: 2
   scmCheckoutRetryCount: 3
   mode: NORMAL
-  
+
   securityRealm:
     local:
       allowsSignup: false
@@ -507,14 +518,14 @@ jenkins:
           password: "${JENKINS_ADMIN_PASSWORD}"
         - id: "jenkins"
           password: "${JENKINS_PASSWORD}"
-  
+
   authorizationStrategy:
     loggedInUsersCanDoAnything:
       allowAnonymousRead: false
-  
+
   remotingSecurity:
     enabled: true
-  
+
   clouds:
     - kubernetes:
         name: "kubernetes"
@@ -552,7 +563,7 @@ jenkins:
                     limits:
                       memory: "512Mi"
                       cpu: "500m"
-  
+
   tools:
     git:
       installations:
@@ -570,7 +581,7 @@ jenkins:
       installations:
         - name: "docker"
           home: "/usr/bin/docker"
-  
+
   globalLibraries:
     libraries:
       - name: "shared-library"
@@ -581,12 +592,12 @@ jenkins:
               git:
                 remote: "https://github.com/your-org/jenkins-shared-library.git"
                 credentialsId: "github-credentials"
-  
+
   unclassified:
     location:
       url: "http://jenkins:8080/"
       adminAddress: "admin@your-org.com"
-    
+
     globalLibraries:
       libraries:
         - name: "shared-library"
@@ -597,7 +608,7 @@ jenkins:
                 git:
                   remote: "https://github.com/your-org/jenkins-shared-library.git"
                   credentialsId: "github-credentials"
-    
+
     slack:
       teamDomain: "your-team"
       token: "${SLACK_TOKEN}"
@@ -620,23 +631,23 @@ jenkins:
       customMessage: "Build ${env.BUILD_STATUS}: ${env.JOB_NAME} - ${env.BUILD_NUMBER}"
       sendAs: "Jenkins"
       commitInfoChoice: "AUTHORS_AND_TITLES"
-    
+
     sonarGlobalConfiguration:
       installations:
         - name: "SonarQube"
           serverUrl: "http://sonarqube:9000"
           credentialsId: "sonar-credentials"
-    
+
     dockerTool:
       installations:
         - name: "docker"
           home: "/usr/bin/docker"
-    
+
     gitTool:
       installations:
         - name: "Default"
           home: "git"
-    
+
     goTool:
       installations:
         - name: "go1.21"
@@ -645,7 +656,7 @@ jenkins:
                 installers:
                   - goInstaller:
                       id: "1.21.0"
-  
+
   security:
     queueItemAuthenticator:
       authenticators:
@@ -664,12 +675,12 @@ def call(Map config) {
         testArgs: '-v -race',
         coverage: true
     ]
-    
+
     config = defaultConfig + config
-    
+
     pipeline {
         agent any
-        
+
         stages {
             stage('Build') {
                 steps {
@@ -681,7 +692,7 @@ def call(Map config) {
                     }
                 }
             }
-            
+
             stage('Test') {
                 steps {
                     script {
@@ -690,7 +701,7 @@ def call(Map config) {
                             testCmd += " -coverprofile=coverage.out"
                         }
                         testCmd += " ./..."
-                        
+
                         sh """
                             docker run --rm -v \${PWD}:/app -w /app golang:${config.goVersion} \
                             ${testCmd}
@@ -707,7 +718,7 @@ def call(Map config) {
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
+version: "3.8"
 
 services:
   jenkins:
@@ -766,35 +777,35 @@ spec:
         app: jenkins
     spec:
       containers:
-      - name: jenkins
-        image: jenkins/jenkins:lts
-        ports:
-        - containerPort: 8080
-        - containerPort: 50000
-        env:
-        - name: JAVA_OPTS
-          value: "-Djenkins.install.runSetupWizard=false"
-        - name: JENKINS_OPTS
-          value: "--httpPort=8080"
-        volumeMounts:
-        - name: jenkins-home
-          mountPath: /var/jenkins_home
-        - name: docker-sock
-          mountPath: /var/run/docker.sock
-        resources:
-          requests:
-            memory: "1Gi"
-            cpu: "500m"
-          limits:
-            memory: "2Gi"
-            cpu: "1000m"
+        - name: jenkins
+          image: jenkins/jenkins:lts
+          ports:
+            - containerPort: 8080
+            - containerPort: 50000
+          env:
+            - name: JAVA_OPTS
+              value: "-Djenkins.install.runSetupWizard=false"
+            - name: JENKINS_OPTS
+              value: "--httpPort=8080"
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+            - name: docker-sock
+              mountPath: /var/run/docker.sock
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "500m"
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
       volumes:
-      - name: jenkins-home
-        persistentVolumeClaim:
-          claimName: jenkins-pvc
-      - name: docker-sock
-        hostPath:
-          path: /var/run/docker.sock
+        - name: jenkins-home
+          persistentVolumeClaim:
+            claimName: jenkins-pvc
+        - name: docker-sock
+          hostPath:
+            path: /var/run/docker.sock
 ---
 apiVersion: v1
 kind: Service
@@ -805,12 +816,12 @@ spec:
   selector:
     app: jenkins
   ports:
-  - name: http
-    port: 8080
-    targetPort: 8080
-  - name: agent
-    port: 50000
-    targetPort: 50000
+    - name: http
+      port: 8080
+      targetPort: 8080
+    - name: agent
+      port: 50000
+      targetPort: 50000
   type: LoadBalancer
 ---
 apiVersion: v1
@@ -829,13 +840,14 @@ spec:
 ## 🚀 Best Practices
 
 ### 1. Pipeline Organization
+
 ```groovy
 // Use shared libraries for common functionality
 @Library('shared-library@main') _
 
 pipeline {
     agent any
-    
+
     stages {
         stage('Build') {
             steps {
@@ -851,18 +863,19 @@ pipeline {
 ```
 
 ### 2. Security Best Practices
+
 ```groovy
 // Use credentials for sensitive data
 pipeline {
     agent any
-    
+
     environment {
         DOCKER_REGISTRY = credentials('docker-registry')
         KUBECONFIG = credentials('kubeconfig')
         AWS_ACCESS_KEY_ID = credentials('aws-access-key')
         AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
     }
-    
+
     stages {
         stage('Deploy') {
             steps {
@@ -874,11 +887,12 @@ pipeline {
 ```
 
 ### 3. Performance Optimization
+
 ```groovy
 // Use parallel stages and caching
 pipeline {
     agent any
-    
+
     stages {
         stage('Build') {
             parallel {
@@ -895,7 +909,7 @@ pipeline {
             }
         }
     }
-    
+
     post {
         always {
             cleanWs()
@@ -907,18 +921,21 @@ pipeline {
 ## 🏢 Industry Insights
 
 ### Jenkins Usage Patterns
+
 - **Enterprise**: Large-scale deployments
 - **Self-Hosted**: Full control over infrastructure
 - **Plugin Ecosystem**: Extensive customization
 - **Pipeline as Code**: Version-controlled pipelines
 
 ### Netflix's Jenkins Strategy
+
 - **Microservices**: Individual service pipelines
 - **Security**: Automated security scanning
 - **Deployment**: Multi-environment deployment
 - **Monitoring**: Automated monitoring setup
 
 ### Spotify's Jenkins Approach
+
 - **Music Processing**: Audio file processing
 - **Data Pipeline**: ETL operations
 - **Real-time Analytics**: User listening data
@@ -927,13 +944,16 @@ pipeline {
 ## 🎯 Interview Questions
 
 ### Basic Level
+
 1. **What is Jenkins?**
+
    - Open-source automation server
    - CI/CD platform
    - Pipeline as code
    - Plugin ecosystem
 
 2. **What are Jenkins pipelines?**
+
    - Declarative pipelines
    - Scripted pipelines
    - Multibranch pipelines
@@ -946,12 +966,14 @@ pipeline {
    - Resource management
 
 ### Intermediate Level
+
 4. **How do you optimize Jenkins performance?**
+
    ```groovy
    // Use parallel stages and caching
    pipeline {
      agent any
-     
+
      stages {
        stage('Build') {
          parallel {
@@ -972,6 +994,7 @@ pipeline {
    ```
 
 5. **How do you handle Jenkins security?**
+
    - Use credentials
    - Role-based access control
    - Plugin security
@@ -984,13 +1007,16 @@ pipeline {
    - Performance testing
 
 ### Advanced Level
+
 7. **How do you implement Jenkins patterns?**
+
    - Shared libraries
    - Pipeline templates
    - Custom steps
    - Reusable workflows
 
 8. **How do you handle Jenkins scaling?**
+
    - Master-slave architecture
    - Kubernetes agents
    - Resource optimization

@@ -5,6 +5,7 @@
 ## 📋 Problems
 
 ### **Pattern Matching**
+
 - [Valid Parentheses](./ValidParentheses.md) - Stack-based validation
 - [Longest Substring Without Repeating Characters](./LongestSubstringWithoutRepeatingCharacters.md) - Sliding window
 - [Longest Palindromic Substring](./LongestPalindromicSubstring.md) - Expand around centers
@@ -12,6 +13,7 @@
 - [Wildcard Matching](./WildcardMatching.md) - Advanced pattern matching
 
 ### **String Manipulation**
+
 - [String to Integer (atoi)](./StringToInteger.md) - Parsing with edge cases
 - [Roman to Integer](./RomanToInteger.md) - Symbol to value conversion
 - [Integer to Roman](./IntegerToRoman.md) - Value to symbol conversion
@@ -19,6 +21,7 @@
 - [Group Anagrams](./GroupAnagrams.md) - Anagram grouping
 
 ### **Advanced String Algorithms**
+
 - [Longest Common Prefix](./LongestCommonPrefix.md) - Prefix comparison
 - [Implement strStr()](./ImplementStrStr.md) - KMP algorithm
 - [Minimum Window Substring](./MinimumWindowSubstring.md) - Sliding window
@@ -35,6 +38,7 @@
 String manipulation in Go requires understanding the language's unique approach to strings, which differs significantly from other languages. Go treats strings as immutable sequences of bytes, with special handling for Unicode characters through runes.
 
 **String Immutability:**
+
 - **Definition**: Strings cannot be modified after creation
 - **Implications**: Any string operation creates a new string
 - **Memory Impact**: Can lead to memory overhead for frequent modifications
@@ -42,6 +46,7 @@ String manipulation in Go requires understanding the language's unique approach 
 - **Best Practice**: Use `strings.Builder` for multiple concatenations
 
 **Rune Handling:**
+
 - **Definition**: A rune represents a Unicode code point (int32)
 - **Use Case**: Handle multi-byte characters correctly
 - **Conversion**: `[]rune(string)` converts string to rune slice
@@ -49,6 +54,7 @@ String manipulation in Go requires understanding the language's unique approach 
 - **Performance**: Slightly more memory overhead than byte operations
 
 **String Building:**
+
 - **Purpose**: Efficient string construction for multiple concatenations
 - **Implementation**: `strings.Builder` provides optimized string building
 - **Benefits**: O(n) time complexity for n concatenations
@@ -56,6 +62,7 @@ String manipulation in Go requires understanding the language's unique approach 
 - **Thread Safety**: Not thread-safe, use sync.Mutex if needed
 
 **Regular Expressions:**
+
 - **Package**: `regexp` package provides regex functionality
 - **Compilation**: Patterns are compiled for efficiency
 - **Operations**: Match, find, replace, split operations
@@ -63,6 +70,7 @@ String manipulation in Go requires understanding the language's unique approach 
 - **Use Cases**: Pattern matching, validation, text processing
 
 **Go String Internals:**
+
 ```go
 // String structure in Go
 type string struct {
@@ -81,6 +89,7 @@ s2 := s1 + " world"  // Creates new string
 String problems often follow specific patterns that can be solved using well-established algorithms and data structures. Understanding these patterns helps in quickly identifying the right approach.
 
 **Two Pointers Pattern:**
+
 - **Use Case**: Palindrome checking, string comparison, removing duplicates
 - **Algorithm**: Use left and right pointers moving towards center
 - **Time Complexity**: O(n) for most problems
@@ -88,6 +97,7 @@ String problems often follow specific patterns that can be solved using well-est
 - **Example**: Check if string is palindrome, remove duplicates
 
 **Sliding Window Pattern:**
+
 - **Use Case**: Substring problems, finding optimal substrings
 - **Algorithm**: Maintain window with left and right boundaries
 - **Variations**: Fixed size window, variable size window
@@ -96,6 +106,7 @@ String problems often follow specific patterns that can be solved using well-est
 - **Example**: Longest substring without repeating characters
 
 **Hash Map Pattern:**
+
 - **Use Case**: Character frequency counting, anagram detection
 - **Algorithm**: Use map to store character frequencies
 - **Optimization**: Use array for ASCII characters (256 elements)
@@ -104,6 +115,7 @@ String problems often follow specific patterns that can be solved using well-est
 - **Example**: Valid anagram, group anagrams
 
 **Stack Pattern:**
+
 - **Use Case**: Nested structures, balanced parentheses
 - **Algorithm**: Use stack to track opening/closing pairs
 - **Time Complexity**: O(n) for validation
@@ -111,6 +123,7 @@ String problems often follow specific patterns that can be solved using well-est
 - **Example**: Valid parentheses, nested brackets
 
 **Advanced Patterns:**
+
 - **KMP Algorithm**: Efficient string matching with O(n+m) complexity
 - **Rabin-Karp**: Rolling hash for pattern matching
 - **Suffix Array**: Advanced string processing
@@ -122,30 +135,35 @@ String problems often follow specific patterns that can be solved using well-est
 String operations can be performance bottlenecks if not implemented correctly. Understanding Go's string internals and using appropriate techniques can significantly improve performance.
 
 **String Builder Usage:**
+
 - **When to Use**: Multiple string concatenations
 - **Benefits**: O(n) time complexity instead of O(n²)
 - **Memory**: Pre-allocates buffer to reduce allocations
 - **Example**: Building large strings from multiple parts
 
 **Pre-allocation Strategies:**
+
 - **Slices**: Use `make([]byte, 0, capacity)` for known size
 - **Maps**: Use `make(map[rune]int, estimatedSize)` for frequency maps
 - **Strings**: Use `strings.Builder` with `Grow(capacity)`
 - **Benefits**: Reduces memory allocations and garbage collection
 
 **Avoiding String Concatenation:**
+
 - **Problem**: String concatenation with `+` creates new strings
 - **Solution**: Use slice operations or `strings.Builder`
 - **Performance**: Significant improvement for large strings
 - **Memory**: Reduces memory fragmentation
 
 **Unicode Optimization:**
+
 - **ASCII Only**: Use `[]byte` for ASCII-only operations
 - **Unicode**: Use `[]rune` for proper Unicode handling
 - **Conversion**: Minimize string ↔ rune conversions
 - **Performance**: Byte operations are faster than rune operations
 
 **Memory Management:**
+
 - **String Interning**: Go doesn't intern strings automatically
 - **Substring**: Use slice operations to avoid copying
 - **Garbage Collection**: Minimize string allocations
@@ -156,6 +174,7 @@ String operations can be performance bottlenecks if not implemented correctly. U
 **Q1: How do you handle Unicode strings efficiently in Go?**
 
 **Answer:** Unicode string handling strategies:
+
 - **Rune Slices**: Use `[]rune` for proper Unicode character handling
 - **UTF-8 Awareness**: Understand that Go strings are UTF-8 encoded
 - **Character Counting**: Use `utf8.RuneCountInString()` for character count
@@ -168,6 +187,7 @@ String operations can be performance bottlenecks if not implemented correctly. U
 **Q2: What are the performance implications of different string operations in Go?**
 
 **Answer:** Performance characteristics:
+
 - **String Concatenation**: O(n²) with `+` operator, O(n) with `strings.Builder`
 - **String Comparison**: O(n) for equality, O(1) for length comparison
 - **Substring**: O(1) with slice operations, O(n) with `strings.Index`
@@ -180,6 +200,7 @@ String operations can be performance bottlenecks if not implemented correctly. U
 **Q3: How do you implement efficient string matching algorithms in Go?**
 
 **Answer:** String matching implementation:
+
 - **Naive Approach**: O(nm) time complexity, simple implementation
 - **KMP Algorithm**: O(n+m) time complexity, preprocess pattern
 - **Rabin-Karp**: O(n+m) average case, uses rolling hash
@@ -194,6 +215,7 @@ String operations can be performance bottlenecks if not implemented correctly. U
 ## 🛠️ Go-Specific Tips
 
 ### **String Manipulation**
+
 ```go
 // Convert string to rune slice for Unicode handling
 s := "hello世界"
@@ -213,6 +235,7 @@ str := string(bytes)
 ```
 
 ### **Character Frequency Counting**
+
 ```go
 // Using map for frequency counting
 func countFreq(s string) map[rune]int {
@@ -234,6 +257,7 @@ func countFreqASCII(s string) [256]int {
 ```
 
 ### **String Comparison**
+
 ```go
 // Case-insensitive comparison
 func equalsIgnoreCase(s1, s2 string) bool {
@@ -247,6 +271,7 @@ func compareStrings(s1, s2 string) int {
 ```
 
 ### **Regular Expressions**
+
 ```go
 import "regexp"
 
@@ -265,6 +290,7 @@ result := pattern.ReplaceAllString("abc123def456", "X")
 ## 🎯 Interview Tips
 
 ### **How to Identify String Problems**
+
 1. **Pattern Matching**: Use regex or custom algorithms
 2. **Substring Problems**: Use sliding window technique
 3. **Character Frequency**: Use hash map or array
@@ -272,6 +298,7 @@ result := pattern.ReplaceAllString("abc123def456", "X")
 5. **String Transformation**: Use DP or greedy approach
 
 ### **Common String Problem Patterns**
+
 - **Validation**: Check if string meets certain criteria
 - **Parsing**: Extract information from formatted strings
 - **Transformation**: Convert between different formats
@@ -279,6 +306,7 @@ result := pattern.ReplaceAllString("abc123def456", "X")
 - **Comparison**: Compare strings with different criteria
 
 ### **Optimization Tips**
+
 - **Use appropriate data structures**: Map for frequency, array for ASCII
 - **Avoid unnecessary conversions**: Work with bytes when possible
 - **Pre-allocate memory**: Use make() with known capacity
