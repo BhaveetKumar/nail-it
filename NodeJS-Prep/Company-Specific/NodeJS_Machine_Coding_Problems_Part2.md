@@ -324,18 +324,335 @@ rateLimiter.start(3006);
 ### **Discussion Points**
 
 1. **Algorithm Selection**: When to use which rate limiting strategy?
+   - **Token Bucket**: Best for burst traffic, allows short bursts above average rate
+   - **Sliding Window**: More precise rate limiting, smooths out traffic spikes
+   - **Fixed Window**: Simple implementation, but can have boundary effects
+   - **Use Case**: Token bucket for APIs, sliding window for user actions, fixed window for simple cases
+   - **Performance**: Token bucket is O(1), sliding window can be O(n) for large windows
+
 2. **Distributed Limiting**: How to implement across multiple servers?
+   - **Redis-based**: Use Redis for shared state across multiple servers
+   - **Consistent Hashing**: Route requests to same server for user-based limits
+   - **Eventual Consistency**: Accept some inconsistency for better performance
+   - **Leader Election**: Use a leader server for critical rate limiting decisions
+   - **Hybrid Approach**: Local limits + distributed limits for different scenarios
+
 3. **Performance**: How to optimize Redis operations?
+   - **Pipeline Operations**: Batch multiple Redis commands together
+   - **Connection Pooling**: Reuse Redis connections to reduce overhead
+   - **Memory Optimization**: Use appropriate data structures and TTL
+   - **Lua Scripts**: Use atomic operations for complex rate limiting logic
+   - **Caching**: Cache frequently accessed rate limit data locally
+
 4. **Burst Handling**: How to handle traffic spikes gracefully?
+   - **Burst Allowance**: Allow temporary bursts above normal rate
+   - **Gradual Degradation**: Slowly reduce rate instead of hard cutoff
+   - **Queue Management**: Queue requests during bursts instead of rejecting
+   - **Circuit Breaker**: Temporarily disable rate limiting during system stress
+   - **Load Balancing**: Distribute burst traffic across multiple servers
+
 5. **Monitoring**: How to track rate limit effectiveness?
+   - **Metrics Collection**: Track rate limit hits, misses, and violations
+   - **Real-time Dashboards**: Show current rate limit status
+   - **Alerting**: Alert when rate limits are consistently hit
+   - **Analytics**: Analyze patterns in rate limit violations
+   - **Performance Monitoring**: Monitor rate limiter performance impact
 
 ### **Follow-up Questions**
 
-1. How would you implement adaptive rate limiting?
-2. How to handle rate limit bypassing attempts?
-3. How to implement rate limiting for different user tiers?
-4. How to handle rate limit configuration changes?
-5. How to implement rate limit analytics and reporting?
+1. **How would you implement adaptive rate limiting?**
+   ```javascript
+   class AdaptiveRateLimiter {
+     constructor() {
+       this.baseRate = 100; // requests per minute
+       this.currentRate = this.baseRate;
+       this.systemLoad = 0;
+       this.adjustmentFactor = 1.0;
+     }
+     
+     async checkRateLimit(identifier) {
+       // Get current system load
+       const currentLoad = await this.getSystemLoad();
+       
+       // Adjust rate based on system load
+       if (currentLoad > 0.8) {
+         this.adjustmentFactor = 0.5; // Reduce rate by 50%
+       } else if (currentLoad > 0.6) {
+         this.adjustmentFactor = 0.7; // Reduce rate by 30%
+       } else if (currentLoad < 0.3) {
+         this.adjustmentFactor = 1.2; // Increase rate by 20%
+       } else {
+         this.adjustmentFactor = 1.0; // Normal rate
+       }
+       
+       this.currentRate = Math.floor(this.baseRate * this.adjustmentFactor);
+       
+       // Apply rate limiting with adjusted rate
+       return await this.applyRateLimit(identifier, this.currentRate);
+     }
+     
+     async getSystemLoad() {
+       // Get CPU usage, memory usage, active connections, etc.
+       const cpuUsage = await this.getCPUUsage();
+       const memoryUsage = await this.getMemoryUsage();
+       const activeConnections = await this.getActiveConnections();
+       
+       // Calculate weighted system load
+       return (cpuUsage * 0.4 + memoryUsage * 0.3 + activeConnections * 0.3);
+     }
+   }
+   ```
+
+2. **How to handle rate limit bypassing attempts?**
+   ```javascript
+   class AntiBypassRateLimiter {
+     constructor() {
+       this.suspiciousPatterns = new Map();
+       this.blockedIPs = new Set();
+     }
+     
+     async checkRateLimit(identifier, request) {
+       // Check for suspicious patterns
+       const isSuspicious = await this.detectSuspiciousActivity(identifier, request);
+       
+       if (isSuspicious) {
+         await this.handleSuspiciousActivity(identifier);
+         return {
+           allowed: false,
+           reason: 'Suspicious activity detected',
+           blockDuration: 300 // 5 minutes
+         };
+       }
+       
+       // Normal rate limiting
+       return await this.applyRateLimit(identifier);
+     }
+     
+     async detectSuspiciousActivity(identifier, request) {
+       const patterns = this.suspiciousPatterns.get(identifier) || [];
+       
+       // Check for rapid IP changes
+       if (patterns.length > 0) {
+         const recentIPs = patterns.slice(-10).map(p => p.ip);
+         const uniqueIPs = new Set(recentIPs);
+         if (uniqueIPs.size > 3) {
+           return true; // Too many IP changes
+         }
+       }
+       
+       // Check for request pattern anomalies
+       const recentRequests = patterns.slice(-20);
+       if (recentRequests.length >= 20) {
+         const avgInterval = this.calculateAverageInterval(recentRequests);
+         if (avgInterval < 100) { // Less than 100ms between requests
+           return true; // Too fast requests
+         }
+       }
+       
+       // Store current request pattern
+       patterns.push({
+         ip: request.ip,
+         userAgent: request.userAgent,
+         timestamp: Date.now()
+       });
+       
+       // Keep only recent patterns
+       this.suspiciousPatterns.set(identifier, patterns.slice(-50));
+       
+       return false;
+     }
+     
+     async handleSuspiciousActivity(identifier) {
+       // Block identifier temporarily
+       this.blockedIPs.add(identifier);
+       
+       // Log for analysis
+       await this.logSuspiciousActivity(identifier);
+       
+       // Auto-unblock after timeout
+       setTimeout(() => {
+         this.blockedIPs.delete(identifier);
+       }, 300000); // 5 minutes
+     }
+   }
+   ```
+
+3. **How to implement rate limiting for different user tiers?**
+   ```javascript
+   class TieredRateLimiter {
+     constructor() {
+       this.tierLimits = {
+         'free': { requests: 100, window: 60, burst: 10 },
+         'premium': { requests: 1000, window: 60, burst: 50 },
+         'enterprise': { requests: 10000, window: 60, burst: 200 }
+       };
+     }
+     
+     async checkRateLimit(userId, userTier) {
+       const limits = this.tierLimits[userTier];
+       if (!limits) {
+         throw new Error(`Invalid user tier: ${userTier}`);
+       }
+       
+       const key = `rate_limit:${userTier}:${userId}`;
+       
+       // Check if user has exceeded their tier limits
+       const current = await this.redis.get(key);
+       const count = current ? parseInt(current) : 0;
+       
+       if (count >= limits.requests) {
+         return {
+           allowed: false,
+           remaining: 0,
+           resetTime: await this.getResetTime(key),
+           tier: userTier,
+           limit: limits.requests
+         };
+       }
+       
+       // Increment counter
+       await this.redis.incr(key);
+       await this.redis.expire(key, limits.window);
+       
+       return {
+         allowed: true,
+         remaining: limits.requests - count - 1,
+         resetTime: await this.getResetTime(key),
+         tier: userTier,
+         limit: limits.requests
+       };
+     }
+   }
+   ```
+
+4. **How to handle rate limit configuration changes?**
+   ```javascript
+   class DynamicRateLimiter {
+     constructor() {
+       this.config = {
+         defaultRate: 100,
+         window: 60,
+         burst: 10
+       };
+       this.configVersion = 1;
+       this.subscribers = new Set();
+     }
+     
+     async updateConfig(newConfig) {
+       // Validate new configuration
+       if (!this.validateConfig(newConfig)) {
+         throw new Error('Invalid configuration');
+       }
+       
+       // Update configuration
+       this.config = { ...this.config, ...newConfig };
+       this.configVersion++;
+       
+       // Notify all subscribers
+       await this.notifyConfigChange();
+       
+       // Store configuration in Redis for persistence
+       await this.redis.set('rate_limit_config', JSON.stringify({
+         config: this.config,
+         version: this.configVersion,
+         updatedAt: Date.now()
+       }));
+     }
+     
+     async notifyConfigChange() {
+       const changeEvent = {
+         type: 'config_update',
+         version: this.configVersion,
+         config: this.config,
+         timestamp: Date.now()
+       };
+       
+       // Notify all connected clients
+       for (const subscriber of this.subscribers) {
+         subscriber.send(JSON.stringify(changeEvent));
+       }
+     }
+     
+     subscribeToConfigChanges(ws) {
+       this.subscribers.add(ws);
+       
+       ws.on('close', () => {
+         this.subscribers.delete(ws);
+       });
+     }
+   }
+   ```
+
+5. **How to implement rate limit analytics and reporting?**
+   ```javascript
+   class RateLimitAnalytics {
+     constructor() {
+       this.metrics = {
+         totalRequests: 0,
+         allowedRequests: 0,
+         blockedRequests: 0,
+         averageResponseTime: 0,
+         peakRequestsPerSecond: 0
+       };
+       this.hourlyStats = new Map();
+     }
+     
+     async recordRequest(identifier, allowed, responseTime) {
+       this.metrics.totalRequests++;
+       
+       if (allowed) {
+         this.metrics.allowedRequests++;
+       } else {
+         this.metrics.blockedRequests++;
+       }
+       
+       // Update average response time
+       this.metrics.averageResponseTime = 
+         (this.metrics.averageResponseTime + responseTime) / 2;
+       
+       // Track hourly statistics
+       const hour = new Date().getHours();
+       const hourStats = this.hourlyStats.get(hour) || {
+         requests: 0,
+         allowed: 0,
+         blocked: 0
+       };
+       
+       hourStats.requests++;
+       if (allowed) hourStats.allowed++;
+       else hourStats.blocked++;
+       
+       this.hourlyStats.set(hour, hourStats);
+       
+       // Store in Redis for persistence
+       await this.storeMetrics();
+     }
+     
+     async generateReport(timeRange = '24h') {
+       const report = {
+         timeRange,
+         generatedAt: new Date(),
+         summary: this.metrics,
+         hourlyBreakdown: Array.from(this.hourlyStats.entries()),
+         topBlockedIdentifiers: await this.getTopBlockedIdentifiers(),
+         rateLimitEffectiveness: this.calculateEffectiveness()
+       };
+       
+       return report;
+     }
+     
+     calculateEffectiveness() {
+       const total = this.metrics.totalRequests;
+       const blocked = this.metrics.blockedRequests;
+       
+       return {
+         blockRate: total > 0 ? (blocked / total) * 100 : 0,
+         allowRate: total > 0 ? ((total - blocked) / total) * 100 : 0,
+         totalRequests: total
+       };
+     }
+   }
+   ```
 
 ---
 
