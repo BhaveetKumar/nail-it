@@ -17,6 +17,7 @@ This repository provides a complete learning path for Node.js developers targeti
 - [**Async Programming Guide**](./Technical-Fundamentals/AsyncProgramming_Guide.md) - **🚀 NEW** - Promises, async/await, event loops with advanced patterns
 - [**API Design Guide**](./Technical-Fundamentals/API_Design_Guide.md) - **🚀 NEW** - REST, GraphQL, gRPC API design
 - [**Database Design Guide**](./Technical-Fundamentals/Database_Design_Guide.md) - **🚀 NEW** - SQL, NoSQL, optimization, security
+- [**Kafka Complete Guide**](./Technical-Fundamentals/Kafka_Complete_Guide.md) - **🚀 NEW** - Apache Kafka theory, practice, scaling, edge cases, and production operations
 - [**Node.js Performance**](./Technical-Fundamentals/NodeJS_Performance_Guide.md) - Optimization and profiling
 - [**Node.js Security**](./Technical-Fundamentals/NodeJS_Security_Guide.md) - Security best practices
 
