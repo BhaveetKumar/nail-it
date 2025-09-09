@@ -9,6 +9,7 @@ The Strategy pattern defines a family of algorithms, encapsulates each algorithm
 ## When to Use
 
 ### Appropriate Scenarios
+
 - **Multiple Algorithms**: When you have multiple ways to perform the same task
 - **Runtime Selection**: When algorithm selection depends on runtime conditions
 - **Algorithm Variation**: When algorithms need to be easily swapped
@@ -16,6 +17,7 @@ The Strategy pattern defines a family of algorithms, encapsulates each algorithm
 - **Open/Closed Principle**: When you want to add new algorithms without modifying existing code
 
 ### When NOT to Use
+
 - **Simple Algorithms**: When you only have one way to perform a task
 - **Performance Critical**: When strategy selection overhead is too high
 - **Tight Coupling**: When algorithms are tightly coupled to specific contexts
@@ -24,6 +26,7 @@ The Strategy pattern defines a family of algorithms, encapsulates each algorithm
 ## Real-World Use Cases (Fintech/Payments)
 
 ### Payment Processing Strategies
+
 ```go
 // Payment processing strategy interface
 type PaymentStrategy interface {
@@ -62,7 +65,7 @@ func (ccs *CreditCardStrategy) ProcessPayment(amount float64, currency string, p
     expiryDate := paymentData["expiry_date"].(string)
     cvv := paymentData["cvv"].(string)
 
-    log.Printf("Processing credit card payment: %s, Amount: %.2f %s", 
+    log.Printf("Processing credit card payment: %s, Amount: %.2f %s",
         maskCardNumber(cardNumber), amount, currency)
 
     return &PaymentResult{
@@ -115,7 +118,7 @@ func (bts *BankTransferStrategy) ProcessPayment(amount float64, currency string,
     accountNumber := paymentData["account_number"].(string)
     routingNumber := paymentData["routing_number"].(string)
 
-    log.Printf("Processing bank transfer: Account: %s, Amount: %.2f %s", 
+    log.Printf("Processing bank transfer: Account: %s, Amount: %.2f %s",
         maskAccountNumber(accountNumber), amount, currency)
 
     return &PaymentResult{
@@ -166,7 +169,7 @@ func (dws *DigitalWalletStrategy) ProcessPayment(amount float64, currency string
     walletID := paymentData["wallet_id"].(string)
     pin := paymentData["pin"].(string)
 
-    log.Printf("Processing digital wallet payment: Wallet: %s, Amount: %.2f %s", 
+    log.Printf("Processing digital wallet payment: Wallet: %s, Amount: %.2f %s",
         maskWalletID(walletID), amount, currency)
 
     return &PaymentResult{
@@ -225,6 +228,7 @@ func (pp *PaymentProcessor) ValidatePayment(paymentData map[string]interface{}) 
 ```
 
 ### Risk Assessment Strategies
+
 ```go
 // Risk assessment strategy interface
 type RiskAssessmentStrategy interface {
@@ -377,6 +381,7 @@ func (ra *RiskAssessor) AssessRisk(transaction *Transaction) (*RiskAssessment, e
 ## Go Implementation
 
 ### Generic Strategy Pattern
+
 ```go
 package main
 
@@ -544,6 +549,7 @@ func (sc *SortingContext) Sort(data []int) ([]int, error) {
 ```
 
 ### Strategy with Factory
+
 ```go
 // Strategy factory
 type StrategyFactory[T any, R any] struct {
@@ -615,6 +621,7 @@ func NewPaymentStrategyFactory() *PaymentStrategyFactory {
 ### Variants
 
 #### 1. Simple Strategy
+
 ```go
 type SimpleStrategy interface {
     Execute() error
@@ -631,6 +638,7 @@ func (sb *StrategyB) Execute() error { return nil }
 **Cons**: Limited flexibility, no input/output parameters
 
 #### 2. Parameterized Strategy
+
 ```go
 type ParameterizedStrategy interface {
     Execute(params map[string]interface{}) (interface{}, error)
@@ -641,6 +649,7 @@ type ParameterizedStrategy interface {
 **Cons**: Type safety issues, runtime errors possible
 
 #### 3. Generic Strategy
+
 ```go
 type GenericStrategy[T any, R any] interface {
     Execute(input T) (R, error)
@@ -652,13 +661,13 @@ type GenericStrategy[T any, R any] interface {
 
 ### Trade-offs
 
-| Aspect              | Pros                              | Cons                              |
-| ------------------- | --------------------------------- | --------------------------------- |
-| **Flexibility**     | Easy to add new algorithms       | Can become complex               |
-| **Maintainability** | Each strategy is independent     | More classes to maintain         |
-| **Testing**         | Easy to test individual strategies | More test cases needed          |
-| **Performance**     | Can optimize individual strategies | Strategy selection overhead     |
-| **Code Reuse**      | Strategies can be reused         | Potential code duplication      |
+| Aspect              | Pros                               | Cons                        |
+| ------------------- | ---------------------------------- | --------------------------- |
+| **Flexibility**     | Easy to add new algorithms         | Can become complex          |
+| **Maintainability** | Each strategy is independent       | More classes to maintain    |
+| **Testing**         | Easy to test individual strategies | More test cases needed      |
+| **Performance**     | Can optimize individual strategies | Strategy selection overhead |
+| **Code Reuse**      | Strategies can be reused           | Potential code duplication  |
 
 ## Testable Example
 
@@ -888,6 +897,7 @@ func TestStrategyFactory(t *testing.T) {
 ## Integration Tips
 
 ### 1. With Configuration
+
 ```go
 type StrategyConfig struct {
     DefaultStrategy string            `yaml:"default_strategy"`
@@ -916,6 +926,7 @@ func LoadStrategyFromConfig(configPath string) (*PaymentProcessor, error) {
 ```
 
 ### 2. With Dependency Injection
+
 ```go
 type PaymentService struct {
     processor *PaymentProcessor
@@ -939,6 +950,7 @@ func (ps *PaymentService) ProcessPayment(paymentType string, amount float64, cur
 ```
 
 ### 3. With Middleware
+
 ```go
 type StrategyMiddleware struct {
     next Strategy[PaymentRequest, *PaymentResult]

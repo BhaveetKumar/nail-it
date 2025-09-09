@@ -9,6 +9,7 @@ The Factory pattern provides an interface for creating objects in a superclass, 
 ## When to Use
 
 ### Appropriate Scenarios
+
 - **Runtime Object Creation**: When object type is determined at runtime
 - **Complex Object Construction**: When object creation involves complex logic
 - **Decoupling**: When you want to decouple object creation from usage
@@ -16,6 +17,7 @@ The Factory pattern provides an interface for creating objects in a superclass, 
 - **Configuration-Based Creation**: When object type depends on configuration
 
 ### When NOT to Use
+
 - **Simple Object Creation**: When object creation is straightforward
 - **Performance Critical**: When factory overhead is too high
 - **Single Implementation**: When you only have one implementation
@@ -24,6 +26,7 @@ The Factory pattern provides an interface for creating objects in a superclass, 
 ## Real-World Use Cases (Fintech/Payments)
 
 ### Payment Gateway Factory
+
 ```go
 // Payment gateway interface
 type PaymentGateway interface {
@@ -175,6 +178,7 @@ func (pgf *PaymentGatewayFactory) CreateGateway(gatewayType string) (PaymentGate
 ```
 
 ### Notification Channel Factory
+
 ```go
 // Notification channel interface
 type NotificationChannel interface {
@@ -299,6 +303,7 @@ func (ncf *NotificationChannelFactory) CreateChannel(channelType string) (Notifi
 ## Go Implementation
 
 ### Generic Factory Pattern
+
 ```go
 package main
 
@@ -429,6 +434,7 @@ func (mc *MySQLConnection) Query(sql string) (interface{}, error) {
 ```
 
 ### Abstract Factory Pattern
+
 ```go
 // Abstract factory for UI components
 type UIComponent interface {
@@ -577,6 +583,7 @@ func (uip *UIFactoryProvider) GetFactory(platform string) (UIFactory, error) {
 ### Variants
 
 #### 1. Simple Factory
+
 ```go
 type SimpleFactory struct{}
 
@@ -596,6 +603,7 @@ func (sf *SimpleFactory) CreatePaymentGateway(gatewayType string) PaymentGateway
 **Cons**: Violates Open/Closed principle, hard to extend
 
 #### 2. Factory Method
+
 ```go
 type PaymentGatewayCreator interface {
     CreateGateway() PaymentGateway
@@ -618,6 +626,7 @@ func (pgc *PayPalGatewayCreator) CreateGateway() PaymentGateway {
 **Cons**: More complex, requires more classes
 
 #### 3. Abstract Factory
+
 ```go
 type PaymentSystemFactory interface {
     CreateGateway() PaymentGateway
@@ -631,13 +640,13 @@ type PaymentSystemFactory interface {
 
 ### Trade-offs
 
-| Aspect              | Pros                              | Cons                              |
-| ------------------- | --------------------------------- | --------------------------------- |
-| **Flexibility**     | Easy to add new types            | Can become complex               |
-| **Decoupling**      | Separates creation from usage    | Additional abstraction layer     |
-| **Testing**         | Easy to mock and test            | More interfaces to maintain      |
-| **Performance**     | Lazy creation possible           | Factory overhead                 |
-| **Maintainability** | Centralized object creation      | Can become over-engineered       |
+| Aspect              | Pros                          | Cons                         |
+| ------------------- | ----------------------------- | ---------------------------- |
+| **Flexibility**     | Easy to add new types         | Can become complex           |
+| **Decoupling**      | Separates creation from usage | Additional abstraction layer |
+| **Testing**         | Easy to mock and test         | More interfaces to maintain  |
+| **Performance**     | Lazy creation possible        | Factory overhead             |
+| **Maintainability** | Centralized object creation   | Can become over-engineered   |
 
 ## Testable Example
 
@@ -856,6 +865,7 @@ func TestAbstractFactory(t *testing.T) {
 ## Integration Tips
 
 ### 1. With Dependency Injection
+
 ```go
 type PaymentService struct {
     gatewayFactory *PaymentGatewayFactory
@@ -879,6 +889,7 @@ func (ps *PaymentService) ProcessPayment(gatewayType string, amount float64, cur
 ```
 
 ### 2. With Configuration
+
 ```go
 type FactoryConfig struct {
     Gateways map[string]GatewayConfig `yaml:"gateways"`
@@ -905,6 +916,7 @@ func LoadFactoryFromConfig(configPath string) (*PaymentGatewayFactory, error) {
 ```
 
 ### 3. With Builder Pattern
+
 ```go
 type PaymentGatewayBuilder struct {
     factory *PaymentGatewayFactory
