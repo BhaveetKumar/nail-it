@@ -13,8 +13,11 @@ This repository provides a complete learning path for Node.js developers targeti
 #### **Node.js Expertise**
 - [**Node.js Complete Guide**](./Technical-Fundamentals/NodeJS_Expertise_Complete_Guide.md) - From basics to advanced Node.js
 - [**Express.js Framework**](./Technical-Fundamentals/ExpressJS_Complete_Guide.md) - Web framework mastery
-- [**Async Programming**](./Technical-Fundamentals/AsyncProgramming_Guide.md) - Promises, async/await, event loops
+- [**Async Programming Guide**](./Technical-Fundamentals/AsyncProgramming_Guide.md) - **🚀 NEW** - Promises, async/await, event loops with advanced patterns
+- [**API Design Guide**](./Technical-Fundamentals/API_Design_Guide.md) - **🚀 NEW** - REST, GraphQL, gRPC API design
+- [**Database Design Guide**](./Technical-Fundamentals/Database_Design_Guide.md) - **🚀 NEW** - SQL, NoSQL, optimization, security
 - [**Node.js Performance**](./Technical-Fundamentals/NodeJS_Performance_Guide.md) - Optimization and profiling
+- [**Node.js Security**](./Technical-Fundamentals/NodeJS_Security_Guide.md) - Security best practices
 
 #### **System Design & Architecture**
 - [**System Design Concepts**](./Technical-Fundamentals/System_Design_Concepts_Guide.md) - HLD/LLD with Node.js examples
@@ -45,12 +48,12 @@ This repository provides a complete learning path for Node.js developers targeti
 ### **📊 Data Structures & Algorithms**
 
 #### **DSA with Node.js**
-- [**DSA-NodeJS Repository**](./DSA-NodeJS/) - Complete DSA learning path
-  - [**Arrays**](./DSA-NodeJS/Arrays/) - Array manipulation and algorithms
+- [**DSA-NodeJS Repository**](./DSA-NodeJS/) - Complete DSA learning path with comprehensive examples
+  - [**Arrays**](./DSA-NodeJS/Arrays/) - **🚀 ENHANCED** - Two Sum, Container With Most Water, and more
   - [**Strings**](./DSA-NodeJS/Strings/) - String processing algorithms
   - [**Linked Lists**](./DSA-NodeJS/LinkedLists/) - List operations and algorithms
-  - [**Trees**](./DSA-NodeJS/Trees/) - Binary trees, BST, AVL, etc.
-  - [**Graphs**](./DSA-NodeJS/Graphs/) - Graph algorithms and traversal
+  - [**Trees**](./DSA-NodeJS/Trees/) - **🚀 ENHANCED** - Binary Tree Traversal with all methods
+  - [**Graphs**](./DSA-NodeJS/Graphs/) - **🚀 ENHANCED** - BFS with comprehensive examples
   - [**Dynamic Programming**](./DSA-NodeJS/DynamicProgramming/) - DP patterns and problems
   - [**Greedy Algorithms**](./DSA-NodeJS/Greedy/) - Greedy approach problems
   - [**Backtracking**](./DSA-NodeJS/Backtracking/) - Backtracking algorithms
@@ -112,12 +115,13 @@ This repository provides a complete learning path for Node.js developers targeti
 
 ## 📊 **Repository Statistics**
 
-- **Total Files**: 200+ comprehensive guides and examples
+- **Total Files**: 250+ comprehensive guides and examples
 - **DSA Problems**: 500+ LeetCode problems with Node.js solutions
 - **System Design**: 50+ design patterns and architectures
+- **Node.js Guides**: Complete async programming, API design, and database guides
 - **AI/ML Content**: Complete learning path from fundamentals to advanced
 - **Company Guides**: Specific preparation for Google, Meta, Razorpay
-- **Code Examples**: Production-ready Node.js implementations
+- **Code Examples**: Production-ready Node.js implementations with best practices
 
 ## 🎯 **Learning Paths**
 
