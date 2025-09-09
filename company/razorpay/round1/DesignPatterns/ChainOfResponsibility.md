@@ -5,6 +5,7 @@
 **Chain of Responsibility** is a behavioral design pattern that lets you pass requests along a chain of handlers. Each handler decides either to process the request or to pass it to the next handler in the chain.
 
 **Key Intent:**
+
 - Decouple senders and receivers of requests
 - Allow multiple objects to handle a request without specifying the receiver explicitly
 - Chain handlers dynamically at runtime
@@ -25,6 +26,7 @@
 7. **Processing Pipelines**: Data needs to flow through multiple processors
 
 **Don't use when:**
+
 - Only one handler exists for each request type
 - The chain is static and simple
 - Performance is critical (chain traversal adds overhead)
@@ -34,6 +36,7 @@
 ## Real-World Use Cases (Payments/Fintech)
 
 ### 1. Payment Processing Pipeline
+
 ```go
 // Payment processing request
 type PaymentRequest struct {
@@ -44,7 +47,7 @@ type PaymentRequest struct {
     CustomerID    string
     MerchantID    string
     Metadata      map[string]interface{}
-    
+
     // Processing state
     ValidationResults map[string]bool
     RiskScore        float64
@@ -91,12 +94,12 @@ func NewPaymentValidationHandler(validator PaymentValidator, logger *zap.Logger)
 
 func (p *PaymentValidationHandler) Handle(ctx context.Context, request *PaymentRequest) error {
     p.logger.Info("Validating payment", zap.String("payment_id", request.ID))
-    
+
     // Initialize validation results
     if request.ValidationResults == nil {
         request.ValidationResults = make(map[string]bool)
     }
-    
+
     // Amount validation
     if err := p.validator.ValidateAmount(request.Amount); err != nil {
         request.ValidationResults["amount"] = false
@@ -104,7 +107,7 @@ func (p *PaymentValidationHandler) Handle(ctx context.Context, request *PaymentR
         return fmt.Errorf("amount validation failed: %w", err)
     }
     request.ValidationResults["amount"] = true
-    
+
     // Currency validation
     if err := p.validator.ValidateCurrency(request.Currency); err != nil {
         request.ValidationResults["currency"] = false
@@ -112,7 +115,7 @@ func (p *PaymentValidationHandler) Handle(ctx context.Context, request *PaymentR
         return fmt.Errorf("currency validation failed: %w", err)
     }
     request.ValidationResults["currency"] = true
-    
+
     // Payment method validation
     if err := p.validator.ValidatePaymentMethod(request.PaymentMethod); err != nil {
         request.ValidationResults["payment_method"] = false
@@ -120,9 +123,9 @@ func (p *PaymentValidationHandler) Handle(ctx context.Context, request *PaymentR
         return fmt.Errorf("payment method validation failed: %w", err)
     }
     request.ValidationResults["payment_method"] = true
-    
+
     p.logger.Info("Payment validation completed", zap.String("payment_id", request.ID))
-    
+
     // Continue to next handler
     return p.HandleNext(ctx, request)
 }
@@ -143,7 +146,7 @@ func NewFraudDetectionHandler(fraudEngine FraudDetectionEngine, logger *zap.Logg
 
 func (f *FraudDetectionHandler) Handle(ctx context.Context, request *PaymentRequest) error {
     f.logger.Info("Performing fraud detection", zap.String("payment_id", request.ID))
-    
+
     // Calculate risk score
     riskScore, err := f.fraudEngine.CalculateRiskScore(ctx, &FraudCheckRequest{
         Amount:        request.Amount,
@@ -159,19 +162,19 @@ func (f *FraudDetectionHandler) Handle(ctx context.Context, request *PaymentRequ
     } else {
         request.RiskScore = riskScore
     }
-    
+
     // Check if transaction should be blocked
     if request.RiskScore > 0.8 {
-        f.logger.Warn("High risk transaction detected", 
+        f.logger.Warn("High risk transaction detected",
             zap.String("payment_id", request.ID),
             zap.Float64("risk_score", request.RiskScore))
         return fmt.Errorf("transaction blocked due to high fraud risk: %.2f", request.RiskScore)
     }
-    
-    f.logger.Info("Fraud detection completed", 
+
+    f.logger.Info("Fraud detection completed",
         zap.String("payment_id", request.ID),
         zap.Float64("risk_score", request.RiskScore))
-    
+
     // Continue to next handler
     return f.HandleNext(ctx, request)
 }
@@ -192,13 +195,13 @@ func NewApprovalHandler(approvalService ApprovalService, logger *zap.Logger) *Ap
 
 func (a *ApprovalHandler) Handle(ctx context.Context, request *PaymentRequest) error {
     a.logger.Info("Processing approval", zap.String("payment_id", request.ID))
-    
+
     // Determine if approval is needed
     needsApproval := a.needsApproval(request)
-    
+
     if needsApproval {
         a.logger.Info("Payment requires approval", zap.String("payment_id", request.ID))
-        
+
         approvalResult, err := a.approvalService.RequestApproval(ctx, &ApprovalRequest{
             PaymentID:     request.ID,
             Amount:        request.Amount,
@@ -210,20 +213,20 @@ func (a *ApprovalHandler) Handle(ctx context.Context, request *PaymentRequest) e
             request.ProcessingErrors = append(request.ProcessingErrors, err)
             return fmt.Errorf("approval request failed: %w", err)
         }
-        
+
         request.ApprovalStatus = approvalResult.Status
-        
+
         if approvalResult.Status != "APPROVED" {
             return fmt.Errorf("payment not approved: %s", approvalResult.Reason)
         }
     } else {
         request.ApprovalStatus = "AUTO_APPROVED"
     }
-    
-    a.logger.Info("Approval completed", 
+
+    a.logger.Info("Approval completed",
         zap.String("payment_id", request.ID),
         zap.String("status", request.ApprovalStatus))
-    
+
     // Continue to next handler
     return a.HandleNext(ctx, request)
 }
@@ -233,12 +236,12 @@ func (a *ApprovalHandler) needsApproval(request *PaymentRequest) bool {
     if request.Amount.GreaterThan(decimal.NewFromInt(10000)) {
         return true
     }
-    
+
     // High risk transactions need approval
     if request.RiskScore > 0.6 {
         return true
     }
-    
+
     // Certain payment methods need approval
     riskMethods := []string{"CRYPTO", "WIRE_TRANSFER"}
     for _, method := range riskMethods {
@@ -246,7 +249,7 @@ func (a *ApprovalHandler) needsApproval(request *PaymentRequest) bool {
             return true
         }
     }
-    
+
     return false
 }
 
@@ -266,7 +269,7 @@ func NewPaymentExecutionHandler(gateway PaymentGateway, logger *zap.Logger) *Pay
 
 func (p *PaymentExecutionHandler) Handle(ctx context.Context, request *PaymentRequest) error {
     p.logger.Info("Executing payment", zap.String("payment_id", request.ID))
-    
+
     // Process payment through gateway
     gatewayRequest := &GatewayPaymentRequest{
         PaymentID:     request.ID,
@@ -276,27 +279,27 @@ func (p *PaymentExecutionHandler) Handle(ctx context.Context, request *PaymentRe
         CustomerID:    request.CustomerID,
         MerchantID:    request.MerchantID,
     }
-    
+
     result, err := p.gateway.ProcessPayment(ctx, gatewayRequest)
     if err != nil {
-        p.logger.Error("Payment execution failed", 
+        p.logger.Error("Payment execution failed",
             zap.String("payment_id", request.ID),
             zap.Error(err))
         request.ProcessingErrors = append(request.ProcessingErrors, err)
         return fmt.Errorf("payment execution failed: %w", err)
     }
-    
+
     // Store result in request metadata
     if request.Metadata == nil {
         request.Metadata = make(map[string]interface{})
     }
     request.Metadata["gateway_transaction_id"] = result.TransactionID
     request.Metadata["gateway_status"] = result.Status
-    
-    p.logger.Info("Payment execution completed", 
+
+    p.logger.Info("Payment execution completed",
         zap.String("payment_id", request.ID),
         zap.String("transaction_id", result.TransactionID))
-    
+
     // Continue to next handler (e.g., notification handler)
     return p.HandleNext(ctx, request)
 }
@@ -317,7 +320,7 @@ func NewNotificationHandler(notificationService NotificationService, logger *zap
 
 func (n *NotificationHandler) Handle(ctx context.Context, request *PaymentRequest) error {
     n.logger.Info("Sending notifications", zap.String("payment_id", request.ID))
-    
+
     // Send notification for successful payment
     notification := &NotificationRequest{
         Type:       "PAYMENT_PROCESSED",
@@ -328,15 +331,15 @@ func (n *NotificationHandler) Handle(ctx context.Context, request *PaymentReques
         Currency:   request.Currency,
         Metadata:   request.Metadata,
     }
-    
+
     if err := n.notificationService.SendNotification(ctx, notification); err != nil {
         n.logger.Warn("Failed to send notification", zap.Error(err))
         // Don't fail the payment for notification errors
         request.ProcessingErrors = append(request.ProcessingErrors, err)
     }
-    
+
     n.logger.Info("Notifications sent", zap.String("payment_id", request.ID))
-    
+
     // This is typically the last handler, so no next handler
     return n.HandleNext(ctx, request)
 }
@@ -360,20 +363,20 @@ func (p *PaymentProcessingChain) BuildChain(
     gateway PaymentGateway,
     notificationService NotificationService,
 ) *PaymentProcessingChain {
-    
+
     // Create handlers
     validationHandler := NewPaymentValidationHandler(validator, p.logger)
     fraudHandler := NewFraudDetectionHandler(fraudEngine, p.logger)
     approvalHandler := NewApprovalHandler(approvalService, p.logger)
     executionHandler := NewPaymentExecutionHandler(gateway, p.logger)
     notificationHandler := NewNotificationHandler(notificationService, p.logger)
-    
+
     // Chain handlers together
     validationHandler.SetNext(fraudHandler).
         SetNext(approvalHandler).
         SetNext(executionHandler).
         SetNext(notificationHandler)
-    
+
     p.firstHandler = validationHandler
     return p
 }
@@ -382,29 +385,30 @@ func (p *PaymentProcessingChain) ProcessPayment(ctx context.Context, request *Pa
     if p.firstHandler == nil {
         return fmt.Errorf("payment processing chain not configured")
     }
-    
+
     p.logger.Info("Starting payment processing chain", zap.String("payment_id", request.ID))
-    
+
     start := time.Now()
     err := p.firstHandler.Handle(ctx, request)
     duration := time.Since(start)
-    
+
     if err != nil {
-        p.logger.Error("Payment processing failed", 
+        p.logger.Error("Payment processing failed",
             zap.String("payment_id", request.ID),
             zap.Error(err),
             zap.Duration("duration", duration))
     } else {
-        p.logger.Info("Payment processing completed successfully", 
+        p.logger.Info("Payment processing completed successfully",
             zap.String("payment_id", request.ID),
             zap.Duration("duration", duration))
     }
-    
+
     return err
 }
 ```
 
 ### 2. Request Authentication & Authorization Chain
+
 ```go
 // Authentication request
 type AuthRequest struct {
@@ -414,7 +418,7 @@ type AuthRequest struct {
     ClientIP   string
     UserAgent  string
     Headers    map[string]string
-    
+
     // Processing state
     User        *User
     Permissions []Permission
@@ -461,32 +465,32 @@ func NewTokenValidationHandler(tokenService TokenService, logger *zap.Logger) *T
 
 func (t *TokenValidationHandler) Handle(ctx context.Context, request *AuthRequest) error {
     t.logger.Debug("Validating token", zap.String("token_prefix", request.Token[:10]+"..."))
-    
+
     if request.Token == "" {
         return fmt.Errorf("missing authentication token")
     }
-    
+
     // Validate token format
     if !t.tokenService.IsValidFormat(request.Token) {
         return fmt.Errorf("invalid token format")
     }
-    
+
     // Verify token signature and expiration
     claims, err := t.tokenService.ValidateToken(request.Token)
     if err != nil {
         return fmt.Errorf("token validation failed: %w", err)
     }
-    
+
     // Extract user information from token
     user, err := t.tokenService.GetUserFromClaims(claims)
     if err != nil {
         return fmt.Errorf("failed to extract user from token: %w", err)
     }
-    
+
     request.User = user
-    
+
     t.logger.Debug("Token validation successful", zap.String("user_id", user.ID))
-    
+
     // Add audit event
     request.AuditTrail = append(request.AuditTrail, AuditEvent{
         Event:     "TOKEN_VALIDATED",
@@ -494,7 +498,7 @@ func (t *TokenValidationHandler) Handle(ctx context.Context, request *AuthReques
         Timestamp: time.Now(),
         Details:   map[string]interface{}{"token_type": claims.Type},
     })
-    
+
     return t.HandleNext(ctx, request)
 }
 
@@ -514,48 +518,48 @@ func NewRateLimitingHandler(rateLimiter RateLimiter, logger *zap.Logger) *RateLi
 
 func (r *RateLimitingHandler) Handle(ctx context.Context, request *AuthRequest) error {
     r.logger.Debug("Checking rate limits", zap.String("client_ip", request.ClientIP))
-    
+
     // Check rate limit by user
     if request.User != nil {
         userLimit, err := r.rateLimiter.CheckUserLimit(request.User.ID)
         if err != nil {
             return fmt.Errorf("rate limit check failed: %w", err)
         }
-        
+
         if !userLimit.Allowed {
-            r.logger.Warn("User rate limit exceeded", 
+            r.logger.Warn("User rate limit exceeded",
                 zap.String("user_id", request.User.ID),
                 zap.Time("retry_after", userLimit.RetryAfter))
             return fmt.Errorf("user rate limit exceeded, retry after %v", userLimit.RetryAfter)
         }
-        
+
         request.RateLimit = &RateLimitInfo{
             UserLimitRemaining: userLimit.Remaining,
             UserLimitResetTime: userLimit.ResetTime,
         }
     }
-    
+
     // Check rate limit by IP
     ipLimit, err := r.rateLimiter.CheckIPLimit(request.ClientIP)
     if err != nil {
         return fmt.Errorf("IP rate limit check failed: %w", err)
     }
-    
+
     if !ipLimit.Allowed {
-        r.logger.Warn("IP rate limit exceeded", 
+        r.logger.Warn("IP rate limit exceeded",
             zap.String("client_ip", request.ClientIP),
             zap.Time("retry_after", ipLimit.RetryAfter))
         return fmt.Errorf("IP rate limit exceeded, retry after %v", ipLimit.RetryAfter)
     }
-    
+
     if request.RateLimit == nil {
         request.RateLimit = &RateLimitInfo{}
     }
     request.RateLimit.IPLimitRemaining = ipLimit.Remaining
     request.RateLimit.IPLimitResetTime = ipLimit.ResetTime
-    
+
     r.logger.Debug("Rate limit check passed", zap.String("client_ip", request.ClientIP))
-    
+
     // Add audit event
     request.AuditTrail = append(request.AuditTrail, AuditEvent{
         Event:     "RATE_LIMIT_CHECKED",
@@ -566,7 +570,7 @@ func (r *RateLimitingHandler) Handle(ctx context.Context, request *AuthRequest) 
             "ip_remaining":   request.RateLimit.IPLimitRemaining,
         },
     })
-    
+
     return r.HandleNext(ctx, request)
 }
 
@@ -588,38 +592,38 @@ func (p *PermissionHandler) Handle(ctx context.Context, request *AuthRequest) er
     if request.User == nil {
         return fmt.Errorf("user not authenticated")
     }
-    
-    p.logger.Debug("Checking permissions", 
+
+    p.logger.Debug("Checking permissions",
         zap.String("user_id", request.User.ID),
         zap.String("method", request.Method),
         zap.String("uri", request.RequestURI))
-    
+
     // Get user permissions
     permissions, err := p.permissionService.GetUserPermissions(request.User.ID)
     if err != nil {
         return fmt.Errorf("failed to get user permissions: %w", err)
     }
-    
+
     request.Permissions = permissions
-    
+
     // Check if user has permission for this endpoint
     resource := p.extractResource(request.RequestURI)
     action := p.mapMethodToAction(request.Method)
-    
+
     hasPermission := p.hasPermission(permissions, resource, action)
     if !hasPermission {
-        p.logger.Warn("Permission denied", 
+        p.logger.Warn("Permission denied",
             zap.String("user_id", request.User.ID),
             zap.String("resource", resource),
             zap.String("action", action))
         return fmt.Errorf("insufficient permissions for %s %s", request.Method, request.RequestURI)
     }
-    
-    p.logger.Debug("Permission check passed", 
+
+    p.logger.Debug("Permission check passed",
         zap.String("user_id", request.User.ID),
         zap.String("resource", resource),
         zap.String("action", action))
-    
+
     // Add audit event
     request.AuditTrail = append(request.AuditTrail, AuditEvent{
         Event:     "PERMISSION_CHECKED",
@@ -631,7 +635,7 @@ func (p *PermissionHandler) Handle(ctx context.Context, request *AuthRequest) er
             "granted":  true,
         },
     })
-    
+
     return p.HandleNext(ctx, request)
 }
 
@@ -652,7 +656,7 @@ func (p *PermissionHandler) mapMethodToAction(method string) string {
         "PATCH":  "update",
         "DELETE": "delete",
     }
-    
+
     if action, exists := actionMap[method]; exists {
         return action
     }
@@ -688,7 +692,7 @@ func NewAuditLoggingHandler(auditService AuditService, logger *zap.Logger) *Audi
 
 func (a *AuditLoggingHandler) Handle(ctx context.Context, request *AuthRequest) error {
     a.logger.Debug("Logging audit trail")
-    
+
     // Create audit log entry
     auditEntry := &AuditLogEntry{
         UserID:     getStringOrDefault(request.User, "ID", ""),
@@ -699,27 +703,28 @@ func (a *AuditLoggingHandler) Handle(ctx context.Context, request *AuthRequest) 
         Events:     request.AuditTrail,
         Success:    true, // Will be updated if next handlers fail
     }
-    
+
     // Log the audit entry
     if err := a.auditService.LogEntry(auditEntry); err != nil {
         a.logger.Warn("Failed to log audit entry", zap.Error(err))
         // Don't fail the request for audit logging errors
     }
-    
+
     a.logger.Debug("Audit logging completed")
-    
+
     return a.HandleNext(ctx, request)
 }
 ```
 
 ### 3. Data Validation Chain
+
 ```go
 // Data validation request
 type ValidationRequest struct {
     Data       interface{}
     Schema     string
     Context    map[string]interface{}
-    
+
     // Processing state
     Errors     []ValidationError
     Warnings   []ValidationWarning
@@ -766,19 +771,19 @@ func NewSchemaValidationHandler(schemaRegistry SchemaRegistry, logger *zap.Logge
 
 func (s *SchemaValidationHandler) Handle(ctx context.Context, request *ValidationRequest) error {
     s.logger.Debug("Performing schema validation", zap.String("schema", request.Schema))
-    
+
     // Get schema definition
     schema, err := s.schemaRegistry.GetSchema(request.Schema)
     if err != nil {
         return fmt.Errorf("schema not found: %w", err)
     }
-    
+
     // Validate data against schema
     validationResult, err := schema.Validate(request.Data)
     if err != nil {
         return fmt.Errorf("schema validation failed: %w", err)
     }
-    
+
     // Collect validation errors
     for _, error := range validationResult.Errors {
         request.Errors = append(request.Errors, ValidationError{
@@ -788,7 +793,7 @@ func (s *SchemaValidationHandler) Handle(ctx context.Context, request *Validatio
             Value:   error.Value,
         })
     }
-    
+
     // Collect warnings
     for _, warning := range validationResult.Warnings {
         request.Warnings = append(request.Warnings, ValidationWarning{
@@ -797,16 +802,16 @@ func (s *SchemaValidationHandler) Handle(ctx context.Context, request *Validatio
             Code:    "SCHEMA_WARNING",
         })
     }
-    
+
     // Fail if there are critical errors
     if len(request.Errors) > 0 {
         return fmt.Errorf("schema validation failed with %d errors", len(request.Errors))
     }
-    
-    s.logger.Debug("Schema validation passed", 
+
+    s.logger.Debug("Schema validation passed",
         zap.String("schema", request.Schema),
         zap.Int("warnings", len(request.Warnings)))
-    
+
     return s.HandleNext(ctx, request)
 }
 
@@ -826,13 +831,13 @@ func NewBusinessRuleValidationHandler(ruleEngine BusinessRuleEngine, logger *zap
 
 func (b *BusinessRuleValidationHandler) Handle(ctx context.Context, request *ValidationRequest) error {
     b.logger.Debug("Performing business rule validation")
-    
+
     // Execute business rules
     ruleResults, err := b.ruleEngine.ExecuteRules(request.Data, request.Context)
     if err != nil {
         return fmt.Errorf("business rule execution failed: %w", err)
     }
-    
+
     // Process rule results
     for _, result := range ruleResults {
         if result.Severity == "ERROR" {
@@ -850,7 +855,7 @@ func (b *BusinessRuleValidationHandler) Handle(ctx context.Context, request *Val
             })
         }
     }
-    
+
     // Check if any critical business rules failed
     criticalErrors := 0
     for _, error := range request.Errors {
@@ -858,15 +863,15 @@ func (b *BusinessRuleValidationHandler) Handle(ctx context.Context, request *Val
             criticalErrors++
         }
     }
-    
+
     if criticalErrors > 0 {
         return fmt.Errorf("business rule validation failed with %d critical errors", criticalErrors)
     }
-    
-    b.logger.Debug("Business rule validation completed", 
+
+    b.logger.Debug("Business rule validation completed",
         zap.Int("errors", len(request.Errors)),
         zap.Int("warnings", len(request.Warnings)))
-    
+
     return b.HandleNext(ctx, request)
 }
 
@@ -886,24 +891,24 @@ func NewDataSanitizationHandler(sanitizer DataSanitizer, logger *zap.Logger) *Da
 
 func (d *DataSanitizationHandler) Handle(ctx context.Context, request *ValidationRequest) error {
     d.logger.Debug("Performing data sanitization")
-    
+
     // Sanitize the data
     sanitized, err := d.sanitizer.Sanitize(request.Data)
     if err != nil {
         return fmt.Errorf("data sanitization failed: %w", err)
     }
-    
+
     request.Sanitized = sanitized
-    
+
     // Initialize metadata if needed
     if request.Metadata == nil {
         request.Metadata = make(map[string]interface{})
     }
     request.Metadata["sanitized"] = true
     request.Metadata["sanitized_at"] = time.Now()
-    
+
     d.logger.Debug("Data sanitization completed")
-    
+
     return d.HandleNext(ctx, request)
 }
 ```
@@ -934,7 +939,7 @@ type Request struct {
     Body      []byte
     ClientIP  string
     UserAgent string
-    
+
     // Processing state
     User         *User
     RequestTime  time.Time
@@ -970,7 +975,7 @@ func (b *BaseHandler) HandleNext(ctx context.Context, request *Request) (*Respon
     if b.next != nil {
         return b.next.Handle(ctx, request)
     }
-    
+
     // Default response if no more handlers
     return &Response{
         StatusCode: 200,
@@ -993,25 +998,25 @@ func NewLoggingHandler(logger *zap.Logger) *LoggingHandler {
 
 func (l *LoggingHandler) Handle(ctx context.Context, request *Request) (*Response, error) {
     start := time.Now()
-    
+
     l.logger.Info("Request received",
         zap.String("request_id", request.ID),
         zap.String("method", request.Method),
         zap.String("url", request.URL),
         zap.String("client_ip", request.ClientIP))
-    
+
     // Add log entry to request
     request.ProcessingLog = append(request.ProcessingLog, LogEntry{
         Handler:   "LoggingHandler",
         Message:   "Request logged",
         Timestamp: start,
     })
-    
+
     // Process request through next handlers
     response, err := l.HandleNext(ctx, request)
-    
+
     duration := time.Since(start)
-    
+
     if err != nil {
         l.logger.Error("Request failed",
             zap.String("request_id", request.ID),
@@ -1023,7 +1028,7 @@ func (l *LoggingHandler) Handle(ctx context.Context, request *Request) (*Respons
             zap.Int("status_code", response.StatusCode),
             zap.Duration("duration", duration))
     }
-    
+
     return response, err
 }
 
@@ -1054,7 +1059,7 @@ func NewAuthenticationHandler(authenticator Authenticator, logger *zap.Logger) *
 
 func (a *AuthenticationHandler) Handle(ctx context.Context, request *Request) (*Response, error) {
     a.logger.Debug("Processing authentication", zap.String("request_id", request.ID))
-    
+
     // Check for authorization header
     authHeader, exists := request.Headers["Authorization"]
     if !exists {
@@ -1065,7 +1070,7 @@ func (a *AuthenticationHandler) Handle(ctx context.Context, request *Request) (*
             Body:       []byte(`{"error": "Missing authorization header"}`),
         }, nil
     }
-    
+
     // Extract token from header
     token := strings.TrimPrefix(authHeader, "Bearer ")
     if token == authHeader {
@@ -1076,11 +1081,11 @@ func (a *AuthenticationHandler) Handle(ctx context.Context, request *Request) (*
             Body:       []byte(`{"error": "Invalid authorization header format"}`),
         }, nil
     }
-    
+
     // Authenticate user
     user, err := a.authenticator.Authenticate(token)
     if err != nil {
-        a.logger.Warn("Authentication failed", 
+        a.logger.Warn("Authentication failed",
             zap.String("request_id", request.ID),
             zap.Error(err))
         return &Response{
@@ -1089,21 +1094,21 @@ func (a *AuthenticationHandler) Handle(ctx context.Context, request *Request) (*
             Body:       []byte(`{"error": "Authentication failed"}`),
         }, nil
     }
-    
+
     // Set user in request
     request.User = user
-    
+
     // Add log entry
     request.ProcessingLog = append(request.ProcessingLog, LogEntry{
         Handler:   "AuthenticationHandler",
         Message:   fmt.Sprintf("User authenticated: %s", user.Username),
         Timestamp: time.Now(),
     })
-    
-    a.logger.Debug("Authentication successful", 
+
+    a.logger.Debug("Authentication successful",
         zap.String("request_id", request.ID),
         zap.String("user_id", user.ID))
-    
+
     return a.HandleNext(ctx, request)
 }
 
@@ -1128,16 +1133,16 @@ func NewRateLimitHandler(limiter RateLimiter, logger *zap.Logger) *RateLimitHand
 
 func (r *RateLimitHandler) Handle(ctx context.Context, request *Request) (*Response, error) {
     r.logger.Debug("Checking rate limits", zap.String("request_id", request.ID))
-    
+
     var userID string
     if request.User != nil {
         userID = request.User.ID
     }
-    
+
     // Check if request is allowed
     allowed, err := r.limiter.IsAllowed(request.ClientIP, userID)
     if err != nil {
-        r.logger.Error("Rate limit check failed", 
+        r.logger.Error("Rate limit check failed",
             zap.String("request_id", request.ID),
             zap.Error(err))
         return &Response{
@@ -1146,13 +1151,13 @@ func (r *RateLimitHandler) Handle(ctx context.Context, request *Request) (*Respo
             Body:       []byte(`{"error": "Rate limit check failed"}`),
         }, nil
     }
-    
+
     if !allowed {
-        r.logger.Warn("Rate limit exceeded", 
+        r.logger.Warn("Rate limit exceeded",
             zap.String("request_id", request.ID),
             zap.String("client_ip", request.ClientIP),
             zap.String("user_id", userID))
-        
+
         return &Response{
             StatusCode: 429,
             Headers: map[string]string{
@@ -1162,31 +1167,31 @@ func (r *RateLimitHandler) Handle(ctx context.Context, request *Request) (*Respo
             Body: []byte(`{"error": "Rate limit exceeded"}`),
         }, nil
     }
-    
+
     // Get remaining requests for response header
     remaining, err := r.limiter.GetRemainingRequests(request.ClientIP, userID)
     if err != nil {
         r.logger.Warn("Failed to get remaining requests", zap.Error(err))
         remaining = -1
     }
-    
+
     // Add rate limit info to metadata
     if request.Metadata == nil {
         request.Metadata = make(map[string]interface{})
     }
     request.Metadata["rate_limit_remaining"] = remaining
-    
+
     // Add log entry
     request.ProcessingLog = append(request.ProcessingLog, LogEntry{
         Handler:   "RateLimitHandler",
         Message:   fmt.Sprintf("Rate limit check passed, remaining: %d", remaining),
         Timestamp: time.Now(),
     })
-    
-    r.logger.Debug("Rate limit check passed", 
+
+    r.logger.Debug("Rate limit check passed",
         zap.String("request_id", request.ID),
         zap.Int("remaining", remaining))
-    
+
     return r.HandleNext(ctx, request)
 }
 
@@ -1216,39 +1221,39 @@ func NewValidationHandler(validator RequestValidator, logger *zap.Logger) *Valid
 
 func (v *ValidationHandler) Handle(ctx context.Context, request *Request) (*Response, error) {
     v.logger.Debug("Validating request", zap.String("request_id", request.ID))
-    
+
     // Validate the request
     errors := v.validator.ValidateRequest(request)
-    
+
     if len(errors) > 0 {
-        v.logger.Warn("Request validation failed", 
+        v.logger.Warn("Request validation failed",
             zap.String("request_id", request.ID),
             zap.Int("error_count", len(errors)))
-        
+
         // Return validation errors
         errorResponse := map[string]interface{}{
             "error":   "Validation failed",
             "details": errors,
         }
-        
+
         responseBody, _ := json.Marshal(errorResponse)
-        
+
         return &Response{
             StatusCode: 400,
             Headers:    map[string]string{"Content-Type": "application/json"},
             Body:       responseBody,
         }, nil
     }
-    
+
     // Add log entry
     request.ProcessingLog = append(request.ProcessingLog, LogEntry{
         Handler:   "ValidationHandler",
         Message:   "Request validation passed",
         Timestamp: time.Now(),
     })
-    
+
     v.logger.Debug("Request validation passed", zap.String("request_id", request.ID))
-    
+
     return v.HandleNext(ctx, request)
 }
 
@@ -1272,36 +1277,36 @@ func NewBusinessLogicHandler(processor BusinessProcessor, logger *zap.Logger) *B
 
 func (b *BusinessLogicHandler) Handle(ctx context.Context, request *Request) (*Response, error) {
     b.logger.Debug("Processing business logic", zap.String("request_id", request.ID))
-    
+
     // Add log entry
     request.ProcessingLog = append(request.ProcessingLog, LogEntry{
         Handler:   "BusinessLogicHandler",
         Message:   "Processing business logic",
         Timestamp: time.Now(),
     })
-    
+
     // Process the actual business logic
     response, err := b.processor.ProcessRequest(ctx, request)
     if err != nil {
-        b.logger.Error("Business logic processing failed", 
+        b.logger.Error("Business logic processing failed",
             zap.String("request_id", request.ID),
             zap.Error(err))
-        
+
         return &Response{
             StatusCode: 500,
             Headers:    map[string]string{"Content-Type": "application/json"},
             Body:       []byte(`{"error": "Internal server error"}`),
         }, err
     }
-    
+
     // Add processing log to response headers for debugging
     if response.Headers == nil {
         response.Headers = make(map[string]string)
     }
     response.Headers["X-Processing-Steps"] = fmt.Sprintf("%d", len(request.ProcessingLog))
-    
+
     b.logger.Debug("Business logic processing completed", zap.String("request_id", request.ID))
-    
+
     return response, nil
 }
 
@@ -1342,7 +1347,7 @@ type MockRequestValidator struct{}
 
 func (m *MockRequestValidator) ValidateRequest(request *Request) []ValidationError {
     var errors []ValidationError
-    
+
     // Example validation: check for required headers
     if _, exists := request.Headers["Content-Type"]; !exists && request.Method == "POST" {
         errors = append(errors, ValidationError{
@@ -1351,7 +1356,7 @@ func (m *MockRequestValidator) ValidateRequest(request *Request) []ValidationErr
             Code:    "MISSING_HEADER",
         })
     }
-    
+
     // Example validation: check URL format
     if !strings.HasPrefix(request.URL, "/api/") {
         errors = append(errors, ValidationError{
@@ -1360,7 +1365,7 @@ func (m *MockRequestValidator) ValidateRequest(request *Request) []ValidationErr
             Code:    "INVALID_URL_FORMAT",
         })
     }
-    
+
     return errors
 }
 
@@ -1369,16 +1374,16 @@ type MockBusinessProcessor struct{}
 func (m *MockBusinessProcessor) ProcessRequest(ctx context.Context, request *Request) (*Response, error) {
     // Simulate business logic processing
     time.Sleep(10 * time.Millisecond)
-    
+
     responseData := map[string]interface{}{
         "message":    "Request processed successfully",
         "request_id": request.ID,
         "user":       request.User,
         "timestamp":  time.Now(),
     }
-    
+
     responseBody, _ := json.Marshal(responseData)
-    
+
     return &Response{
         StatusCode: 200,
         Headers:    map[string]string{"Content-Type": "application/json"},
@@ -1405,13 +1410,13 @@ func (rpc *RequestProcessingChain) BuildChain() *RequestProcessingChain {
     rateLimitHandler := NewRateLimitHandler(&MockRateLimiter{}, rpc.logger)
     validationHandler := NewValidationHandler(&MockRequestValidator{}, rpc.logger)
     businessHandler := NewBusinessLogicHandler(&MockBusinessProcessor{}, rpc.logger)
-    
+
     // Chain handlers together
     loggingHandler.SetNext(authHandler).
         SetNext(rateLimitHandler).
         SetNext(validationHandler).
         SetNext(businessHandler)
-    
+
     rpc.firstHandler = loggingHandler
     return rpc
 }
@@ -1420,7 +1425,7 @@ func (rpc *RequestProcessingChain) ProcessRequest(ctx context.Context, request *
     if rpc.firstHandler == nil {
         return nil, fmt.Errorf("processing chain not configured")
     }
-    
+
     request.RequestTime = time.Now()
     return rpc.firstHandler.Handle(ctx, request)
 }
@@ -1428,14 +1433,14 @@ func (rpc *RequestProcessingChain) ProcessRequest(ctx context.Context, request *
 // Example usage
 func main() {
     fmt.Println("=== Chain of Responsibility Pattern Demo ===\n")
-    
+
     // Create logger
     logger, _ := zap.NewDevelopment()
     defer logger.Sync()
-    
+
     // Build processing chain
     chain := NewRequestProcessingChain(logger).BuildChain()
-    
+
     // Create test requests
     requests := []*Request{
         {
@@ -1476,15 +1481,15 @@ func main() {
             Metadata:  make(map[string]interface{}),
         },
     }
-    
+
     // Process each request through the chain
     for i, request := range requests {
         fmt.Printf("=== Processing Request %d ===\n", i+1)
         fmt.Printf("Request: %s %s\n", request.Method, request.URL)
-        
+
         ctx := context.Background()
         response, err := chain.ProcessRequest(ctx, request)
-        
+
         if err != nil {
             fmt.Printf("Error: %v\n", err)
         } else {
@@ -1493,29 +1498,29 @@ func main() {
                 fmt.Printf("Body: %s\n", string(response.Body))
             }
         }
-        
+
         // Display processing log
         fmt.Printf("Processing Steps:\n")
         for j, entry := range request.ProcessingLog {
             fmt.Printf("  %d. %s: %s\n", j+1, entry.Handler, entry.Message)
         }
-        
+
         fmt.Println()
     }
-    
+
     // Demonstrate different chain configurations
     fmt.Println("=== Different Chain Configuration ===")
-    
+
     // Create a simpler chain (without authentication)
     simpleChain := NewRequestProcessingChain(logger)
-    
+
     loggingHandler := NewLoggingHandler(logger)
     validationHandler := NewValidationHandler(&MockRequestValidator{}, logger)
     businessHandler := NewBusinessLogicHandler(&MockBusinessProcessor{}, logger)
-    
+
     loggingHandler.SetNext(validationHandler).SetNext(businessHandler)
     simpleChain.firstHandler = loggingHandler
-    
+
     // Test with the simpler chain
     testRequest := &Request{
         ID:        "simple-req-001",
@@ -1526,23 +1531,23 @@ func main() {
         UserAgent: "health-check/1.0",
         Metadata:  make(map[string]interface{}),
     }
-    
+
     fmt.Printf("Processing request with simpler chain: %s %s\n", testRequest.Method, testRequest.URL)
-    
+
     ctx := context.Background()
     response, err := simpleChain.ProcessRequest(ctx, testRequest)
-    
+
     if err != nil {
         fmt.Printf("Error: %v\n", err)
     } else {
         fmt.Printf("Response: %d\n", response.StatusCode)
     }
-    
+
     fmt.Printf("Processing Steps:\n")
     for j, entry := range testRequest.ProcessingLog {
         fmt.Printf("  %d. %s: %s\n", j+1, entry.Handler, entry.Message)
     }
-    
+
     fmt.Println("\n=== Chain of Responsibility Pattern Demo Complete ===")
 }
 
@@ -1564,6 +1569,7 @@ var json = struct {
 ### Variants
 
 1. **Pure Chain of Responsibility**
+
 ```go
 // Each handler either handles completely or passes to next
 type PureHandler interface {
@@ -1579,17 +1585,18 @@ func (c *ConcreteHandler) Handle(request Request) (bool, error) {
         // Handle the request completely
         return true, c.processRequest(request)
     }
-    
+
     // Pass to next handler
     if c.next != nil {
         return c.next.Handle(request)
     }
-    
+
     return false, fmt.Errorf("no handler found for request")
 }
 ```
 
 2. **Pipeline Chain**
+
 ```go
 // Each handler processes and passes modified request to next
 type PipelineHandler interface {
@@ -1602,7 +1609,7 @@ type PipelineChain struct {
 
 func (p *PipelineChain) Execute(request Request) (Request, error) {
     current := request
-    
+
     for _, handler := range p.handlers {
         processed, err := handler.Process(current)
         if err != nil {
@@ -1610,12 +1617,13 @@ func (p *PipelineChain) Execute(request Request) (Request, error) {
         }
         current = processed
     }
-    
+
     return current, nil
 }
 ```
 
 3. **Conditional Chain**
+
 ```go
 type ConditionalHandler struct {
     condition func(Request) bool
@@ -1629,11 +1637,11 @@ func (c *ConditionalHandler) Handle(request Request) error {
             return err
         }
     }
-    
+
     if c.next != nil {
         return c.next.Handle(request)
     }
-    
+
     return nil
 }
 ```
@@ -1641,6 +1649,7 @@ func (c *ConditionalHandler) Handle(request Request) error {
 ### Trade-offs
 
 **Pros:**
+
 - **Flexibility**: Dynamic chain configuration at runtime
 - **Decoupling**: Loose coupling between senders and receivers
 - **Single Responsibility**: Each handler has one responsibility
@@ -1648,6 +1657,7 @@ func (c *ConditionalHandler) Handle(request Request) error {
 - **Reusability**: Handlers can be reused in different chains
 
 **Cons:**
+
 - **Performance**: Chain traversal adds overhead
 - **Debugging**: Complex chains can be hard to debug
 - **No Guarantee**: No guarantee that request will be handled
@@ -1656,17 +1666,18 @@ func (c *ConditionalHandler) Handle(request Request) error {
 
 **When to Choose Chain of Responsibility vs Alternatives:**
 
-| Scenario | Pattern | Reason |
-|----------|---------|--------|
-| Sequential processing | Chain of Responsibility | Multiple processing steps |
-| Conditional processing | Strategy | Different algorithms |
-| Event handling | Observer | Event notification |
-| Request decoration | Decorator | Add behavior to requests |
-| State-based processing | State | Behavior changes with state |
+| Scenario               | Pattern                 | Reason                      |
+| ---------------------- | ----------------------- | --------------------------- |
+| Sequential processing  | Chain of Responsibility | Multiple processing steps   |
+| Conditional processing | Strategy                | Different algorithms        |
+| Event handling         | Observer                | Event notification          |
+| Request decoration     | Decorator               | Add behavior to requests    |
+| State-based processing | State                   | Behavior changes with state |
 
 ## Integration Tips
 
 ### 1. Factory Pattern Integration
+
 ```go
 type HandlerFactory interface {
     CreateHandler(handlerType string, config HandlerConfig) (Handler, error)
@@ -1685,7 +1696,7 @@ type ChainFactory struct {
 
 func (cf *ChainFactory) BuildChain() (Handler, error) {
     handlers := make(map[string]Handler)
-    
+
     // Create all handlers first
     for _, config := range cf.configs {
         handler, err := cf.handlerFactory.CreateHandler(config.Name, config)
@@ -1694,24 +1705,25 @@ func (cf *ChainFactory) BuildChain() (Handler, error) {
         }
         handlers[config.Name] = handler
     }
-    
+
     // Link handlers together
     for _, config := range cf.configs {
         if config.Next != "" {
             handlers[config.Name].SetNext(handlers[config.Next])
         }
     }
-    
+
     // Return first handler
     if len(cf.configs) > 0 {
         return handlers[cf.configs[0].Name], nil
     }
-    
+
     return nil, fmt.Errorf("no handlers configured")
 }
 ```
 
 ### 2. Builder Pattern Integration
+
 ```go
 type ChainBuilder struct {
     handlers []Handler
@@ -1754,17 +1766,18 @@ func (cb *ChainBuilder) Build() Handler {
     if len(cb.handlers) == 0 {
         return nil
     }
-    
+
     // Link handlers together
     for i := 0; i < len(cb.handlers)-1; i++ {
         cb.handlers[i].SetNext(cb.handlers[i+1])
     }
-    
+
     return cb.handlers[0]
 }
 ```
 
 ### 3. Command Pattern Integration
+
 ```go
 type ChainCommand struct {
     chain   Handler
@@ -1790,18 +1803,19 @@ func (cci *CommandChainInvoker) AddCommand(cmd Command) {
 
 func (cci *CommandChainInvoker) ExecuteAll() []error {
     var errors []error
-    
+
     for _, cmd := range cci.commands {
         if err := cmd.Execute(); err != nil {
             errors = append(errors, err)
         }
     }
-    
+
     return errors
 }
 ```
 
 ### 4. Observer Pattern Integration
+
 ```go
 type ChainObserver interface {
     OnHandlerStarted(handler Handler, request Request)
@@ -1820,19 +1834,19 @@ func (oh *ObservableHandler) Handle(request Request) error {
     for _, observer := range oh.observers {
         observer.OnHandlerStarted(oh, request)
     }
-    
+
     // Process the request
     err := oh.handleRequest(request)
-    
+
     // Notify observers that handler completed
     for _, observer := range oh.observers {
         observer.OnHandlerCompleted(oh, request, err)
     }
-    
+
     if err != nil {
         return err
     }
-    
+
     return oh.HandleNext(request)
 }
 
@@ -1849,6 +1863,7 @@ func (oh *ObservableHandler) AddObserver(observer ChainObserver) {
 Both patterns involve chaining objects, but they serve different purposes:
 
 **Chain of Responsibility:**
+
 ```go
 // Purpose: Find a handler that can process the request
 type Handler interface {
@@ -1865,12 +1880,12 @@ func (v *ValidationHandler) Handle(request Request) error {
         // This handler processes validation requests
         return v.validate(request)
     }
-    
+
     // Pass to next handler if this one can't handle it
     if v.next != nil {
         return v.next.Handle(request)
     }
-    
+
     return fmt.Errorf("no handler found")
 }
 
@@ -1880,6 +1895,7 @@ err := handler.Handle(request) // Stops at first suitable handler
 ```
 
 **Decorator:**
+
 ```go
 // Purpose: Add behavior to an object
 type Service interface {
@@ -1893,10 +1909,10 @@ type LoggingDecorator struct {
 
 func (l *LoggingDecorator) Process(request Request) Response {
     l.logger.Log("Processing request")
-    
+
     // Always calls the wrapped service
     response := l.wrapped.Process(request)
-    
+
     l.logger.Log("Request processed")
     return response
 }
@@ -1912,13 +1928,13 @@ response := service.Process(request) // All layers process
 
 **Key Differences:**
 
-| Aspect | Chain of Responsibility | Decorator |
-|--------|------------------------|-----------|
-| **Purpose** | Find suitable handler | Add behavior |
-| **Processing** | One handler processes | All decorators process |
-| **Control Flow** | Stops at handler | Flows through all |
-| **Request Modification** | Usually not modified | Often modified |
-| **Use Case** | Alternative handlers | Layered functionality |
+| Aspect                   | Chain of Responsibility | Decorator              |
+| ------------------------ | ----------------------- | ---------------------- |
+| **Purpose**              | Find suitable handler   | Add behavior           |
+| **Processing**           | One handler processes   | All decorators process |
+| **Control Flow**         | Stops at handler        | Flows through all      |
+| **Request Modification** | Usually not modified    | Often modified         |
+| **Use Case**             | Alternative handlers    | Layered functionality  |
 
 ### 2. **How do you handle errors in a chain of responsibility?**
 
@@ -1926,6 +1942,7 @@ response := service.Process(request) // All layers process
 Error handling in chains requires careful consideration of whether to stop or continue processing:
 
 **Fail-Fast Strategy:**
+
 ```go
 type FailFastHandler struct {
     BaseHandler
@@ -1938,12 +1955,13 @@ func (f *FailFastHandler) Handle(request Request) error {
         // Stop chain execution on first error
         return fmt.Errorf("handler failed: %w", err)
     }
-    
+
     return f.HandleNext(request)
 }
 ```
 
 **Error Aggregation Strategy:**
+
 ```go
 type ErrorAggregatingHandler struct {
     BaseHandler
@@ -1959,13 +1977,14 @@ func (e *ErrorAggregatingHandler) Handle(request Request) error {
         }
         request.Errors = append(request.Errors, err)
     }
-    
+
     // Continue to next handler regardless of error
     return e.HandleNext(request)
 }
 ```
 
 **Conditional Error Handling:**
+
 ```go
 type ConditionalErrorHandler struct {
     BaseHandler
@@ -1980,16 +1999,17 @@ func (c *ConditionalErrorHandler) Handle(request Request) error {
             // Stop for critical errors
             return fmt.Errorf("critical error: %w", err)
         }
-        
+
         // Log non-critical errors but continue
         log.Warn("Non-critical error", zap.Error(err))
     }
-    
+
     return c.HandleNext(request)
 }
 ```
 
 **Error Recovery Strategy:**
+
 ```go
 type RecoveryHandler struct {
     BaseHandler
@@ -2003,7 +2023,7 @@ func (r *RecoveryHandler) Handle(request Request) error {
         // Try fallback processor
         if r.fallbackProcessor != nil {
             log.Warn("Primary processor failed, trying fallback", zap.Error(err))
-            
+
             if fallbackErr := r.fallbackProcessor.Process(request); fallbackErr != nil {
                 return fmt.Errorf("both primary and fallback failed: primary=%w, fallback=%w", err, fallbackErr)
             }
@@ -2011,7 +2031,7 @@ func (r *RecoveryHandler) Handle(request Request) error {
             return err
         }
     }
-    
+
     return r.HandleNext(request)
 }
 ```
@@ -2022,22 +2042,23 @@ func (r *RecoveryHandler) Handle(request Request) error {
 Testing chains requires both unit testing of individual handlers and integration testing of the complete chain:
 
 **Unit Testing Individual Handlers:**
+
 ```go
 func TestValidationHandler(t *testing.T) {
     validator := &MockValidator{}
     handler := NewValidationHandler(validator)
-    
+
     // Test valid request
     validator.On("Validate", mock.Anything).Return(nil)
     request := &Request{Type: "test"}
-    
+
     err := handler.Handle(request)
     assert.NoError(t, err)
     validator.AssertExpectations(t)
-    
+
     // Test invalid request
     validator.On("Validate", mock.Anything).Return(fmt.Errorf("validation failed"))
-    
+
     err = handler.Handle(request)
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "validation failed")
@@ -2045,31 +2066,32 @@ func TestValidationHandler(t *testing.T) {
 ```
 
 **Integration Testing Complete Chain:**
+
 ```go
 func TestPaymentProcessingChain(t *testing.T) {
     // Create real or mock services
     validator := &MockValidator{}
     fraudEngine := &MockFraudEngine{}
     gateway := &MockGateway{}
-    
+
     // Build the chain
     chain := NewPaymentProcessingChain().
         AddValidation(validator).
         AddFraudDetection(fraudEngine).
         AddGatewayProcessing(gateway).
         Build()
-    
+
     // Test successful processing
     validator.On("Validate", mock.Anything).Return(nil)
     fraudEngine.On("CheckFraud", mock.Anything).Return(0.1, nil) // Low risk
     gateway.On("Process", mock.Anything).Return(&GatewayResult{Status: "SUCCESS"}, nil)
-    
+
     request := &PaymentRequest{Amount: decimal.NewFromFloat(100)}
     err := chain.Handle(request)
-    
+
     assert.NoError(t, err)
     assert.Equal(t, "SUCCESS", request.Status)
-    
+
     // Verify all services were called
     validator.AssertExpectations(t)
     fraudEngine.AssertExpectations(t)
@@ -2078,19 +2100,20 @@ func TestPaymentProcessingChain(t *testing.T) {
 ```
 
 **Testing Chain Order:**
+
 ```go
 func TestChainOrder(t *testing.T) {
     var executionOrder []string
-    
+
     handler1 := &OrderTestingHandler{Name: "Handler1", Order: &executionOrder}
     handler2 := &OrderTestingHandler{Name: "Handler2", Order: &executionOrder}
     handler3 := &OrderTestingHandler{Name: "Handler3", Order: &executionOrder}
-    
+
     handler1.SetNext(handler2).SetNext(handler3)
-    
+
     request := &Request{}
     handler1.Handle(request)
-    
+
     expected := []string{"Handler1", "Handler2", "Handler3"}
     assert.Equal(t, expected, executionOrder)
 }
@@ -2108,25 +2131,26 @@ func (o *OrderTestingHandler) Handle(request Request) error {
 ```
 
 **Testing Error Scenarios:**
+
 ```go
 func TestChainErrorHandling(t *testing.T) {
     handler1 := &MockHandler{}
     handler2 := &MockHandler{}
     handler3 := &MockHandler{}
-    
+
     handler1.SetNext(handler2).SetNext(handler3)
-    
+
     // Test error in middle of chain
     handler1.On("Process", mock.Anything).Return(nil)
     handler2.On("Process", mock.Anything).Return(fmt.Errorf("handler2 failed"))
     // handler3 should not be called
-    
+
     request := &Request{}
     err := handler1.Handle(request)
-    
+
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "handler2 failed")
-    
+
     handler1.AssertExpectations(t)
     handler2.AssertExpectations(t)
     handler3.AssertNotCalled(t, "Process")
@@ -2134,13 +2158,14 @@ func TestChainErrorHandling(t *testing.T) {
 ```
 
 **Performance Testing:**
+
 ```go
 func BenchmarkChainProcessing(b *testing.B) {
     chain := buildTestChain()
     request := &Request{Type: "benchmark"}
-    
+
     b.ResetTimer()
-    
+
     for i := 0; i < b.N; i++ {
         chain.Handle(request)
     }
@@ -2148,12 +2173,12 @@ func BenchmarkChainProcessing(b *testing.B) {
 
 func BenchmarkChainLengths(b *testing.B) {
     lengths := []int{1, 5, 10, 20}
-    
+
     for _, length := range lengths {
         b.Run(fmt.Sprintf("Chain-%d", length), func(b *testing.B) {
             chain := buildChainWithLength(length)
             request := &Request{}
-            
+
             b.ResetTimer()
             for i := 0; i < b.N; i++ {
                 chain.Handle(request)
@@ -2169,6 +2194,7 @@ func BenchmarkChainLengths(b *testing.B) {
 Dynamic reconfiguration allows chains to be modified at runtime:
 
 **Dynamic Chain Manager:**
+
 ```go
 type DynamicChain struct {
     handlers []Handler
@@ -2186,42 +2212,42 @@ func NewDynamicChain(logger *zap.Logger) *DynamicChain {
 func (dc *DynamicChain) AddHandler(position int, handler Handler) error {
     dc.mu.Lock()
     defer dc.mu.Unlock()
-    
+
     if position < 0 || position > len(dc.handlers) {
         return fmt.Errorf("invalid position: %d", position)
     }
-    
+
     // Insert handler at specified position
     dc.handlers = append(dc.handlers[:position], append([]Handler{handler}, dc.handlers[position:]...)...)
-    
+
     // Rebuild chain links
     dc.rebuildChain()
-    
-    dc.logger.Info("Handler added to chain", 
+
+    dc.logger.Info("Handler added to chain",
         zap.String("handler", fmt.Sprintf("%T", handler)),
         zap.Int("position", position))
-    
+
     return nil
 }
 
 func (dc *DynamicChain) RemoveHandler(position int) error {
     dc.mu.Lock()
     defer dc.mu.Unlock()
-    
+
     if position < 0 || position >= len(dc.handlers) {
         return fmt.Errorf("invalid position: %d", position)
     }
-    
+
     removedHandler := dc.handlers[position]
     dc.handlers = append(dc.handlers[:position], dc.handlers[position+1:]...)
-    
+
     // Rebuild chain links
     dc.rebuildChain()
-    
-    dc.logger.Info("Handler removed from chain", 
+
+    dc.logger.Info("Handler removed from chain",
         zap.String("handler", fmt.Sprintf("%T", removedHandler)),
         zap.Int("position", position))
-    
+
     return nil
 }
 
@@ -2229,7 +2255,7 @@ func (dc *DynamicChain) rebuildChain() {
     for i := 0; i < len(dc.handlers)-1; i++ {
         dc.handlers[i].SetNext(dc.handlers[i+1])
     }
-    
+
     // Clear next for last handler
     if len(dc.handlers) > 0 {
         dc.handlers[len(dc.handlers)-1].SetNext(nil)
@@ -2239,16 +2265,17 @@ func (dc *DynamicChain) rebuildChain() {
 func (dc *DynamicChain) Handle(request Request) error {
     dc.mu.RLock()
     defer dc.mu.RUnlock()
-    
+
     if len(dc.handlers) == 0 {
         return fmt.Errorf("no handlers in chain")
     }
-    
+
     return dc.handlers[0].Handle(request)
 }
 ```
 
 **Configuration-Driven Chains:**
+
 ```go
 type ChainConfig struct {
     Handlers []HandlerConfig `yaml:"handlers"`
@@ -2271,43 +2298,43 @@ type ConfigurableChain struct {
 func (cc *ConfigurableChain) LoadConfig(configPath string) error {
     cc.mu.Lock()
     defer cc.mu.Unlock()
-    
+
     config, err := loadChainConfig(configPath)
     if err != nil {
         return err
     }
-    
+
     cc.config = config
     return cc.rebuildFromConfig()
 }
 
 func (cc *ConfigurableChain) rebuildFromConfig() error {
     var handlers []Handler
-    
+
     for _, handlerConfig := range cc.config.Handlers {
         if !handlerConfig.Enabled {
             continue
         }
-        
+
         handler, err := cc.factory.CreateHandler(handlerConfig.Type, handlerConfig.Parameters)
         if err != nil {
             return fmt.Errorf("failed to create handler %s: %w", handlerConfig.Type, err)
         }
-        
+
         handlers = append(handlers, handler)
     }
-    
+
     // Link handlers
     for i := 0; i < len(handlers)-1; i++ {
         handlers[i].SetNext(handlers[i+1])
     }
-    
+
     if len(handlers) > 0 {
         cc.currentChain = handlers[0]
     } else {
         cc.currentChain = nil
     }
-    
+
     cc.logger.Info("Chain rebuilt from config", zap.Int("handlers", len(handlers)))
     return nil
 }
@@ -2315,16 +2342,17 @@ func (cc *ConfigurableChain) rebuildFromConfig() error {
 func (cc *ConfigurableChain) Handle(request Request) error {
     cc.mu.RLock()
     defer cc.mu.RUnlock()
-    
+
     if cc.currentChain == nil {
         return fmt.Errorf("no chain configured")
     }
-    
+
     return cc.currentChain.Handle(request)
 }
 ```
 
 **Hot-Swappable Handlers:**
+
 ```go
 type HotSwappableHandler struct {
     current atomic.Value // stores Handler
@@ -2340,8 +2368,8 @@ func NewHotSwappableHandler(initial Handler, logger *zap.Logger) *HotSwappableHa
 func (h *HotSwappableHandler) SwapHandler(newHandler Handler) {
     oldHandler := h.current.Load()
     h.current.Store(newHandler)
-    
-    h.logger.Info("Handler swapped", 
+
+    h.logger.Info("Handler swapped",
         zap.String("old", fmt.Sprintf("%T", oldHandler)),
         zap.String("new", fmt.Sprintf("%T", newHandler)))
 }
@@ -2364,6 +2392,7 @@ func (h *HotSwappableHandler) SetNext(next Handler) Handler {
 Chain of Responsibility should be avoided in certain scenarios:
 
 **Simple, Static Processing:**
+
 ```go
 // DON'T use chain for simple, unchanging logic
 func ProcessPayment(payment *Payment) error {
@@ -2371,11 +2400,11 @@ func ProcessPayment(payment *Payment) error {
     if err := validatePayment(payment); err != nil {
         return err
     }
-    
+
     if err := processWithGateway(payment); err != nil {
         return err
     }
-    
+
     return sendConfirmation(payment)
 }
 
@@ -2384,6 +2413,7 @@ func ProcessPayment(payment *Payment) error {
 ```
 
 **Performance-Critical Paths:**
+
 ```go
 // DON'T use chain in high-frequency, performance-critical code
 func ProcessHighFrequencyTrade(trade *Trade) error {
@@ -2391,14 +2421,15 @@ func ProcessHighFrequencyTrade(trade *Trade) error {
     if !isValidTrade(trade) {
         return errors.New("invalid trade")
     }
-    
+
     return executeTrade(trade)
-    
+
     // Avoid: chain.Handle(trade) // Adds unnecessary overhead
 }
 ```
 
 **Known, Fixed Processing Order:**
+
 ```go
 // DON'T use chain when processing order never changes
 type UserRegistration struct {
@@ -2411,20 +2442,21 @@ func RegisterUser(user *UserRegistration) error {
     if err := validateEmail(user.Email); err != nil {
         return err
     }
-    
+
     if err := hashPassword(&user.Password); err != nil {
         return err
     }
-    
+
     if err := saveToDatabase(user); err != nil {
         return err
     }
-    
+
     return sendWelcomeEmail(user.Email)
 }
 ```
 
 **Single Responsibility Objects:**
+
 ```go
 // DON'T use chain when each object should handle one specific type
 type EmailProcessor struct{}
@@ -2441,16 +2473,17 @@ err := processor.Process(emailRequest)
 
 **Better Alternatives:**
 
-| Scenario | Alternative | Reason |
-|----------|-------------|--------|
-| Simple sequential processing | Direct function calls | Less overhead |
-| Different algorithms | Strategy Pattern | Clearer algorithm selection |
-| Event handling | Observer Pattern | Better for event notification |
-| Conditional behavior | State Pattern | Behavior changes with state |
-| Data transformation | Pipeline Pattern | Better for data flow |
-| Fixed middleware | Decorator Pattern | Simpler for fixed layers |
+| Scenario                     | Alternative           | Reason                        |
+| ---------------------------- | --------------------- | ----------------------------- |
+| Simple sequential processing | Direct function calls | Less overhead                 |
+| Different algorithms         | Strategy Pattern      | Clearer algorithm selection   |
+| Event handling               | Observer Pattern      | Better for event notification |
+| Conditional behavior         | State Pattern         | Behavior changes with state   |
+| Data transformation          | Pipeline Pattern      | Better for data flow          |
+| Fixed middleware             | Decorator Pattern     | Simpler for fixed layers      |
 
 **Decision Framework:**
+
 ```go
 type ChainDecision struct {
     ProcessingSteps      int
@@ -2464,23 +2497,23 @@ func (cd *ChainDecision) ShouldUseChain() (bool, string) {
     if cd.ProcessingSteps <= 2 && cd.StepVariability == "static" {
         return false, "Too simple for chain pattern"
     }
-    
+
     if cd.PerformanceRequirements == "high" && cd.ProcessingSteps > 5 {
         return false, "Chain overhead too high for performance requirements"
     }
-    
+
     if cd.StepVariability == "static" && !cd.RuntimeConfiguration {
         return false, "Static processing doesn't benefit from chain flexibility"
     }
-    
+
     if cd.StepVariability == "dynamic" || cd.RuntimeConfiguration {
         return true, "Dynamic nature benefits from chain flexibility"
     }
-    
+
     if cd.ProcessingSteps > 3 && cd.ErrorHandlingNeeds == "complex" {
         return true, "Complex processing benefits from chain organization"
     }
-    
+
     return false, "No clear benefits identified"
 }
 ```
