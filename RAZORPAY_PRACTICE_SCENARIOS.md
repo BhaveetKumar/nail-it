@@ -919,6 +919,7 @@ func (so *SettlementOptimization) ProcessSettlementOptimized(settlements []*Sett
 #### **Solution Framework**
 
 **1. Requirements Analysis**
+
 ```
 Daily Active Users: 10M
 Peak Concurrent Users: 100K
@@ -930,6 +931,7 @@ Latency: <200ms for search, <500ms for booking
 ```
 
 **2. High-Level Architecture**
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                        Client Layer                             │
@@ -968,6 +970,7 @@ Latency: <200ms for search, <500ms for booking
 ```
 
 **3. Core Booking Service Implementation**
+
 ```go
 type BookingService struct {
     db              *sql.DB
@@ -1025,6 +1028,7 @@ func (bs *BookingService) CreateBooking(ctx context.Context, req *CreateBookingR
 ```
 
 **4. Seat Locking Strategy**
+
 ```go
 type SeatLockManager struct {
     cache *redis.Client
@@ -1032,7 +1036,7 @@ type SeatLockManager struct {
 
 func (slm *SeatLockManager) LockSeats(showID string, seatIDs []string, userID string, duration time.Duration) (string, error) {
     lockID := generateUUID()
-    
+
     // Mark seats as locked
     for _, seatID := range seatIDs {
         seatKey := fmt.Sprintf("seat:locked:%s:%s", showID, seatID)
@@ -1040,7 +1044,7 @@ func (slm *SeatLockManager) LockSeats(showID string, seatIDs []string, userID st
             return "", err
         }
     }
-    
+
     return lockID, nil
 }
 
@@ -1055,6 +1059,7 @@ func (slm *SeatLockManager) IsSeatLocked(showID, seatID string) (bool, string) {
 ```
 
 **Key Design Decisions:**
+
 - **Seat Locking**: Redis-based locking to prevent double booking
 - **Payment Integration**: Separate payment service with rollback capability
 - **Event-Driven**: Async processing for notifications and analytics
@@ -1068,6 +1073,7 @@ func (slm *SeatLockManager) IsSeatLocked(showID, seatID string) (bool, string) {
 #### **Solution Framework**
 
 **1. Requirements Analysis**
+
 ```
 Total Users: 2B
 Daily Active Users: 1.5B
@@ -1080,6 +1086,7 @@ Latency: <100ms for message delivery
 ```
 
 **2. High-Level Architecture**
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                        Client Layer                             │
@@ -1119,6 +1126,7 @@ Latency: <100ms for message delivery
 ```
 
 **3. Message Service Implementation**
+
 ```go
 type MessageService struct {
     db          *mongo.Database
@@ -1197,6 +1205,7 @@ func (ms *MessageService) GetMessages(ctx context.Context, userID, chatUserID st
 ```
 
 **4. Real-time Communication**
+
 ```go
 type WebSocketManager struct {
     clients    map[string]*websocket.Conn
@@ -1218,7 +1227,7 @@ func (wsm *WebSocketManager) HandleClient(client *Client) {
         wsm.unregister <- client
         client.Conn.Close()
     }()
-    
+
     for {
         select {
         case message := <-client.Send:
@@ -1232,7 +1241,7 @@ func (wsm *WebSocketManager) HandleClient(client *Client) {
 func (wsm *WebSocketManager) SendMessageToUser(userID string, message []byte) {
     wsm.mutex.RLock()
     defer wsm.mutex.RUnlock()
-    
+
     if client, exists := wsm.clients[userID]; exists {
         select {
         case client.Send <- message:
@@ -1245,6 +1254,7 @@ func (wsm *WebSocketManager) SendMessageToUser(userID string, message []byte) {
 ```
 
 **Key Design Decisions:**
+
 - **Message Storage**: MongoDB for flexible schema and horizontal scaling
 - **Real-time**: WebSocket for instant message delivery
 - **Push Notifications**: Separate service for offline users
@@ -1258,6 +1268,7 @@ func (wsm *WebSocketManager) SendMessageToUser(userID string, message []byte) {
 #### **Solution Framework**
 
 **1. Requirements Analysis**
+
 ```
 Total Users: 500M
 Daily Active Users: 200M
@@ -1269,6 +1280,7 @@ Availability: 99.9% uptime
 ```
 
 **2. High-Level Architecture**
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                        Client Layer                             │
@@ -1307,6 +1319,7 @@ Availability: 99.9% uptime
 ```
 
 **3. Tweet Service Implementation**
+
 ```go
 type TweetService struct {
     db          *mongo.Database
@@ -1383,6 +1396,7 @@ func (ts *TweetService) GetTimeline(ctx context.Context, userID string, limit in
 ```
 
 **4. Timeline Service**
+
 ```go
 type TimelineService struct {
     cache *redis.Client
@@ -1403,7 +1417,7 @@ func (ts *TimelineService) AddToUserTimeline(userID string, tweet *Tweet) error 
     // Add tweet to user's timeline
     key := fmt.Sprintf("timeline:%s", userID)
     score := float64(tweet.Timestamp.Unix())
-    
+
     return ts.cache.ZAdd(key, &redis.Z{
         Score:  score,
         Member: tweet.ID,
@@ -1427,6 +1441,7 @@ func (ts *TimelineService) AddToFollowersTimelines(userID string, tweet *Tweet) 
 ```
 
 **Key Design Decisions:**
+
 - **Timeline Generation**: Redis sorted sets for fast timeline retrieval
 - **Fan-out**: Push model for active users, pull for inactive
 - **Media Handling**: S3 with CDN for images and videos
@@ -1438,26 +1453,31 @@ func (ts *TimelineService) AddToFollowersTimelines(userID string, tweet *Tweet) 
 ## 🎯 **System Design Interview Tips**
 
 ### **1. Requirements Clarification**
+
 - Ask about scale (users, requests, data)
 - Understand functional vs non-functional requirements
 - Clarify constraints and assumptions
 
 ### **2. High-Level Design**
+
 - Start with a simple diagram
 - Identify major components
 - Show data flow between components
 
 ### **3. Deep Dive**
+
 - Choose 2-3 components to detail
 - Discuss database schema
 - Explain API design
 
 ### **4. Scalability**
+
 - Identify bottlenecks
 - Discuss scaling strategies
 - Consider caching and load balancing
 
 ### **5. Trade-offs**
+
 - Performance vs consistency
 - Cost vs scalability
 - Complexity vs maintainability
