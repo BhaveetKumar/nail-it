@@ -910,4 +910,558 @@ func (so *SettlementOptimization) ProcessSettlementOptimized(settlements []*Sett
 
 ---
 
+## 🎬 **Additional System Design Scenarios**
+
+### **Scenario 3: Design BookMyShow (Movie Ticketing Platform)**
+
+**Question**: "Design a movie ticketing platform like BookMyShow that can handle 10M users and 100K concurrent bookings."
+
+#### **Solution Framework**
+
+**1. Requirements Analysis**
+```
+Daily Active Users: 10M
+Peak Concurrent Users: 100K
+Movies per day: 50K shows
+Theaters: 10K across India
+Peak booking rate: 10K bookings/minute
+Availability: 99.9% uptime
+Latency: <200ms for search, <500ms for booking
+```
+
+**2. High-Level Architecture**
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        Client Layer                             │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐│
+│  │   Web App   │ │  Mobile App │ │  Admin App  │ │  Theater App││
+│  └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘│
+└─────────────────────┬───────────────────────────────────────────┘
+                      │
+┌─────────────────────┴───────────────────────────────────────────┐
+│                    Load Balancer                                │
+└─────────────────────┬───────────────────────────────────────────┘
+                      │
+┌─────────────────────┴───────────────────────────────────────────┐
+│                    API Gateway                                  │
+└─────────────────────┬───────────────────────────────────────────┘
+                      │
+┌─────────────────────┴───────────────────────────────────────────┐
+│                  Microservices Layer                            │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐│
+│  │   User      │ │   Movie     │ │  Theater    │ │  Booking    ││
+│  │  Service    │ │  Service    │ │  Service    │ │  Service    ││
+│  └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘│
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐│
+│  │  Payment    │ │  Search     │ │  Review     │ │  Notification││
+│  │  Service    │ │  Service    │ │  Service    │ │  Service    ││
+│  └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘│
+└─────────────────────┬───────────────────────────────────────────┘
+                      │
+┌─────────────────────┴───────────────────────────────────────────┐
+│                    Data Layer                                   │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐│
+│  │   MySQL     │ │    Redis    │ │   Elastic   │ │   MongoDB   ││
+│  │  Cluster    │ │   Cluster   │ │   Search    │ │  (Reviews)  ││
+│  └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘│
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**3. Core Booking Service Implementation**
+```go
+type BookingService struct {
+    db              *sql.DB
+    cache           *redis.Client
+    paymentService  *PaymentService
+    seatLockManager *SeatLockManager
+    eventBus        *EventBus
+}
+
+func (bs *BookingService) CreateBooking(ctx context.Context, req *CreateBookingRequest) (*Booking, error) {
+    // 1. Lock seats (prevent double booking)
+    lockID, err := bs.seatLockManager.LockSeats(req.ShowID, req.SeatIDs, req.UserID, 10*time.Minute)
+    if err != nil {
+        return nil, err
+    }
+
+    // 2. Create booking
+    booking := &Booking{
+        ID:          generateUUID(),
+        UserID:      req.UserID,
+        ShowID:      req.ShowID,
+        Seats:       req.Seats,
+        TotalAmount: req.TotalAmount,
+        Status:      "pending",
+        CreatedAt:   time.Now(),
+        ExpiresAt:   time.Now().Add(10 * time.Minute),
+    }
+
+    // 3. Save booking
+    if err := bs.saveBooking(booking); err != nil {
+        bs.seatLockManager.UnlockSeats(lockID)
+        return nil, err
+    }
+
+    // 4. Process payment
+    paymentResult, err := bs.paymentService.ProcessPayment(ctx, &PaymentRequest{
+        Amount:    booking.TotalAmount,
+        BookingID: booking.ID,
+    })
+    if err != nil {
+        bs.seatLockManager.UnlockSeats(lockID)
+        booking.Status = "failed"
+        bs.updateBooking(booking)
+        return nil, err
+    }
+
+    // 5. Confirm booking
+    booking.Status = "confirmed"
+    booking.PaymentID = paymentResult.PaymentID
+    bs.updateBooking(booking)
+    bs.seatLockManager.UnlockSeats(lockID)
+
+    return booking, nil
+}
+```
+
+**4. Seat Locking Strategy**
+```go
+type SeatLockManager struct {
+    cache *redis.Client
+}
+
+func (slm *SeatLockManager) LockSeats(showID string, seatIDs []string, userID string, duration time.Duration) (string, error) {
+    lockID := generateUUID()
+    
+    // Mark seats as locked
+    for _, seatID := range seatIDs {
+        seatKey := fmt.Sprintf("seat:locked:%s:%s", showID, seatID)
+        if err := slm.cache.Set(seatKey, userID, duration).Err(); err != nil {
+            return "", err
+        }
+    }
+    
+    return lockID, nil
+}
+
+func (slm *SeatLockManager) IsSeatLocked(showID, seatID string) (bool, string) {
+    seatKey := fmt.Sprintf("seat:locked:%s:%s", showID, seatID)
+    userID, err := slm.cache.Get(seatKey).Result()
+    if err != nil {
+        return false, ""
+    }
+    return true, userID
+}
+```
+
+**Key Design Decisions:**
+- **Seat Locking**: Redis-based locking to prevent double booking
+- **Payment Integration**: Separate payment service with rollback capability
+- **Event-Driven**: Async processing for notifications and analytics
+- **Caching**: Multi-level caching for performance
+- **Search**: Elasticsearch for fast movie and theater search
+
+### **Scenario 4: Design WhatsApp (Messaging Platform)**
+
+**Question**: "Design a messaging platform like WhatsApp that can handle 2B users and 100B messages per day."
+
+#### **Solution Framework**
+
+**1. Requirements Analysis**
+```
+Total Users: 2B
+Daily Active Users: 1.5B
+Messages per day: 100B
+Peak messages per second: 1M
+Message size: 1KB average
+Group size: Up to 256 users
+Availability: 99.9% uptime
+Latency: <100ms for message delivery
+```
+
+**2. High-Level Architecture**
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        Client Layer                             │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐│
+│  │   Mobile    │ │   Web App   │ │  Desktop    │ │  API Client ││
+│  │    App      │ │             │ │    App      │ │             ││
+│  └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘│
+└─────────────────────┬───────────────────────────────────────────┘
+                      │
+┌─────────────────────┴───────────────────────────────────────────┐
+│                    Load Balancer                                │
+└─────────────────────┬───────────────────────────────────────────┘
+                      │
+┌─────────────────────┴───────────────────────────────────────────┐
+│                    API Gateway                                  │
+└─────────────────────┬───────────────────────────────────────────┘
+                      │
+┌─────────────────────┴───────────────────────────────────────────┐
+│                  Microservices Layer                            │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐│
+│  │   User      │ │  Message    │ │   Group     │ │  Presence   ││
+│  │  Service    │ │  Service    │ │  Service    │ │  Service    ││
+│  └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘│
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐│
+│  │  Media      │ │  Push       │ │  Analytics  │ │  Security   ││
+│  │  Service    │ │  Service    │ │  Service    │ │  Service    ││
+│  └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘│
+└─────────────────────┬───────────────────────────────────────────┘
+                      │
+┌─────────────────────┴───────────────────────────────────────────┐
+│                    Data Layer                                   │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐│
+│  │   MySQL     │ │    Redis    │ │   MongoDB   │ │   S3        ││
+│  │  (Users)    │ │  (Sessions) │ │ (Messages)  │ │  (Media)    ││
+│  └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘│
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**3. Message Service Implementation**
+```go
+type MessageService struct {
+    db          *mongo.Database
+    cache       *redis.Client
+    pushService *PushService
+    eventBus    *EventBus
+}
+
+type Message struct {
+    ID          string    `bson:"_id" json:"id"`
+    SenderID    string    `bson:"sender_id" json:"sender_id"`
+    ReceiverID  string    `bson:"receiver_id" json:"receiver_id"`
+    GroupID     string    `bson:"group_id,omitempty" json:"group_id,omitempty"`
+    Content     string    `bson:"content" json:"content"`
+    MessageType string    `bson:"message_type" json:"message_type"` // text, image, video, file
+    MediaURL    string    `bson:"media_url,omitempty" json:"media_url,omitempty"`
+    Timestamp   time.Time `bson:"timestamp" json:"timestamp"`
+    Status      string    `bson:"status" json:"status"` // sent, delivered, read
+}
+
+func (ms *MessageService) SendMessage(ctx context.Context, req *SendMessageRequest) (*Message, error) {
+    // 1. Create message
+    message := &Message{
+        ID:          generateUUID(),
+        SenderID:    req.SenderID,
+        ReceiverID:  req.ReceiverID,
+        GroupID:     req.GroupID,
+        Content:     req.Content,
+        MessageType: req.MessageType,
+        MediaURL:    req.MediaURL,
+        Timestamp:   time.Now(),
+        Status:      "sent",
+    }
+
+    // 2. Save message to database
+    if err := ms.saveMessage(message); err != nil {
+        return nil, err
+    }
+
+    // 3. Update sender's chat list
+    ms.updateChatList(req.SenderID, req.ReceiverID, message)
+
+    // 4. Update receiver's chat list
+    ms.updateChatList(req.ReceiverID, req.SenderID, message)
+
+    // 5. Send push notification
+    go ms.pushService.SendNotification(req.ReceiverID, &PushNotification{
+        Title:   "New Message",
+        Body:    message.Content,
+        Data:    map[string]string{"message_id": message.ID},
+    })
+
+    // 6. Publish message event
+    ms.eventBus.Publish("message.sent", &MessageSentEvent{
+        MessageID: message.ID,
+        SenderID:  req.SenderID,
+        ReceiverID: req.ReceiverID,
+        GroupID:   req.GroupID,
+    })
+
+    return message, nil
+}
+
+func (ms *MessageService) GetMessages(ctx context.Context, userID, chatUserID string, limit int) ([]*Message, error) {
+    // 1. Get messages from database
+    messages, err := ms.getMessagesFromDB(userID, chatUserID, limit)
+    if err != nil {
+        return nil, err
+    }
+
+    // 2. Mark messages as read
+    go ms.markMessagesAsRead(userID, chatUserID)
+
+    return messages, nil
+}
+```
+
+**4. Real-time Communication**
+```go
+type WebSocketManager struct {
+    clients    map[string]*websocket.Conn
+    register   chan *Client
+    unregister chan *Client
+    broadcast  chan []byte
+    mutex      sync.RWMutex
+}
+
+type Client struct {
+    ID     string
+    UserID string
+    Conn   *websocket.Conn
+    Send   chan []byte
+}
+
+func (wsm *WebSocketManager) HandleClient(client *Client) {
+    defer func() {
+        wsm.unregister <- client
+        client.Conn.Close()
+    }()
+    
+    for {
+        select {
+        case message := <-client.Send:
+            if err := client.Conn.WriteMessage(websocket.TextMessage, message); err != nil {
+                return
+            }
+        }
+    }
+}
+
+func (wsm *WebSocketManager) SendMessageToUser(userID string, message []byte) {
+    wsm.mutex.RLock()
+    defer wsm.mutex.RUnlock()
+    
+    if client, exists := wsm.clients[userID]; exists {
+        select {
+        case client.Send <- message:
+        default:
+            close(client.Send)
+            delete(wsm.clients, userID)
+        }
+    }
+}
+```
+
+**Key Design Decisions:**
+- **Message Storage**: MongoDB for flexible schema and horizontal scaling
+- **Real-time**: WebSocket for instant message delivery
+- **Push Notifications**: Separate service for offline users
+- **Media Handling**: S3 for media storage with CDN
+- **Presence**: Redis for online/offline status
+
+### **Scenario 5: Design Twitter (Social Media Platform)**
+
+**Question**: "Design a social media platform like Twitter that can handle 500M users and 1B tweets per day."
+
+#### **Solution Framework**
+
+**1. Requirements Analysis**
+```
+Total Users: 500M
+Daily Active Users: 200M
+Tweets per day: 1B
+Peak tweets per second: 10K
+Tweet size: 280 characters
+Timeline updates: Real-time
+Availability: 99.9% uptime
+```
+
+**2. High-Level Architecture**
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        Client Layer                             │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐│
+│  │   Web App   │ │  Mobile App │ │  API Client │ │  Admin App  ││
+│  └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘│
+└─────────────────────┬───────────────────────────────────────────┘
+                      │
+┌─────────────────────┴───────────────────────────────────────────┐
+│                    Load Balancer                                │
+└─────────────────────┬───────────────────────────────────────────┘
+                      │
+┌─────────────────────┴───────────────────────────────────────────┐
+│                    API Gateway                                  │
+└─────────────────────┬───────────────────────────────────────────┘
+                      │
+┌─────────────────────┴───────────────────────────────────────────┐
+│                  Microservices Layer                            │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐│
+│  │   User      │ │   Tweet     │ │  Timeline   │ │  Follow     ││
+│  │  Service    │ │  Service    │ │  Service    │ │  Service    ││
+│  └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘│
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐│
+│  │  Search     │ │  Media      │ │  Analytics  │ │  Notification││
+│  │  Service    │ │  Service    │ │  Service    │ │  Service    ││
+│  └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘│
+└─────────────────────┬───────────────────────────────────────────┘
+                      │
+┌─────────────────────┴───────────────────────────────────────────┐
+│                    Data Layer                                   │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐│
+│  │   MySQL     │ │    Redis    │ │   MongoDB   │ │   S3        ││
+│  │  (Users)    │ │  (Timeline) │ │  (Tweets)   │ │  (Media)    ││
+│  └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘│
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**3. Tweet Service Implementation**
+```go
+type TweetService struct {
+    db          *mongo.Database
+    cache       *redis.Client
+    timelineService *TimelineService
+    eventBus    *EventBus
+}
+
+type Tweet struct {
+    ID          string    `bson:"_id" json:"id"`
+    UserID      string    `bson:"user_id" json:"user_id"`
+    Content     string    `bson:"content" json:"content"`
+    MediaURLs   []string  `bson:"media_urls" json:"media_urls"`
+    RetweetID   string    `bson:"retweet_id,omitempty" json:"retweet_id,omitempty"`
+    ReplyToID   string    `bson:"reply_to_id,omitempty" json:"reply_to_id,omitempty"`
+    Likes       int       `bson:"likes" json:"likes"`
+    Retweets    int       `bson:"retweets" json:"retweets"`
+    Replies     int       `bson:"replies" json:"replies"`
+    Timestamp   time.Time `bson:"timestamp" json:"timestamp"`
+    IsDeleted   bool      `bson:"is_deleted" json:"is_deleted"`
+}
+
+func (ts *TweetService) CreateTweet(ctx context.Context, req *CreateTweetRequest) (*Tweet, error) {
+    // 1. Create tweet
+    tweet := &Tweet{
+        ID:        generateUUID(),
+        UserID:    req.UserID,
+        Content:   req.Content,
+        MediaURLs: req.MediaURLs,
+        ReplyToID: req.ReplyToID,
+        Likes:     0,
+        Retweets:  0,
+        Replies:   0,
+        Timestamp: time.Now(),
+        IsDeleted: false,
+    }
+
+    // 2. Save tweet to database
+    if err := ts.saveTweet(tweet); err != nil {
+        return nil, err
+    }
+
+    // 3. Update user's timeline
+    go ts.timelineService.AddToUserTimeline(req.UserID, tweet)
+
+    // 4. Update followers' timelines
+    go ts.timelineService.AddToFollowersTimelines(req.UserID, tweet)
+
+    // 5. Publish tweet event
+    ts.eventBus.Publish("tweet.created", &TweetCreatedEvent{
+        TweetID: tweet.ID,
+        UserID:  req.UserID,
+        Content: req.Content,
+    })
+
+    return tweet, nil
+}
+
+func (ts *TweetService) GetTimeline(ctx context.Context, userID string, limit int) ([]*Tweet, error) {
+    // 1. Get timeline from cache
+    timeline, err := ts.timelineService.GetUserTimeline(userID, limit)
+    if err != nil {
+        return nil, err
+    }
+
+    // 2. Get tweet details
+    tweets, err := ts.getTweetsByIDs(timeline)
+    if err != nil {
+        return nil, err
+    }
+
+    return tweets, nil
+}
+```
+
+**4. Timeline Service**
+```go
+type TimelineService struct {
+    cache *redis.Client
+    db    *mongo.Database
+}
+
+func (ts *TimelineService) GetUserTimeline(userID string, limit int) ([]string, error) {
+    // Get timeline from Redis (sorted set)
+    timeline, err := ts.cache.ZRevRange(fmt.Sprintf("timeline:%s", userID), 0, int64(limit-1)).Result()
+    if err != nil {
+        return nil, err
+    }
+
+    return timeline, nil
+}
+
+func (ts *TimelineService) AddToUserTimeline(userID string, tweet *Tweet) error {
+    // Add tweet to user's timeline
+    key := fmt.Sprintf("timeline:%s", userID)
+    score := float64(tweet.Timestamp.Unix())
+    
+    return ts.cache.ZAdd(key, &redis.Z{
+        Score:  score,
+        Member: tweet.ID,
+    }).Err()
+}
+
+func (ts *TimelineService) AddToFollowersTimelines(userID string, tweet *Tweet) error {
+    // Get followers
+    followers, err := ts.getFollowers(userID)
+    if err != nil {
+        return err
+    }
+
+    // Add to each follower's timeline
+    for _, followerID := range followers {
+        go ts.AddToUserTimeline(followerID, tweet)
+    }
+
+    return nil
+}
+```
+
+**Key Design Decisions:**
+- **Timeline Generation**: Redis sorted sets for fast timeline retrieval
+- **Fan-out**: Push model for active users, pull for inactive
+- **Media Handling**: S3 with CDN for images and videos
+- **Search**: Elasticsearch for tweet search and trending topics
+- **Real-time**: WebSocket for live updates
+
+---
+
+## 🎯 **System Design Interview Tips**
+
+### **1. Requirements Clarification**
+- Ask about scale (users, requests, data)
+- Understand functional vs non-functional requirements
+- Clarify constraints and assumptions
+
+### **2. High-Level Design**
+- Start with a simple diagram
+- Identify major components
+- Show data flow between components
+
+### **3. Deep Dive**
+- Choose 2-3 components to detail
+- Discuss database schema
+- Explain API design
+
+### **4. Scalability**
+- Identify bottlenecks
+- Discuss scaling strategies
+- Consider caching and load balancing
+
+### **5. Trade-offs**
+- Performance vs consistency
+- Cost vs scalability
+- Complexity vs maintainability
+
+---
+
 **🎉 Practice these scenarios thoroughly and you'll be well-prepared for your Razorpay interviews! Good luck! 🚀**
