@@ -7,14 +7,17 @@
 ## 🎯 **Core Philosophy: First Principles Thinking**
 
 ### **Key Insight**
+
 > "Common sense is the most uncommon thing. Most people don't know how to apply logical thinking."
 
 ### **The Problem with Current Learning**
+
 - People read concepts with analogies but don't think about implementation
 - Theoretical knowledge ≠ Practical knowledge
 - Need to think step-by-step and solve one small problem at a time
 
 ### **The Solution: First Principles Approach**
+
 1. **Break down problems** into fundamental components
 2. **Think about implementation** from the ground up
 3. **Apply logical thinking** to every concept
@@ -27,11 +30,13 @@
 ### **Why Do We Need Distributed Systems?**
 
 #### **The Problem**
+
 - Single node cannot handle the data load
 - Need to scale beyond one machine's capacity
 - **2 million operations per second** requirement
 
 #### **The Solution: Sharding**
+
 **Definition**: Splitting your big data into mutually exclusive subsets and distributing them across multiple nodes.
 
 ```go
@@ -64,6 +69,7 @@ func simpleHash(key string) int {
 #### **Two Approaches**:
 
 **1. Static Mapping (Metadata Approach)**
+
 ```go
 type StaticRouter struct {
     keyToShard map[string]int
@@ -78,6 +84,7 @@ func (sr *StaticRouter) Route(key string) int {
 ```
 
 **2. Mathematical Function (Hash Function)**
+
 ```go
 type HashRouter struct {
     shardCount int
@@ -95,10 +102,10 @@ func (hr *HashRouter) Route(key string) int {
 
 ### **Trade-offs Analysis**
 
-| Approach | Pros | Cons |
-|----------|------|------|
-| **Static Mapping** | Simple, Fast lookup | Huge metadata storage |
-| **Hash Function** | No metadata needed | Less control over data placement |
+| Approach           | Pros                | Cons                             |
+| ------------------ | ------------------- | -------------------------------- |
+| **Static Mapping** | Simple, Fast lookup | Huge metadata storage            |
+| **Hash Function**  | No metadata needed  | Less control over data placement |
 
 **Key Insight**: There's no one right answer - it's about which trade-off suits your needs.
 
@@ -109,6 +116,7 @@ func (hr *HashRouter) Route(key string) int {
 ### **The Problem with Simple Hashing**
 
 #### **Scenario**: Adding a new node
+
 ```go
 // Original setup: 2 nodes
 func originalHash(key string) int {
@@ -122,6 +130,7 @@ func newHash(key string) int {
 ```
 
 #### **The Issue**: Data Movement
+
 - When hash function changes, data needs to be moved
 - **3 out of 6 keys** need to be relocated
 - This is expensive and causes downtime
@@ -150,7 +159,7 @@ func (ch *ConsistentHash) AddNode(nodeID string) {
         Position: position,
         Data:     make(map[string]interface{}),
     }
-    
+
     // Insert in sorted order
     ch.insertNode(node)
 }
@@ -158,14 +167,14 @@ func (ch *ConsistentHash) AddNode(nodeID string) {
 // Get node for key
 func (ch *ConsistentHash) GetNode(key string) *Node {
     keyHash := ch.hashFunc(key)
-    
+
     // Find first node with position >= keyHash
     for _, node := range ch.ring {
         if node.Position >= keyHash {
             return &node
         }
     }
-    
+
     // Wrap around to first node
     return &ch.ring[0]
 }
@@ -174,6 +183,7 @@ func (ch *ConsistentHash) GetNode(key string) *Node {
 ### **Implementation Details**
 
 #### **1. Ring Structure**
+
 ```go
 // Ring with 5 cache nodes
 type RingNode struct {
@@ -193,17 +203,18 @@ var ring = []RingNode{
 ```
 
 #### **2. Key Routing Logic**
+
 ```go
 func (ch *ConsistentHash) RouteKey(key string) *RingNode {
     keyHash := ch.hashFunc(key)
-    
+
     // Linear search for first node with position >= keyHash
     for _, node := range ch.ring {
         if node.Position >= keyHash {
             return &node
         }
     }
-    
+
     // Wrap around to first node
     return &ch.ring[0]
 }
@@ -212,12 +223,14 @@ func (ch *ConsistentHash) RouteKey(key string) *RingNode {
 ### **Why Linear Search?**
 
 #### **The Surprising Truth**
+
 - **Linear search** is often faster than binary search for small datasets
 - **Cache locality** - sequential access is more cache-friendly
 - **Branch prediction** - CPUs predict linear patterns better
 - **Simplicity** - no complex branching logic
 
 #### **Performance Analysis**
+
 ```go
 // Linear search implementation
 func linearSearch(ring []RingNode, keyHash uint32) *RingNode {
@@ -232,7 +245,7 @@ func linearSearch(ring []RingNode, keyHash uint32) *RingNode {
 // Binary search implementation
 func binarySearch(ring []RingNode, keyHash uint32) *RingNode {
     left, right := 0, len(ring)-1
-    
+
     for left <= right {
         mid := (left + right) / 2
         if ring[mid].Position >= keyHash {
@@ -241,7 +254,7 @@ func binarySearch(ring []RingNode, keyHash uint32) *RingNode {
             left = mid + 1
         }
     }
-    
+
     return &ring[left%len(ring)]
 }
 ```
@@ -249,6 +262,7 @@ func binarySearch(ring []RingNode, keyHash uint32) *RingNode {
 ### **Optimization Strategies**
 
 #### **1. Array-based Implementation**
+
 ```go
 type OptimizedConsistentHash struct {
     nodes []Node
@@ -257,17 +271,18 @@ type OptimizedConsistentHash struct {
 
 func (och *OptimizedConsistentHash) GetNode(key string) *Node {
     keyHash := och.hashFunc(key)
-    
+
     // Binary search on positions array
     idx := sort.Search(len(och.positions), func(i int) bool {
         return och.positions[i] >= keyHash
     })
-    
+
     return &och.nodes[idx%len(och.nodes)]
 }
 ```
 
 #### **2. Tree-based Implementation**
+
 ```go
 type TreeBasedConsistentHash struct {
     tree *redblack.Tree
@@ -275,13 +290,13 @@ type TreeBasedConsistentHash struct {
 
 func (tch *TreeBasedConsistentHash) GetNode(key string) *Node {
     keyHash := tch.hashFunc(key)
-    
+
     // Range query on tree
     node := tch.tree.Ceiling(keyHash)
     if node == nil {
         node = tch.tree.Min()
     }
-    
+
     return node.Value.(*Node)
 }
 ```
@@ -293,11 +308,13 @@ func (tch *TreeBasedConsistentHash) GetNode(key string) *Node {
 ### **The Classic Problem**
 
 #### **Scenario**: High-volume data processing
+
 - **100,000 events per second** incoming data
 - Need to buffer data before writing to database
 - Minimize database write operations
 
 #### **The Challenge**: Stop-the-World Problem
+
 ```go
 type SimpleProducerConsumer struct {
     buffer []Event
@@ -307,7 +324,7 @@ type SimpleProducerConsumer struct {
 func (pc *SimpleProducerConsumer) ProcessData(event Event) {
     // Add to buffer
     pc.buffer = append(pc.buffer, event)
-    
+
     // When buffer is full, write to database
     if len(pc.buffer) >= BUFFER_SIZE {
         pc.writeToDatabase() // STOP THE WORLD!
@@ -326,6 +343,7 @@ func (pc *SimpleProducerConsumer) writeToDatabase() {
 ### **Solution 1: Double Buffering**
 
 #### **Concept**: Use two buffers to minimize stop-the-world time
+
 ```go
 type DoubleBuffer struct {
     activeBuffer  []Event
@@ -336,16 +354,16 @@ type DoubleBuffer struct {
 func (db *DoubleBuffer) AddEvent(event Event) {
     db.mutex.Lock()
     defer db.mutex.Unlock()
-    
+
     db.activeBuffer = append(db.activeBuffer, event)
-    
+
     if len(db.activeBuffer) >= BUFFER_SIZE {
         // Swap buffers (pointer swap - very fast)
         db.activeBuffer, db.passiveBuffer = db.passiveBuffer, db.activeBuffer
-        
+
         // Start writing passive buffer in background
         go db.writeToDatabase(db.passiveBuffer)
-        
+
         // Clear passive buffer for next use
         db.passiveBuffer = db.passiveBuffer[:0]
     }
@@ -361,6 +379,7 @@ func (db *DoubleBuffer) writeToDatabase(events []Event) {
 ### **Solution 2: Deep Copy Approach**
 
 #### **Concept**: Create a copy of the buffer for writing
+
 ```go
 type DeepCopyBuffer struct {
     buffer []Event
@@ -371,16 +390,16 @@ type DeepCopyBuffer struct {
 func (dcb *DeepCopyBuffer) AddEvent(event Event) {
     dcb.mutex.Lock()
     dcb.buffer = append(dcb.buffer, event)
-    
+
     if len(dcb.buffer) >= BUFFER_SIZE {
         // Create deep copy
         bufferCopy := make([]Event, len(dcb.buffer))
         copy(bufferCopy, dcb.buffer)
-        
+
         // Clear original buffer
         dcb.buffer = dcb.buffer[:0]
         dcb.mutex.Unlock()
-        
+
         // Write copy in background
         go dcb.writeToDatabase(bufferCopy)
     } else {
@@ -391,11 +410,11 @@ func (dcb *DeepCopyBuffer) AddEvent(event Event) {
 
 ### **Performance Comparison**
 
-| Approach | Stop-the-World Time | Memory Usage | Complexity |
-|----------|-------------------|--------------|------------|
-| **Single Buffer** | High (seconds) | Low | Low |
-| **Double Buffer** | Low (nanoseconds) | Medium | Medium |
-| **Deep Copy** | Low (nanoseconds) | High (2x) | Medium |
+| Approach          | Stop-the-World Time | Memory Usage | Complexity |
+| ----------------- | ------------------- | ------------ | ---------- |
+| **Single Buffer** | High (seconds)      | Low          | Low        |
+| **Double Buffer** | Low (nanoseconds)   | Medium       | Medium     |
+| **Deep Copy**     | Low (nanoseconds)   | High (2x)    | Medium     |
 
 ---
 
@@ -404,9 +423,11 @@ func (dcb *DeepCopyBuffer) AddEvent(event Event) {
 ### **The JavaScript Single-Threaded Myth**
 
 #### **Common Misconception**
+
 > "JavaScript is single-threaded"
 
 #### **The Reality**
+
 - JavaScript has **one main thread** for execution
 - **Event loop** handles asynchronous operations
 - **I/O operations** are delegated to the operating system
@@ -414,6 +435,7 @@ func (dcb *DeepCopyBuffer) AddEvent(event Event) {
 ### **Event Loop Implementation**
 
 #### **Basic Web Server Example**
+
 ```go
 // Single-threaded web server
 func main() {
@@ -423,14 +445,14 @@ func main() {
         log.Fatal(err)
     }
     defer listener.Close()
-    
+
     for {
         // Wait for connection (BLOCKING)
         conn, err := listener.Accept()
         if err != nil {
             continue
         }
-        
+
         // Handle connection
         handleConnection(conn)
     }
@@ -438,17 +460,17 @@ func main() {
 
 func handleConnection(conn net.Conn) {
     defer conn.Close()
-    
+
     // Read request
     request := make([]byte, 1024)
     n, err := conn.Read(request)
     if err != nil {
         return
     }
-    
+
     // Process request
     response := processRequest(string(request[:n]))
-    
+
     // Send response
     conn.Write([]byte(response))
 }
@@ -457,6 +479,7 @@ func handleConnection(conn net.Conn) {
 ### **The Problem: Blocking I/O**
 
 #### **Issue**: One connection blocks all others
+
 ```go
 // Problem: This blocks the entire server
 func handleConnection(conn net.Conn) {
@@ -465,7 +488,7 @@ func handleConnection(conn net.Conn) {
     if err != nil {
         return
     }
-    
+
     // Process data...
 }
 ```
@@ -473,6 +496,7 @@ func handleConnection(conn net.Conn) {
 ### **Solution: Non-blocking I/O with epoll**
 
 #### **Event Loop Implementation**
+
 ```go
 type EventLoop struct {
     epollFd int
@@ -485,7 +509,7 @@ func NewEventLoop() *EventLoop {
     if err != nil {
         log.Fatal(err)
     }
-    
+
     return &EventLoop{
         epollFd:  epollFd,
         events:   make([]syscall.EpollEvent, 100),
@@ -498,7 +522,7 @@ func (el *EventLoop) AddFileDescriptor(fd int, handler func()) {
         Events: syscall.EPOLLIN,
         Fd:     int32(fd),
     }
-    
+
     syscall.EpollCtl(el.epollFd, syscall.EPOLL_CTL_ADD, fd, &event)
     el.handlers[fd] = handler
 }
@@ -510,7 +534,7 @@ func (el *EventLoop) Run() {
         if err != nil {
             continue
         }
-        
+
         // Handle events
         for i := 0; i < n; i++ {
             fd := int(el.events[i].Fd)
@@ -535,18 +559,18 @@ func NewAsyncWebServer() *AsyncWebServer {
     if err != nil {
         log.Fatal(err)
     }
-    
+
     server := &AsyncWebServer{
         eventLoop: NewEventLoop(),
         listener:  listener,
     }
-    
+
     // Add listener to event loop
     server.eventLoop.AddFileDescriptor(
         int(listener.(*net.TCPListener).File().Fd()),
         server.handleNewConnection,
     )
-    
+
     return server
 }
 
@@ -555,7 +579,7 @@ func (aws *AsyncWebServer) handleNewConnection() {
     if err != nil {
         return
     }
-    
+
     // Add connection to event loop
     aws.eventLoop.AddFileDescriptor(
         int(conn.(*net.TCPConn).File().Fd()),
@@ -571,10 +595,10 @@ func (aws *AsyncWebServer) handleConnection(conn net.Conn) {
         conn.Close()
         return
     }
-    
+
     // Process request
     response := aws.processRequest(string(buffer[:n]))
-    
+
     // Send response
     conn.Write([]byte(response))
 }
@@ -589,27 +613,32 @@ func (aws *AsyncWebServer) Start() {
 ## 🎯 **5. Key Insights and Principles**
 
 ### **1. First Principles Thinking**
+
 - **Don't take solutions for granted**
 - **Think about implementation** from the ground up
 - **Question every assumption**
 - **Break down complex problems** into simple components
 
 ### **2. The Power of Simplicity**
+
 - **Linear search** can be faster than binary search
 - **Simple solutions** are often the best
 - **Don't over-engineer** - start simple and optimize when needed
 
 ### **3. Practical vs Theoretical Knowledge**
+
 - **Reading concepts** ≠ **Understanding implementation**
 - **Code it out** to truly understand
 - **Be curious** about how things work under the hood
 
 ### **4. Performance Optimization**
+
 - **Cache locality** matters more than algorithm complexity
 - **Branch prediction** affects performance significantly
 - **Measure before optimizing** - intuition is often wrong
 
 ### **5. System Design Mindset**
+
 - **Think about trade-offs** - there's no perfect solution
 - **Consider alternatives** - always ask "what if we did it differently?"
 - **Focus on the problem** - not the solution
@@ -621,6 +650,7 @@ func (aws *AsyncWebServer) Start() {
 ### **Memory Management in Go**
 
 #### **Object Pooling**
+
 ```go
 type EventPool struct {
     pool sync.Pool
@@ -648,6 +678,7 @@ func (ep *EventPool) Put(event *Event) {
 ```
 
 #### **String Interning**
+
 ```go
 type StringInterner struct {
     strings map[string]string
@@ -661,15 +692,15 @@ func (si *StringInterner) Intern(s string) string {
         return interned
     }
     si.mutex.RUnlock()
-    
+
     si.mutex.Lock()
     defer si.mutex.Unlock()
-    
+
     // Double-check pattern
     if interned, exists := si.strings[s]; exists {
         return interned
     }
-    
+
     si.strings[s] = s
     return s
 }
@@ -678,6 +709,7 @@ func (si *StringInterner) Intern(s string) string {
 ### **Concurrent Data Structures**
 
 #### **Lock-Free Ring Buffer**
+
 ```go
 type RingBuffer struct {
     buffer []interface{}
@@ -696,11 +728,11 @@ func NewRingBuffer(size uint64) *RingBuffer {
 func (rb *RingBuffer) Push(item interface{}) bool {
     currentTail := atomic.LoadUint64(&rb.tail)
     nextTail := (currentTail + 1) % rb.size
-    
+
     if nextTail == atomic.LoadUint64(&rb.head) {
         return false // Buffer full
     }
-    
+
     rb.buffer[currentTail] = item
     atomic.StoreUint64(&rb.tail, nextTail)
     return true
@@ -708,11 +740,11 @@ func (rb *RingBuffer) Push(item interface{}) bool {
 
 func (rb *RingBuffer) Pop() (interface{}, bool) {
     currentHead := atomic.LoadUint64(&rb.head)
-    
+
     if currentHead == atomic.LoadUint64(&rb.tail) {
         return nil, false // Buffer empty
     }
-    
+
     item := rb.buffer[currentHead]
     atomic.StoreUint64(&rb.head, (currentHead+1)%rb.size)
     return item, true
@@ -724,6 +756,7 @@ func (rb *RingBuffer) Pop() (interface{}, bool) {
 ## 🎯 **7. Real-World Applications**
 
 ### **Payment Gateway Architecture**
+
 ```go
 type PaymentGateway struct {
     shardManager    *ShardManager
@@ -735,18 +768,19 @@ type PaymentGateway struct {
 func (pg *PaymentGateway) ProcessPayment(payment *Payment) error {
     // Route to appropriate shard
     shard := pg.shardManager.GetShard(payment.TransactionID)
-    
+
     // Buffer payment for batch processing
     pg.paymentBuffer.AddEvent(payment)
-    
+
     // Process asynchronously
     go pg.processPaymentAsync(payment, shard)
-    
+
     return nil
 }
 ```
 
 ### **High-Frequency Trading System**
+
 ```go
 type TradingSystem struct {
     orderBook       *OrderBook
@@ -758,7 +792,7 @@ type TradingSystem struct {
 func (ts *TradingSystem) ProcessMarketData(data *MarketData) {
     // Route to appropriate order book
     orderBook := ts.consistentHash.GetNode(data.Symbol)
-    
+
     // Process in event loop
     ts.eventLoop.Schedule(func() {
         orderBook.Update(data)
@@ -771,26 +805,31 @@ func (ts *TradingSystem) ProcessMarketData(data *MarketData) {
 ## 🎯 **8. Key Takeaways**
 
 ### **1. Implementation Matters**
+
 - **Don't just read** - implement everything
 - **Code it out** to understand the nuances
 - **Measure performance** - don't assume
 
 ### **2. Simplicity Wins**
+
 - **Start simple** - optimize when needed
 - **Linear search** can beat binary search
 - **Simple solutions** are often the best
 
 ### **3. Think in First Principles**
+
 - **Question everything** - don't take solutions for granted
 - **Break down problems** into fundamental components
 - **Consider alternatives** - there's always another way
 
 ### **4. Performance is Context-Dependent**
+
 - **Cache locality** matters more than algorithm complexity
 - **Hardware behavior** affects performance significantly
 - **Measure before optimizing** - intuition is often wrong
 
 ### **5. System Design is About Trade-offs**
+
 - **No perfect solution** - only trade-offs
 - **Understand the problem** before choosing a solution
 - **Consider the context** - what works for one use case may not work for another
