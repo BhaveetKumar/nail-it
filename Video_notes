@@ -1,0 +1,588 @@
+
+00:00:10 - 00:01:18
+thank you all for being here very excited to be yeah here with all of you in Denver Colorado thank you for you know so that we're going to watch this video later online today we're going to talk about low agency trading system in C++ so I'm David I've been working in trading in the industry for about 10 years I always adop Market maker before that I was working on relatively similar systems in a very different industry in defense and today we are going to talk about engineering low latency systems I
+
+
+00:00:43 - 00:01:51
+like to put the emphasis on engineering because it's not going to be a very theoretical talk and we're going to be uh looking at actual problems that we want to solve and throughout this St we're going to look at some principles along the way some some of them that I you know collected through my career that I found are important and I think that could help you and also some profiling techniques but before going into the technical details um let's backtrack a little bit by around two two and a half thousand
+
+
+00:01:18 - 00:02:30
+years where most things started at least in the Western World which is the Antiquity we start with the Roman Empire and um there are few I mean many things that are actually fascinating about the Roman Empire and but at least you know two of them are which is you know it lasted for a very long period of time and it was already vast you know it went from like the Hadrian worlds in modern UK to um you modern Iran which is Persia and um you know like historians in general do not agree on a lot of things about Romans for example the
+
+
+00:01:53 - 00:02:57
+reason of their decline but they all agree on one thing which is the key to their success uh is that they they were very good at planning things they had a really good infrastructure and organized they were very disciplined now you know what did the Romans plan well a few things here have some example Urban food supply military campaigns they already famous for the military achievements now something a little bit more fun to talk about than military achievements is festivals here you have a pictures of
+
+
+00:02:25 - 00:03:37
+circus Maximus which you can still see the rest in uh in Rome in Italy and it has an estimated capacity of 200,000 300,000 people so they weren organizing small parties now and if you want to you know if if you're oring such large events you have an interest into yeah planning things for your economy so what the Romans actually figured out and what they did is that they would actually go to you know Farmers you know wine maker Etc you know they needed some grain some meat all kind of things for the events
+
+
+00:03:01 - 00:04:16
+and they would ask them a year from now you know what price would be would you be willing to sell you know that grain and by doing so the Romans invented very much you know like early derivative trading it was actually called Roman future contracts and so what the Romans figured out is that like the world are a certain uncertainty and so when I Was preparing this St I actually learned about this index called the world uncertainty index now what you can see on that uh you know that blue line you mostly see
+
+
+00:03:39 - 00:04:40
+relatively let's say negative events doesn't mean it's all bad but it's mostly that us humans are psychological creatures and we attach more weight to potential loss than potential gains I think that makes sense usually if you cannot sleep at night it's mostly because you can actually lose something more actually if you can make some some profit right you can can relate to that and so back to the Romans they indeed found a solution to you know reducing the world uncertainty by doing
+
+
+00:04:10 - 00:05:18
+derivative trading one thing that they didn't actually truly solve is uh usually when things are quite uncertain H you have also potentially a problem of liquidity and I think makes sense to think that if there is a certain economic turmoil and there is a lot of uncertainty in the world at the same time people would be less likely to actually agree on a price a year or even two years from now because you know who knows what can happen now going into you know the modern world I mean that's why we've got
+
+
+00:04:44 - 00:05:57
+market makers and I like to yeah ground that token to the reality and so least my reality I've been working for 10 years for a market maker so that's that's why we've got that there are many different actors of course on the financial markets and today we're going to talk about low latency and many of these different actors of different requirements in in low latency we'll come to that in a bit um we say that market making is a losers game and so what we mean by that is that effectively you need to be cons
+
+
+00:05:21 - 00:06:26
+consistently good at pretty much everything right it's not about this one Silver Bullet that's going to allow you to to to beat the market you need to be constantly good at everything and so effectively um what market makers you know how it works is that you you you make some small profit um and the small profits are from well back to the Romans you know we you agree on a price a year from now and um you know most of the time there is actually you actually got to pay for this small you know
+
+
+00:05:54 - 00:07:07
+optionality can't be free because you have some risk you know prices might go up and down and you want to avoid big losses now why why would you actually lose a lot of money you're providing prices at any point of time of you know 100 thousands of instrument and um there is a news I mean news come out all the time but it can be a big news that come out and um you know what would happen if you just leave all your pice and change what you would have actually you know stale prices and you would do
+
+
+00:06:31 - 00:07:34
+actually a lot of bad trades so that's that's what we mean by like losers game cons consistently good at everything now elaborating a little bit more about you know why do we need low latency programming here um breaking down this into two categories I think the first one is relatively well known I think it's the most intuitive one which is we want to you know we have we have a need for like reacting fast to un certain event that news that I just mentioned that news that comes out we
+
+
+00:07:03 - 00:08:20
+need to react we need to effectively update our price or maybe just consel our ERS the second one is a little bit maybe less uh straightforward which I'm going to explain in the next line which is you also need to be smart now like being smart is a vague concept um so you need good models and so on and so forth but you also need to be accurate and again accuracy is inly related to latency again for the same idea of like you've got an information information flow into your system and you want to yeah you want actually to
+
+
+00:07:42 - 00:08:57
+have like accurate prices you want to ingest this information so on this slide here um you can see um what I would call relatively standard modern trading system and the reason I put that slide here is like one of the question and I get most of the time um when I go to conference or like in general is you know hey we've got fpgas they are already fast so why do we still care about software you know why do we still care about lcy C++ in that case and so there are two answers to that question so on that graph you see
+
+
+00:08:22 - 00:09:29
+the exchanges on the right price are disseminated into the system they flow into the system and so indeed you you've got that blazing fast fbga here going to say a bit more about it in a bit why do we still need you know like to send orders even with software it's just what I would say is cost benefit fpj is expensive not the card itself but just the engineering time or just like operationally it's something more complicated to manage than software software is more flexible so it's always
+
+
+00:08:55 - 00:10:08
+going to be there it's kind of hand to hand it's just an you know engineering you system properly on finding the right solution for the right problem so that's on the right now there is something a little bit deeper on why we need low latency a software which is you see the yellow boxes on the left the strategies what the strategies are doing is that they send so-called we call them rules to the fbga the idea is that for the fpga to be blazing fast it has to be really simple I don't mean that it's a simple things
+
+
+00:09:32 - 00:10:38
+to engineer it's actually quite complicated but functionally speaking it's very simple it sees bits compare bits send bits you could actually make it more complicated but it's just a trade-off then it would be slower and so the strategy send this rule so what is the rule very simple if price greater than 10 update my price of conso and my order and so now if you think about it the strategies themselves they have already low latency requirement because if for example we would only update this rules every
+
+
+00:10:04 - 00:11:14
+minute even every second with all the information that flows on the world on markets we would have again you know stale prices stale information lots of people would be really happy to trade against you because you do mostly you know you do trade on like old information now let's get into you know some more technical content one of the first data structure you know I thinking when preparing this talk on like what would be something nice to talk about like a data stru that is that is actually very
+
+
+00:10:41 - 00:11:58
+interesting is a order book now we're going to Define it in a bit but why it's interesting is because no matter you know like the trading system that you're working on could be algorithmic manual pretty much anything you always have this core component you know you always ingest price from The Exchange and you want to know what they are so let's quickly Define what it is on the left you see the bids that are the prices at which people are willing to buy you see $92 is what we call Our Best bid why is
+
+
+00:11:20 - 00:12:24
+this interesting is because if you want to sell this is actually the price that you know you're going to sell it there is no reason for you to sell at90 or $85 a year there is also you see 50 the 50 stocks this is actually the total amount that people are actually willing to buy at this level so there might be one or multiple uh investor ready to buy at this price um similarly you've got asks same same story there some people are willing to sell this is you know you've got a best ask $95 that's your the best
+
+
+00:11:53 - 00:13:01
+price at which you can bu why why is this interesting uh in um you know today's talk that is mostly going to be about low latency programming is because you actually do have a lot of low latency constraint and requirements and these data structure at the very least two I mean these are the two main ones if you do algorithmic trading again back to what we said before you want to be as accurate and fast as you can so you inest this prices and so you want a really fast data structure this is your your first
+
+
+00:12:27 - 00:13:34
+one if me want it to be fast and the second one is a little bit different it's more like I would say a system constraint is that you have a network card the network card as pretty much any you physical device has a finite number of buffers and if your application is not fast enough reading from you know these buffers well I mean you're just going to the network just going to drop I mean you're going to miss some of them which will cause an outage now going through some properties of this of this order book and we have
+
+
+00:13:03 - 00:14:17
+two sequences that are ordered and you could you could you could argue you know we could have them unordered but I try to put some emphasis on why it's important that there that effectively this this prices stay ordered that's what we need um concept of price level when we talked about it you have a price the volume each order that is going to come into this order book has an id64 and an important property is that a typical stock order book today we're going to look at stocks um has around thousand levels per
+
+
+00:13:45 - 00:15:01
+side looking at our API It's relatively straightforward now every every exchange that are many many exchanges around the world they all offer slightly different messages but in general we've got an API that looks like this this is not too you're not too crazy it's relatively standard so we've got like an hard order operation a new order comes in at the price volume modify and delete so let's go through some example we want to buy at $92 for like 25 25 stocks so we're going to join that
+
+
+00:14:24 - 00:15:39
+level we go from 50 to 75 then we add an order on a level that doesn't exist you know $110 so this is It's inserted we modify our first order we only interested to buy 15 stocks now not 25 anymore so it's a reduction of 10 and then we can also delete an initial observation that we have is you know looking at this API especially the the delete operation I mean just as an example but modify as well is that no matter what data structure uh we're going to you know use for this for this order book we need a
+
+
+00:15:04 - 00:16:05
+hashmap right we need a hash map around it for the reason that yeah again the D we only have the ID so we need to retrieve the price volume sign now today we are not going to talk about hashmap much main reason I didn't really want to talk about hashmap is that there are many many talks about it it's very very well documented engineering problem so I'm not going to not going to talk about that the most natural data structure that you can use for this order book is tooth map first we're going to
+
+
+00:15:38 - 00:16:55
+go through a bit of code and then I will explain why this is the most obvious natural implementation that you can do for this data structure right you've got St two St map one for your beads one for the as because they're ordered differently so the implementation is relatively straightforward in the OD order we try to imp place if the Imp Place succeeds awesome that means that the level didn't exist we inserted it nothing else to do otherwise we update it we add our volume the D is also quite
+
+
+00:16:16 - 00:17:22
+straightforward the main thing to see here is that we take as a parameter the iterator and you see that the add order effectiv Returns the iterator the idea here is that for the operations we are doing St map um as a great advantage that the iterators stay valid Le for the operations we're doing and so that's awesome because we can start the iterator in the hashmap we're already doing the hashmap lookup so might as well use that and so this is why what I meant with like this is the most obvious
+
+
+00:16:49 - 00:17:48
+natural data structure for this problem because complexity wise it's it's it's actually really good um I actually think that this is like the best the best complexity that you can get for this problem if you find something better can can email me but it's pretty good it's you know the ad is is log in otherwise amorti constant now this is what we get so we're going to look at today at you know various measurements but here when we look at a data structure like this I find it important to look at the
+
+
+00:17:21 - 00:18:34
+interior latency distribution for the reason if you just be looking at you know a few percentile or median average min you'd be missing some information this latency distribution is it's not a micro Benchmark it's also not from production uh When I Was preparing this stock I I gathered a week it's a full week of Market data on a dozens of stocks big tech stocks like Microsoft Nvidia Tesla and so on and so yeah I said not production but also not like a um a micro bench Mark somewhere
+
+
+00:17:59 - 00:19:14
+somewhere in between and so this is what we what we've got here we see a distribution not too surprising we see two peaks one on the very left which is the case for the modifi delete when we only do a hashmap lookup and then you a bit more to the right when we go through binary 3 now effectively this first distribution as you call it it's a bit of a line and so this is this is the true you know what I call the true story the real distribution that you for this data structure and so what I did here
+
+
+00:18:39 - 00:20:00
+is between between the AUD operation I just uh added some memory locations not really to really do much with them but just to randomize the the Heap um and this is mostly to um this is mostly because the most modern Malo implementation um they have like this thing that is at the same time great and also not so great when you measure that when you call Malo several times you get a continuous block um of memory and so yeah that that's great but it's also not so great if you actually want to know the performance of this
+
+
+00:19:19 - 00:20:21
+data structure how it's going to behave in production and so very much here we are we are we are messing a little bit we we're kind of like we we're checking and measuring how you know the the cach locality of sud map and we know that it's it's going to be relatively poor right it's a not container so in production it's very rare that there is no look at quite some trading system and it's very rare that there are zero Dynamic memo location we all know they on great but there always some around
+
+
+00:19:49 - 00:21:01
+and so this is replicating this a pattern and so I said that we you know we will go through some principle along the way so this is our first principle most of the time you do not want node containers right so the enter family stood map set unordered map unordered set mean stood list of course but this one is is really obvious you know you put that on the side in general you you don't touch them and that reminds me a your talk of Sean par at cbon around like 10 10 years ago maybe 15 years ago he were saying roughly the
+
+
+00:20:27 - 00:21:41
+same thing at Adobe in Photoshop 995 90% of the time they only use Vector not because it's simple not because they don't need other data structure but just because there is a performance aspect to it and of course closed hash map right hashmap backed by arrays of vector and so here you know like you see this you know on the picture you see a developer that is this land of this spair trying to fight it's kind of ghost of like the N containers and it's going to be really hard because it's everywhere on nowhere
+
+
+00:21:06 - 00:22:06
+right so that's going to be that's going to be a tough fight this can remind you maybe some stories I witnessed a few of the stories several times in my career where there is a you know team of Engineers that have as a mission they go on a crusade to um improve the performance or make fast an application that hasn't been designed you know to be fast and therefore using this kind of content and data structure all over the place usually you know when you you know when this happens you you you look at
+
+
+00:21:35 - 00:22:41
+them from far and you say good luck because it's going to be really hard most of the time you actually need to go back all the way to drawing board develop it from scratch which is which is quite bad actually should never do that so moving on what are we doing yeah we use St vctor lower bound it's great you know it's like cash locality is as good as you can get um C++ 23 brings the support by the way of St flat map um I don't think the support is there at least not in not in the
+
+
+00:22:09 - 00:23:31
+version of GCC or Clank that I'm using so this is what we what we use today the complexity is really different than what we got before um we now have you know a logarithmic complexity for our order but if we need to insert a level I mean Vector insert is no secret it's it's linear and then we we cannot store the iterator in our Ash map anymore right that doesn't work because we are modifying our structure and the iterators are not valid so complexity is much worse implementation wise relatively
+
+
+00:22:50 - 00:24:16
+straightforward we do lower bound if our level exists we adjust it otherwise we insert it and so this is what we what we get sit in green we've got this new latency distribution for the vector and so I would say that this latency distribution is fine does anyone have an idea or want to say you know why it is just fine and not so good yes there is a really big fat tail which is absolutely not what we want on such system you want something really narrow and so what does this tail come from to answer that question we need to
+
+
+00:23:40 - 00:24:46
+look at the data because here we are actually not you know this data structure is actually quite specific here so looking at data so what does this graph actually shows so I picked one of the stocks that I had Nvidia and so we look at the distribution of the updated levels so what that means is so you remember before we were talking about best price or top price this is our index zero and then when we go deeper into the book one two three and so on so forth and so here this graph is by the way in L
+
+
+00:24:13 - 00:25:21
+scale and there are two ways of saying that scientific ways the updates are exponentially distributed over price the simplest way of saying it is the action is happening on the top of your book right makes sense you have best best pric is where people want to buy and sell so it's constantly disappearing or improving and so on so forth now what that means for data structure our Vector effectively you know we're just humans so the most intuitive ordering for this Vector was to have our best price at the beginning
+
+
+00:24:46 - 00:25:58
+index zero right so this $92 best bid was in index zero so we just follow intuition there the problem is that with what we just saw on the previous slide we're going to shift continuously our levels in memory all the time shift or elements in the vector and so good news then you know the solution is relatively simple we can just reverse our Vector it's a relatively small code change bit less intuitive but now we minimizing the amount of copies I mean our moves me the same like with this uh with this types
+
+
+00:25:24 - 00:26:35
+that we've got and so we have a much you know much nicer latency distribution here that tail is just completely gone so that's awesome that bring us to our second principle which is kind of like you know like a a different way of saying this old code which is like a a problem well stated half solved so yeah you need to understand your problem this is very much an engineering problem if you just goe down into the data structure not looking at you know what's around it very much like the business domain you will uh you will
+
+
+00:26:04 - 00:27:17
+be missing out and a third principle is also really important this is a very specific problem that we're going to solve here and we need to leverage these properties this very specific properties in order to get performance otherwise it's going to be very hard right we um we can't really get anything much faster if we don't leverage some of these underlying properties and of course to leverage them we need to find them and so here like you know in the picture you see on the left we've got this very down to
+
+
+00:26:40 - 00:27:54
+earth engineer pragmatic engineer and then on the right you know more kind of like in the in the sky of the IDS thing and we need both but very much we are now in this stock on on the left side I mean actually not just in this stock but when solving a specific problem now you know how do we go faster from there we're using p so here I'm just going to show a little bit how I I'm usually doing things um this is not going to be extremely accurate so it's not going to work or should I say it's not going to work for
+
+
+00:27:20 - 00:28:16
+a micro Benchmark or if your benchmark is really short this is definitely not going to work but in in in my case in general my Benchmark and not B micro Benchmark that take seconds or minutes so effectively just forking running per is awesome the idea here is just that you don't want to measure anything about the initialization phase because there you have actually a lot of stuff going on and you don't want to measure that it's not interesting and uh the first measurement that you want to do and this is actually
+
+
+00:27:49 - 00:28:52
+really important because I see these mistakes this m actually being done over and over in general Engineers um all of us are getting quite excited when you get to that stage and so we start measuring you know everything and nothing we just start I'm going to measure the number of cashm for like the level one data Cas awesome you know why is that yeah intuition well in general intuition is wrong so here we need to be a bit you know thorough disciplined like like the Romans were um and uh you know
+
+
+00:28:21 - 00:29:28
+we need to be a bit scientific and so you might recognize there different you know four categories I didn't come up with them they are from the Intel teum um which is the top down microarchitecture analysis method and why this categories are already nice is because there is very little overlap between them and you're also not missing anything right so these four categories retiring bad speculation front and bound back and bound they you you're not missing anything on what your CPU is
+
+
+00:28:54 - 00:30:09
+doing now elaborate a little bit on what they mean in the best case every single of your you know instruction per cycle is going to be retired so you have 100% there effectively this never happens you always have bot neck but theoretically on a theoretical workload of course depending on your CPU microarchitecture can only only talk about x86 you know you've got a maximum again depend on CPU let's say seven instruction per cycle and so this IP of seven would mean that your yeah seven instruction per
+
+
+00:29:31 - 00:30:42
+cycle will be all retired and if not then they would be you know um they would be not executed because of bad speculation not going to go into details there it could actually be an talk um but the main idea is there is usually it's caused by Branch misprediction or front and bound usually on decoding instruction or back and back and bound their own memory so that are the results that we that we've got for the you know for the code that we have you know the one that we looked at with our St vector and so
+
+
+00:30:07 - 00:31:02
+if you've never seen if you didn't really measure or or looked at these categories before this is going to be maybe a little bit hard to get a grasp on if this is actually good or bad my best advice would be start measuring you know if you care about performance you got to measure so start measuring pretty much anything you know your workload some things that are more HPC low latency using data and so very quickly you will have a good gut feeling of what this numbers should be and so here I can
+
+
+00:30:34 - 00:31:43
+tell you that the 25% of bad speculation is very high so let's you know dive into why is that per record is awesome it's a sampling profiler so very different than startat and it's going to give us a really quick you know answer to that question so what we see so what is this assembly code this assembly code is still the same it's so out order delete order if you remember this code is really short it's very much just lower bound stood lower bound and so what we see what's nice
+
+
+00:31:09 - 00:32:24
+with this output is that we very quickly spot that 30% more than 30% of our CPU time is spent on two conditional jump and this two conditional jump are yeah in St L on it's a binary search although the CPU predictor is really good it is still going to struggle with the updates that we have right we cannot yet predict the markets through our CPU predictor that would that would be awesome um so that's our problem so how do we how do we fix it how do we solve it but we do branchless binary research
+
+
+00:31:48 - 00:33:03
+right we just if we just remove the branch now there is something really important about branchless miny research so we shouldn't get too excited too early because the fundamental difference between this algorithm and lower bound the traditional binary sear is that there is no early xity anymore so we're going to go through the entire collection no matter what touching more memorium still it it is going to be you know we got a nice speed up here we also see that we have two peaks in our distribution again
+
+
+00:32:28 - 00:33:34
+can speculate that you know it's it's due to this effect that the branchless B is touching more memory a lot of it is going to be really warm and some of it less less warm now if you want to go a little bit deeper here so just in the last tool effectively not the last one but another tool that you can use is that you can programmatically access Hardware counters to be even more accurate and so that's quite simple you can actually just put it around your code measure disc counters and so validate
+
+
+00:33:05 - 00:34:16
+what your branches B research is doing so you cut down the branch misses by two awesome IPC going from 1.4 to 1.6 it's decent you're never going to get you know the two times two times on your IPC that would be huge so it's a decent optimization and then you can also see that indeed we are executing more instruction because there is no early exit anymore so another question is again you know how do we go faster from there well at this point we need to take a step back and think about the operations
+
+
+00:33:43 - 00:34:45
+we're doing this is what binary search is doing it's you know we start our first pivot in the middle of the collection we go left right and so on so forth the heat map here well effectively doesn't really represent the heat map for this Ben mark this is assuming a more you know uniformly distributed uh updates but still it give us an idea about you know the you know how warm or cold will be the element in our collection at this point you might think that you know you you you might want to
+
+
+00:34:14 - 00:35:20
+use for example an eight singer array because it's nice for cach locality and and also the access of the elements will be better for the prefecture now downside is of the iing array is it's actually there is a cost to build it also the ordering would be different so that actually doesn't really suit our needs and from there on effectively when when I prepared this St I already did my my work of I think almost archaeologist or historian right going through like all the possible order book that I could
+
+
+00:34:48 - 00:35:55
+find adop also online think I measured like 30 different implementations more or less complicated and so we can go really complicated I've seen really things that like I was like wow this is this should be really fast usually it was actually not so much and if you if you really think about the hardware you know and how it works the the best implementation we can have we can find and the fastest is linear search it's blazing fast it's very like distribution is really narrow it's nice
+
+
+00:35:25 - 00:36:44
+there is no tail um and so at this point you might be actually disappointed and you should not you should really actually embrace the Simplicity of this solution and how fast it is so this our fourth principle which is this is when you know that you know you've done your your your job well as an engineer when when it's fast and it's extremely simple as well at this point actually you can stop it's it's awesome and um and we also have a fifth principle here mechanical sympathy so what I mean
+
+
+00:36:06 - 00:37:26
+here is you want algorithm that are in harmony with your Hardware which is what linear search is doing perfectly right so it's great for of course your cash locality it's great for the prefecture way the way you access memory it check all the boxes branches as well now there are certain things along the way that I didn't mention but are also important they are harder to measure mostly because they are around instruction cache you can definitely measure them but it's always going to be on your ENT
+
+
+00:36:47 - 00:38:03
+workload right you you need your ENT application there you need all the instruction executed so you can't really you can definitely measure some effects in Benchmark but it's going to be harder to reason about and so one of them is yeah likely unlikely your compiler cannot know about your data right cannot cannot take a guess effectively we WR this keyword here on that Branch both GCC and clang decide to move this ad instruction at the very end of your function which is I mean it's just you
+
+
+00:37:25 - 00:38:38
+know it's a reasonable approach um but what you want is actually to to keep this add instruction very warm and pack packed actually with the with the instructions because that branch is actually taken more often than the others a second one is I Fair important to include it as a proxy on um I guess another point which is there actually a lot of talks and a lot of you know things online um people really like inlining things and so there is a lot to be said about inlining and performance and and
+
+
+00:38:05 - 00:39:14
+it's true but there is also a lot to be said about not inlining things and you know how that affect your your performance the performance of your instruction cache in that case and so you might have seen you know this expect on some of the previous slides it's just an asset that you have in relase build right so when you hit that asset condition is false you just you just die just go down and so effectively what you want there is you want to keep that code really far from from actually the code that's
+
+
+00:38:39 - 00:39:51
+supposed to be warm and so that's one way of doing it right you really want that Co that code far into a cold section of your binary and also not in lined and so this is what the assembly looks like and that's great you um you have it really far there and it's not messing with your instruction cash last point also something that I actually I've seen you I mean I do see quite often we did use lambdas on F functors and they are awesome because the compiler knows the type and so he
+
+
+00:39:20 - 00:40:20
+can actually really go far into the optimization if you were in our previous example if you were to use a St fun function here for you know for some reason if you were to like you know pass it in your Constructor or like just I don't know sometime matter of style people comment you know this Lambda could be refactored the consequence would actually be huge for the performance of this data structure right because you you lose I mean it's you lose type information stot function is using type
+
+
+00:39:50 - 00:40:56
+eraser and so the code generated would be well very different I actually tried to put the assembly on the slide he wouldn't fit but the the performance would be would be would be terrible if to function so now that we optimize this data structure now that we've got this aut book you know nice and it's simple simple and fast the next thing we want to do is to send it around so we're going to talk a little bit about networking and concurrency the networking part will be relatively short because we still at CBP
+
+
+00:40:24 - 00:41:32
+con um but I still want to say a word about it the general pattern is going to be to bypass Kel for your low latency um connections could be receiving or sending and once you're on a once you're on a server once you're on your box locally you would just use share memory to F out this information to all the different processors that you have and so here again in this talk not that I want to do any advertisement but I'm only talking about technology that I'm using solar flare I think is a
+
+
+00:41:00 - 00:42:10
+relatively you know wellknown industry standard for low latency Nick and in general it could be solar flare other network cards that always come with like tools and tools or Library should I call them you usually have like um it's called open unload in that case it's it's just a wrapper on your binary using LD preload that is going to hook your BSD sockets and that's awesome because you can do user space networking without changing any of your code if you if you want to if you want
+
+
+00:41:37 - 00:42:52
+to go even you know lower in terms of latency and if you want TCP stack which is actually quite nice to have can use TCP direct and if you really want to squeeze the last Nan on your operation on your networking operation you would use a layer two API it's called efvi or the equivalent would be dpdk from Intel and so that's you know as low as you can get you need to do all the buffer management yourself but it's the fastest so this is um sub measurements I didn't make the measurements that are actually from
+
+
+00:42:13 - 00:43:37
+AMD again not to focus on the AMD part that are the same with like most low latency Nick but the idea here is to see um you know the difference between the kernel and then onload and then ebii so this is for UDP bucket and you see that you're on three mics for like your minimal size of UDP packet and then you know lowest L you can get it around 700 700 NS that's where you are when when using layer 2 API which bring us to our six principle which is kind of similar to the to the principle four but simply
+
+
+00:42:58 - 00:44:02
+it it's like the efficient you know if you want to be fast and efficient you should be mindful of what you're using and so here you see an engineer you're looking at this beautiful you know big machinery that's on the left which is the Linux Conner I'm not saying that in a bad way it's actually a beautiful Machinery it's awesome and but you should only use it you know if you actually really need it and in our case here it's it's not a perfect fit for our needs so you you
+
+
+00:43:30 - 00:44:42
+want to bypass it connecting the dots so back to our trading system we've got again you know exchange sending prices now we have this purple box on the left where we have our fast Autobook we bypass the kernel and then we want to disseminate this information into all the process on that box we've got 50 strategy let's say and they all want the same order book and so we will put it in Shen memory in cues and on the right you see you know similarly if you want to send orders same story you know canot bypass
+
+
+00:44:09 - 00:45:19
+reading from the cues now let's talk a little bit about shared memory um when I was also preparing the talk I was actually asking I asked on Reddit what people were interested you know to hear and uh and Shan memory actually came up a few times realized that yeah it's an industry St we use share memory a lot but it's not always very clear on like how or even why we're using it I wanted to say a word about that the reason is um it's principle six again if you're locally on a
+
+
+00:44:43 - 00:45:41
+server you just don't need sockets so why would you use them it's not because they are slow it's just that you you don't really need that effectively if you would do user space networking on on the host you know the be kind of kind of kind of weird so you just want to use memory it's awesome it's as fast as it can get you don't have the kernel involved only when you map it and I think the reason that share memory is also quite quite popular on used is because you very much need it
+
+
+00:45:13 - 00:46:23
+when you do multiprocess right if your architecture isn't really multi- threaded right you can just share data structure directly but there is also an upside of doing multiprocess mostly for operational reasons for not having something too monolithic that if one strategy goes down everything goes down right kind of separation of concerns what works well in memory continuous arrays awesome that's actually what we want to use that's also what's fast and concurrency here can be yeah a
+
+
+00:45:48 - 00:46:58
+little bit tricky so in general my advice would be you know for for one shade memory file keep it to like one writer one producer in practice how it works is very much you know using using the cap API and then we have a header that looks like like this one this very much needed you need to describe a little bit your protocol so we've got your protocol name magic number it's very much needed because if you have 50 different protocols you got to be a little bit careful if at some point you open the wrong shared memory
+
+
+00:46:26 - 00:47:32
+file you might you you might interpret the bytes the wrong way and then you have minor major version also very much needed it's always really easy to engineer a protocol day one it's much harder to have that protocol for years in production and then you still need to make updates to that system so you got a version of that protocol and then in our case we interested to send still you know this a books so sh memory so we have we have cues and so we got to describe this cues how big are they and from there on when
+
+
+00:46:59 - 00:48:17
+you have when you have this um once you have this header you can you know do a little bit of pointer arithmetic and you have the full view of your sh memory so there is a bit of lowlevel thing but you can hide that around nice layer of nice layers of abstraction sorry in C++ now congruent cues the one we're going to look at today is going to be bounded so it's simple simple on fast we don't want to do any resizing it's not going to block this is really important again thinking of our trading
+
+
+00:47:44 - 00:48:59
+system we have 50 strategies there if one strategy is too slow or as a bug we do not want to affect the writer because that would affect then all the strategies again which would be problematic we've got many consumers we want to support message variable length message reason here is um it's nice to support message that are actually um not just we don't want to just send pointers around for the reason that if you have a you know an architecture with multiple processes like at describe you you
+
+
+00:48:22 - 00:49:31
+actually want to send also data also copying data is is fast you know copy is fast sending pointers around can lead to other problems needs to do dynamic memory location can lead to Heap fragmentation send pointers between different threads we want to dispatch this information so it's very much a fun out so all the consumer get the same data it's not a load balancer and we support pods so earlier this week there was actually another talk about concurent cues so at the end of this week you're
+
+
+00:48:56 - 00:49:58
+all going to be expert in concent cues um the good news is this is actually a very different one than the one presented earlier this week right so that's good principle seven yeah you have a lot of different things that you can choose from and yeah you got to you got to you got to use the right tool for the right task right just presented a a few different things few different CES and you need to pick the right one now this is the queue we're going to look at for the next five five minutes
+
+
+00:49:29 - 00:50:50
+or so we've got two counters right counter and read counter these two counters are both Modified by the producer right the producer has no idea if there is a consumer or not there can be zero there can be 50 producer doesn't know the consumer all read this counters they don't touch them they don't modify them this coun have the same value they point to the same element when there is no right operation when a right operation is happening the right counter is first Advance you advance the right counter
+
+
+00:50:10 - 00:51:25
+then you copy your data and then you advance your read counter right so they have the same same point the same element Advance copy Advance the other one so very much the the enti Q header is just these two atomics each of them have their own cach line that's very much to false sharing and there are u64 they grow from zero to the infinite so it's very much the number of bytes that we write to this quebe and our API is relatively straightforward yeah as I said we write bytes we read bytes the read might
+
+
+00:50:47 - 00:52:00
+actually return zero and so in the API for the reader we we we have to pass you know the buffer where we want to cop your data now this is simplified code but not too far from the um the interent code the only thing that's not there is the the case to actually wrap around the queue um I think it's quite simple and it didn't really fit on that slide so what you do here for the right operation add set you you know you calculate the the size of your payloads that's going to be so we do viable length message so we end
+
+
+00:51:25 - 00:52:42
+cut the size so in that case four bytes plus your buffer you advance the right counter copy your data you advance your read counter the reader is a little bit more complicated but still relatively simple so local counter here is just a local you know it's a variable of our of our class it's not on sh memory we first check if there is anything to read then we read the size before using that science it's really important to check for a right counter because there could have been an overflow so we check for the right
+
+
+00:52:06 - 00:53:25
+counter then we can use the size and copal data and then we need to check the right counter again now what's important to note here is that although this algorithm is correct from a language point of view we've got a problem here there is there is a data right I mean this St M Copy U we we are copying data while there is actually concurent we have concurrent access uh on nonatomic variables there and and by the way there is actually something that I forgot to mention which is also important is that
+
+
+00:52:45 - 00:53:59
+some you the reason we do the St St M Copy on the size and not just you know using the equal operator is to avoid any strict alizing or alignment issue right so you actually have to use stent map copy is actually really important so here we've got a data um you know what to do about it um yeah in our case as I said the algorithm is correct when we detect the data R effectively we go down we die so I don't find it too problematic but still from a long rage perspective it's it's it's not you know we've got a
+
+
+00:53:22 - 00:54:34
+data R here a solution is in this um proposal by atomic M Copy you can actually implement it already now with um the recent Atomic C but you're going to pay for this lency right it's it's not it's only it only supports um you know one B at a time so going to pay actually a lot of performance for this and uh you actually have the same problem with um SE loocks actually got a talk meeting CBP two years ago where I was using SE loocks and yes SE Tech loocks are also a real problem you
+
+
+00:53:59 - 00:55:21
+actually cannot Implement them could be in C or C++ um in a very you know correct way from a language perspective performance measurements um we're using an AMD Z4 zen4 architecture it's tuned for low latency Co isolated its me its message is 73 bytes why 73 bytes it's not too long not too short so I thought it was a nice number and we compare it against two libraries dtor because it's you know like the most famous ring buffer out there and then iron which is relatively well-known IPC
+
+
+00:54:44 - 00:55:55
+Library used in U trading uh and other industry as well and Iron by the way is is is kind of baked into some more Java stuff around so that actually I didn't didn't use I just I just picked the two C++ header file from the repo otherwise you need to instantiate some Javas to use some cues not sure that shouldn't influence influence anything now oh yeah and another queue we're looking at this queue that I just mentioned um which is actually very different design uh it doesn't have a
+
+
+00:55:20 - 00:56:28
+header that it's using SE loocks I'm not going to talk about this one today you you know you can can just watch watch the to online it's a very different design and so our Baseline for this queue that we're looking at today is I would say it's good but it's not outstanding so we're going to look at a few things on how to make it fast and so the idea here is that very much you know we have we've got these two atomics and um in order to make this fast it's all about going to be the
+
+
+00:55:55 - 00:57:06
+contention and the operation we are doing around this atomics and by far the biggest optimization you can do is to not touch the right counter on every message so what we were doing is we effectively on every single message we had this you know moving the right counter copying moving the right counter what you can do is you can just say well I'm going to reserve 100 kilobytes I'm going to move the right counter the 100 kilobytes in my queue it will mean that like readers will have 100 kilobytes less of data available to
+
+
+00:56:31 - 00:57:31
+read but it shouldn't be too much of a problem if you have 8 megabytes I mean you can choose another number the idea is that if you have 100 bytes message and you reserve 100 kilobytes it mean that you're only touching this Atomic one every thousand message which is huge and so that's going to be really big because the readers right the readers are reading this right G all the time a much more obvious uh optimization I still wanted to mention it for a reason that usually we we align we like to
+
+
+00:57:04 - 00:58:17
+align things on a cach line size effectively there is no need to align things on the cach line size here like the on x86 effectively the best alignment you have for your data is eight bytes you actually do not want to align that on the on the cach line because it affects actually uh the locality of your element and uh and there is not really a reason to to align it on a cach line last optimization is um also quite straightforward when you read the r counter if from your previous from this previous read operation you know you you
+
+
+00:57:40 - 00:59:02
+read that there is one megabyte of data to be read if you only read a kilobyte you don't need to to touch it you don't need to read it again these three things together effectively brings a really decent performance so we're in green here and so it's really good right so compared to Iron distributor compared to this to this c q so this Q is interesting it's actually faster in some case slower in some other case effectively the Cy Q is faster between I think four to 10 consumers um but in general we' we've
+
+
+00:58:21 - 00:59:21
+got something again quite simple and and fast here so back to our princip for and here I don't mean that like you know we should all get get out of um I mean I don't want people to give the impression to people that you know like what I'm saying that we should all now develop our own cues um because still concurrency is hard but what I mean here is that like when I was looking and doing a lot of benchmarks on looking at cues I still often get a feeling that like there is a lot of complexity that
+
+
+00:58:52 - 01:00:15
+is not needed right not not trying to to to rent here or anything but why would I need 100,000 lines of code with some some you know like really complicated system on framework while I actually just want AQ on sh memory that should be you know 100 maybe 500 lines of cod Max effectively this one is 150 if you want to go further often what I see in apis is that it's it's easy to get it wrong so why this API wrong or why is it a bit disappointing here is that we need to we need to pass to the Q a buffer that we
+
+
+00:59:36 - 01:00:42
+that we're going to write to it and what's a bit sad about this API is that it forces the application to serialize into this buffer and then we're going to copy this buffer into the queue well effectively what you want to do is you want to you want to be able to serialize directly into the cube this actually can give you a depending on your calization of course plenty of different calization libraries out there but depending on the way you cize this can give you easily a two two times speed up just with a
+
+
+01:00:09 - 01:01:15
+simple API change on just opening opening your the the the way that you write to that queue and then you can go even further I'm not going to elaborate here too much are just IDs the effectivity things that um yeah we we we're doing and there is actually more bulk writing yeah bu cing is really is really big here because again you can avoid touching even more your counters and then you can have a queue that is more Numa whereare if you have like consumer and producer that are well sorry if if your consumers are
+
+
+01:00:42 - 01:01:54
+effectively um on different panod could be different between the consumers um not sorry not between the consumers I mean different than actually the the num man of your producer there is also something something nice you can do there by duplicating for example the the header with your with these two atomics so now we looked at some data structure looked at some concurrency we use per you know we looked at Hardware counters something I also wanted to share today was specific measurements for low
+
+
+01:01:20 - 01:02:26
+lency systems especially the one that I um EV driven and so here the idea is this is going to be me of course it's very simplified code it's just an idea this is this is how your trading system looks like there is a there is a y Loop so this is your main event Loop and you you know you pulled your network card you're waiting for some event and every packet goes into this easy interesting function you can imagine this is kind of your strategy and then you know if it's interesting
+
+
+01:01:55 - 01:02:56
+you send an order now the tricky part when you measure performance is that you know with all the tools that I mentioned in this last hour is that they're going to have a very hard time to give you a good idea of what's going on in these functions for the reason that you know we looked at per stat per stat is a very Co you know measurement that are just counters being incremented so this functions SC are going to be you know in the middle of you know like pulling network cards and most of the time not
+
+
+01:02:26 - 01:03:24
+doing much per uh record is a sampling profiler it's just going to sample I mean you can actually set the sampling frequency let's say a thousand times a second most of the time you're not going to get into these functions or if you get into them you're you know you're lucky but it's not going to be very accurate because you don't really capture the ENT function so what you got to do here and I don't think there actually plenty of different solution to this problem if you want to be as
+
+
+01:02:55 - 01:04:05
+accurate as possible and very low overhead you do something like this so you do what we call you know intrusive profiling you modify your code you have this little object here you save some metadata and in the Constructor you start reading the TSC okay now this is again quite ex6 specific start reading your TSC in a Constructor um in the destructor you read the TSC again and you have your time interval and and then you can imagine you know that you again you know right to a que that's why we looking at Q
+
+
+01:03:30 - 01:04:35
+because they're a little bit everywhere now that's that's great but I don't think it's really it's really new and the main problem of this approach is that you you know you you're not going to like add this little object that we just looked at everywhere in your code because then you know it's not it's not great you know you have that just laying around um it's hard to maintain it also it has a cost I mentioned it it's low overhead it's low overhead if you just have this two TSC
+
+
+01:04:04 - 01:04:59
+but if you start having this into every single of your function yeah at some point you're going to use half of your Co period time just you know in TSC instructions um so you don't want that and the challenge here um as an engineer is to is that you do not know where the next bottom neck is going to be and so at some point you have a bottom neck you need to kind of go back into your code add this you know add this kind of instructions again recompile your binary ship it to production or run some
+
+
+01:04:32 - 01:05:41
+simulation and so on so forth and so this is actually not a great it's not a great workflow and so the nice thing here is actually to use x-ray from clang and so what what's clang x-ray is you know you're going to compile your binary with a special flag I think it's called x-ray instrument and so this is like an instrumentation Library provided by clang and so that's awesome how it works in under the wood is that it's going to add knobs at the beginning and at the end of your
+
+
+01:05:06 - 01:06:26
+function and so by default it's not doing anything you just execute a few knobs at the beginning of your function at the end so it's very low overhead but when you want to actually profile you can patch your binary and you can replace this knobs with some fun calls so you can you can have a really nice profiler that is as accurate as you can low overhead and at the same time you know you avoid recompiling your binary and going through that workflow that I describe and so that that's awesome
+
+
+01:05:48 - 01:06:55
+because it really kind of like like gives you like The Best of Both Worlds where you can really have like a yeah nice workflow as an engineer measure things could be in production or not without having to constantly recompile your code and then on a on a on a on a similar topic is that you know once you fixed you know all your latency bottlenecks Etc you've got a graph like this I'm actually not saying you know what kind of latency dis is it actually doesn't matter too much but the idea here is once you
+
+
+01:06:26 - 01:07:26
+actually have you know a latency that you're happy with you still have a lot of work to do usually that work is a little bit less fun but it's really important you know you got to you got to measure a lot in your system and often say that like it's really nice to actually send to a database millions of numbers per second so all your measurements it's that's that's nice but what's really important what actually really matters is to have alerts is to have actually the audits on this numbers
+
+
+01:06:56 - 01:08:01
+right we can always pump a lot of numbers to database and look at them with nice graph if you don't have actual audits on expectation like things checking this numbers it is not going to be very useful because it's always the same when you roll out something new there all the eyes on it and then a year later no one is really looking at it so you you got to have this this checks here and so that bring us to our principle 8 it's nice to be fast you know what's really hard here like what takes a lot of
+
+
+01:07:27 - 01:08:43
+engineering time is actually to to stay fast we're slowly approaching the end of this talk and so as an outro I have you know one last ID that I am that I find really important something that I that kind of like kept coming back you know throughout my careers when I would look at latency of this system and I call it you're not alone so in that picture you see an engineer lot of screens lots of code it's really easy to forget you know that yeah you're you're just not here on your own
+
+
+01:08:11 - 01:09:30
+developing code so let me let me explain a little bit what I mean with um some last snippet of code so this is a relatively simple code so what are we doing here we are generating a vector of Shuffle indices and to we generate a vector we actually want to run this Benchmark for different size so we care about the working set size and then once we once we've got that Vector we are going to Summit in what I would call the worst possible way you know which is you follow all this you know you submit following actually
+
+
+01:08:52 - 01:10:09
+the order of this indices this is kind of going to simulate a you know an almost perfect you know random walk into memory and then you measure the throughput and so the result that you're going to get is something like this so let me explain because there are a few things few things going on on that graph the Blue Line called single worker is going to be a single instance of this application on a single CPU nothing nothing else running on that server and so what you see when you measure you know the
+
+
+01:09:33 - 01:10:50
+throughput that you clearly see our three level of cash you see we we start we already you know high throughput and then we pass our first level first level of cash 30 32 kilobytes on that Ser drop L2 and then we reach L3 drop again and then we in Ram and then you've got six workers the six workers each of them are their own CPU and so you instantiate six you know instance of this application and you measure the throughput again and you see that it's almost the same as the single worker
+
+
+01:10:10 - 01:11:34
+except around our L3 cache effectively for the integrality of the L3 cache right so on This Server it's between uh you know it's it's around where we start there like a little bit around um 6 six me megab 8 megabytes and then up until like 664 on this area of the L3 cach the performance this is the scaling Factor if we take the sum of the six workers and we divide it by the single worker we've got a scaling Factor right how much speed up do we get from having six CPUs against one and we're not sharing any data right
+
+
+01:10:53 - 01:12:04
+in this card what we see here is we almost go to one and we almost go to one for integrality of is stre cach and so why why is this really you know why does this matter why you know what the point that I'm trying to make here is that effectively for the vast majority of the system that I've been working on and I think most trading system aren't going they're not going to fit into your L1 cach if you're trading very few instruments and depending on your strategy you might be able to fit some
+
+
+01:11:30 - 01:12:46
+things into the L2 but most of the time from experience you in this you're effectiv in this a in your L3 I mean and the point here is that you need to think about the system as a all that's what I mean with like you know you're not alone you really need to like not just think about your application or you know an application A and B Etc you really need to look at the entire server and you know if this entire server with all the applications that are on it make sense otherwise there will be no way to actually have
+
+
+01:12:08 - 01:13:26
+something performant and low latency so the point is that you know today we looked at a lot of examples optimization data structure Etc you can do all that and still your system will be relatively slow if not everything on that same server if not all your colleagues did the same and so this is our last principle here which is I'd say you know less lesson of empathy which is you shouldn't just care about the performance of your Cod yeah it all depends also on the performance of the code of the CPU things that are running
+
+
+01:12:47 - 01:14:03
+on the same same servers final thoughts so we started you know looking at um I was saying at the beginning of this talk Market making losers game you you need to be consistently good at at everything there is no silver ballet well it's pretty much the same when it comes to low lency programming there is no Silver Bullet we would all love that there is one but there is none so you need to be disciplined keep things simple because as we thought simple things are fast they're not just fast they're also
+
+
+01:13:28 - 01:14:37
+simple to understand well for you for your colleagues if they're simpler to understand you can actually build a simpler system that which you know on its own is going to be again faster that's our last point that we looked at and um I probably today you know mentioned many many times the word latency there is actually one latency that I didn't mention which I also wanted to say that it matters that it's important which is like time to Market effectively like if if I actually also
+
+
+01:14:03 - 01:15:06
+today put an emphasis on like Simplicity it's also because it it does matter really you know how how fast actually can you can you ship your code to production so that's a latency as well now going through some credits just want to say thanks to some C some people that you know help me build that talk some people that inspired me some people that I can bounce IDE of so thanks to them and then I always like to give references you know to go further there are plenty of plenty of interesting
+
+
+01:14:35 - 01:16:10
+things out there and this is just pretty much one slide of what you know things that I found interesting there are you know some talks there that I really appreciate it from fedo from Mike Acton some of them are actually quite quite old but still extremely relevant for today so that conclude our talks and we still have yeah solid 10 minutes for questions yeah thank [Applause] you thank you for the talk um so about the sequential search and binary search that you had yeah um did you try like partitioning the thing and doing
+
+
+01:15:31 - 01:16:38
+sequential search for the first few and then doing binary search for the next say say that again so on the the on the binary search did I try to batch things yeah like first few you could do like linear search yeah and then if you can't find then you can switch to Binary yeah I actually did try that yeah in general like I I did try a lot of things that I did try some meta parameters you know indeed going between I think actually Andre presented that in in in one of his St so like you know kind of meta
+
+
+01:16:05 - 01:17:15
+parameter between I think it was about sorting more than searching I tried that uh effectively and it might just be like you know a property of like the things that we looking at yeah exactly like I think the idea is just that the collections are not big enough okay so in general linear search it's good enough is is is going to just be the the best there no matter what I mean maybe there is an instrument or something out there with like I don't know you know 100,000 levels and where indeed linear search would then be
+
+
+01:16:39 - 01:18:00
+slower and couldn't find it okay thank you thank you hi David uh thanks for the thanks for the talk and for building the toy example of the all the books for the talk so pretty much fallowing on the previous question um well naturally like the book updates are heavily skewed towards the top of the book right so did you out of curiosity try two ideas so one idea is to split the prices with the rest of the data to compress your vector yeah and the second one if simd instructions for the like first few
+
+
+01:17:19 - 01:18:30
+levels your second second point was AVX or AVX yeah they x552 to slow your frequency but so I did I did try that effectively effectively they go Hand by they go they go together because in the in the code example actually like the we we have pairs of elements you have pairs of price and volume and effectively the compiler um I mean maybe one day it will be able to do it but at least in the state of things the compiler is not going to generate any AVX instruction with that and so you your first question
+
+
+01:17:55 - 01:19:06
+was you know did I try to split vectors yes I did it have a slight positive effect but the nice effect about splitting the vectors into two and just having your price and your volume is that once you do your linear search I mean very much defin if on your vector now actually you get the AVX generation for free from the compiler because because you have all your prices you just have a vector of un 64 and then the compiler is you're going to generate AVX the interesting things is so you actually do get yeah the answer is yes
+
+
+01:18:31 - 01:19:38
+you have like a slight performance gain of it um I'm not sure if it's true for you know like for every single case that's also why I actually didn't like mention it but but you do get some some performance out of it because yes indeed it's more packed and AVX effectively results are a little bit mixed which is if you have um if you have effectively just a few level something quite thin uh the cost the initial the initial cost of latency of your AV instruction are going to make it
+
+
+01:19:04 - 01:20:14
+slower so yeah it's it's a little bit mixed I see thank you but thank you uh hey hi uh that was a great talk uh the fast queue which you explained was a inmemory queue so have you ever uh encountered a case where you want to store the state of the events which are going through the queue the state of the events that are going through the queue yeah let's say if my process crashes and I want to build the state of the messages which were passing through that queue yeah so yes how how does it impact
+
+
+01:19:40 - 01:20:47
+your like first thing how do you do it and how does it impact the latency you you you should look at um for example postgress internals um might be familiar with like how database work they use like a SoCal worldall so w you can look at this data structure and this is what you want so you basically store it in the database that's what you're saying no sorry no no I didn't mean to use the database I meant to look at the data structure you use in in a database like pogress there is this thing called wall
+
+
+01:20:13 - 01:21:20
+W which is what you want so I don't mean to use the database but just this data structure can actually do what you want here which is in case there is actually a writer or you know that crash you actually assist on disk and you avoid uh any loss of data I mean the que that I presented here clearly doesn't do it but it is an element a building block of such a such structure so essentially if my process uh multiple processes are on the same machine and I Implement right ahead lock which you talked about right
+
+
+01:20:46 - 01:21:53
+now along with the fastq implementation that might give me a better performance than rabbit mq which is across the different networks sorry can you say that again actually I'm not sure if I you mentioned a few different things here multiple producers yeah so what what I'm saying is uh if we are able to implement the uh wall the right ahead lock along with the fastq implementation which you explained right I think fast fastq implementation doesn't have the wall implemented in it right no no absolutely not okay so that
+
+
+01:21:22 - 01:22:41
+can can can it be a better solution that using rabbit mq like Technologies right I I do not know that this is too specific I know rabbit mq never used it um my good feeling is yes but I don't want to say yes too quickly so I mean you got to just look at it cool measure thanks thanks for yeah for sure thank you hi uh thanks for talk I think uh I have a question about the security so uh in your implementation you mention we can use a share libr sorry share memory and we can uh also avoid to copy data to
+
+
+01:22:04 - 01:23:36
+improve the performance yeah uh but in previous talk uh I heard something like to tou T to check T to use that is attacker may use if we use share share memory attacker May uh change the input data after we ready that it so how do we think if we use share memory uh how we can prevent this kind of attack what so what kind of attack exactly is this uh the name is a to tou time to check time to use right yeah and can you be like so what uh basically it's a kind of tack like uh after our program validate the
+
+
+01:22:49 - 01:23:53
+input is uh Leger and uh after that because Al we use sham memory yeah so attacker can change our input you're talking about very much like an attacker like you mean like you're talking about like vulnerabilities security Etc right you mean like someone that would exploit yeah wow that's that's great question actually I actually have to pass on this one I I don't have um yeah I don't have much opinion there mostly because I mean I guess I do but I'm definitely not an
+
+
+01:23:21 - 01:24:33
+expert there um yeah I really can't say much the the thing with like the area of like you know I mean trading system is that our processes are always on servers that we own now you know part of our servers our a so effectively yeah here this is actually not I mean definitely security is a thing right on a company level but when it comes to like such data structure on the share memory I'm actually not too worried about attackers you know like looking at my arm that's yeah I got a pass on this one
+
+
+01:23:58 - 01:25:22
+okay uh hello uh I'm also from another trading phone so like it's very interesting talk about like low lat in JD system so I I I want to ask one question regarding like the use of socalled uh stru of arrays like you demonstrated like this linear search I believe like uh Str like using stru of a race should uh reduce the number of like catch miss things like that I'm wondering like does uh optiva use a struct of arrays like technology internally and if uh you do do you have some kind of like framewor to make it
+
+
+01:24:40 - 01:25:39
+easier yeah yeah absolutely um effectively that's why I put as a reference Mike Acton here so that this talk is about like you know what you just mentioned and effectively the previous question was also a little bit about that so we're definitely using it now we use it where it's needed so what what I mean is that it's not like something that like we follow on everything in the structure for right but I very much yes in some cases it does help and uh and so as I said actually in the previous for
+
+
+01:25:10 - 01:26:23
+the for the very specific case of this Vector with like this pairs yeah you can split it and you do get actually like some performance gain out of it uh so you mean like uh it's mostly kind of manual like only if it's Leed you do some manual like refactoring to make but there no fun Work N no we we usually quite pragmatic about these things and like we like yeah we definitely use something when it's strictly needed and um and maybe it's a bit of a you know like at least I tend to I probably say
+
+
+01:25:46 - 01:26:47
+that world too many times today like I have strong opinions about like Simplicity I like to keep things very simple I'm also like very like we about pulling dependency so Frameworks to do something like struct array yeah stru array is a simple thing um so you know I can do it I can just do it to it on my own reason about it I'm like sometimes worried about putting an inter framework to do this um sometimes the substraction layer I'm not saying they're not needed sometime they're great but sometime it's
+
+
+01:26:16 - 01:27:24
+also like uh except if it's literally everywhere in your code base but that's actually also not not our case thanks yeah yeah thank you hello uh thank you for the talk I was um I was going to ask about the the Linux message cues we have a real-time application probably not quite as demanding as yours there's not as much money on the line uh but we are we're using we have multi multiple processes that need to communicate and we're using the Linux message cues we're using Sue
+
+
+01:26:50 - 01:27:55
+Linux similar to The Red Hat Linux that you're using and I wonder if you could give me a feel for how the the underlying uh Q message CU implementation in in Linux kernel differs from the custom message cue that you're using or did you look at that it's great question actually actually didn't really look at like this the implementation of what like of the cues that you're referring which which one which one are you referring I believe that they are multiples do you have a specific name um I I'm not that familiar
+
+
+01:27:23 - 01:28:19
+with the underlying Tech technology CU we have a rapper that we call system Services I believe it's calling down to the Linux uh messaging function I believe there's a level function there in general like I mean the Linux colel I mean like it's I I would I would think that like the Q implementation right I mean that they use there is not really the problem I mean it's probably going to be very fast I I can totally trust that the main problem with with with you know going to the kernel are going to be
+
+
+01:27:50 - 01:28:46
+cises and so the viant that you get from CIS so that's a little bit the same as like Network you know user spacing or not which is like as soon as you go into the kernel the variance and Jeter that you have from like going into the from newand to canaland that is actually the main thing what we are that we want to prevent here but I I I really you know I can trust the external developers that probably have very fast data structure in that thanks that's a great answer I appreciate it thank you well I think we
+
+
+01:28:18 - 01:28:35
+a lot of time I would still you know stick around for for more questions but yeah thank you
+
