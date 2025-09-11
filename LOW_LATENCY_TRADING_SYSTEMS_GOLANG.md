@@ -7,6 +7,7 @@
 ## 🎯 **Core Principles from the Talk**
 
 ### **1. Avoid Node-Based Containers**
+
 **Principle**: "Most of the time you do not want node containers" - avoid `std::map`, `std::set`, `std::unordered_map`, `std::unordered_set`, `std::list`
 
 **Why**: Node-based containers have poor cache locality and cause memory fragmentation.
@@ -14,27 +15,35 @@
 **Go Equivalent**: Use slices instead of maps when possible, avoid linked lists.
 
 ### **2. Problem Well Stated is Half Solved**
+
 **Principle**: Understand your specific problem domain and leverage its properties for performance.
 
 ### **3. Leverage Specific Properties**
+
 **Principle**: Use domain-specific optimizations rather than generic solutions.
 
 ### **4. Simplicity + Speed**
+
 **Principle**: "When it's fast and it's extremely simple, you can stop."
 
 ### **5. Mechanical Sympathy**
+
 **Principle**: Design algorithms that work in harmony with hardware (cache locality, prefetching, branch prediction).
 
 ### **6. Be Mindful of What You Use**
+
 **Principle**: Don't use complex systems when simple ones suffice.
 
 ### **7. Use the Right Tool for the Right Task**
+
 **Principle**: Choose appropriate data structures and algorithms for specific use cases.
 
 ### **8. Stay Fast is Harder Than Being Fast**
+
 **Principle**: Maintaining performance over time requires discipline and monitoring.
 
 ### **9. You're Not Alone**
+
 **Principle**: Consider the entire system, not just your application.
 
 ---
@@ -42,13 +51,16 @@
 ## 🚀 **Order Book Implementation in Go**
 
 ### **Problem Analysis**
+
 An order book is a fundamental data structure in trading systems that maintains:
+
 - **Bids**: Prices at which people are willing to buy (ordered descending)
 - **Asks**: Prices at which people are willing to sell (ordered ascending)
 - **Price Levels**: Each price level contains volume and order count
 - **Order Management**: Add, modify, delete orders by ID
 
 ### **Key Requirements**
+
 - **Low Latency**: Sub-microsecond operations
 - **High Throughput**: Handle thousands of updates per second
 - **Memory Efficiency**: Minimize allocations
@@ -91,16 +103,16 @@ const (
 // OrderBook maintains the order book state
 type OrderBook struct {
     symbol string
-    
+
     // Bid side (prices in descending order)
     bids []PriceLevel
-    
-    // Ask side (prices in ascending order)  
+
+    // Ask side (prices in ascending order)
     asks []PriceLevel
-    
+
     // Order lookup by ID
     orders map[int64]*Order
-    
+
     // Mutex for thread safety
     mutex sync.RWMutex
 }
@@ -119,16 +131,16 @@ func NewOrderBook(symbol string) *OrderBook {
 func (ob *OrderBook) AddOrder(order *Order) error {
     ob.mutex.Lock()
     defer ob.mutex.Unlock()
-    
+
     // Store order for lookup
     ob.orders[order.ID] = order
-    
+
     if order.Side == Bid {
         ob.addBid(order)
     } else {
         ob.addAsk(order)
     }
-    
+
     return nil
 }
 
@@ -138,7 +150,7 @@ func (ob *OrderBook) addBid(order *Order) {
     idx := sort.Search(len(ob.bids), func(i int) bool {
         return ob.bids[i].Price <= order.Price
     })
-    
+
     if idx < len(ob.bids) && ob.bids[idx].Price == order.Price {
         // Update existing price level
         ob.bids[idx].Volume += order.Volume
@@ -150,7 +162,7 @@ func (ob *OrderBook) addBid(order *Order) {
             Volume: order.Volume,
             Count:  1,
         }
-        
+
         // Insert at position idx
         ob.bids = append(ob.bids, PriceLevel{})
         copy(ob.bids[idx+1:], ob.bids[idx:])
@@ -164,7 +176,7 @@ func (ob *OrderBook) addAsk(order *Order) {
     idx := sort.Search(len(ob.asks), func(i int) bool {
         return ob.asks[i].Price >= order.Price
     })
-    
+
     if idx < len(ob.asks) && ob.asks[idx].Price == order.Price {
         // Update existing price level
         ob.asks[idx].Volume += order.Volume
@@ -176,7 +188,7 @@ func (ob *OrderBook) addAsk(order *Order) {
             Volume: order.Volume,
             Count:  1,
         }
-        
+
         // Insert at position idx
         ob.asks = append(ob.asks, PriceLevel{})
         copy(ob.asks[idx+1:], ob.asks[idx:])
@@ -188,23 +200,23 @@ func (ob *OrderBook) addAsk(order *Order) {
 func (ob *OrderBook) ModifyOrder(orderID int64, newVolume int64) error {
     ob.mutex.Lock()
     defer ob.mutex.Unlock()
-    
+
     order, exists := ob.orders[orderID]
     if !exists {
         return fmt.Errorf("order %d not found", orderID)
     }
-    
+
     // Calculate volume difference
     volumeDiff := newVolume - order.Volume
     order.Volume = newVolume
-    
+
     // Update price level
     if order.Side == Bid {
         ob.updateBidLevel(order.Price, volumeDiff)
     } else {
         ob.updateAskLevel(order.Price, volumeDiff)
     }
-    
+
     return nil
 }
 
@@ -258,22 +270,22 @@ func (ob *OrderBook) findAskLevel(price int64) int {
 func (ob *OrderBook) DeleteOrder(orderID int64) error {
     ob.mutex.Lock()
     defer ob.mutex.Unlock()
-    
+
     order, exists := ob.orders[orderID]
     if !exists {
         return fmt.Errorf("order %d not found", orderID)
     }
-    
+
     // Update price level
     if order.Side == Bid {
         ob.updateBidLevel(order.Price, -order.Volume)
     } else {
         ob.updateAskLevel(order.Price, -order.Volume)
     }
-    
+
     // Remove from orders map
     delete(ob.orders, orderID)
-    
+
     return nil
 }
 
@@ -281,7 +293,7 @@ func (ob *OrderBook) DeleteOrder(orderID int64) error {
 func (ob *OrderBook) GetBestBid() (int64, int64) {
     ob.mutex.RLock()
     defer ob.mutex.RUnlock()
-    
+
     if len(ob.bids) == 0 {
         return 0, 0
     }
@@ -292,7 +304,7 @@ func (ob *OrderBook) GetBestBid() (int64, int64) {
 func (ob *OrderBook) GetBestAsk() (int64, int64) {
     ob.mutex.RLock()
     defer ob.mutex.RUnlock()
-    
+
     if len(ob.asks) == 0 {
         return 0, 0
     }
@@ -303,11 +315,11 @@ func (ob *OrderBook) GetBestAsk() (int64, int64) {
 func (ob *OrderBook) GetSpread() int64 {
     bestBid, _ := ob.GetBestBid()
     bestAsk, _ := ob.GetBestAsk()
-    
+
     if bestBid == 0 || bestAsk == 0 {
         return 0
     }
-    
+
     return bestAsk - bestBid
 }
 
@@ -315,19 +327,19 @@ func (ob *OrderBook) GetSpread() int64 {
 func (ob *OrderBook) GetTopOfBook() (int64, int64, int64, int64) {
     ob.mutex.RLock()
     defer ob.mutex.RUnlock()
-    
+
     var bidPrice, bidVolume, askPrice, askVolume int64
-    
+
     if len(ob.bids) > 0 {
         bidPrice = ob.bids[0].Price
         bidVolume = ob.bids[0].Volume
     }
-    
+
     if len(ob.asks) > 0 {
         askPrice = ob.asks[0].Price
         askVolume = ob.asks[0].Volume
     }
-    
+
     return bidPrice, bidVolume, askPrice, askVolume
 }
 ```
@@ -337,7 +349,9 @@ func (ob *OrderBook) GetTopOfBook() (int64, int64, int64, int64) {
 ## 🚀 **Optimized Order Book with Linear Search**
 
 ### **Key Insight from the Talk**
+
 The speaker discovered that **linear search is often faster than binary search** for order books because:
+
 1. **Cache Locality**: Linear search has better cache behavior
 2. **Branch Prediction**: Modern CPUs predict linear access patterns well
 3. **Data Distribution**: Most updates happen at the top of the book
@@ -349,16 +363,16 @@ The speaker discovered that **linear search is often faster than binary search**
 // OptimizedOrderBook uses linear search for better performance
 type OptimizedOrderBook struct {
     symbol string
-    
+
     // Bid side (prices in descending order)
     bids []PriceLevel
-    
+
     // Ask side (prices in ascending order)
     asks []PriceLevel
-    
+
     // Order lookup by ID
     orders map[int64]*Order
-    
+
     // Mutex for thread safety
     mutex sync.RWMutex
 }
@@ -390,7 +404,7 @@ func (ob *OptimizedOrderBook) addBidOptimized(order *Order) {
                 Volume: order.Volume,
                 Count:  1,
             }
-            
+
             // Insert at position i
             ob.bids = append(ob.bids, PriceLevel{})
             copy(ob.bids[i+1:], ob.bids[i:])
@@ -398,7 +412,7 @@ func (ob *OptimizedOrderBook) addBidOptimized(order *Order) {
             return
         }
     }
-    
+
     // Insert at the end
     ob.bids = append(ob.bids, PriceLevel{
         Price:  order.Price,
@@ -424,7 +438,7 @@ func (ob *OptimizedOrderBook) addAskOptimized(order *Order) {
                 Volume: order.Volume,
                 Count:  1,
             }
-            
+
             // Insert at position i
             ob.asks = append(ob.asks, PriceLevel{})
             copy(ob.asks[i+1:], ob.asks[i:])
@@ -432,7 +446,7 @@ func (ob *OptimizedOrderBook) addAskOptimized(order *Order) {
             return
         }
     }
-    
+
     // Insert at the end
     ob.asks = append(ob.asks, PriceLevel{
         Price:  order.Price,
@@ -467,6 +481,7 @@ func (ob *OptimizedOrderBook) findAskLevelOptimized(price int64) int {
 ## 🚀 **Memory Pool for High-Performance Order Books**
 
 ### **Object Pooling Pattern**
+
 Based on the talk's emphasis on avoiding dynamic allocations:
 
 ```go
@@ -556,6 +571,7 @@ func (pl *PriceLevel) Reset() {
 ## 🚀 **Concurrent Queue Implementation**
 
 ### **Based on the Talk's Queue Design**
+
 The speaker discussed a bounded concurrent queue with specific properties:
 
 ```go
@@ -563,14 +579,14 @@ The speaker discussed a bounded concurrent queue with specific properties:
 type ConcurrentQueue struct {
     // Queue data
     data []byte
-    
+
     // Head and tail pointers (atomic)
     head uint64
     tail uint64
-    
+
     // Queue size
     size uint64
-    
+
     // Mutex for thread safety
     mutex sync.RWMutex
 }
@@ -587,25 +603,25 @@ func NewConcurrentQueue(size uint64) *ConcurrentQueue {
 func (cq *ConcurrentQueue) Write(data []byte) error {
     cq.mutex.Lock()
     defer cq.mutex.Unlock()
-    
+
     dataSize := uint64(len(data))
     if dataSize+8 > cq.size { // 8 bytes for size header
         return fmt.Errorf("data too large for queue")
     }
-    
+
     // Check if there's enough space
     if cq.head+dataSize+8 > cq.tail+cq.size {
         return fmt.Errorf("queue full")
     }
-    
+
     // Write size header
     cq.writeUint64(cq.head, dataSize)
     cq.head += 8
-    
+
     // Write data
     copy(cq.data[cq.head:], data)
     cq.head += dataSize
-    
+
     return nil
 }
 
@@ -613,20 +629,20 @@ func (cq *ConcurrentQueue) Write(data []byte) error {
 func (cq *ConcurrentQueue) Read() ([]byte, error) {
     cq.mutex.RLock()
     defer cq.mutex.RUnlock()
-    
+
     if cq.tail >= cq.head {
         return nil, fmt.Errorf("queue empty")
     }
-    
+
     // Read size header
     dataSize := cq.readUint64(cq.tail)
     cq.tail += 8
-    
+
     // Read data
     data := make([]byte, dataSize)
     copy(data, cq.data[cq.tail:cq.tail+dataSize])
     cq.tail += dataSize
-    
+
     return data, nil
 }
 
@@ -652,6 +668,7 @@ func (cq *ConcurrentQueue) readUint64(offset uint64) uint64 {
 ## 🚀 **Performance Monitoring and Profiling**
 
 ### **Intrusive Profiling**
+
 Based on the talk's discussion of profiling low-latency systems:
 
 ```go
@@ -673,10 +690,10 @@ func (p *Profiler) ProfileFunc(name string, fn func()) {
     start := time.Now()
     fn()
     duration := time.Since(start)
-    
+
     p.mutex.Lock()
     defer p.mutex.Unlock()
-    
+
     p.measurements[name] = append(p.measurements[name], duration)
 }
 
@@ -684,16 +701,16 @@ func (p *Profiler) ProfileFunc(name string, fn func()) {
 func (p *Profiler) GetStats(name string) (min, max, avg time.Duration, count int) {
     p.mutex.RLock()
     defer p.mutex.RUnlock()
-    
+
     measurements, exists := p.measurements[name]
     if !exists || len(measurements) == 0 {
         return 0, 0, 0, 0
     }
-    
+
     min = measurements[0]
     max = measurements[0]
     var sum time.Duration
-    
+
     for _, m := range measurements {
         if m < min {
             min = m
@@ -703,10 +720,10 @@ func (p *Profiler) GetStats(name string) (min, max, avg time.Duration, count int
         }
         sum += m
     }
-    
+
     avg = sum / time.Duration(len(measurements))
     count = len(measurements)
-    
+
     return min, max, avg, count
 }
 
@@ -714,17 +731,17 @@ func (p *Profiler) GetStats(name string) (min, max, avg time.Duration, count int
 func (p *Profiler) PrintStats() {
     p.mutex.RLock()
     defer p.mutex.RUnlock()
-    
+
     fmt.Println("Function Performance Statistics:")
     fmt.Println("================================")
-    
+
     for name, measurements := range p.measurements {
         if len(measurements) == 0 {
             continue
         }
-        
+
         min, max, avg, count := p.GetStats(name)
-        fmt.Printf("%s: min=%v, max=%v, avg=%v, count=%d\n", 
+        fmt.Printf("%s: min=%v, max=%v, avg=%v, count=%d\n",
             name, min, max, avg, count)
     }
 }
@@ -734,7 +751,7 @@ func (ob *OrderBook) ProfileOrderBookOperation(operation string, fn func()) {
     start := time.Now()
     fn()
     duration := time.Since(start)
-    
+
     // Log or store the measurement
     fmt.Printf("Operation %s took %v\n", operation, duration)
 }
@@ -750,7 +767,7 @@ func (ob *OrderBook) ProfileOrderBookOperation(operation string, fn func()) {
 // BenchmarkOrderBook benchmarks order book operations
 func BenchmarkOrderBook(b *testing.B) {
     ob := NewOrderBook("AAPL")
-    
+
     // Pre-populate with orders
     for i := 0; i < 1000; i++ {
         order := &Order{
@@ -761,9 +778,9 @@ func BenchmarkOrderBook(b *testing.B) {
         }
         ob.AddOrder(order)
     }
-    
+
     b.ResetTimer()
-    
+
     b.Run("AddOrder", func(b *testing.B) {
         for i := 0; i < b.N; i++ {
             order := &Order{
@@ -775,13 +792,13 @@ func BenchmarkOrderBook(b *testing.B) {
             ob.AddOrder(order)
         }
     })
-    
+
     b.Run("GetBestBid", func(b *testing.B) {
         for i := 0; i < b.N; i++ {
             ob.GetBestBid()
         }
     })
-    
+
     b.Run("ModifyOrder", func(b *testing.B) {
         for i := 0; i < b.N; i++ {
             ob.ModifyOrder(int64(i%1000), int64(200))
@@ -792,7 +809,7 @@ func BenchmarkOrderBook(b *testing.B) {
 // BenchmarkOptimizedOrderBook benchmarks optimized order book
 func BenchmarkOptimizedOrderBook(b *testing.B) {
     ob := NewOptimizedOrderBook("AAPL")
-    
+
     // Pre-populate with orders
     for i := 0; i < 1000; i++ {
         order := &Order{
@@ -803,9 +820,9 @@ func BenchmarkOptimizedOrderBook(b *testing.B) {
         }
         ob.AddOrder(order)
     }
-    
+
     b.ResetTimer()
-    
+
     b.Run("AddOrderOptimized", func(b *testing.B) {
         for i := 0; i < b.N; i++ {
             order := &Order{
@@ -822,17 +839,17 @@ func BenchmarkOptimizedOrderBook(b *testing.B) {
 // BenchmarkConcurrentQueue benchmarks concurrent queue
 func BenchmarkConcurrentQueue(b *testing.B) {
     cq := NewConcurrentQueue(1024 * 1024) // 1MB queue
-    
+
     data := []byte("test data")
-    
+
     b.ResetTimer()
-    
+
     b.Run("Write", func(b *testing.B) {
         for i := 0; i < b.N; i++ {
             cq.Write(data)
         }
     })
-    
+
     b.Run("Read", func(b *testing.B) {
         for i := 0; i < b.N; i++ {
             cq.Read()
@@ -853,7 +870,7 @@ type GCOptimizer struct {
     // Memory pools
     orderPool      *OrderPool
     priceLevelPool *PriceLevelPool
-    
+
     // String interning for common values
     stringInterner map[string]string
     stringMutex    sync.RWMutex
@@ -876,15 +893,15 @@ func (gco *GCOptimizer) InternString(s string) string {
         return interned
     }
     gco.stringMutex.RUnlock()
-    
+
     gco.stringMutex.Lock()
     defer gco.stringMutex.Unlock()
-    
+
     // Double-check pattern
     if interned, exists := gco.stringInterner[s]; exists {
         return interned
     }
-    
+
     gco.stringInterner[s] = s
     return s
 }
@@ -914,7 +931,7 @@ func OptimizeGC() {
     // Set GC target percentage (default: 100%)
     // Lower values = more frequent GC = lower latency
     debug.SetGCPercent(50)
-    
+
     // Set memory limit (Go 1.19+)
     debug.SetMemoryLimit(2 << 30) // 2GB limit
 }
@@ -923,11 +940,11 @@ func OptimizeGC() {
 func MonitorGC() {
     ticker := time.NewTicker(5 * time.Second)
     defer ticker.Stop()
-    
+
     for range ticker.C {
         var m runtime.MemStats
         runtime.ReadMemStats(&m)
-        
+
         fmt.Printf("GC Stats - Alloc: %d, Sys: %d, NumGC: %d, PauseTotal: %v\n",
             m.Alloc, m.Sys, m.NumGC, time.Duration(m.PauseTotalNs))
     }
@@ -963,19 +980,19 @@ func (ts *TradingSystem) GetOrderBook(symbol string) *OptimizedOrderBook {
     ts.mutex.RLock()
     ob, exists := ts.orderBooks[symbol]
     ts.mutex.RUnlock()
-    
+
     if exists {
         return ob
     }
-    
+
     ts.mutex.Lock()
     defer ts.mutex.Unlock()
-    
+
     // Double-check pattern
     if ob, exists := ts.orderBooks[symbol]; exists {
         return ob
     }
-    
+
     ob = NewOptimizedOrderBook(symbol)
     ts.orderBooks[symbol] = ob
     return ob
@@ -984,29 +1001,29 @@ func (ts *TradingSystem) GetOrderBook(symbol string) *OptimizedOrderBook {
 // ProcessOrder processes an order
 func (ts *TradingSystem) ProcessOrder(symbol string, order *Order) error {
     ob := ts.GetOrderBook(symbol)
-    
+
     ts.profiler.ProfileFunc("ProcessOrder", func() {
         ob.AddOrder(order)
     })
-    
+
     return nil
 }
 
 // GetMarketData returns market data for a symbol
 func (ts *TradingSystem) GetMarketData(symbol string) (int64, int64, int64, int64) {
     ob := ts.GetOrderBook(symbol)
-    
+
     ts.profiler.ProfileFunc("GetMarketData", func() {
         ob.GetTopOfBook()
     })
-    
+
     return ob.GetTopOfBook()
 }
 
 // RunPerformanceTest runs a performance test
 func (ts *TradingSystem) RunPerformanceTest() {
     fmt.Println("Running Performance Test...")
-    
+
     // Create test orders
     for i := 0; i < 10000; i++ {
         order := ts.gcOptimizer.GetOrder()
@@ -1014,13 +1031,13 @@ func (ts *TradingSystem) RunPerformanceTest() {
         order.Price = int64(100 + i%1000)
         order.Volume = int64(100)
         order.Side = Bid
-        
+
         ts.ProcessOrder("AAPL", order)
-        
+
         // Return to pool
         ts.gcOptimizer.PutOrder(order)
     }
-    
+
     // Print performance statistics
     ts.profiler.PrintStats()
 }
@@ -1029,16 +1046,16 @@ func (ts *TradingSystem) RunPerformanceTest() {
 func main() {
     // Optimize GC for low latency
     OptimizeGC()
-    
+
     // Start GC monitoring
     go MonitorGC()
-    
+
     // Create trading system
     ts := NewTradingSystem()
-    
+
     // Run performance test
     ts.RunPerformanceTest()
-    
+
     // Keep running
     select {}
 }
@@ -1049,6 +1066,7 @@ func main() {
 ## 🎯 **Key Takeaways from the Talk**
 
 ### **1. Performance Principles**
+
 - **Avoid node-based containers** - Use slices instead of maps when possible
 - **Linear search can be faster than binary search** - Better cache locality
 - **Object pooling** - Reduce GC pressure
@@ -1056,6 +1074,7 @@ func main() {
 - **Mechanical sympathy** - Design for hardware behavior
 
 ### **2. Go-Specific Optimizations**
+
 - **Use `sync.Pool`** for object pooling
 - **Pre-allocate slices** with known capacity
 - **Avoid unnecessary allocations** in hot paths
@@ -1063,6 +1082,7 @@ func main() {
 - **Profile with `runtime.MemStats`** and custom profilers
 
 ### **3. System Design Considerations**
+
 - **Cache locality** - Design data structures for CPU cache behavior
 - **Branch prediction** - Favor predictable access patterns
 - **Memory layout** - Use struct of arrays when beneficial
@@ -1070,6 +1090,7 @@ func main() {
 - **Monitoring** - Implement comprehensive performance monitoring
 
 ### **4. Trading System Specifics**
+
 - **Order book design** - Optimize for top-of-book access
 - **Price level management** - Use linear search for small collections
 - **Memory management** - Pool frequently allocated objects
