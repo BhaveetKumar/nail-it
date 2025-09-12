@@ -11,6 +11,7 @@
 #### **Understanding the Trade-offs**
 
 ##### **Consistency (C)**
+
 All nodes see the same data at the same time.
 
 ```go
@@ -23,7 +24,7 @@ type ConsistentSystem struct {
 func (cs *ConsistentSystem) Write(key, value string) error {
     cs.mutex.Lock()
     defer cs.mutex.Unlock()
-    
+
     // Write to all nodes for consistency
     successCount := 0
     for _, node := range cs.nodes {
@@ -31,18 +32,18 @@ func (cs *ConsistentSystem) Write(key, value string) error {
             successCount++
         }
     }
-    
+
     if successCount >= cs.quorum {
         return nil
     }
-    
+
     return errors.New("failed to achieve consistency")
 }
 
 func (cs *ConsistentSystem) Read(key string) (string, error) {
     cs.mutex.RLock()
     defer cs.mutex.RUnlock()
-    
+
     // Read from majority for consistency
     values := make(map[string]int)
     for _, node := range cs.nodes {
@@ -50,7 +51,7 @@ func (cs *ConsistentSystem) Read(key string) (string, error) {
             values[value]++
         }
     }
-    
+
     // Return most common value
     maxCount := 0
     var result string
@@ -60,16 +61,17 @@ func (cs *ConsistentSystem) Read(key string) (string, error) {
             result = value
         }
     }
-    
+
     if maxCount >= cs.quorum {
         return result, nil
     }
-    
+
     return "", errors.New("failed to achieve consistency")
 }
 ```
 
 ##### **Availability (A)**
+
 System remains operational and accessible.
 
 ```go
@@ -86,7 +88,7 @@ func (as *AvailableSystem) HandleRequest(req *Request) (*Response, error) {
             return node.Process(req)
         }
     }
-    
+
     // If no healthy nodes, return cached response
     return as.getCachedResponse(req)
 }
@@ -96,12 +98,13 @@ func (as *AvailableSystem) getCachedResponse(req *Request) (*Response, error) {
     if cached, exists := as.cache.Get(req.Key); exists {
         return cached, nil
     }
-    
+
     return nil, errors.New("service unavailable")
 }
 ```
 
 ##### **Partition Tolerance (P)**
+
 System continues to work despite network failures.
 
 ```go
@@ -119,7 +122,7 @@ func (pts *PartitionTolerantSystem) HandlePartition(partitionID string) error {
             }(replica)
         }
     }
-    
+
     return nil
 }
 ```
@@ -172,25 +175,25 @@ type RequestVoteResponse struct {
 func (rn *RaftNode) RequestVote(req *RequestVoteRequest) *RequestVoteResponse {
     rn.mutex.Lock()
     defer rn.mutex.Unlock()
-    
+
     response := &RequestVoteResponse{
         Term:        rn.currentTerm,
         VoteGranted: false,
     }
-    
+
     if req.Term > rn.currentTerm {
         rn.currentTerm = req.Term
         rn.state = Follower
         rn.votedFor = ""
     }
-    
-    if req.Term == rn.currentTerm && 
+
+    if req.Term == rn.currentTerm &&
        (rn.votedFor == "" || rn.votedFor == req.CandidateID) &&
        rn.isUpToDate(req.LastLogIndex, req.LastLogTerm) {
         rn.votedFor = req.CandidateID
         response.VoteGranted = true
     }
-    
+
     return response
 }
 
@@ -198,9 +201,9 @@ func (rn *RaftNode) isUpToDate(lastLogIndex, lastLogTerm int) bool {
     if len(rn.log) == 0 {
         return true
     }
-    
+
     lastEntry := rn.log[len(rn.log)-1]
-    return lastLogTerm > lastEntry.Term || 
+    return lastLogTerm > lastEntry.Term ||
            (lastLogTerm == lastEntry.Term && lastLogIndex >= lastEntry.Index)
 }
 
@@ -210,10 +213,10 @@ func (rn *RaftNode) StartElection() {
     rn.currentTerm++
     rn.votedFor = rn.ID
     rn.mutex.Unlock()
-    
+
     votes := 1 // Vote for self
     totalVotes := len(rn.peers) + 1
-    
+
     for peerID, peer := range rn.peers {
         go func(id string, p *RaftNode) {
             req := &RequestVoteRequest{
@@ -222,9 +225,9 @@ func (rn *RaftNode) StartElection() {
                 LastLogIndex: rn.getLastLogIndex(),
                 LastLogTerm:  rn.getLastLogTerm(),
             }
-            
+
             resp := p.RequestVote(req)
-            
+
             rn.mutex.Lock()
             if resp.Term > rn.currentTerm {
                 rn.currentTerm = resp.Term
@@ -243,13 +246,13 @@ func (rn *RaftNode) StartElection() {
 
 func (rn *RaftNode) becomeLeader() {
     rn.state = Leader
-    
+
     // Initialize nextIndex and matchIndex
     for peerID := range rn.peers {
         rn.nextIndex[peerID] = rn.getLastLogIndex() + 1
         rn.matchIndex[peerID] = 0
     }
-    
+
     // Start sending heartbeats
     go rn.sendHeartbeats()
 }
@@ -293,39 +296,39 @@ func (pn *PaxosNode) Propose(value interface{}) error {
         value:  value,
         quorum: (len(pn.acceptors) / 2) + 1,
     }
-    
+
     // Phase 1: Prepare
     promises := pn.prepare(proposer)
     if len(promises) < proposer.quorum {
         return errors.New("failed to get majority promises")
     }
-    
+
     // Phase 2: Accept
     accepts := pn.accept(proposer, promises)
     if len(accepts) < proposer.quorum {
         return errors.New("failed to get majority accepts")
     }
-    
+
     return nil
 }
 
 func (pn *PaxosNode) prepare(proposer *Proposer) []Promise {
     promises := make([]Promise, 0)
-    
+
     for acceptorID, acceptor := range pn.acceptors {
         promise := acceptor.Prepare(proposer.proposalNumber)
         if promise != nil {
             promises = append(promises, *promise)
         }
     }
-    
+
     return promises
 }
 
 func (acceptor *Acceptor) Prepare(proposalNumber int) *Promise {
     acceptor.mutex.Lock()
     defer acceptor.mutex.Unlock()
-    
+
     if proposalNumber > acceptor.promisedNumber {
         acceptor.promisedNumber = proposalNumber
         return &Promise{
@@ -335,7 +338,7 @@ func (acceptor *Acceptor) Prepare(proposalNumber int) *Promise {
             AcceptedValue:   acceptor.acceptedValue,
         }
     }
-    
+
     return nil
 }
 ```
@@ -354,26 +357,26 @@ type MasterSlaveReplication struct {
 func (msr *MasterSlaveReplication) Write(key, value string) error {
     msr.mutex.Lock()
     defer msr.mutex.Unlock()
-    
+
     // Write to master
     if err := msr.master.Write(key, value); err != nil {
         return err
     }
-    
+
     // Replicate to slaves asynchronously
     for _, slave := range msr.slaves {
         go func(s *Database) {
             s.Write(key, value)
         }(slave)
     }
-    
+
     return nil
 }
 
 func (msr *MasterSlaveReplication) Read(key string) (string, error) {
     msr.mutex.RLock()
     defer msr.mutex.RUnlock()
-    
+
     // Read from master for consistency
     return msr.master.Read(key)
 }
@@ -381,14 +384,14 @@ func (msr *MasterSlaveReplication) Read(key string) (string, error) {
 func (msr *MasterSlaveReplication) ReadFromSlave(key string) (string, error) {
     msr.mutex.RLock()
     defer msr.mutex.RUnlock()
-    
+
     // Read from any available slave
     for _, slave := range msr.slaves {
         if value, err := slave.Read(key); err == nil {
             return value, nil
         }
     }
-    
+
     // Fallback to master
     return msr.master.Read(key)
 }
@@ -406,26 +409,26 @@ type MasterMasterReplication struct {
 func (mmr *MasterMasterReplication) Write(key, value string) error {
     mmr.mutex.Lock()
     defer mmr.mutex.Unlock()
-    
+
     // Write to local master
     if err := mmr.masters[0].Write(key, value); err != nil {
         return err
     }
-    
+
     // Replicate to other masters
     for i := 1; i < len(mmr.masters); i++ {
         go func(master *Database) {
             master.Write(key, value)
         }(mmr.masters[i])
     }
-    
+
     return nil
 }
 
 func (mmr *MasterMasterReplication) Read(key string) (string, error) {
     mmr.mutex.RLock()
     defer mmr.mutex.RUnlock()
-    
+
     // Read from local master
     return mmr.masters[0].Read(key)
 }
@@ -464,7 +467,7 @@ func (rs *RangeSharding) GetShard(key int) *Shard {
             return rs.shards[i]
         }
     }
-    
+
     // Default to last shard
     return rs.shards[len(rs.shards)-1]
 }
@@ -496,7 +499,7 @@ func NewHashSharding(shardCount int) *HashSharding {
             DB: NewDatabase(),
         }
     }
-    
+
     return &HashSharding{
         shards: shards,
         hashFunc: func(key string) int {
@@ -538,17 +541,17 @@ func (ds *DirectorySharding) GetShard(key string) (*Shard, error) {
     ds.mutex.RLock()
     shardID, exists := ds.directory[key]
     ds.mutex.RUnlock()
-    
+
     if !exists {
         return nil, errors.New("key not found in directory")
     }
-    
+
     for _, shard := range ds.shards {
         if shard.ID == shardID {
             return &shard, nil
         }
     }
-    
+
     return nil, errors.New("shard not found")
 }
 
@@ -557,7 +560,7 @@ func (ds *DirectorySharding) Write(key, value string) error {
     if err != nil {
         return err
     }
-    
+
     return shard.DB.Write(key, value)
 }
 
@@ -566,14 +569,14 @@ func (ds *DirectorySharding) Read(key string) (string, error) {
     if err != nil {
         return "", err
     }
-    
+
     return shard.DB.Read(key)
 }
 
 func (ds *DirectorySharding) AddKeyToShard(key, shardID string) {
     ds.mutex.Lock()
     defer ds.mutex.Unlock()
-    
+
     ds.directory[key] = shardID
 }
 ```
@@ -597,14 +600,14 @@ func NewVectorClock(nodeID string) *VectorClock {
 func (vc *VectorClock) Increment(nodeID string) {
     vc.mutex.Lock()
     defer vc.mutex.Unlock()
-    
+
     vc.clocks[nodeID]++
 }
 
 func (vc *VectorClock) Update(other *VectorClock) {
     vc.mutex.Lock()
     defer vc.mutex.Unlock()
-    
+
     for nodeID, clock := range other.clocks {
         if vc.clocks[nodeID] < clock {
             vc.clocks[nodeID] = clock
@@ -617,7 +620,7 @@ func (vc *VectorClock) Compare(other *VectorClock) int {
     other.mutex.RLock()
     defer vc.mutex.RUnlock()
     defer other.mutex.RUnlock()
-    
+
     allNodes := make(map[string]bool)
     for nodeID := range vc.clocks {
         allNodes[nodeID] = true
@@ -625,21 +628,21 @@ func (vc *VectorClock) Compare(other *VectorClock) int {
     for nodeID := range other.clocks {
         allNodes[nodeID] = true
     }
-    
+
     vcGreater := false
     otherGreater := false
-    
+
     for nodeID := range allNodes {
         vcClock := vc.clocks[nodeID]
         otherClock := other.clocks[nodeID]
-        
+
         if vcClock > otherClock {
             vcGreater = true
         } else if otherClock > vcClock {
             otherGreater = true
         }
     }
-    
+
     if vcGreater && !otherGreater {
         return 1 // vc > other
     } else if otherGreater && !vcGreater {
@@ -669,14 +672,14 @@ func NewGSet() *GSet {
 func (gs *GSet) Add(element string) {
     gs.mutex.Lock()
     defer gs.mutex.Unlock()
-    
+
     gs.elements[element] = true
 }
 
 func (gs *GSet) Contains(element string) bool {
     gs.mutex.RLock()
     defer gs.mutex.RUnlock()
-    
+
     return gs.elements[element]
 }
 
@@ -685,7 +688,7 @@ func (gs *GSet) Merge(other *GSet) {
     other.mutex.RLock()
     defer gs.mutex.Unlock()
     defer other.mutex.RUnlock()
-    
+
     for element := range other.elements {
         gs.elements[element] = true
     }
@@ -694,12 +697,12 @@ func (gs *GSet) Merge(other *GSet) {
 func (gs *GSet) GetElements() []string {
     gs.mutex.RLock()
     defer gs.mutex.RUnlock()
-    
+
     elements := make([]string, 0, len(gs.elements))
     for element := range gs.elements {
         elements = append(elements, element)
     }
-    
+
     return elements
 }
 ```
@@ -718,10 +721,10 @@ type RoundRobinLoadBalancer struct {
 func (rrlb *RoundRobinLoadBalancer) GetServer() Server {
     rrlb.mutex.Lock()
     defer rrlb.mutex.Unlock()
-    
+
     server := rrlb.servers[rrlb.current]
     rrlb.current = (rrlb.current + 1) % len(rrlb.servers)
-    
+
     return server
 }
 
@@ -742,10 +745,10 @@ type LeastConnectionsLoadBalancer struct {
 func (lclb *LeastConnectionsLoadBalancer) GetServer() Server {
     lclb.mutex.RLock()
     defer lclb.mutex.RUnlock()
-    
+
     minConnections := lclb.servers[0].GetConnectionCount()
     selectedServer := lclb.servers[0]
-    
+
     for _, server := range lclb.servers[1:] {
         connections := server.GetConnectionCount()
         if connections < minConnections {
@@ -753,7 +756,7 @@ func (lclb *LeastConnectionsLoadBalancer) GetServer() Server {
             selectedServer = server
         }
     }
-    
+
     return selectedServer
 }
 ```
@@ -775,12 +778,12 @@ type WeightedRoundRobinLoadBalancer struct {
 func (wrrlb *WeightedRoundRobinLoadBalancer) GetServer() Server {
     wrrlb.mutex.Lock()
     defer wrrlb.mutex.Unlock()
-    
+
     totalWeight := 0
     for _, server := range wrrlb.servers {
         totalWeight += server.Weight
     }
-    
+
     for i := range wrrlb.servers {
         wrrlb.servers[i].Current += wrrlb.servers[i].Weight
         if wrrlb.servers[i].Current >= totalWeight {
@@ -788,7 +791,7 @@ func (wrrlb *WeightedRoundRobinLoadBalancer) GetServer() Server {
             return wrrlb.servers[i].Server
         }
     }
-    
+
     // Fallback to first server
     return wrrlb.servers[0].Server
 }
@@ -799,26 +802,31 @@ func (wrrlb *WeightedRoundRobinLoadBalancer) GetServer() Server {
 ## 🎯 **Key Takeaways**
 
 ### **1. CAP Theorem Trade-offs**
+
 - **CP Systems**: Consistency + Partition Tolerance (e.g., MongoDB)
 - **AP Systems**: Availability + Partition Tolerance (e.g., Cassandra)
 - **CA Systems**: Consistency + Availability (e.g., Single-node databases)
 
 ### **2. Consensus Algorithms**
+
 - **Raft**: Easier to understand, leader-based
 - **Paxos**: More complex, but more flexible
 - **Both ensure**: Safety and liveness properties
 
 ### **3. Replication Strategies**
+
 - **Master-Slave**: Read scaling, eventual consistency
 - **Master-Master**: Write scaling, conflict resolution needed
 - **Choose based on**: Read/write patterns and consistency requirements
 
 ### **4. Sharding Approaches**
+
 - **Range-based**: Good for sequential access
 - **Hash-based**: Even distribution, no range queries
 - **Directory-based**: Flexible, but single point of failure
 
 ### **5. Eventual Consistency**
+
 - **Vector clocks**: Track causality
 - **CRDTs**: Conflict-free data structures
 - **Acceptable for**: Many real-world applications
