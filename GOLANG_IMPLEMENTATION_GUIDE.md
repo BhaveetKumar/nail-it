@@ -53,7 +53,7 @@ func (wp *WorkerPool) Start() {
 
 func (wp *WorkerPool) worker(id int) {
     defer wp.wg.Done()
-    
+
     for job := range wp.jobQueue {
         result := wp.processJob(job)
         wp.resultQueue <- result
@@ -63,7 +63,7 @@ func (wp *WorkerPool) worker(id int) {
 func (wp *WorkerPool) processJob(job Job) Result {
     // Simulate work
     time.Sleep(100 * time.Millisecond)
-    
+
     return Result{
         JobID:  job.ID,
         Output: fmt.Sprintf("Processed: %s", job.Data),
@@ -89,7 +89,7 @@ func (wp *WorkerPool) Close() {
 func main() {
     pool := NewWorkerPool(3)
     pool.Start()
-    
+
     // Submit jobs
     for i := 0; i < 10; i++ {
         job := Job{
@@ -98,7 +98,7 @@ func main() {
         }
         pool.SubmitJob(job)
     }
-    
+
     // Collect results
     go func() {
         for i := 0; i < 10; i++ {
@@ -106,7 +106,7 @@ func main() {
             fmt.Printf("Result: %+v\n", result)
         }
     }()
-    
+
     time.Sleep(2 * time.Second)
     pool.Close()
 }
@@ -143,11 +143,11 @@ func main() {
     // Create context with timeout
     ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
     defer cancel()
-    
+
     // Start multiple tasks
     go longRunningTask(ctx, "Task1")
     go longRunningTask(ctx, "Task2")
-    
+
     // Wait for timeout
     time.Sleep(3 * time.Second)
 }
@@ -167,7 +167,7 @@ import (
     "fmt"
     "log"
     "time"
-    
+
     _ "github.com/go-sql-driver/mysql"
 )
 
@@ -180,17 +180,17 @@ func NewDatabase(dsn string) (*Database, error) {
     if err != nil {
         return nil, err
     }
-    
+
     // Configure connection pool
     db.SetMaxOpenConns(25)
     db.SetMaxIdleConns(25)
     db.SetConnMaxLifetime(5 * time.Minute)
-    
+
     // Test connection
     if err := db.Ping(); err != nil {
         return nil, err
     }
-    
+
     return &Database{db: db}, nil
 }
 
@@ -207,12 +207,12 @@ func (d *Database) CreateUser(user *User) error {
     if err != nil {
         return err
     }
-    
+
     id, err := result.LastInsertId()
     if err != nil {
         return err
     }
-    
+
     user.ID = int(id)
     return nil
 }
@@ -220,13 +220,13 @@ func (d *Database) CreateUser(user *User) error {
 func (d *Database) GetUser(id int) (*User, error) {
     query := `SELECT id, username, email, created_at FROM users WHERE id = ?`
     row := d.db.QueryRow(query, id)
-    
+
     user := &User{}
     err := row.Scan(&user.ID, &user.Username, &user.Email, &user.CreatedAt)
     if err != nil {
         return nil, err
     }
-    
+
     return user, nil
 }
 
@@ -237,7 +237,7 @@ func (d *Database) GetUsers(limit, offset int) ([]*User, error) {
         return nil, err
     }
     defer rows.Close()
-    
+
     var users []*User
     for rows.Next() {
         user := &User{}
@@ -247,7 +247,7 @@ func (d *Database) GetUsers(limit, offset int) ([]*User, error) {
         }
         users = append(users, user)
     }
-    
+
     return users, nil
 }
 
@@ -275,25 +275,25 @@ func main() {
         log.Fatal(err)
     }
     defer db.Close()
-    
+
     // Create user
     user := &User{
         Username: "john_doe",
         Email:    "john@example.com",
     }
-    
+
     if err := db.CreateUser(user); err != nil {
         log.Fatal(err)
     }
-    
+
     fmt.Printf("Created user: %+v\n", user)
-    
+
     // Get user
     retrievedUser, err := db.GetUser(user.ID)
     if err != nil {
         log.Fatal(err)
     }
-    
+
     fmt.Printf("Retrieved user: %+v\n", retrievedUser)
 }
 ```
@@ -308,7 +308,7 @@ import (
     "fmt"
     "log"
     "time"
-    
+
     "github.com/go-redis/redis/v8"
 )
 
@@ -322,7 +322,7 @@ func NewCache(addr string) *Cache {
         Password: "",
         DB:       0,
     })
-    
+
     return &Cache{client: client}
 }
 
@@ -331,7 +331,7 @@ func (c *Cache) Set(key string, value interface{}, expiration time.Duration) err
     if err != nil {
         return err
     }
-    
+
     return c.client.Set(c.client.Context(), key, data, expiration).Err()
 }
 
@@ -340,7 +340,7 @@ func (c *Cache) Get(key string, dest interface{}) error {
     if err != nil {
         return err
     }
-    
+
     return json.Unmarshal([]byte(val), dest)
 }
 
@@ -369,7 +369,7 @@ func (c *Cache) Close() error {
 func main() {
     cache := NewCache("localhost:6379")
     defer cache.Close()
-    
+
     // Set string value
     if err := cache.Set("user:1", map[string]string{
         "name":  "John Doe",
@@ -377,15 +377,15 @@ func main() {
     }, time.Hour); err != nil {
         log.Fatal(err)
     }
-    
+
     // Get string value
     var user map[string]string
     if err := cache.Get("user:1", &user); err != nil {
         log.Fatal(err)
     }
-    
+
     fmt.Printf("User: %+v\n", user)
-    
+
     // Set hash
     if err := cache.SetHash("user:2", map[string]interface{}{
         "name":  "Jane Smith",
@@ -394,13 +394,13 @@ func main() {
     }); err != nil {
         log.Fatal(err)
     }
-    
+
     // Get hash
     hash, err := cache.GetHash("user:2")
     if err != nil {
         log.Fatal(err)
     }
-    
+
     fmt.Printf("Hash: %+v\n", hash)
 }
 ```
@@ -417,7 +417,7 @@ package main
 import (
     "net/http"
     "strconv"
-    
+
     "github.com/gin-gonic/gin"
 )
 
@@ -490,7 +490,7 @@ func (uh *UserHandler) CreateUser(c *gin.Context) {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
-    
+
     createdUser := uh.service.CreateUser(&user)
     c.JSON(http.StatusCreated, createdUser)
 }
@@ -501,13 +501,13 @@ func (uh *UserHandler) GetUser(c *gin.Context) {
         c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
         return
     }
-    
+
     user, exists := uh.service.GetUser(id)
     if !exists {
         c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
         return
     }
-    
+
     c.JSON(http.StatusOK, user)
 }
 
@@ -517,18 +517,18 @@ func (uh *UserHandler) UpdateUser(c *gin.Context) {
         c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
         return
     }
-    
+
     var user User
     if err := c.ShouldBindJSON(&user); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
-    
+
     if !uh.service.UpdateUser(id, &user) {
         c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
         return
     }
-    
+
     c.JSON(http.StatusOK, user)
 }
 
@@ -538,12 +538,12 @@ func (uh *UserHandler) DeleteUser(c *gin.Context) {
         c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
         return
     }
-    
+
     if !uh.service.DeleteUser(id) {
         c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
         return
     }
-    
+
     c.JSON(http.StatusNoContent, nil)
 }
 
@@ -556,14 +556,14 @@ func main() {
     // Create service and handler
     userService := NewUserService()
     userHandler := NewUserHandler(userService)
-    
+
     // Create Gin router
     r := gin.Default()
-    
+
     // Add middleware
     r.Use(gin.Logger())
     r.Use(gin.Recovery())
-    
+
     // Define routes
     api := r.Group("/api/v1")
     {
@@ -573,7 +573,7 @@ func main() {
         api.PUT("/users/:id", userHandler.UpdateUser)
         api.DELETE("/users/:id", userHandler.DeleteUser)
     }
-    
+
     // Start server
     r.Run(":8080")
 }
@@ -587,7 +587,7 @@ package main
 import (
     "log"
     "time"
-    
+
     "github.com/gin-gonic/gin"
 )
 
@@ -614,12 +614,12 @@ func CORSMiddleware() gin.HandlerFunc {
         c.Header("Access-Control-Allow-Origin", "*")
         c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
         c.Header("Access-Control-Allow-Headers", "Origin, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-        
+
         if c.Request.Method == "OPTIONS" {
             c.AbortWithStatus(204)
             return
         }
-        
+
         c.Next()
     }
 }
@@ -643,22 +643,22 @@ func AuthMiddleware() gin.HandlerFunc {
             c.Abort()
             return
         }
-        
+
         // Validate token
         // Implementation would go here
-        
+
         c.Next()
     }
 }
 
 func main() {
     r := gin.Default()
-    
+
     // Add middleware
     r.Use(LoggerMiddleware())
     r.Use(CORSMiddleware())
     r.Use(RateLimitMiddleware())
-    
+
     // Protected routes
     protected := r.Group("/api")
     protected.Use(AuthMiddleware())
@@ -667,7 +667,7 @@ func main() {
             c.JSON(200, gin.H{"message": "Protected route"})
         })
     }
-    
+
     r.Run(":8080")
 }
 ```
@@ -687,7 +687,7 @@ import (
     "fmt"
     "log"
     "time"
-    
+
     "github.com/segmentio/kafka-go"
 )
 
@@ -701,7 +701,7 @@ func NewMessageProducer(brokers []string, topic string) *MessageProducer {
         Topic:    topic,
         Balancer: &kafka.LeastBytes{},
     }
-    
+
     return &MessageProducer{writer: writer}
 }
 
@@ -711,7 +711,7 @@ func (mp *MessageProducer) SendMessage(key, value string) error {
         Value: []byte(value),
         Time:  time.Now(),
     }
-    
+
     return mp.writer.WriteMessages(context.Background(), message)
 }
 
@@ -731,7 +731,7 @@ func NewMessageConsumer(brokers []string, topic, groupID string) *MessageConsume
         MinBytes: 10e3, // 10KB
         MaxBytes: 10e6, // 10MB
     })
-    
+
     return &MessageConsumer{reader: reader}
 }
 
@@ -741,10 +741,10 @@ func (mc *MessageConsumer) ConsumeMessages(handler func(string, string) error) e
         if err != nil {
             return err
         }
-        
+
         key := string(message.Key)
         value := string(message.Value)
-        
+
         if err := handler(key, value); err != nil {
             log.Printf("Error processing message: %v", err)
         }
@@ -759,15 +759,15 @@ func (mc *MessageConsumer) Close() error {
 func main() {
     brokers := []string{"localhost:9092"}
     topic := "test-topic"
-    
+
     // Create producer
     producer := NewMessageProducer(brokers, topic)
     defer producer.Close()
-    
+
     // Create consumer
     consumer := NewMessageConsumer(brokers, topic, "test-group")
     defer consumer.Close()
-    
+
     // Start consumer in goroutine
     go func() {
         err := consumer.ConsumeMessages(func(key, value string) error {
@@ -778,16 +778,16 @@ func main() {
             log.Fatal(err)
         }
     }()
-    
+
     // Send messages
     for i := 0; i < 10; i++ {
         key := fmt.Sprintf("key-%d", i)
         value := fmt.Sprintf("message-%d", i)
-        
+
         if err := producer.SendMessage(key, value); err != nil {
             log.Fatal(err)
         }
-        
+
         time.Sleep(1 * time.Second)
     }
 }
@@ -809,18 +809,18 @@ import (
 
 func TestUserService_CreateUser(t *testing.T) {
     service := NewUserService()
-    
+
     user := &User{
         Username: "testuser",
         Email:    "test@example.com",
     }
-    
+
     createdUser := service.CreateUser(user)
-    
+
     assert.Equal(t, 1, createdUser.ID)
     assert.Equal(t, "testuser", createdUser.Username)
     assert.Equal(t, "test@example.com", createdUser.Email)
-    
+
     // Verify user was stored
     storedUser, exists := service.GetUser(1)
     assert.True(t, exists)
@@ -829,18 +829,18 @@ func TestUserService_CreateUser(t *testing.T) {
 
 func TestUserService_GetUser(t *testing.T) {
     service := NewUserService()
-    
+
     // Test non-existent user
     _, exists := service.GetUser(999)
     assert.False(t, exists)
-    
+
     // Create and test existing user
     user := &User{
         Username: "testuser",
         Email:    "test@example.com",
     }
     service.CreateUser(user)
-    
+
     storedUser, exists := service.GetUser(1)
     assert.True(t, exists)
     assert.Equal(t, "testuser", storedUser.Username)
@@ -848,23 +848,23 @@ func TestUserService_GetUser(t *testing.T) {
 
 func TestUserService_UpdateUser(t *testing.T) {
     service := NewUserService()
-    
+
     // Create user
     user := &User{
         Username: "testuser",
         Email:    "test@example.com",
     }
     service.CreateUser(user)
-    
+
     // Update user
     updatedUser := &User{
         Username: "updateduser",
         Email:    "updated@example.com",
     }
-    
+
     success := service.UpdateUser(1, updatedUser)
     assert.True(t, success)
-    
+
     // Verify update
     storedUser, exists := service.GetUser(1)
     assert.True(t, exists)
@@ -874,18 +874,18 @@ func TestUserService_UpdateUser(t *testing.T) {
 
 func TestUserService_DeleteUser(t *testing.T) {
     service := NewUserService()
-    
+
     // Create user
     user := &User{
         Username: "testuser",
         Email:    "test@example.com",
     }
     service.CreateUser(user)
-    
+
     // Delete user
     success := service.DeleteUser(1)
     assert.True(t, success)
-    
+
     // Verify deletion
     _, exists := service.GetUser(1)
     assert.False(t, exists)
@@ -910,27 +910,27 @@ func TestUserHandler_CreateUser(t *testing.T) {
     gin.SetMode(gin.TestMode)
     service := NewUserService()
     handler := NewUserHandler(service)
-    
+
     // Create router
     r := gin.New()
     r.POST("/users", handler.CreateUser)
-    
+
     // Test data
     userJSON := `{"username":"testuser","email":"test@example.com"}`
-    
+
     // Create request
     req, _ := http.NewRequest("POST", "/users", strings.NewReader(userJSON))
     req.Header.Set("Content-Type", "application/json")
-    
+
     // Create response recorder
     w := httptest.NewRecorder()
-    
+
     // Perform request
     r.ServeHTTP(w, req)
-    
+
     // Assertions
     assert.Equal(t, http.StatusCreated, w.Code)
-    
+
     var response User
     err := json.Unmarshal(w.Body.Bytes(), &response)
     assert.NoError(t, err)
@@ -943,35 +943,35 @@ func TestUserHandler_GetUser(t *testing.T) {
     gin.SetMode(gin.TestMode)
     service := NewUserService()
     handler := NewUserHandler(service)
-    
+
     // Create test user
     user := &User{
         Username: "testuser",
         Email:    "test@example.com",
     }
     service.CreateUser(user)
-    
+
     // Create router
     r := gin.New()
     r.GET("/users/:id", handler.GetUser)
-    
+
     // Test existing user
     req, _ := http.NewRequest("GET", "/users/1", nil)
     w := httptest.NewRecorder()
     r.ServeHTTP(w, req)
-    
+
     assert.Equal(t, http.StatusOK, w.Code)
-    
+
     var response User
     err := json.Unmarshal(w.Body.Bytes(), &response)
     assert.NoError(t, err)
     assert.Equal(t, "testuser", response.Username)
-    
+
     // Test non-existent user
     req, _ = http.NewRequest("GET", "/users/999", nil)
     w = httptest.NewRecorder()
     r.ServeHTTP(w, req)
-    
+
     assert.Equal(t, http.StatusNotFound, w.Code)
 }
 ```
@@ -981,30 +981,35 @@ func TestUserHandler_GetUser(t *testing.T) {
 ## 🎯 **Key Takeaways**
 
 ### **1. Concurrency Patterns**
+
 - **Goroutines** for lightweight concurrency
 - **Channels** for communication between goroutines
 - **Worker pools** for controlled concurrency
 - **Context** for cancellation and timeouts
 
 ### **2. Database Operations**
+
 - **Connection pooling** for performance
 - **Prepared statements** for security
 - **Transaction management** for consistency
 - **Error handling** for robustness
 
 ### **3. HTTP Server Design**
+
 - **RESTful APIs** with proper HTTP methods
 - **Middleware** for cross-cutting concerns
 - **Error handling** with appropriate status codes
 - **Input validation** for security
 
 ### **4. Message Queues**
+
 - **Producer/Consumer** pattern for decoupling
 - **Error handling** for message processing
 - **Partitioning** for scalability
 - **Consumer groups** for load balancing
 
 ### **5. Testing**
+
 - **Unit tests** for individual functions
 - **Integration tests** for API endpoints
 - **Mocking** for external dependencies
