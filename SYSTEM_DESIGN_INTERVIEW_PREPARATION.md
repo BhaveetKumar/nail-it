@@ -9,30 +9,35 @@
 ### **Interview Phases**
 
 #### **Phase 1: Requirements Clarification (5-10 minutes)**
+
 - **Functional Requirements**: What the system should do
 - **Non-Functional Requirements**: Performance, scalability, availability
 - **Constraints**: Budget, timeline, technology stack
 - **Assumptions**: Make reasonable assumptions and state them
 
 #### **Phase 2: Capacity Estimation (5 minutes)**
+
 - **Scale**: Users, requests per second, data size
 - **Storage**: Database size, file storage
 - **Bandwidth**: Network requirements
 - **Memory**: Caching requirements
 
 #### **Phase 3: High-Level Design (10-15 minutes)**
+
 - **Architecture**: Overall system architecture
 - **Components**: Major system components
 - **APIs**: Key API endpoints
 - **Data Flow**: How data flows through the system
 
 #### **Phase 4: Detailed Design (15-20 minutes)**
+
 - **Database Design**: Tables, indexes, sharding
 - **Caching Strategy**: What to cache, where to cache
 - **Load Balancing**: How to distribute load
 - **Security**: Authentication, authorization, data protection
 
 #### **Phase 5: Scale and Optimize (10-15 minutes)**
+
 - **Bottlenecks**: Identify potential bottlenecks
 - **Optimization**: How to improve performance
 - **Monitoring**: How to monitor the system
@@ -101,7 +106,7 @@ func NewInterviewFramework() *InterviewFramework {
 
 func (ifw *InterviewFramework) ClarifyRequirements() {
     fmt.Println("=== REQUIREMENTS CLARIFICATION ===")
-    
+
     // Ask clarifying questions
     questions := []string{
         "What is the primary use case?",
@@ -115,7 +120,7 @@ func (ifw *InterviewFramework) ClarifyRequirements() {
         "What is the timeline?",
         "What technology stack is preferred?",
     }
-    
+
     for _, question := range questions {
         fmt.Printf("Q: %s\n", question)
         // In real interview, wait for answer
@@ -125,14 +130,14 @@ func (ifw *InterviewFramework) ClarifyRequirements() {
 
 func (ifw *InterviewFramework) EstimateCapacity() {
     fmt.Println("\n=== CAPACITY ESTIMATION ===")
-    
+
     // Example calculations
     ifw.capacity.Users = 1000000 // 1M users
     ifw.capacity.RequestsPerSecond = 10000 // 10K RPS
     ifw.capacity.DataSize = 1000000000 // 1GB
     ifw.capacity.StorageSize = 10000000000 // 10GB
     ifw.capacity.Bandwidth = 1000000000 // 1Gbps
-    
+
     fmt.Printf("Users: %d\n", ifw.capacity.Users)
     fmt.Printf("Requests per second: %d\n", ifw.capacity.RequestsPerSecond)
     fmt.Printf("Data size: %d bytes\n", ifw.capacity.DataSize)
@@ -142,7 +147,7 @@ func (ifw *InterviewFramework) EstimateCapacity() {
 
 func (ifw *InterviewFramework) DesignSystem() {
     fmt.Println("\n=== SYSTEM DESIGN ===")
-    
+
     ifw.design.Architecture = "Microservices Architecture"
     ifw.design.Components = []string{
         "Load Balancer",
@@ -162,7 +167,7 @@ func (ifw *InterviewFramework) DesignSystem() {
         "POST /api/payments",
     }
     ifw.design.DataFlow = "Client -> Load Balancer -> API Gateway -> Service -> Database"
-    
+
     fmt.Printf("Architecture: %s\n", ifw.design.Architecture)
     fmt.Printf("Components: %v\n", ifw.design.Components)
     fmt.Printf("APIs: %v\n", ifw.design.APIs)
@@ -171,7 +176,7 @@ func (ifw *InterviewFramework) DesignSystem() {
 
 func (ifw *InterviewFramework) OptimizeSystem() {
     fmt.Println("\n=== OPTIMIZATION ===")
-    
+
     ifw.optimization.Bottlenecks = []string{
         "Database queries",
         "Network latency",
@@ -196,7 +201,7 @@ func (ifw *InterviewFramework) OptimizeSystem() {
         "Network failure",
         "Hardware failure",
     }
-    
+
     fmt.Printf("Bottlenecks: %v\n", ifw.optimization.Bottlenecks)
     fmt.Printf("Solutions: %v\n", ifw.optimization.Solutions)
     fmt.Printf("Monitoring: %v\n", ifw.optimization.Monitoring)
@@ -206,7 +211,7 @@ func (ifw *InterviewFramework) OptimizeSystem() {
 // Example usage
 func main() {
     framework := NewInterviewFramework()
-    
+
     framework.ClarifyRequirements()
     framework.EstimateCapacity()
     framework.DesignSystem()
@@ -221,11 +226,13 @@ func main() {
 ### **Question 1: Design a URL Shortener (like bit.ly)**
 
 #### **Requirements**
+
 - **Functional**: Shorten long URLs, redirect to original URLs
 - **Non-Functional**: 100M URLs per day, 1B redirects per day, 99.9% availability
 - **Constraints**: 6-character short URLs, 10-year retention
 
 #### **Capacity Estimation**
+
 ```go
 type URLShortenerCapacity struct {
     URLsPerDay      int64
@@ -239,18 +246,19 @@ func (usc *URLShortenerCapacity) Calculate() {
     usc.RedirectsPerDay = 1000000000 // 1B
     usc.URLLength = 6
     usc.RetentionYears = 10
-    
+
     // Calculate storage requirements
     totalURLs := usc.URLsPerDay * 365 * int64(usc.RetentionYears)
     storagePerURL := 500 // bytes (URL + metadata)
     totalStorage := totalURLs * int64(storagePerURL)
-    
+
     fmt.Printf("Total URLs: %d\n", totalURLs)
     fmt.Printf("Total storage: %d bytes (%.2f GB)\n", totalStorage, float64(totalStorage)/1024/1024/1024)
 }
 ```
 
 #### **High-Level Design**
+
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
 │   Client    │    │   Client    │    │   Client    │
@@ -308,7 +316,7 @@ type URLRecord struct {
 func (us *URLShortenerService) ShortenURL(originalURL string) (string, error) {
     // Generate short ID
     shortID := us.idGen.Generate()
-    
+
     // Create record
     record := &URLRecord{
         ID:          shortID,
@@ -317,15 +325,15 @@ func (us *URLShortenerService) ShortenURL(originalURL string) (string, error) {
         CreatedAt:   time.Now(),
         ExpiresAt:   time.Now().Add(10 * 365 * 24 * time.Hour), // 10 years
     }
-    
+
     // Save to database
     if err := us.db.SaveURL(record); err != nil {
         return "", err
     }
-    
+
     // Cache the mapping
     us.cache.Set(shortID, originalURL, 24*time.Hour)
-    
+
     return record.ShortURL, nil
 }
 
@@ -334,16 +342,16 @@ func (us *URLShortenerService) Redirect(shortID string) (string, error) {
     if originalURL, err := us.cache.Get(shortID); err == nil {
         return originalURL, nil
     }
-    
+
     // Get from database
     record, err := us.db.GetURL(shortID)
     if err != nil {
         return "", err
     }
-    
+
     // Cache for future requests
     us.cache.Set(shortID, record.OriginalURL, 24*time.Hour)
-    
+
     return record.OriginalURL, nil
 }
 
@@ -356,7 +364,7 @@ type IDGenerator struct {
 func (ig *IDGenerator) Generate() string {
     ig.mutex.Lock()
     defer ig.mutex.Unlock()
-    
+
     ig.counter++
     return ig.encode(ig.counter)
 }
@@ -364,12 +372,12 @@ func (ig *IDGenerator) Generate() string {
 func (ig *IDGenerator) encode(num int64) string {
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     result := make([]byte, 6)
-    
+
     for i := 5; i >= 0; i-- {
         result[i] = charset[num%62]
         num /= 62
     }
-    
+
     return string(result)
 }
 ```
@@ -377,11 +385,13 @@ func (ig *IDGenerator) encode(num int64) string {
 ### **Question 2: Design a Chat System (like WhatsApp)**
 
 #### **Requirements**
+
 - **Functional**: Send/receive messages, group chats, online status
 - **Non-Functional**: 1B users, 50B messages per day, <100ms latency
 - **Constraints**: Real-time delivery, message history, file sharing
 
 #### **High-Level Design**
+
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
 │   Mobile    │    │   Web       │    │  Desktop    │
@@ -449,22 +459,22 @@ func (ms *MessageService) SendMessage(msg *Message) error {
     if err := ms.userService.ValidateUsers(msg.SenderID, msg.ReceiverID); err != nil {
         return err
     }
-    
+
     // Save message
     if err := ms.messageStore.SaveMessage(msg); err != nil {
         return err
     }
-    
+
     // Send via WebSocket if user is online
     if ms.wsManager.IsUserOnline(msg.ReceiverID) {
         ms.wsManager.SendMessage(msg.ReceiverID, msg)
     }
-    
+
     // Send push notification if user is offline
     if !ms.wsManager.IsUserOnline(msg.ReceiverID) {
         go ms.sendPushNotification(msg.ReceiverID, msg)
     }
-    
+
     return nil
 }
 
@@ -485,16 +495,16 @@ func (wsm *WebSocketManager) SendMessage(userID string, msg *Message) error {
     wsm.mutex.RLock()
     conn, exists := wsm.connections[userID]
     wsm.mutex.RUnlock()
-    
+
     if !exists {
         return fmt.Errorf("user not connected")
     }
-    
+
     data, err := json.Marshal(msg)
     if err != nil {
         return err
     }
-    
+
     select {
     case conn.Send <- data:
         return nil
@@ -533,16 +543,16 @@ type ShardRange struct {
 func (rs *RangeSharding) GetShard(key string) string {
     // Convert key to integer (simplified)
     keyInt := hash(key) % 1000
-    
+
     rs.mutex.RLock()
     defer rs.mutex.RUnlock()
-    
+
     for _, range := range rs.shards {
         if keyInt >= range.Start && keyInt <= range.End {
             return range.ShardID
         }
     }
-    
+
     return rs.shards[0].ShardID // Default to first shard
 }
 
@@ -555,11 +565,11 @@ type HashSharding struct {
 func (hs *HashSharding) GetShard(key string) string {
     hs.mutex.RLock()
     defer hs.mutex.RUnlock()
-    
+
     if len(hs.shards) == 0 {
         return ""
     }
-    
+
     hash := hash(key)
     shardIndex := hash % len(hs.shards)
     return hs.shards[shardIndex]
@@ -579,20 +589,20 @@ type HashNode struct {
 func (ch *ConsistentHashing) GetShard(key string) string {
     ch.mutex.RLock()
     defer ch.mutex.RUnlock()
-    
+
     if len(ch.ring) == 0 {
         return ""
     }
-    
+
     hash := hash(key)
-    
+
     // Find first node with hash >= key hash
     for _, node := range ch.ring {
         if node.Hash >= hash {
             return node.NodeID
         }
     }
-    
+
     // Wrap around to first node
     return ch.ring[0].NodeID
 }
@@ -625,22 +635,22 @@ func (l1 *L1Cache) Get(key string) (interface{}, error) {
     l1.mutex.RLock()
     item, exists := l1.data[key]
     l1.mutex.RUnlock()
-    
+
     if !exists {
         return nil, fmt.Errorf("key not found")
     }
-    
+
     if time.Now().After(item.ExpiresAt) {
         l1.mutex.Lock()
         delete(l1.data, key)
         l1.mutex.Unlock()
         return nil, fmt.Errorf("key expired")
     }
-    
+
     l1.mutex.Lock()
     item.AccessCount++
     l1.mutex.Unlock()
-    
+
     return item.Value, nil
 }
 
@@ -654,7 +664,7 @@ func (l2 *L2Cache) Get(key string) (interface{}, error) {
     if err != nil {
         return nil, err
     }
-    
+
     var result interface{}
     err = json.Unmarshal([]byte(val), &result)
     return result, err
@@ -671,16 +681,16 @@ func (ca *CacheAside) Get(key string) (interface{}, error) {
     if value, err := ca.cache.Get(key); err == nil {
         return value, nil
     }
-    
+
     // Get from database
     value, err := ca.db.Get(key)
     if err != nil {
         return nil, err
     }
-    
+
     // Populate cache
     ca.cache.Set(key, value, 5*time.Minute)
-    
+
     return value, nil
 }
 ```
@@ -707,10 +717,10 @@ func (rr *RoundRobinLB) SelectServer(servers []*Server) *Server {
     if len(servers) == 0 {
         return nil
     }
-    
+
     rr.mutex.Lock()
     defer rr.mutex.Unlock()
-    
+
     server := servers[rr.current]
     rr.current = (rr.current + 1) % len(servers)
     return server
@@ -723,17 +733,17 @@ func (lc *LeastConnectionsLB) SelectServer(servers []*Server) *Server {
     if len(servers) == 0 {
         return nil
     }
-    
+
     minConnections := servers[0].ConnectionCount
     selectedServer := servers[0]
-    
+
     for _, server := range servers[1:] {
         if server.ConnectionCount < minConnections {
             minConnections = server.ConnectionCount
             selectedServer = server
         }
     }
-    
+
     return selectedServer
 }
 
@@ -747,15 +757,15 @@ func (wrr *WeightedRoundRobinLB) SelectServer(servers []*Server) *Server {
     if len(servers) == 0 {
         return nil
     }
-    
+
     wrr.mutex.Lock()
     defer wrr.mutex.Unlock()
-    
+
     totalWeight := 0
     for _, server := range servers {
         totalWeight += server.Weight
     }
-    
+
     for i := range servers {
         servers[i].CurrentWeight += servers[i].Weight
         if servers[i].CurrentWeight >= totalWeight {
@@ -763,7 +773,7 @@ func (wrr *WeightedRoundRobinLB) SelectServer(servers []*Server) *Server {
             return servers[i]
         }
     }
-    
+
     return servers[0]
 }
 ```
@@ -790,24 +800,24 @@ type Instance struct {
 func (as *AutoScaler) CheckScaling() error {
     as.mutex.Lock()
     defer as.mutex.Unlock()
-    
+
     // Calculate average CPU usage
     totalCPU := 0.0
     for _, instance := range as.instances {
         totalCPU += instance.CPUUsage
     }
     avgCPU := totalCPU / float64(len(as.instances))
-    
+
     // Scale up if CPU usage is high
     if avgCPU > 70.0 && len(as.instances) < as.maxInstances {
         return as.scaleUp()
     }
-    
+
     // Scale down if CPU usage is low
     if avgCPU < 30.0 && len(as.instances) > as.minInstances {
         return as.scaleDown()
     }
-    
+
     return nil
 }
 
@@ -816,10 +826,10 @@ func (as *AutoScaler) scaleUp() error {
         ID:     fmt.Sprintf("instance_%d", len(as.instances)+1),
         Status: "running",
     }
-    
+
     as.instances = append(as.instances, instance)
     fmt.Printf("Scaled up to %d instances\n", len(as.instances))
-    
+
     return nil
 }
 
@@ -828,7 +838,7 @@ func (as *AutoScaler) scaleDown() error {
         as.instances = as.instances[:len(as.instances)-1]
         fmt.Printf("Scaled down to %d instances\n", len(as.instances))
     }
-    
+
     return nil
 }
 ```
@@ -869,17 +879,17 @@ func (mc *MetricsCollector) SetGauge(name string, value float64) {
 func (mc *MetricsCollector) RecordHistogram(name string, value float64) {
     mc.mutex.Lock()
     defer mc.mutex.Unlock()
-    
+
     if mc.histograms[name] == nil {
         mc.histograms[name] = &Histogram{
             buckets: make(map[string]int64),
         }
     }
-    
+
     hist := mc.histograms[name]
     hist.count++
     hist.sum += value
-    
+
     // Simple bucket logic
     switch {
     case value < 0.1:
@@ -939,19 +949,19 @@ func (chc *CacheHealthCheck) GetName() string {
 func (hcm *HealthCheckManager) AddCheck(check HealthCheck) {
     hcm.mutex.Lock()
     defer hcm.mutex.Unlock()
-    
+
     hcm.checks[check.GetName()] = check
 }
 
 func (hcm *HealthCheckManager) CheckAll() map[string]error {
     hcm.mutex.RLock()
     defer hcm.mutex.RUnlock()
-    
+
     results := make(map[string]error)
     for name, check := range hcm.checks {
         results[name] = check.Check()
     }
-    
+
     return results
 }
 ```
@@ -961,24 +971,28 @@ func (hcm *HealthCheckManager) CheckAll() map[string]error {
 ## 🎯 **Key Takeaways**
 
 ### **1. Interview Structure**
+
 - **Requirements**: Clarify functional and non-functional requirements
 - **Capacity**: Estimate scale, storage, and bandwidth
 - **Design**: Create high-level and detailed designs
 - **Optimization**: Identify bottlenecks and solutions
 
 ### **2. Common Patterns**
+
 - **Load Balancing**: Round robin, least connections, weighted
 - **Caching**: Multi-level, cache-aside, write-through
 - **Database**: Sharding, replication, indexing
 - **Scaling**: Horizontal vs vertical, auto-scaling
 
 ### **3. Best Practices**
+
 - **Start simple**: Begin with basic design, then add complexity
 - **Think about scale**: Consider bottlenecks and optimization
 - **Handle failures**: Plan for system failures and recovery
 - **Monitor everything**: Implement comprehensive monitoring
 
 ### **4. Common Mistakes**
+
 - **Over-engineering**: Don't add unnecessary complexity
 - **Ignoring constraints**: Consider real-world limitations
 - **Poor communication**: Explain your thinking clearly

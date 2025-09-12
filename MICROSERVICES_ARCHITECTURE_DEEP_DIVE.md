@@ -19,7 +19,7 @@ import (
     "net/http"
     "sync"
     "time"
-    
+
     "github.com/hashicorp/consul/api"
 )
 
@@ -48,12 +48,12 @@ type ServiceDiscovery struct {
 func NewServiceRegistry() (*ServiceRegistry, error) {
     config := api.DefaultConfig()
     config.Address = "localhost:8500"
-    
+
     client, err := api.NewClient(config)
     if err != nil {
         return nil, err
     }
-    
+
     return &ServiceRegistry{
         consulClient: client,
         services:     make(map[string]*Service),
@@ -74,16 +74,16 @@ func (sr *ServiceRegistry) Register(service *Service) error {
             DeregisterCriticalServiceAfter: "30s",
         },
     }
-    
+
     err := sr.consulClient.Agent().ServiceRegister(registration)
     if err != nil {
         return err
     }
-    
+
     sr.mutex.Lock()
     sr.services[service.ID] = service
     sr.mutex.Unlock()
-    
+
     return nil
 }
 
@@ -92,11 +92,11 @@ func (sr *ServiceRegistry) Deregister(serviceID string) error {
     if err != nil {
         return err
     }
-    
+
     sr.mutex.Lock()
     delete(sr.services, serviceID)
     sr.mutex.Unlock()
-    
+
     return nil
 }
 
@@ -105,7 +105,7 @@ func (sr *ServiceRegistry) Discover(serviceName string) ([]*Service, error) {
     if err != nil {
         return nil, err
     }
-    
+
     var result []*Service
     for _, service := range services {
         result = append(result, &Service{
@@ -117,7 +117,7 @@ func (sr *ServiceRegistry) Discover(serviceName string) ([]*Service, error) {
             Health:  "healthy",
         })
     }
-    
+
     return result, nil
 }
 
@@ -141,22 +141,22 @@ func (sd *ServiceDiscovery) GetService(serviceName string) (*Service, error) {
         }
     }
     sd.mutex.RUnlock()
-    
+
     // Discover from registry
     services, err := sd.registry.Discover(serviceName)
     if err != nil {
         return nil, err
     }
-    
+
     if len(services) == 0 {
         return nil, fmt.Errorf("no services found for %s", serviceName)
     }
-    
+
     // Update cache
     sd.mutex.Lock()
     sd.cache[serviceName] = services
     sd.mutex.Unlock()
-    
+
     return services[0], nil
 }
 
@@ -176,13 +176,13 @@ func (sd *ServiceDiscovery) refreshCache() {
         serviceNames = append(serviceNames, name)
     }
     sd.mutex.RUnlock()
-    
+
     for _, serviceName := range serviceNames {
         services, err := sd.registry.Discover(serviceName)
         if err != nil {
             continue
         }
-        
+
         sd.mutex.Lock()
         sd.cache[serviceName] = services
         sd.mutex.Unlock()
@@ -196,7 +196,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    
+
     // Register a service
     service := &Service{
         ID:      "user-service-1",
@@ -205,21 +205,21 @@ func main() {
         Port:    8080,
         Tags:    []string{"api", "user"},
     }
-    
+
     if err := registry.Register(service); err != nil {
         log.Fatal(err)
     }
-    
+
     // Create service discovery
     discovery := NewServiceDiscovery(registry)
     discovery.StartHealthCheck()
-    
+
     // Discover service
     discoveredService, err := discovery.GetService("user-service")
     if err != nil {
         log.Fatal(err)
     }
-    
+
     fmt.Printf("Discovered service: %+v\n", discoveredService)
 }
 ```
@@ -239,7 +239,7 @@ import (
     "strings"
     "sync"
     "time"
-    
+
     "github.com/gin-gonic/gin"
     "github.com/go-redis/redis/v8"
 )
@@ -290,7 +290,7 @@ func (gw *APIGateway) AddRoute(path string, methods []string, serviceName string
                 log.Printf("Service discovery failed: %v", err)
                 return
             }
-            
+
             // Update request
             req.URL.Scheme = "http"
             req.URL.Host = fmt.Sprintf("%s:%d", service.Address, service.Port)
@@ -301,7 +301,7 @@ func (gw *APIGateway) AddRoute(path string, methods []string, serviceName string
             w.WriteHeader(http.StatusBadGateway)
         },
     }
-    
+
     route := &Route{
         Path:        path,
         Methods:     methods,
@@ -309,27 +309,27 @@ func (gw *APIGateway) AddRoute(path string, methods []string, serviceName string
         Proxy:       proxy,
         Middleware:  middleware,
     }
-    
+
     gw.mutex.Lock()
     gw.routes[path] = route
     gw.mutex.Unlock()
-    
+
     return nil
 }
 
 func (gw *APIGateway) HandleRequest(c *gin.Context) {
     path := c.Request.URL.Path
     method := c.Request.Method
-    
+
     gw.mutex.RLock()
     route, exists := gw.routes[path]
     gw.mutex.RUnlock()
-    
+
     if !exists {
         c.JSON(http.StatusNotFound, gin.H{"error": "Route not found"})
         return
     }
-    
+
     // Check if method is allowed
     allowed := false
     for _, m := range route.Methods {
@@ -338,12 +338,12 @@ func (gw *APIGateway) HandleRequest(c *gin.Context) {
             break
         }
     }
-    
+
     if !allowed {
         c.JSON(http.StatusMethodNotAllowed, gin.H{"error": "Method not allowed"})
         return
     }
-    
+
     // Apply middleware
     for _, middleware := range route.Middleware {
         middleware(c)
@@ -351,7 +351,7 @@ func (gw *APIGateway) HandleRequest(c *gin.Context) {
             return
         }
     }
-    
+
     // Proxy request
     route.Proxy.ServeHTTP(c.Writer, c.Request)
 }
@@ -361,7 +361,7 @@ func NewRateLimiter() *RateLimiter {
         Addr: "localhost:6379",
         DB:   0,
     })
-    
+
     return &RateLimiter{
         redisClient: client,
         limits: map[string]int{
@@ -380,40 +380,40 @@ func NewRateLimiter() *RateLimiter {
 func (rl *RateLimiter) IsAllowed(key string, limitType string) (bool, error) {
     limit := rl.limits["default"]
     window := rl.windows["default"]
-    
+
     if l, exists := rl.limits[limitType]; exists {
         limit = l
     }
     if w, exists := rl.windows[limitType]; exists {
         window = w
     }
-    
+
     // Use sliding window rate limiting
     now := time.Now()
     windowStart := now.Add(-window)
-    
+
     // Count requests in window
-    count, err := rl.redisClient.ZCount(context.Background(), key, 
-        fmt.Sprintf("%d", windowStart.Unix()), 
+    count, err := rl.redisClient.ZCount(context.Background(), key,
+        fmt.Sprintf("%d", windowStart.Unix()),
         fmt.Sprintf("%d", now.Unix())).Result()
-    
+
     if err != nil {
         return false, err
     }
-    
+
     if count >= int64(limit) {
         return false, nil
     }
-    
+
     // Add current request
     rl.redisClient.ZAdd(context.Background(), key, &redis.Z{
         Score:  float64(now.Unix()),
         Member: now.UnixNano(),
     })
-    
+
     // Set expiration
     rl.redisClient.Expire(context.Background(), key, window)
-    
+
     return true, nil
 }
 
@@ -436,17 +436,17 @@ func (as *AuthService) ValidateToken(token string) (map[string]interface{}, erro
             return claims, nil
         }
     }
-    
+
     // Validate JWT token
     claims, err := as.validateJWT(token)
     if err != nil {
         return nil, err
     }
-    
+
     // Cache token
     claimsData, _ := json.Marshal(claims)
     as.redisClient.Set(context.Background(), "token:"+token, claimsData, time.Hour)
-    
+
     return claims, nil
 }
 
@@ -465,27 +465,27 @@ func (gw *APIGateway) RateLimitMiddleware() gin.HandlerFunc {
     return func(c *gin.Context) {
         clientIP := c.ClientIP()
         limitType := "default"
-        
+
         // Determine limit type based on path
         if strings.HasPrefix(c.Request.URL.Path, "/api/") {
             limitType = "api"
         } else if strings.HasPrefix(c.Request.URL.Path, "/auth/") {
             limitType = "auth"
         }
-        
+
         allowed, err := gw.rateLimiter.IsAllowed(clientIP+":"+limitType, limitType)
         if err != nil {
             c.JSON(http.StatusInternalServerError, gin.H{"error": "Rate limit check failed"})
             c.Abort()
             return
         }
-        
+
         if !allowed {
             c.JSON(http.StatusTooManyRequests, gin.H{"error": "Rate limit exceeded"})
             c.Abort()
             return
         }
-        
+
         c.Next()
     }
 }
@@ -499,19 +499,19 @@ func (gw *APIGateway) AuthMiddleware() gin.HandlerFunc {
             c.Abort()
             return
         }
-        
+
         // Remove "Bearer " prefix
         if strings.HasPrefix(token, "Bearer ") {
             token = token[7:]
         }
-        
+
         claims, err := gw.authService.ValidateToken(token)
         if err != nil {
             c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
             c.Abort()
             return
         }
-        
+
         // Set user context
         c.Set("user", claims)
         c.Next()
@@ -525,30 +525,30 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    
+
     discovery := NewServiceDiscovery(registry)
     discovery.StartHealthCheck()
-    
+
     // Create API gateway
     gateway := NewAPIGateway(discovery)
-    
+
     // Add routes
-    gateway.AddRoute("/api/users", []string{"GET", "POST"}, "user-service", 
+    gateway.AddRoute("/api/users", []string{"GET", "POST"}, "user-service",
         gateway.RateLimitMiddleware(), gateway.AuthMiddleware())
     gateway.AddRoute("/api/orders", []string{"GET", "POST"}, "order-service",
         gateway.RateLimitMiddleware(), gateway.AuthMiddleware())
     gateway.AddRoute("/auth/login", []string{"POST"}, "auth-service",
         gateway.RateLimitMiddleware())
-    
+
     // Create Gin router
     r := gin.Default()
-    
+
     // Add global middleware
     r.Use(gateway.RateLimitMiddleware())
-    
+
     // Add routes
     r.Any("/*path", gateway.HandleRequest)
-    
+
     // Start server
     log.Fatal(r.Run(":8080"))
 }
@@ -568,7 +568,7 @@ import (
     "fmt"
     "log"
     "time"
-    
+
     "github.com/go-redis/redis/v8"
 )
 
@@ -602,7 +602,7 @@ func NewEventStore() *EventStore {
         Addr: "localhost:6379",
         DB:   2,
     })
-    
+
     return &EventStore{
         redisClient: client,
         streams:     make(map[string]string),
@@ -614,7 +614,7 @@ func (es *EventStore) AppendEvent(streamName string, event *Event) error {
     if err != nil {
         return err
     }
-    
+
     // Use Redis Streams for event storage
     _, err = es.redisClient.XAdd(context.Background(), &redis.XAddArgs{
         Stream: streamName,
@@ -622,7 +622,7 @@ func (es *EventStore) AppendEvent(streamName string, event *Event) error {
             "event": string(eventData),
         },
     }).Result()
-    
+
     return err
 }
 
@@ -631,12 +631,12 @@ func (es *EventStore) GetEvents(streamName string, from string, count int64) ([]
         Streams: []string{streamName, from},
         Count:   count,
     }
-    
+
     streams, err := es.redisClient.XRead(context.Background(), args).Result()
     if err != nil {
         return nil, err
     }
-    
+
     var events []*Event
     for _, stream := range streams {
         for _, message := range stream.Messages {
@@ -648,7 +648,7 @@ func (es *EventStore) GetEvents(streamName string, from string, count int64) ([]
             events = append(events, &event)
         }
     }
-    
+
     return events, nil
 }
 
@@ -662,7 +662,7 @@ func NewEventBus(eventStore *EventStore) *EventBus {
 func (eb *EventBus) Subscribe(eventType string, handler EventHandler) {
     eb.mutex.Lock()
     defer eb.mutex.Unlock()
-    
+
     eb.handlers[eventType] = append(eb.handlers[eventType], handler)
 }
 
@@ -671,12 +671,12 @@ func (eb *EventBus) Publish(event *Event) error {
     if err := eb.eventStore.AppendEvent("events", event); err != nil {
         return err
     }
-    
+
     // Notify handlers
     eb.mutex.RLock()
     handlers := eb.handlers[event.Type]
     eb.mutex.RUnlock()
-    
+
     for _, handler := range handlers {
         go func(h EventHandler) {
             if err := h.Handle(event); err != nil {
@@ -684,7 +684,7 @@ func (eb *EventBus) Publish(event *Event) error {
             }
         }(handler)
     }
-    
+
     return nil
 }
 
@@ -736,7 +736,7 @@ func (uch *UserCommandHandler) handleCreateUser(cmd *CreateUserCommand) error {
         Timestamp: time.Now(),
         Version:   1,
     }
-    
+
     return uch.eventBus.Publish(event)
 }
 
@@ -752,7 +752,7 @@ func (uch *UserCommandHandler) handleUpdateUser(cmd *UpdateUserCommand) error {
         Timestamp: time.Now(),
         Version:   2,
     }
-    
+
     return uch.eventBus.Publish(event)
 }
 
@@ -794,12 +794,12 @@ func (urh *UserQueryHandler) Handle(query interface{}) (interface{}, error) {
 func (urh *UserQueryHandler) handleGetUser(query *GetUserQuery) (*User, error) {
     urh.readModel.mutex.RLock()
     defer urh.readModel.mutex.RUnlock()
-    
+
     user, exists := urh.readModel.Users[query.UserID]
     if !exists {
         return nil, fmt.Errorf("user not found")
     }
-    
+
     return user, nil
 }
 
@@ -811,7 +811,7 @@ type UserEventHandler struct {
 func (ueh *UserEventHandler) Handle(event *Event) error {
     ueh.readModel.mutex.Lock()
     defer ueh.readModel.mutex.Unlock()
-    
+
     switch event.Type {
     case "UserCreated":
         user := &User{
@@ -821,7 +821,7 @@ func (ueh *UserEventHandler) Handle(event *Event) error {
             Version:  event.Version,
         }
         ueh.readModel.Users[event.AggregateID] = user
-        
+
     case "UserUpdated":
         if user, exists := ueh.readModel.Users[event.AggregateID]; exists {
             user.Username = event.Data["username"].(string)
@@ -829,7 +829,7 @@ func (ueh *UserEventHandler) Handle(event *Event) error {
             user.Version = event.Version
         }
     }
-    
+
     return nil
 }
 
@@ -837,43 +837,43 @@ func (ueh *UserEventHandler) Handle(event *Event) error {
 func main() {
     // Create event store
     eventStore := NewEventStore()
-    
+
     // Create event bus
     eventBus := NewEventBus(eventStore)
-    
+
     // Create read model
     readModel := NewUserReadModel()
-    
+
     // Create handlers
     commandHandler := &UserCommandHandler{eventBus: eventBus}
     queryHandler := &UserQueryHandler{readModel: readModel}
     eventHandler := &UserEventHandler{readModel: readModel}
-    
+
     // Subscribe to events
     eventBus.Subscribe("UserCreated", eventHandler)
     eventBus.Subscribe("UserUpdated", eventHandler)
-    
+
     // Handle commands
     createCmd := &CreateUserCommand{
         UserID:   "user-1",
         Username: "john_doe",
         Email:    "john@example.com",
     }
-    
+
     if err := commandHandler.Handle(createCmd); err != nil {
         log.Fatal(err)
     }
-    
+
     // Wait for event processing
     time.Sleep(100 * time.Millisecond)
-    
+
     // Handle queries
     getUserQuery := &GetUserQuery{UserID: "user-1"}
     user, err := queryHandler.Handle(getUserQuery)
     if err != nil {
         log.Fatal(err)
     }
-    
+
     fmt.Printf("User: %+v\n", user)
 }
 ```
@@ -902,7 +902,7 @@ type CircuitBreaker struct {
     timeout       time.Duration
     readyToTrip   func(counts Counts) bool
     onStateChange func(name string, from State, to State)
-    
+
     mutex      sync.Mutex
     state      State
     generation uint64
@@ -939,7 +939,7 @@ func NewCircuitBreaker(name string, maxRequests uint32, interval, timeout time.D
             log.Printf("Circuit breaker %s changed from %s to %s", name, from, to)
         },
     }
-    
+
     cb.toNewGeneration(time.Now())
     return cb
 }
@@ -949,7 +949,7 @@ func (cb *CircuitBreaker) Execute(req func() (interface{}, error)) (interface{},
     if err != nil {
         return nil, err
     }
-    
+
     defer func() {
         e := recover()
         if e != nil {
@@ -957,7 +957,7 @@ func (cb *CircuitBreaker) Execute(req func() (interface{}, error)) (interface{},
             panic(e)
         }
     }()
-    
+
     result, err := req()
     cb.afterRequest(generation, err == nil)
     return result, err
@@ -966,16 +966,16 @@ func (cb *CircuitBreaker) Execute(req func() (interface{}, error)) (interface{},
 func (cb *CircuitBreaker) beforeRequest() (uint64, error) {
     cb.mutex.Lock()
     defer cb.mutex.Unlock()
-    
+
     now := time.Now()
     state, generation := cb.currentState(now)
-    
+
     if state == StateOpen {
         return generation, fmt.Errorf("circuit breaker is open")
     } else if state == StateHalfOpen && cb.counts.Requests >= cb.maxRequests {
         return generation, fmt.Errorf("circuit breaker is half-open and max requests reached")
     }
-    
+
     cb.counts.onRequest()
     return generation, nil
 }
@@ -983,13 +983,13 @@ func (cb *CircuitBreaker) beforeRequest() (uint64, error) {
 func (cb *CircuitBreaker) afterRequest(before uint64, success bool) {
     cb.mutex.Lock()
     defer cb.mutex.Unlock()
-    
+
     now := time.Now()
     state, generation := cb.currentState(now)
     if generation != before {
         return
     }
-    
+
     if success {
         cb.onSuccess(state, now)
     } else {
@@ -1002,7 +1002,7 @@ func (cb *CircuitBreaker) currentState(now time.Time) (State, uint64) {
         cb.setState(StateHalfOpen, now)
         return StateHalfOpen, cb.generation
     }
-    
+
     return cb.state, cb.generation
 }
 
@@ -1010,12 +1010,12 @@ func (cb *CircuitBreaker) setState(state State, now time.Time) {
     if cb.state == state {
         return
     }
-    
+
     prev := cb.state
     cb.state = state
-    
+
     cb.toNewGeneration(now)
-    
+
     if cb.onStateChange != nil {
         cb.onStateChange(cb.name, prev, state)
     }
@@ -1091,14 +1091,14 @@ type RetryConfig struct {
 func Retry(config RetryConfig, fn func() error) error {
     var lastErr error
     delay := config.InitialDelay
-    
+
     for attempt := 0; attempt < config.MaxAttempts; attempt++ {
         if err := fn(); err == nil {
             return nil
         } else {
             lastErr = err
         }
-        
+
         if attempt < config.MaxAttempts-1 {
             time.Sleep(delay)
             delay = time.Duration(float64(delay) * config.Multiplier)
@@ -1107,7 +1107,7 @@ func Retry(config RetryConfig, fn func() error) error {
             }
         }
     }
-    
+
     return lastErr
 }
 
@@ -1115,12 +1115,12 @@ func Retry(config RetryConfig, fn func() error) error {
 func WithTimeout(ctx context.Context, timeout time.Duration, fn func() error) error {
     ctx, cancel := context.WithTimeout(ctx, timeout)
     defer cancel()
-    
+
     done := make(chan error, 1)
     go func() {
         done <- fn()
     }()
-    
+
     select {
     case err := <-done:
         return err
@@ -1133,20 +1133,20 @@ func WithTimeout(ctx context.Context, timeout time.Duration, fn func() error) er
 func main() {
     // Create circuit breaker
     cb := NewCircuitBreaker("user-service", 3, 30*time.Second, 5*time.Second)
-    
+
     // Simulate service call
     serviceCall := func() (interface{}, error) {
         // Simulate network call
         time.Sleep(100 * time.Millisecond)
-        
+
         // Simulate occasional failures
         if time.Now().UnixNano()%3 == 0 {
             return nil, fmt.Errorf("service unavailable")
         }
-        
+
         return "success", nil
     }
-    
+
     // Execute with circuit breaker
     for i := 0; i < 10; i++ {
         result, err := cb.Execute(serviceCall)
@@ -1155,10 +1155,10 @@ func main() {
         } else {
             log.Printf("Attempt %d succeeded: %v", i+1, result)
         }
-        
+
         time.Sleep(1 * time.Second)
     }
-    
+
     // Retry example
     retryConfig := RetryConfig{
         MaxAttempts:  3,
@@ -1166,7 +1166,7 @@ func main() {
         MaxDelay:     1 * time.Second,
         Multiplier:   2.0,
     }
-    
+
     err := Retry(retryConfig, func() error {
         // Simulate flaky service
         if time.Now().UnixNano()%2 == 0 {
@@ -1174,7 +1174,7 @@ func main() {
         }
         return nil
     })
-    
+
     if err != nil {
         log.Printf("Retry failed: %v", err)
     } else {
@@ -1198,7 +1198,7 @@ import (
     "log"
     "net/http"
     "time"
-    
+
     "go.opentelemetry.io/otel"
     "go.opentelemetry.io/otel/attribute"
     "go.opentelemetry.io/otel/exporters/jaeger"
@@ -1219,7 +1219,7 @@ func NewTracingService(serviceName string) (*TracingService, error) {
     if err != nil {
         return nil, err
     }
-    
+
     // Create resource
     res, err := resource.New(context.Background(),
         resource.WithAttributes(
@@ -1230,22 +1230,22 @@ func NewTracingService(serviceName string) (*TracingService, error) {
     if err != nil {
         return nil, err
     }
-    
+
     // Create tracer provider
     tp := trace.NewTracerProvider(
         trace.WithBatcher(exp),
         trace.WithResource(res),
     )
-    
+
     // Set global tracer provider
     otel.SetTracerProvider(tp)
-    
+
     // Set global propagator
     otel.SetTextMapPropagator(propagation.NewCompositeTextMapPropagator(
         propagation.TraceContext{},
         propagation.Baggage{},
     ))
-    
+
     return &TracingService{
         tracer: tp.Tracer(serviceName),
     }, nil
@@ -1275,11 +1275,11 @@ func TracingMiddleware(ts *TracingService) func(http.Handler) http.Handler {
         return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
             // Extract trace context from headers
             ctx := otel.GetTextMapPropagator().Extract(r.Context(), propagation.HeaderCarrier(r.Header))
-            
+
             // Start span
             ctx, span := ts.StartSpan(ctx, r.URL.Path)
             defer span.End()
-            
+
             // Add span attributes
             ts.AddSpanAttributes(span, map[string]interface{}{
                 "http.method":     r.Method,
@@ -1287,23 +1287,23 @@ func TracingMiddleware(ts *TracingService) func(http.Handler) http.Handler {
                 "http.user_agent": r.UserAgent(),
                 "http.remote_addr": r.RemoteAddr,
             })
-            
+
             // Add span event
             ts.AddSpanEvent(span, "request_started", map[string]interface{}{
                 "timestamp": time.Now().Unix(),
             })
-            
+
             // Create response writer wrapper
             wrapped := &responseWriter{ResponseWriter: w, statusCode: 200}
-            
+
             // Call next handler
             next.ServeHTTP(wrapped, r)
-            
+
             // Add response attributes
             ts.AddSpanAttributes(span, map[string]interface{}{
                 "http.status_code": wrapped.statusCode,
             })
-            
+
             // Add span event
             ts.AddSpanEvent(span, "request_completed", map[string]interface{}{
                 "timestamp": time.Now().Unix(),
@@ -1325,24 +1325,24 @@ func (rw *responseWriter) WriteHeader(code int) {
 // Database tracing
 func (ts *TracingService) TraceDatabase(ctx context.Context, operation string, query string) (context.Context, trace.Span) {
     ctx, span := ts.StartSpan(ctx, "database."+operation)
-    
+
     ts.AddSpanAttributes(span, map[string]interface{}{
         "db.operation": operation,
         "db.statement": query,
     })
-    
+
     return ctx, span
 }
 
 // External service tracing
 func (ts *TracingService) TraceExternalService(ctx context.Context, serviceName string, operation string) (context.Context, trace.Span) {
     ctx, span := ts.StartSpan(ctx, "external."+serviceName+"."+operation)
-    
+
     ts.AddSpanAttributes(span, map[string]interface{}{
         "service.name":    serviceName,
         "service.operation": operation,
     })
-    
+
     return ctx, span
 }
 
@@ -1353,30 +1353,30 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    
+
     // Create HTTP server with tracing
     mux := http.NewServeMux()
     mux.HandleFunc("/users", func(w http.ResponseWriter, r *http.Request) {
         // Start span for business logic
         ctx, span := ts.StartSpan(r.Context(), "get_users")
         defer span.End()
-        
+
         // Simulate database call
         ctx, dbSpan := ts.TraceDatabase(ctx, "SELECT", "SELECT * FROM users")
         time.Sleep(50 * time.Millisecond) // Simulate DB call
         dbSpan.End()
-        
+
         // Simulate external service call
         ctx, extSpan := ts.TraceExternalService(ctx, "notification-service", "send_notification")
         time.Sleep(30 * time.Millisecond) // Simulate external call
         extSpan.End()
-        
+
         w.Write([]byte("Users retrieved"))
     })
-    
+
     // Add tracing middleware
     handler := TracingMiddleware(ts)(mux)
-    
+
     // Start server
     log.Println("Server starting on :8080")
     log.Fatal(http.ListenAndServe(":8080", handler))
@@ -1388,30 +1388,35 @@ func main() {
 ## 🎯 **Key Takeaways**
 
 ### **1. Service Discovery and Registration**
+
 - **Consul integration** for service discovery
 - **Health checks** for service availability
 - **Caching** for performance optimization
 - **Load balancing** across service instances
 
 ### **2. API Gateway**
+
 - **Route management** for microservices
 - **Rate limiting** for traffic control
 - **Authentication** and authorization
 - **Request/response transformation**
 
 ### **3. Event-Driven Architecture**
+
 - **Event sourcing** for audit trails
 - **CQRS** for read/write separation
 - **Event bus** for decoupled communication
 - **Read models** for query optimization
 
 ### **4. Resilience Patterns**
+
 - **Circuit breaker** for fault tolerance
 - **Retry mechanisms** for transient failures
 - **Timeout handling** for responsiveness
 - **Bulkhead isolation** for resource protection
 
 ### **5. Distributed Tracing**
+
 - **OpenTelemetry** integration
 - **Span correlation** across services
 - **Performance monitoring** and debugging

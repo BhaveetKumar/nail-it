@@ -38,16 +38,16 @@ func NewVerticalScaler(cpuCores, memoryGB, diskGB int) *VerticalScaler {
 func (vs *VerticalScaler) ScaleUp() error {
     vs.mutex.Lock()
     defer vs.mutex.Unlock()
-    
+
     // Simulate scaling up
     vs.cpuCores *= 2
     vs.memoryGB *= 2
     vs.diskGB *= 2
     vs.maxCapacity = vs.cpuCores * 1000
-    
-    fmt.Printf("Scaled up to %d cores, %dGB RAM, %dGB disk\n", 
+
+    fmt.Printf("Scaled up to %d cores, %dGB RAM, %dGB disk\n",
         vs.cpuCores, vs.memoryGB, vs.diskGB)
-    
+
     return nil
 }
 
@@ -80,7 +80,7 @@ func NewHorizontalScaler() *HorizontalScaler {
 func (hs *HorizontalScaler) AddInstance(cpu, memory int) *Instance {
     hs.mutex.Lock()
     defer hs.mutex.Unlock()
-    
+
     instance := &Instance{
         ID:       fmt.Sprintf("instance_%d", len(hs.instances)+1),
         CPU:      cpu,
@@ -88,18 +88,18 @@ func (hs *HorizontalScaler) AddInstance(cpu, memory int) *Instance {
         Capacity: cpu * 1000,
         Status:   "running",
     }
-    
+
     hs.instances = append(hs.instances, instance)
-    fmt.Printf("Added instance %s with %d cores, %dGB RAM\n", 
+    fmt.Printf("Added instance %s with %d cores, %dGB RAM\n",
         instance.ID, instance.CPU, instance.Memory)
-    
+
     return instance
 }
 
 func (hs *HorizontalScaler) RemoveInstance(instanceID string) error {
     hs.mutex.Lock()
     defer hs.mutex.Unlock()
-    
+
     for i, instance := range hs.instances {
         if instance.ID == instanceID {
             hs.instances = append(hs.instances[:i], hs.instances[i+1:]...)
@@ -107,21 +107,21 @@ func (hs *HorizontalScaler) RemoveInstance(instanceID string) error {
             return nil
         }
     }
-    
+
     return fmt.Errorf("instance %s not found", instanceID)
 }
 
 func (hs *HorizontalScaler) GetTotalCapacity() int {
     hs.mutex.RLock()
     defer hs.mutex.RUnlock()
-    
+
     total := 0
     for _, instance := range hs.instances {
         if instance.Status == "running" {
             total += instance.Capacity
         }
     }
-    
+
     return total
 }
 
@@ -169,7 +169,7 @@ func NewAutoScaler(config *AutoScalingConfig) *AutoScaler {
 func (as *AutoScaler) UpdateMetrics(cpu, memory float64, requestRate int, errorRate float64) {
     as.metrics.mutex.Lock()
     defer as.metrics.mutex.Unlock()
-    
+
     as.metrics.CPUUsage = cpu
     as.metrics.MemoryUsage = memory
     as.metrics.RequestRate = requestRate
@@ -179,39 +179,39 @@ func (as *AutoScaler) UpdateMetrics(cpu, memory float64, requestRate int, errorR
 func (as *AutoScaler) CheckScaling() error {
     as.mutex.Lock()
     defer as.mutex.Unlock()
-    
+
     // Check cooldown period
     if time.Since(as.config.LastScaleTime) < as.config.CooldownPeriod {
         return nil
     }
-    
+
     as.metrics.mutex.RLock()
     cpuUsage := as.metrics.CPUUsage
     memoryUsage := as.metrics.MemoryUsage
     requestRate := as.metrics.RequestRate
     errorRate := as.metrics.ErrorRate
     as.metrics.mutex.RUnlock()
-    
+
     instanceCount := as.horizontalScaler.GetInstanceCount()
-    
+
     // Scale up conditions
-    if (cpuUsage > as.config.ScaleUpThreshold || 
+    if (cpuUsage > as.config.ScaleUpThreshold ||
         memoryUsage > as.config.ScaleUpThreshold ||
         requestRate > as.getCurrentCapacity()*0.8) &&
         instanceCount < as.config.MaxInstances {
-        
+
         return as.scaleUp()
     }
-    
+
     // Scale down conditions
-    if (cpuUsage < as.config.ScaleDownThreshold && 
+    if (cpuUsage < as.config.ScaleDownThreshold &&
         memoryUsage < as.config.ScaleDownThreshold &&
         requestRate < as.getCurrentCapacity()*0.3) &&
         instanceCount > as.config.MinInstances {
-        
+
         return as.scaleDown()
     }
-    
+
     return nil
 }
 
@@ -219,7 +219,7 @@ func (as *AutoScaler) scaleUp() error {
     // Add new instance
     as.horizontalScaler.AddInstance(4, 8)
     as.config.LastScaleTime = time.Now()
-    
+
     fmt.Println("Scaled up: Added new instance")
     return nil
 }
@@ -231,10 +231,10 @@ func (as *AutoScaler) scaleDown() error {
         instanceID := fmt.Sprintf("instance_%d", instanceCount)
         as.horizontalScaler.RemoveInstance(instanceID)
         as.config.LastScaleTime = time.Now()
-        
+
         fmt.Println("Scaled down: Removed instance")
     }
-    
+
     return nil
 }
 
@@ -247,19 +247,19 @@ func main() {
     // Vertical scaling example
     verticalScaler := NewVerticalScaler(4, 8, 100)
     fmt.Printf("Initial capacity: %d\n", verticalScaler.GetCapacity())
-    
+
     verticalScaler.ScaleUp()
     fmt.Printf("After scale up: %d\n", verticalScaler.GetCapacity())
-    
+
     // Horizontal scaling example
     horizontalScaler := NewHorizontalScaler()
     horizontalScaler.AddInstance(4, 8)
     horizontalScaler.AddInstance(4, 8)
     horizontalScaler.AddInstance(4, 8)
-    
+
     fmt.Printf("Total capacity: %d\n", horizontalScaler.GetTotalCapacity())
     fmt.Printf("Instance count: %d\n", horizontalScaler.GetInstanceCount())
-    
+
     // Auto-scaling example
     config := &AutoScalingConfig{
         MinInstances:       2,
@@ -268,20 +268,20 @@ func main() {
         ScaleDownThreshold: 30.0,
         CooldownPeriod:     5 * time.Minute,
     }
-    
+
     autoScaler := NewAutoScaler(config)
-    
+
     // Simulate metrics updates
     go func() {
         for {
             // Simulate high load
             autoScaler.UpdateMetrics(80.0, 75.0, 5000, 0.01)
             autoScaler.CheckScaling()
-            
+
             time.Sleep(10 * time.Second)
         }
     }()
-    
+
     // Keep running
     time.Sleep(60 * time.Second)
 }
@@ -323,10 +323,10 @@ func (rr *RoundRobinLoadBalancer) SelectServer(servers []*Server) *Server {
     if len(servers) == 0 {
         return nil
     }
-    
+
     rr.mutex.Lock()
     defer rr.mutex.Unlock()
-    
+
     server := servers[rr.current]
     rr.current = (rr.current + 1) % len(servers)
     return server
@@ -347,10 +347,10 @@ func (lc *LeastConnectionsLoadBalancer) SelectServer(servers []*Server) *Server 
     if len(servers) == 0 {
         return nil
     }
-    
+
     minConnections := servers[0].GetConnectionCount()
     selectedServer := servers[0]
-    
+
     for _, server := range servers[1:] {
         connections := server.GetConnectionCount()
         if connections < minConnections {
@@ -358,7 +358,7 @@ func (lc *LeastConnectionsLoadBalancer) SelectServer(servers []*Server) *Server 
             selectedServer = server
         }
     }
-    
+
     return selectedServer
 }
 
@@ -380,15 +380,15 @@ func (wrr *WeightedRoundRobinLoadBalancer) SelectServer(servers []*Server) *Serv
     if len(servers) == 0 {
         return nil
     }
-    
+
     wrr.mutex.Lock()
     defer wrr.mutex.Unlock()
-    
+
     totalWeight := 0
     for _, server := range servers {
         totalWeight += server.Weight
     }
-    
+
     for i := range servers {
         servers[i].CurrentWeight += servers[i].Weight
         if servers[i].CurrentWeight >= totalWeight {
@@ -396,7 +396,7 @@ func (wrr *WeightedRoundRobinLoadBalancer) SelectServer(servers []*Server) *Serv
             return servers[i]
         }
     }
-    
+
     return servers[0]
 }
 
@@ -415,13 +415,13 @@ func (ih *IPHashLoadBalancer) SelectServer(servers []*Server) *Server {
     if len(servers) == 0 {
         return nil
     }
-    
+
     // Simple hash function
     hash := 0
     for _, c := range "client_ip" { // In real implementation, use actual client IP
         hash += int(c)
     }
-    
+
     index := hash % len(servers)
     return servers[index]
 }
@@ -441,10 +441,10 @@ func (lrt *LeastResponseTimeLoadBalancer) SelectServer(servers []*Server) *Serve
     if len(servers) == 0 {
         return nil
     }
-    
+
     minResponseTime := servers[0].GetAverageResponseTime()
     selectedServer := servers[0]
-    
+
     for _, server := range servers[1:] {
         responseTime := server.GetAverageResponseTime()
         if responseTime < minResponseTime {
@@ -452,7 +452,7 @@ func (lrt *LeastResponseTimeLoadBalancer) SelectServer(servers []*Server) *Serve
             selectedServer = server
         }
     }
-    
+
     return selectedServer
 }
 
@@ -501,9 +501,9 @@ func (s *Server) DecrementConnections() {
 func (s *Server) RecordResponseTime(duration time.Duration) {
     s.mutex.Lock()
     defer s.mutex.Unlock()
-    
+
     s.ResponseTimes = append(s.ResponseTimes, duration)
-    
+
     // Keep only last 100 response times
     if len(s.ResponseTimes) > 100 {
         s.ResponseTimes = s.ResponseTimes[1:]
@@ -513,16 +513,16 @@ func (s *Server) RecordResponseTime(duration time.Duration) {
 func (s *Server) GetAverageResponseTime() time.Duration {
     s.mutex.RLock()
     defer s.mutex.RUnlock()
-    
+
     if len(s.ResponseTimes) == 0 {
         return 0
     }
-    
+
     total := time.Duration(0)
     for _, rt := range s.ResponseTimes {
         total += rt
     }
-    
+
     return total / time.Duration(len(s.ResponseTimes))
 }
 
@@ -543,26 +543,26 @@ func NewLoadBalancerManager() *LoadBalancerManager {
 func (lbm *LoadBalancerManager) AddLoadBalancer(name string, balancer LoadBalancer) {
     lbm.mutex.Lock()
     defer lbm.mutex.Unlock()
-    
+
     lbm.balancers[name] = balancer
 }
 
 func (lbm *LoadBalancerManager) AddServer(server *Server) {
     lbm.mutex.Lock()
     defer lbm.mutex.Unlock()
-    
+
     lbm.servers = append(lbm.servers, server)
 }
 
 func (lbm *LoadBalancerManager) SelectServer(balancerName string) *Server {
     lbm.mutex.RLock()
     defer lbm.mutex.RUnlock()
-    
+
     balancer, exists := lbm.balancers[balancerName]
     if !exists {
         return nil
     }
-    
+
     return balancer.SelectServer(lbm.servers)
 }
 
@@ -587,7 +587,7 @@ func NewHealthCheckManager() *HealthCheckManager {
 func (hcm *HealthCheckManager) AddServer(server *Server) {
     hcm.mutex.Lock()
     defer hcm.mutex.Unlock()
-    
+
     hcm.servers = append(hcm.servers, server)
 }
 
@@ -605,7 +605,7 @@ func (hcm *HealthCheckManager) checkAllServers() {
     servers := make([]*Server, len(hcm.servers))
     copy(servers, hcm.servers)
     hcm.mutex.RUnlock()
-    
+
     for _, server := range servers {
         go hcm.checkServer(server)
     }
@@ -614,13 +614,13 @@ func (hcm *HealthCheckManager) checkAllServers() {
 func (hcm *HealthCheckManager) checkServer(server *Server) {
     // Simulate health check
     start := time.Now()
-    
+
     // Simulate network call
     time.Sleep(time.Duration(rand.Intn(100)) * time.Millisecond)
-    
+
     duration := time.Since(start)
     server.RecordResponseTime(duration)
-    
+
     // Simulate occasional failures
     if rand.Float32() < 0.1 { // 10% failure rate
         fmt.Printf("Server %s is unhealthy\n", server.ID)
@@ -633,52 +633,52 @@ func (hcm *HealthCheckManager) checkServer(server *Server) {
 func main() {
     // Create load balancer manager
     manager := NewLoadBalancerManager()
-    
+
     // Add load balancers
     manager.AddLoadBalancer("round_robin", NewRoundRobinLoadBalancer())
     manager.AddLoadBalancer("least_connections", NewLeastConnectionsLoadBalancer())
     manager.AddLoadBalancer("weighted_round_robin", NewWeightedRoundRobinLoadBalancer())
     manager.AddLoadBalancer("ip_hash", NewIPHashLoadBalancer())
     manager.AddLoadBalancer("least_response_time", NewLeastResponseTimeLoadBalancer())
-    
+
     // Add servers
     servers := []*Server{
         NewServer("server1", "192.168.1.1:8080", 3),
         NewServer("server2", "192.168.1.2:8080", 2),
         NewServer("server3", "192.168.1.3:8080", 1),
     }
-    
+
     for _, server := range servers {
         manager.AddServer(server)
     }
-    
+
     // Start health checks
     healthManager := NewHealthCheckManager()
     for _, server := range servers {
         healthManager.AddServer(server)
     }
     healthManager.StartHealthChecks()
-    
+
     // Test different load balancing strategies
     balancers := []string{"round_robin", "least_connections", "weighted_round_robin", "ip_hash", "least_response_time"}
-    
+
     for _, balancerName := range balancers {
         fmt.Printf("\nTesting %s:\n", balancerName)
-        
+
         for i := 0; i < 10; i++ {
             server := manager.SelectServer(balancerName)
             if server != nil {
                 server.IncrementConnections()
                 fmt.Printf("Request %d -> Server %s\n", i+1, server.ID)
-                
+
                 // Simulate request processing
                 time.Sleep(100 * time.Millisecond)
-                
+
                 server.DecrementConnections()
             }
         }
     }
-    
+
     // Keep running for health checks
     time.Sleep(30 * time.Second)
 }
@@ -699,7 +699,7 @@ import (
     "fmt"
     "sync"
     "time"
-    
+
     "github.com/go-redis/redis/v8"
 )
 
@@ -746,12 +746,12 @@ func (l1 *L1Cache) Get(key string) (interface{}, error) {
     l1.mutex.RLock()
     item, exists := l1.data[key]
     l1.mutex.RUnlock()
-    
+
     if !exists {
         l1.stats.incrementMisses()
         return nil, fmt.Errorf("key not found")
     }
-    
+
     // Check expiration
     if time.Now().After(item.ExpiresAt) {
         l1.mutex.Lock()
@@ -760,12 +760,12 @@ func (l1 *L1Cache) Get(key string) (interface{}, error) {
         l1.stats.incrementMisses()
         return nil, fmt.Errorf("key expired")
     }
-    
+
     // Update access count
     l1.mutex.Lock()
     item.AccessCount++
     l1.mutex.Unlock()
-    
+
     l1.stats.incrementHits()
     return item.Value, nil
 }
@@ -773,26 +773,26 @@ func (l1 *L1Cache) Get(key string) (interface{}, error) {
 func (l1 *L1Cache) Set(key string, value interface{}, ttl time.Duration) error {
     l1.mutex.Lock()
     defer l1.mutex.Unlock()
-    
+
     // Check if we need to evict
     if len(l1.data) >= l1.maxSize {
         l1.evictLRU()
     }
-    
+
     l1.data[key] = &CacheItem{
         Value:      value,
         ExpiresAt:  time.Now().Add(ttl),
         CreatedAt:  time.Now(),
         AccessCount: 1,
     }
-    
+
     return nil
 }
 
 func (l1 *L1Cache) Delete(key string) error {
     l1.mutex.Lock()
     defer l1.mutex.Unlock()
-    
+
     delete(l1.data, key)
     return nil
 }
@@ -800,7 +800,7 @@ func (l1 *L1Cache) Delete(key string) error {
 func (l1 *L1Cache) Clear() error {
     l1.mutex.Lock()
     defer l1.mutex.Unlock()
-    
+
     l1.data = make(map[string]*CacheItem)
     return nil
 }
@@ -808,14 +808,14 @@ func (l1 *L1Cache) Clear() error {
 func (l1 *L1Cache) evictLRU() {
     var oldestKey string
     var oldestTime time.Time
-    
+
     for key, item := range l1.data {
         if oldestKey == "" || item.CreatedAt.Before(oldestTime) {
             oldestKey = key
             oldestTime = item.CreatedAt
         }
     }
-    
+
     if oldestKey != "" {
         delete(l1.data, oldestKey)
         l1.stats.incrementEvictions()
@@ -825,7 +825,7 @@ func (l1 *L1Cache) evictLRU() {
 func (l1 *L1Cache) GetStats() map[string]interface{} {
     l1.mutex.RLock()
     defer l1.mutex.RUnlock()
-    
+
     return map[string]interface{}{
         "size":      len(l1.data),
         "max_size":  l1.maxSize,
@@ -875,12 +875,12 @@ func (cs *CacheStats) getEvictions() int64 {
 func (cs *CacheStats) getHitRate() float64 {
     cs.mutex.RLock()
     defer cs.mutex.RUnlock()
-    
+
     total := cs.Hits + cs.Misses
     if total == 0 {
         return 0
     }
-    
+
     return float64(cs.Hits) / float64(total)
 }
 
@@ -895,7 +895,7 @@ func NewL2Cache() *L2Cache {
         Addr: "localhost:6379",
         DB:   0,
     })
-    
+
     return &L2Cache{
         client: client,
         stats:  &CacheStats{},
@@ -908,14 +908,14 @@ func (l2 *L2Cache) Get(key string) (interface{}, error) {
         l2.stats.incrementMisses()
         return nil, err
     }
-    
+
     var result interface{}
     err = json.Unmarshal([]byte(val), &result)
     if err != nil {
         l2.stats.incrementMisses()
         return nil, err
     }
-    
+
     l2.stats.incrementHits()
     return result, nil
 }
@@ -925,7 +925,7 @@ func (l2 *L2Cache) Set(key string, value interface{}, ttl time.Duration) error {
     if err != nil {
         return err
     }
-    
+
     return l2.client.Set(context.Background(), key, data, ttl).Err()
 }
 
@@ -964,14 +964,14 @@ func (mlc *MultiLevelCache) Get(key string) (interface{}, error) {
     if value, err := mlc.l1Cache.Get(key); err == nil {
         return value, nil
     }
-    
+
     // Try L2 cache
     if value, err := mlc.l2Cache.Get(key); err == nil {
         // Populate L1 cache
         mlc.l1Cache.Set(key, value, 5*time.Minute)
         return value, nil
     }
-    
+
     return nil, fmt.Errorf("key not found in any cache level")
 }
 
@@ -979,7 +979,7 @@ func (mlc *MultiLevelCache) Set(key string, value interface{}, ttl time.Duration
     // Set in both cache levels
     mlc.l1Cache.Set(key, value, ttl)
     mlc.l2Cache.Set(key, value, ttl*2)
-    
+
     return nil
 }
 
@@ -998,7 +998,7 @@ func (mlc *MultiLevelCache) Clear() error {
 func (mlc *MultiLevelCache) GetStats() map[string]interface{} {
     l1Stats := mlc.l1Cache.GetStats()
     l2Stats := mlc.l2Cache.GetStats()
-    
+
     return map[string]interface{}{
         "l1_cache": l1Stats,
         "l2_cache": l2Stats,
@@ -1020,31 +1020,31 @@ func NewCacheWarmer(cache Cache) *CacheWarmer {
 func (cw *CacheWarmer) WarmCache(keys []string, fetcher func(string) (interface{}, error)) error {
     var wg sync.WaitGroup
     semaphore := make(chan struct{}, 10) // Limit concurrent operations
-    
+
     for _, key := range keys {
         wg.Add(1)
         go func(k string) {
             defer wg.Done()
-            
+
             semaphore <- struct{}{} // Acquire semaphore
             defer func() { <-semaphore }() // Release semaphore
-            
+
             // Check if already in cache
             if _, err := cw.cache.Get(k); err == nil {
                 return
             }
-            
+
             // Fetch from source
             value, err := fetcher(k)
             if err != nil {
                 return
             }
-            
+
             // Set in cache
             cw.cache.Set(k, value, time.Hour)
         }(key)
     }
-    
+
     wg.Wait()
     return nil
 }
@@ -1053,30 +1053,30 @@ func (cw *CacheWarmer) WarmCache(keys []string, fetcher func(string) (interface{
 func main() {
     // Create multi-level cache
     cache := NewMultiLevelCache(1000)
-    
+
     // Set some values
     cache.Set("user:1", map[string]string{
         "name":  "John Doe",
         "email": "john@example.com",
     }, time.Hour)
-    
+
     cache.Set("user:2", map[string]string{
         "name":  "Jane Smith",
         "email": "jane@example.com",
     }, time.Hour)
-    
+
     // Get values
     if value, err := cache.Get("user:1"); err == nil {
         fmt.Printf("Retrieved: %+v\n", value)
     }
-    
+
     // Get cache statistics
     stats := cache.GetStats()
     fmt.Printf("Cache stats: %+v\n", stats)
-    
+
     // Cache warming example
     warmer := NewCacheWarmer(cache)
-    
+
     keys := []string{"user:3", "user:4", "user:5"}
     fetcher := func(key string) (interface{}, error) {
         // Simulate fetching from database
@@ -1086,7 +1086,7 @@ func main() {
             "email": "user@example.com",
         }, nil
     }
-    
+
     err := warmer.WarmCache(keys, fetcher)
     if err != nil {
         fmt.Printf("Cache warming failed: %v\n", err)
@@ -1139,7 +1139,7 @@ func NewShardManager() *ShardManager {
 func (sm *ShardManager) AddShard(shardID string) {
     sm.mutex.Lock()
     defer sm.mutex.Unlock()
-    
+
     shard := &Shard{
         ID: shardID,
         Database: &Database{
@@ -1147,7 +1147,7 @@ func (sm *ShardManager) AddShard(shardID string) {
             Data: make(map[string]interface{}),
         },
     }
-    
+
     sm.shards[shardID] = shard
     sm.shardKeys = append(sm.shardKeys, shardID)
 }
@@ -1155,16 +1155,16 @@ func (sm *ShardManager) AddShard(shardID string) {
 func (sm *ShardManager) GetShard(key string) *Shard {
     sm.mutex.RLock()
     defer sm.mutex.RUnlock()
-    
+
     if len(sm.shardKeys) == 0 {
         return nil
     }
-    
+
     // Use consistent hashing
     hash := sm.hash(key)
     shardIndex := hash % len(sm.shardKeys)
     shardID := sm.shardKeys[shardIndex]
-    
+
     return sm.shards[shardID]
 }
 
@@ -1185,10 +1185,10 @@ func (sm *ShardManager) Write(key string, value interface{}) error {
     if shard == nil {
         return fmt.Errorf("no shard available")
     }
-    
+
     shard.mutex.Lock()
     defer shard.mutex.Unlock()
-    
+
     shard.Database.Data[key] = value
     return nil
 }
@@ -1198,29 +1198,29 @@ func (sm *ShardManager) Read(key string) (interface{}, error) {
     if shard == nil {
         return nil, fmt.Errorf("no shard available")
     }
-    
+
     shard.mutex.RLock()
     defer shard.mutex.RUnlock()
-    
+
     value, exists := shard.Database.Data[key]
     if !exists {
         return nil, fmt.Errorf("key not found")
     }
-    
+
     return value, nil
 }
 
 func (sm *ShardManager) GetShardStats() map[string]int {
     sm.mutex.RLock()
     defer sm.mutex.RUnlock()
-    
+
     stats := make(map[string]int)
     for shardID, shard := range sm.shards {
         shard.mutex.RLock()
         stats[shardID] = len(shard.Database.Data)
         shard.mutex.RUnlock()
     }
-    
+
     return stats
 }
 
@@ -1239,26 +1239,26 @@ func NewCrossShardQueryEngine(shardManager *ShardManager) *CrossShardQueryEngine
 func (cqe *CrossShardQueryEngine) ExecuteQuery(query *CrossShardQuery) ([]interface{}, error) {
     cqe.mutex.RLock()
     defer cqe.mutex.RUnlock()
-    
+
     var results []interface{}
     var wg sync.WaitGroup
     var mutex sync.Mutex
-    
+
     // Execute query on all shards
     for _, shardID := range cqe.shardManager.shardKeys {
         wg.Add(1)
         go func(sid string) {
             defer wg.Done()
-            
+
             shard := cqe.shardManager.shards[sid]
             shardResults := cqe.executeQueryOnShard(shard, query)
-            
+
             mutex.Lock()
             results = append(results, shardResults...)
             mutex.Unlock()
         }(shardID)
     }
-    
+
     wg.Wait()
     return results, nil
 }
@@ -1266,14 +1266,14 @@ func (cqe *CrossShardQueryEngine) ExecuteQuery(query *CrossShardQuery) ([]interf
 func (cqe *CrossShardQueryEngine) executeQueryOnShard(shard *Shard, query *CrossShardQuery) []interface{} {
     shard.mutex.RLock()
     defer shard.mutex.RUnlock()
-    
+
     var results []interface{}
     for key, value := range shard.Database.Data {
         if query.Filter == nil || query.Filter(key, value) {
             results = append(results, value)
         }
     }
-    
+
     return results
 }
 
@@ -1296,20 +1296,20 @@ func NewDataRebalancer(shardManager *ShardManager) *DataRebalancer {
 func (dr *DataRebalancer) Rebalance() error {
     dr.mutex.Lock()
     defer dr.mutex.Unlock()
-    
+
     // Calculate current distribution
     stats := dr.shardManager.GetShardStats()
-    
+
     // Find overloaded and underloaded shards
     var overloaded, underloaded []string
     totalData := 0
-    
+
     for _, count := range stats {
         totalData += count
     }
-    
+
     avgData := totalData / len(stats)
-    
+
     for shardID, count := range stats {
         if count > avgData*1.2 {
             overloaded = append(overloaded, shardID)
@@ -1317,7 +1317,7 @@ func (dr *DataRebalancer) Rebalance() error {
             underloaded = append(underloaded, shardID)
         }
     }
-    
+
     // Move data from overloaded to underloaded shards
     for _, fromShardID := range overloaded {
         for _, toShardID := range underloaded {
@@ -1326,14 +1326,14 @@ func (dr *DataRebalancer) Rebalance() error {
             }
         }
     }
-    
+
     return nil
 }
 
 func (dr *DataRebalancer) moveData(fromShardID, toShardID string) error {
     fromShard := dr.shardManager.shards[fromShardID]
     toShard := dr.shardManager.shards[toShardID]
-    
+
     // Get data to move
     fromShard.mutex.Lock()
     var dataToMove []string
@@ -1344,7 +1344,7 @@ func (dr *DataRebalancer) moveData(fromShardID, toShardID string) error {
         dataToMove = append(dataToMove, key)
     }
     fromShard.mutex.Unlock()
-    
+
     // Move data
     for _, key := range dataToMove {
         fromShard.mutex.Lock()
@@ -1353,14 +1353,14 @@ func (dr *DataRebalancer) moveData(fromShardID, toShardID string) error {
             delete(fromShard.Database.Data, key)
         }
         fromShard.mutex.Unlock()
-        
+
         if exists {
             toShard.mutex.Lock()
             toShard.Database.Data[key] = value
             toShard.mutex.Unlock()
         }
     }
-    
+
     return nil
 }
 
@@ -1368,22 +1368,22 @@ func (dr *DataRebalancer) moveData(fromShardID, toShardID string) error {
 func main() {
     // Create shard manager
     shardManager := NewShardManager()
-    
+
     // Add shards
     shardManager.AddShard("shard1")
     shardManager.AddShard("shard2")
     shardManager.AddShard("shard3")
-    
+
     // Write data
     for i := 0; i < 1000; i++ {
         key := fmt.Sprintf("key_%d", i)
         value := fmt.Sprintf("value_%d", i)
-        
+
         if err := shardManager.Write(key, value); err != nil {
             fmt.Printf("Failed to write %s: %v\n", key, err)
         }
     }
-    
+
     // Read data
     for i := 0; i < 10; i++ {
         key := fmt.Sprintf("key_%d", i)
@@ -1391,36 +1391,36 @@ func main() {
             fmt.Printf("Read %s: %v\n", key, value)
         }
     }
-    
+
     // Get shard statistics
     stats := shardManager.GetShardStats()
     fmt.Printf("Shard stats: %+v\n", stats)
-    
+
     // Cross-shard query
     queryEngine := NewCrossShardQueryEngine(shardManager)
-    
+
     query := &CrossShardQuery{
         Filter: func(key string, value interface{}) bool {
             return len(key) > 5 // Simple filter
         },
     }
-    
+
     results, err := queryEngine.ExecuteQuery(query)
     if err != nil {
         fmt.Printf("Query failed: %v\n", err)
     } else {
         fmt.Printf("Query returned %d results\n", len(results))
     }
-    
+
     // Data rebalancing
     rebalancer := NewDataRebalancer(shardManager)
-    
+
     if err := rebalancer.Rebalance(); err != nil {
         fmt.Printf("Rebalancing failed: %v\n", err)
     } else {
         fmt.Println("Rebalancing completed")
     }
-    
+
     // Get updated statistics
     stats = shardManager.GetShardStats()
     fmt.Printf("Updated shard stats: %+v\n", stats)
@@ -1432,30 +1432,35 @@ func main() {
 ## 🎯 **Key Takeaways**
 
 ### **1. Scaling Strategies**
+
 - **Vertical Scaling**: Increase resources of existing instances
 - **Horizontal Scaling**: Add more instances
 - **Auto-scaling**: Automatically adjust based on metrics
 - **Hybrid Approach**: Combine both strategies
 
 ### **2. Load Balancing**
+
 - **Round Robin**: Simple, even distribution
 - **Least Connections**: Good for long-running connections
 - **Weighted**: Consider server capacity
 - **Least Response Time**: Optimize for performance
 
 ### **3. Caching Strategies**
+
 - **Multi-level caching**: L1 (memory) + L2 (Redis)
 - **Cache warming**: Pre-populate cache
 - **Eviction policies**: LRU, LFU, TTL
 - **Cache invalidation**: Keep data consistent
 
 ### **4. Database Sharding**
+
 - **Consistent hashing**: Even distribution
 - **Cross-shard queries**: Aggregate results
 - **Data rebalancing**: Maintain balance
 - **Shard management**: Add/remove shards
 
 ### **5. Best Practices**
+
 - **Monitor metrics**: CPU, memory, latency, throughput
 - **Plan for failure**: Implement circuit breakers
 - **Test thoroughly**: Load testing, chaos engineering
