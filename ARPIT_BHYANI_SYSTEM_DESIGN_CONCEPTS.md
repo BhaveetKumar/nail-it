@@ -7,12 +7,14 @@
 ## 🎯 **About Arpit Bhyani**
 
 ### **Background**
+
 - **Renowned educator** specializing in system design and software architecture
 - **YouTube Channel**: "Asli Engineering" - in-depth tutorials on system design
 - **Courses**: System Design for Beginners & System Design Masterclass
 - **Focus**: Database internals, distributed systems, and scalable architecture
 
 ### **Teaching Philosophy**
+
 - **Deep dive** into fundamental concepts
 - **Practical implementation** over theoretical knowledge
 - **Real-world examples** and production scenarios
@@ -25,9 +27,11 @@
 ### **B-Tree Implementation**
 
 #### **Core Concept**
+
 B-trees are self-balancing tree data structures that maintain sorted data and allow searches, sequential access, insertions, and deletions in O(log n) time.
 
 #### **Key Properties**
+
 - **All leaves** are at the same level
 - **Minimum degree** 't' determines the structure
 - **Root** has at least 2 children (unless it's a leaf)
@@ -35,6 +39,7 @@ B-trees are self-balancing tree data structures that maintain sorted data and al
 - **All keys** in a node are sorted
 
 #### **Go Implementation**
+
 ```go
 type BTreeNode struct {
     keys     []int
@@ -68,15 +73,15 @@ func (bt *BTree) searchNode(node *BTreeNode, key int) (*BTreeNode, int) {
     for i < len(node.keys) && key > node.keys[i] {
         i++
     }
-    
+
     if i < len(node.keys) && key == node.keys[i] {
         return node, i
     }
-    
+
     if node.leaf {
         return nil, -1
     }
-    
+
     return bt.searchNode(node.children[i], key)
 }
 
@@ -91,7 +96,7 @@ func (bt *BTree) Insert(key int) {
         }
         return
     }
-    
+
     if len(bt.root.keys) == 2*bt.t-1 {
         newRoot := &BTreeNode{
             keys:     []int{},
@@ -102,13 +107,13 @@ func (bt *BTree) Insert(key int) {
         bt.splitChild(newRoot, 0)
         bt.root = newRoot
     }
-    
+
     bt.insertNonFull(bt.root, key)
 }
 
 func (bt *BTree) insertNonFull(node *BTreeNode, key int) {
     i := len(node.keys) - 1
-    
+
     if node.leaf {
         // Insert key in sorted order
         node.keys = append(node.keys, 0)
@@ -123,14 +128,14 @@ func (bt *BTree) insertNonFull(node *BTreeNode, key int) {
             i--
         }
         i++
-        
+
         if len(node.children[i].keys) == 2*bt.t-1 {
             bt.splitChild(node, i)
             if key > node.keys[i] {
                 i++
             }
         }
-        
+
         bt.insertNonFull(node.children[i], key)
     }
 }
@@ -144,28 +149,28 @@ func (bt *BTree) splitChild(parent *BTreeNode, index int) {
         leaf:     y.leaf,
         t:        t,
     }
-    
+
     // Copy last t-1 keys to z
     for j := 0; j < t-1; j++ {
         z.keys[j] = y.keys[j+t]
     }
-    
+
     // Copy last t children to z
     if !y.leaf {
         for j := 0; j < t; j++ {
             z.children[j] = y.children[j+t]
         }
     }
-    
+
     // Reduce keys in y
     y.keys = y.keys[:t-1]
     y.children = y.children[:t]
-    
+
     // Insert z as child of parent
     parent.children = append(parent.children, nil)
     copy(parent.children[index+2:], parent.children[index+1:])
     parent.children[index+1] = z
-    
+
     // Move median key to parent
     parent.keys = append(parent.keys, 0)
     copy(parent.keys[index+1:], parent.keys[index:])
@@ -176,14 +181,17 @@ func (bt *BTree) splitChild(parent *BTreeNode, index int) {
 ### **LSM Tree (Log-Structured Merge Tree)**
 
 #### **Core Concept**
+
 LSM trees are optimized for write-heavy workloads by batching writes in memory and periodically flushing to disk.
 
 #### **Key Components**
+
 - **MemTable**: In-memory structure for recent writes
 - **SSTables**: Immutable files on disk
 - **Compaction**: Process of merging SSTables
 
 #### **Go Implementation**
+
 ```go
 type MemTable struct {
     data map[string]string
@@ -221,7 +229,7 @@ func NewLSMTree(maxMemSize, maxLevels, levelSize int) *LSMTree {
 func (lsm *LSMTree) Put(key, value string) {
     lsm.memTable.data[key] = value
     lsm.memTable.size += len(key) + len(value)
-    
+
     if lsm.memTable.size >= lsm.memTable.maxSize {
         lsm.flushMemTable()
     }
@@ -232,7 +240,7 @@ func (lsm *LSMTree) Get(key string) (string, bool) {
     if value, exists := lsm.memTable.data[key]; exists {
         return value, true
     }
-    
+
     // Check SSTables from newest to oldest
     for level := 0; level < lsm.maxLevels; level++ {
         for i := len(lsm.sstables[level]) - 1; i >= 0; i-- {
@@ -241,20 +249,20 @@ func (lsm *LSMTree) Get(key string) (string, bool) {
             }
         }
     }
-    
+
     return "", false
 }
 
 func (lsm *LSMTree) flushMemTable() {
     // Create SSTable from memtable
     sstable := lsm.createSSTable(lsm.memTable.data)
-    
+
     // Add to level 0
     lsm.sstables[0] = append(lsm.sstables[0], sstable)
-    
+
     // Trigger compaction if needed
     lsm.compactLevel(0)
-    
+
     // Clear memtable
     lsm.memTable.data = make(map[string]string)
     lsm.memTable.size = 0
@@ -264,13 +272,13 @@ func (lsm *LSMTree) compactLevel(level int) {
     if len(lsm.sstables[level]) <= lsm.levelSize {
         return
     }
-    
+
     // Merge SSTables at this level
     merged := lsm.mergeSSTables(lsm.sstables[level])
-    
+
     // Clear current level
     lsm.sstables[level] = nil
-    
+
     // Add merged SSTable to next level
     if level+1 < lsm.maxLevels {
         lsm.sstables[level+1] = append(lsm.sstables[level+1], merged...)
@@ -286,11 +294,13 @@ func (lsm *LSMTree) compactLevel(level int) {
 ### **Virtual Nodes Concept**
 
 #### **Problem with Basic Consistent Hashing**
+
 - **Uneven distribution** when nodes have different capacities
 - **Hot spots** when data is not evenly distributed
 - **Difficult to handle** node failures gracefully
 
 #### **Solution: Virtual Nodes**
+
 ```go
 type VirtualNode struct {
     ID       string
@@ -316,16 +326,16 @@ func (ch *ConsistentHashWithVirtualNodes) AddNode(nodeID string) {
     for i := 0; i < ch.replicas; i++ {
         virtualNodeID := fmt.Sprintf("%s#%d", nodeID, i)
         hash := ch.hashFunc(virtualNodeID)
-        
+
         virtualNode := VirtualNode{
             ID:           virtualNodeID,
             PhysicalNode: nodeID,
             Hash:         hash,
         }
-        
+
         ch.virtualNodes = append(ch.virtualNodes, virtualNode)
     }
-    
+
     // Sort by hash
     sort.Slice(ch.virtualNodes, func(i, j int) bool {
         return ch.virtualNodes[i].Hash < ch.virtualNodes[j].Hash
@@ -336,31 +346,31 @@ func (ch *ConsistentHashWithVirtualNodes) GetNode(key string) string {
     if len(ch.virtualNodes) == 0 {
         return ""
     }
-    
+
     keyHash := ch.hashFunc(key)
-    
+
     // Binary search for first virtual node with hash >= keyHash
     idx := sort.Search(len(ch.virtualNodes), func(i int) bool {
         return ch.virtualNodes[i].Hash >= keyHash
     })
-    
+
     // Wrap around if necessary
     if idx == len(ch.virtualNodes) {
         idx = 0
     }
-    
+
     return ch.virtualNodes[idx].PhysicalNode
 }
 
 func (ch *ConsistentHashWithVirtualNodes) RemoveNode(nodeID string) {
     newVirtualNodes := make([]VirtualNode, 0)
-    
+
     for _, vn := range ch.virtualNodes {
         if vn.PhysicalNode != nodeID {
             newVirtualNodes = append(newVirtualNodes, vn)
         }
     }
-    
+
     ch.virtualNodes = newVirtualNodes
 }
 ```
@@ -386,20 +396,20 @@ func NewWeightedConsistentHash() *WeightedConsistentHash {
 
 func (wch *WeightedConsistentHash) AddNode(nodeID string, weight int) {
     wch.nodeWeights[nodeID] = weight
-    
+
     for i := 0; i < weight; i++ {
         virtualNodeID := fmt.Sprintf("%s#%d", nodeID, i)
         hash := wch.hashFunc(virtualNodeID)
-        
+
         virtualNode := VirtualNode{
             ID:           virtualNodeID,
             PhysicalNode: nodeID,
             Hash:         hash,
         }
-        
+
         wch.virtualNodes = append(wch.virtualNodes, virtualNode)
     }
-    
+
     // Sort by hash
     sort.Slice(wch.virtualNodes, func(i, j int) bool {
         return wch.virtualNodes[i].Hash < wch.virtualNodes[j].Hash
@@ -412,9 +422,11 @@ func (wch *WeightedConsistentHash) AddNode(nodeID string, weight int) {
 ## ⚡ **3. Thundering Herd Problem**
 
 ### **Problem Definition**
+
 When a cache expires, multiple clients simultaneously try to regenerate the same data, causing a sudden spike in load on the backend system.
 
 ### **Real-World Example**
+
 ```go
 type CacheService struct {
     cache    map[string]*CacheEntry
@@ -434,11 +446,11 @@ func (cs *CacheService) Get(key string) (interface{}, error) {
     cs.mutex.RLock()
     entry, exists := cs.cache[key]
     cs.mutex.RUnlock()
-    
+
     if exists && time.Now().Before(entry.ExpiresAt) {
         return entry.Value, nil
     }
-    
+
     // Cache miss or expired
     return cs.loadData(key)
 }
@@ -448,22 +460,22 @@ func (cs *CacheService) loadData(key string) (interface{}, error) {
     lock := cs.getLock(key)
     lock.Lock()
     defer lock.Unlock()
-    
+
     // Double-check after acquiring lock
     cs.mutex.RLock()
     entry, exists := cs.cache[key]
     cs.mutex.RUnlock()
-    
+
     if exists && time.Now().Before(entry.ExpiresAt) {
         return entry.Value, nil
     }
-    
+
     // Load from database
     data, err := cs.db.Get(key)
     if err != nil {
         return nil, err
     }
-    
+
     // Update cache
     cs.mutex.Lock()
     cs.cache[key] = &CacheEntry{
@@ -472,18 +484,18 @@ func (cs *CacheService) loadData(key string) (interface{}, error) {
         Loading:   false,
     }
     cs.mutex.Unlock()
-    
+
     return data, nil
 }
 
 func (cs *CacheService) getLock(key string) *sync.Mutex {
     cs.lockMutex.Lock()
     defer cs.lockMutex.Unlock()
-    
+
     if lock, exists := cs.lockMap[key]; exists {
         return lock
     }
-    
+
     lock := &sync.Mutex{}
     cs.lockMap[key] = lock
     return lock
@@ -493,6 +505,7 @@ func (cs *CacheService) getLock(key string) *sync.Mutex {
 ### **Alternative Solutions**
 
 #### **1. Cache-Aside with Lock**
+
 ```go
 type CacheAsideService struct {
     cache     map[string]*CacheEntry
@@ -506,33 +519,33 @@ func (cas *CacheAsideService) Get(key string) (interface{}, error) {
     cas.mutex.RLock()
     entry, exists := cas.cache[key]
     cas.mutex.RUnlock()
-    
+
     if exists && time.Now().Before(entry.ExpiresAt) {
         return entry.Value, nil
     }
-    
+
     // Get or create lock for this key
     lockInterface, _ := cas.keyLocks.LoadOrStore(key, &sync.Mutex{})
     lock := lockInterface.(*sync.Mutex)
-    
+
     lock.Lock()
     defer lock.Unlock()
-    
+
     // Double-check after acquiring lock
     cas.mutex.RLock()
     entry, exists = cas.cache[key]
     cas.mutex.RUnlock()
-    
+
     if exists && time.Now().Before(entry.ExpiresAt) {
         return entry.Value, nil
     }
-    
+
     // Load from database
     data, err := cas.db.Get(key)
     if err != nil {
         return nil, err
     }
-    
+
     // Update cache
     cas.mutex.Lock()
     cas.cache[key] = &CacheEntry{
@@ -540,12 +553,13 @@ func (cas *CacheAsideService) Get(key string) (interface{}, error) {
         ExpiresAt: time.Now().Add(5 * time.Minute),
     }
     cas.mutex.Unlock()
-    
+
     return data, nil
 }
 ```
 
 #### **2. Write-Through Cache**
+
 ```go
 type WriteThroughCache struct {
     cache map[string]*CacheEntry
@@ -557,17 +571,17 @@ func (wtc *WriteThroughCache) Get(key string) (interface{}, error) {
     wtc.mutex.RLock()
     entry, exists := wtc.cache[key]
     wtc.mutex.RUnlock()
-    
+
     if exists && time.Now().Before(entry.ExpiresAt) {
         return entry.Value, nil
     }
-    
+
     // Load from database
     data, err := wtc.db.Get(key)
     if err != nil {
         return nil, err
     }
-    
+
     // Update cache
     wtc.mutex.Lock()
     wtc.cache[key] = &CacheEntry{
@@ -575,7 +589,7 @@ func (wtc *WriteThroughCache) Get(key string) (interface{}, error) {
         ExpiresAt: time.Now().Add(5 * time.Minute),
     }
     wtc.mutex.Unlock()
-    
+
     return data, nil
 }
 
@@ -585,7 +599,7 @@ func (wtc *WriteThroughCache) Set(key string, value interface{}) error {
     if err != nil {
         return err
     }
-    
+
     // Then update cache
     wtc.mutex.Lock()
     wtc.cache[key] = &CacheEntry{
@@ -593,7 +607,7 @@ func (wtc *WriteThroughCache) Set(key string, value interface{}) error {
         ExpiresAt: time.Now().Add(5 * time.Minute),
     }
     wtc.mutex.Unlock()
-    
+
     return nil
 }
 ```
@@ -607,6 +621,7 @@ func (wtc *WriteThroughCache) Set(key string, value interface{}) error {
 ### **Solution Patterns**
 
 #### **1. Idempotency Keys**
+
 ```go
 type IdempotencyService struct {
     cache map[string]*IdempotencyEntry
@@ -626,7 +641,7 @@ func (is *IdempotencyService) ProcessRequest(idempotencyKey string, request *Req
     is.mutex.RLock()
     entry, exists := is.cache[idempotencyKey]
     is.mutex.RUnlock()
-    
+
     if exists {
         if entry.Status == "completed" {
             return entry.Response.(*Response), nil
@@ -635,7 +650,7 @@ func (is *IdempotencyService) ProcessRequest(idempotencyKey string, request *Req
             return nil, errors.New("request already being processed")
         }
     }
-    
+
     // Create new entry
     is.mutex.Lock()
     is.cache[idempotencyKey] = &IdempotencyEntry{
@@ -644,10 +659,10 @@ func (is *IdempotencyService) ProcessRequest(idempotencyKey string, request *Req
         CreatedAt: time.Now(),
     }
     is.mutex.Unlock()
-    
+
     // Process request
     response, err := is.processPayment(request)
-    
+
     // Update entry
     is.mutex.Lock()
     if err != nil {
@@ -657,14 +672,14 @@ func (is *IdempotencyService) ProcessRequest(idempotencyKey string, request *Req
         is.cache[idempotencyKey].Response = response
     }
     is.mutex.Unlock()
-    
+
     return response, err
 }
 
 func (is *IdempotencyService) processPayment(request *Request) (*Response, error) {
     // Simulate payment processing
     time.Sleep(100 * time.Millisecond)
-    
+
     return &Response{
         TransactionID: generateTransactionID(),
         Status:        "success",
@@ -674,6 +689,7 @@ func (is *IdempotencyService) processPayment(request *Request) (*Response, error
 ```
 
 #### **2. Database-Level Idempotency**
+
 ```go
 type PaymentService struct {
     db *sql.DB
@@ -685,57 +701,57 @@ func (ps *PaymentService) ProcessPayment(request *PaymentRequest) (*PaymentRespo
         return nil, err
     }
     defer tx.Rollback()
-    
+
     // Check if transaction already exists
     var existingID string
     err = tx.QueryRow(`
-        SELECT transaction_id 
-        FROM payments 
+        SELECT transaction_id
+        FROM payments
         WHERE idempotency_key = $1
     `, request.IdempotencyKey).Scan(&existingID)
-    
+
     if err == nil {
         // Transaction already exists, return existing response
         return ps.getPaymentResponse(tx, existingID)
     }
-    
+
     if err != sql.ErrNoRows {
         return nil, err
     }
-    
+
     // Create new transaction
     transactionID := generateTransactionID()
     _, err = tx.Exec(`
         INSERT INTO payments (transaction_id, idempotency_key, amount, status, created_at)
         VALUES ($1, $2, $3, $4, $5)
     `, transactionID, request.IdempotencyKey, request.Amount, "processing", time.Now())
-    
+
     if err != nil {
         return nil, err
     }
-    
+
     // Process payment
     status := "success"
     if request.Amount > 1000 {
         status = "failed"
     }
-    
+
     // Update status
     _, err = tx.Exec(`
-        UPDATE payments 
-        SET status = $1, updated_at = $2 
+        UPDATE payments
+        SET status = $1, updated_at = $2
         WHERE transaction_id = $3
     `, status, time.Now(), transactionID)
-    
+
     if err != nil {
         return nil, err
     }
-    
+
     err = tx.Commit()
     if err != nil {
         return nil, err
     }
-    
+
     return &PaymentResponse{
         TransactionID: transactionID,
         Status:        status,
@@ -751,6 +767,7 @@ func (ps *PaymentService) ProcessPayment(request *PaymentRequest) (*PaymentRespo
 ### **Message Queue Implementation**
 
 #### **Basic Queue**
+
 ```go
 type MessageQueue struct {
     messages chan Message
@@ -785,6 +802,7 @@ func (mq *MessageQueue) Consume() <-chan Message {
 ```
 
 #### **Partitioned Queue**
+
 ```go
 type PartitionedQueue struct {
     partitions []chan Message
@@ -797,7 +815,7 @@ func NewPartitionedQueue(partitionCount, capacity int) *PartitionedQueue {
     for i := 0; i < partitionCount; i++ {
         partitions[i] = make(chan Message, capacity)
     }
-    
+
     return &PartitionedQueue{
         partitions:    partitions,
         partitionCount: partitionCount,
@@ -813,7 +831,7 @@ func NewPartitionedQueue(partitionCount, capacity int) *PartitionedQueue {
 
 func (pq *PartitionedQueue) Publish(message Message, key string) error {
     partition := pq.hashFunc(key)
-    
+
     select {
     case pq.partitions[partition] <- message:
         return nil
@@ -830,6 +848,7 @@ func (pq *PartitionedQueue) Consume(partition int) <-chan Message {
 ### **Rate Limiting**
 
 #### **Token Bucket Algorithm**
+
 ```go
 type TokenBucket struct {
     capacity     int
@@ -851,18 +870,18 @@ func NewTokenBucket(capacity, refillRate int) *TokenBucket {
 func (tb *TokenBucket) Allow() bool {
     tb.mutex.Lock()
     defer tb.mutex.Unlock()
-    
+
     // Refill tokens
     now := time.Now()
     tokensToAdd := int(now.Sub(tb.lastRefill).Seconds()) * tb.refillRate
     tb.tokens = min(tb.capacity, tb.tokens+tokensToAdd)
     tb.lastRefill = now
-    
+
     if tb.tokens > 0 {
         tb.tokens--
         return true
     }
-    
+
     return false
 }
 
@@ -875,6 +894,7 @@ func min(a, b int) int {
 ```
 
 #### **Sliding Window Rate Limiter**
+
 ```go
 type SlidingWindowRateLimiter struct {
     requests    []time.Time
@@ -894,21 +914,21 @@ func NewSlidingWindowRateLimiter(windowSize time.Duration, maxRequests int) *Sli
 func (swrl *SlidingWindowRateLimiter) Allow() bool {
     swrl.mutex.Lock()
     defer swrl.mutex.Unlock()
-    
+
     now := time.Now()
-    
+
     // Remove old requests outside the window
     cutoff := now.Add(-swrl.windowSize)
     for len(swrl.requests) > 0 && swrl.requests[0].Before(cutoff) {
         swrl.requests = swrl.requests[1:]
     }
-    
+
     // Check if we can add a new request
     if len(swrl.requests) < swrl.maxRequests {
         swrl.requests = append(swrl.requests, now)
         return true
     }
-    
+
     return false
 }
 ```
@@ -918,26 +938,31 @@ func (swrl *SlidingWindowRateLimiter) Allow() bool {
 ## 🎯 **6. Key Insights from Arpit Bhyani**
 
 ### **1. Deep Understanding Over Surface Knowledge**
+
 - **Don't just memorize** - understand the underlying principles
 - **Implement everything** - coding helps internalize concepts
 - **Question assumptions** - why does this work this way?
 
 ### **2. Database Internals Matter**
+
 - **B-trees** are fundamental to understanding databases
 - **LSM trees** are crucial for write-heavy workloads
 - **Indexing strategies** affect query performance significantly
 
 ### **3. Distributed Systems Patterns**
+
 - **Consistent hashing** with virtual nodes for load balancing
 - **Idempotency** is essential for reliable systems
 - **Rate limiting** prevents system overload
 
 ### **4. Performance Optimization**
+
 - **Cache strategies** can make or break system performance
 - **Thundering herd** problems are common and solvable
 - **Message queues** enable scalable architectures
 
 ### **5. Real-World Applications**
+
 - **Payment systems** require idempotency and consistency
 - **Caching layers** need careful design to avoid problems
 - **Rate limiting** is essential for API protection
@@ -947,6 +972,7 @@ func (swrl *SlidingWindowRateLimiter) Allow() bool {
 ## 🚀 **7. Practical Implementation Tips**
 
 ### **1. Start Simple, Optimize Later**
+
 ```go
 // Start with simple implementation
 type SimpleCache struct {
@@ -965,35 +991,37 @@ type AdvancedCache struct {
 ```
 
 ### **2. Measure Before Optimizing**
+
 ```go
 func benchmarkCacheOperations() {
     cache := NewSimpleCache()
-    
+
     start := time.Now()
     for i := 0; i < 1000000; i++ {
         cache.Set(fmt.Sprintf("key%d", i), fmt.Sprintf("value%d", i))
     }
     duration := time.Since(start)
-    
+
     fmt.Printf("Set operations took: %v\n", duration)
 }
 ```
 
 ### **3. Handle Edge Cases**
+
 ```go
 func (cache *Cache) Get(key string) (interface{}, error) {
     if key == "" {
         return nil, errors.New("key cannot be empty")
     }
-    
+
     cache.mutex.RLock()
     defer cache.mutex.RUnlock()
-    
+
     value, exists := cache.data[key]
     if !exists {
         return nil, errors.New("key not found")
     }
-    
+
     return value, nil
 }
 ```
