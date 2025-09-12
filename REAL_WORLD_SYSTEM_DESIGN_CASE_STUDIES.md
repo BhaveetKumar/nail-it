@@ -7,9 +7,11 @@
 ## 🎯 **1. Netflix - Video Streaming Platform**
 
 ### **System Overview**
+
 Netflix serves over 200 million subscribers worldwide, streaming billions of hours of content daily.
 
 #### **Key Requirements**
+
 - **Scale**: 200M+ users, 1B+ hours watched daily
 - **Performance**: <2 seconds to start video, 4K streaming
 - **Availability**: 99.99% uptime
@@ -66,16 +68,16 @@ func (cs *ContentService) GetVideo(videoID string) (*Video, error) {
     if video, err := cs.cache.Get("video:" + videoID); err == nil {
         return video.(*Video), nil
     }
-    
+
     // Get from database
     video, err := cs.db.GetVideo(videoID)
     if err != nil {
         return nil, err
     }
-    
+
     // Cache for future requests
     cs.cache.Set("video:"+videoID, video, 1*time.Hour)
-    
+
     return video, nil
 }
 
@@ -84,7 +86,7 @@ func (cs *ContentService) GetVideoStream(videoID string, quality string) (*Video
     if err != nil {
         return nil, err
     }
-    
+
     // Find requested quality
     var videoQuality *VideoQuality
     for _, q := range video.Quality {
@@ -93,17 +95,17 @@ func (cs *ContentService) GetVideoStream(videoID string, quality string) (*Video
             break
         }
     }
-    
+
     if videoQuality == nil {
         return nil, fmt.Errorf("quality %s not available", quality)
     }
-    
+
     // Get CDN URL
     cdnURL, err := cs.cdn.GetStreamingURL(videoQuality.CDNPath)
     if err != nil {
         return nil, err
     }
-    
+
     return &VideoStream{
         VideoID:    videoID,
         Quality:    quality,
@@ -132,28 +134,28 @@ func (rs *RecommendationService) GetRecommendations(req *RecommendationRequest) 
     if recs, err := rs.cache.Get(cacheKey); err == nil {
         return recs.([]*Video), nil
     }
-    
+
     // Get user profile
     user, err := rs.userService.GetUser(req.UserID)
     if err != nil {
         return nil, err
     }
-    
+
     // Get user's watch history
     history, err := rs.userService.GetWatchHistory(req.UserID)
     if err != nil {
         return nil, err
     }
-    
+
     // Generate recommendations using ML model
     recommendations, err := rs.mlModel.GenerateRecommendations(user, history, req.Limit)
     if err != nil {
         return nil, err
     }
-    
+
     // Cache recommendations
     rs.cache.Set(cacheKey, recommendations, 30*time.Minute)
-    
+
     return recommendations, nil
 }
 
@@ -179,25 +181,25 @@ type CDNServer struct {
 func (cs *CDNService) GetStreamingURL(videoPath string) (string, error) {
     // Find best CDN region based on user location
     region := cs.findBestRegion()
-    
+
     // Find least loaded server in region
     server := cs.findLeastLoadedServer(region)
-    
+
     // Generate signed URL
     url := fmt.Sprintf("https://%s%s", server.ID, videoPath)
-    
+
     return url, nil
 }
 
 func (cs *CDNService) findBestRegion() *CDNRegion {
     cs.mutex.RLock()
     defer cs.mutex.RUnlock()
-    
+
     // Simple logic - in real implementation, use user's location
     for _, region := range cs.regions {
         return region
     }
-    
+
     return nil
 }
 
@@ -205,17 +207,17 @@ func (cs *CDNService) findLeastLoadedServer(region *CDNRegion) *CDNServer {
     if region == nil || len(region.Servers) == 0 {
         return nil
     }
-    
+
     leastLoaded := region.Servers[0]
     minLoad := leastLoaded.Load
-    
+
     for _, server := range region.Servers[1:] {
         if server.Load < minLoad {
             leastLoaded = server
             minLoad = server.Load
         }
     }
-    
+
     return leastLoaded
 }
 
@@ -228,21 +230,21 @@ func main() {
         userService:       &UserService{},
         cdnService:        &CDNService{},
     }
-    
+
     // Get video recommendations
     req := &RecommendationRequest{
         UserID:  "user123",
         Limit:   10,
         Context: "home",
     }
-    
+
     recommendations, err := netflix.recommendationService.GetRecommendations(req)
     if err != nil {
         fmt.Printf("Failed to get recommendations: %v\n", err)
     } else {
         fmt.Printf("Found %d recommendations\n", len(recommendations))
     }
-    
+
     // Stream video
     stream, err := netflix.contentService.GetVideoStream("video123", "1080p")
     if err != nil {
@@ -258,9 +260,11 @@ func main() {
 ## 🎯 **2. Uber - Ride-Sharing Platform**
 
 ### **System Overview**
+
 Uber connects riders with drivers in real-time across 600+ cities worldwide.
 
 #### **Key Requirements**
+
 - **Scale**: 100M+ users, 15M+ trips daily
 - **Real-time**: <5 seconds to match rider with driver
 - **Geographic**: Global coverage with local optimization
@@ -354,19 +358,19 @@ func (ms *MatchingService) FindDriver(req *MatchRequest) (*MatchResult, error) {
     if err != nil {
         return nil, err
     }
-    
+
     if len(drivers) == 0 {
         return nil, fmt.Errorf("no drivers available")
     }
-    
+
     // Find best match
     bestMatch := ms.findBestMatch(req, drivers)
-    
+
     // Reserve driver
     if err := ms.reserveDriver(bestMatch.DriverID); err != nil {
         return nil, err
     }
-    
+
     return bestMatch, nil
 }
 
@@ -378,7 +382,7 @@ func (ms *MatchingService) getAvailableDrivers(location *Location, maxDistance f
         {ID: "driver2", Location: &Location{Latitude: 37.7849, Longitude: -122.4094}},
         {ID: "driver3", Location: &Location{Latitude: 37.7649, Longitude: -122.4294}},
     }
-    
+
     var nearbyDrivers []*Driver
     for _, driver := range drivers {
         distance := ms.calculateDistance(location, driver.Location)
@@ -386,22 +390,22 @@ func (ms *MatchingService) getAvailableDrivers(location *Location, maxDistance f
             nearbyDrivers = append(nearbyDrivers, driver)
         }
     }
-    
+
     return nearbyDrivers, nil
 }
 
 func (ms *MatchingService) findBestMatch(req *MatchRequest, drivers []*Driver) *MatchResult {
     var bestMatch *MatchResult
     minScore := math.Inf(1)
-    
+
     for _, driver := range drivers {
         distance := ms.calculateDistance(req.Location, driver.Location)
         eta := ms.calculateETA(distance)
         price := ms.calculatePrice(distance, req.VehicleType)
-        
+
         // Calculate match score (lower is better)
         score := distance*0.7 + float64(eta.Seconds())*0.3
-        
+
         if score < minScore {
             minScore = score
             bestMatch = &MatchResult{
@@ -412,23 +416,23 @@ func (ms *MatchingService) findBestMatch(req *MatchRequest, drivers []*Driver) *
             }
         }
     }
-    
+
     return bestMatch
 }
 
 func (ms *MatchingService) calculateDistance(loc1, loc2 *Location) float64 {
     // Haversine formula for calculating distance between two points
     const R = 6371 // Earth's radius in kilometers
-    
+
     dLat := (loc2.Latitude - loc1.Latitude) * math.Pi / 180
     dLon := (loc2.Longitude - loc1.Longitude) * math.Pi / 180
-    
+
     a := math.Sin(dLat/2)*math.Sin(dLat/2) +
         math.Cos(loc1.Latitude*math.Pi/180)*math.Cos(loc2.Latitude*math.Pi/180)*
         math.Sin(dLon/2)*math.Sin(dLon/2)
-    
+
     c := 2 * math.Atan2(math.Sqrt(a), math.Sqrt(1-a))
-    
+
     return R * c
 }
 
@@ -444,7 +448,7 @@ func (ms *MatchingService) calculatePrice(distance float64, vehicleType string) 
     // Simple pricing calculation
     basePrice := 2.0
     pricePerKm := 1.5
-    
+
     multiplier := 1.0
     switch vehicleType {
     case "premium":
@@ -452,7 +456,7 @@ func (ms *MatchingService) calculatePrice(distance float64, vehicleType string) 
     case "xl":
         multiplier = 1.3
     }
-    
+
     return (basePrice + distance*pricePerKm) * multiplier
 }
 
@@ -493,19 +497,19 @@ func (ts *TripService) CreateTrip(riderID, driverID string, startLocation, endLo
         CreatedAt:     time.Now(),
         UpdatedAt:     time.Now(),
     }
-    
+
     // Calculate price and distance
     trip.Distance = ts.calculateDistance(startLocation, endLocation)
     trip.Price = ts.calculatePrice(trip.Distance)
-    
+
     // Save trip
     if err := ts.db.SaveTrip(trip); err != nil {
         return nil, err
     }
-    
+
     // Cache trip
     ts.cache.Set("trip:"+trip.ID, trip, 1*time.Hour)
-    
+
     return trip, nil
 }
 
@@ -514,13 +518,13 @@ func (ts *TripService) calculateDistance(start, end *Location) float64 {
     const R = 6371
     dLat := (end.Latitude - start.Latitude) * math.Pi / 180
     dLon := (end.Longitude - start.Longitude) * math.Pi / 180
-    
+
     a := math.Sin(dLat/2)*math.Sin(dLat/2) +
         math.Cos(start.Latitude*math.Pi/180)*math.Cos(end.Latitude*math.Pi/180)*
         math.Sin(dLon/2)*math.Sin(dLon/2)
-    
+
     c := 2 * math.Atan2(math.Sqrt(a), math.Sqrt(1-a))
-    
+
     return R * c
 }
 
@@ -539,7 +543,7 @@ func main() {
         pricingService:  &PricingService{},
         tripService:     &TripService{},
     }
-    
+
     // Create match request
     req := &MatchRequest{
         RiderID:     "rider123",
@@ -547,13 +551,13 @@ func main() {
         VehicleType: "economy",
         MaxDistance: 5.0,
     }
-    
+
     // Find driver
     match, err := uber.matchingService.FindDriver(req)
     if err != nil {
         fmt.Printf("Failed to find driver: %v\n", err)
     } else {
-        fmt.Printf("Found driver: %s, ETA: %v, Price: $%.2f\n", 
+        fmt.Printf("Found driver: %s, ETA: %v, Price: $%.2f\n",
             match.DriverID, match.ETA, match.Price)
     }
 }
@@ -564,9 +568,11 @@ func main() {
 ## 🎯 **3. WhatsApp - Messaging Platform**
 
 ### **System Overview**
+
 WhatsApp handles 100+ billion messages daily across 180+ countries.
 
 #### **Key Requirements**
+
 - **Scale**: 2B+ users, 100B+ messages daily
 - **Real-time**: <100ms message delivery
 - **Reliability**: 99.9% message delivery
@@ -633,22 +639,22 @@ func (ms *MessageService) SendMessage(msg *Message) error {
         }
         msg.Content = encryptedContent
     }
-    
+
     // Save message to database
     if err := ms.db.SaveMessage(msg); err != nil {
         return err
     }
-    
+
     // Send via WebSocket if user is online
     if ms.wsManager.IsUserOnline(msg.ReceiverID) {
         ms.wsManager.SendMessage(msg.ReceiverID, msg)
     }
-    
+
     // Send push notification if user is offline
     if !ms.wsManager.IsUserOnline(msg.ReceiverID) {
         go ms.sendPushNotification(msg.ReceiverID, msg)
     }
-    
+
     return nil
 }
 
@@ -691,15 +697,15 @@ func (gs *GroupService) CreateGroup(name, description, createdBy string) (*Group
         CreatedAt:   time.Now(),
         UpdatedAt:   time.Now(),
     }
-    
+
     // Save group
     if err := gs.db.SaveGroup(group); err != nil {
         return nil, err
     }
-    
+
     // Cache group
     gs.cache.Set("group:"+group.ID, group, 1*time.Hour)
-    
+
     return group, nil
 }
 
@@ -708,26 +714,26 @@ func (gs *GroupService) AddMember(groupID, userID string) error {
     if err != nil {
         return err
     }
-    
+
     // Check if user is already a member
     for _, member := range group.Members {
         if member == userID {
             return fmt.Errorf("user already a member")
         }
     }
-    
+
     // Add member
     group.Members = append(group.Members, userID)
     group.UpdatedAt = time.Now()
-    
+
     // Save updated group
     if err := gs.db.SaveGroup(group); err != nil {
         return err
     }
-    
+
     // Update cache
     gs.cache.Set("group:"+groupID, group, 1*time.Hour)
-    
+
     return nil
 }
 
@@ -736,16 +742,16 @@ func (gs *GroupService) getGroup(groupID string) (*Group, error) {
     if group, err := gs.cache.Get("group:" + groupID); err == nil {
         return group.(*Group), nil
     }
-    
+
     // Get from database
     group, err := gs.db.GetGroup(groupID)
     if err != nil {
         return nil, err
     }
-    
+
     // Cache group
     gs.cache.Set("group:"+groupID, group, 1*time.Hour)
-    
+
     return group, nil
 }
 
@@ -766,13 +772,13 @@ type MediaFile struct {
 func (ms *MediaService) UploadMedia(file []byte, fileType string) (*MediaFile, error) {
     // Generate unique file ID
     fileID := generateFileID()
-    
+
     // Upload to storage
     url, err := ms.storage.UploadFile(fileID, file)
     if err != nil {
         return nil, err
     }
-    
+
     // Create media file record
     mediaFile := &MediaFile{
         ID:         fileID,
@@ -781,7 +787,7 @@ func (ms *MediaService) UploadMedia(file []byte, fileType string) (*MediaFile, e
         URL:        url,
         UploadedAt: time.Now(),
     }
-    
+
     return mediaFile, nil
 }
 
@@ -794,7 +800,7 @@ func main() {
         mediaService:     &MediaService{},
         encryptionService: &EncryptionService{},
     }
-    
+
     // Send message
     msg := &Message{
         ID:         generateMessageID(),
@@ -806,13 +812,13 @@ func main() {
         Timestamp:  time.Now(),
         Status:     "sent",
     }
-    
+
     if err := whatsapp.messageService.SendMessage(msg); err != nil {
         fmt.Printf("Failed to send message: %v\n", err)
     } else {
         fmt.Printf("Message sent successfully\n")
     }
-    
+
     // Create group
     group, err := whatsapp.groupService.CreateGroup("Friends", "Our friend group", "user1")
     if err != nil {
@@ -828,9 +834,11 @@ func main() {
 ## 🎯 **4. Instagram - Photo Sharing Platform**
 
 ### **System Overview**
+
 Instagram handles 500+ million daily active users sharing photos and videos.
 
 #### **Key Requirements**
+
 - **Scale**: 500M+ DAU, 100M+ photos daily
 - **Performance**: <2 seconds to load feed
 - **Storage**: Petabytes of media data
@@ -910,13 +918,13 @@ func (fs *FeedService) GetFeed(userID string, limit, offset int) ([]*FeedPost, e
     if feed, err := fs.cache.Get(cacheKey); err == nil {
         return feed.([]*FeedPost), nil
     }
-    
+
     // Get user's followings
     followings, err := fs.userService.GetFollowings(userID)
     if err != nil {
         return nil, err
     }
-    
+
     // Get posts from followings
     var feedPosts []*FeedPost
     for _, followingID := range followings {
@@ -926,12 +934,12 @@ func (fs *FeedService) GetFeed(userID string, limit, offset int) ([]*FeedPost, e
         }
         feedPosts = append(feedPosts, posts...)
     }
-    
+
     // Sort by timestamp (newest first)
     sort.Slice(feedPosts, func(i, j int) bool {
         return feedPosts[i].Timestamp.After(feedPosts[j].Timestamp)
     })
-    
+
     // Apply pagination
     start := offset
     end := offset + limit
@@ -941,12 +949,12 @@ func (fs *FeedService) GetFeed(userID string, limit, offset int) ([]*FeedPost, e
     if end > len(feedPosts) {
         end = len(feedPosts)
     }
-    
+
     result := feedPosts[start:end]
-    
+
     // Cache feed
     fs.cache.Set(cacheKey, result, 5*time.Minute)
-    
+
     return result, nil
 }
 
@@ -956,7 +964,7 @@ func (fs *FeedService) getUserPosts(userID string, limit, offset int) ([]*FeedPo
     if err != nil {
         return nil, err
     }
-    
+
     // Convert to feed posts
     var feedPosts []*FeedPost
     for _, post := range posts {
@@ -964,7 +972,7 @@ func (fs *FeedService) getUserPosts(userID string, limit, offset int) ([]*FeedPo
         if err != nil {
             continue
         }
-        
+
         feedPost := &FeedPost{
             PostID:    post.ID,
             UserID:    post.UserID,
@@ -977,10 +985,10 @@ func (fs *FeedService) getUserPosts(userID string, limit, offset int) ([]*FeedPo
             Liked:     false, // TODO: Check if user liked this post
             Timestamp: post.CreatedAt,
         }
-        
+
         feedPosts = append(feedPosts, feedPost)
     }
-    
+
     return feedPosts, nil
 }
 
@@ -1008,16 +1016,16 @@ func (us *UserService) GetUser(userID string) (*User, error) {
     if user, err := us.cache.Get("user:" + userID); err == nil {
         return user.(*User), nil
     }
-    
+
     // Get from database
     user, err := us.db.GetUser(userID)
     if err != nil {
         return nil, err
     }
-    
+
     // Cache user
     us.cache.Set("user:"+userID, user, 30*time.Minute)
-    
+
     return user, nil
 }
 
@@ -1026,16 +1034,16 @@ func (us *UserService) GetFollowings(userID string) ([]string, error) {
     if followings, err := us.cache.Get("followings:" + userID); err == nil {
         return followings.([]string), nil
     }
-    
+
     // Get from database
     followings, err := us.db.GetFollowings(userID)
     if err != nil {
         return nil, err
     }
-    
+
     // Cache followings
     us.cache.Set("followings:"+userID, followings, 10*time.Minute)
-    
+
     return followings, nil
 }
 
@@ -1048,7 +1056,7 @@ func main() {
         mediaService:     &MediaService{},
         notificationService: &NotificationService{},
     }
-    
+
     // Get user feed
     feed, err := instagram.feedService.GetFeed("user123", 20, 0)
     if err != nil {
@@ -1064,30 +1072,35 @@ func main() {
 ## 🎯 **Key Takeaways from Real-World Systems**
 
 ### **1. Netflix - Video Streaming**
+
 - **CDN Strategy**: Global content delivery with edge caching
 - **Recommendation Engine**: ML-based content personalization
 - **Microservices**: Service-oriented architecture for scalability
 - **Data Pipeline**: Real-time analytics and monitoring
 
 ### **2. Uber - Ride-Sharing**
+
 - **Real-time Matching**: Geospatial algorithms for driver-rider matching
 - **Dynamic Pricing**: Surge pricing based on demand and supply
 - **Geographic Distribution**: Global coverage with local optimization
 - **Reliability**: High availability for critical services
 
 ### **3. WhatsApp - Messaging**
+
 - **End-to-End Encryption**: Privacy and security first
 - **Message Delivery**: Reliable message delivery with status tracking
 - **Group Management**: Scalable group messaging
 - **Media Sharing**: Efficient media upload and delivery
 
 ### **4. Instagram - Photo Sharing**
+
 - **Feed Algorithm**: Personalized content discovery
 - **Media Processing**: Image and video optimization
 - **Social Features**: Likes, comments, and following
 - **Real-time Updates**: Live notifications and updates
 
 ### **5. Common Patterns**
+
 - **Microservices Architecture**: Service decomposition for scalability
 - **Caching Strategy**: Multi-level caching for performance
 - **Database Sharding**: Horizontal scaling for data storage
@@ -1101,4 +1114,4 @@ func main() {
 
 **🎉 This comprehensive guide provides deep insights into real-world system design with practical Go implementations based on production systems! 🚀**
 
-*Reference: [No-Fluff Engineering Podcast Playlist](https://www.youtube.com/playlist?list=PLsdq-3Z1EPT23QGFJipBTe_KYPZK4ymNJ)*
+_Reference: [No-Fluff Engineering Podcast Playlist](https://www.youtube.com/playlist?list=PLsdq-3Z1EPT23QGFJipBTe_KYPZK4ymNJ)_
