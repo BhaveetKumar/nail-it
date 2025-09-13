@@ -114,23 +114,23 @@ func NewDatabaseOptimizer(db *Database) *DatabaseOptimizer {
 func (im *IndexManager) CreateIndex(index *Index) error {
     im.mutex.Lock()
     defer im.mutex.Unlock()
-    
+
     // Validate index
     if err := im.validateIndex(index); err != nil {
         return err
     }
-    
+
     // Create index in database
     if err := im.createIndexInDB(index); err != nil {
         return err
     }
-    
+
     // Store index metadata
     im.indexes[index.Name] = index
-    
+
     // Update statistics
     go im.updateIndexStatistics(index)
-    
+
     return nil
 }
 
@@ -139,54 +139,54 @@ func (im *IndexManager) validateIndex(index *Index) error {
     if _, exists := im.indexes[index.Name]; exists {
         return fmt.Errorf("index %s already exists", index.Name)
     }
-    
+
     // Validate columns
     if len(index.Columns) == 0 {
         return fmt.Errorf("index must have at least one column")
     }
-    
+
     // Validate expression for functional indexes
     if index.Expression != "" && len(index.Columns) > 0 {
         return fmt.Errorf("functional index cannot have columns")
     }
-    
+
     return nil
 }
 
 func (im *IndexManager) createIndexInDB(index *Index) error {
     // Generate CREATE INDEX SQL
     sql := im.generateCreateIndexSQL(index)
-    
+
     // Execute in database
     if err := im.executeSQL(sql); err != nil {
         return err
     }
-    
+
     return nil
 }
 
 func (im *IndexManager) generateCreateIndexSQL(index *Index) string {
     sql := "CREATE "
-    
+
     if index.Unique {
         sql += "UNIQUE "
     }
-    
+
     sql += "INDEX "
     sql += index.Name
     sql += " ON "
     sql += index.Table
-    
+
     if index.Expression != "" {
         sql += " USING " + string(index.Type) + " (" + index.Expression + ")"
     } else {
         sql += " USING " + string(index.Type) + " (" + im.joinColumns(index.Columns) + ")"
     }
-    
+
     if index.Partial {
         sql += " WHERE " + index.Expression
     }
-    
+
     return sql
 }
 
@@ -217,7 +217,7 @@ func (im *IndexManager) updateIndexStatistics(index *Index) {
         UsageCount:   im.getUsageCount(index),
         HitRatio:     im.getHitRatio(index),
     }
-    
+
     index.Statistics = stats
 }
 
@@ -252,22 +252,22 @@ func (qp *QueryPlanner) PlanQuery(ctx context.Context, sql string) (*QueryPlan, 
     if plan := qp.cache.GetPlan(sql); plan != nil {
         return plan, nil
     }
-    
+
     // Parse SQL
     ast, err := qp.parseSQL(sql)
     if err != nil {
         return nil, err
     }
-    
+
     // Generate execution plan
     executionPlan, err := qp.generateExecutionPlan(ast)
     if err != nil {
         return nil, err
     }
-    
+
     // Calculate cost
     cost := qp.calculateCost(executionPlan)
-    
+
     // Create query plan
     plan := &QueryPlan{
         ID:            generatePlanID(),
@@ -278,10 +278,10 @@ func (qp *QueryPlanner) PlanQuery(ctx context.Context, sql string) (*QueryPlan, 
         CreatedAt:     time.Now(),
         LastUsed:      time.Now(),
     }
-    
+
     // Cache plan
     qp.cache.StorePlan(plan)
-    
+
     return plan, nil
 }
 
@@ -294,7 +294,7 @@ func (qp *QueryPlanner) generateExecutionPlan(ast *AST) (*ExecutionPlan, error) 
         Rows:     10000,
         Width:    100,
     }
-    
+
     // Check if we can use an index
     if index := qp.findBestIndex(ast); index != nil {
         plan.NodeType = "IndexScan"
@@ -302,7 +302,7 @@ func (qp *QueryPlanner) generateExecutionPlan(ast *AST) (*ExecutionPlan, error) 
         plan.Cost = 100.0
         plan.Rows = 1000
     }
-    
+
     return plan, nil
 }
 
@@ -345,22 +345,22 @@ func (qp *QueryPlanner) parseSQL(sql string) (*AST, error) {
 func (qpc *QueryPlanCache) GetPlan(sql string) *QueryPlan {
     qpc.mutex.RLock()
     defer qpc.mutex.RUnlock()
-    
+
     plan, exists := qpc.plans[sql]
     if !exists {
         return nil
     }
-    
+
     // Update last used time
     plan.LastUsed = time.Now()
-    
+
     return plan
 }
 
 func (qpc *QueryPlanCache) StorePlan(plan *QueryPlan) {
     qpc.mutex.Lock()
     defer qpc.mutex.Unlock()
-    
+
     qpc.plans[plan.SQL] = plan
 }
 
@@ -371,32 +371,32 @@ func (do *DatabaseOptimizer) OptimizeQuery(ctx context.Context, sql string) (*Qu
     if err != nil {
         return nil, err
     }
-    
+
     // Optimize the plan
     optimizedPlan := do.optimizePlan(plan)
-    
+
     // Update statistics
     go do.updateQueryStatistics(plan)
-    
+
     return optimizedPlan, nil
 }
 
 func (do *DatabaseOptimizer) optimizePlan(plan *QueryPlan) *QueryPlan {
     // Apply various optimizations
     optimized := *plan
-    
+
     // Push down predicates
     optimized.Plan = do.pushDownPredicates(optimized.Plan)
-    
+
     // Reorder joins
     optimized.Plan = do.reorderJoins(optimized.Plan)
-    
+
     // Use better indexes
     optimized.Plan = do.chooseBetterIndexes(optimized.Plan)
-    
+
     // Recalculate cost
     optimized.Cost = do.queryPlanner.calculateCost(optimized.Plan)
-    
+
     return &optimized
 }
 
@@ -427,7 +427,7 @@ func (do *DatabaseOptimizer) updateQueryStatistics(plan *QueryPlan) {
 func main() {
     // Create database optimizer
     optimizer := NewDatabaseOptimizer(&Database{})
-    
+
     // Create an index
     index := &Index{
         Name:    "idx_user_email",
@@ -436,13 +436,13 @@ func main() {
         Type:    BTreeIndex,
         Unique:  true,
     }
-    
+
     if err := optimizer.indexManager.CreateIndex(index); err != nil {
         fmt.Printf("Failed to create index: %v\n", err)
     } else {
         fmt.Printf("Index created successfully\n")
     }
-    
+
     // Optimize a query
     sql := "SELECT * FROM users WHERE email = 'user@example.com'"
     plan, err := optimizer.OptimizeQuery(context.Background(), sql)
@@ -477,11 +477,11 @@ type ConnectionPool struct {
     active     map[*Connection]bool
     stats      *PoolStats
     mutex      sync.RWMutex
-    
+
     // Health monitoring
     healthChecker *HealthChecker
     metrics       *PoolMetrics
-    
+
     // Connection lifecycle
     factory      ConnectionFactory
     validator    ConnectionValidator
@@ -563,16 +563,16 @@ func NewConnectionPool(config *PoolConfig, factory ConnectionFactory) *Connectio
         },
         metrics: &PoolMetrics{},
     }
-    
+
     // Initialize pool
     pool.initialize()
-    
+
     // Start health checker
     go pool.startHealthChecker()
-    
+
     // Start metrics collector
     go pool.startMetricsCollector()
-    
+
     return pool
 }
 
@@ -584,7 +584,7 @@ func (cp *ConnectionPool) initialize() {
             fmt.Printf("Failed to create connection: %v\n", err)
             continue
         }
-        
+
         cp.connections <- conn
         cp.stats.TotalConnections++
         cp.stats.IdleConnections++
@@ -593,7 +593,7 @@ func (cp *ConnectionPool) initialize() {
 
 func (cp *ConnectionPool) GetConnection(ctx context.Context) (*Connection, error) {
     start := time.Now()
-    
+
     // Try to get connection from pool
     select {
     case conn := <-cp.connections:
@@ -602,20 +602,20 @@ func (cp *ConnectionPool) GetConnection(ctx context.Context) (*Connection, error
         cp.stats.ActiveConnections++
         cp.stats.IdleConnections--
         cp.mutex.Unlock()
-        
+
         // Update connection stats
         conn.LastUsed = time.Now()
         conn.IsIdle = false
-        
+
         return conn, nil
-        
+
     case <-ctx.Done():
         cp.mutex.Lock()
         cp.stats.WaitCount++
         cp.stats.WaitDuration += time.Since(start)
         cp.mutex.Unlock()
         return nil, ctx.Err()
-        
+
     default:
         // No idle connections, try to create new one
         return cp.createNewConnection(ctx, start)
@@ -625,12 +625,12 @@ func (cp *ConnectionPool) GetConnection(ctx context.Context) (*Connection, error
 func (cp *ConnectionPool) createNewConnection(ctx context.Context, start time.Time) (*Connection, error) {
     cp.mutex.Lock()
     defer cp.mutex.Unlock()
-    
+
     // Check if we can create more connections
     if cp.stats.TotalConnections >= cp.config.MaxConnections {
         // Wait for a connection to become available
         cp.mutex.Unlock()
-        
+
         select {
         case conn := <-cp.connections:
             cp.mutex.Lock()
@@ -638,12 +638,12 @@ func (cp *ConnectionPool) createNewConnection(ctx context.Context, start time.Ti
             cp.stats.ActiveConnections++
             cp.stats.IdleConnections--
             cp.mutex.Unlock()
-            
+
             conn.LastUsed = time.Now()
             conn.IsIdle = false
-            
+
             return conn, nil
-            
+
         case <-ctx.Done():
             cp.mutex.Lock()
             cp.stats.WaitCount++
@@ -652,22 +652,22 @@ func (cp *ConnectionPool) createNewConnection(ctx context.Context, start time.Ti
             return nil, ctx.Err()
         }
     }
-    
+
     // Create new connection
     conn, err := cp.createConnection()
     if err != nil {
         cp.stats.ErrorCount++
         return nil, err
     }
-    
+
     cp.active[conn] = true
     cp.stats.TotalConnections++
     cp.stats.ActiveConnections++
     cp.stats.CreateCount++
-    
+
     conn.LastUsed = time.Now()
     conn.IsIdle = false
-    
+
     return conn, nil
 }
 
@@ -676,36 +676,36 @@ func (cp *ConnectionPool) createConnection() (*Connection, error) {
     if err != nil {
         return nil, err
     }
-    
+
     conn.ID = generateConnectionID()
     conn.CreatedAt = time.Now()
     conn.LastUsed = time.Now()
     conn.IsHealthy = true
     conn.IsIdle = true
-    
+
     return conn, nil
 }
 
 func (cp *ConnectionPool) ReturnConnection(conn *Connection) {
     cp.mutex.Lock()
     defer cp.mutex.Unlock()
-    
+
     // Remove from active connections
     delete(cp.active, conn)
     cp.stats.ActiveConnections--
-    
+
     // Check if connection is still healthy
     if !cp.isConnectionHealthy(conn) {
         cp.closeConnection(conn)
         return
     }
-    
+
     // Check if connection has exceeded max lifetime
     if time.Since(conn.CreatedAt) > cp.config.MaxLifetime {
         cp.closeConnection(conn)
         return
     }
-    
+
     // Return to pool
     select {
     case cp.connections <- conn:
@@ -722,17 +722,17 @@ func (cp *ConnectionPool) isConnectionHealthy(conn *Connection) bool {
     if !conn.IsHealthy {
         return false
     }
-    
+
     // Check if connection has been idle too long
     if time.Since(conn.LastUsed) > cp.config.IdleTimeout {
         return false
     }
-    
+
     // Validate connection
     if cp.validator != nil && !cp.validator.Validate(conn) {
         return false
     }
-    
+
     return true
 }
 
@@ -741,10 +741,10 @@ func (cp *ConnectionPool) closeConnection(conn *Connection) {
     if cp.cleaner != nil {
         cp.cleaner.Clean(conn)
     }
-    
+
     // Close connection
     conn.IsHealthy = false
-    
+
     cp.stats.TotalConnections--
     cp.stats.CloseCount++
 }
@@ -752,12 +752,12 @@ func (cp *ConnectionPool) closeConnection(conn *Connection) {
 func (cp *ConnectionPool) startHealthChecker() {
     ticker := time.NewTicker(cp.healthChecker.interval)
     defer ticker.Stop()
-    
+
     for range ticker.C {
         if !cp.healthChecker.enabled {
             continue
         }
-        
+
         cp.checkConnectionsHealth()
     }
 }
@@ -769,7 +769,7 @@ func (cp *ConnectionPool) checkConnectionsHealth() {
         connections = append(connections, conn)
     }
     cp.mutex.RUnlock()
-    
+
     for _, conn := range connections {
         if !cp.isConnectionHealthy(conn) {
             cp.ReturnConnection(conn)
@@ -780,7 +780,7 @@ func (cp *ConnectionPool) checkConnectionsHealth() {
 func (cp *ConnectionPool) startMetricsCollector() {
     ticker := time.NewTicker(1 * time.Minute)
     defer ticker.Stop()
-    
+
     for range ticker.C {
         cp.updateMetrics()
     }
@@ -789,30 +789,30 @@ func (cp *ConnectionPool) startMetricsCollector() {
 func (cp *ConnectionPool) updateMetrics() {
     cp.mutex.RLock()
     defer cp.mutex.RUnlock()
-    
+
     // Calculate utilization
     if cp.stats.TotalConnections > 0 {
         cp.metrics.ConnectionUtilization = float64(cp.stats.ActiveConnections) / float64(cp.stats.TotalConnections)
     }
-    
+
     // Calculate average wait time
     if cp.stats.WaitCount > 0 {
         cp.metrics.AverageWaitTime = cp.stats.WaitDuration / time.Duration(cp.stats.WaitCount)
     }
-    
+
     // Calculate error rate
     total := cp.stats.CreateCount + cp.stats.CloseCount
     if total > 0 {
         cp.metrics.ErrorRate = float64(cp.stats.ErrorCount) / float64(total)
     }
-    
+
     cp.metrics.LastUpdated = time.Now()
 }
 
 func (cp *ConnectionPool) GetStats() *PoolStats {
     cp.mutex.RLock()
     defer cp.mutex.RUnlock()
-    
+
     return &PoolStats{
         TotalConnections:  cp.stats.TotalConnections,
         ActiveConnections: cp.stats.ActiveConnections,
@@ -829,7 +829,7 @@ func (cp *ConnectionPool) GetStats() *PoolStats {
 func (cp *ConnectionPool) GetMetrics() *PoolMetrics {
     cp.mutex.RLock()
     defer cp.mutex.RUnlock()
-    
+
     return &PoolMetrics{
         ConnectionUtilization: cp.metrics.ConnectionUtilization,
         AverageWaitTime:       cp.metrics.AverageWaitTime,
@@ -852,13 +852,13 @@ func main() {
         RetryAttempts:     3,
         RetryDelay:        100 * time.Millisecond,
     }
-    
+
     // Create connection factory
     factory := &MockConnectionFactory{}
-    
+
     // Create connection pool
     pool := NewConnectionPool(config, factory)
-    
+
     // Get connection
     ctx := context.Background()
     conn, err := pool.GetConnection(ctx)
@@ -866,14 +866,14 @@ func main() {
         fmt.Printf("Failed to get connection: %v\n", err)
     } else {
         fmt.Printf("Got connection: %s\n", conn.ID)
-        
+
         // Use connection
         time.Sleep(100 * time.Millisecond)
-        
+
         // Return connection
         pool.ReturnConnection(conn)
     }
-    
+
     // Get pool stats
     stats := pool.GetStats()
     fmt.Printf("Pool stats: %+v\n", stats)
@@ -1019,13 +1019,13 @@ func NewShardingManager(strategy RoutingStrategy) *ShardingManager {
             metrics:  make(map[int]*ShardMetrics),
         },
     }
-    
+
     // Start rebalancer
     go manager.rebalancer.start(manager)
-    
+
     // Start monitor
     go manager.monitor.start(manager)
-    
+
     return manager
 }
 
@@ -1033,50 +1033,50 @@ func NewShardingManager(strategy RoutingStrategy) *ShardingManager {
 func (sm *ShardingManager) AddShard(shard *Shard) error {
     sm.mutex.Lock()
     defer sm.mutex.Unlock()
-    
+
     // Validate shard
     if err := sm.validateShard(shard); err != nil {
         return err
     }
-    
+
     // Add shard
     sm.shards[shard.ID] = shard
-    
+
     // Update router
     sm.router.addShard(shard)
-    
+
     // Initialize metrics
     sm.monitor.metrics[shard.ID] = &ShardMetrics{
         ShardID:     shard.ID,
         LastUpdated: time.Now(),
     }
-    
+
     return nil
 }
 
 func (sm *ShardingManager) RemoveShard(shardID int) error {
     sm.mutex.Lock()
     defer sm.mutex.Unlock()
-    
+
     shard, exists := sm.shards[shardID]
     if !exists {
         return fmt.Errorf("shard %d not found", shardID)
     }
-    
+
     // Check if shard is active
     if shard.Status == ShardActive {
         return fmt.Errorf("cannot remove active shard")
     }
-    
+
     // Remove shard
     delete(sm.shards, shardID)
-    
+
     // Update router
     sm.router.removeShard(shardID)
-    
+
     // Remove metrics
     delete(sm.monitor.metrics, shardID)
-    
+
     return nil
 }
 
@@ -1084,15 +1084,15 @@ func (sm *ShardingManager) validateShard(shard *Shard) error {
     if shard.ID < 0 {
         return fmt.Errorf("invalid shard ID")
     }
-    
+
     if shard.Host == "" {
         return fmt.Errorf("shard host cannot be empty")
     }
-    
+
     if shard.Port <= 0 {
         return fmt.Errorf("invalid shard port")
     }
-    
+
     return nil
 }
 
@@ -1100,26 +1100,26 @@ func (sm *ShardingManager) validateShard(shard *Shard) error {
 func (sm *ShardingManager) RouteQuery(ctx context.Context, query *Query) (*Shard, error) {
     sm.mutex.RLock()
     defer sm.mutex.RUnlock()
-    
+
     // Get shard based on routing strategy
     shardID, err := sm.router.routeQuery(query)
     if err != nil {
         return nil, err
     }
-    
+
     shard, exists := sm.shards[shardID]
     if !exists {
         return nil, fmt.Errorf("shard %d not found", shardID)
     }
-    
+
     // Check shard status
     if shard.Status != ShardActive {
         return nil, fmt.Errorf("shard %d is not active", shardID)
     }
-    
+
     // Update metrics
     sm.monitor.updateMetrics(shardID, query)
-    
+
     return shard, nil
 }
 
@@ -1145,7 +1145,7 @@ func (sr *ShardRouter) routeByHash(query *Query) (int, error) {
     if shardCount == 0 {
         return 0, fmt.Errorf("no shards available")
     }
-    
+
     shardID := int(hash) % shardCount
     return shardID, nil
 }
@@ -1153,25 +1153,25 @@ func (sr *ShardRouter) routeByHash(query *Query) (int, error) {
 func (sr *ShardRouter) routeByRange(query *Query) (int, error) {
     sr.rangeMap.mutex.RLock()
     defer sr.rangeMap.mutex.RUnlock()
-    
+
     for _, r := range sr.rangeMap.ranges {
         if r.IsActive && query.ShardKey >= r.Start && query.ShardKey < r.End {
             return r.ShardID, nil
         }
     }
-    
+
     return 0, fmt.Errorf("no range found for key: %s", query.ShardKey)
 }
 
 func (sr *ShardRouter) routeByDirectory(query *Query) (int, error) {
     sr.directory.mutex.RLock()
     defer sr.directory.mutex.RUnlock()
-    
+
     shardID, exists := sr.directory.mappings[query.ShardKey]
     if !exists {
         return 0, fmt.Errorf("no mapping found for key: %s", query.ShardKey)
     }
-    
+
     return shardID, nil
 }
 
@@ -1183,7 +1183,7 @@ func (sr *ShardRouter) routeByConsistentHash(query *Query) (int, error) {
 func (chr *ConsistentHashRing) addNode(node *HashNode) {
     chr.mutex.Lock()
     defer chr.mutex.Unlock()
-    
+
     // Add multiple replicas for better distribution
     for i := 0; i < chr.replicas; i++ {
         replica := &HashNode{
@@ -1194,7 +1194,7 @@ func (chr *ConsistentHashRing) addNode(node *HashNode) {
         }
         chr.nodes = append(chr.nodes, replica)
     }
-    
+
     // Sort nodes by position
     chr.sortNodes()
 }
@@ -1202,7 +1202,7 @@ func (chr *ConsistentHashRing) addNode(node *HashNode) {
 func (chr *ConsistentHashRing) removeNode(nodeID string) {
     chr.mutex.Lock()
     defer chr.mutex.Unlock()
-    
+
     var newNodes []*HashNode
     for _, node := range chr.nodes {
         if !chr.isReplica(node.ID, nodeID) {
@@ -1215,20 +1215,20 @@ func (chr *ConsistentHashRing) removeNode(nodeID string) {
 func (chr *ConsistentHashRing) getShard(key string) (int, error) {
     chr.mutex.RLock()
     defer chr.mutex.RUnlock()
-    
+
     if len(chr.nodes) == 0 {
         return 0, fmt.Errorf("no nodes available")
     }
-    
+
     hash := chr.hash(key)
-    
+
     // Find first node with position >= hash
     for _, node := range chr.nodes {
         if node.Position >= hash {
             return node.ShardID, nil
         }
     }
-    
+
     // Wrap around to first node
     return chr.nodes[0].ShardID, nil
 }
@@ -1252,12 +1252,12 @@ func (sr *ShardRebalancer) start(manager *ShardingManager) {
     sr.manager = manager
     ticker := time.NewTicker(sr.interval)
     defer ticker.Stop()
-    
+
     for range ticker.C {
         if !sr.enabled {
             continue
         }
-        
+
         sr.rebalance()
     }
 }
@@ -1269,15 +1269,15 @@ func (sr *ShardRebalancer) rebalance() {
         shards = append(shards, shard)
     }
     sr.manager.mutex.RUnlock()
-    
+
     // Check if rebalancing is needed
     if !sr.needsRebalancing(shards) {
         return
     }
-    
+
     // Plan rebalancing
     plan := sr.createRebalancingPlan(shards)
-    
+
     // Execute rebalancing
     sr.executeRebalancingPlan(plan)
 }
@@ -1286,22 +1286,22 @@ func (sr *ShardRebalancer) needsRebalancing(shards []*Shard) bool {
     if len(shards) < 2 {
         return false
     }
-    
+
     // Calculate load variance
     var totalLoad float64
     for _, shard := range shards {
         totalLoad += shard.Load
     }
-    
+
     avgLoad := totalLoad / float64(len(shards))
-    
+
     // Check if any shard is significantly overloaded
     for _, shard := range shards {
         if shard.Load > avgLoad*sr.threshold {
             return true
         }
     }
-    
+
     return false
 }
 
@@ -1332,7 +1332,7 @@ func (sm *ShardMonitor) start(manager *ShardingManager) {
     sm.manager = manager
     ticker := time.NewTicker(sm.interval)
     defer ticker.Stop()
-    
+
     for range ticker.C {
         sm.collectMetrics()
     }
@@ -1341,7 +1341,7 @@ func (sm *ShardMonitor) start(manager *ShardingManager) {
 func (sm *ShardMonitor) collectMetrics() {
     sm.mutex.Lock()
     defer sm.mutex.Unlock()
-    
+
     for shardID, metrics := range sm.metrics {
         // Collect metrics from shard
         // This is a simplified version
@@ -1352,12 +1352,12 @@ func (sm *ShardMonitor) collectMetrics() {
 func (sm *ShardMonitor) updateMetrics(shardID int, query *Query) {
     sm.mutex.Lock()
     defer sm.mutex.Unlock()
-    
+
     metrics, exists := sm.metrics[shardID]
     if !exists {
         return
     }
-    
+
     metrics.QueryCount++
     metrics.QueryTime += query.ExecutionTime
     if query.Error != nil {
@@ -1369,7 +1369,7 @@ func (sm *ShardMonitor) updateMetrics(shardID int, query *Query) {
 func main() {
     // Create sharding manager
     manager := NewShardingManager(ConsistentHash)
-    
+
     // Add shards
     shard1 := &Shard{
         ID:       1,
@@ -1382,7 +1382,7 @@ func main() {
         Capacity: 1000000,
         UsedSpace: 500000,
     }
-    
+
     shard2 := &Shard{
         ID:       2,
         Name:     "shard2",
@@ -1394,17 +1394,17 @@ func main() {
         Capacity: 1000000,
         UsedSpace: 300000,
     }
-    
+
     manager.AddShard(shard1)
     manager.AddShard(shard2)
-    
+
     // Route query
     query := &Query{
         ShardKey:      "user123",
         SQL:           "SELECT * FROM users WHERE id = ?",
         ExecutionTime: 100 * time.Millisecond,
     }
-    
+
     shard, err := manager.RouteQuery(context.Background(), query)
     if err != nil {
         fmt.Printf("Failed to route query: %v\n", err)
@@ -1419,24 +1419,28 @@ func main() {
 ## 🎯 **Key Takeaways from Advanced Database Optimization**
 
 ### **1. Query Optimization**
+
 - **Index Management**: Advanced indexing strategies with statistics
 - **Query Planning**: Cost-based query optimization with caching
 - **Execution Plans**: Optimized execution plans with monitoring
 - **Performance Tuning**: Continuous optimization based on metrics
 
 ### **2. Connection Pooling**
+
 - **Resource Management**: Efficient connection lifecycle management
 - **Health Monitoring**: Continuous health checks and validation
 - **Metrics Collection**: Comprehensive performance monitoring
 - **Auto-scaling**: Dynamic pool sizing based on load
 
 ### **3. Database Sharding**
+
 - **Shard Routing**: Multiple routing strategies (hash, range, directory, consistent hash)
 - **Load Balancing**: Automatic load distribution across shards
 - **Rebalancing**: Dynamic data rebalancing based on load
 - **Monitoring**: Comprehensive shard health and performance monitoring
 
 ### **4. Production Considerations**
+
 - **High Availability**: Fault tolerance and failover mechanisms
 - **Performance**: Optimized for latency and throughput
 - **Scalability**: Horizontal scaling with sharding
