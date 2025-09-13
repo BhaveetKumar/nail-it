@@ -313,7 +313,7 @@ func main() {
             Storage: "10Gi",
         },
     }
-    
+
     // Add microservice
     microservice := &Microservice{
         Name:      "user-service",
@@ -353,7 +353,7 @@ func main() {
             TargetMemory: 80,
         },
     }
-    
+
     fmt.Printf("Cloud-Native App: %+v\n", app)
     fmt.Printf("Microservice: %+v\n", microservice)
 }
@@ -481,7 +481,7 @@ func (fh *FunctionHandler) Handle(ctx context.Context, event interface{}) (inter
     if err != nil {
         return nil, err
     }
-    
+
     return result, nil
 }
 
@@ -656,7 +656,7 @@ func main() {
             },
         },
     }
-    
+
     // Create event-driven architecture
     eda := &EventDrivenArchitecture{
         Functions: map[string]*ServerlessFunction{
@@ -671,7 +671,7 @@ func main() {
             },
         },
     }
-    
+
     fmt.Printf("Serverless Function: %+v\n", function)
     fmt.Printf("Event-Driven Architecture: %+v\n", eda)
 }
@@ -986,7 +986,7 @@ func main() {
             },
         },
     }
-    
+
     fmt.Printf("Observability Stack: %+v\n", stack)
 }
 ```
@@ -996,24 +996,28 @@ func main() {
 ## 🎯 **Key Takeaways from Cloud-Native Architecture**
 
 ### **1. Kubernetes and Container Orchestration**
+
 - **Container Management**: Efficient container lifecycle management
 - **Service Discovery**: Automatic service discovery and load balancing
 - **Scaling**: Horizontal and vertical scaling with auto-scaling
 - **Health Checks**: Comprehensive health monitoring and recovery
 
 ### **2. Serverless and Function-as-a-Service**
+
 - **Event-Driven**: Event-driven architecture with serverless functions
 - **Auto-scaling**: Automatic scaling based on demand
 - **Cost Optimization**: Pay-per-use pricing model
 - **Integration**: Seamless integration with cloud services
 
 ### **3. Cloud-Native Monitoring**
+
 - **Observability**: Comprehensive monitoring, logging, and tracing
 - **SLOs**: Service level objectives and error budgets
 - **Alerting**: Intelligent alerting and escalation policies
 - **Dashboards**: Real-time dashboards and visualization
 
 ### **4. Production Considerations**
+
 - **Security**: Comprehensive security with encryption and access control
 - **Compliance**: Regulatory compliance and audit trails
 - **Disaster Recovery**: Backup and disaster recovery strategies

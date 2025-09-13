@@ -46,29 +46,29 @@ func (g *Graph) Dijkstra(startID int) map[int]int {
     distances := make(map[int]int)
     pq := make(PriorityQueue, 0)
     heap.Init(&pq)
-    
+
     // Initialize distances
     for id := range g.vertices {
         distances[id] = math.MaxInt32
     }
     distances[startID] = 0
-    
+
     // Add start vertex to priority queue
     heap.Push(&pq, &Item{
         vertex:   g.vertices[startID],
         priority: 0,
     })
-    
+
     for pq.Len() > 0 {
         item := heap.Pop(&pq).(*Item)
         current := item.vertex
-        
+
         if current.Visited {
             continue
         }
-        
+
         current.Visited = true
-        
+
         // Check all adjacent vertices
         for _, edge := range current.Adjacent {
             neighbor := edge.To
@@ -85,20 +85,20 @@ func (g *Graph) Dijkstra(startID int) map[int]int {
             }
         }
     }
-    
+
     return distances
 }
 
 // Bellman-Ford Algorithm
 func (g *Graph) BellmanFord(startID int) (map[int]int, bool) {
     distances := make(map[int]int)
-    
+
     // Initialize distances
     for id := range g.vertices {
         distances[id] = math.MaxInt32
     }
     distances[startID] = 0
-    
+
     // Relax edges V-1 times
     for i := 0; i < len(g.vertices)-1; i++ {
         for _, edge := range g.edges {
@@ -109,7 +109,7 @@ func (g *Graph) BellmanFord(startID int) (map[int]int, bool) {
             }
         }
     }
-    
+
     // Check for negative cycles
     for _, edge := range g.edges {
         if distances[edge.From.ID] != math.MaxInt32 &&
@@ -117,7 +117,7 @@ func (g *Graph) BellmanFord(startID int) (map[int]int, bool) {
             return nil, false // Negative cycle detected
         }
     }
-    
+
     return distances, true
 }
 
@@ -125,7 +125,7 @@ func (g *Graph) BellmanFord(startID int) (map[int]int, bool) {
 func (g *Graph) FloydWarshall() [][]int {
     n := len(g.vertices)
     dist := make([][]int, n)
-    
+
     // Initialize distance matrix
     for i := 0; i < n; i++ {
         dist[i] = make([]int, n)
@@ -137,12 +137,12 @@ func (g *Graph) FloydWarshall() [][]int {
             }
         }
     }
-    
+
     // Set initial distances
     for _, edge := range g.edges {
         dist[edge.From.ID][edge.To.ID] = edge.Weight
     }
-    
+
     // Floyd-Warshall algorithm
     for k := 0; k < n; k++ {
         for i := 0; i < n; i++ {
@@ -155,7 +155,7 @@ func (g *Graph) FloydWarshall() [][]int {
             }
         }
     }
-    
+
     return dist
 }
 
@@ -163,41 +163,41 @@ func (g *Graph) FloydWarshall() [][]int {
 func (g *Graph) AStar(startID, goalID int, heuristic func(int, int) int) []int {
     openSet := make(PriorityQueue, 0)
     heap.Init(&openSet)
-    
+
     gScore := make(map[int]int)
     fScore := make(map[int]int)
     cameFrom := make(map[int]*Vertex)
-    
+
     // Initialize scores
     for id := range g.vertices {
         gScore[id] = math.MaxInt32
         fScore[id] = math.MaxInt32
     }
-    
+
     gScore[startID] = 0
     fScore[startID] = heuristic(startID, goalID)
-    
+
     heap.Push(&openSet, &Item{
         vertex:   g.vertices[startID],
         priority: fScore[startID],
     })
-    
+
     for openSet.Len() > 0 {
         current := heap.Pop(&openSet).(*Item).vertex
-        
+
         if current.ID == goalID {
             return g.reconstructPath(cameFrom, current.ID)
         }
-        
+
         for _, edge := range current.Adjacent {
             neighbor := edge.To
             tentativeGScore := gScore[current.ID] + edge.Weight
-            
+
             if tentativeGScore < gScore[neighbor.ID] {
                 cameFrom[neighbor.ID] = current
                 gScore[neighbor.ID] = tentativeGScore
                 fScore[neighbor.ID] = gScore[neighbor.ID] + heuristic(neighbor.ID, goalID)
-                
+
                 heap.Push(&openSet, &Item{
                     vertex:   neighbor,
                     priority: fScore[neighbor.ID],
@@ -205,13 +205,13 @@ func (g *Graph) AStar(startID, goalID int, heuristic func(int, int) int) []int {
             }
         }
     }
-    
+
     return nil // No path found
 }
 
 func (g *Graph) reconstructPath(cameFrom map[int]*Vertex, currentID int) []int {
     path := []int{currentID}
-    
+
     for {
         if parent, exists := cameFrom[currentID]; exists {
             path = append([]int{parent.ID}, path...)
@@ -220,7 +220,7 @@ func (g *Graph) reconstructPath(cameFrom map[int]*Vertex, currentID int) []int {
             break
         }
     }
-    
+
     return path
 }
 
@@ -270,7 +270,7 @@ func main() {
         edges:    make([]*Edge, 0),
         directed: true,
     }
-    
+
     // Add vertices
     for i := 0; i < 5; i++ {
         graph.vertices[i] = &Vertex{
@@ -278,7 +278,7 @@ func main() {
             Adjacent: make([]*Edge, 0),
         }
     }
-    
+
     // Add edges
     edges := []struct {
         from, to, weight int
@@ -291,7 +291,7 @@ func main() {
         {2, 4, 10},
         {3, 4, 2},
     }
-    
+
     for _, e := range edges {
         edge := &Edge{
             From:   graph.vertices[e.from],
@@ -301,11 +301,11 @@ func main() {
         graph.edges = append(graph.edges, edge)
         graph.vertices[e.from].Adjacent = append(graph.vertices[e.from].Adjacent, edge)
     }
-    
+
     // Run Dijkstra's algorithm
     distances := graph.Dijkstra(0)
     fmt.Printf("Dijkstra distances: %v\n", distances)
-    
+
     // Run Bellman-Ford algorithm
     bfDistances, hasNegativeCycle := graph.BellmanFord(0)
     if hasNegativeCycle {
@@ -313,7 +313,7 @@ func main() {
     } else {
         fmt.Println("Negative cycle detected")
     }
-    
+
     // Run Floyd-Warshall algorithm
     fwDistances := graph.FloydWarshall()
     fmt.Printf("Floyd-Warshall distances: %v\n", fwDistances)
@@ -397,7 +397,7 @@ func (t *Trie) GetAllWordsWithPrefix(prefix string) []string {
         }
         node = node.children[char]
     }
-    
+
     var words []string
     t.dfs(node, prefix, &words)
     return words
@@ -407,7 +407,7 @@ func (t *Trie) dfs(node *TrieNode, current string, words *[]string) {
     if node.isEnd {
         *words = append(*words, current)
     }
-    
+
     for char, child := range node.children {
         t.dfs(child, current+string(char), words)
     }
@@ -426,13 +426,13 @@ func NewSegmentTree(data []int) *SegmentTree {
     for size < n {
         size <<= 1
     }
-    
+
     st := &SegmentTree{
         tree: make([]int, 2*size),
         size: size,
         data: data,
     }
-    
+
     st.build(0, 0, size-1)
     return st
 }
@@ -444,7 +444,7 @@ func (st *SegmentTree) build(node, start, end int) {
         }
         return
     }
-    
+
     mid := (start + end) / 2
     st.build(2*node+1, start, mid)
     st.build(2*node+2, mid+1, end)
@@ -460,7 +460,7 @@ func (st *SegmentTree) update(node, start, end, index, value int) {
         st.tree[node] = value
         return
     }
-    
+
     mid := (start + end) / 2
     if index <= mid {
         st.update(2*node+1, start, mid, index, value)
@@ -478,11 +478,11 @@ func (st *SegmentTree) query(node, start, end, left, right int) int {
     if right < start || left > end {
         return 0
     }
-    
+
     if left <= start && end <= right {
         return st.tree[node]
     }
-    
+
     mid := (start + end) / 2
     leftSum := st.query(2*node+1, start, mid, left, right)
     rightSum := st.query(2*node+2, mid+1, end, left, right)
@@ -535,13 +535,13 @@ func NewDSU(n int) *DSU {
     parent := make([]int, n)
     rank := make([]int, n)
     size := make([]int, n)
-    
+
     for i := 0; i < n; i++ {
         parent[i] = i
         rank[i] = 0
         size[i] = 1
     }
-    
+
     return &DSU{
         parent: parent,
         rank:   rank,
@@ -559,11 +559,11 @@ func (dsu *DSU) Find(x int) int {
 func (dsu *DSU) Union(x, y int) {
     rootX := dsu.Find(x)
     rootY := dsu.Find(y)
-    
+
     if rootX == rootY {
         return
     }
-    
+
     if dsu.rank[rootX] < dsu.rank[rootY] {
         dsu.parent[rootX] = rootY
         dsu.size[rootY] += dsu.size[rootX]
@@ -592,40 +592,40 @@ func main() {
     trie.Insert("hello", "world")
     trie.Insert("hi", "there")
     trie.Insert("help", "me")
-    
+
     if data, found := trie.Search("hello"); found {
         fmt.Printf("Found: %v\n", data)
     }
-    
+
     words := trie.GetAllWordsWithPrefix("he")
     fmt.Printf("Words with prefix 'he': %v\n", words)
-    
+
     // Test Segment Tree
     data := []int{1, 3, 5, 7, 9, 11}
     st := NewSegmentTree(data)
-    
+
     sum := st.Query(1, 3)
     fmt.Printf("Sum from index 1 to 3: %d\n", sum)
-    
+
     st.Update(1, 10)
     sum = st.Query(1, 3)
     fmt.Printf("Sum after update: %d\n", sum)
-    
+
     // Test Fenwick Tree
     ft := NewFenwickTree(6)
     for i, val := range data {
         ft.Update(i, val)
     }
-    
+
     sum = ft.RangeQuery(1, 3)
     fmt.Printf("Fenwick Tree sum from 1 to 3: %d\n", sum)
-    
+
     // Test DSU
     dsu := NewDSU(5)
     dsu.Union(0, 1)
     dsu.Union(2, 3)
     dsu.Union(1, 2)
-    
+
     fmt.Printf("Are 0 and 3 connected? %v\n", dsu.Connected(0, 3))
     fmt.Printf("Size of component containing 0: %d\n", dsu.GetSize(0))
 }
@@ -652,7 +652,7 @@ func LCS(s1, s2 string) int {
     for i := range dp {
         dp[i] = make([]int, n+1)
     }
-    
+
     for i := 1; i <= m; i++ {
         for j := 1; j <= n; j++ {
             if s1[i-1] == s2[j-1] {
@@ -662,7 +662,7 @@ func LCS(s1, s2 string) int {
             }
         }
     }
-    
+
     return dp[m][n]
 }
 
@@ -672,11 +672,11 @@ func LIS(nums []int) int {
     if n == 0 {
         return 0
     }
-    
+
     dp := make([]int, n)
     dp[0] = 1
     maxLen := 1
-    
+
     for i := 1; i < n; i++ {
         dp[i] = 1
         for j := 0; j < i; j++ {
@@ -686,7 +686,7 @@ func LIS(nums []int) int {
         }
         maxLen = max(maxLen, dp[i])
     }
-    
+
     return maxLen
 }
 
@@ -697,7 +697,7 @@ func EditDistance(s1, s2 string) int {
     for i := range dp {
         dp[i] = make([]int, n+1)
     }
-    
+
     // Initialize base cases
     for i := 0; i <= m; i++ {
         dp[i][0] = i
@@ -705,7 +705,7 @@ func EditDistance(s1, s2 string) int {
     for j := 0; j <= n; j++ {
         dp[0][j] = j
     }
-    
+
     for i := 1; i <= m; i++ {
         for j := 1; j <= n; j++ {
             if s1[i-1] == s2[j-1] {
@@ -719,7 +719,7 @@ func EditDistance(s1, s2 string) int {
             }
         }
     }
-    
+
     return dp[m][n]
 }
 
@@ -730,7 +730,7 @@ func Knapsack(weights, values []int, capacity int) int {
     for i := range dp {
         dp[i] = make([]int, capacity+1)
     }
-    
+
     for i := 1; i <= n; i++ {
         for w := 1; w <= capacity; w++ {
             if weights[i-1] <= w {
@@ -743,7 +743,7 @@ func Knapsack(weights, values []int, capacity int) int {
             }
         }
     }
-    
+
     return dp[n][capacity]
 }
 
@@ -754,7 +754,7 @@ func CoinChange(coins []int, amount int) int {
         dp[i] = math.MaxInt32
     }
     dp[0] = 0
-    
+
     for i := 1; i <= amount; i++ {
         for _, coin := range coins {
             if coin <= i {
@@ -762,7 +762,7 @@ func CoinChange(coins []int, amount int) int {
             }
         }
     }
-    
+
     if dp[amount] == math.MaxInt32 {
         return -1
     }
@@ -776,12 +776,12 @@ func LongestPalindromicSubsequence(s string) int {
     for i := range dp {
         dp[i] = make([]int, n)
     }
-    
+
     // Single characters are palindromes of length 1
     for i := 0; i < n; i++ {
         dp[i][i] = 1
     }
-    
+
     // Check for palindromes of length 2
     for i := 0; i < n-1; i++ {
         if s[i] == s[i+1] {
@@ -790,7 +790,7 @@ func LongestPalindromicSubsequence(s string) int {
             dp[i][i+1] = 1
         }
     }
-    
+
     // Check for palindromes of length 3 and more
     for length := 3; length <= n; length++ {
         for i := 0; i < n-length+1; i++ {
@@ -802,7 +802,7 @@ func LongestPalindromicSubsequence(s string) int {
             }
         }
     }
-    
+
     return dp[0][n-1]
 }
 
@@ -813,12 +813,12 @@ func MatrixChainMultiplication(dims []int) int {
     for i := range dp {
         dp[i] = make([]int, n)
     }
-    
+
     for length := 2; length <= n; length++ {
         for i := 0; i < n-length+1; i++ {
             j := i + length - 1
             dp[i][j] = math.MaxInt32
-            
+
             for k := i; k < j; k++ {
                 cost := dp[i][k] + dp[k+1][j] + dims[i]*dims[k+1]*dims[j+1]
                 if cost < dp[i][j] {
@@ -827,7 +827,7 @@ func MatrixChainMultiplication(dims []int) int {
             }
         }
     }
-    
+
     return dp[0][n-1]
 }
 
@@ -852,35 +852,35 @@ func main() {
     s1, s2 := "ABCDGH", "AEDFHR"
     lcs := LCS(s1, s2)
     fmt.Printf("LCS of '%s' and '%s': %d\n", s1, s2, lcs)
-    
+
     // Test LIS
     nums := []int{10, 9, 2, 5, 3, 7, 101, 18}
     lis := LIS(nums)
     fmt.Printf("LIS of %v: %d\n", nums, lis)
-    
+
     // Test Edit Distance
     s1, s2 = "kitten", "sitting"
     editDist := EditDistance(s1, s2)
     fmt.Printf("Edit distance between '%s' and '%s': %d\n", s1, s2, editDist)
-    
+
     // Test Knapsack
     weights := []int{1, 3, 4, 5}
     values := []int{1, 4, 5, 7}
     capacity := 7
     knapsack := Knapsack(weights, values, capacity)
     fmt.Printf("Knapsack value: %d\n", knapsack)
-    
+
     // Test Coin Change
     coins := []int{1, 3, 4}
     amount := 6
     coinChange := CoinChange(coins, amount)
     fmt.Printf("Minimum coins needed: %d\n", coinChange)
-    
+
     // Test Longest Palindromic Subsequence
     s := "bbbab"
     lps := LongestPalindromicSubsequence(s)
     fmt.Printf("Longest palindromic subsequence of '%s': %d\n", s, lps)
-    
+
     // Test Matrix Chain Multiplication
     dims := []int{1, 2, 3, 4, 5}
     mcm := MatrixChainMultiplication(dims)
@@ -893,24 +893,28 @@ func main() {
 ## 🎯 **Key Takeaways from Advanced Algorithms and Data Structures**
 
 ### **1. Advanced Graph Algorithms**
+
 - **Shortest Path**: Dijkstra, Bellman-Ford, Floyd-Warshall
-- **Pathfinding**: A* algorithm with heuristics
+- **Pathfinding**: A\* algorithm with heuristics
 - **Priority Queues**: Efficient implementation for graph algorithms
 - **Negative Cycles**: Detection and handling
 
 ### **2. Advanced Data Structures**
+
 - **Trie**: Prefix tree for string operations
 - **Segment Tree**: Range queries and updates
 - **Fenwick Tree**: Efficient prefix sums
 - **Union-Find**: Disjoint set operations
 
 ### **3. Dynamic Programming**
+
 - **String Algorithms**: LCS, Edit Distance, LPS
 - **Optimization**: Knapsack, Coin Change
 - **Matrix Operations**: Chain multiplication
 - **Pattern Recognition**: Common DP patterns
 
 ### **4. Production Considerations**
+
 - **Time Complexity**: Understanding Big O notation
 - **Space Complexity**: Memory optimization
 - **Edge Cases**: Handling boundary conditions
