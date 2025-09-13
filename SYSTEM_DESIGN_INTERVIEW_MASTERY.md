@@ -264,7 +264,7 @@ type Improvement struct {
 // Step 1: Clarify Requirements
 func (sdi *SystemDesignInterview) ClarifyRequirements() {
     fmt.Println("=== STEP 1: CLARIFY REQUIREMENTS ===")
-    
+
     // Ask clarifying questions
     questions := []string{
         "What is the expected scale?",
@@ -274,13 +274,13 @@ func (sdi *SystemDesignInterview) ClarifyRequirements() {
         "What are the security requirements?",
         "What are the constraints?",
     }
-    
+
     for _, question := range questions {
         fmt.Printf("Q: %s\n", question)
         // In real interview, wait for answer
         time.Sleep(100 * time.Millisecond)
     }
-    
+
     // Set example requirements
     sdi.Requirements = &Requirements{
         Functional: []string{
@@ -312,14 +312,14 @@ func (sdi *SystemDesignInterview) ClarifyRequirements() {
             AutoScale:  true,
         },
     }
-    
+
     fmt.Printf("Requirements: %+v\n", sdi.Requirements)
 }
 
 // Step 2: High-Level Design
 func (sdi *SystemDesignInterview) HighLevelDesign() {
     fmt.Println("\n=== STEP 2: HIGH-LEVEL DESIGN ===")
-    
+
     // Create high-level architecture
     sdi.Design = &SystemDesign{
         Architecture: &Architecture{
@@ -371,14 +371,14 @@ func (sdi *SystemDesignInterview) HighLevelDesign() {
             },
         },
     }
-    
+
     fmt.Printf("High-Level Design: %+v\n", sdi.Design)
 }
 
 // Step 3: Detailed Design
 func (sdi *SystemDesignInterview) DetailedDesign() {
     fmt.Println("\n=== STEP 3: DETAILED DESIGN ===")
-    
+
     // Design APIs
     sdi.Design.APIs = []*API{
         {
@@ -398,7 +398,7 @@ func (sdi *SystemDesignInterview) DetailedDesign() {
             RateLimit: 1000,
         },
     }
-    
+
     // Design Database
     sdi.Design.Database = &DatabaseDesign{
         Type: "PostgreSQL",
@@ -444,7 +444,7 @@ func (sdi *SystemDesignInterview) DetailedDesign() {
             Consistency: "Eventual",
         },
     }
-    
+
     // Design Caching
     sdi.Design.Caching = &CachingStrategy{
         Levels: []*CacheLevel{
@@ -465,14 +465,14 @@ func (sdi *SystemDesignInterview) DetailedDesign() {
         TTL: 1 * time.Hour,
         Invalidation: "Write-through",
     }
-    
+
     fmt.Printf("Detailed Design: %+v\n", sdi.Design)
 }
 
 // Step 4: Scale and Optimize
 func (sdi *SystemDesignInterview) ScaleAndOptimize() {
     fmt.Println("\n=== STEP 4: SCALE AND OPTIMIZE ===")
-    
+
     // Discuss scaling strategies
     scalingStrategies := []string{
         "Horizontal scaling with load balancers",
@@ -482,11 +482,11 @@ func (sdi *SystemDesignInterview) ScaleAndOptimize() {
         "Message queues for async processing",
         "Microservices for independent scaling",
     }
-    
+
     for _, strategy := range scalingStrategies {
         fmt.Printf("Scaling Strategy: %s\n", strategy)
     }
-    
+
     // Discuss optimizations
     optimizations := []string{
         "Database query optimization",
@@ -496,7 +496,7 @@ func (sdi *SystemDesignInterview) ScaleAndOptimize() {
         "Precomputation and materialized views",
         "Monitoring and alerting",
     }
-    
+
     for _, optimization := range optimizations {
         fmt.Printf("Optimization: %s\n", optimization)
     }
@@ -506,12 +506,12 @@ func (sdi *SystemDesignInterview) ScaleAndOptimize() {
 func (sdi *SystemDesignInterview) RunInterview() {
     fmt.Println("🎯 SYSTEM DESIGN INTERVIEW MASTERY")
     fmt.Println("=====================================")
-    
+
     sdi.ClarifyRequirements()
     sdi.HighLevelDesign()
     sdi.DetailedDesign()
     sdi.ScaleAndOptimize()
-    
+
     fmt.Println("\n✅ Interview completed successfully!")
 }
 
@@ -529,7 +529,7 @@ func main() {
             },
         },
     }
-    
+
     interview.RunInterview()
 }
 ```
@@ -561,7 +561,7 @@ type URLShortenerService struct {
 func (us *URLShortenerService) ShortenURL(longURL string) (string, error) {
     // Generate short code
     shortCode := us.generateShortCode()
-    
+
     // Store in database
     shortener := &URLShortener{
         shortURL:   shortCode,
@@ -570,14 +570,14 @@ func (us *URLShortenerService) ShortenURL(longURL string) (string, error) {
         expiresAt:  time.Now().Add(365 * 24 * time.Hour),
         clickCount: 0,
     }
-    
+
     if err := us.db.Store(shortener); err != nil {
         return "", err
     }
-    
+
     // Cache for fast access
     us.cache.Set(shortCode, longURL, 24*time.Hour)
-    
+
     return shortCode, nil
 }
 
@@ -587,19 +587,19 @@ func (us *URLShortenerService) Redirect(shortCode string) (string, error) {
         us.analytics.TrackClick(shortCode)
         return longURL.(string), nil
     }
-    
+
     // Get from database
     shortener, err := us.db.Get(shortCode)
     if err != nil {
         return "", err
     }
-    
+
     // Cache for future requests
     us.cache.Set(shortCode, shortener.longURL, 24*time.Hour)
-    
+
     // Track click
     us.analytics.TrackClick(shortCode)
-    
+
     return shortener.longURL, nil
 }
 
@@ -612,12 +612,12 @@ func (us *URLShortenerService) generateShortCode() string {
 func (us *URLShortenerService) encodeBase62(num int64) string {
     chars := "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     result := ""
-    
+
     for num > 0 {
         result = string(chars[num%62]) + result
         num /= 62
     }
-    
+
     return result
 }
 ```
@@ -671,12 +671,12 @@ func (cs *ChatSystem) SendMessage(roomID, userID, content string) error {
         Timestamp: time.Now(),
         Status:    "sent",
     }
-    
+
     // Store in database
     if err := cs.db.StoreMessage(message); err != nil {
         return err
     }
-    
+
     // Send to room members
     room := cs.rooms[roomID]
     for _, memberID := range room.Members {
@@ -684,7 +684,7 @@ func (cs *ChatSystem) SendMessage(roomID, userID, content string) error {
             cs.websocket.SendToUser(memberID, message)
         }
     }
-    
+
     return nil
 }
 
@@ -693,16 +693,16 @@ func (cs *ChatSystem) GetMessages(roomID string, limit int) ([]*Message, error) 
     if messages, found := cs.cache.Get(roomID); found {
         return messages.([]*Message), nil
     }
-    
+
     // Get from database
     messages, err := cs.db.GetMessages(roomID, limit)
     if err != nil {
         return nil, err
     }
-    
+
     // Cache for future requests
     cs.cache.Set(roomID, messages, 5*time.Minute)
-    
+
     return messages, nil
 }
 ```
@@ -725,7 +725,7 @@ type InterviewCommunication struct {
 
 func (ic *InterviewCommunication) CommunicateEffectively() {
     fmt.Println("=== COMMUNICATION BEST PRACTICES ===")
-    
+
     practices := []string{
         "Think out loud - explain your thought process",
         "Ask clarifying questions early",
@@ -736,7 +736,7 @@ func (ic *InterviewCommunication) CommunicateEffectively() {
         "Estimate numbers and do back-of-envelope calculations",
         "Consider edge cases and failure scenarios",
     }
-    
+
     for i, practice := range practices {
         fmt.Printf("%d. %s\n", i+1, practice)
     }
@@ -744,7 +744,7 @@ func (ic *InterviewCommunication) CommunicateEffectively() {
 
 func (ic *InterviewCommunication) HandleQuestions() {
     fmt.Println("\n=== HANDLING QUESTIONS ===")
-    
+
     questionTypes := map[string][]string{
         "Clarification": {
             "What is the expected scale?",
@@ -767,7 +767,7 @@ func (ic *InterviewCommunication) HandleQuestions() {
             "How would you improve performance?",
         },
     }
-    
+
     for category, questions := range questionTypes {
         fmt.Printf("\n%s Questions:\n", category)
         for _, question := range questions {
@@ -782,24 +782,28 @@ func (ic *InterviewCommunication) HandleQuestions() {
 ## 🎯 **Key Takeaways from System Design Interview Mastery**
 
 ### **1. Interview Structure**
+
 - **4-Step Process**: Clarify, Design, Detail, Scale
 - **Communication**: Think out loud, ask questions, discuss tradeoffs
 - **Visualization**: Use diagrams and visual aids
 - **Estimation**: Do back-of-envelope calculations
 
 ### **2. Common Questions**
+
 - **URL Shortener**: Hash functions, database design, caching
 - **Chat System**: WebSockets, message queues, real-time updates
 - **Social Media**: Timeline generation, feed algorithms, scaling
 - **E-commerce**: Inventory management, payment processing, recommendations
 
 ### **3. Design Patterns**
+
 - **Microservices**: Service decomposition and communication
 - **Load Balancing**: Traffic distribution and health checks
 - **Caching**: Multi-level caching strategies
 - **Database**: Sharding, replication, and consistency
 
 ### **4. Production Considerations**
+
 - **Scalability**: Horizontal and vertical scaling strategies
 - **Availability**: Fault tolerance and disaster recovery
 - **Performance**: Latency optimization and throughput
