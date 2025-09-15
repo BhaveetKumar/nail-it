@@ -12,6 +12,12 @@ This master index provides a comprehensive mapping of all topics, concepts, and 
 - **DSA-Golang**: `01_fundamentals/algorithms/` (230+ files)
 - **Advanced Algorithms**: `01_fundamentals/algorithms/ADVANCED_ALGORITHMS_AND_DATA_STRUCTURES.md`
 - **Advanced Algorithms Comprehensive**: `01_fundamentals/advanced_algorithms/advanced_algorithms_comprehensive_guide.md`
+
+### Blockchain & Cryptocurrency
+- **Comprehensive Guide**: `01_fundamentals/blockchain/blockchain_cryptocurrency_comprehensive_guide.md`
+
+### Edge Computing & IoT
+- **Comprehensive Guide**: `01_fundamentals/edge_computing/edge_computing_iot_comprehensive_guide.md`
 - **Go Programming**: `01_fundamentals/programming/GOLANG_IMPLEMENTATION_GUIDE.md`
 - **Node.js**: `01_fundamentals/programming/DSA-NodeJS/` (26 files)
 - **Node.js Guides**: `01_fundamentals/programming/Technical-Fundamentals/` (NodeJS guides)
@@ -77,6 +83,15 @@ This master index provides a comprehensive mapping of all topics, concepts, and 
 ### Caching
 - **Caching Strategies**: `03_backend_engineering/caching/redis_patterns.md`
 
+### Scalability
+- **Advanced Scalability Patterns**: `03_backend_engineering/scalability/advanced_scalability_patterns.md`
+
+### API Gateway & Communication
+- **API Gateway & Microservices**: `03_backend_engineering/api_gateway/api_gateway_microservices_communication.md`
+
+### Real-time Systems
+- **Real-time Systems & Streaming**: `02_system_design/realtime/realtime_systems_streaming.md`
+
 ## 📁 **04_devops_infrastructure/ - DevOps & Infrastructure**
 
 ### Cloud Platforms
@@ -101,6 +116,7 @@ This master index provides a comprehensive mapping of all topics, concepts, and 
 
 ### Monitoring & Observability
 - **Comprehensive Guide**: `04_devops_infrastructure/monitoring/monitoring_observability_comprehensive_guide.md`
+- **Advanced Monitoring**: `04_devops_infrastructure/monitoring/advanced/advanced_monitoring_observability.md`
 - **APM Implementation**: `04_devops_infrastructure/monitoring/Observability/apm_implementation.md`
 - **Prometheus & Grafana**: `04_devops_infrastructure/monitoring/Observability/MonitoringPrometheusGrafana.md`
 - **Logging**: `04_devops_infrastructure/monitoring/Observability/Logging.md`
@@ -109,6 +125,7 @@ This master index provides a comprehensive mapping of all topics, concepts, and 
 
 ### Security
 - **Comprehensive Guide**: `04_devops_infrastructure/security/security_comprehensive_guide.md`
+- **Advanced Security & Cryptography**: `04_devops_infrastructure/security/advanced/advanced_security_cryptography.md`
 - **Secure APIs**: `04_devops_infrastructure/security/Security/SecureAPIs.md`
 - **Secrets Management**: `04_devops_infrastructure/security/Security/SecretsManagement.md`
 - **Zero Trust Architecture**: `04_devops_infrastructure/security/Security/ZeroTrustArchitecture.md`
@@ -123,6 +140,7 @@ This master index provides a comprehensive mapping of all topics, concepts, and 
 
 ### Machine Learning
 - **ML Fundamentals**: `05_ai_ml/machine_learning/` (4 files)
+- **ML for Backend Engineers**: `05_ai_ml/backend_ml/machine_learning_for_backend_engineers.md`
 - **Linear Regression**: `05_ai_ml/machine_learning/linear_regression.md`
 - **Decision Trees**: `05_ai_ml/machine_learning/decision_trees.md`
 - **Random Forest**: `05_ai_ml/machine_learning/random_forest.md`
@@ -177,6 +195,7 @@ This master index provides a comprehensive mapping of all topics, concepts, and 
 
 ### Industry-Specific
 - **Fintech Comprehensive**: `07_company_specific/fintech/fintech_comprehensive_guide.md`
+- **Advanced Fintech & Payment Systems**: `07_company_specific/fintech/advanced/advanced_fintech_payment_systems.md`
 
 ## 📁 **08_interview_prep/ - Interview Preparation Materials**
 

@@ -949,3 +949,4 @@ A: Use numerical integration when the function is too complex for analytical int
 ---
 
 **Next**: [Statistics & Probability](./statistics-probability.md) | **Previous**: [Linear Algebra](./linear-algebra.md) | **Up**: [Phase 0](../README.md)
+
