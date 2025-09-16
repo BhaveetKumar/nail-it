@@ -77,7 +77,7 @@ cd ../04_devops_infrastructure/  # DevOps
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE/) file for details.
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
