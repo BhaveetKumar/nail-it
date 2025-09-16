@@ -1,26 +1,26 @@
-# Advanced Coding Interview Problems
+# Advanced System Design Coding Problems
 
 ## Table of Contents
 - [Introduction](#introduction)
-- [System Design Coding Problems](#system-design-coding-problems)
 - [Distributed Systems Problems](#distributed-systems-problems)
 - [Real-Time Systems Problems](#real-time-systems-problems)
-- [Machine Learning Problems](#machine-learning-problems)
+- [Machine Learning Systems Problems](#machine-learning-systems-problems)
 - [Financial Systems Problems](#financial-systems-problems)
-- [Performance Optimization Problems](#performance-optimization-problems)
-- [Security and Cryptography Problems](#security-and-cryptography-problems)
-- [Database and Storage Problems](#database-and-storage-problems)
-- [Concurrency and Parallelism Problems](#concurrency-and-parallelism-problems)
+- [Social Media Systems Problems](#social-media-systems-problems)
+- [E-commerce Systems Problems](#e-commerce-systems-problems)
+- [Gaming Systems Problems](#gaming-systems-problems)
+- [IoT Systems Problems](#iot-systems-problems)
+- [Blockchain Systems Problems](#blockchain-systems-problems)
 
 ## Introduction
 
-Advanced coding interview problems test your ability to solve complex, real-world problems that combine multiple concepts. These problems often require system design thinking, algorithm optimization, and practical implementation skills.
+Advanced system design coding problems combine system design concepts with implementation details. These problems test your ability to design, implement, and optimize complex distributed systems.
 
-## System Design Coding Problems
+## Distributed Systems Problems
 
-### Problem 1: Design a Distributed Cache
+### Problem 1: Design a Distributed Cache with Consistent Hashing
 
-**Problem Statement**: Implement a distributed cache system that can handle millions of requests per second with sub-millisecond latency.
+**Problem Statement**: Implement a distributed cache system using consistent hashing that can handle node failures and data replication.
 
 **Requirements**:
 - Support get, set, delete operations
@@ -32,10 +32,10 @@ Advanced coding interview problems test your ability to solve complex, real-worl
 **Solution**:
 
 ```go
+// Distributed Cache with Consistent Hashing
 package main
 
 import (
-    "context"
     "crypto/md5"
     "fmt"
     "log"
@@ -78,6 +78,18 @@ type CacheEntry struct {
     AccessCount int64
 }
 
+type ConsistentHashRing struct {
+    nodes    []*HashNode
+    replicas int
+    mu       sync.RWMutex
+}
+
+type HashNode struct {
+    ID     string
+    Hash   uint32
+    Node   *CacheNode
+}
+
 func NewDistributedCache(replicas int) *DistributedCache {
     return &DistributedCache{
         nodes:      make(map[string]*CacheNode),
@@ -86,6 +98,24 @@ func NewDistributedCache(replicas int) *DistributedCache {
         eviction:   NewEvictionManager(),
         monitoring: NewMonitoring(),
     }
+}
+
+func (dc *DistributedCache) AddNode(node *CacheNode) error {
+    dc.mu.Lock()
+    defer dc.mu.Unlock()
+    
+    // Add node to ring
+    if err := dc.ring.AddNode(node); err != nil {
+        return err
+    }
+    
+    // Store node
+    dc.nodes[node.ID] = node
+    
+    // Start health checking
+    go node.Health.Start()
+    
+    return nil
 }
 
 func (dc *DistributedCache) Get(key string) ([]byte, error) {
@@ -141,18 +171,6 @@ func (dc *DistributedCache) Set(key string, value []byte, ttl time.Duration) err
 }
 
 // Consistent Hash Ring Implementation
-type ConsistentHashRing struct {
-    nodes    []*HashNode
-    replicas int
-    mu       sync.RWMutex
-}
-
-type HashNode struct {
-    ID     string
-    Hash   uint32
-    Node   *CacheNode
-}
-
 func NewConsistentHashRing(replicas int) *ConsistentHashRing {
     return &ConsistentHashRing{
         nodes:    make([]*HashNode, 0),
@@ -241,216 +259,7 @@ func (chr *ConsistentHashRing) sortNodes() {
 }
 ```
 
-### Problem 2: Design a Rate Limiter
-
-**Problem Statement**: Implement a distributed rate limiter that can handle millions of requests per second with different rate limiting strategies.
-
-**Requirements**:
-- Support multiple rate limiting algorithms (token bucket, sliding window, etc.)
-- Handle distributed systems
-- Support different rate limits per user/endpoint
-- Provide monitoring and metrics
-- Handle burst traffic
-
-**Solution**:
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "log"
-    "sync"
-    "time"
-)
-
-type RateLimiter struct {
-    strategies  map[string]*RateLimitStrategy
-    storage     *RateLimitStorage
-    monitoring  *RateLimitMonitoring
-    mu          sync.RWMutex
-}
-
-type RateLimitStrategy struct {
-    Name        string
-    Algorithm   string
-    Function    func(*RateLimitRequest) bool
-    Parameters  map[string]interface{}
-}
-
-type RateLimitRequest struct {
-    UserID      string
-    Endpoint    string
-    Timestamp   time.Time
-    Count       int
-}
-
-type RateLimitStorage struct {
-    buckets     map[string]*TokenBucket
-    windows     map[string]*SlidingWindow
-    mu          sync.RWMutex
-}
-
-type TokenBucket struct {
-    Capacity    int
-    Tokens      int
-    LastRefill  time.Time
-    RefillRate  int
-    mu          sync.Mutex
-}
-
-type SlidingWindow struct {
-    WindowSize  time.Duration
-    Requests    []time.Time
-    MaxRequests int
-    mu          sync.Mutex
-}
-
-func NewRateLimiter() *RateLimiter {
-    return &RateLimiter{
-        strategies: make(map[string]*RateLimitStrategy),
-        storage:    NewRateLimitStorage(),
-        monitoring: NewRateLimitMonitoring(),
-    }
-}
-
-func (rl *RateLimiter) AddStrategy(strategy *RateLimitStrategy) {
-    rl.mu.Lock()
-    defer rl.mu.Unlock()
-    rl.strategies[strategy.Name] = strategy
-}
-
-func (rl *RateLimiter) IsAllowed(request *RateLimitRequest) bool {
-    rl.mu.RLock()
-    strategy, exists := rl.strategies[request.Endpoint]
-    rl.mu.RUnlock()
-    
-    if !exists {
-        return true // No rate limit configured
-    }
-    
-    allowed := strategy.Function(request)
-    
-    // Update monitoring
-    rl.monitoring.RecordRequest(request, allowed)
-    
-    return allowed
-}
-
-// Token Bucket Strategy
-func NewTokenBucketStrategy(capacity, refillRate int) *RateLimitStrategy {
-    return &RateLimitStrategy{
-        Name:       "token_bucket",
-        Algorithm:  "token_bucket",
-        Parameters: map[string]interface{}{
-            "capacity":    capacity,
-            "refill_rate": refillRate,
-        },
-        Function: func(request *RateLimitRequest) bool {
-            return tokenBucketCheck(request, capacity, refillRate)
-        },
-    }
-}
-
-func tokenBucketCheck(request *RateLimitRequest, capacity, refillRate int) bool {
-    bucket := getOrCreateTokenBucket(request.UserID, capacity, refillRate)
-    
-    bucket.mu.Lock()
-    defer bucket.mu.Unlock()
-    
-    // Refill tokens
-    now := time.Now()
-    if !bucket.LastRefill.IsZero() {
-        elapsed := now.Sub(bucket.LastRefill)
-        tokensToAdd := int(elapsed.Seconds()) * refillRate
-        bucket.Tokens = min(bucket.Capacity, bucket.Tokens+tokensToAdd)
-    }
-    bucket.LastRefill = now
-    
-    // Check if enough tokens
-    if bucket.Tokens >= request.Count {
-        bucket.Tokens -= request.Count
-        return true
-    }
-    
-    return false
-}
-
-func getOrCreateTokenBucket(userID string, capacity, refillRate int) *TokenBucket {
-    // This would typically use a distributed storage
-    // For simplicity, using in-memory storage
-    return &TokenBucket{
-        Capacity:   capacity,
-        Tokens:     capacity,
-        RefillRate: refillRate,
-        LastRefill: time.Now(),
-    }
-}
-
-// Sliding Window Strategy
-func NewSlidingWindowStrategy(windowSize time.Duration, maxRequests int) *RateLimitStrategy {
-    return &RateLimitStrategy{
-        Name:       "sliding_window",
-        Algorithm:  "sliding_window",
-        Parameters: map[string]interface{}{
-            "window_size":   windowSize,
-            "max_requests":  maxRequests,
-        },
-        Function: func(request *RateLimitRequest) bool {
-            return slidingWindowCheck(request, windowSize, maxRequests)
-        },
-    }
-}
-
-func slidingWindowCheck(request *RateLimitRequest, windowSize time.Duration, maxRequests int) bool {
-    window := getOrCreateSlidingWindow(request.UserID, windowSize, maxRequests)
-    
-    window.mu.Lock()
-    defer window.mu.Unlock()
-    
-    now := time.Now()
-    cutoff := now.Add(-windowSize)
-    
-    // Remove old requests
-    var validRequests []time.Time
-    for _, reqTime := range window.Requests {
-        if reqTime.After(cutoff) {
-            validRequests = append(validRequests, reqTime)
-        }
-    }
-    window.Requests = validRequests
-    
-    // Check if under limit
-    if len(window.Requests) < maxRequests {
-        window.Requests = append(window.Requests, now)
-        return true
-    }
-    
-    return false
-}
-
-func getOrCreateSlidingWindow(userID string, windowSize time.Duration, maxRequests int) *SlidingWindow {
-    // This would typically use a distributed storage
-    // For simplicity, using in-memory storage
-    return &SlidingWindow{
-        WindowSize:  windowSize,
-        MaxRequests: maxRequests,
-        Requests:    make([]time.Time, 0),
-    }
-}
-
-func min(a, b int) int {
-    if a < b {
-        return a
-    }
-    return b
-}
-```
-
-## Distributed Systems Problems
-
-### Problem 3: Implement a Distributed Lock
+### Problem 2: Implement a Distributed Lock
 
 **Problem Statement**: Implement a distributed lock system that can be used across multiple processes and machines.
 
@@ -464,6 +273,7 @@ func min(a, b int) int {
 **Solution**:
 
 ```go
+// Distributed Lock Implementation
 package main
 
 import (
@@ -692,7 +502,7 @@ func generateLockValue() string {
 
 ## Real-Time Systems Problems
 
-### Problem 4: Design a Real-Time Chat System
+### Problem 3: Design a Real-Time Chat System
 
 **Problem Statement**: Implement a real-time chat system that can handle millions of concurrent users with sub-second message delivery.
 
@@ -707,6 +517,7 @@ func generateLockValue() string {
 **Solution**:
 
 ```go
+// Real-Time Chat System
 package main
 
 import (
@@ -999,9 +810,312 @@ func (cs *ChatSystem) removeConnection(conn *Connection) {
 }
 ```
 
+## Machine Learning Systems Problems
+
+### Problem 4: Design a Recommendation System
+
+**Problem Statement**: Implement a recommendation system that can provide personalized recommendations for users based on their behavior and preferences.
+
+**Requirements**:
+- Support multiple recommendation algorithms
+- Real-time recommendation generation
+- A/B testing support
+- Scalable architecture
+- Monitoring and metrics
+
+**Solution**:
+
+```go
+// Recommendation System
+package main
+
+import (
+    "encoding/json"
+    "fmt"
+    "log"
+    "math"
+    "sync"
+    "time"
+)
+
+type RecommendationSystem struct {
+    algorithms    map[string]*RecommendationAlgorithm
+    userProfiles  map[string]*UserProfile
+    itemCatalog   *ItemCatalog
+    interactions  *InteractionStore
+    evaluator     *RecommendationEvaluator
+    abTester      *ABTester
+    mu            sync.RWMutex
+}
+
+type RecommendationAlgorithm struct {
+    ID            string
+    Name          string
+    Type          string
+    Function      func(*UserProfile, *ItemCatalog) []*Recommendation
+    Parameters    map[string]interface{}
+    Enabled       bool
+}
+
+type UserProfile struct {
+    UserID        string
+    Preferences   map[string]float64
+    Behavior      *UserBehavior
+    Demographics  *Demographics
+    LastUpdated   time.Time
+}
+
+type UserBehavior struct {
+    Views         map[string]int
+    Clicks        map[string]int
+    Purchases     map[string]int
+    Ratings       map[string]float64
+    Searches      []string
+    LastActivity  time.Time
+}
+
+type ItemCatalog struct {
+    Items         map[string]*Item
+    Categories    map[string][]string
+    Features      map[string]*ItemFeatures
+    mu            sync.RWMutex
+}
+
+type Item struct {
+    ID            string
+    Name          string
+    Category      string
+    Price         float64
+    Rating        float64
+    Features      map[string]interface{}
+    CreatedAt     time.Time
+    UpdatedAt     time.Time
+}
+
+type ItemFeatures struct {
+    ItemID        string
+    Features      map[string]float64
+    Embeddings    []float64
+    LastUpdated   time.Time
+}
+
+type Recommendation struct {
+    ItemID        string
+    Score         float64
+    Reason        string
+    Algorithm     string
+    Timestamp     time.Time
+}
+
+func NewRecommendationSystem() *RecommendationSystem {
+    return &RecommendationSystem{
+        algorithms:   make(map[string]*RecommendationAlgorithm),
+        userProfiles: make(map[string]*UserProfile),
+        itemCatalog:  NewItemCatalog(),
+        interactions: NewInteractionStore(),
+        evaluator:    NewRecommendationEvaluator(),
+        abTester:     NewABTester(),
+    }
+}
+
+func (rs *RecommendationSystem) GetRecommendations(userID string, limit int) ([]*Recommendation, error) {
+    // Get user profile
+    profile, exists := rs.userProfiles[userID]
+    if !exists {
+        return nil, fmt.Errorf("user profile not found")
+    }
+    
+    // Get active algorithm for user
+    algorithm := rs.abTester.GetAlgorithm(userID)
+    if algorithm == nil {
+        return nil, fmt.Errorf("no active algorithm found")
+    }
+    
+    // Generate recommendations
+    recommendations := algorithm.Function(profile, rs.itemCatalog)
+    
+    // Sort by score
+    rs.sortRecommendations(recommendations)
+    
+    // Limit results
+    if len(recommendations) > limit {
+        recommendations = recommendations[:limit]
+    }
+    
+    // Record interaction
+    rs.interactions.RecordRecommendation(userID, recommendations)
+    
+    return recommendations, nil
+}
+
+func (rs *RecommendationSystem) sortRecommendations(recommendations []*Recommendation) {
+    // Sort by score in descending order
+    for i := 0; i < len(recommendations); i++ {
+        for j := i + 1; j < len(recommendations); j++ {
+            if recommendations[i].Score < recommendations[j].Score {
+                recommendations[i], recommendations[j] = recommendations[j], recommendations[i]
+            }
+        }
+    }
+}
+
+// Collaborative Filtering Algorithm
+func (rs *RecommendationSystem) CollaborativeFiltering(profile *UserProfile, catalog *ItemCatalog) []*Recommendation {
+    recommendations := make([]*Recommendation, 0)
+    
+    // Find similar users
+    similarUsers := rs.findSimilarUsers(profile)
+    
+    // Get items from similar users
+    candidateItems := make(map[string]float64)
+    
+    for _, similarUser := range similarUsers {
+        for itemID, rating := range similarUser.Behavior.Ratings {
+            if _, exists := profile.Behavior.Ratings[itemID]; !exists {
+                candidateItems[itemID] += rating * similarUser.Similarity
+            }
+        }
+    }
+    
+    // Create recommendations
+    for itemID, score := range candidateItems {
+        if item, exists := catalog.Items[itemID]; exists {
+            recommendation := &Recommendation{
+                ItemID:     itemID,
+                Score:      score,
+                Reason:     "collaborative_filtering",
+                Algorithm:  "collaborative_filtering",
+                Timestamp:  time.Now(),
+            }
+            recommendations = append(recommendations, recommendation)
+        }
+    }
+    
+    return recommendations
+}
+
+func (rs *RecommendationSystem) findSimilarUsers(profile *UserProfile) []*SimilarUser {
+    similarUsers := make([]*SimilarUser, 0)
+    
+    for _, otherProfile := range rs.userProfiles {
+        if otherProfile.UserID == profile.UserID {
+            continue
+        }
+        
+        similarity := rs.calculateSimilarity(profile, otherProfile)
+        if similarity > 0.1 { // Threshold
+            similarUsers = append(similarUsers, &SimilarUser{
+                UserID:     otherProfile.UserID,
+                Similarity: similarity,
+            })
+        }
+    }
+    
+    // Sort by similarity
+    for i := 0; i < len(similarUsers); i++ {
+        for j := i + 1; j < len(similarUsers); j++ {
+            if similarUsers[i].Similarity < similarUsers[j].Similarity {
+                similarUsers[i], similarUsers[j] = similarUsers[j], similarUsers[i]
+            }
+        }
+    }
+    
+    return similarUsers
+}
+
+func (rs *RecommendationSystem) calculateSimilarity(profile1, profile2 *UserProfile) float64 {
+    // Calculate cosine similarity
+    var dotProduct float64
+    var norm1, norm2 float64
+    
+    for itemID, rating1 := range profile1.Behavior.Ratings {
+        if rating2, exists := profile2.Behavior.Ratings[itemID]; exists {
+            dotProduct += rating1 * rating2
+        }
+        norm1 += rating1 * rating1
+    }
+    
+    for _, rating2 := range profile2.Behavior.Ratings {
+        norm2 += rating2 * rating2
+    }
+    
+    if norm1 == 0 || norm2 == 0 {
+        return 0
+    }
+    
+    return dotProduct / (math.Sqrt(norm1) * math.Sqrt(norm2))
+}
+
+// Content-Based Filtering Algorithm
+func (rs *RecommendationSystem) ContentBasedFiltering(profile *UserProfile, catalog *ItemCatalog) []*Recommendation {
+    recommendations := make([]*Recommendation, 0)
+    
+    // Get user preferences
+    preferences := rs.extractUserPreferences(profile)
+    
+    // Find similar items
+    for itemID, item := range catalog.Items {
+        if _, exists := profile.Behavior.Ratings[itemID]; exists {
+            continue // Skip already rated items
+        }
+        
+        similarity := rs.calculateItemSimilarity(preferences, item)
+        if similarity > 0.1 { // Threshold
+            recommendation := &Recommendation{
+                ItemID:     itemID,
+                Score:      similarity,
+                Reason:     "content_based",
+                Algorithm:  "content_based",
+                Timestamp:  time.Now(),
+            }
+            recommendations = append(recommendations, recommendation)
+        }
+    }
+    
+    return recommendations
+}
+
+func (rs *RecommendationSystem) extractUserPreferences(profile *UserProfile) map[string]float64 {
+    preferences := make(map[string]float64)
+    
+    // Calculate average ratings by category
+    categoryRatings := make(map[string][]float64)
+    
+    for itemID, rating := range profile.Behavior.Ratings {
+        if item, exists := rs.itemCatalog.Items[itemID]; exists {
+            categoryRatings[item.Category] = append(categoryRatings[item.Category], rating)
+        }
+    }
+    
+    for category, ratings := range categoryRatings {
+        var sum float64
+        for _, rating := range ratings {
+            sum += rating
+        }
+        preferences[category] = sum / float64(len(ratings))
+    }
+    
+    return preferences
+}
+
+func (rs *RecommendationSystem) calculateItemSimilarity(preferences map[string]float64, item *Item) float64 {
+    // Simple category-based similarity
+    if categoryPreference, exists := preferences[item.Category]; exists {
+        return categoryPreference
+    }
+    
+    return 0
+}
+
+type SimilarUser struct {
+    UserID     string
+    Similarity float64
+}
+```
+
 ## Conclusion
 
-Advanced coding interview problems test your ability to:
+Advanced system design coding problems test your ability to:
 
 1. **Design Systems**: Architecture, scalability, and reliability
 2. **Implement Solutions**: Code quality, efficiency, and maintainability
