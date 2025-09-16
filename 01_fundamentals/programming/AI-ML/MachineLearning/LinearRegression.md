@@ -8,13 +8,13 @@ Linear Regression is a fundamental machine learning algorithm used for predictin
 
 ## 📚 **Table of Contents**
 
-1. [Mathematical Foundations](#mathematical-foundations)
-2. [JavaScript Implementation](#javascript-implementation)
-3. [Gradient Descent](#gradient-descent)
-4. [Regularization](#regularization)
-5. [Performance Metrics](#performance-metrics)
-6. [Real-world Applications](#real-world-applications)
-7. [API Integration](#api-integration)
+1. [Mathematical Foundations](#mathematical-foundations/)
+2. [JavaScript Implementation](#javascript-implementation/)
+3. [Gradient Descent](#gradient-descent/)
+4. [Regularization](#regularization/)
+5. [Performance Metrics](#performance-metrics/)
+6. [Real-world Applications](#real-world-applications/)
+7. [API Integration](#api-integration/)
 
 ---
 

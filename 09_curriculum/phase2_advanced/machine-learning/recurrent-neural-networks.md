@@ -6,12 +6,12 @@ This module covers recurrent neural networks including basic RNNs, Long Short-Te
 
 ## Table of Contents
 
-1. [Basic RNNs](#basic-rnns)
-2. [Long Short-Term Memory (LSTM)](#long-short-term-memory-lstm)
-3. [Gated Recurrent Units (GRUs)](#gated-recurrent-units-grus)
-4. [Applications](#applications)
-5. [Complexity Analysis](#complexity-analysis)
-6. [Follow-up Questions](#follow-up-questions)
+1. [Basic RNNs](#basic-rnns/)
+2. [Long Short-Term Memory (LSTM)](#long-short-term-memory-lstm/)
+3. [Gated Recurrent Units (GRUs)](#gated-recurrent-units-grus/)
+4. [Applications](#applications/)
+5. [Complexity Analysis](#complexity-analysis/)
+6. [Follow-up Questions](#follow-up-questions/)
 
 ## Basic RNNs
 
@@ -656,4 +656,4 @@ A: GRU combines the forget and input gates into a single update gate and merges 
 
 ---
 
-**Next**: [Transformers](./transformers.md) | **Previous**: [Machine Learning](../README.md) | **Up**: [Machine Learning](../README.md)
+**Next**: [Transformers](transformers.md/) | **Previous**: [Machine Learning](README.md/) | **Up**: [Machine Learning](README.md/)

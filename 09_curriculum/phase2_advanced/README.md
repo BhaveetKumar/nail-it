@@ -14,7 +14,7 @@ Phase 2 builds upon the intermediate concepts from Phase 1 and introduces advanc
 
 ### 📚 Modules
 
-#### 1. [Distributed Systems](./distributed-systems/)
+#### 1. [Distributed Systems](distributed-systems/)
 - **Consensus Algorithms**: Raft, PBFT, Proof of Work
 - **Distributed Storage**: Consistent hashing, DHT
 - **Event Sourcing**: Event store, CQRS pattern
@@ -22,7 +22,7 @@ Phase 2 builds upon the intermediate concepts from Phase 1 and introduces advanc
 - **Service Mesh**: Communication, discovery, monitoring
 - **Distributed Tracing**: OpenTracing, observability
 
-#### 2. [Machine Learning](./machine-learning/)
+#### 2. [Machine Learning](machine-learning/)
 - **Supervised Learning**: Linear regression, decision trees, random forest
 - **Unsupervised Learning**: K-means, PCA, clustering
 - **Deep Learning**: Neural networks, CNNs, RNNs
@@ -30,7 +30,7 @@ Phase 2 builds upon the intermediate concepts from Phase 1 and introduces advanc
 - **Computer Vision**: Image classification, object detection
 - **Model Deployment**: Serialization, REST APIs, MLOps
 
-#### 3. [Cloud Architecture](./cloud-architecture/)
+#### 3. [Cloud Architecture](cloud-architecture/)
 - **Cloud Computing Models**: IaaS, PaaS, SaaS
 - **Microservices Architecture**: Service discovery, API gateway
 - **Containerization**: Docker, container orchestration
@@ -38,7 +38,7 @@ Phase 2 builds upon the intermediate concepts from Phase 1 and introduces advanc
 - **Serverless Architecture**: AWS Lambda, Azure Functions
 - **Cloud Security**: IAM, security groups, compliance
 
-#### 4. [Advanced Algorithms](./advanced-algorithms/)
+#### 4. [Advanced Algorithms](advanced-algorithms/)
 - **Advanced Graph Algorithms**: Max flow, min cost flow, SCC
 - **String Algorithms**: KMP, Z algorithm, suffix arrays
 - **Computational Geometry**: Convex hull, line intersection
@@ -46,7 +46,7 @@ Phase 2 builds upon the intermediate concepts from Phase 1 and introduces advanc
 - **Combinatorics**: Permutations, combinations, Catalan numbers
 - **Game Theory**: Minimax, alpha-beta pruning
 
-#### 5. [Performance Engineering](./performance-engineering/)
+#### 5. [Performance Engineering](performance-engineering/)
 - **Performance Measurement**: Benchmarking, profiling, monitoring
 - **Memory Optimization**: Object pooling, memory mapping
 - **CPU Optimization**: SIMD, parallel processing, worker pools
@@ -54,7 +54,7 @@ Phase 2 builds upon the intermediate concepts from Phase 1 and introduces advanc
 - **Database Performance**: Query optimization, indexing
 - **Caching Strategies**: Multi-level cache, cache-aside pattern
 
-#### 6. [Security Engineering](./security-engineering/)
+#### 6. [Security Engineering](security-engineering/)
 - **Cryptography**: AES, RSA, digital signatures
 - **Authentication & Authorization**: JWT, OAuth 2.0, RBAC
 - **Network Security**: TLS, rate limiting, firewalls
@@ -163,4 +163,4 @@ After completing Phase 2, you'll be ready for:
 
 ---
 
-**Next**: [Phase 3: Expert](../phase3_expert/README.md) | **Previous**: [Phase 1: Intermediate](../phase1_intermediate/README.md) | **Up**: [Master Engineer Curriculum](../README.md)
+**Next**: [Phase 3: Expert](phase3_expert/README.md/) | **Previous**: [Phase 1: Intermediate](phase1_intermediate/README.md/) | **Up**: [Master Engineer Curriculum](README.md/)

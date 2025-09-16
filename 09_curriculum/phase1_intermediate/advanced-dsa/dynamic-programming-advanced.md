@@ -6,16 +6,16 @@ This module covers advanced dynamic programming techniques including interval DP
 
 ## Table of Contents
 
-1. [Interval DP](#interval-dp)
-2. [Bitmask DP](#bitmask-dp)
-3. [Digit DP](#digit-dp)
-4. [Probability DP](#probability-dp)
-5. [Space Optimization](#space-optimization)
-6. [State Space Reduction](#state-space-reduction)
-7. [DP on Trees](#dp-on-trees)
-8. [DP on Graphs](#dp-on-graphs)
-9. [Applications](#applications)
-10. [Follow-up Questions](#follow-up-questions)
+1. [Interval DP](#interval-dp/)
+2. [Bitmask DP](#bitmask-dp/)
+3. [Digit DP](#digit-dp/)
+4. [Probability DP](#probability-dp/)
+5. [Space Optimization](#space-optimization/)
+6. [State Space Reduction](#state-space-reduction/)
+7. [DP on Trees](#dp-on-trees/)
+8. [DP on Graphs](#dp-on-graphs/)
+9. [Applications](#applications/)
+10. [Follow-up Questions](#follow-up-questions/)
 
 ## Interval DP
 
@@ -605,4 +605,4 @@ A: Optimize space when the current solution uses O(n²) or more space but only n
 
 ---
 
-**Next**: [String Algorithms](./string-algorithms.md) | **Previous**: [Advanced DSA](../README.md) | **Up**: [Advanced DSA](../README.md)
+**Next**: [String Algorithms](string-algorithms.md/) | **Previous**: [Advanced DSA](README.md/) | **Up**: [Advanced DSA](README.md/)

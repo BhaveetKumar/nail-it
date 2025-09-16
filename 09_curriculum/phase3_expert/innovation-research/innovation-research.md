@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Research Methodologies](#research-methodologies)
-3. [Technology Trends Analysis](#technology-trends-analysis)
-4. [Innovation Frameworks](#innovation-frameworks)
-5. [Prototype Development](#prototype-development)
-6. [Technology Evaluation](#technology-evaluation)
-7. [Implementations](#implementations)
-8. [Follow-up Questions](#follow-up-questions)
-9. [Sources](#sources)
-10. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Research Methodologies](#research-methodologies/)
+3. [Technology Trends Analysis](#technology-trends-analysis/)
+4. [Innovation Frameworks](#innovation-frameworks/)
+5. [Prototype Development](#prototype-development/)
+6. [Technology Evaluation](#technology-evaluation/)
+7. [Implementations](#implementations/)
+8. [Follow-up Questions](#follow-up-questions/)
+9. [Sources](#sources/)
+10. [Projects](#projects/)
 
 ## Overview
 
@@ -1010,4 +1010,4 @@ A: Create a culture of experimentation, provide resources for research, encourag
 
 ---
 
-**Next**: [Mentoring Coaching](./mentoring-coaching.md) | **Previous**: [Technical Leadership](./technical-leadership.md) | **Up**: [Phase 3](../README.md)
+**Next**: [Mentoring Coaching](mentoring-coaching.md/) | **Previous**: [Technical Leadership](technical-leadership.md/) | **Up**: [Phase 3](README.md/)

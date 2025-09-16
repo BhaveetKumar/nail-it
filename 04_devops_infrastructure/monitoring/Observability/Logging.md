@@ -922,4 +922,4 @@ logging:
 
 ---
 
-**Next**: [Monitoring with Prometheus and Grafana](./MonitoringPrometheusGrafana.md) - Metrics collection, visualization, alerting
+**Next**: [Monitoring with Prometheus and Grafana](MonitoringPrometheusGrafana.md/) - Metrics collection, visualization, alerting

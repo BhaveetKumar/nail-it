@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Technical Specializations](#technical-specializations)
-3. [Domain Expertise](#domain-expertise)
-4. [Thought Leadership](#thought-leadership)
-5. [Industry Recognition](#industry-recognition)
-6. [Continuous Learning](#continuous-learning)
-7. [Implementations](#implementations)
-8. [Follow-up Questions](#follow-up-questions)
-9. [Sources](#sources)
-10. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Technical Specializations](#technical-specializations/)
+3. [Domain Expertise](#domain-expertise/)
+4. [Thought Leadership](#thought-leadership/)
+5. [Industry Recognition](#industry-recognition/)
+6. [Continuous Learning](#continuous-learning/)
+7. [Implementations](#implementations/)
+8. [Follow-up Questions](#follow-up-questions/)
+9. [Sources](#sources/)
+10. [Projects](#projects/)
 
 ## Overview
 
@@ -890,4 +890,4 @@ A: Create valuable content, speak at conferences, contribute to open source, men
 
 ---
 
-**Previous**: [Strategic Planning](./strategic-planning/README.md) | **Up**: [Phase 3](../README.md)
+**Previous**: [Strategic Planning](strategic-planning/README.md/) | **Up**: [Phase 3](README.md/)

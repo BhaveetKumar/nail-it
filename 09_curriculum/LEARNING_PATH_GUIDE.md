@@ -2,41 +2,41 @@
 
 ## Table of Contents
 
-1. [Quick Start Guide](#quick-start-guide)
-2. [Learning Paths by Career Goal](#learning-paths-by-career-goal)
-3. [Phase-by-Phase Breakdown](#phase-by-phase-breakdown)
-4. [Assessment and Progress Tracking](#assessment-and-progress-tracking)
-5. [Study Strategies](#study-strategies)
-6. [Resources and Tools](#resources-and-tools)
+1. [Quick Start Guide](#quick-start-guide/)
+2. [Learning Paths by Career Goal](#learning-paths-by-career-goal/)
+3. [Phase-by-Phase Breakdown](#phase-by-phase-breakdown/)
+4. [Assessment and Progress Tracking](#assessment-and-progress-tracking/)
+5. [Study Strategies](#study-strategies/)
+6. [Resources and Tools](#resources-and-tools/)
 
 ## Quick Start Guide
 
 ### 🚀 For Complete Beginners
 
-**Start Here**: [Phase 0: Fundamentals](./phase0_fundamentals/)
+**Start Here**: [Phase 0: Fundamentals](phase0_fundamentals/)
 
 1. **Week 1-2**: Mathematics Foundations
-   - [Linear Algebra](./phase0_fundamentals/mathematics/linear-algebra.md)
-   - [Calculus](./phase0_fundamentals/mathematics/calculus.md)
+   - [Linear Algebra](phase0_fundamentals/mathematics/linear-algebra.md/)
+   - [Calculus](phase0_fundamentals/mathematics/calculus.md/)
 
 2. **Week 3-4**: Programming Fundamentals
-   - [Go Fundamentals](./phase0_fundamentals/programming/go-fundamentals.md)
-   - [Node.js Fundamentals](./phase0_fundamentals/programming/nodejs-fundamentals.md)
+   - [Go Fundamentals](phase0_fundamentals/programming/go-fundamentals.md/)
+   - [Node.js Fundamentals](phase0_fundamentals/programming/nodejs-fundamentals.md/)
 
 3. **Week 5-8**: Data Structures & Algorithms
-   - [DSA Questions](./phase0_fundamentals/programming/dsa-questions-golang-nodejs.md)
-   - [Software Design Patterns](./phase0_fundamentals/programming/software-design-patterns.md)
+   - [DSA Questions](phase0_fundamentals/programming/dsa-questions-golang-nodejs.md/)
+   - [Software Design Patterns](phase0_fundamentals/programming/software-design-patterns.md/)
 
 4. **Week 9-12**: Computer Science Basics
-   - [Computer Organization](./phase0_fundamentals/cs-basics/computer-organization.md)
-   - [Operating Systems](./phase0_fundamentals/cs-basics/operating-systems-concepts.md)
-   - [Networks & Protocols](./phase0_fundamentals/cs-basics/networks-protocols.md)
+   - [Computer Organization](phase0_fundamentals/cs-basics/computer-organization.md/)
+   - [Operating Systems](phase0_fundamentals/cs-basics/operating-systems-concepts.md/)
+   - [Networks & Protocols](phase0_fundamentals/cs-basics/networks-protocols.md/)
 
 ### 🎯 For Experienced Developers
 
-**Skip to**: [Phase 1: Intermediate](./phase1_intermediate/) or [Phase 2: Advanced](./phase2_advanced/)
+**Skip to**: [Phase 1: Intermediate](phase1_intermediate/) or [Phase 2: Advanced](phase2_advanced/)
 
-**Assessment**: Take the [Skill Assessment Quiz](#assessment-and-progress-tracking) to determine your starting point.
+**Assessment**: Take the [Skill Assessment Quiz](#assessment-and-progress-tracking/) to determine your starting point.
 
 ## Learning Paths by Career Goal
 
@@ -47,10 +47,10 @@
 **Path**: Phase 0 → Phase 1 → Phase 2 (Backend Focus) → Phase 3 (Systems Leadership)
 
 **Key Modules**:
-- [Database Systems](./phase1_intermediate/database-systems/)
-- [Distributed Systems](./phase2_advanced/distributed-systems/)
-- [Performance Engineering](./phase2_advanced/performance-engineering/)
-- [Architecture Design](./phase3_expert/architecture-design/)
+- [Database Systems](phase1_intermediate/database-systems/)
+- [Distributed Systems](phase2_advanced/distributed-systems/)
+- [Performance Engineering](phase2_advanced/performance-engineering/)
+- [Architecture Design](phase3_expert/architecture-design/)
 
 **Timeline**: 18-24 months
 
@@ -61,10 +61,10 @@
 **Path**: Phase 0 → Phase 1 → Phase 2 (Full-Stack) → Phase 3 (Architecture)
 
 **Key Modules**:
-- [Web Development](./phase1_intermediate/web-development/)
-- [API Design](./phase1_intermediate/api-design/)
-- [Cloud Architecture](./phase2_advanced/cloud-architecture/)
-- [System Design Basics](./phase1_intermediate/system-design-basics/)
+- [Web Development](phase1_intermediate/web-development/)
+- [API Design](phase1_intermediate/api-design/)
+- [Cloud Architecture](phase2_advanced/cloud-architecture/)
+- [System Design Basics](phase1_intermediate/system-design-basics/)
 
 **Timeline**: 15-20 months
 
@@ -75,10 +75,10 @@
 **Path**: Phase 0 → Phase 1 → Phase 2 (ML/AI) → Phase 3 (AI Research)
 
 **Key Modules**:
-- [Statistics & Probability](./phase0_fundamentals/mathematics/statistics-probability.md)
-- [Machine Learning](./phase2_advanced/machine-learning/)
-- [Advanced Algorithms](./phase2_advanced/advanced-algorithms/)
-- [Innovation Research](./phase3_expert/innovation-research/)
+- [Statistics & Probability](phase0_fundamentals/mathematics/statistics-probability.md/)
+- [Machine Learning](phase2_advanced/machine-learning/)
+- [Advanced Algorithms](phase2_advanced/advanced-algorithms/)
+- [Innovation Research](phase3_expert/innovation-research/)
 
 **Timeline**: 20-24 months
 
@@ -89,10 +89,10 @@
 **Path**: Phase 0 → Phase 1 → Phase 2 (DevOps) → Phase 3 (Platform)
 
 **Key Modules**:
-- [Operating Systems](./phase0_fundamentals/cs-basics/operating-systems-concepts.md)
-- [Networks & Protocols](./phase0_fundamentals/cs-basics/networks-protocols.md)
-- [Cloud Architecture](./phase2_advanced/cloud-architecture/)
-- [Security Engineering](./phase2_advanced/security-engineering/)
+- [Operating Systems](phase0_fundamentals/cs-basics/operating-systems-concepts.md/)
+- [Networks & Protocols](phase0_fundamentals/cs-basics/networks-protocols.md/)
+- [Cloud Architecture](phase2_advanced/cloud-architecture/)
+- [Security Engineering](phase2_advanced/security-engineering/)
 
 **Timeline**: 16-22 months
 
@@ -103,10 +103,10 @@
 **Path**: Phase 0 → Phase 1 → Phase 2 → Phase 3 (Leadership Focus)
 
 **Key Modules**:
-- [Technical Leadership](./phase3_expert/technical-leadership/)
-- [Mentoring & Coaching](./phase3_expert/mentoring-coaching/)
-- [Strategic Planning](./phase3_expert/strategic-planning/)
-- [Architecture Design](./phase3_expert/architecture-design/)
+- [Technical Leadership](phase3_expert/technical-leadership/)
+- [Mentoring & Coaching](phase3_expert/mentoring-coaching/)
+- [Strategic Planning](phase3_expert/strategic-planning/)
+- [Architecture Design](phase3_expert/architecture-design/)
 
 **Timeline**: 24-30 months
 
@@ -123,20 +123,20 @@
 **Core Modules**:
 1. **Mathematics for Engineers** (4 weeks)
    - Linear Algebra, Calculus, Statistics, Discrete Math
-   - [Start Here](./phase0_fundamentals/mathematics/)
+   - [Start Here](phase0_fundamentals/mathematics/)
 
 2. **Programming Fundamentals** (6 weeks)
    - Go and Node.js mastery
    - Data structures and algorithms
-   - [Start Here](./phase0_fundamentals/programming/)
+   - [Start Here](phase0_fundamentals/programming/)
 
 3. **Computer Science Basics** (4 weeks)
    - Computer organization, OS concepts, networking
-   - [Start Here](./phase0_fundamentals/cs-basics/)
+   - [Start Here](phase0_fundamentals/cs-basics/)
 
 4. **Software Engineering** (2 weeks)
    - Version control, testing strategies
-   - [Start Here](./phase0_fundamentals/software-engineering/)
+   - [Start Here](phase0_fundamentals/software-engineering/)
 
 **Milestones**:
 - [ ] Complete all mathematics modules
@@ -155,15 +155,15 @@
 **Core Modules**:
 1. **Advanced Data Structures & Algorithms** (6 weeks)
    - Advanced trees, graphs, dynamic programming
-   - [Start Here](./phase1_intermediate/advanced-dsa/)
+   - [Start Here](phase1_intermediate/advanced-dsa/)
 
 2. **Systems Deep Dive** (8 weeks)
    - Operating systems, databases, web development
-   - [Start Here](./phase1_intermediate/)
+   - [Start Here](phase1_intermediate/)
 
 3. **Design & Architecture** (4 weeks)
    - API design, system design basics
-   - [Start Here](./phase1_intermediate/)
+   - [Start Here](phase1_intermediate/)
 
 **Milestones**:
 - [ ] Master advanced algorithms
@@ -182,15 +182,15 @@
 **Core Modules**:
 1. **Distributed Systems** (8 weeks)
    - Consensus, storage, event sourcing
-   - [Start Here](./phase2_advanced/distributed-systems/)
+   - [Start Here](phase2_advanced/distributed-systems/)
 
 2. **Machine Learning & AI** (6 weeks)
    - Supervised/unsupervised learning, deep learning
-   - [Start Here](./phase2_advanced/machine-learning/)
+   - [Start Here](phase2_advanced/machine-learning/)
 
 3. **Cloud & Infrastructure** (6 weeks)
    - Cloud architecture, performance, security
-   - [Start Here](./phase2_advanced/)
+   - [Start Here](phase2_advanced/)
 
 **Milestones**:
 - [ ] Design distributed systems
@@ -209,15 +209,15 @@
 **Core Modules**:
 1. **Technical Leadership** (6 weeks)
    - Leadership frameworks, decision-making
-   - [Start Here](./phase3_expert/technical-leadership/)
+   - [Start Here](phase3_expert/technical-leadership/)
 
 2. **Architecture & Innovation** (8 weeks)
    - Architecture design, research, innovation
-   - [Start Here](./phase3_expert/)
+   - [Start Here](phase3_expert/)
 
 3. **Mentoring & Strategy** (4 weeks)
    - Mentoring, coaching, strategic planning
-   - [Start Here](./phase3_expert/)
+   - [Start Here](phase3_expert/)
 
 **Milestones**:
 - [ ] Lead technical teams
@@ -257,7 +257,7 @@
 
 ### 📈 Progress Tracking
 
-**Use the [Study Tracker](../10_resources/progress-tracking/study_tracker.md) to monitor your progress:**
+**Use the [Study Tracker](10_resources/progress-tracking/study_tracker.md/) to monitor your progress:**
 
 1. **Daily Reviews**:
    - What did I learn today?
@@ -397,4 +397,4 @@
 
 ---
 
-**Next Steps**: [Start with Phase 0](./phase0_fundamentals/) | [Take Assessment](#assessment-and-progress-tracking) | [Track Progress](../10_resources/progress-tracking/study_tracker.md)
+**Next Steps**: [Start with Phase 0](phase0_fundamentals/) | [Take Assessment](#assessment-and-progress-tracking/) | [Track Progress](10_resources/progress-tracking/study_tracker.md/)

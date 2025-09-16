@@ -6,13 +6,13 @@ This module covers leadership development concepts including mentoring framework
 
 ## Table of Contents
 
-1. [Mentoring Frameworks](#mentoring-frameworks)
-2. [Coaching Methodologies](#coaching-methodologies)
-3. [Team Building](#team-building)
-4. [Performance Management](#performance-management)
-5. [Applications](#applications)
-6. [Complexity Analysis](#complexity-analysis)
-7. [Follow-up Questions](#follow-up-questions)
+1. [Mentoring Frameworks](#mentoring-frameworks/)
+2. [Coaching Methodologies](#coaching-methodologies/)
+3. [Team Building](#team-building/)
+4. [Performance Management](#performance-management/)
+5. [Applications](#applications/)
+6. [Complexity Analysis](#complexity-analysis/)
+7. [Follow-up Questions](#follow-up-questions/)
 
 ## Mentoring Frameworks
 
@@ -835,4 +835,4 @@ A: Psychological safety enables open communication, risk-taking, learning from f
 
 ---
 
-**Next**: [Strategic Planning](../strategic-planning/README.md) | **Previous**: [Mentoring Coaching](../README.md) | **Up**: [Phase 3 Expert](../README.md)
+**Next**: [Strategic Planning](strategic-planning/README.md/) | **Previous**: [Mentoring Coaching](README.md/) | **Up**: [Phase 3 Expert](README.md/)

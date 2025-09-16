@@ -4,13 +4,13 @@
 
 ## 📋 Table of Contents
 
-1. [Book Overview](#book-overview)
-2. [Part I: Foundations of Data Systems](#part-i-foundations-of-data-systems)
-3. [Part II: Distributed Data](#part-ii-distributed-data)
-4. [Part III: Derived Data](#part-iii-derived-data)
-5. [Database Types & Architectures](#database-types--architectures)
-6. [Error Handling & Scaling](#error-handling--scaling)
-7. [FAANG Interview Questions](#faang-interview-questions)
+1. [Book Overview](#book-overview/)
+2. [Part I: Foundations of Data Systems](#part-i-foundations-of-data-systems/)
+3. [Part II: Distributed Data](#part-ii-distributed-data/)
+4. [Part III: Derived Data](#part-iii-derived-data/)
+5. [Database Types & Architectures](#database-types--architectures/)
+6. [Error Handling & Scaling](#error-handling--scaling/)
+7. [FAANG Interview Questions](#faang-interview-questions/)
 
 ---
 
@@ -1292,20 +1292,20 @@ func (vss *VideoStreamingService) determineOptimalQuality(userID string, video *
 ### **Books**
 
 - [Designing Data-Intensive Applications](https://dataintensive.net/) - Martin Kleppmann
-- [Database Systems: The Complete Book](https://www.amazon.com/Database-Systems-Complete-Hector-Garcia-Molina/dp/0131873253) - Hector Garcia-Molina
+- [Database Systems: The Complete Book](https://www.amazon.com/Database-Systems-Complete-Hector-Garcia-Molina/dp/0131873253/) - Hector Garcia-Molina
 - [High Performance MySQL](https://www.oreilly.com/library/view/high-performance-mysql/9781449332471/) - Baron Schwartz
 
 ### **Online Resources**
 
 - [High Scalability](https://highscalability.com/) - Real-world system design case studies
-- [System Design Primer](https://github.com/donnemartin/system-design-primer) - GitHub repository
+- [System Design Primer](https://github.com/donnemartin/system-design-primer/) - GitHub repository
 - [Database Internals](https://www.databass.dev/) - Alex Petrov
 
 ### **Video Resources**
 
-- [ByteByteGo](https://www.youtube.com/c/ByteByteGo) - System design explanations
-- [Gaurav Sen](https://www.youtube.com/c/GauravSensei) - System design and algorithms
-- [Exponent](https://www.youtube.com/c/ExponentTV) - Mock interviews and system design
+- [ByteByteGo](https://www.youtube.com/c/ByteByteGo/) - System design explanations
+- [Gaurav Sen](https://www.youtube.com/c/GauravSensei/) - System design and algorithms
+- [Exponent](https://www.youtube.com/c/ExponentTV/) - Mock interviews and system design
 
 ---
 

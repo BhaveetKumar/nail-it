@@ -282,10 +282,10 @@ console.log(`Found ${result.length} quadruplets`);
 
 ## Related Problems
 
-- [Two Sum](./TwoSum.md)
-- [3Sum](./ThreeSum.md)
-- [3Sum Closest](./ThreeSumClosest.md)
-- [4Sum II](./4SumII.md)
+- [Two Sum](TwoSum.md/)
+- [3Sum](ThreeSum.md/)
+- [3Sum Closest](ThreeSumClosest.md/)
+- [4Sum II](4SumII.md/)
 
 ## Interview Tips
 

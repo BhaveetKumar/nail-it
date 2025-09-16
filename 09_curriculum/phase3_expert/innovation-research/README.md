@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Research Methodologies](#research-methodologies)
-3. [Technology Trends](#technology-trends)
-4. [Innovation Frameworks](#innovation-frameworks)
-5. [Prototyping and Experimentation](#prototyping-and-experimentation)
-6. [Intellectual Property](#intellectual-property)
-7. [Implementations](#implementations)
-8. [Follow-up Questions](#follow-up-questions)
-9. [Sources](#sources)
-10. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Research Methodologies](#research-methodologies/)
+3. [Technology Trends](#technology-trends/)
+4. [Innovation Frameworks](#innovation-frameworks/)
+5. [Prototyping and Experimentation](#prototyping-and-experimentation/)
+6. [Intellectual Property](#intellectual-property/)
+7. [Implementations](#implementations/)
+8. [Follow-up Questions](#follow-up-questions/)
+9. [Sources](#sources/)
+10. [Projects](#projects/)
 
 ## Overview
 
@@ -988,4 +988,4 @@ A: Use TRIZ for technical problem solving and innovation, and Blue Ocean Strateg
 
 ---
 
-**Next**: [Mentoring & Coaching](./mentoring-coaching/README.md) | **Previous**: [Architecture Design](./architecture-design/README.md) | **Up**: [Phase 3](../README.md)
+**Next**: [Mentoring & Coaching](mentoring-coaching/README.md/) | **Previous**: [Architecture Design](architecture-design/README.md/) | **Up**: [Phase 3](README.md/)

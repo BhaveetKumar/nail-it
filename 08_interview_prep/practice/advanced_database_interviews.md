@@ -1,14 +1,14 @@
 # Advanced Database Interviews
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Database Design](#database-design)
-- [Query Optimization](#query-optimization)
-- [Indexing Strategies](#indexing-strategies)
-- [Transaction Management](#transaction-management)
-- [Replication and Sharding](#replication-and-sharding)
-- [Performance Tuning](#performance-tuning)
-- [NoSQL Databases](#nosql-databases)
+- [Introduction](#introduction/)
+- [Database Design](#database-design/)
+- [Query Optimization](#query-optimization/)
+- [Indexing Strategies](#indexing-strategies/)
+- [Transaction Management](#transaction-management/)
+- [Replication and Sharding](#replication-and-sharding/)
+- [Performance Tuning](#performance-tuning/)
+- [NoSQL Databases](#nosql-databases/)
 
 ## Introduction
 

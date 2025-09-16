@@ -43,34 +43,34 @@ function backtrack(path, choices) {
 
 ## Problems
 
-### 1. [Generate Parentheses](./GenerateParentheses.md)
+### 1. [Generate Parentheses](GenerateParentheses.md/)
 Generate all valid combinations of n pairs of parentheses.
 
-### 2. [N-Queens](./NQueens.md)
+### 2. [N-Queens](NQueens.md/)
 Place n queens on an n×n chessboard so no two queens attack each other.
 
-### 3. [Combination Sum](./CombinationSum.md)
+### 3. [Combination Sum](CombinationSum.md/)
 Find all unique combinations that sum to a target value.
 
-### 4. [Permutations](./Permutations.md)
+### 4. [Permutations](Permutations.md/)
 Generate all possible permutations of an array.
 
-### 5. [Subsets](./Subsets.md)
+### 5. [Subsets](Subsets.md/)
 Generate all possible subsets of an array.
 
-### 6. [Word Search](./WordSearch.md)
+### 6. [Word Search](WordSearch.md/)
 Find if a word exists in a 2D board using adjacent cells.
 
-### 7. [Sudoku Solver](./SudokuSolver.md)
+### 7. [Sudoku Solver](SudokuSolver.md/)
 Solve a 9×9 Sudoku puzzle using backtracking.
 
-### 8. [Letter Combinations](./LetterCombinations.md)
+### 8. [Letter Combinations](LetterCombinations.md/)
 Generate all possible letter combinations from phone number digits.
 
-### 9. [Palindrome Partitioning](./PalindromePartitioning.md)
+### 9. [Palindrome Partitioning](PalindromePartitioning.md/)
 Partition a string into palindromic substrings.
 
-### 10. [Restore IP Addresses](./RestoreIPAddresses.md)
+### 10. [Restore IP Addresses](RestoreIPAddresses.md/)
 Restore valid IP addresses from a string of digits.
 
 ## Time & Space Complexity

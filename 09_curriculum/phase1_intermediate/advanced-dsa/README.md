@@ -2,18 +2,18 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Dynamic Programming Advanced](#dynamic-programming-advanced)
-3. [Graph Algorithms](#graph-algorithms)
-4. [Tree Structures](#tree-structures)
-5. [Advanced Sorting](#advanced-sorting)
-6. [String Algorithms](#string-algorithms)
-7. [Mathematical Algorithms](#mathematical-algorithms)
-8. [Applications](#applications)
-9. [Implementations](#implementations)
-10. [Follow-up Questions](#follow-up-questions)
-11. [Sources](#sources)
-12. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Dynamic Programming Advanced](#dynamic-programming-advanced/)
+3. [Graph Algorithms](#graph-algorithms/)
+4. [Tree Structures](#tree-structures/)
+5. [Advanced Sorting](#advanced-sorting/)
+6. [String Algorithms](#string-algorithms/)
+7. [Mathematical Algorithms](#mathematical-algorithms/)
+8. [Applications](#applications/)
+9. [Implementations](#implementations/)
+10. [Follow-up Questions](#follow-up-questions/)
+11. [Sources](#sources/)
+12. [Projects](#projects/)
 
 ## Overview
 
@@ -1060,5 +1060,5 @@ A: Use segment trees for range queries and updates, especially when you need com
 
 ---
 
-**Next**: [Operating Systems Deep Dive](./os-deep-dive/README.md) | **Previous**: [Phase 1](../README.md) | **Up**: [Phase 1](../README.md)
+**Next**: [Operating Systems Deep Dive](os-deep-dive/README.md/) | **Previous**: [Phase 1](README.md/) | **Up**: [Phase 1](README.md/)
 

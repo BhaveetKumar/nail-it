@@ -1147,4 +1147,4 @@ BackendBucket:
 
 ---
 
-**Next**: [GCP BigQuery](./GCP_BigQuery.md) - Data warehouse, analytics, machine learning
+**Next**: [GCP BigQuery](GCP_BigQuery.md/) - Data warehouse, analytics, machine learning

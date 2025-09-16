@@ -1401,4 +1401,4 @@ func (ztm *ZeroTrustMiddleware) LogAccess(userID, deviceID, endpoint, result str
 
 ---
 
-**Next**: [Secure APIs](./SecureAPIs.md) - API security, authentication, authorization, rate limiting
+**Next**: [Secure APIs](SecureAPIs.md/) - API security, authentication, authorization, rate limiting

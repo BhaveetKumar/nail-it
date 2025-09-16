@@ -1,16 +1,16 @@
 # Comprehensive Problem Sets for Backend Engineers
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [System Design Problems](#system-design-problems)
-- [Coding Challenges](#coding-challenges)
-- [Database Design Problems](#database-design-problems)
-- [Distributed Systems Problems](#distributed-systems-problems)
-- [Performance Optimization Problems](#performance-optimization-problems)
-- [Security and Compliance Problems](#security-and-compliance-problems)
-- [Real-Time Systems Problems](#real-time-systems-problems)
-- [Machine Learning Integration Problems](#machine-learning-integration-problems)
-- [DevOps and Infrastructure Problems](#devops-and-infrastructure-problems)
+- [Introduction](#introduction/)
+- [System Design Problems](#system-design-problems/)
+- [Coding Challenges](#coding-challenges/)
+- [Database Design Problems](#database-design-problems/)
+- [Distributed Systems Problems](#distributed-systems-problems/)
+- [Performance Optimization Problems](#performance-optimization-problems/)
+- [Security and Compliance Problems](#security-and-compliance-problems/)
+- [Real-Time Systems Problems](#real-time-systems-problems/)
+- [Machine Learning Integration Problems](#machine-learning-integration-problems/)
+- [DevOps and Infrastructure Problems](#devops-and-infrastructure-problems/)
 
 ## Introduction
 
@@ -826,9 +826,9 @@ Practice these problems regularly and be prepared to dive deep into any aspect o
 
 ## Additional Resources
 
-- [System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview)
+- [System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview/)
 - [Distributed Systems Patterns](https://microservices.io/patterns/)
-- [High Performance Go](https://github.com/geohot/minikeyvalue)
+- [High Performance Go](https://github.com/geohot/minikeyvalue/)
 - [Designing Data-Intensive Applications](https://dataintensive.net/)
 - [Building Microservices](https://samnewman.io/books/building_microservices/)
 - [Site Reliability Engineering](https://sre.google/sre-book/table-of-contents/)

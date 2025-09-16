@@ -2,18 +2,18 @@
 
 ## 📚 Table of Contents
 
-1. [Arrays and Strings](#arrays-and-strings)
-2. [Linked Lists](#linked-lists)
-3. [Trees and Graphs](#trees-and-graphs)
-4. [Dynamic Programming](#dynamic-programming)
-5. [Greedy Algorithms](#greedy-algorithms)
-6. [Backtracking](#backtracking)
-7. [Sliding Window](#sliding-window)
-8. [Two Pointers](#two-pointers)
-9. [Heap and Priority Queue](#heap-and-priority-queue)
-10. [Trie](#trie)
-11. [Union Find](#union-find)
-12. [Bit Manipulation](#bit-manipulation)
+1. [Arrays and Strings](#arrays-and-strings/)
+2. [Linked Lists](#linked-lists/)
+3. [Trees and Graphs](#trees-and-graphs/)
+4. [Dynamic Programming](#dynamic-programming/)
+5. [Greedy Algorithms](#greedy-algorithms/)
+6. [Backtracking](#backtracking/)
+7. [Sliding Window](#sliding-window/)
+8. [Two Pointers](#two-pointers/)
+9. [Heap and Priority Queue](#heap-and-priority-queue/)
+10. [Trie](#trie/)
+11. [Union Find](#union-find/)
+12. [Bit Manipulation](#bit-manipulation/)
 
 ## Arrays and Strings
 

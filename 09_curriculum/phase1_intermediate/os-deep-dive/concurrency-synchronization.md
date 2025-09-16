@@ -6,14 +6,14 @@ This module covers concurrency and synchronization concepts including threads, p
 
 ## Table of Contents
 
-1. [Thread Management](#thread-management)
-2. [Synchronization Primitives](#synchronization-primitives)
-3. [Deadlock Prevention](#deadlock-prevention)
-4. [Producer-Consumer Problem](#producer-consumer-problem)
-5. [Reader-Writer Problem](#reader-writer-problem)
-6. [Applications](#applications)
-7. [Complexity Analysis](#complexity-analysis)
-8. [Follow-up Questions](#follow-up-questions)
+1. [Thread Management](#thread-management/)
+2. [Synchronization Primitives](#synchronization-primitives/)
+3. [Deadlock Prevention](#deadlock-prevention/)
+4. [Producer-Consumer Problem](#producer-consumer-problem/)
+5. [Reader-Writer Problem](#reader-writer-problem/)
+6. [Applications](#applications/)
+7. [Complexity Analysis](#complexity-analysis/)
+8. [Follow-up Questions](#follow-up-questions/)
 
 ## Thread Management
 
@@ -1143,4 +1143,4 @@ A: Mutual exclusion, hold and wait, no preemption, and circular wait. Deadlock c
 
 ---
 
-**Next**: [System Calls](./system-calls.md) | **Previous**: [OS Deep Dive](../README.md) | **Up**: [OS Deep Dive](../README.md)
+**Next**: [System Calls](system-calls.md/) | **Previous**: [OS Deep Dive](README.md/) | **Up**: [OS Deep Dive](README.md/)

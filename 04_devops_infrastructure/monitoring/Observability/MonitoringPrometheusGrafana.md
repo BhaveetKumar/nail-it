@@ -996,4 +996,4 @@ httpRequestsTotal.WithLabelValues(
 
 ---
 
-**Next**: [Tracing](./Tracing.md) - Distributed tracing, OpenTelemetry, Jaeger
+**Next**: [Tracing](Tracing.md/) - Distributed tracing, OpenTelemetry, Jaeger

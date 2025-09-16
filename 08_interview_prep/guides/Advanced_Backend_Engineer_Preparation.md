@@ -4,13 +4,13 @@
 
 ## 📋 Table of Contents
 
-1. [Advanced Go Runtime & Concurrency](#advanced-go-runtime--concurrency)
-2. [System Design at Scale](#system-design-at-scale)
-3. [Operating System Deep Dive](#operating-system-deep-dive)
-4. [Razorpay-Specific Technical Challenges](#razorpay-specific-technical-challenges)
-5. [Advanced DSA & Algorithm Patterns](#advanced-dsa--algorithm-patterns)
-6. [Performance Engineering](#performance-engineering)
-7. [Leadership & Architecture Decisions](#leadership--architecture-decisions)
+1. [Advanced Go Runtime & Concurrency](#advanced-go-runtime--concurrency/)
+2. [System Design at Scale](#system-design-at-scale/)
+3. [Operating System Deep Dive](#operating-system-deep-dive/)
+4. [Razorpay-Specific Technical Challenges](#razorpay-specific-technical-challenges/)
+5. [Advanced DSA & Algorithm Patterns](#advanced-dsa--algorithm-patterns/)
+6. [Performance Engineering](#performance-engineering/)
+7. [Leadership & Architecture Decisions](#leadership--architecture-decisions/)
 
 ---
 
@@ -1372,9 +1372,9 @@ func evaluateMicroservicesVsMonolith() *ArchitectureDecision {
 
 ### **Advanced Go Resources**
 
-- [Go Memory Model](https://golang.org/ref/mem)
-- [Go Scheduler Design](https://docs.google.com/document/d/1TTj4T2JO42uD5ID9e89oa0sLKhJYD0Y_kqxDv3I3XMw/edit)
-- [Go Performance Optimization](https://github.com/golang/go/wiki/Performance)
+- [Go Memory Model](https://golang.org/ref/mem/)
+- [Go Scheduler Design](https://docs.google.com/document/d/1TTj4T2JO42uD5ID9e89oa0sLKhJYD0Y_kqxDv3I3XMw/edit/)
+- [Go Performance Optimization](https://github.com/golang/go/wiki/Performance/)
 
 ### **System Design Resources**
 
@@ -1384,9 +1384,9 @@ func evaluateMicroservicesVsMonolith() *ArchitectureDecision {
 
 ### **Interview Preparation**
 
-- [System Design Interview](https://github.com/checkcheckzz/system-design-interview)
-- [LeetCode Advanced Problems](https://leetcode.com/problemset/all/?difficulty=HARD)
-- [Go Interview Questions](https://github.com/kevinyan815/gocookbook)
+- [System Design Interview](https://github.com/checkcheckzz/system-design-interview/)
+- [LeetCode Advanced Problems](https://leetcode.com/problemset/all/?difficulty=HARD/)
+- [Go Interview Questions](https://github.com/kevinyan815/gocookbook/)
 
 ---
 

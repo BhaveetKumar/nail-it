@@ -1,14 +1,14 @@
 # Razorpay-Specific Interview Problems
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Payment Processing Problems](#payment-processing-problems)
-- [Financial Systems Design](#financial-systems-design)
-- [Compliance and Security](#compliance-and-security)
-- [Scalability Challenges](#scalability-challenges)
-- [Real-Time Systems](#real-time-systems)
-- [Data Engineering](#data-engineering)
-- [Machine Learning Applications](#machine-learning-applications)
+- [Introduction](#introduction/)
+- [Payment Processing Problems](#payment-processing-problems/)
+- [Financial Systems Design](#financial-systems-design/)
+- [Compliance and Security](#compliance-and-security/)
+- [Scalability Challenges](#scalability-challenges/)
+- [Real-Time Systems](#real-time-systems/)
+- [Data Engineering](#data-engineering/)
+- [Machine Learning Applications](#machine-learning-applications/)
 
 ## Introduction
 

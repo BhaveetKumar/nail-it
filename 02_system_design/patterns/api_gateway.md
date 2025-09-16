@@ -679,7 +679,7 @@ class APIGateway {
     // Add route to express
     this.app[method.toLowerCase()](
       path,
-      this.handleRequest(serviceName, endpoint)
+      this.handleRequest(serviceName, endpoint/)
     );
   }
 

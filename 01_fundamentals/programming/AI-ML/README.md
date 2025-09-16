@@ -14,94 +14,94 @@
 
 ### **🔢 Foundations**
 
-- [**Math for ML**](./Foundations/MathForML.md) - Linear algebra, calculus, optimization
-- [**JavaScript for ML**](./Foundations/JavaScriptForML.md) - Node.js, TensorFlow.js, ML libraries
-- [**Probability & Statistics**](./Foundations/ProbabilityAndStats.md) - Statistical foundations for ML
+- [**Math for ML**](Foundations/MathForML.md/) - Linear algebra, calculus, optimization
+- [**JavaScript for ML**](Foundations/JavaScriptForML.md/) - Node.js, TensorFlow.js, ML libraries
+- [**Probability & Statistics**](Foundations/ProbabilityAndStats.md/) - Statistical foundations for ML
 
 ### **🧠 Machine Learning**
 
-- [**Linear Regression**](./MachineLearning/LinearRegression.md) - Mathematical foundations and implementation
-- [**Logistic Regression**](./MachineLearning/LogisticRegression.md) - Classification algorithms
-- [**Decision Trees**](./MachineLearning/DecisionTrees.md) - Tree-based algorithms
-- [**Random Forest**](./MachineLearning/RandomForest.md) - Ensemble methods
-- [**SVM**](./MachineLearning/SVM.md) - Support Vector Machines
-- [**Clustering**](./MachineLearning/Clustering.md) - K-means, hierarchical clustering
-- [**Dimensionality Reduction**](./MachineLearning/DimensionalityReduction.md) - PCA, t-SNE
+- [**Linear Regression**](MachineLearning/LinearRegression.md/) - Mathematical foundations and implementation
+- [**Logistic Regression**](MachineLearning/LogisticRegression.md/) - Classification algorithms
+- [**Decision Trees**](MachineLearning/DecisionTrees.md/) - Tree-based algorithms
+- [**Random Forest**](MachineLearning/RandomForest.md/) - Ensemble methods
+- [**SVM**](MachineLearning/SVM.md/) - Support Vector Machines
+- [**Clustering**](MachineLearning/Clustering.md/) - K-means, hierarchical clustering
+- [**Dimensionality Reduction**](MachineLearning/DimensionalityReduction.md/) - PCA, t-SNE
 
 ### **🧠 Deep Learning**
 
-- [**Neural Networks**](./DeepLearning/NeuralNetworks.md) - Perceptrons, backpropagation, optimizers
-- [**CNNs**](./DeepLearning/CNNs.md) - Convolutional Neural Networks, ResNet, DenseNet
-- [**RNNs**](./DeepLearning/RNNs.md) - Recurrent Neural Networks
-- [**LSTMs**](./DeepLearning/LSTMs.md) - Long Short-Term Memory networks
-- [**Transformers**](./DeepLearning/Transformers.md) - Transformer architecture
-- [**Attention Mechanism**](./DeepLearning/AttentionMechanism.md) - Attention mechanisms
+- [**Neural Networks**](DeepLearning/NeuralNetworks.md/) - Perceptrons, backpropagation, optimizers
+- [**CNNs**](DeepLearning/CNNs.md/) - Convolutional Neural Networks, ResNet, DenseNet
+- [**RNNs**](DeepLearning/RNNs.md/) - Recurrent Neural Networks
+- [**LSTMs**](DeepLearning/LSTMs.md/) - Long Short-Term Memory networks
+- [**Transformers**](DeepLearning/Transformers.md/) - Transformer architecture
+- [**Attention Mechanism**](DeepLearning/AttentionMechanism.md/) - Attention mechanisms
 
 ### **🎨 Generative AI**
 
-- [**GPT**](./GenerativeAI/GPT.md) - Transformer architecture and attention mechanisms
-- [**Diffusion Models**](./GenerativeAI/DiffusionModels.md) - Mathematical foundations and implementation
-- [**LLM Training**](./GenerativeAI/LLMTraining.md) - Distributed training and optimization
-- [**Prompt Engineering**](./GenerativeAI/PromptEngineering.md) - Prompt design and techniques
-- [**Fine-tuning LLMs**](./GenerativeAI/FineTuningLLMs.md) - Fine-tuning strategies and considerations
+- [**GPT**](GenerativeAI/GPT.md/) - Transformer architecture and attention mechanisms
+- [**Diffusion Models**](GenerativeAI/DiffusionModels.md/) - Mathematical foundations and implementation
+- [**LLM Training**](GenerativeAI/LLMTraining.md/) - Distributed training and optimization
+- [**Prompt Engineering**](GenerativeAI/PromptEngineering.md/) - Prompt design and techniques
+- [**Fine-tuning LLMs**](GenerativeAI/FineTuningLLMs.md/) - Fine-tuning strategies and considerations
 
 ### **⚙️ Backend for AI**
 
-- [**Model Serving**](./BackendForAI/ModelServing.md) - Express.js, load balancing, auto-scaling
-- [**APIs for AI**](./BackendForAI/APIsForAI.md) - REST, GraphQL, gRPC for AI models
-- [**Vector Databases**](./BackendForAI/VectorDatabases.md) - Pinecone, Weaviate, Chroma
-- [**Scaling AI**](./BackendForAI/ScalingAI.md) - Horizontal and vertical scaling
-- [**Caching and Latency**](./BackendForAI/CachingAndLatency.md) - Redis, CDN, optimization
+- [**Model Serving**](BackendForAI/ModelServing.md/) - Express.js, load balancing, auto-scaling
+- [**APIs for AI**](BackendForAI/APIsForAI.md/) - REST, GraphQL, gRPC for AI models
+- [**Vector Databases**](BackendForAI/VectorDatabases.md/) - Pinecone, Weaviate, Chroma
+- [**Scaling AI**](BackendForAI/ScalingAI.md/) - Horizontal and vertical scaling
+- [**Caching and Latency**](BackendForAI/CachingAndLatency.md/) - Redis, CDN, optimization
 
 ### **🔄 MLOps**
 
-- [**Model Deployment**](./MLOps/ModelDeployment.md) - CI/CD, monitoring, model registry
-- [**Data Pipelines**](./MLOps/DataPipelines.md) - ETL/ELT, data validation, quality
-- [**Model Registry**](./MLOps/ModelRegistry.md) - Versioning, metadata, lifecycle
-- [**Monitoring**](./MLOps/Monitoring.md) - Model performance, drift detection
+- [**Model Deployment**](MLOps/ModelDeployment.md/) - CI/CD, monitoring, model registry
+- [**Data Pipelines**](MLOps/DataPipelines.md/) - ETL/ELT, data validation, quality
+- [**Model Registry**](MLOps/ModelRegistry.md/) - Versioning, metadata, lifecycle
+- [**Monitoring**](MLOps/Monitoring.md/) - Model performance, drift detection
 
 ### **📊 Case Studies**
 
-- [**Meta AI Practices**](./CaseStudies/MetaAIPractices.md) - Meta's AI research and infrastructure
-- [**Google Brain Practices**](./CaseStudies/GoogleBrainPractices.md) - Google's AI research and production
-- [**OpenAI Practices**](./CaseStudies/OpenAIPractices.md) - OpenAI's AI safety and production
+- [**Meta AI Practices**](CaseStudies/MetaAIPractices.md/) - Meta's AI research and infrastructure
+- [**Google Brain Practices**](CaseStudies/GoogleBrainPractices.md/) - Google's AI research and production
+- [**OpenAI Practices**](CaseStudies/OpenAIPractices.md/) - OpenAI's AI safety and production
 
 ### **📱 TinyML & Edge AI**
 
-- [**TinyML Complete Guide**](./TinyML/) - Complete TinyML knowledge base
-  - [**Introduction**](./TinyML/Introduction.md) - TinyML fundamentals and challenges
-  - [**Frameworks & Tools**](./TinyML/FrameworksAndTools.md) - TensorFlow Lite, Edge Impulse
-  - [**Optimization Techniques**](./TinyML/OptimizationTechniques.md) - Quantization, pruning, distillation
-  - [**Use Cases**](./TinyML/UseCases.md) - Healthcare, voice, gesture recognition
-  - [**Code Examples**](./TinyML/CodeExamples.md) - JavaScript training + Node.js inference
-  - [**Hardware & Deployment**](./TinyML/HardwareAndDeployment.md) - MCU programming, deployment
-  - [**System Design**](./TinyML/SystemDesign.md) - Architecture patterns, privacy-preserving ML
-  - [**Interview Questions**](./TinyML/InterviewQuestions.md) - FAANG-style questions
-  - [**Future of TinyML**](./TinyML/FutureOfTinyML.md) - Emerging trends and research
+- [**TinyML Complete Guide**](TinyML/) - Complete TinyML knowledge base
+  - [**Introduction**](TinyML/Introduction.md/) - TinyML fundamentals and challenges
+  - [**Frameworks & Tools**](TinyML/FrameworksAndTools.md/) - TensorFlow Lite, Edge Impulse
+  - [**Optimization Techniques**](TinyML/OptimizationTechniques.md/) - Quantization, pruning, distillation
+  - [**Use Cases**](TinyML/UseCases.md/) - Healthcare, voice, gesture recognition
+  - [**Code Examples**](TinyML/CodeExamples.md/) - JavaScript training + Node.js inference
+  - [**Hardware & Deployment**](TinyML/HardwareAndDeployment.md/) - MCU programming, deployment
+  - [**System Design**](TinyML/SystemDesign.md/) - Architecture patterns, privacy-preserving ML
+  - [**Interview Questions**](TinyML/InterviewQuestions.md/) - FAANG-style questions
+  - [**Future of TinyML**](TinyML/FutureOfTinyML.md/) - Emerging trends and research
 
 ## 🚀 **Getting Started**
 
 ### **For Backend + AI Roles**
 
-1. Start with [**Foundations**](./Foundations/) - Math, JavaScript, Statistics
-2. Learn [**Machine Learning**](./MachineLearning/) - Core algorithms
-3. Study [**Deep Learning**](./DeepLearning/) - Neural networks and CNNs
-4. Focus on [**Backend for AI**](./BackendForAI/) - Model serving and APIs
-5. Master [**MLOps**](./MLOps/) - Production deployment
+1. Start with [**Foundations**](Foundations/) - Math, JavaScript, Statistics
+2. Learn [**Machine Learning**](MachineLearning/) - Core algorithms
+3. Study [**Deep Learning**](DeepLearning/) - Neural networks and CNNs
+4. Focus on [**Backend for AI**](BackendForAI/) - Model serving and APIs
+5. Master [**MLOps**](MLOps/) - Production deployment
 
 ### **For TinyML/Edge AI Roles**
 
-1. Complete [**Foundations**](./Foundations/) and [**Machine Learning**](./MachineLearning/)
-2. Study [**TinyML Complete Guide**](./TinyML/) - All 9 sections
-3. Practice with [**Code Examples**](./TinyML/CodeExamples.md)
-4. Review [**Interview Questions**](./TinyML/InterviewQuestions.md)
+1. Complete [**Foundations**](Foundations/) and [**Machine Learning**](MachineLearning/)
+2. Study [**TinyML Complete Guide**](TinyML/) - All 9 sections
+3. Practice with [**Code Examples**](TinyML/CodeExamples.md/)
+4. Review [**Interview Questions**](TinyML/InterviewQuestions.md/)
 
 ### **For Research/Academic Roles**
 
-1. Master [**Foundations**](./Foundations/) - Mathematical foundations
-2. Deep dive into [**Deep Learning**](./DeepLearning/) - Advanced architectures
-3. Study [**Generative AI**](./GenerativeAI/) - Latest research
-4. Review [**Case Studies**](./CaseStudies/) - Industry practices
+1. Master [**Foundations**](Foundations/) - Mathematical foundations
+2. Deep dive into [**Deep Learning**](DeepLearning/) - Advanced architectures
+3. Study [**Generative AI**](GenerativeAI/) - Latest research
+4. Review [**Case Studies**](CaseStudies/) - Industry practices
 
 ## 🔧 **Node.js AI/ML Stack**
 

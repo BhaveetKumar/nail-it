@@ -6,15 +6,15 @@ This module covers backend development concepts including Express.js, FastAPI, S
 
 ## Table of Contents
 
-1. [Express.js Fundamentals](#expressjs-fundamentals)
-2. [FastAPI Fundamentals](#fastapi-fundamentals)
-3. [Spring Boot Fundamentals](#spring-boot-fundamentals)
-4. [RESTful API Design](#restful-api-design)
-5. [Authentication & Authorization](#authentication--authorization)
-6. [Database Integration](#database-integration)
-7. [Applications](#applications)
-8. [Complexity Analysis](#complexity-analysis)
-9. [Follow-up Questions](#follow-up-questions)
+1. [Express.js Fundamentals](#expressjs-fundamentals/)
+2. [FastAPI Fundamentals](#fastapi-fundamentals/)
+3. [Spring Boot Fundamentals](#spring-boot-fundamentals/)
+4. [RESTful API Design](#restful-api-design/)
+5. [Authentication & Authorization](#authentication--authorization/)
+6. [Database Integration](#database-integration/)
+7. [Applications](#applications/)
+8. [Complexity Analysis](#complexity-analysis/)
+9. [Follow-up Questions](#follow-up-questions/)
 
 ## Express.js Fundamentals
 
@@ -109,7 +109,7 @@ func (app *ExpressApp) Listen(port string) {
 
 func (app *ExpressApp) applyMiddleware(handler http.HandlerFunc) http.HandlerFunc {
     for i := len(app.Middleware) - 1; i >= 0; i-- {
-        handler = app.Middleware[i](handler)
+        handler = app.Middleware[i](handler/)
     }
     return handler
 }
@@ -328,7 +328,7 @@ func (app *FastAPIApp) Listen(port string) {
 
 func (app *FastAPIApp) applyMiddleware(handler http.HandlerFunc) http.HandlerFunc {
     for i := len(app.Middleware) - 1; i >= 0; i-- {
-        handler = app.Middleware[i](handler)
+        handler = app.Middleware[i](handler/)
     }
     return handler
 }
@@ -604,7 +604,7 @@ func (app *SpringBootApp) Run(port string) {
 
 func (app *SpringBootApp) applyMiddleware(handler http.HandlerFunc) http.HandlerFunc {
     for i := len(app.Middleware) - 1; i >= 0; i-- {
-        handler = app.Middleware[i](handler)
+        handler = app.Middleware[i](handler/)
     }
     return handler
 }
@@ -760,4 +760,4 @@ A: Dependency injection is a design pattern where objects receive their dependen
 
 ---
 
-**Next**: [Full-Stack Integration](./fullstack-integration.md) | **Previous**: [Web Development](../README.md) | **Up**: [Web Development](../README.md)
+**Next**: [Full-Stack Integration](fullstack-integration.md/) | **Previous**: [Web Development](README.md/) | **Up**: [Web Development](README.md/)

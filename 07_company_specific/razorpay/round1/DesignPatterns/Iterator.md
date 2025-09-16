@@ -1008,7 +1008,7 @@ type SliceIterator[T any] struct {
     current int
 }
 
-func NewSliceIterator[T any](items []T) *SliceIterator[T] {
+func NewSliceIterator[T any](items []T/) *SliceIterator[T] {
     return &SliceIterator[T]{
         items:   items,
         current: 0,
@@ -1080,7 +1080,7 @@ type FilteredIterator[T any] struct {
     hasPrefetch  bool
 }
 
-func NewFilteredIterator[T any](baseIterator Iterator[T], filter func(T) bool) *FilteredIterator[T] {
+func NewFilteredIterator[T any](baseIterator Iterator[T], filter func(T/) bool) *FilteredIterator[T] {
     return &FilteredIterator[T]{
         baseIterator: baseIterator,
         filter:       filter,
@@ -1144,7 +1144,7 @@ type TransformedIterator[T, U any] struct {
     transform    func(T) U
 }
 
-func NewTransformedIterator[T, U any](baseIterator Iterator[T], transform func(T) U) *TransformedIterator[T, U] {
+func NewTransformedIterator[T, U any](baseIterator Iterator[T], transform func(T/) U) *TransformedIterator[T, U] {
     return &TransformedIterator[T, U]{
         baseIterator: baseIterator,
         transform:    transform,
@@ -1176,7 +1176,7 @@ type BatchedIterator[T any] struct {
     batchSize    int
 }
 
-func NewBatchedIterator[T any](baseIterator Iterator[T], batchSize int) *BatchedIterator[T] {
+func NewBatchedIterator[T any](baseIterator Iterator[T], batchSize int/) *BatchedIterator[T] {
     return &BatchedIterator[T]{
         baseIterator: baseIterator,
         batchSize:    batchSize,
@@ -1215,7 +1215,7 @@ type ChainedIterator[T any] struct {
     currentIndex int
 }
 
-func NewChainedIterator[T any](iterators ...Iterator[T]) *ChainedIterator[T] {
+func NewChainedIterator[T any](iterators ...Iterator[T]/) *ChainedIterator[T] {
     return &ChainedIterator[T]{
         iterators:    iterators,
         currentIndex: 0,
@@ -1257,7 +1257,7 @@ type LazyIterator[T any] struct {
     checked   bool
 }
 
-func NewLazyIterator[T any](generator func() (T, bool)) *LazyIterator[T] {
+func NewLazyIterator[T any](generator func(/) (T, bool)) *LazyIterator[T] {
     return &LazyIterator[T]{
         generator: generator,
     }
@@ -1587,7 +1587,7 @@ type ExternalIterator[T any] interface {
     Reset()
 }
 
-func ProcessWithExternalIterator[T any](iterator ExternalIterator[T], processor func(T)) {
+func ProcessWithExternalIterator[T any](iterator ExternalIterator[T], processor func(T)/) {
     for iterator.HasNext() {
         item, err := iterator.Next()
         if err != nil {
@@ -1721,7 +1721,7 @@ type IteratorBuilder[T any] struct {
     limit        int
 }
 
-func NewIteratorBuilder[T any](baseIterator Iterator[T]) *IteratorBuilder[T] {
+func NewIteratorBuilder[T any](baseIterator Iterator[T]/) *IteratorBuilder[T] {
     return &IteratorBuilder[T]{
         baseIterator: baseIterator,
     }
@@ -1824,7 +1824,7 @@ type ObservableIterator[T any] struct {
     observers    []IteratorObserver[T]
 }
 
-func NewObservableIterator[T any](baseIterator Iterator[T]) *ObservableIterator[T] {
+func NewObservableIterator[T any](baseIterator Iterator[T]/) *ObservableIterator[T] {
     return &ObservableIterator[T]{
         baseIterator: baseIterator,
         observers:    make([]IteratorObserver[T], 0),
@@ -1873,7 +1873,7 @@ type ForEachCommand[T any] struct {
     executed []T
 }
 
-func NewForEachCommand[T any](iterator Iterator[T], action func(T) error) *ForEachCommand[T] {
+func NewForEachCommand[T any](iterator Iterator[T], action func(T/) error) *ForEachCommand[T] {
     return &ForEachCommand[T]{
         iterator: iterator,
         action:   action,
@@ -2062,7 +2062,7 @@ type SynchronizedIterator[T any] struct {
     index      int
 }
 
-func NewSynchronizedIterator[T any](collection Collection[T], mu *sync.RWMutex) *SynchronizedIterator[T] {
+func NewSynchronizedIterator[T any](collection Collection[T], mu *sync.RWMutex/) *SynchronizedIterator[T] {
     return &SynchronizedIterator[T]{
         collection: collection,
         mu:         mu,
@@ -2097,7 +2097,7 @@ type ChannelIterator[T any] struct {
     done    bool
 }
 
-func NewChannelIterator[T any](channel <-chan T) *ChannelIterator[T] {
+func NewChannelIterator[T any](channel <-chan T/) *ChannelIterator[T] {
     return &ChannelIterator[T]{
         channel: channel,
     }
@@ -2138,7 +2138,7 @@ func (c *ChannelIterator[T]) Next() (T, error) {
 }
 
 // Producer can safely add items via channel
-func ProduceItems[T any](channel chan<- T, items []T) {
+func ProduceItems[T any](channel chan<- T, items []T/) {
     defer close(channel)
 
     for _, item := range items {
@@ -2162,7 +2162,7 @@ type LazyGeneratorIterator[T any] struct {
     err       error
 }
 
-func NewLazyGeneratorIterator[T any](generator func() (T, bool, error)) *LazyGeneratorIterator[T] {
+func NewLazyGeneratorIterator[T any](generator func(/) (T, bool, error)) *LazyGeneratorIterator[T] {
     return &LazyGeneratorIterator[T]{
         generator: generator,
     }
@@ -2236,7 +2236,7 @@ type LazyTransformIterator[T, U any] struct {
 
 func NewLazyTransformIterator[T, U any](
     source Iterator[T],
-    transform func(T) U,
+    transform func(T/) U,
     filter func(T) bool,
 ) *LazyTransformIterator[T, U] {
     return &LazyTransformIterator[T, U]{
@@ -2312,7 +2312,7 @@ func NewLazyDatabaseIterator[T any](
     query string,
     args []interface{},
     batchSize int,
-    mapper func(*sql.Rows) (T, error),
+    mapper func(*sql.Rows/) (T, error),
 ) *LazyDatabaseIterator[T] {
     return &LazyDatabaseIterator[T]{
         db:        db,
@@ -2391,7 +2391,7 @@ type FluentIterator[T any] struct {
     baseIterator Iterator[T]
 }
 
-func Fluent[T any](iterator Iterator[T]) *FluentIterator[T] {
+func Fluent[T any](iterator Iterator[T]/) *FluentIterator[T] {
     return &FluentIterator[T]{baseIterator: iterator}
 }
 
@@ -2523,7 +2523,7 @@ type IteratorItem[T any] struct {
     Done  bool
 }
 
-func NewParallelIterator[T any](iterators ...Iterator[T]) *ParallelIterator[T] {
+func NewParallelIterator[T any](iterators ...Iterator[T]/) *ParallelIterator[T] {
     pi := &ParallelIterator[T]{
         iterators: iterators,
         channels:  make([]<-chan IteratorItem[T], len(iterators)),

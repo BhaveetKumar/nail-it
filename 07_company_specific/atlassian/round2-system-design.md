@@ -826,24 +826,24 @@ func (prs *PullRequestService) MergePullRequest(prID, userID string) error {
 
 ### System Design Resources
 
-- [System Design Patterns](../../shared/system-design-patterns.md)
-- [System Design Videos](../../shared/system-design-videos.md)
+- [System Design Patterns](../shared/system-design-patterns.md/)
+- [System Design Videos](../shared/system-design-videos.md/)
 - [Designing Data-Intensive Applications](https://dataintensive.net/)
 
 ### Atlassian-Specific
 
-- [Atlassian Architecture](https://www.atlassian.com/engineering)
+- [Atlassian Architecture](https://www.atlassian.com/engineering/)
 - [Jira Architecture](https://developer.atlassian.com/cloud/jira/platform/rest/v2/)
 - [Confluence Architecture](https://developer.atlassian.com/cloud/confluence/rest/v1/)
 
 ### Real-time Collaboration
 
-- [Operational Transform](https://en.wikipedia.org/wiki/Operational_transformation)
-- [Conflict-free Replicated Data Types](https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type)
-- [WebSocket Best Practices](https://tools.ietf.org/html/rfc6455)
+- [Operational Transform](https://en.wikipedia.org/wiki/Operational_transformation/)
+- [Conflict-free Replicated Data Types](https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type/)
+- [WebSocket Best Practices](https://tools.ietf.org/html/rfc6455/)
 
 ## 🔗 Related Content
 
-- [Coding Round 1](../atlassian/round1-coding.md) - For coding problems
-- [Behavioral Round 3](../atlassian/round3-behavioral.md) - For behavioral questions
-- [Golang Patterns](../../shared/golang-coding-patterns.md) - For implementation details
+- [Coding Round 1](atlassian/round1-coding.md/) - For coding problems
+- [Behavioral Round 3](atlassian/round3-behavioral.md/) - For behavioral questions
+- [Golang Patterns](../shared/golang-coding-patterns.md/) - For implementation details

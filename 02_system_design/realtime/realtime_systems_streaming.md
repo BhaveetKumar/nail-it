@@ -1,14 +1,14 @@
 # ⚡ Real-time Systems & Streaming
 
 ## Table of Contents
-1. [Real-time System Architecture](#real-time-system-architecture)
-2. [Event Streaming](#event-streaming)
-3. [WebSocket Implementation](#websocket-implementation)
-4. [Message Queues](#message-queues)
-5. [Stream Processing](#stream-processing)
-6. [Low Latency Optimization](#low-latency-optimization)
-7. [Go Implementation Examples](#go-implementation-examples)
-8. [Interview Questions](#interview-questions)
+1. [Real-time System Architecture](#real-time-system-architecture/)
+2. [Event Streaming](#event-streaming/)
+3. [WebSocket Implementation](#websocket-implementation/)
+4. [Message Queues](#message-queues/)
+5. [Stream Processing](#stream-processing/)
+6. [Low Latency Optimization](#low-latency-optimization/)
+7. [Go Implementation Examples](#go-implementation-examples/)
+8. [Interview Questions](#interview-questions/)
 
 ## Real-time System Architecture
 

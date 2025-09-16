@@ -358,10 +358,10 @@ paths.forEach((path, index) => {
 
 ## Related Problems
 
-- [Fibonacci Number](./Fibonacci.md)
-- [House Robber](./HouseRobber.md)
-- [Min Cost Climbing Stairs](./MinCostClimbingStairs.md)
-- [Decode Ways](./DecodeWays.md)
+- [Fibonacci Number](Fibonacci.md/)
+- [House Robber](HouseRobber.md/)
+- [Min Cost Climbing Stairs](MinCostClimbingStairs.md/)
+- [Decode Ways](DecodeWays.md/)
 
 ## Interview Tips
 

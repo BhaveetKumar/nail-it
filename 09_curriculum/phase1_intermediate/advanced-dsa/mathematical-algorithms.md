@@ -6,14 +6,14 @@ This module covers advanced mathematical algorithms including number theory, com
 
 ## Table of Contents
 
-1. [Number Theory](#number-theory)
-2. [Combinatorics](#combinatorics)
-3. [Probability and Statistics](#probability-and-statistics)
-4. [Optimization Algorithms](#optimization-algorithms)
-5. [Geometric Algorithms](#geometric-algorithms)
-6. [Applications](#applications)
-7. [Complexity Analysis](#complexity-analysis)
-8. [Follow-up Questions](#follow-up-questions)
+1. [Number Theory](#number-theory/)
+2. [Combinatorics](#combinatorics/)
+3. [Probability and Statistics](#probability-and-statistics/)
+4. [Optimization Algorithms](#optimization-algorithms/)
+5. [Geometric Algorithms](#geometric-algorithms/)
+6. [Applications](#applications/)
+7. [Complexity Analysis](#complexity-analysis/)
+8. [Follow-up Questions](#follow-up-questions/)
 
 ## Number Theory
 
@@ -642,4 +642,4 @@ A: Binary search works on sorted arrays and finds exact values. Ternary search w
 
 ---
 
-**Next**: [Applications](./applications.md) | **Previous**: [Advanced DSA](../README.md) | **Up**: [Advanced DSA](../README.md)
+**Next**: [Applications](applications.md/) | **Previous**: [Advanced DSA](README.md/) | **Up**: [Advanced DSA](README.md/)

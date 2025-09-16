@@ -6,35 +6,35 @@
 
 ### **Activity Selection**
 
-- [Jump Game](./JumpGame.md) - Can reach the last index
-- [Jump Game II](./JumpGameII.md) - Minimum jumps to reach end
-- [Gas Station](./GasStation.md) - Find starting gas station
-- [Container With Most Water](./ContainerWithMostWater.md) - Maximum area between lines
-- [Trapping Rain Water](./TrappingRainWater.md) - Collect rainwater
+- [Jump Game](JumpGame.md/) - Can reach the last index
+- [Jump Game II](JumpGameII.md/) - Minimum jumps to reach end
+- [Gas Station](GasStation.md/) - Find starting gas station
+- [Container With Most Water](ContainerWithMostWater.md/) - Maximum area between lines
+- [Trapping Rain Water](TrappingRainWater.md/) - Collect rainwater
 
 ### **Scheduling Problems**
 
-- [Meeting Rooms](./MeetingRooms.md) - Can attend all meetings
-- [Meeting Rooms II](./MeetingRoomsII.md) - Minimum meeting rooms needed
-- [Task Scheduler](./TaskScheduler.md) - Schedule tasks with cooldown
-- [Course Schedule III](./CourseScheduleIII.md) - Maximum courses to take
-- [Minimum Number of Arrows](./MinimumNumberOfArrows.md) - Burst balloons
+- [Meeting Rooms](MeetingRooms.md/) - Can attend all meetings
+- [Meeting Rooms II](MeetingRoomsII.md/) - Minimum meeting rooms needed
+- [Task Scheduler](TaskScheduler.md/) - Schedule tasks with cooldown
+- [Course Schedule III](CourseScheduleIII.md/) - Maximum courses to take
+- [Minimum Number of Arrows](MinimumNumberOfArrows.md/) - Burst balloons
 
 ### **Optimization Problems**
 
-- [Maximum Subarray](./MaximumSubarray.md) - Kadane's algorithm
-- [Best Time to Buy and Sell Stock](./BestTimeToBuyAndSellStock.md) - Maximum profit
-- [Best Time to Buy and Sell Stock II](./BestTimeToBuyAndSellStockII.md) - Multiple transactions
-- [Lemonade Change](./LemonadeChange.md) - Make change with bills
-- [Assign Cookies](./AssignCookies.md) - Distribute cookies to children
+- [Maximum Subarray](MaximumSubarray.md/) - Kadane's algorithm
+- [Best Time to Buy and Sell Stock](BestTimeToBuyAndSellStock.md/) - Maximum profit
+- [Best Time to Buy and Sell Stock II](BestTimeToBuyAndSellStockII.md/) - Multiple transactions
+- [Lemonade Change](LemonadeChange.md/) - Make change with bills
+- [Assign Cookies](AssignCookies.md/) - Distribute cookies to children
 
 ### **Advanced Greedy**
 
-- [Huffman Coding](./HuffmanCoding.md) - Optimal prefix coding
-- [Fractional Knapsack](./FractionalKnapsack.md) - Greedy knapsack
-- [Minimum Cost to Connect Sticks](./MinimumCostToConnectSticks.md) - Connect sticks optimally
-- [Reorganize String](./ReorganizeString.md) - Rearrange string characters
-- [Partition Labels](./PartitionLabels.md) - Partition string into labels
+- [Huffman Coding](HuffmanCoding.md/) - Optimal prefix coding
+- [Fractional Knapsack](FractionalKnapsack.md/) - Greedy knapsack
+- [Minimum Cost to Connect Sticks](MinimumCostToConnectSticks.md/) - Connect sticks optimally
+- [Reorganize String](ReorganizeString.md/) - Rearrange string characters
+- [Partition Labels](PartitionLabels.md/) - Partition string into labels
 
 ---
 

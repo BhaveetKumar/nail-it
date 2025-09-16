@@ -4,13 +4,13 @@
 
 ## 📋 Table of Contents
 
-1. [🔗 Advanced Graph Algorithms](#-advanced-graph-algorithms)
-2. [📊 Advanced Data Structures](#-advanced-data-structures)
-3. [⚡ Dynamic Programming Patterns](#-dynamic-programming-patterns)
-4. [🎯 String Algorithms](#-string-algorithms)
-5. [🔢 Number Theory & Math](#-number-theory--math)
-6. [🌐 Network Flow Algorithms](#-network-flow-algorithms)
-7. [🎯 Google-Specific Algorithm Questions](#-google-specific-algorithm-questions)
+1. [🔗 Advanced Graph Algorithms](#-advanced-graph-algorithms/)
+2. [📊 Advanced Data Structures](#-advanced-data-structures/)
+3. [⚡ Dynamic Programming Patterns](#-dynamic-programming-patterns/)
+4. [🎯 String Algorithms](#-string-algorithms/)
+5. [🔢 Number Theory & Math](#-number-theory--math/)
+6. [🌐 Network Flow Algorithms](#-network-flow-algorithms/)
+7. [🎯 Google-Specific Algorithm Questions](#-google-specific-algorithm-questions/)
 
 ---
 
@@ -1107,18 +1107,18 @@ func main() {
 ## 📚 Additional Resources
 
 ### **Books**
-- [Introduction to Algorithms](https://mitpress.mit.edu/books/introduction-algorithms) - Cormen, Leiserson, Rivest, Stein
+- [Introduction to Algorithms](https://mitpress.mit.edu/books/introduction-algorithms/) - Cormen, Leiserson, Rivest, Stein
 - [Algorithm Design Manual](https://www.algorist.com/) - Steven Skiena
 - [Competitive Programming](https://cpbook.net/) - Steven Halim
 
 ### **Online Resources**
-- [Google's Technical Interview Guide](https://www.google.com/about/careers/students/guide-to-technical-development.html)
+- [Google's Technical Interview Guide](https://www.google.com/about/careers/students/guide-to-technical-development.html/)
 - [LeetCode](https://leetcode.com/) - Practice problems
 - [Codeforces](https://codeforces.com/) - Competitive programming
 
 ### **Video Resources**
-- [MIT 6.006 Introduction to Algorithms](https://www.youtube.com/playlist?list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb)
-- [Stanford CS161 Design and Analysis of Algorithms](https://www.youtube.com/playlist?list=PLXFMmlk03Dt7Q0xr1PIAriY5623cKiH7V)
+- [MIT 6.006 Introduction to Algorithms](https://www.youtube.com/playlist?list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb/)
+- [Stanford CS161 Design and Analysis of Algorithms](https://www.youtube.com/playlist?list=PLXFMmlk03Dt7Q0xr1PIAriY5623cKiH7V/)
 
 ---
 

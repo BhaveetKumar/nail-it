@@ -1,16 +1,16 @@
 # Real-Time Systems Engineering Guide
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Real-Time System Fundamentals](#real-time-system-fundamentals)
-- [Low-Latency Architecture](#low-latency-architecture)
-- [Event-Driven Systems](#event-driven-systems)
-- [Stream Processing](#stream-processing)
-- [High-Frequency Trading Systems](#high-frequency-trading-systems)
-- [Gaming and Interactive Systems](#gaming-and-interactive-systems)
-- [IoT and Edge Computing](#iot-and-edge-computing)
-- [Real-Time Communication](#real-time-communication)
-- [Performance Optimization](#performance-optimization)
+- [Introduction](#introduction/)
+- [Real-Time System Fundamentals](#real-time-system-fundamentals/)
+- [Low-Latency Architecture](#low-latency-architecture/)
+- [Event-Driven Systems](#event-driven-systems/)
+- [Stream Processing](#stream-processing/)
+- [High-Frequency Trading Systems](#high-frequency-trading-systems/)
+- [Gaming and Interactive Systems](#gaming-and-interactive-systems/)
+- [IoT and Edge Computing](#iot-and-edge-computing/)
+- [Real-Time Communication](#real-time-communication/)
+- [Performance Optimization](#performance-optimization/)
 
 ## Introduction
 
@@ -1427,10 +1427,10 @@ Mastering these areas will prepare you for building high-performance real-time s
 ## Additional Resources
 
 - [Real-Time Systems Design](https://www.oreilly.com/library/view/real-time-systems/9780132494282/)
-- [High-Performance Go](https://github.com/geohot/minikeyvalue)
+- [High-Performance Go](https://github.com/geohot/minikeyvalue/)
 - [Lock-Free Programming](https://preshing.com/20120612/an-introduction-to-lock-free-programming/)
-- [Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html)
-- [CQRS Pattern](https://martinfowler.com/bliki/CQRS.html)
+- [Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html/)
+- [CQRS Pattern](https://martinfowler.com/bliki/CQRS.html/)
 - [Apache Kafka Documentation](https://kafka.apache.org/documentation/)
-- [WebSocket RFC](https://tools.ietf.org/html/rfc6455)
+- [WebSocket RFC](https://tools.ietf.org/html/rfc6455/)
 - [Linux Performance Tuning](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/performance_tuning_guide/)

@@ -6,13 +6,13 @@ This module covers advanced graph theory algorithms including network flow, matc
 
 ## Table of Contents
 
-1. [Network Flow Algorithms](#network-flow-algorithms)
-2. [Matching Algorithms](#matching-algorithms)
-3. [Strongly Connected Components](#strongly-connected-components)
-4. [Graph Coloring](#graph-coloring)
-5. [Applications](#applications)
-6. [Complexity Analysis](#complexity-analysis)
-7. [Follow-up Questions](#follow-up-questions)
+1. [Network Flow Algorithms](#network-flow-algorithms/)
+2. [Matching Algorithms](#matching-algorithms/)
+3. [Strongly Connected Components](#strongly-connected-components/)
+4. [Graph Coloring](#graph-coloring/)
+5. [Applications](#applications/)
+6. [Complexity Analysis](#complexity-analysis/)
+7. [Follow-up Questions](#follow-up-questions/)
 
 ## Network Flow Algorithms
 
@@ -953,4 +953,4 @@ A: Tarjan's algorithm has O(V + E) time complexity, making it very efficient for
 
 ---
 
-**Next**: [Phase 3 Expert](../phase3_expert/README.md) | **Previous**: [Advanced Algorithms](../README.md) | **Up**: [Phase 2 Advanced](../README.md)
+**Next**: [Phase 3 Expert](phase3_expert/README.md/) | **Previous**: [Advanced Algorithms](README.md/) | **Up**: [Phase 2 Advanced](README.md/)

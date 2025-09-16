@@ -6,14 +6,14 @@ This module covers file system implementation concepts including inode structure
 
 ## Table of Contents
 
-1. [Inode Structure](#inode-structure)
-2. [Directory Management](#directory-management)
-3. [File Operations](#file-operations)
-4. [Caching Strategies](#caching-strategies)
-5. [File System Optimization](#file-system-optimization)
-6. [Applications](#applications)
-7. [Complexity Analysis](#complexity-analysis)
-8. [Follow-up Questions](#follow-up-questions)
+1. [Inode Structure](#inode-structure/)
+2. [Directory Management](#directory-management/)
+3. [File Operations](#file-operations/)
+4. [Caching Strategies](#caching-strategies/)
+5. [File System Optimization](#file-system-optimization/)
+6. [Applications](#applications/)
+7. [Complexity Analysis](#complexity-analysis/)
+8. [Follow-up Questions](#follow-up-questions/)
 
 ## Inode Structure
 
@@ -837,4 +837,4 @@ A: Synchronous operations are simpler to implement and debug but can block the c
 
 ---
 
-**Next**: [I/O Systems](./io-systems.md) | **Previous**: [OS Deep Dive](../README.md) | **Up**: [OS Deep Dive](../README.md)
+**Next**: [I/O Systems](io-systems.md/) | **Previous**: [OS Deep Dive](README.md/) | **Up**: [OS Deep Dive](README.md/)

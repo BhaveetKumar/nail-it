@@ -924,4 +924,4 @@ helm install my-app ./my-app-chart --set replicaCount=5
 
 ---
 
-**Next**: [Service Mesh - Istio](./ServiceMesh_Istio.md) - Microservices communication, security, observability
+**Next**: [Service Mesh - Istio](ServiceMesh_Istio.md/) - Microservices communication, security, observability

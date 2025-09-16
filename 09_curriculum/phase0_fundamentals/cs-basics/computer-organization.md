@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [CPU Architecture](#cpu-architecture)
-3. [Memory Hierarchy](#memory-hierarchy)
-4. [Assembly Language](#assembly-language)
-5. [Performance Optimization](#performance-optimization)
-6. [Implementations](#implementations)
-7. [Follow-up Questions](#follow-up-questions)
-8. [Sources](#sources)
-9. [Projects](#projects)
+1. [Overview](#overview/)
+2. [CPU Architecture](#cpu-architecture/)
+3. [Memory Hierarchy](#memory-hierarchy/)
+4. [Assembly Language](#assembly-language/)
+5. [Performance Optimization](#performance-optimization/)
+6. [Implementations](#implementations/)
+7. [Follow-up Questions](#follow-up-questions/)
+8. [Sources](#sources/)
+9. [Projects](#projects/)
 
 ## Overview
 
@@ -956,4 +956,4 @@ A: Assembly is the human-readable form of machine code that compilers generate f
 
 ---
 
-**Next**: [Operating Systems](./operating-systems-concepts.md) | **Previous**: [CS Basics Overview](./README.md) | **Up**: [Phase 0](../README.md)
+**Next**: [Operating Systems](operating-systems-concepts.md/) | **Previous**: [CS Basics Overview](README.md/) | **Up**: [Phase 0](README.md/)

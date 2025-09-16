@@ -6,10 +6,10 @@ This module covers the fundamental concepts of computer science, including compu
 
 ## Table of Contents
 
-1. [Computer Organization](./computer-organization.md)
-2. [Operating Systems](./operating-systems-concepts.md)
-3. [Networks & Protocols](./networks-protocols.md)
-4. [Database Fundamentals](./database-fundamentals.md)
+1. [Computer Organization](computer-organization.md/)
+2. [Operating Systems](operating-systems-concepts.md/)
+3. [Networks & Protocols](networks-protocols.md/)
+4. [Database Fundamentals](database-fundamentals.md/)
 
 ## Learning Objectives
 
@@ -73,4 +73,4 @@ This module covers the fundamental concepts of computer science, including compu
 
 ---
 
-**Next**: [Computer Organization](./computer-organization.md) | **Up**: [Phase 0](../README.md)
+**Next**: [Computer Organization](computer-organization.md/) | **Up**: [Phase 0](README.md/)

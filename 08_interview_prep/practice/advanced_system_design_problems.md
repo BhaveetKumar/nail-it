@@ -1,16 +1,16 @@
 # Advanced System Design Problems
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Large-Scale Distributed Systems](#large-scale-distributed-systems)
-- [Real-Time Systems](#real-time-systems)
-- [Machine Learning Systems](#machine-learning-systems)
-- [Financial Systems](#financial-systems)
-- [Social Media Systems](#social-media-systems)
-- [E-commerce Systems](#e-commerce-systems)
-- [Gaming Systems](#gaming-systems)
-- [IoT and Edge Computing](#iot-and-edge-computing)
-- [Blockchain Systems](#blockchain-systems)
+- [Introduction](#introduction/)
+- [Large-Scale Distributed Systems](#large-scale-distributed-systems/)
+- [Real-Time Systems](#real-time-systems/)
+- [Machine Learning Systems](#machine-learning-systems/)
+- [Financial Systems](#financial-systems/)
+- [Social Media Systems](#social-media-systems/)
+- [E-commerce Systems](#e-commerce-systems/)
+- [Gaming Systems](#gaming-systems/)
+- [IoT and Edge Computing](#iot-and-edge-computing/)
+- [Blockchain Systems](#blockchain-systems/)
 
 ## Introduction
 
@@ -617,7 +617,7 @@ Practice these problems regularly and be prepared to dive deep into any aspect o
 
 ## Additional Resources
 
-- [System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview)
+- [System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview/)
 - [Distributed Systems Patterns](https://microservices.io/patterns/)
 - [High Scalability](http://highscalability.com/)
 - [Designing Data-Intensive Applications](https://dataintensive.net/)

@@ -683,10 +683,10 @@ console.log("Prim MST:", primMST(mstGraph));
 
 ## Related Problems
 
-- [Number of Islands](./NumberOfIslands.md)
-- [Course Schedule](./CourseSchedule.md)
-- [Network Delay Time](./NetworkDelayTime.md)
-- [Redundant Connection](./RedundantConnection.md)
+- [Number of Islands](NumberOfIslands.md/)
+- [Course Schedule](CourseSchedule.md/)
+- [Network Delay Time](NetworkDelayTime.md/)
+- [Redundant Connection](RedundantConnection.md/)
 
 ## Interview Tips
 

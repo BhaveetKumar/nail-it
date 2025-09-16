@@ -1113,7 +1113,7 @@ func AuthMiddleware(authService AuthService) Middleware {
 // Chain middlewares
 func ChainMiddlewares(handler HandlerFunc, middlewares ...Middleware) HandlerFunc {
     for i := len(middlewares) - 1; i >= 0; i-- {
-        handler = middlewares[i](handler)
+        handler = middlewares[i](handler/)
     }
     return handler
 }
@@ -1139,7 +1139,7 @@ type LoggingProcessor[T any] struct {
     logger *zap.Logger
 }
 
-func NewLoggingProcessor[T any](processor Processor[T], logger *zap.Logger) *LoggingProcessor[T] {
+func NewLoggingProcessor[T any](processor Processor[T], logger *zap.Logger/) *LoggingProcessor[T] {
     return &LoggingProcessor[T]{
         ProcessorDecorator: ProcessorDecorator[T]{wrapped: processor},
         logger:            logger,

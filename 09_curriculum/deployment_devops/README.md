@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Infrastructure Setup](#infrastructure-setup)
-3. [CI/CD Pipeline](#cicd-pipeline)
-4. [Container Orchestration](#container-orchestration)
-5. [Monitoring & Logging](#monitoring--logging)
-6. [Security & Compliance](#security--compliance)
-7. [Backup & Recovery](#backup--recovery)
-8. [Follow-up Questions](#follow-up-questions)
-9. [Sources](#sources)
+1. [Overview](#overview/)
+2. [Infrastructure Setup](#infrastructure-setup/)
+3. [CI/CD Pipeline](#cicd-pipeline/)
+4. [Container Orchestration](#container-orchestration/)
+5. [Monitoring & Logging](#monitoring--logging/)
+6. [Security & Compliance](#security--compliance/)
+7. [Backup & Recovery](#backup--recovery/)
+8. [Follow-up Questions](#follow-up-questions/)
+9. [Sources](#sources/)
 
 ## Overview
 
@@ -1063,7 +1063,7 @@ A: Implement authentication, authorization, encryption, security scanning, compl
 - **Kubernetes**: [Container Orchestration](https://kubernetes.io/)
 
 ### CI/CD
-- **GitHub Actions**: [CI/CD Platform](https://github.com/features/actions)
+- **GitHub Actions**: [CI/CD Platform](https://github.com/features/actions/)
 - **Jenkins**: [Automation Server](https://www.jenkins.io/)
 - **GitLab CI**: [DevOps Platform](https://about.gitlab.com/stages-devops-lifecycle/continuous-integration/)
 
@@ -1074,4 +1074,4 @@ A: Implement authentication, authorization, encryption, security scanning, compl
 
 ---
 
-**Next**: [Mobile App](../mobile_app/README.md) | **Previous**: [Study Tracker](../study_tracker/README.md) | **Up**: [Deployment DevOps](../README.md)
+**Next**: [Mobile App](mobile_app/README.md/) | **Previous**: [Study Tracker](study_tracker/README.md/) | **Up**: [Deployment DevOps](README.md/)

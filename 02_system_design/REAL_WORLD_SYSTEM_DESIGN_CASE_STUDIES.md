@@ -1114,4 +1114,4 @@ func main() {
 
 **🎉 This comprehensive guide provides deep insights into real-world system design with practical Go implementations based on production systems! 🚀**
 
-_Reference: [No-Fluff Engineering Podcast Playlist](https://www.youtube.com/playlist?list=PLsdq-3Z1EPT23QGFJipBTe_KYPZK4ymNJ)_
+_Reference: [No-Fluff Engineering Podcast Playlist](https://www.youtube.com/playlist?list=PLsdq-3Z1EPT23QGFJipBTe_KYPZK4ymNJ/)_

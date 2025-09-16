@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Contribution Guidelines](#contribution-guidelines)
-3. [Code of Conduct](#code-of-conduct)
-4. [Getting Started](#getting-started)
-5. [Contribution Types](#contribution-types)
-6. [Review Process](#review-process)
-7. [Recognition](#recognition)
-8. [Follow-up Questions](#follow-up-questions)
-9. [Sources](#sources)
+1. [Overview](#overview/)
+2. [Contribution Guidelines](#contribution-guidelines/)
+3. [Code of Conduct](#code-of-conduct/)
+4. [Getting Started](#getting-started/)
+5. [Contribution Types](#contribution-types/)
+6. [Review Process](#review-process/)
+7. [Recognition](#recognition/)
+8. [Follow-up Questions](#follow-up-questions/)
+9. [Sources](#sources/)
 
 ## Overview
 
@@ -188,8 +188,8 @@ go test ./...
    A: Answer explaining the feature.
 
 ## Sources
-- [Source 1](https://example.com)
-- [Source 2](https://example.com)
+- [Source 1](https://example.com/)
+- [Source 2](https://example.com/)
 ```
 
 ## Code of Conduct
@@ -450,10 +450,10 @@ A: Reviews typically take 1-3 business days, depending on the complexity and cur
 - **Contributor Covenant**: [Code of Conduct](https://www.contributor-covenant.org/)
 
 ### Community
-- **Discord**: [Community Chat](https://discord.gg/master-engineer)
+- **Discord**: [Community Chat](https://discord.gg/master-engineer/)
 - **Slack**: [Team Communication](https://master-engineer.slack.com/)
 - **Forum**: [Discussion Board](https://forum.master-engineer.com/)
 
 ---
 
-**Next**: [Testing QA](../testing_qa/README.md) | **Previous**: [Deployment DevOps](../deployment_devops/README.md) | **Up**: [Community Contributions](../README.md)
+**Next**: [Testing QA](testing_qa/README.md/) | **Previous**: [Deployment DevOps](deployment_devops/README.md/) | **Up**: [Community Contributions](README.md/)

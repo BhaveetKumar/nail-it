@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Cloud Computing Models](#cloud-computing-models)
-3. [Microservices and Containerization](#microservices-and-containerization)
-4. [Kubernetes Orchestration](#kubernetes-orchestration)
-5. [Serverless Architecture](#serverless-architecture)
-6. [Cloud Security](#cloud-security)
-7. [Cloud Monitoring and Observability](#cloud-monitoring-and-observability)
-8. [Implementations](#implementations)
-9. [Follow-up Questions](#follow-up-questions)
-10. [Sources](#sources)
-11. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Cloud Computing Models](#cloud-computing-models/)
+3. [Microservices and Containerization](#microservices-and-containerization/)
+4. [Kubernetes Orchestration](#kubernetes-orchestration/)
+5. [Serverless Architecture](#serverless-architecture/)
+6. [Cloud Security](#cloud-security/)
+7. [Cloud Monitoring and Observability](#cloud-monitoring-and-observability/)
+8. [Implementations](#implementations/)
+9. [Follow-up Questions](#follow-up-questions/)
+10. [Sources](#sources/)
+11. [Projects](#projects/)
 
 ## Overview
 
@@ -1446,5 +1446,5 @@ A: Deployments are for stateless applications with random pod names, while State
 
 ---
 
-**Next**: [Advanced Algorithms](./advanced-algorithms/README.md) | **Previous**: [Machine Learning](./machine-learning/README.md) | **Up**: [Phase 2](../README.md)
+**Next**: [Advanced Algorithms](advanced-algorithms/README.md/) | **Previous**: [Machine Learning](machine-learning/README.md/) | **Up**: [Phase 2](README.md/)
 

@@ -1,16 +1,16 @@
 # Advanced Coding Challenges for Backend Engineers
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [System Design Coding Challenges](#system-design-coding-challenges)
-- [Concurrency and Parallelism](#concurrency-and-parallelism)
-- [Distributed Systems Challenges](#distributed-systems-challenges)
-- [Database and Storage Challenges](#database-and-storage-challenges)
-- [Performance Optimization Challenges](#performance-optimization-challenges)
-- [Real-time Systems Challenges](#real-time-systems-challenges)
-- [Security and Cryptography Challenges](#security-and-cryptography-challenges)
-- [Machine Learning Integration Challenges](#machine-learning-integration-challenges)
-- [Microservices Challenges](#microservices-challenges)
+- [Introduction](#introduction/)
+- [System Design Coding Challenges](#system-design-coding-challenges/)
+- [Concurrency and Parallelism](#concurrency-and-parallelism/)
+- [Distributed Systems Challenges](#distributed-systems-challenges/)
+- [Database and Storage Challenges](#database-and-storage-challenges/)
+- [Performance Optimization Challenges](#performance-optimization-challenges/)
+- [Real-time Systems Challenges](#real-time-systems-challenges/)
+- [Security and Cryptography Challenges](#security-and-cryptography-challenges/)
+- [Machine Learning Integration Challenges](#machine-learning-integration-challenges/)
+- [Microservices Challenges](#microservices-challenges/)
 
 ## Introduction
 
@@ -1373,7 +1373,7 @@ func (hps *HighPerformanceServer) buildHandler() http.Handler {
     
     // Apply middleware in reverse order
     for i := len(hps.middleware) - 1; i >= 0; i-- {
-        handler = hps.middleware[i](handler)
+        handler = hps.middleware[i](handler/)
     }
     
     return handler
@@ -1571,8 +1571,8 @@ The key to success is understanding the underlying principles and being able to 
 
 ## Additional Resources
 
-- [System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview)
-- [High Performance Go](https://github.com/geohot/minikeyvalue)
+- [System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview/)
+- [High Performance Go](https://github.com/geohot/minikeyvalue/)
 - [Distributed Systems Patterns](https://microservices.io/patterns/)
 - [Database Internals](https://www.oreilly.com/library/view/database-internals/9781492040330/)
 - [Designing Data-Intensive Applications](https://dataintensive.net/)

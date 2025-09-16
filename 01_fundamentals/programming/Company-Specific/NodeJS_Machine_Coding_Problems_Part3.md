@@ -4,12 +4,12 @@
 
 ## 📚 **Table of Contents**
 
-10. [Notification Service](#10-notification-service)
-11. [File Upload Service](#11-file-upload-service)
-12. [Analytics Aggregator](#12-analytics-aggregator)
-13. [Shopping Cart](#13-shopping-cart)
-14. [Cache Invalidation](#14-cache-invalidation)
-15. [Transactional Saga](#15-transactional-saga)
+10. [Notification Service](#10-notification-service/)
+11. [File Upload Service](#11-file-upload-service/)
+12. [Analytics Aggregator](#12-analytics-aggregator/)
+13. [Shopping Cart](#13-shopping-cart/)
+14. [Cache Invalidation](#14-cache-invalidation/)
+15. [Transactional Saga](#15-transactional-saga/)
 
 ---
 

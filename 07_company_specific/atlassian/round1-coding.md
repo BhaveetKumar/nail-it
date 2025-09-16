@@ -534,15 +534,15 @@ func TestWebhookHandler(t *testing.T) {
 
 ### Golang Resources
 
-- [Effective Go](https://golang.org/doc/effective_go.html)
+- [Effective Go](https://golang.org/doc/effective_go.html/)
 - [Go by Example](https://gobyexample.com/)
-- [Golang Patterns](../../shared/golang-coding-patterns.md)
+- [Golang Patterns](../shared/golang-coding-patterns.md/)
 
 ### Algorithm Practice
 
 - [LeetCode](https://leetcode.com/) - Focus on medium difficulty
 - [HackerRank](https://www.hackerrank.com/) - Golang track
-- [DSA Questions](../../shared/dsa-questions.md)
+- [DSA Questions](../shared/dsa-questions.md/)
 
 ### Atlassian-Specific
 
@@ -552,6 +552,6 @@ func TestWebhookHandler(t *testing.T) {
 
 ## 🔗 Related Content
 
-- [System Design Patterns](../../shared/system-design-patterns.md) - For Round 2
-- [Behavioral Questions](../../shared/behavioral-bank.md) - For Round 3
-- [Golang Coding Patterns](../../shared/golang-coding-patterns.md) - Deep dive into Go
+- [System Design Patterns](../shared/system-design-patterns.md/) - For Round 2
+- [Behavioral Questions](../shared/behavioral-bank.md/) - For Round 3
+- [Golang Coding Patterns](../shared/golang-coding-patterns.md/) - Deep dive into Go

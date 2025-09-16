@@ -7,105 +7,105 @@
 ### **🏆 System Design & Architecture**
 
 #### **1. Gaurav Sen - System Design Master**
-- **Channel**: [Gaurav Sen](https://www.youtube.com/c/GauravSen)
+- **Channel**: [Gaurav Sen](https://www.youtube.com/c/GauravSen/)
 - **Language**: English
 - **Best For**: System design fundamentals, real-world architectures
 - **Top Videos**:
-  - [System Design Interview: Design YouTube](https://www.youtube.com/watch?v=FS1mnISoG7U)
-  - [System Design Interview: Design a URL Shortener](https://www.youtube.com/watch?v=ZmyzS9k0Z9o)
-  - [System Design Interview: Design a Chat System](https://www.youtube.com/watch?v=zKPNUMkwOJE)
-  - [System Design Interview: Design a Distributed Cache](https://www.youtube.com/watch?v=U3RkDLtS9uI)
+  - [System Design Interview: Design YouTube](https://www.youtube.com/watch?v=FS1mnISoG7U/)
+  - [System Design Interview: Design a URL Shortener](https://www.youtube.com/watch?v=ZmyzS9k0Z9o/)
+  - [System Design Interview: Design a Chat System](https://www.youtube.com/watch?v=zKPNUMkwOJE/)
+  - [System Design Interview: Design a Distributed Cache](https://www.youtube.com/watch?v=U3RkDLtS9uI/)
 
 #### **2. Tech Dummies - System Design Simplified**
-- **Channel**: [Tech Dummies](https://www.youtube.com/c/TechDummiesNarendraL)
+- **Channel**: [Tech Dummies](https://www.youtube.com/c/TechDummiesNarendraL/)
 - **Language**: English
 - **Best For**: Step-by-step system design explanations
 - **Top Videos**:
-  - [System Design Interview: Design a Social Media Platform](https://www.youtube.com/watch?v=5m0L0k8ZtEs)
-  - [System Design Interview: Design a Search Engine](https://www.youtube.com/watch?v=CE2b_-XfVDk)
-  - [System Design Interview: Design a Video Streaming Service](https://www.youtube.com/watch?v=5m0L0k8ZtEs)
+  - [System Design Interview: Design a Social Media Platform](https://www.youtube.com/watch?v=5m0L0k8ZtEs/)
+  - [System Design Interview: Design a Search Engine](https://www.youtube.com/watch?v=CE2b_-XfVDk/)
+  - [System Design Interview: Design a Video Streaming Service](https://www.youtube.com/watch?v=5m0L0k8ZtEs/)
 
 #### **3. High Scalability - Real-World Systems**
-- **Channel**: [High Scalability](https://www.youtube.com/c/HighScalability)
+- **Channel**: [High Scalability](https://www.youtube.com/c/HighScalability/)
 - **Language**: English
 - **Best For**: Case studies of real-world systems
 - **Top Videos**:
-  - [How Google Works - Inside Google's Data Centers](https://www.youtube.com/watch?v=zRwPSFpLX8I)
-  - [The Architecture of Open Source Applications](https://www.youtube.com/watch?v=0ZNIQOO2sfA)
+  - [How Google Works - Inside Google's Data Centers](https://www.youtube.com/watch?v=zRwPSFpLX8I/)
+  - [The Architecture of Open Source Applications](https://www.youtube.com/watch?v=0ZNIQOO2sfA/)
 
 ### **💻 Coding & Algorithms**
 
 #### **4. NeetCode - LeetCode Master**
-- **Channel**: [NeetCode](https://www.youtube.com/c/NeetCode)
+- **Channel**: [NeetCode](https://www.youtube.com/c/NeetCode/)
 - **Language**: English
 - **Best For**: LeetCode problem solutions, pattern recognition
 - **Top Videos**:
-  - [Google Coding Interview With A Competitive Programmer](https://www.youtube.com/watch?v=4tYoVx0QoN0)
-  - [LeetCode 1-50 Solutions](https://www.youtube.com/playlist?list=PLot-Xpze53ldVwtstag2TL4HQhAnC8ATf)
-  - [Dynamic Programming Patterns](https://www.youtube.com/playlist?list=PLot-Xpze53lcvx_tjrr_m2lgD2NsRHlNO)
+  - [Google Coding Interview With A Competitive Programmer](https://www.youtube.com/watch?v=4tYoVx0QoN0/)
+  - [LeetCode 1-50 Solutions](https://www.youtube.com/playlist?list=PLot-Xpze53ldVwtstag2TL4HQhAnC8ATf/)
+  - [Dynamic Programming Patterns](https://www.youtube.com/playlist?list=PLot-Xpze53lcvx_tjrr_m2lgD2NsRHlNO/)
 
 #### **5. Take U Forward - Striver's DSA**
-- **Channel**: [Take U Forward](https://www.youtube.com/c/takeUforward)
+- **Channel**: [Take U Forward](https://www.youtube.com/c/takeUforward/)
 - **Language**: English
 - **Best For**: Complete DSA roadmap, structured learning
 - **Top Videos**:
-  - [Complete DSA Roadmap](https://www.youtube.com/watch?v=4iFALQ1ACdA)
-  - [Dynamic Programming Complete Course](https://www.youtube.com/playlist?list=PLgUwDviBIf0qUlt5H_kiKYaNSqJ81PMMY)
-  - [Graph Algorithms Complete Course](https://www.youtube.com/playlist?list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw)
+  - [Complete DSA Roadmap](https://www.youtube.com/watch?v=4iFALQ1ACdA/)
+  - [Dynamic Programming Complete Course](https://www.youtube.com/playlist?list=PLgUwDviBIf0qUlt5H_kiKYaNSqJ81PMMY/)
+  - [Graph Algorithms Complete Course](https://www.youtube.com/playlist?list=PLgUwDviBIf0rGEWe64KWas0Nryn7SCRWw/)
 
 #### **6. CodeHelp by Babbar - Love Babbar**
-- **Channel**: [CodeHelp by Babbar](https://www.youtube.com/c/CodeHelp)
+- **Channel**: [CodeHelp by Babbar](https://www.youtube.com/c/CodeHelp/)
 - **Language**: Hindi/English (Hinglish)
 - **Best For**: Step-by-step coding explanations, interview preparation
 - **Top Videos**:
-  - [Complete Interview Preparation Guide](https://www.youtube.com/watch?v=4iFALQ1ACdA)
-  - [DSA Complete Course](https://www.youtube.com/playlist?list=PLDzeHZWIZsTryvtXdMr6rPh4IDexB5NIA)
-  - [System Design Complete Course](https://www.youtube.com/playlist?list=PLDzeHZWIZsTrhXYYtx4z8-u8zA-DzuVsj)
+  - [Complete Interview Preparation Guide](https://www.youtube.com/watch?v=4iFALQ1ACdA/)
+  - [DSA Complete Course](https://www.youtube.com/playlist?list=PLDzeHZWIZsTryvtXdMr6rPh4IDexB5NIA/)
+  - [System Design Complete Course](https://www.youtube.com/playlist?list=PLDzeHZWIZsTrhXYYtx4z8-u8zA-DzuVsj/)
 
 #### **7. Aditya Verma - Dynamic Programming Master**
-- **Channel**: [Aditya Verma](https://www.youtube.com/c/AdityaVermaTheProgrammingGuy)
+- **Channel**: [Aditya Verma](https://www.youtube.com/c/AdityaVermaTheProgrammingGuy/)
 - **Language**: Hindi/English (Hinglish)
 - **Best For**: Dynamic Programming, Recursion, Complex algorithms
 - **Top Videos**:
-  - [Dynamic Programming Complete Course](https://www.youtube.com/playlist?list=PL_z_8CaSLPWekqhdCPmFohncHwz8TY2Go)
-  - [Recursion Complete Course](https://www.youtube.com/playlist?list=PL_z_8CaSLPWeT1ffjiImo0sYTcnLzo-wY)
-  - [Backtracking Complete Course](https://www.youtube.com/playlist?list=PL_z_8CaSLPWeYfhtuKHj-9MpYb6XQJ_f2)
+  - [Dynamic Programming Complete Course](https://www.youtube.com/playlist?list=PL_z_8CaSLPWekqhdCPmFohncHwz8TY2Go/)
+  - [Recursion Complete Course](https://www.youtube.com/playlist?list=PL_z_8CaSLPWeT1ffjiImo0sYTcnLzo-wY/)
+  - [Backtracking Complete Course](https://www.youtube.com/playlist?list=PL_z_8CaSLPWeYfhtuKHj-9MpYb6XQJ_f2/)
 
 #### **8. Back To Back SWE - Algorithm Deep Dives**
-- **Channel**: [Back To Back SWE](https://www.youtube.com/c/BackToBackSWE)
+- **Channel**: [Back To Back SWE](https://www.youtube.com/c/BackToBackSWE/)
 - **Language**: English
 - **Best For**: In-depth algorithm explanations, problem-solving strategies
 - **Top Videos**:
-  - [Binary Search Complete Course](https://www.youtube.com/playlist?list=PLiQ766zSC5jMZgWWdqy_6TpLivRGQaFDd)
-  - [Two Pointers Technique](https://www.youtube.com/playlist?list=PLiQ766zSC5jMZgWWdqy_6TpLivRGQaFDd)
-  - [Sliding Window Technique](https://www.youtube.com/playlist?list=PLiQ766zSC5jMZgWWdqy_6TpLivRGQaFDd)
+  - [Binary Search Complete Course](https://www.youtube.com/playlist?list=PLiQ766zSC5jMZgWWdqy_6TpLivRGQaFDd/)
+  - [Two Pointers Technique](https://www.youtube.com/playlist?list=PLiQ766zSC5jMZgWWdqy_6TpLivRGQaFDd/)
+  - [Sliding Window Technique](https://www.youtube.com/playlist?list=PLiQ766zSC5jMZgWWdqy_6TpLivRGQaFDd/)
 
 #### **9. Tushar Roy - Algorithm Visualization**
-- **Channel**: [Tushar Roy](https://www.youtube.com/c/TusharRoy)
+- **Channel**: [Tushar Roy](https://www.youtube.com/c/TusharRoy/)
 - **Language**: English
 - **Best For**: Algorithm visualization, step-by-step explanations
 - **Top Videos**:
-  - [Graph Algorithms](https://www.youtube.com/playlist?list=PLrmLmBdmIlpu2f2g8ltqaaCZiq6GJvl1j)
-  - [Dynamic Programming](https://www.youtube.com/playlist?list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr)
-  - [String Algorithms](https://www.youtube.com/playlist?list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr)
+  - [Graph Algorithms](https://www.youtube.com/playlist?list=PLrmLmBdmIlpu2f2g8ltqaaCZiq6GJvl1j/)
+  - [Dynamic Programming](https://www.youtube.com/playlist?list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr/)
+  - [String Algorithms](https://www.youtube.com/playlist?list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr/)
 
 ### **🎯 Interview Preparation**
 
 #### **10. Rachit Jain - Competitive Programming**
-- **Channel**: [Rachit Jain](https://www.youtube.com/c/RachitJain)
+- **Channel**: [Rachit Jain](https://www.youtube.com/c/RachitJain/)
 - **Language**: English
 - **Best For**: Competitive programming, advanced algorithms
 - **Top Videos**:
-  - [Competitive Programming Roadmap](https://www.youtube.com/watch?v=4iFALQ1ACdA)
-  - [Advanced Data Structures](https://www.youtube.com/playlist?list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ)
+  - [Competitive Programming Roadmap](https://www.youtube.com/watch?v=4iFALQ1ACdA/)
+  - [Advanced Data Structures](https://www.youtube.com/playlist?list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ/)
 
 #### **11. CodeWithHarry - Beginner Friendly**
-- **Channel**: [CodeWithHarry](https://www.youtube.com/c/CodeWithHarry)
+- **Channel**: [CodeWithHarry](https://www.youtube.com/c/CodeWithHarry/)
 - **Language**: Hindi/English (Hinglish)
 - **Best For**: Full-stack development, Python, beginner concepts
 - **Top Videos**:
-  - [Python Complete Course](https://www.youtube.com/playlist?list=PLu0W_9lII9agICnT8t4iYVSZ3eykIAOME)
-  - [Data Structures in Python](https://www.youtube.com/playlist?list=PLu0W_9lII9agICnT8t4iYVSZ3eykIAOME)
+  - [Python Complete Course](https://www.youtube.com/playlist?list=PLu0W_9lII9agICnT8t4iYVSZ3eykIAOME/)
+  - [Data Structures in Python](https://www.youtube.com/playlist?list=PLu0W_9lII9agICnT8t4iYVSZ3eykIAOME/)
 
 ---
 
@@ -116,21 +116,21 @@
 #### **1. My Preparation Journey for Google Interviews**
 - **Author**: Shantanu Kshire
 - **Platform**: Medium
-- **Link**: [Read Here](https://medium.com/swlh/my-preparation-journey-for-google-interviews-f41e2dc3cdf9)
+- **Link**: [Read Here](https://medium.com/swlh/my-preparation-journey-for-google-interviews-f41e2dc3cdf9/)
 - **Content**: Detailed preparation strategy, coding practice, system design, mock interviews
 - **Best For**: Complete preparation roadmap
 
 #### **2. Preparing for the Google SWE Interview**
 - **Author**: Jinal Parikh
 - **Platform**: Medium
-- **Link**: [Read Here](https://medium.com/jinal-parikh/preparing-for-the-google-swe-interview-11c719ede482)
+- **Link**: [Read Here](https://medium.com/jinal-parikh/preparing-for-the-google-swe-interview-11c719ede482/)
 - **Content**: Study plan, resources, tips for Google SWE interviews
 - **Best For**: Software Engineer specific preparation
 
 #### **3. My Preparation Journey Towards Google Interviews (and SWE Offer)**
 - **Author**: Praveen Baskar
 - **Platform**: Medium
-- **Link**: [Read Here](https://praveenbaskar.medium.com/my-preparation-journey-towards-google-interviews-and-swe-offer-4172e4d69680)
+- **Link**: [Read Here](https://praveenbaskar.medium.com/my-preparation-journey-towards-google-interviews-and-swe-offer-4172e4d69680/)
 - **Content**: Complete journey from preparation to offer
 - **Best For**: Success story and motivation
 
@@ -139,14 +139,14 @@
 #### **4. The Ultimate Guide to Google Interviews: A 12-Week Bootcamp to Success**
 - **Author**: Design Gurus
 - **Platform**: DesignGurus.io
-- **Link**: [Read Here](https://www.designgurus.io/blog/the-ultimate-guide-to-google-interviews-a-12-week-bootcamp-to-success)
+- **Link**: [Read Here](https://www.designgurus.io/blog/the-ultimate-guide-to-google-interviews-a-12-week-bootcamp-to-success/)
 - **Content**: 12-week structured plan, system design concepts, behavioral skills
 - **Best For**: Structured preparation plan
 
 #### **5. Interviewing at Google? Here's 6 Things You Absolutely Need To Do**
 - **Author**: Anthony D. Mays
 - **Platform**: Dev.to
-- **Link**: [Read Here](https://dev.to/anthonydmays/interviewing-at-google-heres-6-things-you-absolutely-need-to-do-22lo)
+- **Link**: [Read Here](https://dev.to/anthonydmays/interviewing-at-google-heres-6-things-you-absolutely-need-to-do-22lo/)
 - **Content**: Insider tips from former Google engineer
 - **Best For**: Insider perspective and tips
 

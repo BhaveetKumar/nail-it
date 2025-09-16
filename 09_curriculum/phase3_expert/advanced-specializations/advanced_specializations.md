@@ -1,14 +1,14 @@
 # Advanced Specializations
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Technical Specializations](#technical-specializations)
-- [Domain Expertise](#domain-expertise)
-- [Emerging Technologies](#emerging-technologies)
-- [Research and Development](#research-and-development)
-- [Thought Leadership](#thought-leadership)
-- [Community Contribution](#community-contribution)
-- [Career Advancement](#career-advancement)
+- [Introduction](#introduction/)
+- [Technical Specializations](#technical-specializations/)
+- [Domain Expertise](#domain-expertise/)
+- [Emerging Technologies](#emerging-technologies/)
+- [Research and Development](#research-and-development/)
+- [Thought Leadership](#thought-leadership/)
+- [Community Contribution](#community-contribution/)
+- [Career Advancement](#career-advancement/)
 
 ## Introduction
 

@@ -167,7 +167,7 @@ type BaseRepository[T any] struct {
     idField   string
 }
 
-func NewBaseRepository[T any](db *sql.DB, tableName, idField string) *BaseRepository[T] {
+func NewBaseRepository[T any](db *sql.DB, tableName, idField string/) *BaseRepository[T] {
     return &BaseRepository[T]{
         db:        db,
         tableName: tableName,
@@ -204,7 +204,7 @@ type CacheEntry[T any] struct {
     expiresAt time.Time
 }
 
-func NewCachedRepository[T any](repo Repository[T], ttl time.Duration) *CachedRepository[T] {
+func NewCachedRepository[T any](repo Repository[T], ttl time.Duration/) *CachedRepository[T] {
     return &CachedRepository[T]{
         repository: repo,
         cache:      make(map[string]*CacheEntry[T]),

@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Progress Tracking System](#progress-tracking-system)
-3. [Study Schedules](#study-schedules)
-4. [Assessment Tracking](#assessment-tracking)
-5. [Goal Setting](#goal-setting)
-6. [Analytics Dashboard](#analytics-dashboard)
-7. [Mobile App Integration](#mobile-app-integration)
-8. [Follow-up Questions](#follow-up-questions)
-9. [Sources](#sources)
+1. [Overview](#overview/)
+2. [Progress Tracking System](#progress-tracking-system/)
+3. [Study Schedules](#study-schedules/)
+4. [Assessment Tracking](#assessment-tracking/)
+5. [Goal Setting](#goal-setting/)
+6. [Analytics Dashboard](#analytics-dashboard/)
+7. [Mobile App Integration](#mobile-app-integration/)
+8. [Follow-up Questions](#follow-up-questions/)
+9. [Sources](#sources/)
 
 ## Overview
 
@@ -1127,9 +1127,9 @@ A: Make goals specific, measurable, achievable, relevant, and time-bound (SMART)
 - **Amplitude**: [Product Analytics](https://amplitude.com/)
 
 ### Goal Setting
-- **SMART Goals**: [Goal Setting Framework](https://www.mindtools.com/pages/article/smart-goals.htm)
+- **SMART Goals**: [Goal Setting Framework](https://www.mindtools.com/pages/article/smart-goals.htm/)
 - **OKRs**: [Objectives and Key Results](https://www.whatmatters.com/resources/okr-meaning-definition-examples/)
 
 ---
 
-**Next**: [Learning Resources](../learning_resources/README.md) | **Previous**: [Assessment Tools](../assessment_tools/README.md) | **Up**: [Study Tracker](../README.md)
+**Next**: [Learning Resources](learning_resources/README.md/) | **Previous**: [Assessment Tools](assessment_tools/README.md/) | **Up**: [Study Tracker](README.md/)

@@ -4,14 +4,14 @@
 
 ## 📋 Table of Contents
 
-1. [Array & String Problems](#array--string-problems)
-2. [Linked List Problems](#linked-list-problems)
-3. [Tree & Graph Problems](#tree--graph-problems)
-4. [Dynamic Programming](#dynamic-programming)
-5. [Sorting & Searching](#sorting--searching)
-6. [Greedy Algorithms](#greedy-algorithms)
-7. [Backtracking](#backtracking)
-8. [FAANG Interview Questions](#faang-interview-questions)
+1. [Array & String Problems](#array--string-problems/)
+2. [Linked List Problems](#linked-list-problems/)
+3. [Tree & Graph Problems](#tree--graph-problems/)
+4. [Dynamic Programming](#dynamic-programming/)
+5. [Sorting & Searching](#sorting--searching/)
+6. [Greedy Algorithms](#greedy-algorithms/)
+7. [Backtracking](#backtracking/)
+8. [FAANG Interview Questions](#faang-interview-questions/)
 
 ---
 
@@ -991,7 +991,7 @@ func main() {
 ### **Books**
 
 - [Cracking the Coding Interview](https://www.crackingthecodinginterview.com/) - Gayle Laakmann McDowell
-- [Introduction to Algorithms](https://mitpress.mit.edu/books/introduction-algorithms) - Thomas H. Cormen
+- [Introduction to Algorithms](https://mitpress.mit.edu/books/introduction-algorithms/) - Thomas H. Cormen
 - [Algorithm Design Manual](https://www.algorist.com/) - Steven S. Skiena
 
 ### **Online Resources**
@@ -1002,9 +1002,9 @@ func main() {
 
 ### **Video Resources**
 
-- [Abdul Bari](https://www.youtube.com/c/AbdulBari) - Algorithm explanations
-- [Back To Back SWE](https://www.youtube.com/c/BackToBackSWE) - Interview preparation
-- [Tech Interview Pro](https://www.youtube.com/c/TechInterviewPro) - Coding interviews
+- [Abdul Bari](https://www.youtube.com/c/AbdulBari/) - Algorithm explanations
+- [Back To Back SWE](https://www.youtube.com/c/BackToBackSWE/) - Interview preparation
+- [Tech Interview Pro](https://www.youtube.com/c/TechInterviewPro/) - Coding interviews
 
 ---
 

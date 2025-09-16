@@ -1,14 +1,14 @@
 # Razorpay Mock Interview Scenarios
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Technical Deep Dive Scenarios](#technical-deep-dive-scenarios)
-- [System Design Scenarios](#system-design-scenarios)
-- [Coding Challenges](#coding-challenges)
-- [Behavioral Scenarios](#behavioral-scenarios)
-- [Leadership Scenarios](#leadership-scenarios)
-- [Product and Business Scenarios](#product-and-business-scenarios)
-- [Architecture and Scalability Scenarios](#architecture-and-scalability-scenarios)
+- [Introduction](#introduction/)
+- [Technical Deep Dive Scenarios](#technical-deep-dive-scenarios/)
+- [System Design Scenarios](#system-design-scenarios/)
+- [Coding Challenges](#coding-challenges/)
+- [Behavioral Scenarios](#behavioral-scenarios/)
+- [Leadership Scenarios](#leadership-scenarios/)
+- [Product and Business Scenarios](#product-and-business-scenarios/)
+- [Architecture and Scalability Scenarios](#architecture-and-scalability-scenarios/)
 
 ## Introduction
 
@@ -704,5 +704,5 @@ Practice these scenarios regularly and be prepared to dive deep into any aspect 
 - [Razorpay Engineering Blog](https://razorpay.com/blog/)
 - [Payment System Design](https://www.oreilly.com/library/view/building-secure-and/9781492054886/)
 - [Distributed Systems Patterns](https://microservices.io/patterns/)
-- [System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview)
-- [Backend Engineering Best Practices](https://github.com/donnemartin/system-design-primer)
+- [System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview/)
+- [Backend Engineering Best Practices](https://github.com/donnemartin/system-design-primer/)

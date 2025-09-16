@@ -6,13 +6,13 @@ This module covers modern development practices including CI/CD, debugging, prof
 
 ## Table of Contents
 
-1. [Continuous Integration/Continuous Deployment](#continuous-integrationcontinuous-deployment)
-2. [Debugging Techniques](#debugging-techniques)
-3. [Performance Optimization](#performance-optimization)
-4. [Monitoring and Logging](#monitoring-and-logging)
-5. [Applications](#applications)
-6. [Complexity Analysis](#complexity-analysis)
-7. [Follow-up Questions](#follow-up-questions)
+1. [Continuous Integration/Continuous Deployment](#continuous-integrationcontinuous-deployment/)
+2. [Debugging Techniques](#debugging-techniques/)
+3. [Performance Optimization](#performance-optimization/)
+4. [Monitoring and Logging](#monitoring-and-logging/)
+5. [Applications](#applications/)
+6. [Complexity Analysis](#complexity-analysis/)
+7. [Follow-up Questions](#follow-up-questions/)
 
 ## Continuous Integration/Continuous Deployment
 
@@ -675,4 +675,4 @@ A: Measure first, identify bottlenecks, optimize critical paths, use profiling t
 
 ---
 
-**Next**: [Phase 1 Intermediate](../phase1_intermediate/README.md) | **Previous**: [Software Engineering](../README.md) | **Up**: [Phase 0 Fundamentals](../README.md)
+**Next**: [Phase 1 Intermediate](phase1_intermediate/README.md/) | **Previous**: [Software Engineering](README.md/) | **Up**: [Phase 0 Fundamentals](README.md/)

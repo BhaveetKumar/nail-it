@@ -335,8 +335,8 @@ console.log(lengthOfLongestSubstring("aab")); // 2
 
 ## Related Problems
 
-- [Longest Substring with At Most K Distinct Characters](./LongestSubstringKDistinct.md) - Variable constraint
-- [Minimum Window Substring](./MinimumWindowSubstring.md) - Target substring
-- [Longest Repeating Character Replacement](./LongestRepeatingCharacterReplacement.md) - With replacements
-- [Fruit Into Baskets](./FruitIntoBaskets.md) - At most 2 distinct characters
-- [Permutation in String](./PermutationInString.md) - Find permutation
+- [Longest Substring with At Most K Distinct Characters](LongestSubstringKDistinct.md/) - Variable constraint
+- [Minimum Window Substring](MinimumWindowSubstring.md/) - Target substring
+- [Longest Repeating Character Replacement](LongestRepeatingCharacterReplacement.md/) - With replacements
+- [Fruit Into Baskets](FruitIntoBaskets.md/) - At most 2 distinct characters
+- [Permutation in String](PermutationInString.md/) - Find permutation

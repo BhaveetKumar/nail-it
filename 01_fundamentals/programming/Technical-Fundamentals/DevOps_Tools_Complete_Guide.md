@@ -8,13 +8,13 @@ This guide covers essential DevOps tools, CI/CD pipelines, containerization, orc
 
 ## 📚 **Table of Contents**
 
-1. [Version Control with Git](#version-control-with-git)
-2. [CI/CD Pipelines](#cicd-pipelines)
-3. [Containerization with Docker](#containerization-with-docker)
-4. [Orchestration with Kubernetes](#orchestration-with-kubernetes)
-5. [Infrastructure as Code](#infrastructure-as-code)
-6. [Monitoring and Observability](#monitoring-and-observability)
-7. [Security and Compliance](#security-and-compliance)
+1. [Version Control with Git](#version-control-with-git/)
+2. [CI/CD Pipelines](#cicd-pipelines/)
+3. [Containerization with Docker](#containerization-with-docker/)
+4. [Orchestration with Kubernetes](#orchestration-with-kubernetes/)
+5. [Infrastructure as Code](#infrastructure-as-code/)
+6. [Monitoring and Observability](#monitoring-and-observability/)
+7. [Security and Compliance](#security-and-compliance/)
 
 ---
 

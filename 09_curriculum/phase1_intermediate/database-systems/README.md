@@ -2,18 +2,18 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Database Design](#database-design)
-3. [Query Optimization](#query-optimization)
-4. [Transaction Management](#transaction-management)
-5. [Indexing Strategies](#indexing-strategies)
-6. [Concurrency Control](#concurrency-control)
-7. [NoSQL Databases](#nosql-databases)
-8. [Database Performance](#database-performance)
-9. [Implementations](#implementations)
-10. [Follow-up Questions](#follow-up-questions)
-11. [Sources](#sources)
-12. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Database Design](#database-design/)
+3. [Query Optimization](#query-optimization/)
+4. [Transaction Management](#transaction-management/)
+5. [Indexing Strategies](#indexing-strategies/)
+6. [Concurrency Control](#concurrency-control/)
+7. [NoSQL Databases](#nosql-databases/)
+8. [Database Performance](#database-performance/)
+9. [Implementations](#implementations/)
+10. [Follow-up Questions](#follow-up-questions/)
+11. [Sources](#sources/)
+12. [Projects](#projects/)
 
 ## Overview
 
@@ -1182,5 +1182,5 @@ A: In 2PL, locks can be released during the shrinking phase, while strict 2PL ho
 
 ---
 
-**Next**: [Web Development](./web-development/README.md) | **Previous**: [OS Deep Dive](./os-deep-dive/README.md) | **Up**: [Phase 1](../README.md)
+**Next**: [Web Development](web-development/README.md/) | **Previous**: [OS Deep Dive](os-deep-dive/README.md/) | **Up**: [Phase 1](README.md/)
 

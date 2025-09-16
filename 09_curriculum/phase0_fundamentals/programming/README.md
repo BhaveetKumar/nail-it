@@ -6,10 +6,10 @@ This module covers the essential programming skills required for software engine
 
 ## Table of Contents
 
-1. [Go Fundamentals](./go-fundamentals.md)
-2. [Node.js Fundamentals](./nodejs-fundamentals.md)
-3. [Data Structures & Algorithms](./dsa-questions-golang-nodejs.md)
-4. [Design Patterns](./design-patterns.md)
+1. [Go Fundamentals](go-fundamentals.md/)
+2. [Node.js Fundamentals](nodejs-fundamentals.md/)
+3. [Data Structures & Algorithms](dsa-questions-golang-nodejs.md/)
+4. [Design Patterns](design-patterns.md/)
 
 ## Learning Objectives
 
@@ -72,4 +72,4 @@ This module covers the essential programming skills required for software engine
 
 ---
 
-**Next**: [Go Fundamentals](./go-fundamentals.md) | **Up**: [Phase 0](../README.md)
+**Next**: [Go Fundamentals](go-fundamentals.md/) | **Up**: [Phase 0](README.md/)

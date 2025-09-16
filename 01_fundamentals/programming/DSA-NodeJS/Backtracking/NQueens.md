@@ -295,7 +295,7 @@ console.log(totalNQueens(8)); // 92
 
 ## Related Problems
 
-- [N-Queens II](./NQueensII.md) - Count solutions only
-- [Sudoku Solver](./SudokuSolver.md) - Similar constraint satisfaction
-- [Word Search](./WordSearch.md) - Backtracking in 2D grid
-- [Generate Parentheses](./GenerateParentheses.md) - Backtracking with constraints
+- [N-Queens II](NQueensII.md/) - Count solutions only
+- [Sudoku Solver](SudokuSolver.md/) - Similar constraint satisfaction
+- [Word Search](WordSearch.md/) - Backtracking in 2D grid
+- [Generate Parentheses](GenerateParentheses.md/) - Backtracking with constraints

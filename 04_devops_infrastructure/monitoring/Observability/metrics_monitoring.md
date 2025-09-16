@@ -1,16 +1,16 @@
 # Metrics and Monitoring Deep Dive
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Types of Metrics](#types-of-metrics)
-3. [Prometheus Integration](#prometheus-integration)
-4. [Grafana Dashboards](#grafana-dashboards)
-5. [Alerting Strategies](#alerting-strategies)
-6. [Golang Implementation](#golang-implementation)
-7. [Microservices Monitoring](#microservices-monitoring)
-8. [Performance Metrics](#performance-metrics)
-9. [Business Metrics](#business-metrics)
-10. [Best Practices](#best-practices)
+1. [Introduction](#introduction/)
+2. [Types of Metrics](#types-of-metrics/)
+3. [Prometheus Integration](#prometheus-integration/)
+4. [Grafana Dashboards](#grafana-dashboards/)
+5. [Alerting Strategies](#alerting-strategies/)
+6. [Golang Implementation](#golang-implementation/)
+7. [Microservices Monitoring](#microservices-monitoring/)
+8. [Performance Metrics](#performance-metrics/)
+9. [Business Metrics](#business-metrics/)
+10. [Best Practices](#best-practices/)
 
 ## Introduction
 

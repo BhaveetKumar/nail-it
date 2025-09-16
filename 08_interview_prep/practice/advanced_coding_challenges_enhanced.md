@@ -1,14 +1,14 @@
 # Advanced Coding Challenges Enhanced
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Dynamic Programming](#dynamic-programming)
-- [Graph Algorithms](#graph-algorithms)
-- [String Algorithms](#string-algorithms)
-- [Mathematical Algorithms](#mathematical-algorithms)
-- [Concurrency Challenges](#concurrency-challenges)
-- [System Design Coding](#system-design-coding)
-- [Performance Optimization](#performance-optimization)
+- [Introduction](#introduction/)
+- [Dynamic Programming](#dynamic-programming/)
+- [Graph Algorithms](#graph-algorithms/)
+- [String Algorithms](#string-algorithms/)
+- [Mathematical Algorithms](#mathematical-algorithms/)
+- [Concurrency Challenges](#concurrency-challenges/)
+- [System Design Coding](#system-design-coding/)
+- [Performance Optimization](#performance-optimization/)
 
 ## Introduction
 

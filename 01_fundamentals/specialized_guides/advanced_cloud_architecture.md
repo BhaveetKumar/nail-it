@@ -1,14 +1,14 @@
 # Advanced Cloud Architecture
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Multi-Cloud Strategies](#multi-cloud-strategies)
-- [Cloud-Native Patterns](#cloud-native-patterns)
-- [Serverless Architecture](#serverless-architecture)
-- [Edge Computing](#edge-computing)
-- [Cloud Security](#cloud-security)
-- [Cost Optimization](#cost-optimization)
-- [Disaster Recovery](#disaster-recovery)
+- [Introduction](#introduction/)
+- [Multi-Cloud Strategies](#multi-cloud-strategies/)
+- [Cloud-Native Patterns](#cloud-native-patterns/)
+- [Serverless Architecture](#serverless-architecture/)
+- [Edge Computing](#edge-computing/)
+- [Cloud Security](#cloud-security/)
+- [Cost Optimization](#cost-optimization/)
+- [Disaster Recovery](#disaster-recovery/)
 
 ## Introduction
 

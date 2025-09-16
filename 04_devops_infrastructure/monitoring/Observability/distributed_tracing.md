@@ -1,16 +1,16 @@
 # Distributed Tracing Deep Dive
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [OpenTelemetry Integration](#opentelemetry-integration)
-3. [Jaeger Implementation](#jaeger-implementation)
-4. [Golang Tracing](#golang-tracing)
-5. [Microservices Tracing](#microservices-tracing)
-6. [Performance Optimization](#performance-optimization)
-7. [Error Tracking](#error-tracking)
-8. [Best Practices](#best-practices)
-9. [Advanced Patterns](#advanced-patterns)
-10. [Troubleshooting](#troubleshooting)
+1. [Introduction](#introduction/)
+2. [OpenTelemetry Integration](#opentelemetry-integration/)
+3. [Jaeger Implementation](#jaeger-implementation/)
+4. [Golang Tracing](#golang-tracing/)
+5. [Microservices Tracing](#microservices-tracing/)
+6. [Performance Optimization](#performance-optimization/)
+7. [Error Tracking](#error-tracking/)
+8. [Best Practices](#best-practices/)
+9. [Advanced Patterns](#advanced-patterns/)
+10. [Troubleshooting](#troubleshooting/)
 
 ## Introduction
 

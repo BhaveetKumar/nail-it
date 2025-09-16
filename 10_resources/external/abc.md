@@ -6,13 +6,13 @@ This guide covers extensive concepts across databases, Go programming, operating
 
 ## 📋 **Table of Contents**
 
-- [1. Databases & Data-Intensive Applications](#1-databases--data-intensive-applications)
-- [2. Go (Golang) – From Beginner to Expert](#2-go-golang--from-beginner-to-expert)
-- [3. Operating Systems – Core Concepts](#3-operating-systems--core-concepts)
-- [4. System Design – Fundamentals and Examples](#4-system-design--fundamentals-and-examples)
-- [5. Data Structures & Algorithms (DSA) in Go](#5-data-structures--algorithms-dsa-in-go)
-- [6. DevOps Tools and Best Practices](#6-devops-tools-and-best-practices)
-- [7. Behavioral Interview Preparation](#7-behavioral-interview-preparation)
+- [1. Databases & Data-Intensive Applications](#1-databases--data-intensive-applications/)
+- [2. Go (Golang) – From Beginner to Expert](#2-go-golang--from-beginner-to-expert/)
+- [3. Operating Systems – Core Concepts](#3-operating-systems--core-concepts/)
+- [4. System Design – Fundamentals and Examples](#4-system-design--fundamentals-and-examples/)
+- [5. Data Structures & Algorithms (DSA) in Go](#5-data-structures--algorithms-dsa-in-go/)
+- [6. DevOps Tools and Best Practices](#6-devops-tools-and-best-practices/)
+- [7. Behavioral Interview Preparation](#7-behavioral-interview-preparation/)
 
 ## 1. 🗄️ **Databases & Data-Intensive Applications**
 

@@ -6,12 +6,12 @@ This module covers distributed consensus algorithms including Raft, PBFT (Practi
 
 ## Table of Contents
 
-1. [Raft Consensus](#raft-consensus)
-2. [PBFT (Practical Byzantine Fault Tolerance)](#pbft-practical-byzantine-fault-tolerance)
-3. [Proof of Work](#proof-of-work)
-4. [Applications](#applications)
-5. [Complexity Analysis](#complexity-analysis)
-6. [Follow-up Questions](#follow-up-questions)
+1. [Raft Consensus](#raft-consensus/)
+2. [PBFT (Practical Byzantine Fault Tolerance)](#pbft-practical-byzantine-fault-tolerance/)
+3. [Proof of Work](#proof-of-work/)
+4. [Applications](#applications/)
+5. [Complexity Analysis](#complexity-analysis/)
+6. [Follow-up Questions](#follow-up-questions/)
 
 ## Raft Consensus
 
@@ -881,4 +881,4 @@ A: Raft needs at least 3 nodes to tolerate 1 failure. PBFT needs at least 3f+1 n
 
 ---
 
-**Next**: [Distributed Storage](./distributed-storage.md) | **Previous**: [Distributed Systems](../README.md) | **Up**: [Distributed Systems](../README.md)
+**Next**: [Distributed Storage](distributed-storage.md/) | **Previous**: [Distributed Systems](README.md/) | **Up**: [Distributed Systems](README.md/)

@@ -31,7 +31,7 @@ Phase 0: Fundamentals → Phase 1: Intermediate → Phase 2: Advanced → Phase 
 
 ### 📚 Phase Breakdown
 
-#### [Phase 0: Fundamentals](./phase0_fundamentals/)
+#### [Phase 0: Fundamentals](phase0_fundamentals/)
 **Target Audience**: Junior Engineers (0-2 years experience)
 **Duration**: 6-12 months
 **Focus**: Core programming skills, computer science fundamentals, and basic system design
@@ -44,7 +44,7 @@ Phase 0: Fundamentals → Phase 1: Intermediate → Phase 2: Advanced → Phase 
 - Basic System Design
 - Testing Strategies
 
-#### [Phase 1: Intermediate](./phase1_intermediate/)
+#### [Phase 1: Intermediate](phase1_intermediate/)
 **Target Audience**: Mid-Level Engineers (2-4 years experience)
 **Duration**: 12-18 months
 **Focus**: Advanced technical skills, system design, and team collaboration
@@ -57,7 +57,7 @@ Phase 0: Fundamentals → Phase 1: Intermediate → Phase 2: Advanced → Phase 
 - System Design Basics
 - Microservices Architecture
 
-#### [Phase 2: Advanced](./phase2_advanced/)
+#### [Phase 2: Advanced](phase2_advanced/)
 **Target Audience**: Senior Engineers (4-6 years experience)
 **Duration**: 18-24 months
 **Focus**: Complex system design, distributed systems, and technical leadership
@@ -70,7 +70,7 @@ Phase 0: Fundamentals → Phase 1: Intermediate → Phase 2: Advanced → Phase 
 - Performance Engineering
 - Security Engineering
 
-#### [Phase 3: Expert](./phase3_expert/)
+#### [Phase 3: Expert](phase3_expert/)
 **Target Audience**: Staff/Distinguished Engineers (6+ years experience)
 **Duration**: 24+ months
 **Focus**: Technical leadership, strategic thinking, and innovation
@@ -294,15 +294,15 @@ We welcome contributions from the community to improve the curriculum:
 
 ## License
 
-This curriculum is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This curriculum is licensed under the MIT License. See the [LICENSE](LICENSE/) file for details.
 
 ## Contact
 
 - **Email**: curriculum@masterengineer.dev
-- **GitHub**: [Master Engineer Curriculum](https://github.com/master-engineer/curriculum)
-- **Discord**: [Learning Community](https://discord.gg/master-engineer)
-- **LinkedIn**: [Master Engineer](https://linkedin.com/company/master-engineer)
+- **GitHub**: [Master Engineer Curriculum](https://github.com/master-engineer/curriculum/)
+- **Discord**: [Learning Community](https://discord.gg/master-engineer/)
+- **LinkedIn**: [Master Engineer](https://linkedin.com/company/master-engineer/)
 
 ---
 
-**Start Your Journey**: [Phase 0: Fundamentals](./phase0_fundamentals/) | **Latest Updates**: [Changelog](CHANGELOG.md) | **Community**: [Join Us](https://discord.gg/master-engineer)
+**Start Your Journey**: [Phase 0: Fundamentals](phase0_fundamentals/) | **Latest Updates**: [Changelog](CHANGELOG.md/) | **Community**: [Join Us](https://discord.gg/master-engineer/)

@@ -8,16 +8,16 @@ This comprehensive guide covers the most important system design patterns used i
 
 ## 🎯 Table of Contents
 
-1. [Load Balancing Patterns](#load-balancing-patterns)
-2. [Caching Patterns](#caching-patterns)
-3. [Database Patterns](#database-patterns)
-4. [Messaging Patterns](#messaging-patterns)
-5. [Microservices Patterns](#microservices-patterns)
-6. [Security Patterns](#security-patterns)
-7. [Monitoring Patterns](#monitoring-patterns)
-8. [Data Processing Patterns](#data-processing-patterns)
-9. [API Design Patterns](#api-design-patterns)
-10. [Deployment Patterns](#deployment-patterns)
+1. [Load Balancing Patterns](#load-balancing-patterns/)
+2. [Caching Patterns](#caching-patterns/)
+3. [Database Patterns](#database-patterns/)
+4. [Messaging Patterns](#messaging-patterns/)
+5. [Microservices Patterns](#microservices-patterns/)
+6. [Security Patterns](#security-patterns/)
+7. [Monitoring Patterns](#monitoring-patterns/)
+8. [Data Processing Patterns](#data-processing-patterns/)
+9. [API Design Patterns](#api-design-patterns/)
+10. [Deployment Patterns](#deployment-patterns/)
 
 ## ⚖️ Load Balancing Patterns
 

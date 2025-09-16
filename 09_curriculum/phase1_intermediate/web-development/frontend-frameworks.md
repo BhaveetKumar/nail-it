@@ -6,14 +6,14 @@ This module covers frontend framework concepts including React, Vue.js, Angular,
 
 ## Table of Contents
 
-1. [React Fundamentals](#react-fundamentals)
-2. [Vue.js Fundamentals](#vuejs-fundamentals)
-3. [Angular Fundamentals](#angular-fundamentals)
-4. [State Management](#state-management)
-5. [Performance Optimization](#performance-optimization)
-6. [Applications](#applications)
-7. [Complexity Analysis](#complexity-analysis)
-8. [Follow-up Questions](#follow-up-questions)
+1. [React Fundamentals](#react-fundamentals/)
+2. [Vue.js Fundamentals](#vuejs-fundamentals/)
+3. [Angular Fundamentals](#angular-fundamentals/)
+4. [State Management](#state-management/)
+5. [Performance Optimization](#performance-optimization/)
+6. [Applications](#applications/)
+7. [Complexity Analysis](#complexity-analysis/)
+8. [Follow-up Questions](#follow-up-questions/)
 
 ## React Fundamentals
 
@@ -948,4 +948,4 @@ A: Use virtual scrolling for large lists, implement lazy loading for components,
 
 ---
 
-**Next**: [Backend Development](./backend-development.md) | **Previous**: [Web Development](../README.md) | **Up**: [Web Development](../README.md)
+**Next**: [Backend Development](backend-development.md/) | **Previous**: [Web Development](README.md/) | **Up**: [Web Development](README.md/)

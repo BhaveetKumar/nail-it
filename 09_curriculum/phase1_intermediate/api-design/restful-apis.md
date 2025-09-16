@@ -6,14 +6,14 @@ This module covers RESTful API design concepts including HTTP methods, status co
 
 ## Table of Contents
 
-1. [HTTP Methods & Status Codes](#http-methods--status-codes)
-2. [Resource Design](#resource-design)
-3. [API Versioning](#api-versioning)
-4. [Error Handling](#error-handling)
-5. [Pagination & Filtering](#pagination--filtering)
-6. [Applications](#applications)
-7. [Complexity Analysis](#complexity-analysis)
-8. [Follow-up Questions](#follow-up-questions)
+1. [HTTP Methods & Status Codes](#http-methods--status-codes/)
+2. [Resource Design](#resource-design/)
+3. [API Versioning](#api-versioning/)
+4. [Error Handling](#error-handling/)
+5. [Pagination & Filtering](#pagination--filtering/)
+6. [Applications](#applications/)
+7. [Complexity Analysis](#complexity-analysis/)
+8. [Follow-up Questions](#follow-up-questions/)
 
 ## HTTP Methods & Status Codes
 
@@ -787,4 +787,4 @@ A: URL versioning is simple but clutters URLs. Header versioning keeps URLs clea
 
 ---
 
-**Next**: [GraphQL APIs](./graphql-apis.md) | **Previous**: [API Design](../README.md) | **Up**: [API Design](../README.md)
+**Next**: [GraphQL APIs](graphql-apis.md/) | **Previous**: [API Design](README.md/) | **Up**: [API Design](README.md/)

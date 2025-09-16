@@ -12,14 +12,14 @@
 
 ## 📚 **Table of Contents**
 
-1. [JavaScript Fundamentals for ML](#javascript-fundamentals-for-ml)
-2. [Node.js for AI/ML](#nodejs-for-aiml)
-3. [TensorFlow.js Deep Dive](#tensorflowjs-deep-dive)
-4. [ML Libraries and Frameworks](#ml-libraries-and-frameworks)
-5. [Data Processing and Manipulation](#data-processing-and-manipulation)
-6. [Model Training and Inference](#model-training-and-inference)
-7. [Production Deployment](#production-deployment)
-8. [Interview Questions](#interview-questions)
+1. [JavaScript Fundamentals for ML](#javascript-fundamentals-for-ml/)
+2. [Node.js for AI/ML](#nodejs-for-aiml/)
+3. [TensorFlow.js Deep Dive](#tensorflowjs-deep-dive/)
+4. [ML Libraries and Frameworks](#ml-libraries-and-frameworks/)
+5. [Data Processing and Manipulation](#data-processing-and-manipulation/)
+6. [Model Training and Inference](#model-training-and-inference/)
+7. [Production Deployment](#production-deployment/)
+8. [Interview Questions](#interview-questions/)
 
 ---
 

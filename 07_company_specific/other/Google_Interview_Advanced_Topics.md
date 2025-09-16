@@ -4,18 +4,18 @@
 
 ## 📋 Table of Contents
 
-1. [🔗 Distributed Consensus Algorithms](#-distributed-consensus-algorithms)
-2. [🌐 Advanced System Design Patterns](#-advanced-system-design-patterns)
-3. [📊 Advanced Data Structures](#-advanced-data-structures)
-4. [⚡ Advanced Algorithms](#-advanced-algorithms)
-5. [🔄 Concurrency & Parallelism](#-concurrency--parallelism)
-6. [🎯 Rate Limiting & Circuit Breakers](#-rate-limiting--circuit-breakers)
-7. [🔍 Probabilistic Data Structures](#-probabilistic-data-structures)
-8. [📈 Event-Driven Architecture](#-event-driven-architecture)
-9. [🏗️ Microservices Patterns](#-microservices-patterns)
-10. [🔐 Security & Authentication](#-security--authentication)
-11. [📊 Monitoring & Observability](#-monitoring--observability)
-12. [🎯 Google-Specific Interview Questions](#-google-specific-interview-questions)
+1. [🔗 Distributed Consensus Algorithms](#-distributed-consensus-algorithms/)
+2. [🌐 Advanced System Design Patterns](#-advanced-system-design-patterns/)
+3. [📊 Advanced Data Structures](#-advanced-data-structures/)
+4. [⚡ Advanced Algorithms](#-advanced-algorithms/)
+5. [🔄 Concurrency & Parallelism](#-concurrency--parallelism/)
+6. [🎯 Rate Limiting & Circuit Breakers](#-rate-limiting--circuit-breakers/)
+7. [🔍 Probabilistic Data Structures](#-probabilistic-data-structures/)
+8. [📈 Event-Driven Architecture](#-event-driven-architecture/)
+9. [🏗️ Microservices Patterns](#-microservices-patterns/)
+10. [🔐 Security & Authentication](#-security--authentication/)
+11. [📊 Monitoring & Observability](#-monitoring--observability/)
+12. [🎯 Google-Specific Interview Questions](#-google-specific-interview-questions/)
 
 ---
 
@@ -1307,20 +1307,20 @@ _This guide continues with Advanced Algorithms, Concurrency Patterns, Rate Limit
 ### **Books**
 
 - [Designing Data-Intensive Applications](https://dataintensive.net/) - Martin Kleppmann
-- [Distributed Systems: Concepts and Design](https://www.pearson.com/us/higher-education/program/Coulouris-Distributed-Systems-Concepts-and-Design-5th-Edition/PGM241619.html) - George Coulouris
-- [System Design Interview](https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF) - Alex Xu
+- [Distributed Systems: Concepts and Design](https://www.pearson.com/us/higher-education/program/Coulouris-Distributed-Systems-Concepts-and-Design-5th-Edition/PGM241619.html/) - George Coulouris
+- [System Design Interview](https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF/) - Alex Xu
 
 ### **Online Resources**
 
-- [Google's Technical Writing Guide](https://developers.google.com/tech-writing)
-- [Google's System Design Guide](https://www.google.com/about/careers/students/guide-to-technical-development.html)
-- [Distributed Systems Reading List](https://github.com/theanalyst/awesome-distributed-systems)
+- [Google's Technical Writing Guide](https://developers.google.com/tech-writing/)
+- [Google's System Design Guide](https://www.google.com/about/careers/students/guide-to-technical-development.html/)
+- [Distributed Systems Reading List](https://github.com/theanalyst/awesome-distributed-systems/)
 
 ### **Video Resources**
 
-- [Google Tech Talks](https://www.youtube.com/user/GoogleTechTalks)
-- [System Design Interview](https://www.youtube.com/c/ExponentTV) - Exponent
-- [Distributed Systems](https://www.youtube.com/c/CS162Berkeley) - UC Berkeley
+- [Google Tech Talks](https://www.youtube.com/user/GoogleTechTalks/)
+- [System Design Interview](https://www.youtube.com/c/ExponentTV/) - Exponent
+- [Distributed Systems](https://www.youtube.com/c/CS162Berkeley/) - UC Berkeley
 
 ---
 

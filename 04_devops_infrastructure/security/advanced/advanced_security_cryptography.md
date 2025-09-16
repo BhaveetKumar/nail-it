@@ -1,17 +1,17 @@
 # 🔐 Advanced Security & Cryptography Guide
 
 ## Table of Contents
-1. [Cryptographic Fundamentals](#cryptographic-fundamentals)
-2. [Symmetric Encryption](#symmetric-encryption)
-3. [Asymmetric Encryption](#asymmetric-encryption)
-4. [Hash Functions](#hash-functions)
-5. [Digital Signatures](#digital-signatures)
-6. [Key Management](#key-management)
-7. [TLS/SSL Implementation](#tlsssl-implementation)
-8. [OAuth 2.0 & JWT](#oauth-20--jwt)
-9. [Security Best Practices](#security-best-practices)
-10. [Go Implementation Examples](#go-implementation-examples)
-11. [Interview Questions](#interview-questions)
+1. [Cryptographic Fundamentals](#cryptographic-fundamentals/)
+2. [Symmetric Encryption](#symmetric-encryption/)
+3. [Asymmetric Encryption](#asymmetric-encryption/)
+4. [Hash Functions](#hash-functions/)
+5. [Digital Signatures](#digital-signatures/)
+6. [Key Management](#key-management/)
+7. [TLS/SSL Implementation](#tlsssl-implementation/)
+8. [OAuth 2.0 & JWT](#oauth-20--jwt/)
+9. [Security Best Practices](#security-best-practices/)
+10. [Go Implementation Examples](#go-implementation-examples/)
+11. [Interview Questions](#interview-questions/)
 
 ## Cryptographic Fundamentals
 

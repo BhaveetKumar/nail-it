@@ -1,16 +1,16 @@
 # System Design Interview Guide - Gaurav Sen Methodology
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [The 4-Step Approach](#the-4-step-approach)
-3. [Requirements Gathering](#requirements-gathering)
-4. [High-Level Design](#high-level-design)
-5. [Detailed Design](#detailed-design)
-6. [Scaling the System](#scaling-the-system)
-7. [Common Patterns](#common-patterns)
-8. [Gaurav Sen's Design Principles](#gaurav-sens-design-principles)
-9. [Interview Tips](#interview-tips)
-10. [Practice Scenarios](#practice-scenarios)
+1. [Introduction](#introduction/)
+2. [The 4-Step Approach](#the-4-step-approach/)
+3. [Requirements Gathering](#requirements-gathering/)
+4. [High-Level Design](#high-level-design/)
+5. [Detailed Design](#detailed-design/)
+6. [Scaling the System](#scaling-the-system/)
+7. [Common Patterns](#common-patterns/)
+8. [Gaurav Sen's Design Principles](#gaurav-sens-design-principles/)
+9. [Interview Tips](#interview-tips/)
+10. [Practice Scenarios](#practice-scenarios/)
 
 ## Introduction
 

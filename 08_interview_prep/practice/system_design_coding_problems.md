@@ -1,14 +1,14 @@
 # System Design Coding Problems
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Distributed Cache Implementation](#distributed-cache-implementation)
-- [Message Queue System](#message-queue-system)
-- [Load Balancer Implementation](#load-balancer-implementation)
-- [Database Sharding](#database-sharding)
-- [Real-time Analytics System](#real-time-analytics-system)
-- [File Storage System](#file-storage-system)
-- [Search Engine Components](#search-engine-components)
+- [Introduction](#introduction/)
+- [Distributed Cache Implementation](#distributed-cache-implementation/)
+- [Message Queue System](#message-queue-system/)
+- [Load Balancer Implementation](#load-balancer-implementation/)
+- [Database Sharding](#database-sharding/)
+- [Real-time Analytics System](#real-time-analytics-system/)
+- [File Storage System](#file-storage-system/)
+- [Search Engine Components](#search-engine-components/)
 
 ## Introduction
 
@@ -967,8 +967,8 @@ The key to success is understanding the trade-offs and implementing robust, scal
 
 ## Additional Resources
 
-- [System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview)
+- [System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview/)
 - [Distributed Systems Patterns](https://microservices.io/patterns/)
-- [High Performance Go](https://github.com/geohot/minikeyvalue)
+- [High Performance Go](https://github.com/geohot/minikeyvalue/)
 - [Designing Data-Intensive Applications](https://dataintensive.net/)
 - [Building Microservices](https://samnewman.io/books/building_microservices/)

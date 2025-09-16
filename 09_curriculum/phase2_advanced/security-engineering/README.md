@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Cryptography](#cryptography)
-3. [Authentication and Authorization](#authentication-and-authorization)
-4. [Network Security](#network-security)
-5. [Application Security](#application-security)
-6. [Security Monitoring](#security-monitoring)
-7. [Secure Coding Practices](#secure-coding-practices)
-8. [Implementations](#implementations)
-9. [Follow-up Questions](#follow-up-questions)
-10. [Sources](#sources)
-11. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Cryptography](#cryptography/)
+3. [Authentication and Authorization](#authentication-and-authorization/)
+4. [Network Security](#network-security/)
+5. [Application Security](#application-security/)
+6. [Security Monitoring](#security-monitoring/)
+7. [Secure Coding Practices](#secure-coding-practices/)
+8. [Implementations](#implementations/)
+9. [Follow-up Questions](#follow-up-questions/)
+10. [Sources](#sources/)
+11. [Projects](#projects/)
 
 ## Overview
 
@@ -1003,5 +1003,5 @@ A: Use parameterized queries, input validation, least privilege database access,
 
 ---
 
-**Next**: [Phase 3: Expert](../phase3_expert/README.md) | **Previous**: [Performance Engineering](./performance-engineering/README.md) | **Up**: [Phase 2](../README.md)
+**Next**: [Phase 3: Expert](phase3_expert/README.md/) | **Previous**: [Performance Engineering](performance-engineering/README.md/) | **Up**: [Phase 2](README.md/)
 

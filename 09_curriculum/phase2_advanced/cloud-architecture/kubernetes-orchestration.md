@@ -6,13 +6,13 @@ This module covers Kubernetes orchestration concepts including pod management, s
 
 ## Table of Contents
 
-1. [Pod Management](#pod-management)
-2. [Service Discovery](#service-discovery)
-3. [Deployment Strategies](#deployment-strategies)
-4. [Cluster Management](#cluster-management)
-5. [Applications](#applications)
-6. [Complexity Analysis](#complexity-analysis)
-7. [Follow-up Questions](#follow-up-questions)
+1. [Pod Management](#pod-management/)
+2. [Service Discovery](#service-discovery/)
+3. [Deployment Strategies](#deployment-strategies/)
+4. [Cluster Management](#cluster-management/)
+5. [Applications](#applications/)
+6. [Complexity Analysis](#complexity-analysis/)
+7. [Follow-up Questions](#follow-up-questions/)
 
 ## Pod Management
 
@@ -901,4 +901,4 @@ A: Use blue-green for immediate, complete switches with rollback capability. Use
 
 ---
 
-**Next**: [Container Orchestration](./container-orchestration.md) | **Previous**: [Cloud Architecture](../README.md) | **Up**: [Cloud Architecture](../README.md)
+**Next**: [Container Orchestration](container-orchestration.md/) | **Previous**: [Cloud Architecture](README.md/) | **Up**: [Cloud Architecture](README.md/)

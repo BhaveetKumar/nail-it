@@ -6,33 +6,33 @@
 
 ### **Basic Operations**
 
-- [Reverse Linked List](./ReverseLinkedList.md) - Iterative and recursive approaches
-- [Merge Two Sorted Lists](./MergeTwoSortedLists.md) - Merge sorted linked lists
-- [Remove Duplicates from Sorted List](./RemoveDuplicatesFromSortedList.md) - Remove duplicates
-- [Remove Linked List Elements](./RemoveLinkedListElements.md) - Remove specific values
-- [Delete Node in a Linked List](./DeleteNodeInLinkedList.md) - Delete without head reference
+- [Reverse Linked List](ReverseLinkedList.md/) - Iterative and recursive approaches
+- [Merge Two Sorted Lists](MergeTwoSortedLists.md/) - Merge sorted linked lists
+- [Remove Duplicates from Sorted List](RemoveDuplicatesFromSortedList.md/) - Remove duplicates
+- [Remove Linked List Elements](RemoveLinkedListElements.md/) - Remove specific values
+- [Delete Node in a Linked List](DeleteNodeInLinkedList.md/) - Delete without head reference
 
 ### **Advanced Operations**
 
-- [Add Two Numbers](./AddTwoNumbers.md) - Add numbers represented as linked lists
-- [Swap Nodes in Pairs](./SwapNodesInPairs.md) - Swap adjacent nodes
-- [Rotate List](./RotateList.md) - Rotate list to the right
-- [Remove Nth Node From End of List](./RemoveNthNodeFromEnd.md) - Two pointers technique
-- [Reorder List](./ReorderList.md) - Reorder list in specific pattern
+- [Add Two Numbers](AddTwoNumbers.md/) - Add numbers represented as linked lists
+- [Swap Nodes in Pairs](SwapNodesInPairs.md/) - Swap adjacent nodes
+- [Rotate List](RotateList.md/) - Rotate list to the right
+- [Remove Nth Node From End of List](RemoveNthNodeFromEnd.md/) - Two pointers technique
+- [Reorder List](ReorderList.md/) - Reorder list in specific pattern
 
 ### **Cycle Detection**
 
-- [Linked List Cycle](./LinkedListCycle.md) - Floyd's cycle detection
-- [Linked List Cycle II](./LinkedListCycleII.md) - Find cycle start node
-- [Find the Duplicate Number](./FindTheDuplicateNumber.md) - Cycle detection application
+- [Linked List Cycle](LinkedListCycle.md/) - Floyd's cycle detection
+- [Linked List Cycle II](LinkedListCycleII.md/) - Find cycle start node
+- [Find the Duplicate Number](FindTheDuplicateNumber.md/) - Cycle detection application
 
 ### **Advanced Algorithms**
 
-- [Copy List with Random Pointer](./CopyListWithRandomPointer.md) - Deep copy with random pointers
-- [Sort List](./SortList.md) - Merge sort on linked list
-- [Insertion Sort List](./InsertionSortList.md) - Insertion sort on linked list
-- [Partition List](./PartitionList.md) - Partition around a value
-- [Palindrome Linked List](./PalindromeLinkedList.md) - Check if list is palindrome
+- [Copy List with Random Pointer](CopyListWithRandomPointer.md/) - Deep copy with random pointers
+- [Sort List](SortList.md/) - Merge sort on linked list
+- [Insertion Sort List](InsertionSortList.md/) - Insertion sort on linked list
+- [Partition List](PartitionList.md/) - Partition around a value
+- [Palindrome Linked List](PalindromeLinkedList.md/) - Check if list is palindrome
 
 ---
 

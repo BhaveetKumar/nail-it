@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Strategic Analysis](#strategic-analysis)
-3. [Vision and Mission Development](#vision-and-mission-development)
-4. [Strategic Planning Process](#strategic-planning-process)
-5. [Implementation Planning](#implementation-planning)
-6. [Performance Monitoring](#performance-monitoring)
-7. [Implementations](#implementations)
-8. [Follow-up Questions](#follow-up-questions)
-9. [Sources](#sources)
-10. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Strategic Analysis](#strategic-analysis/)
+3. [Vision and Mission Development](#vision-and-mission-development/)
+4. [Strategic Planning Process](#strategic-planning-process/)
+5. [Implementation Planning](#implementation-planning/)
+6. [Performance Monitoring](#performance-monitoring/)
+7. [Implementations](#implementations/)
+8. [Follow-up Questions](#follow-up-questions/)
+9. [Sources](#sources/)
+10. [Projects](#projects/)
 
 ## Overview
 
@@ -883,4 +883,4 @@ A: Create detailed implementation plans, assign clear ownership, establish miles
 
 ---
 
-**Next**: [Advanced Specializations](./advanced-specializations.md) | **Previous**: [Mentoring Coaching](./mentoring-coaching.md) | **Up**: [Phase 3](../README.md)
+**Next**: [Advanced Specializations](advanced-specializations.md/) | **Previous**: [Mentoring Coaching](mentoring-coaching.md/) | **Up**: [Phase 3](README.md/)

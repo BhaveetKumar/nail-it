@@ -1,21 +1,21 @@
 # FAANG+ Companies Interview Preparation
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Google](#google)
-- [Microsoft](#microsoft)
-- [Meta (Facebook)](#meta-facebook)
-- [Netflix](#netflix)
-- [Rippling](#rippling)
-- [Amazon](#amazon)
-- [Apple](#apple)
-- [Uber](#uber)
-- [Airbnb](#airbnb)
-- [Stripe](#stripe)
-- [Snowflake](#snowflake)
-- [Databricks](#databricks)
-- [Palantir](#palantir)
-- [General Preparation Tips](#general-preparation-tips)
+- [Introduction](#introduction/)
+- [Google](#google/)
+- [Microsoft](#microsoft/)
+- [Meta (Facebook)](#meta-facebook/)
+- [Netflix](#netflix/)
+- [Rippling](#rippling/)
+- [Amazon](#amazon/)
+- [Apple](#apple/)
+- [Uber](#uber/)
+- [Airbnb](#airbnb/)
+- [Stripe](#stripe/)
+- [Snowflake](#snowflake/)
+- [Databricks](#databricks/)
+- [Palantir](#palantir/)
+- [General Preparation Tips](#general-preparation-tips/)
 
 ## Introduction
 
@@ -856,8 +856,8 @@ class PhotoManagementSystem:
 ## Additional Resources
 
 - [LeetCode](https://leetcode.com/)
-- [System Design Primer](https://github.com/donnemartin/system-design-primer)
+- [System Design Primer](https://github.com/donnemartin/system-design-primer/)
 - [Cracking the Coding Interview](https://www.crackingthecodinginterview.com/)
-- [Grokking the System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview)
-- [Company Engineering Blogs](https://github.com/kilimchoi/engineering-blogs)
-- [Interview Preparation](https://github.com/yangshun/tech-interview-handbook)
+- [Grokking the System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview/)
+- [Company Engineering Blogs](https://github.com/kilimchoi/engineering-blogs/)
+- [Interview Preparation](https://github.com/yangshun/tech-interview-handbook/)

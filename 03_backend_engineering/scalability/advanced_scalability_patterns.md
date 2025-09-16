@@ -1,15 +1,15 @@
 # 🚀 Advanced Scalability & Performance Patterns
 
 ## Table of Contents
-1. [Horizontal vs Vertical Scaling](#horizontal-vs-vertical-scaling)
-2. [Load Balancing Strategies](#load-balancing-strategies)
-3. [Caching Patterns](#caching-patterns)
-4. [Database Scaling](#database-scaling)
-5. [Microservices Scaling](#microservices-scaling)
-6. [Event-Driven Architecture](#event-driven-architecture)
-7. [Performance Optimization](#performance-optimization)
-8. [Go Implementation Examples](#go-implementation-examples)
-9. [Interview Questions](#interview-questions)
+1. [Horizontal vs Vertical Scaling](#horizontal-vs-vertical-scaling/)
+2. [Load Balancing Strategies](#load-balancing-strategies/)
+3. [Caching Patterns](#caching-patterns/)
+4. [Database Scaling](#database-scaling/)
+5. [Microservices Scaling](#microservices-scaling/)
+6. [Event-Driven Architecture](#event-driven-architecture/)
+7. [Performance Optimization](#performance-optimization/)
+8. [Go Implementation Examples](#go-implementation-examples/)
+9. [Interview Questions](#interview-questions/)
 
 ## Horizontal vs Vertical Scaling
 

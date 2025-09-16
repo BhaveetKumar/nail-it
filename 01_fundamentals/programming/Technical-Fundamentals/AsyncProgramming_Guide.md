@@ -8,14 +8,14 @@ Asynchronous programming is fundamental to Node.js. This guide covers all aspect
 
 ## 🎯 Table of Contents
 
-1. [Event Loop Fundamentals](#event-loop-fundamentals)
-2. [Callbacks](#callbacks)
-3. [Promises](#promises)
-4. [Async/Await](#asyncawait)
-5. [Error Handling](#error-handling)
-6. [Advanced Patterns](#advanced-patterns)
-7. [Performance Optimization](#performance-optimization)
-8. [Best Practices](#best-practices)
+1. [Event Loop Fundamentals](#event-loop-fundamentals/)
+2. [Callbacks](#callbacks/)
+3. [Promises](#promises/)
+4. [Async/Await](#asyncawait/)
+5. [Error Handling](#error-handling/)
+6. [Advanced Patterns](#advanced-patterns/)
+7. [Performance Optimization](#performance-optimization/)
+8. [Best Practices](#best-practices/)
 
 ## 🔄 Event Loop Fundamentals
 

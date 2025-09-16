@@ -1,14 +1,14 @@
 # Advanced Strategic Planning
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Strategic Analysis](#strategic-analysis)
-- [Vision Development](#vision-development)
-- [Strategic Planning](#strategic-planning)
-- [Implementation Planning](#implementation-planning)
-- [Performance Monitoring](#performance-monitoring)
-- [Organizational Transformation](#organizational-transformation)
-- [Strategic Decision Making](#strategic-decision-making)
+- [Introduction](#introduction/)
+- [Strategic Analysis](#strategic-analysis/)
+- [Vision Development](#vision-development/)
+- [Strategic Planning](#strategic-planning/)
+- [Implementation Planning](#implementation-planning/)
+- [Performance Monitoring](#performance-monitoring/)
+- [Organizational Transformation](#organizational-transformation/)
+- [Strategic Decision Making](#strategic-decision-making/)
 
 ## Introduction
 

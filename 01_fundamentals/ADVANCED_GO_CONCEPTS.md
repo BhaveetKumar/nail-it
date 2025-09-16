@@ -763,7 +763,7 @@ type ObjectPool[T any] struct {
     reset   func(T)
 }
 
-func NewObjectPool[T any](factory func() T, reset func(T)) *ObjectPool[T] {
+func NewObjectPool[T any](factory func(/) T, reset func(T)) *ObjectPool[T] {
     return &ObjectPool[T]{
         pool: sync.Pool{
             New: func() interface{} {

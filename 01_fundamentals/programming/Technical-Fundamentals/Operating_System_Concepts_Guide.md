@@ -8,14 +8,14 @@ This guide covers essential operating system concepts from a Node.js developer's
 
 ## 📚 **Table of Contents**
 
-1. [Process Management](#process-management)
-2. [Threading and Concurrency](#threading-and-concurrency)
-3. [Memory Management](#memory-management)
-4. [File System Operations](#file-system-operations)
-5. [System Calls and APIs](#system-calls-and-apis)
-6. [Inter-Process Communication](#inter-process-communication)
-7. [Scheduling and Performance](#scheduling-and-performance)
-8. [Security and Permissions](#security-and-permissions)
+1. [Process Management](#process-management/)
+2. [Threading and Concurrency](#threading-and-concurrency/)
+3. [Memory Management](#memory-management/)
+4. [File System Operations](#file-system-operations/)
+5. [System Calls and APIs](#system-calls-and-apis/)
+6. [Inter-Process Communication](#inter-process-communication/)
+7. [Scheduling and Performance](#scheduling-and-performance/)
+8. [Security and Permissions](#security-and-permissions/)
 
 ---
 

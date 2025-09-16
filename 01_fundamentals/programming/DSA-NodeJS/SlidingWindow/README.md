@@ -46,34 +46,34 @@ function slidingWindow(arr, k) {
 
 ## Problems
 
-### 1. [Maximum Sum Subarray of Size K](./MaximumSumSubarrayK.md)
+### 1. [Maximum Sum Subarray of Size K](MaximumSumSubarrayK.md/)
 Find the maximum sum of any contiguous subarray of size k.
 
-### 2. [Longest Substring Without Repeating Characters](./LongestSubstringNoRepeat.md)
+### 2. [Longest Substring Without Repeating Characters](LongestSubstringNoRepeat.md/)
 Find the length of the longest substring without repeating characters.
 
-### 3. [Minimum Window Substring](./MinimumWindowSubstring.md)
+### 3. [Minimum Window Substring](MinimumWindowSubstring.md/)
 Find the minimum window in string S that contains all characters in string T.
 
-### 4. [Longest Substring with At Most K Distinct Characters](./LongestSubstringKDistinct.md)
+### 4. [Longest Substring with At Most K Distinct Characters](LongestSubstringKDistinct.md/)
 Find the length of the longest substring with at most k distinct characters.
 
-### 5. [Fruit Into Baskets](./FruitIntoBaskets.md)
+### 5. [Fruit Into Baskets](FruitIntoBaskets.md/)
 Find the maximum number of fruits you can collect with two baskets.
 
-### 6. [Longest Repeating Character Replacement](./LongestRepeatingCharacterReplacement.md)
+### 6. [Longest Repeating Character Replacement](LongestRepeatingCharacterReplacement.md/)
 Find the length of the longest substring with same character after k replacements.
 
-### 7. [Permutation in String](./PermutationInString.md)
+### 7. [Permutation in String](PermutationInString.md/)
 Check if string s2 contains a permutation of string s1.
 
-### 8. [Find All Anagrams in a String](./FindAllAnagrams.md)
+### 8. [Find All Anagrams in a String](FindAllAnagrams.md/)
 Find all anagrams of string p in string s.
 
-### 9. [Subarray Product Less Than K](./SubarrayProductLessThanK.md)
+### 9. [Subarray Product Less Than K](SubarrayProductLessThanK.md/)
 Count the number of contiguous subarrays where product is less than k.
 
-### 10. [Maximum Points You Can Obtain from Cards](./MaximumPointsFromCards.md)
+### 10. [Maximum Points You Can Obtain from Cards](MaximumPointsFromCards.md/)
 Find maximum points by taking k cards from either end.
 
 ## Time & Space Complexity

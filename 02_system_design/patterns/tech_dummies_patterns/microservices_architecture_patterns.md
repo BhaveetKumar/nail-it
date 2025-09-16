@@ -1,16 +1,16 @@
 # Microservices Architecture Patterns - Tech Dummies Methodology
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Microservices Fundamentals](#microservices-fundamentals)
-3. [Communication Patterns](#communication-patterns)
-4. [Data Management Patterns](#data-management-patterns)
-5. [Deployment Patterns](#deployment-patterns)
-6. [Observability Patterns](#observability-patterns)
-7. [Security Patterns](#security-patterns)
-8. [Golang Implementation](#golang-implementation)
-9. [Best Practices](#best-practices)
-10. [Common Pitfalls](#common-pitfalls)
+1. [Introduction](#introduction/)
+2. [Microservices Fundamentals](#microservices-fundamentals/)
+3. [Communication Patterns](#communication-patterns/)
+4. [Data Management Patterns](#data-management-patterns/)
+5. [Deployment Patterns](#deployment-patterns/)
+6. [Observability Patterns](#observability-patterns/)
+7. [Security Patterns](#security-patterns/)
+8. [Golang Implementation](#golang-implementation/)
+9. [Best Practices](#best-practices/)
+10. [Common Pitfalls](#common-pitfalls/)
 
 ## Introduction
 

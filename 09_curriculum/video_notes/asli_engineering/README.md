@@ -2,13 +2,13 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Video Categories](#video-categories)
-3. [Content Extraction Process](#content-extraction-process)
-4. [Implementation Notes](#implementation-notes)
-5. [Cross-References](#cross-references)
-6. [Follow-up Questions](#follow-up-questions)
-7. [Sources](#sources)
+1. [Overview](#overview/)
+2. [Video Categories](#video-categories/)
+3. [Content Extraction Process](#content-extraction-process/)
+4. [Implementation Notes](#implementation-notes/)
+5. [Cross-References](#cross-references/)
+6. [Follow-up Questions](#follow-up-questions/)
+7. [Sources](#sources/)
 
 ## Overview
 
@@ -32,13 +32,13 @@ Asli Engineering provides high-quality system design and software engineering co
 - **Video**: "How to Scale Your System"
 - **Key Concepts**: Horizontal vs vertical scaling, load balancing, caching
 - **Implementation**: Golang and Node.js examples
-- **Cross-Reference**: [System Design Basics](../phase1_intermediate/system-design-basics/README.md)
+- **Cross-Reference**: [System Design Basics](phase1_intermediate/system-design-basics/README.md/)
 
 #### Database Design Videos
 - **Video**: "Database Design for Scale"
 - **Key Concepts**: Sharding, replication, consistency models
 - **Implementation**: Database optimization examples
-- **Cross-Reference**: [Database Systems](../phase1_intermediate/database-systems/README.md)
+- **Cross-Reference**: [Database Systems](phase1_intermediate/database-systems/README.md/)
 
 ### 2. Advanced System Design
 
@@ -46,13 +46,13 @@ Asli Engineering provides high-quality system design and software engineering co
 - **Video**: "Microservices Architecture Patterns"
 - **Key Concepts**: Service discovery, API gateway, circuit breakers
 - **Implementation**: Service mesh examples
-- **Cross-Reference**: [Distributed Systems](../phase2_advanced/distributed-systems/README.md)
+- **Cross-Reference**: [Distributed Systems](phase2_advanced/distributed-systems/README.md/)
 
 #### Caching Strategies Videos
 - **Video**: "Caching Strategies for High Performance"
 - **Key Concepts**: CDN, Redis, cache invalidation
 - **Implementation**: Multi-level caching examples
-- **Cross-Reference**: [Performance Engineering](../phase2_advanced/performance-engineering/README.md)
+- **Cross-Reference**: [Performance Engineering](phase2_advanced/performance-engineering/README.md/)
 
 ### 3. Real-World Case Studies
 
@@ -60,13 +60,13 @@ Asli Engineering provides high-quality system design and software engineering co
 - **Video**: "How Netflix Scales"
 - **Key Concepts**: CDN, microservices, data processing
 - **Implementation**: Netflix-like architecture examples
-- **Cross-Reference**: [Architecture Design](../phase3_expert/architecture-design/README.md)
+- **Cross-Reference**: [Architecture Design](phase3_expert/architecture-design/README.md/)
 
 #### Technology Deep Dives
 - **Video**: "Kubernetes Deep Dive"
 - **Key Concepts**: Container orchestration, service mesh, monitoring
 - **Implementation**: K8s deployment examples
-- **Cross-Reference**: [Cloud Architecture](../phase2_advanced/cloud-architecture/README.md)
+- **Cross-Reference**: [Cloud Architecture](phase2_advanced/cloud-architecture/README.md/)
 
 ## Content Extraction Process
 
@@ -436,18 +436,18 @@ func main() {
 ### 1. Curriculum Integration
 
 #### Phase 1 Integration
-- **System Design Basics**: [Link to module](../phase1_intermediate/system-design-basics/README.md)
-- **Database Systems**: [Link to module](../phase1_intermediate/database-systems/README.md)
-- **Web Development**: [Link to module](../phase1_intermediate/web-development/README.md)
+- **System Design Basics**: [Link to module](phase1_intermediate/system-design-basics/README.md/)
+- **Database Systems**: [Link to module](phase1_intermediate/database-systems/README.md/)
+- **Web Development**: [Link to module](phase1_intermediate/web-development/README.md/)
 
 #### Phase 2 Integration
-- **Distributed Systems**: [Link to module](../phase2_advanced/distributed-systems/README.md)
-- **Cloud Architecture**: [Link to module](../phase2_advanced/cloud-architecture/README.md)
-- **Performance Engineering**: [Link to module](../phase2_advanced/performance-engineering/README.md)
+- **Distributed Systems**: [Link to module](phase2_advanced/distributed-systems/README.md/)
+- **Cloud Architecture**: [Link to module](phase2_advanced/cloud-architecture/README.md/)
+- **Performance Engineering**: [Link to module](phase2_advanced/performance-engineering/README.md/)
 
 #### Phase 3 Integration
-- **Architecture Design**: [Link to module](../phase3_expert/architecture-design/README.md)
-- **Technical Leadership**: [Link to module](../phase3_expert/technical-leadership/README.md)
+- **Architecture Design**: [Link to module](phase3_expert/architecture-design/README.md/)
+- **Technical Leadership**: [Link to module](phase3_expert/technical-leadership/README.md/)
 
 ### 2. Video Content Mapping
 
@@ -483,15 +483,15 @@ A: Map video topics to curriculum modules, create cross-references, and ensure c
 ## Sources
 
 ### Video Channels
-- **Asli Engineering**: [YouTube Channel](https://www.youtube.com/@AsliEngineering)
-- **System Design Interview**: [Playlist](https://www.youtube.com/playlist?list=PLMCXHnjXnTnvo6alSjVkgxV-VH6EPcvoX)
-- **Microservices Architecture**: [Playlist](https://www.youtube.com/playlist?list=PLMCXHnjXnTnvQzJ4qgJNQhY6x5vJ1MpnT)
+- **Asli Engineering**: [YouTube Channel](https://www.youtube.com/@AsliEngineering/)
+- **System Design Interview**: [Playlist](https://www.youtube.com/playlist?list=PLMCXHnjXnTnvo6alSjVkgxV-VH6EPcvoX/)
+- **Microservices Architecture**: [Playlist](https://www.youtube.com/playlist?list=PLMCXHnjXnTnvQzJ4qgJNQhY6x5vJ1MpnT/)
 
 ### Related Resources
-- **System Design Primer**: [GitHub](https://github.com/donnemartin/system-design-primer)
+- **System Design Primer**: [GitHub](https://github.com/donnemartin/system-design-primer/)
 - **High Scalability**: [Blog](http://highscalability.com/)
 - **AWS Architecture Center**: [Documentation](https://aws.amazon.com/architecture/)
 
 ---
 
-**Next**: [Company-Specific Interview Prep](../company_prep/README.md) | **Previous**: [Phase 3 Expert](../phase3_expert/README.md) | **Up**: [Video Notes](../README.md)
+**Next**: [Company-Specific Interview Prep](company_prep/README.md/) | **Previous**: [Phase 3 Expert](phase3_expert/README.md/) | **Up**: [Video Notes](README.md/)

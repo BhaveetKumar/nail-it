@@ -1,14 +1,14 @@
 # Advanced Behavioral Scenarios
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Leadership Scenarios](#leadership-scenarios)
-- [Conflict Resolution](#conflict-resolution)
-- [Technical Decision Making](#technical-decision-making)
-- [Team Management](#team-management)
-- [Crisis Management](#crisis-management)
-- [Innovation and Change](#innovation-and-change)
-- [Career Development](#career-development)
+- [Introduction](#introduction/)
+- [Leadership Scenarios](#leadership-scenarios/)
+- [Conflict Resolution](#conflict-resolution/)
+- [Technical Decision Making](#technical-decision-making/)
+- [Team Management](#team-management/)
+- [Crisis Management](#crisis-management/)
+- [Innovation and Change](#innovation-and-change/)
+- [Career Development](#career-development/)
 
 ## Introduction
 

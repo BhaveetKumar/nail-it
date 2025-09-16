@@ -2,14 +2,14 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [FAANG Companies](#faang-companies)
-3. [Fintech Companies](#fintech-companies)
-4. [Startup Companies](#startup-companies)
-5. [Interview Strategies](#interview-strategies)
-6. [Practice Materials](#practice-materials)
-7. [Follow-up Questions](#follow-up-questions)
-8. [Sources](#sources)
+1. [Overview](#overview/)
+2. [FAANG Companies](#faang-companies/)
+3. [Fintech Companies](#fintech-companies/)
+4. [Startup Companies](#startup-companies/)
+5. [Interview Strategies](#interview-strategies/)
+6. [Practice Materials](#practice-materials/)
+7. [Follow-up Questions](#follow-up-questions/)
+8. [Sources](#sources/)
 
 ## Overview
 
@@ -758,10 +758,10 @@ A: Start with requirements, estimate scale, identify components, design data flo
 - **Company Blogs**: Technical insights and culture
 
 ### System Design
-- **System Design Primer**: [GitHub](https://github.com/donnemartin/system-design-primer)
+- **System Design Primer**: [GitHub](https://github.com/donnemartin/system-design-primer/)
 - **High Scalability**: [Blog](http://highscalability.com/)
 - **AWS Architecture Center**: [Documentation](https://aws.amazon.com/architecture/)
 
 ---
 
-**Next**: [Video Notes](../video_notes/README.md) | **Previous**: [Phase 3 Expert](../phase3_expert/README.md) | **Up**: [Company Prep](../README.md)
+**Next**: [Video Notes](video_notes/README.md/) | **Previous**: [Phase 3 Expert](phase3_expert/README.md/) | **Up**: [Company Prep](README.md/)

@@ -1,16 +1,16 @@
 # Advanced System Design Coding Problems
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Distributed Systems Problems](#distributed-systems-problems)
-- [Real-Time Systems Problems](#real-time-systems-problems)
-- [Machine Learning Systems Problems](#machine-learning-systems-problems)
-- [Financial Systems Problems](#financial-systems-problems)
-- [Social Media Systems Problems](#social-media-systems-problems)
-- [E-commerce Systems Problems](#e-commerce-systems-problems)
-- [Gaming Systems Problems](#gaming-systems-problems)
-- [IoT Systems Problems](#iot-systems-problems)
-- [Blockchain Systems Problems](#blockchain-systems-problems)
+- [Introduction](#introduction/)
+- [Distributed Systems Problems](#distributed-systems-problems/)
+- [Real-Time Systems Problems](#real-time-systems-problems/)
+- [Machine Learning Systems Problems](#machine-learning-systems-problems/)
+- [Financial Systems Problems](#financial-systems-problems/)
+- [Social Media Systems Problems](#social-media-systems-problems/)
+- [E-commerce Systems Problems](#e-commerce-systems-problems/)
+- [Gaming Systems Problems](#gaming-systems-problems/)
+- [IoT Systems Problems](#iot-systems-problems/)
+- [Blockchain Systems Problems](#blockchain-systems-problems/)
 
 ## Introduction
 

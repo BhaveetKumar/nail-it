@@ -474,10 +474,10 @@ matches.forEach(match => {
 
 ## Related Problems
 
-- [Find All Anagrams in String](./FindAllAnagramsInString.md)
-- [Longest Common Subsequence](./LongestCommonSubsequence.md)
-- [Edit Distance](./EditDistance.md)
-- [Palindrome Substrings](./PalindromeSubstrings.md)
+- [Find All Anagrams in String](FindAllAnagramsInString.md/)
+- [Longest Common Subsequence](LongestCommonSubsequence.md/)
+- [Edit Distance](EditDistance.md/)
+- [Palindrome Substrings](PalindromeSubstrings.md/)
 
 ## Interview Tips
 

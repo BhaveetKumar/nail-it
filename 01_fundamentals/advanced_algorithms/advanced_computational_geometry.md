@@ -1,13 +1,13 @@
 # Advanced Computational Geometry
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Convex Hull Algorithms](#convex-hull-algorithms)
-- [Line Intersection](#line-intersection)
-- [Polygon Operations](#polygon-operations)
-- [Spatial Data Structures](#spatial-data-structures)
-- [Geometric Algorithms](#geometric-algorithms)
-- [Advanced Applications](#advanced-applications)
+- [Introduction](#introduction/)
+- [Convex Hull Algorithms](#convex-hull-algorithms/)
+- [Line Intersection](#line-intersection/)
+- [Polygon Operations](#polygon-operations/)
+- [Spatial Data Structures](#spatial-data-structures/)
+- [Geometric Algorithms](#geometric-algorithms/)
+- [Advanced Applications](#advanced-applications/)
 
 ## Introduction
 

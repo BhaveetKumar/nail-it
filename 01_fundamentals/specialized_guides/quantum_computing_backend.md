@@ -1,16 +1,16 @@
 # Quantum Computing for Backend Engineers
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Quantum Computing Fundamentals](#quantum-computing-fundamentals)
-- [Quantum Algorithms](#quantum-algorithms)
-- [Quantum Cryptography](#quantum-cryptography)
-- [Quantum Machine Learning](#quantum-machine-learning)
-- [Quantum Optimization](#quantum-optimization)
-- [Quantum Simulation](#quantum-simulation)
-- [Quantum Error Correction](#quantum-error-correction)
-- [Quantum Hardware](#quantum-hardware)
-- [Quantum Software Development](#quantum-software-development)
+- [Introduction](#introduction/)
+- [Quantum Computing Fundamentals](#quantum-computing-fundamentals/)
+- [Quantum Algorithms](#quantum-algorithms/)
+- [Quantum Cryptography](#quantum-cryptography/)
+- [Quantum Machine Learning](#quantum-machine-learning/)
+- [Quantum Optimization](#quantum-optimization/)
+- [Quantum Simulation](#quantum-simulation/)
+- [Quantum Error Correction](#quantum-error-correction/)
+- [Quantum Hardware](#quantum-hardware/)
+- [Quantum Software Development](#quantum-software-development/)
 
 ## Introduction
 

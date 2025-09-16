@@ -2,12 +2,12 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Interlinking Strategy](#interlinking-strategy)
-3. [Cross-Reference System](#cross-reference-system)
-4. [Navigation Structure](#navigation-structure)
-5. [Implementation Examples](#implementation-examples)
-6. [Maintenance Guidelines](#maintenance-guidelines)
+1. [Overview](#overview/)
+2. [Interlinking Strategy](#interlinking-strategy/)
+3. [Cross-Reference System](#cross-reference-system/)
+4. [Navigation Structure](#navigation-structure/)
+5. [Implementation Examples](#implementation-examples/)
+6. [Maintenance Guidelines](#maintenance-guidelines/)
 
 ## Overview
 
@@ -57,14 +57,14 @@ Programming → Web Development → Distributed Systems → Leadership
 
 #### Internal Links
 ```markdown
-[Link Text](../relative/path/to/file.md)
-[Link Text with Context](../relative/path/to/file.md#section)
+[Link Text](relative/path/to/file.md/)
+[Link Text with Context](relative/path/to/file.md#section/)
 ```
 
 #### External Links
 ```markdown
-[External Resource](https://example.com)
-[Academic Paper](https://arxiv.org/abs/paper-id)
+[External Resource](https://example.com/)
+[Academic Paper](https://arxiv.org/abs/paper-id/)
 ```
 
 ### 2. Link Categories
@@ -72,22 +72,22 @@ Programming → Web Development → Distributed Systems → Leadership
 #### Prerequisites
 ```markdown
 **Prerequisites**: 
-- [Linear Algebra](../phase0_fundamentals/mathematics/linear-algebra.md)
-- [Data Structures](../phase0_fundamentals/programming/dsa-questions-golang-nodejs.md)
+- [Linear Algebra](phase0_fundamentals/mathematics/linear-algebra.md/)
+- [Data Structures](phase0_fundamentals/programming/dsa-questions-golang-nodejs.md/)
 ```
 
 #### Related Topics
 ```markdown
 **Related Topics**:
-- [System Design Basics](../phase1_intermediate/system-design-basics/README.md)
-- [Distributed Systems](../phase2_advanced/distributed-systems/README.md)
+- [System Design Basics](phase1_intermediate/system-design-basics/README.md/)
+- [Distributed Systems](phase2_advanced/distributed-systems/README.md/)
 ```
 
 #### Implementations
 ```markdown
 **Implementations**:
-- [Golang Examples](./implementations/golang/)
-- [Node.js Examples](./implementations/nodejs/)
+- [Golang Examples](implementations/golang/)
+- [Node.js Examples](implementations/nodejs/)
 ```
 
 ## Navigation Structure
@@ -96,7 +96,7 @@ Programming → Web Development → Distributed Systems → Leadership
 
 #### Standard Format
 ```markdown
-**Navigation**: [Home](../README.md) > [Phase 0](../phase0_fundamentals/README.md) > [Mathematics](../phase0_fundamentals/mathematics/README.md) > [Linear Algebra](./linear-algebra.md)
+**Navigation**: [Home](README.md/) > [Phase 0](phase0_fundamentals/README.md/) > [Mathematics](phase0_fundamentals/mathematics/README.md/) > [Linear Algebra](linear-algebra.md/)
 ```
 
 ### 2. Next/Previous Links
@@ -104,7 +104,7 @@ Programming → Web Development → Distributed Systems → Leadership
 #### Standard Format
 ```markdown
 ---
-**Previous**: [Previous Topic](../previous/README.md) | **Next**: [Next Topic](../next/README.md) | **Up**: [Parent Directory](../README.md)
+**Previous**: [Previous Topic](previous/README.md/) | **Next**: [Next Topic](next/README.md/) | **Up**: [Parent Directory](README.md/)
 ---
 ```
 
@@ -114,13 +114,13 @@ Programming → Web Development → Distributed Systems → Leadership
 ```markdown
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Theory](#theory)
-3. [Implementations](#implementations)
-4. [Examples](#examples)
-5. [Follow-up Questions](#follow-up-questions)
-6. [Sources](#sources)
-7. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Theory](#theory/)
+3. [Implementations](#implementations/)
+4. [Examples](#examples/)
+5. [Follow-up Questions](#follow-up-questions/)
+6. [Sources](#sources/)
+7. [Projects](#projects/)
 ```
 
 ## Implementation Examples
@@ -135,22 +135,22 @@ Programming → Web Development → Distributed Systems → Leadership
 Linear algebra forms the mathematical foundation for many advanced algorithms and machine learning concepts.
 
 **Prerequisites**: 
-- [Mathematics Fundamentals](../mathematics/README.md)
+- [Mathematics Fundamentals](mathematics/README.md/)
 
 **Builds Toward**:
-- [Advanced Data Structures](../phase1_intermediate/advanced-dsa/README.md)
-- [Machine Learning](../phase2_advanced/machine-learning/README.md)
+- [Advanced Data Structures](phase1_intermediate/advanced-dsa/README.md/)
+- [Machine Learning](phase2_advanced/machine-learning/README.md/)
 
 **Related Topics**:
-- [Calculus](../calculus.md) - For optimization algorithms
-- [Statistics](../statistics-probability.md) - For data analysis
+- [Calculus](calculus.md/) - For optimization algorithms
+- [Statistics](statistics-probability.md/) - For data analysis
 
 **Implementations**:
-- [Golang Examples](./implementations/golang/)
-- [Node.js Examples](./implementations/nodejs/)
+- [Golang Examples](implementations/golang/)
+- [Node.js Examples](implementations/nodejs/)
 
 ---
-**Previous**: [Mathematics Overview](../README.md) | **Next**: [Calculus](../calculus.md) | **Up**: [Phase 0](../README.md)
+**Previous**: [Mathematics Overview](README.md/) | **Next**: [Calculus](calculus.md/) | **Up**: [Phase 0](README.md/)
 ---
 ```
 
@@ -164,20 +164,20 @@ Linear algebra forms the mathematical foundation for many advanced algorithms an
 This module covers fundamental system design concepts that are essential for building scalable applications.
 
 **Prerequisites**:
-- [Data Structures](../phase0_fundamentals/programming/dsa-questions-golang-nodejs.md)
-- [Networks & Protocols](../phase0_fundamentals/cs-basics/networks-protocols.md)
+- [Data Structures](phase0_fundamentals/programming/dsa-questions-golang-nodejs.md/)
+- [Networks & Protocols](phase0_fundamentals/cs-basics/networks-protocols.md/)
 
 **Advanced Topics**:
-- [Distributed Systems](../phase2_advanced/distributed-systems/README.md)
-- [Cloud Architecture](../phase2_advanced/cloud-architecture/README.md)
-- [Architecture Design](../phase3_expert/architecture-design/README.md)
+- [Distributed Systems](phase2_advanced/distributed-systems/README.md/)
+- [Cloud Architecture](phase2_advanced/cloud-architecture/README.md/)
+- [Architecture Design](phase3_expert/architecture-design/README.md/)
 
 **Related Concepts**:
-- [Database Systems](../phase1_intermediate/database-systems/README.md)
-- [Performance Engineering](../phase2_advanced/performance-engineering/README.md)
+- [Database Systems](phase1_intermediate/database-systems/README.md/)
+- [Performance Engineering](phase2_advanced/performance-engineering/README.md/)
 
 ---
-**Previous**: [Web Development](../web-development/README.md) | **Next**: [API Design](../api-design/README.md) | **Up**: [Phase 1](../README.md)
+**Previous**: [Web Development](web-development/README.md/) | **Next**: [API Design](api-design/README.md/) | **Up**: [Phase 1](README.md/)
 ---
 ```
 
@@ -191,24 +191,24 @@ This module covers fundamental system design concepts that are essential for bui
 Comprehensive collection of data structure and algorithm problems with implementations in Golang and Node.js.
 
 **Prerequisites**:
-- [Programming Fundamentals](../programming/README.md)
-- [Mathematics](../mathematics/README.md)
+- [Programming Fundamentals](programming/README.md/)
+- [Mathematics](mathematics/README.md/)
 
 **Applications**:
-- [Software Design Patterns](../programming/software-design-patterns.md)
-- [System Design](../phase1_intermediate/system-design-basics/README.md)
-- [Performance Engineering](../phase2_advanced/performance-engineering/README.md)
+- [Software Design Patterns](programming/software-design-patterns.md/)
+- [System Design](phase1_intermediate/system-design-basics/README.md/)
+- [Performance Engineering](phase2_advanced/performance-engineering/README.md/)
 
 **Implementation Languages**:
-- [Golang Examples](./implementations/golang/)
-- [Node.js Examples](./implementations/nodejs/)
+- [Golang Examples](implementations/golang/)
+- [Node.js Examples](implementations/nodejs/)
 
 **Practice Problems**:
-- [LeetCode Preparation](../company_prep/README.md#coding-practice)
-- [Interview Questions](../company_prep/README.md#technical-questions)
+- [LeetCode Preparation](company_prep/README.md#coding-practice/)
+- [Interview Questions](company_prep/README.md#technical-questions/)
 
 ---
-**Previous**: [Programming Overview](../README.md) | **Next**: [Design Patterns](../programming/software-design-patterns.md) | **Up**: [Phase 0](../README.md)
+**Previous**: [Programming Overview](README.md/) | **Next**: [Design Patterns](programming/software-design-patterns.md/) | **Up**: [Phase 0](README.md/)
 ---
 ```
 
@@ -225,7 +225,7 @@ Comprehensive collection of data structure and algorithm problems with implement
 #### Automated Tools
 ```bash
 # Check for broken links
-find . -name "*.md" -exec grep -l "\[.*\](.*)" {} \; | xargs -I {} markdown-link-check {}
+find . -name "*.md" -exec grep -l "\[.*\](.*/)" {} \; | xargs -I {} markdown-link-check {}
 
 # Validate internal links
 find . -name "*.md" -exec grep -l "\.\./.*\.md" {} \; | xargs -I {} validate-internal-links {}

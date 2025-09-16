@@ -6,14 +6,14 @@ This module covers GraphQL API concepts including schema design, resolvers, quer
 
 ## Table of Contents
 
-1. [Schema Design](#schema-design)
-2. [Resolvers](#resolvers)
-3. [Queries & Mutations](#queries--mutations)
-4. [Subscriptions](#subscriptions)
-5. [Performance Optimization](#performance-optimization)
-6. [Applications](#applications)
-7. [Complexity Analysis](#complexity-analysis)
-8. [Follow-up Questions](#follow-up-questions)
+1. [Schema Design](#schema-design/)
+2. [Resolvers](#resolvers/)
+3. [Queries & Mutations](#queries--mutations/)
+4. [Subscriptions](#subscriptions/)
+5. [Performance Optimization](#performance-optimization/)
+6. [Applications](#applications/)
+7. [Complexity Analysis](#complexity-analysis/)
+8. [Follow-up Questions](#follow-up-questions/)
 
 ## Schema Design
 
@@ -712,4 +712,4 @@ A: Use queries for read operations that don't modify data. Use mutations for ope
 
 ---
 
-**Next**: [API Documentation](./api-documentation.md) | **Previous**: [API Design](../README.md) | **Up**: [API Design](../README.md)
+**Next**: [API Documentation](api-documentation.md/) | **Previous**: [API Design](README.md/) | **Up**: [API Design](README.md/)

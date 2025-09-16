@@ -1,16 +1,16 @@
 # Complete Interview Preparation Roadmap
 
 ## Table of Contents
-1. [Overview](#overview)
-2. [Phase 1: Fundamentals (Weeks 1-2)](#phase-1-fundamentals-weeks-1-2)
-3. [Phase 2: Core Technical Skills (Weeks 3-6)](#phase-2-core-technical-skills-weeks-3-6)
-4. [Phase 3: Advanced Topics (Weeks 7-10)](#phase-3-advanced-topics-weeks-7-10)
-5. [Phase 4: System Design Mastery (Weeks 11-14)](#phase-4-system-design-mastery-weeks-11-14)
-6. [Phase 5: Behavioral & Leadership (Weeks 15-16)](#phase-5-behavioral--leadership-weeks-15-16)
-7. [Phase 6: Mock Interviews & Practice (Weeks 17-18)](#phase-6-mock-interviews--practice-weeks-17-18)
-8. [Daily Study Schedule](#daily-study-schedule)
-9. [Resource Library](#resource-library)
-10. [Progress Tracking](#progress-tracking)
+1. [Overview](#overview/)
+2. [Phase 1: Fundamentals (Weeks 1-2)](#phase-1-fundamentals-weeks-1-2/)
+3. [Phase 2: Core Technical Skills (Weeks 3-6)](#phase-2-core-technical-skills-weeks-3-6/)
+4. [Phase 3: Advanced Topics (Weeks 7-10)](#phase-3-advanced-topics-weeks-7-10/)
+5. [Phase 4: System Design Mastery (Weeks 11-14)](#phase-4-system-design-mastery-weeks-11-14/)
+6. [Phase 5: Behavioral & Leadership (Weeks 15-16)](#phase-5-behavioral--leadership-weeks-15-16/)
+7. [Phase 6: Mock Interviews & Practice (Weeks 17-18)](#phase-6-mock-interviews--practice-weeks-17-18/)
+8. [Daily Study Schedule](#daily-study-schedule/)
+9. [Resource Library](#resource-library/)
+10. [Progress Tracking](#progress-tracking/)
 
 ## Overview
 

@@ -1,13 +1,13 @@
 # Advanced Networking Interviews
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Network Protocols](#network-protocols)
-- [Load Balancing](#load-balancing)
-- [CDN and Edge Computing](#cdn-and-edge-computing)
-- [Network Security](#network-security)
-- [Performance Optimization](#performance-optimization)
-- [Troubleshooting](#troubleshooting)
+- [Introduction](#introduction/)
+- [Network Protocols](#network-protocols/)
+- [Load Balancing](#load-balancing/)
+- [CDN and Edge Computing](#cdn-and-edge-computing/)
+- [Network Security](#network-security/)
+- [Performance Optimization](#performance-optimization/)
+- [Troubleshooting](#troubleshooting/)
 
 ## Introduction
 

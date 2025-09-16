@@ -268,8 +268,8 @@ try {
 
 ## Related Problems
 
-- [Maximum Sum Subarray](./MaximumSumSubarray.md) - Variable size window
-- [Longest Substring Without Repeating Characters](./LongestSubstringNoRepeat.md) - Variable size window
-- [Minimum Window Substring](./MinimumWindowSubstring.md) - Variable size window
-- [Fruit Into Baskets](./FruitIntoBaskets.md) - Variable size window
-- [Longest Substring with At Most K Distinct Characters](./LongestSubstringKDistinct.md) - Variable size window
+- [Maximum Sum Subarray](MaximumSumSubarray.md/) - Variable size window
+- [Longest Substring Without Repeating Characters](LongestSubstringNoRepeat.md/) - Variable size window
+- [Minimum Window Substring](MinimumWindowSubstring.md/) - Variable size window
+- [Fruit Into Baskets](FruitIntoBaskets.md/) - Variable size window
+- [Longest Substring with At Most K Distinct Characters](LongestSubstringKDistinct.md/) - Variable size window

@@ -585,4 +585,4 @@ spec:
 
 ---
 
-**Next**: [Infrastructure as Code](./InfrastructureAsCode/) - Terraform, Ansible, Pulumi
+**Next**: [Infrastructure as Code](InfrastructureAsCode/) - Terraform, Ansible, Pulumi

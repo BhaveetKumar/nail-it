@@ -122,7 +122,7 @@ func selectionSortWithCounters(nums []int) ([]int, int, int) {
 
 #### **Generic Selection Sort**
 ```go
-func selectionSortGeneric[T comparable](nums []T, less func(T, T) bool) {
+func selectionSortGeneric[T comparable](nums []T, less func(T, T/) bool) {
     n := len(nums)
     
     for i := 0; i < n-1; i++ {

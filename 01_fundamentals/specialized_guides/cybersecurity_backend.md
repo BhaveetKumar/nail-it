@@ -1,16 +1,16 @@
 # Cybersecurity Backend Systems
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Threat Detection and Prevention](#threat-detection-and-prevention)
-- [Identity and Access Management](#identity-and-access-management)
-- [Data Protection and Encryption](#data-protection-and-encryption)
-- [Network Security](#network-security)
-- [Application Security](#application-security)
-- [Incident Response](#incident-response)
-- [Security Monitoring](#security-monitoring)
-- [Compliance and Governance](#compliance-and-governance)
-- [Security Automation](#security-automation)
+- [Introduction](#introduction/)
+- [Threat Detection and Prevention](#threat-detection-and-prevention/)
+- [Identity and Access Management](#identity-and-access-management/)
+- [Data Protection and Encryption](#data-protection-and-encryption/)
+- [Network Security](#network-security/)
+- [Application Security](#application-security/)
+- [Incident Response](#incident-response/)
+- [Security Monitoring](#security-monitoring/)
+- [Compliance and Governance](#compliance-and-governance/)
+- [Security Automation](#security-automation/)
 
 ## Introduction
 
@@ -1352,10 +1352,10 @@ Mastering these areas will prepare you for building secure, resilient backend sy
 ## Additional Resources
 
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework/)
 - [CIS Controls](https://www.cisecurity.org/controls/)
-- [ISO 27001](https://www.iso.org/isoiec-27001-information-security.html)
+- [ISO 27001](https://www.iso.org/isoiec-27001-information-security.html/)
 - [Security Headers](https://securityheaders.com/)
 - [OWASP ZAP](https://owasp.org/www-project-zap/)
-- [Nessus](https://www.tenable.com/products/nessus)
+- [Nessus](https://www.tenable.com/products/nessus/)
 - [Splunk](https://www.splunk.com/)

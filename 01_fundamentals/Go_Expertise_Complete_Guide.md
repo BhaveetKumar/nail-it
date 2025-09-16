@@ -4,14 +4,14 @@
 
 ## 📋 Table of Contents
 
-1. [Go Fundamentals](#go-fundamentals)
-2. [Advanced Go Concepts](#advanced-go-concepts)
-3. [Design Patterns in Go](#design-patterns-in-go)
-4. [Go Architecture & Best Practices](#go-architecture--best-practices)
-5. [Debugging & Error Handling](#debugging--error-handling)
-6. [Performance Optimization](#performance-optimization)
-7. [Concurrency Deep Dive](#concurrency-deep-dive)
-8. [FAANG Interview Questions](#faang-interview-questions)
+1. [Go Fundamentals](#go-fundamentals/)
+2. [Advanced Go Concepts](#advanced-go-concepts/)
+3. [Design Patterns in Go](#design-patterns-in-go/)
+4. [Go Architecture & Best Practices](#go-architecture--best-practices/)
+5. [Debugging & Error Handling](#debugging--error-handling/)
+6. [Performance Optimization](#performance-optimization/)
+7. [Concurrency Deep Dive](#concurrency-deep-dive/)
+8. [FAANG Interview Questions](#faang-interview-questions/)
 
 ---
 
@@ -1926,8 +1926,8 @@ func main() {
 ### **Books**
 
 - [The Go Programming Language](https://www.gopl.io/) - Alan Donovan & Brian Kernighan
-- [Effective Go](https://golang.org/doc/effective_go.html) - Official Go documentation
-- [Go in Action](https://www.manning.com/books/go-in-action) - William Kennedy
+- [Effective Go](https://golang.org/doc/effective_go.html/) - Official Go documentation
+- [Go in Action](https://www.manning.com/books/go-in-action/) - William Kennedy
 
 ### **Online Resources**
 
@@ -1937,9 +1937,9 @@ func main() {
 
 ### **Video Resources**
 
-- [Gopher Academy](https://www.youtube.com/c/GopherAcademy) - Go conferences and talks
-- [JustForFunc](https://www.youtube.com/c/JustForFunc) - Go programming videos
-- [Go Time](https://changelog.com/gotime) - Go podcast
+- [Gopher Academy](https://www.youtube.com/c/GopherAcademy/) - Go conferences and talks
+- [JustForFunc](https://www.youtube.com/c/JustForFunc/) - Go programming videos
+- [Go Time](https://changelog.com/gotime/) - Go podcast
 
 ---
 

@@ -1004,4 +1004,4 @@ if err != nil {
 
 ---
 
-**Next**: [Alerting](./Alerting.md) - Alert management, notification channels, escalation policies
+**Next**: [Alerting](Alerting.md/) - Alert management, notification channels, escalation policies

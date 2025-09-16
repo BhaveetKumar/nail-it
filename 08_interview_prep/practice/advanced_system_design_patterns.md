@@ -1,14 +1,14 @@
 # Advanced System Design Patterns
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Microservices Patterns](#microservices-patterns)
-- [Event-Driven Patterns](#event-driven-patterns)
-- [Data Patterns](#data-patterns)
-- [Caching Patterns](#caching-patterns)
-- [Security Patterns](#security-patterns)
-- [Performance Patterns](#performance-patterns)
-- [Scalability Patterns](#scalability-patterns)
+- [Introduction](#introduction/)
+- [Microservices Patterns](#microservices-patterns/)
+- [Event-Driven Patterns](#event-driven-patterns/)
+- [Data Patterns](#data-patterns/)
+- [Caching Patterns](#caching-patterns/)
+- [Security Patterns](#security-patterns/)
+- [Performance Patterns](#performance-patterns/)
+- [Scalability Patterns](#scalability-patterns/)
 
 ## Introduction
 

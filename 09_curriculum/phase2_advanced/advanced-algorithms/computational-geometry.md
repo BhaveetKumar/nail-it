@@ -6,13 +6,13 @@ This module covers computational geometry algorithms including convex hull, line
 
 ## Table of Contents
 
-1. [Convex Hull Algorithms](#convex-hull-algorithms)
-2. [Line Intersection](#line-intersection)
-3. [Polygon Operations](#polygon-operations)
-4. [Spatial Data Structures](#spatial-data-structures)
-5. [Applications](#applications)
-6. [Complexity Analysis](#complexity-analysis)
-7. [Follow-up Questions](#follow-up-questions)
+1. [Convex Hull Algorithms](#convex-hull-algorithms/)
+2. [Line Intersection](#line-intersection/)
+3. [Polygon Operations](#polygon-operations/)
+4. [Spatial Data Structures](#spatial-data-structures/)
+5. [Applications](#applications/)
+6. [Complexity Analysis](#complexity-analysis/)
+7. [Follow-up Questions](#follow-up-questions/)
 
 ## Convex Hull Algorithms
 
@@ -778,4 +778,4 @@ A: Cast a ray from the point to infinity and count intersections with polygon ed
 
 ---
 
-**Next**: [Number Theory Algorithms](./number-theory-algorithms.md) | **Previous**: [Advanced Algorithms](../README.md) | **Up**: [Advanced Algorithms](../README.md)
+**Next**: [Number Theory Algorithms](number-theory-algorithms.md/) | **Previous**: [Advanced Algorithms](README.md/) | **Up**: [Advanced Algorithms](README.md/)

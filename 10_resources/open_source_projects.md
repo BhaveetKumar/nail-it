@@ -1,12 +1,12 @@
 # Open Source Projects for Resume Enhancement
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [TypeScript/JavaScript Projects](#typescriptjavascript-projects)
-- [Golang Projects](#golang-projects)
-- [Rust Projects](#rust-projects)
-- [How to Contribute](#how-to-contribute)
-- [Resume Integration](#resume-integration)
+- [Introduction](#introduction/)
+- [TypeScript/JavaScript Projects](#typescriptjavascript-projects/)
+- [Golang Projects](#golang-projects/)
+- [Rust Projects](#rust-projects/)
+- [How to Contribute](#how-to-contribute/)
+- [Resume Integration](#resume-integration/)
 
 ## Introduction
 

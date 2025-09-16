@@ -4,15 +4,15 @@
 
 ## 📋 Table of Contents
 
-1. [STAR Method Framework](#star-method-framework)
-2. [Leadership & Management](#leadership--management)
-3. [Conflict Resolution](#conflict-resolution)
-4. [Problem Solving & Innovation](#problem-solving--innovation)
-5. [Teamwork & Collaboration](#teamwork--collaboration)
-6. [Communication & Influence](#communication--influence)
-7. [Adaptability & Learning](#adaptability--learning)
-8. [FAANG Company Specific](#faang-company-specific)
-9. [Common Follow-up Questions](#common-follow-up-questions)
+1. [STAR Method Framework](#star-method-framework/)
+2. [Leadership & Management](#leadership--management/)
+3. [Conflict Resolution](#conflict-resolution/)
+4. [Problem Solving & Innovation](#problem-solving--innovation/)
+5. [Teamwork & Collaboration](#teamwork--collaboration/)
+6. [Communication & Influence](#communication--influence/)
+7. [Adaptability & Learning](#adaptability--learning/)
+8. [FAANG Company Specific](#faang-company-specific/)
+9. [Common Follow-up Questions](#common-follow-up-questions/)
 
 ---
 
@@ -660,20 +660,20 @@ This question assesses your ability to think strategically, identify opportuniti
 ### **Books**
 
 - [The Manager's Path](https://www.oreilly.com/library/view/the-managers-path/9781491973882/) - Camille Fournier
-- [Crucial Conversations](https://www.mhprofessional.com/9781260474183-usa-crucial-conversations-third-edition) - Kerry Patterson
+- [Crucial Conversations](https://www.mhprofessional.com/9781260474183-usa-crucial-conversations-third-edition/) - Kerry Patterson
 - [The Lean Startup](https://theleanstartup.com/) - Eric Ries
 
 ### **Online Resources**
 
-- [Behavioral Interview Questions](https://www.indeed.com/career-advice/interviewing/behavioral-interview-questions) - Indeed
-- [STAR Method Guide](https://www.themuse.com/advice/star-interview-method) - The Muse
-- [Leadership Principles](https://www.amazon.jobs/en/principles) - Amazon Leadership Principles
+- [Behavioral Interview Questions](https://www.indeed.com/career-advice/interviewing/behavioral-interview-questions/) - Indeed
+- [STAR Method Guide](https://www.themuse.com/advice/star-interview-method/) - The Muse
+- [Leadership Principles](https://www.amazon.jobs/en/principles/) - Amazon Leadership Principles
 
 ### **Video Resources**
 
-- [Google Interview Preparation](https://www.youtube.com/c/GoogleDevelopers) - Google Developers
-- [Meta Engineering Culture](https://www.youtube.com/c/MetaforDevelopers) - Meta for Developers
-- [Amazon Leadership Principles](https://www.youtube.com/c/AmazonWebServices) - AWS
+- [Google Interview Preparation](https://www.youtube.com/c/GoogleDevelopers/) - Google Developers
+- [Meta Engineering Culture](https://www.youtube.com/c/MetaforDevelopers/) - Meta for Developers
+- [Amazon Leadership Principles](https://www.youtube.com/c/AmazonWebServices/) - AWS
 
 ---
 

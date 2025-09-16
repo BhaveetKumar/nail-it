@@ -13,46 +13,46 @@
 ## 📚 **Topics Covered**
 
 ### **🔢 Basic Operations**
-- [**Two Sum**](./TwoSum.md) - Hash map approach
-- [**Best Time to Buy and Sell Stock**](./BestTimeToBuySellStock.md) - Greedy algorithm
-- [**Contains Duplicate**](./ContainsDuplicate.md) - Set operations
-- [**Product of Array Except Self**](./ProductOfArrayExceptSelf.md) - Prefix/suffix products
+- [**Two Sum**](TwoSum.md/) - Hash map approach
+- [**Best Time to Buy and Sell Stock**](BestTimeToBuySellStock.md/) - Greedy algorithm
+- [**Contains Duplicate**](ContainsDuplicate.md/) - Set operations
+- [**Product of Array Except Self**](ProductOfArrayExceptSelf.md/) - Prefix/suffix products
 
 ### **🔄 Two Pointers**
-- [**Two Sum II**](./TwoSumII.md) - Sorted array two pointers
-- [**3Sum**](./ThreeSum.md) - Three pointer technique
-- [**Container With Most Water**](./ContainerWithMostWater.md) - Area maximization
-- [**Remove Duplicates**](./RemoveDuplicates.md) - In-place deduplication
+- [**Two Sum II**](TwoSumII.md/) - Sorted array two pointers
+- [**3Sum**](ThreeSum.md/) - Three pointer technique
+- [**Container With Most Water**](ContainerWithMostWater.md/) - Area maximization
+- [**Remove Duplicates**](RemoveDuplicates.md/) - In-place deduplication
 
 ### **🪟 Sliding Window**
-- [**Maximum Subarray**](./MaximumSubarray.md) - Kadane's algorithm
-- [**Sliding Window Maximum**](./SlidingWindowMaximum.md) - Deque technique
-- [**Longest Substring Without Repeating Characters**](./LongestSubstring.md) - Character frequency
-- [**Minimum Window Substring**](./MinimumWindowSubstring.md) - Template matching
+- [**Maximum Subarray**](MaximumSubarray.md/) - Kadane's algorithm
+- [**Sliding Window Maximum**](SlidingWindowMaximum.md/) - Deque technique
+- [**Longest Substring Without Repeating Characters**](LongestSubstring.md/) - Character frequency
+- [**Minimum Window Substring**](MinimumWindowSubstring.md/) - Template matching
 
 ### **📈 Prefix Sum**
-- [**Range Sum Query**](./RangeSumQuery.md) - Immutable array
-- [**Subarray Sum Equals K**](./SubarraySumEqualsK.md) - Hash map + prefix sum
-- [**Continuous Subarray Sum**](./ContinuousSubarraySum.md) - Modulo arithmetic
-- [**Maximum Size Subarray Sum Equals K**](./MaxSizeSubarraySumK.md) - Size optimization
+- [**Range Sum Query**](RangeSumQuery.md/) - Immutable array
+- [**Subarray Sum Equals K**](SubarraySumEqualsK.md/) - Hash map + prefix sum
+- [**Continuous Subarray Sum**](ContinuousSubarraySum.md/) - Modulo arithmetic
+- [**Maximum Size Subarray Sum Equals K**](MaxSizeSubarraySumK.md/) - Size optimization
 
 ### **🗺️ Hash Maps**
-- [**Group Anagrams**](./GroupAnagrams.md) - String sorting
-- [**Top K Frequent Elements**](./TopKFrequentElements.md) - Frequency counting
-- [**Intersection of Two Arrays**](./IntersectionOfTwoArrays.md) - Set operations
-- [**Valid Anagram**](./ValidAnagram.md) - Character frequency
+- [**Group Anagrams**](GroupAnagrams.md/) - String sorting
+- [**Top K Frequent Elements**](TopKFrequentElements.md/) - Frequency counting
+- [**Intersection of Two Arrays**](IntersectionOfTwoArrays.md/) - Set operations
+- [**Valid Anagram**](ValidAnagram.md/) - Character frequency
 
 ### **🔄 Rotation & Transformation**
-- [**Rotate Array**](./RotateArray.md) - In-place rotation
-- [**Search in Rotated Sorted Array**](./SearchRotatedSortedArray.md) - Binary search
-- [**Find Minimum in Rotated Sorted Array**](./FindMinRotatedSortedArray.md) - Pivot finding
-- [**Spiral Matrix**](./SpiralMatrix.md) - Matrix traversal
+- [**Rotate Array**](RotateArray.md/) - In-place rotation
+- [**Search in Rotated Sorted Array**](SearchRotatedSortedArray.md/) - Binary search
+- [**Find Minimum in Rotated Sorted Array**](FindMinRotatedSortedArray.md/) - Pivot finding
+- [**Spiral Matrix**](SpiralMatrix.md/) - Matrix traversal
 
 ### **🎯 Advanced Problems**
-- [**Merge Intervals**](./MergeIntervals.md) - Interval merging
-- [**Insert Interval**](./InsertInterval.md) - Interval insertion
-- [**Meeting Rooms**](./MeetingRooms.md) - Scheduling problems
-- [**Trapping Rain Water**](./TrappingRainWater.md) - Water trapping
+- [**Merge Intervals**](MergeIntervals.md/) - Interval merging
+- [**Insert Interval**](InsertInterval.md/) - Interval insertion
+- [**Meeting Rooms**](MeetingRooms.md/) - Scheduling problems
+- [**Trapping Rain Water**](TrappingRainWater.md/) - Water trapping
 
 ## 🚀 **Getting Started**
 

@@ -14,7 +14,7 @@ Phase 3 represents the pinnacle of engineering expertise, focusing on staff and 
 
 ### 📚 Modules
 
-#### 1. [Technical Leadership](./technical-leadership/)
+#### 1. [Technical Leadership](technical-leadership/)
 - **Leadership Principles**: Servant leadership, transformational leadership
 - **Decision Making**: Technical decision frameworks, risk assessment
 - **Team Building**: Team formation, performance management
@@ -22,7 +22,7 @@ Phase 3 represents the pinnacle of engineering expertise, focusing on staff and 
 - **Change Management**: Organizational transformation, change leadership
 - **Innovation Leadership**: Driving innovation, fostering creativity
 
-#### 2. [Architecture Design](./architecture-design/)
+#### 2. [Architecture Design](architecture-design/)
 - **System Architecture**: SOLID principles, quality attributes
 - **Architecture Patterns**: Microservices, event-driven, serverless
 - **Scalability Design**: Horizontal scaling, database scaling
@@ -30,7 +30,7 @@ Phase 3 represents the pinnacle of engineering expertise, focusing on staff and 
 - **Security Architecture**: Security by design, threat modeling
 - **Performance Architecture**: Performance optimization, monitoring
 
-#### 3. [Innovation Research](./innovation-research/)
+#### 3. [Innovation Research](innovation-research/)
 - **Research Methodologies**: Literature review, experimental design
 - **Technology Trends**: Trend analysis, prediction models
 - **Innovation Frameworks**: Design thinking, lean startup
@@ -38,7 +38,7 @@ Phase 3 represents the pinnacle of engineering expertise, focusing on staff and 
 - **Technology Evaluation**: Technology assessment, selection criteria
 - **Research Publication**: Knowledge sharing, thought leadership
 
-#### 4. [Mentoring & Coaching](./mentoring-coaching/)
+#### 4. [Mentoring & Coaching](mentoring-coaching/)
 - **Mentoring Frameworks**: Structured mentoring, relationship management
 - **Coaching Methodologies**: GROW model, performance coaching
 - **Skill Development**: Technical skill development, career guidance
@@ -46,7 +46,7 @@ Phase 3 represents the pinnacle of engineering expertise, focusing on staff and 
 - **Performance Coaching**: Performance improvement, development plans
 - **Leadership Development**: Developing future leaders
 
-#### 5. [Strategic Planning](./strategic-planning/)
+#### 5. [Strategic Planning](strategic-planning/)
 - **Strategic Analysis**: SWOT analysis, PEST analysis
 - **Vision Development**: Vision and mission creation
 - **Strategic Planning**: Goal setting, strategy development
@@ -54,7 +54,7 @@ Phase 3 represents the pinnacle of engineering expertise, focusing on staff and 
 - **Performance Monitoring**: KPI tracking, strategic evaluation
 - **Organizational Transformation**: Change management, transformation
 
-#### 6. [Advanced Specializations](./advanced-specializations/)
+#### 6. [Advanced Specializations](advanced-specializations/)
 - **Technical Specializations**: AI/ML, cloud architecture, security
 - **Domain Expertise**: FinTech, healthcare, e-commerce
 - **Emerging Technologies**: Blockchain, IoT, quantum computing
@@ -230,4 +230,4 @@ After completing Phase 3, you'll be ready for:
 
 ---
 
-**Previous**: [Phase 2: Advanced](../phase2-advanced/README.md) | **Next**: [Master Engineer Curriculum](../README.md) | **Up**: [Master Engineer Curriculum](../README.md)
+**Previous**: [Phase 2: Advanced](phase2-advanced/README.md/) | **Next**: [Master Engineer Curriculum](README.md/) | **Up**: [Master Engineer Curriculum](README.md/)

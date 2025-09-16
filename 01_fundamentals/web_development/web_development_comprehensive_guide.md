@@ -1,16 +1,16 @@
 # 🌐 Web Development Comprehensive Guide
 
 ## Table of Contents
-1. [Frontend Fundamentals](#frontend-fundamentals)
-2. [Backend Development](#backend-development)
-3. [Full-Stack Integration](#full-stack-integration)
-4. [Web Security](#web-security)
-5. [Performance Optimization](#performance-optimization)
-6. [Modern Web Technologies](#modern-web-technologies)
-7. [Testing Strategies](#testing-strategies)
-8. [Deployment & DevOps](#deployment--devops)
-9. [Go Implementation Examples](#go-implementation-examples)
-10. [Interview Questions](#interview-questions)
+1. [Frontend Fundamentals](#frontend-fundamentals/)
+2. [Backend Development](#backend-development/)
+3. [Full-Stack Integration](#full-stack-integration/)
+4. [Web Security](#web-security/)
+5. [Performance Optimization](#performance-optimization/)
+6. [Modern Web Technologies](#modern-web-technologies/)
+7. [Testing Strategies](#testing-strategies/)
+8. [Deployment & DevOps](#deployment--devops/)
+9. [Go Implementation Examples](#go-implementation-examples/)
+10. [Interview Questions](#interview-questions/)
 
 ## Frontend Fundamentals
 

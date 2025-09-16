@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Arrays and Strings](#arrays-and-strings)
-3. [Linked Lists](#linked-lists)
-4. [Stacks and Queues](#stacks-and-queues)
-5. [Trees](#trees)
-6. [Graphs](#graphs)
-7. [Dynamic Programming](#dynamic-programming)
-8. [Sorting and Searching](#sorting-and-searching)
-9. [Hash Tables](#hash-tables)
-10. [Complexity Analysis](#complexity-analysis)
+1. [Overview](#overview/)
+2. [Arrays and Strings](#arrays-and-strings/)
+3. [Linked Lists](#linked-lists/)
+4. [Stacks and Queues](#stacks-and-queues/)
+5. [Trees](#trees/)
+6. [Graphs](#graphs/)
+7. [Dynamic Programming](#dynamic-programming/)
+8. [Sorting and Searching](#sorting-and-searching/)
+9. [Hash Tables](#hash-tables/)
+10. [Complexity Analysis](#complexity-analysis/)
 
 ## Overview
 
@@ -1204,5 +1204,5 @@ A: Average-case is the expected performance over all possible inputs, while wors
 
 ---
 
-**Next**: [Design Patterns](./design-patterns.md) | **Previous**: [Node.js Fundamentals](./nodejs-fundamentals.md) | **Up**: [Phase 0](../README.md)
+**Next**: [Design Patterns](design-patterns.md/) | **Previous**: [Node.js Fundamentals](nodejs-fundamentals.md/) | **Up**: [Phase 0](README.md/)
 

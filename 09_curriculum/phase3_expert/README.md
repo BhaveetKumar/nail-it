@@ -14,7 +14,7 @@ Phase 3 represents the pinnacle of engineering expertise, focusing on staff and 
 
 ### 📚 Modules
 
-#### 1. [Technical Leadership](./technical-leadership/)
+#### 1. [Technical Leadership](technical-leadership/)
 - **Advanced Technical Leadership**: Comprehensive leadership guide with Go implementations
 - **Leadership Principles**: Servant leadership, transformational leadership
 - **Decision Making**: Technical decision frameworks, risk assessment
@@ -23,7 +23,7 @@ Phase 3 represents the pinnacle of engineering expertise, focusing on staff and 
 - **Change Management**: Organizational transformation, change leadership
 - **Innovation Leadership**: Driving innovation, fostering creativity
 
-#### 2. [Architecture Design](./architecture-design/)
+#### 2. [Architecture Design](architecture-design/)
 - **Advanced Architecture Design**: Comprehensive architecture guide with Go implementations
 - **System Architecture**: SOLID principles, quality attributes
 - **Architecture Patterns**: Microservices, event-driven, serverless
@@ -32,7 +32,7 @@ Phase 3 represents the pinnacle of engineering expertise, focusing on staff and 
 - **Security Architecture**: Security by design, threat modeling
 - **Performance Architecture**: Performance optimization, monitoring
 
-#### 3. [Innovation Research](./innovation-research/)
+#### 3. [Innovation Research](innovation-research/)
 - **Advanced Innovation Research**: Comprehensive research guide with Go implementations
 - **Research Methodologies**: Literature review, experimental design
 - **Technology Trends**: Trend analysis, prediction models
@@ -41,7 +41,7 @@ Phase 3 represents the pinnacle of engineering expertise, focusing on staff and 
 - **Technology Evaluation**: Technology assessment, selection criteria
 - **Research Publication**: Knowledge sharing, thought leadership
 
-#### 4. [Mentoring & Coaching](./mentoring-coaching/)
+#### 4. [Mentoring & Coaching](mentoring-coaching/)
 - **Advanced Mentoring & Coaching**: Comprehensive mentoring guide with Go implementations
 - **Mentoring Frameworks**: Structured mentoring, relationship management
 - **Coaching Methodologies**: GROW model, performance coaching
@@ -50,7 +50,7 @@ Phase 3 represents the pinnacle of engineering expertise, focusing on staff and 
 - **Performance Coaching**: Performance improvement, development plans
 - **Leadership Development**: Developing future leaders
 
-#### 5. [Strategic Planning](./strategic-planning/)
+#### 5. [Strategic Planning](strategic-planning/)
 - **Advanced Strategic Planning**: Comprehensive strategic planning guide with Go implementations
 - **Strategic Analysis**: SWOT analysis, PEST analysis
 - **Vision Development**: Vision and mission creation
@@ -59,7 +59,7 @@ Phase 3 represents the pinnacle of engineering expertise, focusing on staff and 
 - **Performance Monitoring**: KPI tracking, strategic evaluation
 - **Organizational Transformation**: Change management, transformation
 
-#### 6. [Advanced Specializations](./advanced-specializations/)
+#### 6. [Advanced Specializations](advanced-specializations/)
 - **Advanced Specializations**: Comprehensive specializations guide with Go implementations
 - **Technical Specializations**: AI/ML, cloud architecture, security
 - **Domain Expertise**: FinTech, healthcare, e-commerce
@@ -236,4 +236,4 @@ After completing Phase 3, you'll be ready for:
 
 ---
 
-**Previous**: [Phase 2: Advanced](../phase2-advanced/README.md) | **Next**: [Master Engineer Curriculum](../README.md) | **Up**: [Master Engineer Curriculum](../README.md)
+**Previous**: [Phase 2: Advanced](phase2-advanced/README.md/) | **Next**: [Master Engineer Curriculum](README.md/) | **Up**: [Master Engineer Curriculum](README.md/)

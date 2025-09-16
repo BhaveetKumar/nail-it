@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Leadership Frameworks](#leadership-frameworks)
-3. [Decision Making](#decision-making)
-4. [Communication](#communication)
-5. [Team Building](#team-building)
-6. [Strategic Thinking](#strategic-thinking)
-7. [Change Management](#change-management)
-8. [Implementations](#implementations)
-9. [Follow-up Questions](#follow-up-questions)
-10. [Sources](#sources)
-11. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Leadership Frameworks](#leadership-frameworks/)
+3. [Decision Making](#decision-making/)
+4. [Communication](#communication/)
+5. [Team Building](#team-building/)
+6. [Strategic Thinking](#strategic-thinking/)
+7. [Change Management](#change-management/)
+8. [Implementations](#implementations/)
+9. [Follow-up Questions](#follow-up-questions/)
+10. [Sources](#sources/)
+11. [Projects](#projects/)
 
 ## Overview
 
@@ -949,4 +949,4 @@ A: Use analogies, focus on business value, avoid jargon, provide visual aids, an
 
 ---
 
-**Next**: [Architecture Design](./architecture-design/README.md) | **Previous**: [Phase 2](../phase2_advanced/README.md) | **Up**: [Phase 3](../README.md)
+**Next**: [Architecture Design](architecture-design/README.md/) | **Previous**: [Phase 2](phase2_advanced/README.md/) | **Up**: [Phase 3](README.md/)

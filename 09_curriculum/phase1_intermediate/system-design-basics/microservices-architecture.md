@@ -6,13 +6,13 @@ This module covers microservices architecture concepts including service decompo
 
 ## Table of Contents
 
-1. [Service Decomposition](#service-decomposition)
-2. [Communication Patterns](#communication-patterns)
-3. [Service Discovery](#service-discovery)
-4. [Deployment Strategies](#deployment-strategies)
-5. [Applications](#applications)
-6. [Complexity Analysis](#complexity-analysis)
-7. [Follow-up Questions](#follow-up-questions)
+1. [Service Decomposition](#service-decomposition/)
+2. [Communication Patterns](#communication-patterns/)
+3. [Service Discovery](#service-discovery/)
+4. [Deployment Strategies](#deployment-strategies/)
+5. [Applications](#applications/)
+6. [Complexity Analysis](#complexity-analysis/)
+7. [Follow-up Questions](#follow-up-questions/)
 
 ## Service Decomposition
 
@@ -717,4 +717,4 @@ A: Service discovery provides dynamic service registration, automatic health che
 
 ---
 
-**Next**: [Phase 2 Advanced](../phase2_advanced/README.md) | **Previous**: [System Design Basics](../README.md) | **Up**: [Phase 1](../README.md)
+**Next**: [Phase 2 Advanced](phase2_advanced/README.md/) | **Previous**: [System Design Basics](README.md/) | **Up**: [Phase 1](README.md/)

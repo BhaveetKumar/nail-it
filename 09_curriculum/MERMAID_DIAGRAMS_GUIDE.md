@@ -179,9 +179,9 @@ All curriculum modules include Mermaid diagrams for:
 
 - [Mermaid Documentation](https://mermaid-js.github.io/mermaid/)
 - [Mermaid Live Editor](https://mermaid.live/)
-- [Mermaid Examples](https://mermaid-js.github.io/mermaid/#/examples)
-- [VS Code Mermaid Extension](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
+- [Mermaid Examples](https://mermaid-js.github.io/mermaid/#/examples/)
+- [VS Code Mermaid Extension](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid/)
 
 ---
 
-**Next**: [Phase 0 Fundamentals](../phase0_fundamentals/README.md) | **Previous**: [Curriculum Overview](../README.md) | **Up**: [Master Engineer Curriculum](../README.md)
+**Next**: [Phase 0 Fundamentals](phase0_fundamentals/README.md/) | **Previous**: [Curriculum Overview](README.md/) | **Up**: [Master Engineer Curriculum](README.md/)

@@ -1057,4 +1057,4 @@ func (cm *ConfigManager) logSecretAccess(secretPath string) {
 
 ---
 
-**Next**: [Zero Trust Architecture](./ZeroTrustArchitecture.md) - Network security, identity verification, access control
+**Next**: [Zero Trust Architecture](ZeroTrustArchitecture.md/) - Network security, identity verification, access control

@@ -564,7 +564,7 @@ class CircuitBreaker {
 
 ### Practice Problems
 
-- [System Design Interview Questions](https://github.com/donnemartin/system-design-primer)
+- [System Design Interview Questions](https://github.com/donnemartin/system-design-primer/)
 - [High Scalability Case Studies](http://highscalability.com/)
 - [Designing Data-Intensive Applications](https://dataintensive.net/)
 

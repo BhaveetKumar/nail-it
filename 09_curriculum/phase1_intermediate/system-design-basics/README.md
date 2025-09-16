@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Scalability Patterns](#scalability-patterns)
-3. [Load Balancing](#load-balancing)
-4. [Caching Strategies](#caching-strategies)
-5. [Database Scaling](#database-scaling)
-6. [Microservices Architecture](#microservices-architecture)
-7. [Message Queues](#message-queues)
-8. [Implementations](#implementations)
-9. [Follow-up Questions](#follow-up-questions)
-10. [Sources](#sources)
-11. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Scalability Patterns](#scalability-patterns/)
+3. [Load Balancing](#load-balancing/)
+4. [Caching Strategies](#caching-strategies/)
+5. [Database Scaling](#database-scaling/)
+6. [Microservices Architecture](#microservices-architecture/)
+7. [Message Queues](#message-queues/)
+8. [Implementations](#implementations/)
+9. [Follow-up Questions](#follow-up-questions/)
+10. [Sources](#sources/)
+11. [Projects](#projects/)
 
 ## Overview
 
@@ -888,5 +888,5 @@ A: Cache-aside requires application logic to manage cache, while write-through w
 
 ---
 
-**Next**: [Phase 2: Advanced](../phase2_advanced/README.md) | **Previous**: [API Design](./api-design/README.md) | **Up**: [Phase 1](../README.md)
+**Next**: [Phase 2: Advanced](phase2_advanced/README.md/) | **Previous**: [API Design](api-design/README.md/) | **Up**: [Phase 1](README.md/)
 

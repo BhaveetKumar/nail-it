@@ -152,9 +152,9 @@ company/razorpay/round1/
 ## Additional Resources
 
 - **Go Documentation** - [golang.org/doc](https://golang.org/doc/)
-- **Effective Go** - [golang.org/doc/effective_go.html](https://golang.org/doc/effective_go.html)
+- **Effective Go** - [golang.org/doc/effective_go.html](https://golang.org/doc/effective_go.html/)
 - **Go by Example** - [gobyexample.com](https://gobyexample.com/)
-- **System Design Primer** - [github.com/donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer)
+- **System Design Primer** - [github.com/donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer/)
 
 ## Contributing
 

@@ -2,18 +2,18 @@
 
 ## 📋 Table of Contents
 
-1. [Database Fundamentals](#database-fundamentals)
-2. [Relational Databases (MySQL, PostgreSQL)](#relational-databases)
-3. [NoSQL Databases (MongoDB, DynamoDB)](#nosql-databases)
-4. [In-Memory Databases (Redis)](#in-memory-databases)
-5. [Search Engines (Elasticsearch)](#search-engines)
-6. [Vector Databases](#vector-databases)
-7. [Data Warehouses (Snowflake)](#data-warehouses)
-8. [Time Series Databases](#time-series-databases)
-9. [Database Architecture Patterns](#database-architecture-patterns)
-10. [Performance Optimization](#performance-optimization)
-11. [Scaling Strategies](#scaling-strategies)
-12. [Interview Questions & Solutions](#interview-questions--solutions)
+1. [Database Fundamentals](#database-fundamentals/)
+2. [Relational Databases (MySQL, PostgreSQL)](#relational-databases/)
+3. [NoSQL Databases (MongoDB, DynamoDB)](#nosql-databases/)
+4. [In-Memory Databases (Redis)](#in-memory-databases/)
+5. [Search Engines (Elasticsearch)](#search-engines/)
+6. [Vector Databases](#vector-databases/)
+7. [Data Warehouses (Snowflake)](#data-warehouses/)
+8. [Time Series Databases](#time-series-databases/)
+9. [Database Architecture Patterns](#database-architecture-patterns/)
+10. [Performance Optimization](#performance-optimization/)
+11. [Scaling Strategies](#scaling-strategies/)
+12. [Interview Questions & Solutions](#interview-questions--solutions/)
 
 ---
 

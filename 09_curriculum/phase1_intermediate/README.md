@@ -14,37 +14,37 @@ Phase 1 builds upon the fundamentals from Phase 0 and introduces intermediate en
 
 ### 📚 Modules
 
-#### 1. [Advanced Data Structures & Algorithms](./advanced-dsa/)
+#### 1. [Advanced Data Structures & Algorithms](advanced-dsa/)
 - **Dynamic Programming**: Advanced patterns and optimization
 - **Graph Algorithms**: Shortest paths, minimum spanning trees
 - **Tree Structures**: AVL trees, Red-Black trees, B-trees
 - **Advanced Sorting**: Heap sort, quick sort, merge sort
 
-#### 2. [Operating Systems Deep Dive](./os-deep-dive/)
+#### 2. [Operating Systems Deep Dive](os-deep-dive/)
 - **Process Management**: Scheduling algorithms, synchronization
 - **Memory Management**: Virtual memory, paging, segmentation
 - **File Systems**: Implementation, caching, optimization
 - **I/O Systems**: Device drivers, interrupt handling
 
-#### 3. [Database Systems](./database-systems/)
+#### 3. [Database Systems](database-systems/)
 - **Database Design**: Normalization, relationships, constraints
 - **Query Optimization**: Indexing, query plans, performance
 - **Transaction Management**: ACID properties, concurrency control
 - **NoSQL Databases**: Document, key-value, column-family stores
 
-#### 4. [Web Development](./web-development/)
+#### 4. [Web Development](web-development/)
 - **Frontend Frameworks**: React, Vue.js, Angular
 - **Backend Development**: Express.js, FastAPI, Spring Boot
 - **Full-Stack Integration**: API design, state management
 - **Performance Optimization**: Caching, compression, CDN
 
-#### 5. [API Design](./api-design/)
+#### 5. [API Design](api-design/)
 - **RESTful APIs**: Design principles, best practices
 - **GraphQL**: Schema design, resolvers, subscriptions
 - **API Documentation**: OpenAPI, Swagger, Postman
 - **API Testing**: Unit tests, integration tests, load testing
 
-#### 6. [System Design Basics](./system-design-basics/)
+#### 6. [System Design Basics](system-design-basics/)
 - **Scalability Patterns**: Load balancing, horizontal scaling
 - **Caching Strategies**: Redis, Memcached, CDN
 - **Database Scaling**: Sharding, replication, read replicas
@@ -148,4 +148,4 @@ After completing Phase 1, you'll be ready for:
 
 ---
 
-**Next**: [Phase 2: Advanced](../phase2_advanced/README.md) | **Previous**: [Phase 0: Fundamentals](../phase0_fundamentals/README.md) | **Up**: [Master Engineer Curriculum](../README.md)
+**Next**: [Phase 2: Advanced](phase2_advanced/README.md/) | **Previous**: [Phase 0: Fundamentals](phase0_fundamentals/README.md/) | **Up**: [Master Engineer Curriculum](README.md/)

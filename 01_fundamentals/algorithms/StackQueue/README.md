@@ -6,35 +6,35 @@
 
 ### **Stack Problems**
 
-- [Valid Parentheses](./ValidParentheses.md) - Validate bracket sequences
-- [Min Stack](./MinStack.md) - Stack with minimum element tracking
-- [Daily Temperatures](./DailyTemperatures.md) - Find next warmer temperature
-- [Largest Rectangle in Histogram](./LargestRectangleInHistogram.md) - Find largest rectangle
-- [Trapping Rain Water](./TrappingRainWater.md) - Collect rainwater between bars
+- [Valid Parentheses](ValidParentheses.md/) - Validate bracket sequences
+- [Min Stack](MinStack.md/) - Stack with minimum element tracking
+- [Daily Temperatures](DailyTemperatures.md/) - Find next warmer temperature
+- [Largest Rectangle in Histogram](LargestRectangleInHistogram.md/) - Find largest rectangle
+- [Trapping Rain Water](TrappingRainWater.md/) - Collect rainwater between bars
 
 ### **Queue Problems**
 
-- [Implement Queue using Stacks](./ImplementQueueUsingStacks.md) - Queue implementation
-- [Implement Stack using Queues](./ImplementStackUsingQueues.md) - Stack implementation
-- [Sliding Window Maximum](./SlidingWindowMaximum.md) - Find maximum in sliding window
-- [First Unique Character in a String](./FirstUniqueCharacterInString.md) - Find first unique character
-- [Design Circular Queue](./DesignCircularQueue.md) - Circular queue implementation
+- [Implement Queue using Stacks](ImplementQueueUsingStacks.md/) - Queue implementation
+- [Implement Stack using Queues](ImplementStackUsingQueues.md/) - Stack implementation
+- [Sliding Window Maximum](SlidingWindowMaximum.md/) - Find maximum in sliding window
+- [First Unique Character in a String](FirstUniqueCharacterInString.md/) - Find first unique character
+- [Design Circular Queue](DesignCircularQueue.md/) - Circular queue implementation
 
 ### **Monotonic Stack/Queue**
 
-- [Next Greater Element](./NextGreaterElement.md) - Find next greater element
-- [Next Greater Element II](./NextGreaterElementII.md) - Circular array version
-- [Remove K Digits](./RemoveKDigits.md) - Remove digits to get smallest number
-- [Largest Rectangle in Histogram](./LargestRectangleInHistogram.md) - Find largest rectangle
-- [Trapping Rain Water](./TrappingRainWater.md) - Collect rainwater
+- [Next Greater Element](NextGreaterElement.md/) - Find next greater element
+- [Next Greater Element II](NextGreaterElementII.md/) - Circular array version
+- [Remove K Digits](RemoveKDigits.md/) - Remove digits to get smallest number
+- [Largest Rectangle in Histogram](LargestRectangleInHistogram.md/) - Find largest rectangle
+- [Trapping Rain Water](TrappingRainWater.md/) - Collect rainwater
 
 ### **Advanced Stack/Queue**
 
-- [Basic Calculator](./BasicCalculator.md) - Evaluate mathematical expressions
-- [Basic Calculator II](./BasicCalculatorII.md) - Calculator with operators
-- [Decode String](./DecodeString.md) - Decode encoded strings
-- [Flatten Nested List Iterator](./FlattenNestedListIterator.md) - Flatten nested structures
-- [Asteroid Collision](./AsteroidCollision.md) - Simulate asteroid collisions
+- [Basic Calculator](BasicCalculator.md/) - Evaluate mathematical expressions
+- [Basic Calculator II](BasicCalculatorII.md/) - Calculator with operators
+- [Decode String](DecodeString.md/) - Decode encoded strings
+- [Flatten Nested List Iterator](FlattenNestedListIterator.md/) - Flatten nested structures
+- [Asteroid Collision](AsteroidCollision.md/) - Simulate asteroid collisions
 
 ---
 

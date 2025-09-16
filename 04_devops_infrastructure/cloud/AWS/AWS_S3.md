@@ -1357,4 +1357,4 @@ CloudFrontDistribution:
 
 ---
 
-**Next**: [AWS Lambda](./AWS_Lambda.md) - Serverless functions, event-driven architecture
+**Next**: [AWS Lambda](AWS_Lambda.md/) - Serverless functions, event-driven architecture

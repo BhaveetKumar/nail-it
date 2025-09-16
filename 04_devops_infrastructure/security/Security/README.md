@@ -6,38 +6,38 @@
 
 ### **🔐 Authentication & Authorization**
 
-- [**JWT & OAuth2**](./JWTOAuth2.md) - Token-based authentication and authorization
-- [**RBAC & ABAC**](./RBACABAC.md) - Role-based and attribute-based access control
-- [**Multi-Factor Authentication**](./MultiFactorAuthentication.md) - MFA implementation and best practices
-- [**Session Management**](./SessionManagement.md) - Secure session handling and management
+- [**JWT & OAuth2**](JWTOAuth2.md/) - Token-based authentication and authorization
+- [**RBAC & ABAC**](RBACABAC.md/) - Role-based and attribute-based access control
+- [**Multi-Factor Authentication**](MultiFactorAuthentication.md/) - MFA implementation and best practices
+- [**Session Management**](SessionManagement.md/) - Secure session handling and management
 
 ### **🛡️ Application Security**
 
-- [**Input Validation**](./InputValidation.md) - Data validation and sanitization
-- [**SQL Injection Prevention**](./SQLInjectionPrevention.md) - Database security and parameterized queries
-- [**XSS Protection**](./XSSProtection.md) - Cross-site scripting prevention
-- [**CSRF Protection**](./CSRFProtection.md) - Cross-site request forgery prevention
+- [**Input Validation**](InputValidation.md/) - Data validation and sanitization
+- [**SQL Injection Prevention**](SQLInjectionPrevention.md/) - Database security and parameterized queries
+- [**XSS Protection**](XSSProtection.md/) - Cross-site scripting prevention
+- [**CSRF Protection**](CSRFProtection.md/) - Cross-site request forgery prevention
 
 ### **🔒 Infrastructure Security**
 
-- [**Network Security**](./NetworkSecurity.md) - Firewalls, VPNs, and network segmentation
-- [**Container Security**](./ContainerSecurity.md) - Docker and Kubernetes security
-- [**Secrets Management**](./SecretsManagement.md) - Vault, KMS, and secure secret handling
-- [**Certificate Management**](./CertificateManagement.md) - SSL/TLS certificates and PKI
+- [**Network Security**](NetworkSecurity.md/) - Firewalls, VPNs, and network segmentation
+- [**Container Security**](ContainerSecurity.md/) - Docker and Kubernetes security
+- [**Secrets Management**](SecretsManagement.md/) - Vault, KMS, and secure secret handling
+- [**Certificate Management**](CertificateManagement.md/) - SSL/TLS certificates and PKI
 
 ### **📊 Security Monitoring**
 
-- [**Security Logging**](./SecurityLogging.md) - Security event logging and monitoring
-- [**Intrusion Detection**](./IntrusionDetection.md) - IDS/IPS and threat detection
-- [**Vulnerability Scanning**](./VulnerabilityScanning.md) - Security scanning and assessment
-- [**Incident Response**](./IncidentResponse.md) - Security incident handling and recovery
+- [**Security Logging**](SecurityLogging.md/) - Security event logging and monitoring
+- [**Intrusion Detection**](IntrusionDetection.md/) - IDS/IPS and threat detection
+- [**Vulnerability Scanning**](VulnerabilityScanning.md/) - Security scanning and assessment
+- [**Incident Response**](IncidentResponse.md/) - Security incident handling and recovery
 
 ### **🏛️ Compliance & Governance**
 
-- [**GDPR Compliance**](./GDPRCompliance.md) - Data protection and privacy regulations
-- [**SOC2 Compliance**](./SOC2Compliance.md) - Security and availability controls
-- [**PCI DSS**](./PCIDSS.md) - Payment card industry security standards
-- [**Security Auditing**](./SecurityAuditing.md) - Security assessment and compliance
+- [**GDPR Compliance**](GDPRCompliance.md/) - Data protection and privacy regulations
+- [**SOC2 Compliance**](SOC2Compliance.md/) - Security and availability controls
+- [**PCI DSS**](PCIDSS.md/) - Payment card industry security standards
+- [**Security Auditing**](SecurityAuditing.md/) - Security assessment and compliance
 
 ## 🎯 **Purpose**
 

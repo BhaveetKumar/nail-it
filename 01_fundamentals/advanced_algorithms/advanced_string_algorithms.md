@@ -1,13 +1,13 @@
 # Advanced String Algorithms
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [String Matching Algorithms](#string-matching-algorithms)
-- [Suffix Arrays and Trees](#suffix-arrays-and-trees)
-- [String Compression](#string-compression)
-- [Pattern Matching](#pattern-matching)
-- [String Processing](#string-processing)
-- [Advanced Applications](#advanced-applications)
+- [Introduction](#introduction/)
+- [String Matching Algorithms](#string-matching-algorithms/)
+- [Suffix Arrays and Trees](#suffix-arrays-and-trees/)
+- [String Compression](#string-compression/)
+- [Pattern Matching](#pattern-matching/)
+- [String Processing](#string-processing/)
+- [Advanced Applications](#advanced-applications/)
 
 ## Introduction
 

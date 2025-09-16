@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Mentoring Frameworks](#mentoring-frameworks)
-3. [Coaching Models](#coaching-models)
-4. [Skill Development](#skill-development)
-5. [Performance Management](#performance-management)
-6. [Team Development](#team-development)
-7. [Implementations](#implementations)
-8. [Follow-up Questions](#follow-up-questions)
-9. [Sources](#sources)
-10. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Mentoring Frameworks](#mentoring-frameworks/)
+3. [Coaching Models](#coaching-models/)
+4. [Skill Development](#skill-development/)
+5. [Performance Management](#performance-management/)
+6. [Team Development](#team-development/)
+7. [Implementations](#implementations/)
+8. [Follow-up Questions](#follow-up-questions/)
+9. [Sources](#sources/)
+10. [Projects](#projects/)
 
 ## Overview
 
@@ -943,4 +943,4 @@ A: Assess current competencies, set clear goals, identify learning resources, cr
 
 ---
 
-**Next**: [Strategic Planning](./strategic-planning/README.md) | **Previous**: [Innovation Research](./innovation-research/README.md) | **Up**: [Phase 3](../README.md)
+**Next**: [Strategic Planning](strategic-planning/README.md/) | **Previous**: [Innovation Research](innovation-research/README.md/) | **Up**: [Phase 3](README.md/)

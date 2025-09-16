@@ -1,14 +1,14 @@
 # Advanced Mentoring & Coaching
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Mentoring Frameworks](#mentoring-frameworks)
-- [Coaching Methodologies](#coaching-methodologies)
-- [Skill Development](#skill-development)
-- [Career Guidance](#career-guidance)
-- [Performance Coaching](#performance-coaching)
-- [Leadership Development](#leadership-development)
-- [Team Development](#team-development)
+- [Introduction](#introduction/)
+- [Mentoring Frameworks](#mentoring-frameworks/)
+- [Coaching Methodologies](#coaching-methodologies/)
+- [Skill Development](#skill-development/)
+- [Career Guidance](#career-guidance/)
+- [Performance Coaching](#performance-coaching/)
+- [Leadership Development](#leadership-development/)
+- [Team Development](#team-development/)
 
 ## Introduction
 

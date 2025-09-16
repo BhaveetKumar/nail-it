@@ -1,16 +1,16 @@
 # Advanced Database Systems
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Database Architecture Patterns](#database-architecture-patterns)
-- [Distributed Databases](#distributed-databases)
-- [NoSQL Databases](#nosql-databases)
-- [Database Performance Optimization](#database-performance-optimization)
-- [Database Security](#database-security)
-- [Database Backup and Recovery](#database-backup-and-recovery)
-- [Database Monitoring and Observability](#database-monitoring-and-observability)
-- [Database Migration Strategies](#database-migration-strategies)
-- [Database as a Service (DBaaS)](#database-as-a-service-dbaas)
+- [Introduction](#introduction/)
+- [Database Architecture Patterns](#database-architecture-patterns/)
+- [Distributed Databases](#distributed-databases/)
+- [NoSQL Databases](#nosql-databases/)
+- [Database Performance Optimization](#database-performance-optimization/)
+- [Database Security](#database-security/)
+- [Database Backup and Recovery](#database-backup-and-recovery/)
+- [Database Monitoring and Observability](#database-monitoring-and-observability/)
+- [Database Migration Strategies](#database-migration-strategies/)
+- [Database as a Service (DBaaS)](#database-as-a-service-dbaas/)
 
 ## Introduction
 

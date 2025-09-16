@@ -6,14 +6,14 @@ This module covers full-stack integration concepts including API design, state m
 
 ## Table of Contents
 
-1. [API Design](#api-design)
-2. [State Management](#state-management)
-3. [Authentication & Authorization](#authentication--authorization)
-4. [Real-Time Communication](#real-time-communication)
-5. [Deployment Strategies](#deployment-strategies)
-6. [Applications](#applications)
-7. [Complexity Analysis](#complexity-analysis)
-8. [Follow-up Questions](#follow-up-questions)
+1. [API Design](#api-design/)
+2. [State Management](#state-management/)
+3. [Authentication & Authorization](#authentication--authorization/)
+4. [Real-Time Communication](#real-time-communication/)
+5. [Deployment Strategies](#deployment-strategies/)
+6. [Applications](#applications/)
+7. [Complexity Analysis](#complexity-analysis/)
+8. [Follow-up Questions](#follow-up-questions/)
 
 ## API Design
 
@@ -117,11 +117,11 @@ func (gw *APIGateway) HandleRequest(w http.ResponseWriter, r *http.Request) {
     // Apply middleware
     handler := endpoint.Handler
     for i := len(endpoint.Middleware) - 1; i >= 0; i-- {
-        handler = endpoint.Middleware[i](handler)
+        handler = endpoint.Middleware[i](handler/)
     }
     
     for i := len(gw.Middleware) - 1; i >= 0; i-- {
-        handler = gw.Middleware[i](handler)
+        handler = gw.Middleware[i](handler/)
     }
     
     // Handle request with timeout
@@ -846,4 +846,4 @@ A: JWT tokens are stateless and contain user information, making them suitable f
 
 ---
 
-**Next**: [API Design](../api-design/README.md) | **Previous**: [Web Development](../README.md) | **Up**: [Phase 1](../README.md)
+**Next**: [API Design](api-design/README.md/) | **Previous**: [Web Development](README.md/) | **Up**: [Phase 1](README.md/)

@@ -8,16 +8,16 @@ This guide summarizes the key concepts from Martin Kleppmann's "Designing Data-I
 
 ## 📚 **Table of Contents**
 
-1. [Reliability, Scalability, and Maintainability](#reliability-scalability-and-maintainability)
-2. [Data Models and Query Languages](#data-models-and-query-languages)
-3. [Storage and Retrieval](#storage-and-retrieval)
-4. [Encoding and Evolution](#encoding-and-evolution)
-5. [Replication](#replication)
-6. [Partitioning](#partitioning)
-7. [Transactions](#transactions)
-8. [Consistency and Consensus](#consistency-and-consensus)
-9. [Stream Processing](#stream-processing)
-10. [Batch Processing](#batch-processing)
+1. [Reliability, Scalability, and Maintainability](#reliability-scalability-and-maintainability/)
+2. [Data Models and Query Languages](#data-models-and-query-languages/)
+3. [Storage and Retrieval](#storage-and-retrieval/)
+4. [Encoding and Evolution](#encoding-and-evolution/)
+5. [Replication](#replication/)
+6. [Partitioning](#partitioning/)
+7. [Transactions](#transactions/)
+8. [Consistency and Consensus](#consistency-and-consensus/)
+9. [Stream Processing](#stream-processing/)
+10. [Batch Processing](#batch-processing/)
 
 ---
 

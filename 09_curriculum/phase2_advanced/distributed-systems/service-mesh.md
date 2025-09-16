@@ -6,13 +6,13 @@ This module covers service mesh concepts including service discovery, load balan
 
 ## Table of Contents
 
-1. [Service Discovery](#service-discovery)
-2. [Load Balancing](#load-balancing)
-3. [Circuit Breakers](#circuit-breakers)
-4. [Observability](#observability)
-5. [Applications](#applications)
-6. [Complexity Analysis](#complexity-analysis)
-7. [Follow-up Questions](#follow-up-questions)
+1. [Service Discovery](#service-discovery/)
+2. [Load Balancing](#load-balancing/)
+3. [Circuit Breakers](#circuit-breakers/)
+4. [Observability](#observability/)
+5. [Applications](#applications/)
+6. [Complexity Analysis](#complexity-analysis/)
+7. [Follow-up Questions](#follow-up-questions/)
 
 ## Service Discovery
 
@@ -530,4 +530,4 @@ A: Service mesh provides cross-cutting concerns like service discovery, load bal
 
 ---
 
-**Next**: [Distributed Tracing](./distributed-tracing.md) | **Previous**: [Distributed Systems](../README.md) | **Up**: [Distributed Systems](../README.md)
+**Next**: [Distributed Tracing](distributed-tracing.md/) | **Previous**: [Distributed Systems](README.md/) | **Up**: [Distributed Systems](README.md/)

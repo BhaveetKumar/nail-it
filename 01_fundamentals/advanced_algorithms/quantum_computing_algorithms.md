@@ -1,15 +1,15 @@
 # Quantum Computing Algorithms for Backend Engineers
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Quantum Computing Fundamentals](#quantum-computing-fundamentals)
-- [Quantum Algorithms](#quantum-algorithms)
-- [Quantum Machine Learning](#quantum-machine-learning)
-- [Quantum Cryptography](#quantum-cryptography)
-- [Quantum Optimization](#quantum-optimization)
-- [Implementation Examples](#implementation-examples)
-- [Real-World Applications](#real-world-applications)
-- [Future of Quantum Computing](#future-of-quantum-computing)
+- [Introduction](#introduction/)
+- [Quantum Computing Fundamentals](#quantum-computing-fundamentals/)
+- [Quantum Algorithms](#quantum-algorithms/)
+- [Quantum Machine Learning](#quantum-machine-learning/)
+- [Quantum Cryptography](#quantum-cryptography/)
+- [Quantum Optimization](#quantum-optimization/)
+- [Implementation Examples](#implementation-examples/)
+- [Real-World Applications](#real-world-applications/)
+- [Future of Quantum Computing](#future-of-quantum-computing/)
 
 ## Introduction
 
@@ -632,7 +632,7 @@ As quantum computing matures, these skills will become increasingly valuable in 
 ## Additional Resources
 
 - [Qiskit Documentation](https://qiskit.org/documentation/)
-- [Cirq Documentation](https://quantumai.google/cirq)
+- [Cirq Documentation](https://quantumai.google/cirq/)
 - [Quantum Computing Course - MIT](https://ocw.mit.edu/courses/mathematics/18-435j-quantum-computation-fall-2003/)
-- [Quantum Machine Learning - IBM](https://www.ibm.com/quantum/what-is-quantum-computing)
-- [Post-Quantum Cryptography - NIST](https://www.nist.gov/programs-projects/post-quantum-cryptography)
+- [Quantum Machine Learning - IBM](https://www.ibm.com/quantum/what-is-quantum-computing/)
+- [Post-Quantum Cryptography - NIST](https://www.nist.gov/programs-projects/post-quantum-cryptography/)

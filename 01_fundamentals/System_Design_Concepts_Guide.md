@@ -4,15 +4,15 @@
 
 ## 📋 Table of Contents
 
-1. [System Design Fundamentals](#system-design-fundamentals)
-2. [Load Balancing](#load-balancing)
-3. [Caching Strategies](#caching-strategies)
-4. [Database Design](#database-design)
-5. [Microservices Architecture](#microservices-architecture)
-6. [Message Queues](#message-queues)
-7. [API Design](#api-design)
-8. [Security & Authentication](#security--authentication)
-9. [FAANG Interview Questions](#faang-interview-questions)
+1. [System Design Fundamentals](#system-design-fundamentals/)
+2. [Load Balancing](#load-balancing/)
+3. [Caching Strategies](#caching-strategies/)
+4. [Database Design](#database-design/)
+5. [Microservices Architecture](#microservices-architecture/)
+6. [Message Queues](#message-queues/)
+7. [API Design](#api-design/)
+8. [Security & Authentication](#security--authentication/)
+9. [FAANG Interview Questions](#faang-interview-questions/)
 
 ---
 
@@ -3304,21 +3304,21 @@ func main() {
 
 ### **Books**
 
-- [System Design Interview](https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF) - Alex Xu
+- [System Design Interview](https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF/) - Alex Xu
 - [Designing Data-Intensive Applications](https://dataintensive.net/) - Martin Kleppmann
 - [Building Microservices](https://www.oreilly.com/library/view/building-microservices/9781491950340/) - Sam Newman
 
 ### **Online Resources**
 
-- [System Design Primer](https://github.com/donnemartin/system-design-primer) - GitHub repository
+- [System Design Primer](https://github.com/donnemartin/system-design-primer/) - GitHub repository
 - [High Scalability](https://highscalability.com/) - Real-world system design case studies
 - [AWS Architecture Center](https://aws.amazon.com/architecture/) - Cloud architecture patterns
 
 ### **Video Resources**
 
-- [ByteByteGo](https://www.youtube.com/c/ByteByteGo) - System design explanations
-- [Gaurav Sen](https://www.youtube.com/c/GauravSensei) - System design and algorithms
-- [Exponent](https://www.youtube.com/c/ExponentTV) - Mock interviews and system design
+- [ByteByteGo](https://www.youtube.com/c/ByteByteGo/) - System design explanations
+- [Gaurav Sen](https://www.youtube.com/c/GauravSensei/) - System design and algorithms
+- [Exponent](https://www.youtube.com/c/ExponentTV/) - Mock interviews and system design
 
 ---
 

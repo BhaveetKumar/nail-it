@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [RESTful API Design](#restful-api-design)
-3. [GraphQL APIs](#graphql-apis)
-4. [API Documentation](#api-documentation)
-5. [API Testing](#api-testing)
-6. [API Security](#api-security)
-7. [Performance & Optimization](#performance--optimization)
-8. [Implementations](#implementations)
-9. [Follow-up Questions](#follow-up-questions)
-10. [Sources](#sources)
-11. [Projects](#projects)
+1. [Overview](#overview/)
+2. [RESTful API Design](#restful-api-design/)
+3. [GraphQL APIs](#graphql-apis/)
+4. [API Documentation](#api-documentation/)
+5. [API Testing](#api-testing/)
+6. [API Security](#api-security/)
+7. [Performance & Optimization](#performance--optimization/)
+8. [Implementations](#implementations/)
+9. [Follow-up Questions](#follow-up-questions/)
+10. [Sources](#sources/)
+11. [Projects](#projects/)
 
 ## Overview
 
@@ -741,5 +741,5 @@ A: Implement rate limiting, authentication, input validation, CORS policies, and
 
 ---
 
-**Next**: [System Design Basics](./system-design-basics/README.md) | **Previous**: [Web Development](./web-development/README.md) | **Up**: [Phase 1](../README.md)
+**Next**: [System Design Basics](system-design-basics/README.md/) | **Previous**: [Web Development](web-development/README.md/) | **Up**: [Phase 1](README.md/)
 

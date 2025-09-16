@@ -1,16 +1,16 @@
 # APM (Application Performance Monitoring) Implementation
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [APM Architecture](#apm-architecture)
-3. [Data Collection](#data-collection)
-4. [Performance Metrics](#performance-metrics)
-5. [Error Tracking](#error-tracking)
-6. [User Experience Monitoring](#user-experience-monitoring)
-7. [Golang Implementation](#golang-implementation)
-8. [Microservices APM](#microservices-apm)
-9. [Alerting and Dashboards](#alerting-and-dashboards)
-10. [Best Practices](#best-practices)
+1. [Introduction](#introduction/)
+2. [APM Architecture](#apm-architecture/)
+3. [Data Collection](#data-collection/)
+4. [Performance Metrics](#performance-metrics/)
+5. [Error Tracking](#error-tracking/)
+6. [User Experience Monitoring](#user-experience-monitoring/)
+7. [Golang Implementation](#golang-implementation/)
+8. [Microservices APM](#microservices-apm/)
+9. [Alerting and Dashboards](#alerting-and-dashboards/)
+10. [Best Practices](#best-practices/)
 
 ## Introduction
 

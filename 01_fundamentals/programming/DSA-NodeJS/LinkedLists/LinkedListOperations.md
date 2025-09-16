@@ -664,10 +664,10 @@ console.log("Doubly linked list operations completed");
 
 ## Related Problems
 
-- [Reverse Linked List II](./ReverseLinkedListII.md)
-- [Rotate List](./RotateList.md)
-- [Swap Nodes in Pairs](./SwapNodesInPairs.md)
-- [Copy List with Random Pointer](./CopyListWithRandomPointer.md)
+- [Reverse Linked List II](ReverseLinkedListII.md/)
+- [Rotate List](RotateList.md/)
+- [Swap Nodes in Pairs](SwapNodesInPairs.md/)
+- [Copy List with Random Pointer](CopyListWithRandomPointer.md/)
 
 ## Interview Tips
 

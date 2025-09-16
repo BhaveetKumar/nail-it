@@ -6,14 +6,14 @@ This module covers NoSQL database concepts including document stores, key-value 
 
 ## Table of Contents
 
-1. [Document Stores](#document-stores)
-2. [Key-Value Stores](#key-value-stores)
-3. [Column-Family Stores](#column-family-stores)
-4. [Graph Databases](#graph-databases)
-5. [CAP Theorem](#cap-theorem)
-6. [Applications](#applications)
-7. [Complexity Analysis](#complexity-analysis)
-8. [Follow-up Questions](#follow-up-questions)
+1. [Document Stores](#document-stores/)
+2. [Key-Value Stores](#key-value-stores/)
+3. [Column-Family Stores](#column-family-stores/)
+4. [Graph Databases](#graph-databases/)
+5. [CAP Theorem](#cap-theorem/)
+6. [Applications](#applications/)
+7. [Complexity Analysis](#complexity-analysis/)
+8. [Follow-up Questions](#follow-up-questions/)
 
 ## Document Stores
 
@@ -929,4 +929,4 @@ A: Column-family stores store data in columns rather than rows, which improves w
 
 ---
 
-**Next**: [Web Development](../web-development/README.md) | **Previous**: [Database Systems](../README.md) | **Up**: [Phase 1](../README.md)
+**Next**: [Web Development](web-development/README.md/) | **Previous**: [Database Systems](README.md/) | **Up**: [Phase 1](README.md/)

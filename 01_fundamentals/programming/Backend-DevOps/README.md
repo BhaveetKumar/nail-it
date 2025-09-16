@@ -15,139 +15,139 @@
 ### **🔧 Backend Fundamentals**
 
 #### **Node.js & Express.js**
-- [**Node.js Complete Guide**](./BackendFundamentals/NodeJS_Complete_Guide.md) - From basics to production
-- [**Express.js Framework**](./BackendFundamentals/ExpressJS_Guide.md) - Web framework mastery
-- [**API Design**](./BackendFundamentals/API_Design_Guide.md) - REST, GraphQL, gRPC
-- [**Authentication & Authorization**](./BackendFundamentals/Auth_Guide.md) - JWT, OAuth2, RBAC
+- [**Node.js Complete Guide**](BackendFundamentals/NodeJS_Complete_Guide.md/) - From basics to production
+- [**Express.js Framework**](BackendFundamentals/ExpressJS_Guide.md/) - Web framework mastery
+- [**API Design**](BackendFundamentals/API_Design_Guide.md/) - REST, GraphQL, gRPC
+- [**Authentication & Authorization**](BackendFundamentals/Auth_Guide.md/) - JWT, OAuth2, RBAC
 
 #### **Database Integration**
-- [**MongoDB with Mongoose**](./BackendFundamentals/MongoDB_Guide.md) - NoSQL database
-- [**PostgreSQL with Node.js**](./BackendFundamentals/PostgreSQL_Guide.md) - SQL database
-- [**Redis Caching**](./BackendFundamentals/Redis_Guide.md) - In-memory caching
-- [**Database Optimization**](./BackendFundamentals/Database_Optimization.md) - Performance tuning
+- [**MongoDB with Mongoose**](BackendFundamentals/MongoDB_Guide.md/) - NoSQL database
+- [**PostgreSQL with Node.js**](BackendFundamentals/PostgreSQL_Guide.md/) - SQL database
+- [**Redis Caching**](BackendFundamentals/Redis_Guide.md/) - In-memory caching
+- [**Database Optimization**](BackendFundamentals/Database_Optimization.md/) - Performance tuning
 
 #### **Microservices & Architecture**
-- [**Microservices Architecture**](./BackendFundamentals/Microservices_Guide.md) - Service design
-- [**API Gateway**](./BackendFundamentals/API_Gateway_Guide.md) - Request routing
-- [**Service Communication**](./BackendFundamentals/Service_Communication.md) - HTTP, gRPC, messaging
-- [**Event-Driven Architecture**](./BackendFundamentals/Event_Driven_Architecture.md) - Async patterns
+- [**Microservices Architecture**](BackendFundamentals/Microservices_Guide.md/) - Service design
+- [**API Gateway**](BackendFundamentals/API_Gateway_Guide.md/) - Request routing
+- [**Service Communication**](BackendFundamentals/Service_Communication.md/) - HTTP, gRPC, messaging
+- [**Event-Driven Architecture**](BackendFundamentals/Event_Driven_Architecture.md/) - Async patterns
 
 ### **☁️ Cloud & Infrastructure**
 
 #### **AWS Services**
-- [**EC2 & Auto Scaling**](./Cloud/AWS_EC2_Guide.md) - Virtual machines
-- [**Lambda Functions**](./Cloud/AWS_Lambda_Guide.md) - Serverless computing
-- [**RDS & Database**](./Cloud/AWS_RDS_Guide.md) - Managed databases
-- [**S3 & Storage**](./Cloud/AWS_S3_Guide.md) - Object storage
-- [**CloudFront CDN**](./Cloud/AWS_CloudFront_Guide.md) - Content delivery
+- [**EC2 & Auto Scaling**](Cloud/AWS_EC2_Guide.md/) - Virtual machines
+- [**Lambda Functions**](Cloud/AWS_Lambda_Guide.md/) - Serverless computing
+- [**RDS & Database**](Cloud/AWS_RDS_Guide.md/) - Managed databases
+- [**S3 & Storage**](Cloud/AWS_S3_Guide.md/) - Object storage
+- [**CloudFront CDN**](Cloud/AWS_CloudFront_Guide.md/) - Content delivery
 
 #### **Google Cloud Platform**
-- [**Compute Engine**](./Cloud/GCP_Compute_Guide.md) - Virtual machines
-- [**Cloud Functions**](./Cloud/GCP_Functions_Guide.md) - Serverless functions
-- [**Cloud SQL**](./Cloud/GCP_CloudSQL_Guide.md) - Managed databases
-- [**Cloud Storage**](./Cloud/GCP_Storage_Guide.md) - Object storage
-- [**Kubernetes Engine**](./Cloud/GCP_GKE_Guide.md) - Container orchestration
+- [**Compute Engine**](Cloud/GCP_Compute_Guide.md/) - Virtual machines
+- [**Cloud Functions**](Cloud/GCP_Functions_Guide.md/) - Serverless functions
+- [**Cloud SQL**](Cloud/GCP_CloudSQL_Guide.md/) - Managed databases
+- [**Cloud Storage**](Cloud/GCP_Storage_Guide.md/) - Object storage
+- [**Kubernetes Engine**](Cloud/GCP_GKE_Guide.md/) - Container orchestration
 
 #### **Azure Services**
-- [**Virtual Machines**](./Cloud/Azure_VM_Guide.md) - Compute instances
-- [**Functions**](./Cloud/Azure_Functions_Guide.md) - Serverless computing
-- [**SQL Database**](./Cloud/Azure_SQL_Guide.md) - Managed databases
-- [**Blob Storage**](./Cloud/Azure_Storage_Guide.md) - Object storage
-- [**Container Instances**](./Cloud/Azure_Containers_Guide.md) - Container hosting
+- [**Virtual Machines**](Cloud/Azure_VM_Guide.md/) - Compute instances
+- [**Functions**](Cloud/Azure_Functions_Guide.md/) - Serverless computing
+- [**SQL Database**](Cloud/Azure_SQL_Guide.md/) - Managed databases
+- [**Blob Storage**](Cloud/Azure_Storage_Guide.md/) - Object storage
+- [**Container Instances**](Cloud/Azure_Containers_Guide.md/) - Container hosting
 
 ### **🐳 Containers & Orchestration**
 
 #### **Docker**
-- [**Docker Basics**](./Containers/Docker_Basics_Guide.md) - Container fundamentals
-- [**Dockerfile Best Practices**](./Containers/Dockerfile_Guide.md) - Image optimization
-- [**Docker Compose**](./Containers/Docker_Compose_Guide.md) - Multi-container apps
-- [**Docker Security**](./Containers/Docker_Security_Guide.md) - Container security
+- [**Docker Basics**](Containers/Docker_Basics_Guide.md/) - Container fundamentals
+- [**Dockerfile Best Practices**](Containers/Dockerfile_Guide.md/) - Image optimization
+- [**Docker Compose**](Containers/Docker_Compose_Guide.md/) - Multi-container apps
+- [**Docker Security**](Containers/Docker_Security_Guide.md/) - Container security
 
 #### **Kubernetes**
-- [**Kubernetes Fundamentals**](./Containers/Kubernetes_Basics_Guide.md) - Orchestration basics
-- [**Pods & Services**](./Containers/Kubernetes_Pods_Services.md) - Basic resources
-- [**Deployments & Scaling**](./Containers/Kubernetes_Deployments.md) - Application deployment
-- [**Ingress & Networking**](./Containers/Kubernetes_Networking.md) - Traffic management
-- [**ConfigMaps & Secrets**](./Containers/Kubernetes_Config_Secrets.md) - Configuration management
+- [**Kubernetes Fundamentals**](Containers/Kubernetes_Basics_Guide.md/) - Orchestration basics
+- [**Pods & Services**](Containers/Kubernetes_Pods_Services.md/) - Basic resources
+- [**Deployments & Scaling**](Containers/Kubernetes_Deployments.md/) - Application deployment
+- [**Ingress & Networking**](Containers/Kubernetes_Networking.md/) - Traffic management
+- [**ConfigMaps & Secrets**](Containers/Kubernetes_Config_Secrets.md/) - Configuration management
 
 #### **Service Mesh**
-- [**Istio Service Mesh**](./Containers/Istio_Guide.md) - Advanced networking
-- [**Envoy Proxy**](./Containers/Envoy_Guide.md) - High-performance proxy
-- [**Linkerd**](./Containers/Linkerd_Guide.md) - Lightweight service mesh
+- [**Istio Service Mesh**](Containers/Istio_Guide.md/) - Advanced networking
+- [**Envoy Proxy**](Containers/Envoy_Guide.md/) - High-performance proxy
+- [**Linkerd**](Containers/Linkerd_Guide.md/) - Lightweight service mesh
 
 ### **🔄 CI/CD & Automation**
 
 #### **Continuous Integration**
-- [**GitHub Actions**](./CI-CD/GitHub_Actions_Guide.md) - GitHub CI/CD
-- [**GitLab CI**](./CI-CD/GitLab_CI_Guide.md) - GitLab pipelines
-- [**Jenkins**](./CI-CD/Jenkins_Guide.md) - Self-hosted CI/CD
-- [**CircleCI**](./CI-CD/CircleCI_Guide.md) - Cloud CI/CD
+- [**GitHub Actions**](CI-CD/GitHub_Actions_Guide.md/) - GitHub CI/CD
+- [**GitLab CI**](CI-CD/GitLab_CI_Guide.md/) - GitLab pipelines
+- [**Jenkins**](CI-CD/Jenkins_Guide.md/) - Self-hosted CI/CD
+- [**CircleCI**](CI-CD/CircleCI_Guide.md/) - Cloud CI/CD
 
 #### **Continuous Deployment**
-- [**ArgoCD**](./CI-CD/ArgoCD_Guide.md) - GitOps deployment
-- [**Flux**](./CI-CD/Flux_Guide.md) - GitOps operator
-- [**Spinnaker**](./CI-CD/Spinnaker_Guide.md) - Multi-cloud deployment
-- [**Tekton**](./CI-CD/Tekton_Guide.md) - Cloud-native pipelines
+- [**ArgoCD**](CI-CD/ArgoCD_Guide.md/) - GitOps deployment
+- [**Flux**](CI-CD/Flux_Guide.md/) - GitOps operator
+- [**Spinnaker**](CI-CD/Spinnaker_Guide.md/) - Multi-cloud deployment
+- [**Tekton**](CI-CD/Tekton_Guide.md/) - Cloud-native pipelines
 
 #### **Infrastructure as Code**
-- [**Terraform**](./InfrastructureAsCode/Terraform_Guide.md) - Infrastructure provisioning
-- [**Ansible**](./InfrastructureAsCode/Ansible_Guide.md) - Configuration management
-- [**Pulumi**](./InfrastructureAsCode/Pulumi_Guide.md) - Modern IaC
-- [**CloudFormation**](./InfrastructureAsCode/CloudFormation_Guide.md) - AWS IaC
+- [**Terraform**](InfrastructureAsCode/Terraform_Guide.md/) - Infrastructure provisioning
+- [**Ansible**](InfrastructureAsCode/Ansible_Guide.md/) - Configuration management
+- [**Pulumi**](InfrastructureAsCode/Pulumi_Guide.md/) - Modern IaC
+- [**CloudFormation**](InfrastructureAsCode/CloudFormation_Guide.md/) - AWS IaC
 
 ### **📊 Monitoring & Observability**
 
 #### **Application Monitoring**
-- [**Prometheus**](./Monitoring/Prometheus_Guide.md) - Metrics collection
-- [**Grafana**](./Monitoring/Grafana_Guide.md) - Visualization and dashboards
-- [**New Relic**](./Monitoring/New_Relic_Guide.md) - APM and monitoring
-- [**DataDog**](./Monitoring/DataDog_Guide.md) - Full-stack monitoring
+- [**Prometheus**](Monitoring/Prometheus_Guide.md/) - Metrics collection
+- [**Grafana**](Monitoring/Grafana_Guide.md/) - Visualization and dashboards
+- [**New Relic**](Monitoring/New_Relic_Guide.md/) - APM and monitoring
+- [**DataDog**](Monitoring/DataDog_Guide.md/) - Full-stack monitoring
 
 #### **Logging & Tracing**
-- [**ELK Stack**](./Monitoring/ELK_Stack_Guide.md) - Elasticsearch, Logstash, Kibana
-- [**Fluentd**](./Monitoring/Fluentd_Guide.md) - Log collection
-- [**Jaeger**](./Monitoring/Jaeger_Guide.md) - Distributed tracing
-- [**Zipkin**](./Monitoring/Zipkin_Guide.md) - Request tracing
+- [**ELK Stack**](Monitoring/ELK_Stack_Guide.md/) - Elasticsearch, Logstash, Kibana
+- [**Fluentd**](Monitoring/Fluentd_Guide.md/) - Log collection
+- [**Jaeger**](Monitoring/Jaeger_Guide.md/) - Distributed tracing
+- [**Zipkin**](Monitoring/Zipkin_Guide.md/) - Request tracing
 
 #### **Alerting & Incident Response**
-- [**AlertManager**](./Monitoring/AlertManager_Guide.md) - Alert management
-- [**PagerDuty**](./Monitoring/PagerDuty_Guide.md) - Incident response
-- [**OpsGenie**](./Monitoring/OpsGenie_Guide.md) - Alert routing
-- [**Runbooks**](./Monitoring/Runbooks_Guide.md) - Incident procedures
+- [**AlertManager**](Monitoring/AlertManager_Guide.md/) - Alert management
+- [**PagerDuty**](Monitoring/PagerDuty_Guide.md/) - Incident response
+- [**OpsGenie**](Monitoring/OpsGenie_Guide.md/) - Alert routing
+- [**Runbooks**](Monitoring/Runbooks_Guide.md/) - Incident procedures
 
 ### **🔒 Security & Compliance**
 
 #### **Application Security**
-- [**Node.js Security**](./Security/NodeJS_Security_Guide.md) - Secure coding practices
-- [**OWASP Top 10**](./Security/OWASP_Guide.md) - Web application vulnerabilities
-- [**Authentication Security**](./Security/Auth_Security_Guide.md) - Secure auth patterns
-- [**API Security**](./Security/API_Security_Guide.md) - API protection
+- [**Node.js Security**](Security/NodeJS_Security_Guide.md/) - Secure coding practices
+- [**OWASP Top 10**](Security/OWASP_Guide.md/) - Web application vulnerabilities
+- [**Authentication Security**](Security/Auth_Security_Guide.md/) - Secure auth patterns
+- [**API Security**](Security/API_Security_Guide.md/) - API protection
 
 #### **Infrastructure Security**
-- [**Network Security**](./Security/Network_Security_Guide.md) - VPC, firewalls, VPNs
-- [**Secrets Management**](./Security/Secrets_Management_Guide.md) - Vault, AWS Secrets Manager
-- [**Container Security**](./Security/Container_Security_Guide.md) - Secure containers
-- [**Kubernetes Security**](./Security/Kubernetes_Security_Guide.md) - Cluster security
+- [**Network Security**](Security/Network_Security_Guide.md/) - VPC, firewalls, VPNs
+- [**Secrets Management**](Security/Secrets_Management_Guide.md/) - Vault, AWS Secrets Manager
+- [**Container Security**](Security/Container_Security_Guide.md/) - Secure containers
+- [**Kubernetes Security**](Security/Kubernetes_Security_Guide.md/) - Cluster security
 
 #### **Compliance & Governance**
-- [**GDPR Compliance**](./Security/GDPR_Guide.md) - Data protection
-- [**SOC 2**](./Security/SOC2_Guide.md) - Security controls
-- [**PCI DSS**](./Security/PCI_DSS_Guide.md) - Payment card security
-- [**Audit Logging**](./Security/Audit_Logging_Guide.md) - Compliance logging
+- [**GDPR Compliance**](Security/GDPR_Guide.md/) - Data protection
+- [**SOC 2**](Security/SOC2_Guide.md/) - Security controls
+- [**PCI DSS**](Security/PCI_DSS_Guide.md/) - Payment card security
+- [**Audit Logging**](Security/Audit_Logging_Guide.md/) - Compliance logging
 
 ### **⚡ Performance & Optimization**
 
 #### **Application Performance**
-- [**Node.js Performance**](./Performance/NodeJS_Performance_Guide.md) - Optimization techniques
-- [**Database Performance**](./Performance/Database_Performance_Guide.md) - Query optimization
-- [**Caching Strategies**](./Performance/Caching_Strategies_Guide.md) - Multi-level caching
-- [**CDN Optimization**](./Performance/CDN_Guide.md) - Content delivery
+- [**Node.js Performance**](Performance/NodeJS_Performance_Guide.md/) - Optimization techniques
+- [**Database Performance**](Performance/Database_Performance_Guide.md/) - Query optimization
+- [**Caching Strategies**](Performance/Caching_Strategies_Guide.md/) - Multi-level caching
+- [**CDN Optimization**](Performance/CDN_Guide.md/) - Content delivery
 
 #### **Infrastructure Performance**
-- [**Load Balancing**](./Performance/Load_Balancing_Guide.md) - Traffic distribution
-- [**Auto Scaling**](./Performance/Auto_Scaling_Guide.md) - Dynamic scaling
-- [**Resource Optimization**](./Performance/Resource_Optimization_Guide.md) - Cost optimization
-- [**Performance Testing**](./Performance/Performance_Testing_Guide.md) - Load testing
+- [**Load Balancing**](Performance/Load_Balancing_Guide.md/) - Traffic distribution
+- [**Auto Scaling**](Performance/Auto_Scaling_Guide.md/) - Dynamic scaling
+- [**Resource Optimization**](Performance/Resource_Optimization_Guide.md/) - Cost optimization
+- [**Performance Testing**](Performance/Performance_Testing_Guide.md/) - Load testing
 
 ## 🚀 **Getting Started**
 

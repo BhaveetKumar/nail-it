@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [JavaScript ES6+ Features](#javascript-es6-features)
-3. [Node.js Runtime](#nodejs-runtime)
-4. [Asynchronous Programming](#asynchronous-programming)
-5. [Modules and NPM](#modules-and-npm)
-6. [File System Operations](#file-system-operations)
-7. [HTTP and Web Servers](#http-and-web-servers)
-8. [Event-Driven Programming](#event-driven-programming)
-9. [Error Handling](#error-handling)
-10. [Best Practices](#best-practices)
+1. [Overview](#overview/)
+2. [JavaScript ES6+ Features](#javascript-es6-features/)
+3. [Node.js Runtime](#nodejs-runtime/)
+4. [Asynchronous Programming](#asynchronous-programming/)
+5. [Modules and NPM](#modules-and-npm/)
+6. [File System Operations](#file-system-operations/)
+7. [HTTP and Web Servers](#http-and-web-servers/)
+8. [Event-Driven Programming](#event-driven-programming/)
+9. [Error Handling](#error-handling/)
+10. [Best Practices](#best-practices/)
 
 ## Overview
 
@@ -984,4 +984,4 @@ A: `setImmediate` executes in the check phase of the event loop, while `setTimeo
 
 ---
 
-**Next**: [Data Structures & Algorithms](./dsa-questions-golang-nodejs.md) | **Previous**: [Go Fundamentals](./go-fundamentals.md) | **Up**: [Phase 0](../README.md)
+**Next**: [Data Structures & Algorithms](dsa-questions-golang-nodejs.md/) | **Previous**: [Go Fundamentals](go-fundamentals.md/) | **Up**: [Phase 0](README.md/)

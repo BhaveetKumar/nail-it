@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Mentoring Frameworks](#mentoring-frameworks)
-3. [Coaching Methodologies](#coaching-methodologies)
-4. [Skill Development](#skill-development)
-5. [Career Guidance](#career-guidance)
-6. [Performance Coaching](#performance-coaching)
-7. [Implementations](#implementations)
-8. [Follow-up Questions](#follow-up-questions)
-9. [Sources](#sources)
-10. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Mentoring Frameworks](#mentoring-frameworks/)
+3. [Coaching Methodologies](#coaching-methodologies/)
+4. [Skill Development](#skill-development/)
+5. [Career Guidance](#career-guidance/)
+6. [Performance Coaching](#performance-coaching/)
+7. [Implementations](#implementations/)
+8. [Follow-up Questions](#follow-up-questions/)
+9. [Sources](#sources/)
+10. [Projects](#projects/)
 
 ## Overview
 
@@ -958,4 +958,4 @@ A: Be authentic, show genuine interest, provide consistent support, maintain con
 
 ---
 
-**Next**: [Strategic Planning](./strategic-planning.md) | **Previous**: [Innovation Research](./innovation-research.md) | **Up**: [Phase 3](../README.md)
+**Next**: [Strategic Planning](strategic-planning.md/) | **Previous**: [Innovation Research](innovation-research.md/) | **Up**: [Phase 3](README.md/)

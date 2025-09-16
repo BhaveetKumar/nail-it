@@ -4,14 +4,14 @@
 
 ## 📋 Table of Contents
 
-1. [🔗 Distributed Consensus Algorithms](#-distributed-consensus-algorithms)
-2. [⚡ Advanced Concurrency Patterns](#-advanced-concurrency-patterns)
-3. [🎯 Rate Limiting & Circuit Breakers](#-rate-limiting--circuit-breakers)
-4. [🔍 Probabilistic Data Structures](#-probabilistic-data-structures)
-5. [📊 Load Balancing Strategies](#-load-balancing-strategies)
-6. [🔄 Message Queue Patterns](#-message-queue-patterns)
-7. [🔐 Distributed Security](#-distributed-security)
-8. [📈 Monitoring & Observability](#-monitoring--observability)
+1. [🔗 Distributed Consensus Algorithms](#-distributed-consensus-algorithms/)
+2. [⚡ Advanced Concurrency Patterns](#-advanced-concurrency-patterns/)
+3. [🎯 Rate Limiting & Circuit Breakers](#-rate-limiting--circuit-breakers/)
+4. [🔍 Probabilistic Data Structures](#-probabilistic-data-structures/)
+5. [📊 Load Balancing Strategies](#-load-balancing-strategies/)
+6. [🔄 Message Queue Patterns](#-message-queue-patterns/)
+7. [🔐 Distributed Security](#-distributed-security/)
+8. [📈 Monitoring & Observability](#-monitoring--observability/)
 
 ---
 
@@ -986,19 +986,19 @@ func main() {
 ## 📚 Additional Resources
 
 ### **Books**
-- [Distributed Systems: Concepts and Design](https://www.pearson.com/us/higher-education/program/Coulouris-Distributed-Systems-Concepts-and-Design-5th-Edition/PGM241619.html) - George Coulouris
+- [Distributed Systems: Concepts and Design](https://www.pearson.com/us/higher-education/program/Coulouris-Distributed-Systems-Concepts-and-Design-5th-Edition/PGM241619.html/) - George Coulouris
 - [Designing Distributed Systems](https://www.oreilly.com/library/view/designing-distributed-systems/9781491983638/) - Brendan Burns
 - [Building Microservices](https://www.oreilly.com/library/view/building-microservices/9781491950340/) - Sam Newman
 
 ### **Online Resources**
-- [Google's Distributed Systems Guide](https://www.google.com/about/careers/students/guide-to-technical-development.html)
-- [Distributed Systems Reading List](https://github.com/theanalyst/awesome-distributed-systems)
+- [Google's Distributed Systems Guide](https://www.google.com/about/careers/students/guide-to-technical-development.html/)
+- [Distributed Systems Reading List](https://github.com/theanalyst/awesome-distributed-systems/)
 - [Consensus Algorithms](https://raft.github.io/) - Raft Consensus Algorithm
 
 ### **Video Resources**
-- [MIT 6.824 Distributed Systems](https://www.youtube.com/playlist?list=PLrw6a1wE39_tb2fErI4-WkMbsvGQk9_UB)
-- [Google Tech Talks](https://www.youtube.com/user/GoogleTechTalks)
-- [Distributed Systems Patterns](https://www.youtube.com/c/MicroservicesPatterns)
+- [MIT 6.824 Distributed Systems](https://www.youtube.com/playlist?list=PLrw6a1wE39_tb2fErI4-WkMbsvGQk9_UB/)
+- [Google Tech Talks](https://www.youtube.com/user/GoogleTechTalks/)
+- [Distributed Systems Patterns](https://www.youtube.com/c/MicroservicesPatterns/)
 
 ---
 

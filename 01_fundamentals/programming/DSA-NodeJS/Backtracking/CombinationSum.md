@@ -282,8 +282,8 @@ console.log(combinationSum([1,2,3], 0)); // [[]]
 
 ## Related Problems
 
-- [Combination Sum II](./CombinationSumII.md) - Each number used once
-- [Combination Sum III](./CombinationSumIII.md) - Use k numbers only
-- [Combination Sum IV](./CombinationSumIV.md) - Count combinations
-- [Subsets](./Subsets.md) - Generate all subsets
-- [Permutations](./Permutations.md) - Generate all permutations
+- [Combination Sum II](CombinationSumII.md/) - Each number used once
+- [Combination Sum III](CombinationSumIII.md/) - Use k numbers only
+- [Combination Sum IV](CombinationSumIV.md/) - Count combinations
+- [Subsets](Subsets.md/) - Generate all subsets
+- [Permutations](Permutations.md/) - Generate all permutations

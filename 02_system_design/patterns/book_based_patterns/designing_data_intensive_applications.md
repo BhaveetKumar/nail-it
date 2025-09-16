@@ -1,16 +1,16 @@
 # Designing Data-Intensive Applications - Martin Kleppmann Patterns
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Reliability Patterns](#reliability-patterns)
-3. [Scalability Patterns](#scalability-patterns)
-4. [Maintainability Patterns](#maintainability-patterns)
-5. [Data Models and Query Languages](#data-models-and-query-languages)
-6. [Storage and Retrieval](#storage-and-retrieval)
-7. [Encoding and Evolution](#encoding-and-evolution)
-8. [Distributed Systems Challenges](#distributed-systems-challenges)
-9. [Consensus and Consistency](#consensus-and-consistency)
-10. [Golang Implementation](#golang-implementation)
+1. [Introduction](#introduction/)
+2. [Reliability Patterns](#reliability-patterns/)
+3. [Scalability Patterns](#scalability-patterns/)
+4. [Maintainability Patterns](#maintainability-patterns/)
+5. [Data Models and Query Languages](#data-models-and-query-languages/)
+6. [Storage and Retrieval](#storage-and-retrieval/)
+7. [Encoding and Evolution](#encoding-and-evolution/)
+8. [Distributed Systems Challenges](#distributed-systems-challenges/)
+9. [Consensus and Consistency](#consensus-and-consistency/)
+10. [Golang Implementation](#golang-implementation/)
 
 ## Introduction
 

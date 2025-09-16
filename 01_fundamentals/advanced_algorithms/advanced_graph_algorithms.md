@@ -1,17 +1,17 @@
 # Advanced Graph Algorithms for Backend Engineers
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Advanced Graph Representations](#advanced-graph-representations)
-- [Shortest Path Algorithms](#shortest-path-algorithms)
-- [Minimum Spanning Tree Algorithms](#minimum-spanning-tree-algorithms)
-- [Network Flow Algorithms](#network-flow-algorithms)
-- [Graph Connectivity Algorithms](#graph-connectivity-algorithms)
-- [Advanced Graph Traversal](#advanced-graph-traversal)
-- [Graph Coloring and Matching](#graph-coloring-and-matching)
-- [Dynamic Programming on Graphs](#dynamic-programming-on-graphs)
-- [Parallel Graph Algorithms](#parallel-graph-algorithms)
-- [Real-World Applications](#real-world-applications)
+- [Introduction](#introduction/)
+- [Advanced Graph Representations](#advanced-graph-representations/)
+- [Shortest Path Algorithms](#shortest-path-algorithms/)
+- [Minimum Spanning Tree Algorithms](#minimum-spanning-tree-algorithms/)
+- [Network Flow Algorithms](#network-flow-algorithms/)
+- [Graph Connectivity Algorithms](#graph-connectivity-algorithms/)
+- [Advanced Graph Traversal](#advanced-graph-traversal/)
+- [Graph Coloring and Matching](#graph-coloring-and-matching/)
+- [Dynamic Programming on Graphs](#dynamic-programming-on-graphs/)
+- [Parallel Graph Algorithms](#parallel-graph-algorithms/)
+- [Real-World Applications](#real-world-applications/)
 
 ## Introduction
 
@@ -1374,7 +1374,7 @@ The key to mastering these algorithms is understanding their underlying principl
 
 ## Additional Resources
 
-- [Introduction to Algorithms - CLRS](https://mitpress.mit.edu/books/introduction-algorithms)
+- [Introduction to Algorithms - CLRS](https://mitpress.mit.edu/books/introduction-algorithms/)
 - [Graph Algorithms - Sedgewick](https://algs4.cs.princeton.edu/40graphs/)
 - [NetworkX Documentation](https://networkx.org/documentation/)
 - [Graph Theory - Reinhard Diestel](https://www.math.uni-hamburg.de/home/diestel/books/graph.theory/)

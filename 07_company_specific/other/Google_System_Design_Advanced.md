@@ -4,14 +4,14 @@
 
 ## 📋 Table of Contents
 
-1. [🔗 Distributed Consensus & Consistency](#-distributed-consensus--consistency)
-2. [🌐 Event-Driven Architecture](#-event-driven-architecture)
-3. [📊 CQRS & Event Sourcing](#-cqrs--event-sourcing)
-4. [⚡ Microservices Patterns](#-microservices-patterns)
-5. [🎯 Advanced Caching Strategies](#-advanced-caching-strategies)
-6. [🔍 Monitoring & Observability](#-monitoring--observability)
-7. [🔐 Security & Authentication](#-security--authentication)
-8. [📈 Scalability Patterns](#-scalability-patterns)
+1. [🔗 Distributed Consensus & Consistency](#-distributed-consensus--consistency/)
+2. [🌐 Event-Driven Architecture](#-event-driven-architecture/)
+3. [📊 CQRS & Event Sourcing](#-cqrs--event-sourcing/)
+4. [⚡ Microservices Patterns](#-microservices-patterns/)
+5. [🎯 Advanced Caching Strategies](#-advanced-caching-strategies/)
+6. [🔍 Monitoring & Observability](#-monitoring--observability/)
+7. [🔐 Security & Authentication](#-security--authentication/)
+8. [📈 Scalability Patterns](#-scalability-patterns/)
 
 ---
 
@@ -1065,17 +1065,17 @@ func main() {
 ### **Books**
 - [Designing Data-Intensive Applications](https://dataintensive.net/) - Martin Kleppmann
 - [Building Microservices](https://www.oreilly.com/library/view/building-microservices/9781491950340/) - Sam Newman
-- [Patterns of Enterprise Application Architecture](https://martinfowler.com/books/eaa.html) - Martin Fowler
+- [Patterns of Enterprise Application Architecture](https://martinfowler.com/books/eaa.html/) - Martin Fowler
 
 ### **Online Resources**
-- [Google's System Design Guide](https://www.google.com/about/careers/students/guide-to-technical-development.html)
+- [Google's System Design Guide](https://www.google.com/about/careers/students/guide-to-technical-development.html/)
 - [High Scalability](http://highscalability.com/) - Real-world system design examples
-- [System Design Primer](https://github.com/donnemartin/system-design-primer)
+- [System Design Primer](https://github.com/donnemartin/system-design-primer/)
 
 ### **Video Resources**
-- [Google Tech Talks](https://www.youtube.com/user/GoogleTechTalks)
-- [System Design Interview](https://www.youtube.com/c/ExponentTV) - Exponent
-- [Microservices Patterns](https://www.youtube.com/c/MicroservicesPatterns)
+- [Google Tech Talks](https://www.youtube.com/user/GoogleTechTalks/)
+- [System Design Interview](https://www.youtube.com/c/ExponentTV/) - Exponent
+- [Microservices Patterns](https://www.youtube.com/c/MicroservicesPatterns/)
 
 ---
 

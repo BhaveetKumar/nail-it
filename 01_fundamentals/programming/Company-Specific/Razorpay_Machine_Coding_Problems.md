@@ -8,14 +8,14 @@ This guide covers machine coding problems commonly asked in Razorpay interviews,
 
 ## 📚 **Table of Contents**
 
-1. [Design a Payment Gateway](#design-a-payment-gateway)
-2. [Design a URL Shortener](#design-a-url-shortener)
-3. [Design a Distributed Cache](#design-a-distributed-cache)
-4. [Design a Task Scheduler](#design-a-task-scheduler)
-5. [Design a Rate Limiter](#design-a-rate-limiter)
-6. [Design a Notification System](#design-a-notification-system)
-7. [Design a File Storage System](#design-a-file-storage-system)
-8. [Design a Search Engine](#design-a-search-engine)
+1. [Design a Payment Gateway](#design-a-payment-gateway/)
+2. [Design a URL Shortener](#design-a-url-shortener/)
+3. [Design a Distributed Cache](#design-a-distributed-cache/)
+4. [Design a Task Scheduler](#design-a-task-scheduler/)
+5. [Design a Rate Limiter](#design-a-rate-limiter/)
+6. [Design a Notification System](#design-a-notification-system/)
+7. [Design a File Storage System](#design-a-file-storage-system/)
+8. [Design a Search Engine](#design-a-search-engine/)
 
 ---
 

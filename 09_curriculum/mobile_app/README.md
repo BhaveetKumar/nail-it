@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Mobile App Architecture](#mobile-app-architecture)
-3. [Core Features](#core-features)
-4. [Offline Support](#offline-support)
-5. [Push Notifications](#push-notifications)
-6. [Cross-Platform Development](#cross-platform-development)
-7. [API Integration](#api-integration)
-8. [Follow-up Questions](#follow-up-questions)
-9. [Sources](#sources)
+1. [Overview](#overview/)
+2. [Mobile App Architecture](#mobile-app-architecture/)
+3. [Core Features](#core-features/)
+4. [Offline Support](#offline-support/)
+5. [Push Notifications](#push-notifications/)
+6. [Cross-Platform Development](#cross-platform-development/)
+7. [API Integration](#api-integration/)
+8. [Follow-up Questions](#follow-up-questions/)
+9. [Sources](#sources/)
 
 ## Overview
 
@@ -1380,20 +1380,20 @@ A: Consider performance requirements, native feature needs, team expertise, deve
 ## Sources
 
 ### Mobile Development
-- **Flutter**: [Official Documentation](https://flutter.dev/docs)
-- **React Native**: [Official Documentation](https://reactnative.dev/docs/getting-started)
+- **Flutter**: [Official Documentation](https://flutter.dev/docs/)
+- **React Native**: [Official Documentation](https://reactnative.dev/docs/getting-started/)
 - **Expo**: [React Native Platform](https://expo.dev/)
 
 ### Cross-Platform Tools
-- **Xamarin**: [Microsoft's Mobile Platform](https://dotnet.microsoft.com/apps/xamarin)
+- **Xamarin**: [Microsoft's Mobile Platform](https://dotnet.microsoft.com/apps/xamarin/)
 - **Ionic**: [Hybrid Mobile Framework](https://ionicframework.com/)
 - **Cordova**: [Mobile Development Framework](https://cordova.apache.org/)
 
 ### Mobile Testing
 - **Appium**: [Mobile App Testing](http://appium.io/)
-- **Detox**: [React Native Testing](https://github.com/wix/Detox)
-- **Flutter Testing**: [Flutter Test Documentation](https://flutter.dev/docs/testing)
+- **Detox**: [React Native Testing](https://github.com/wix/Detox/)
+- **Flutter Testing**: [Flutter Test Documentation](https://flutter.dev/docs/testing/)
 
 ---
 
-**Next**: [Study Tracker](../study_tracker/README.md) | **Previous**: [Learning Resources](../learning_resources/README.md) | **Up**: [Mobile App](../README.md)
+**Next**: [Study Tracker](study_tracker/README.md/) | **Previous**: [Learning Resources](learning_resources/README.md/) | **Up**: [Mobile App](README.md/)

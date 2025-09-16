@@ -1,166 +1,84 @@
-# 🚀 Razorpay Interview Preparation Repository - Reorganized
+# 🚀 Ultimate Backend Engineering Interview Preparation
 
-A comprehensive, well-organized collection of technical materials for software engineering interview preparation, with focus on Razorpay and fintech companies.
+[![GitHub stars](https://img.shields.io/github/stars/BhaveetKumar/nail-it.svg/)](https://github.com/BhaveetKumar/nail-it/stargazers/)
+[![GitHub forks](https://img.shields.io/github/forks/BhaveetKumar/nail-it.svg/)](https://github.com/BhaveetKumar/nail-it/network/)
 
-## 📁 **New Streamlined Structure**
+> **The most comprehensive backend engineering interview preparation repository** 🎯
 
-```
-razorpay_prep/
-├── 01_fundamentals/           # Core technical fundamentals
-│   ├── algorithms/            # Data Structures & Algorithms (DSA-Golang)
-│   ├── data_structures/       # Advanced data structures
-│   ├── operating_systems/     # OS concepts and internals
-│   └── programming/           # Go, Node.js, and programming fundamentals
-├── 02_system_design/          # All system design content
-│   ├── patterns/              # Design patterns (Circuit Breaker, CQRS, etc.)
-│   ├── architectures/         # System architectures and distributed systems
-│   ├── scalability/           # Scalability patterns and load balancing
-│   └── case_studies/          # Real-world system design examples
-├── 03_backend_engineering/    # Backend development
-│   ├── api_design/            # API design, REST, GraphQL
-│   ├── databases/             # Database concepts, ACID, sharding
-│   ├── microservices/         # Microservices architecture
-│   ├── message_queues/        # Message queuing systems
-│   └── caching/               # Caching strategies
-├── 04_devops_infrastructure/  # DevOps and infrastructure
-│   ├── cloud/                 # AWS, GCP, Azure
-│   ├── containers/            # Docker, Kubernetes
-│   ├── ci_cd/                 # CI/CD pipelines
-│   ├── monitoring/            # Observability, APM, logging
-│   ├── security/              # Security practices
-│   └── performance/           # Performance optimization
-├── 05_ai_ml/                  # AI/ML content (consolidated)
-│   ├── machine_learning/      # ML fundamentals
-│   ├── deep_learning/         # Deep learning and neural networks
-│   ├── generative_ai/         # Generative AI and LLMs
-│   ├── mlops/                 # ML operations and deployment
-│   └── backend_for_ai/        # Backend systems for AI
-├── 06_behavioral/             # Behavioral and soft skills
-│   ├── leadership/            # Leadership scenarios
-│   ├── communication/         # Communication skills
-│   ├── conflict_resolution/   # Conflict resolution
-│   └── teamwork/              # Teamwork and collaboration
-├── 07_company_specific/       # Company-specific content
-│   ├── razorpay/              # Razorpay-specific content
-│   ├── faang/                 # FAANG companies
-│   ├── fintech/               # Fintech companies
-│   └── other/                 # Other companies
-├── 08_interview_prep/         # Interview preparation materials
-│   ├── guides/                # Preparation guides and roadmaps
-│   ├── practice/              # Practice questions and scenarios
-│   ├── mock_interviews/       # Mock interview scenarios
-│   └── checklists/            # Preparation checklists
-├── 09_curriculum/             # Structured learning paths
-│   ├── phase0_fundamentals/   # Beginner level
-│   ├── phase1_intermediate/   # Intermediate level
-│   ├── phase2_advanced/       # Advanced level
-│   └── phase3_expert/         # Expert level
-└── 10_resources/              # Additional resources
-    ├── reference/             # Quick reference guides
-    ├── tools/                 # Tools and utilities
-    └── external/              # External resources
-```
+## 📊 Repository Statistics
+- **📁 808+ Markdown Files**
+- **📝 600,000+ Lines of Content**
+- **🎯 Complete Backend Engineering Coverage**
 
-## 🎯 Target Roles
+## 🎯 Quick Navigation
 
-- Senior Software Engineer
-- Staff Software Engineer
-- Tech Lead
-- Engineering Manager
+### Core Sections
+- **[01_fundamentals/](01_fundamentals/)** - Algorithms, Data Structures, Programming
+- **[02_system_design/](02_system_design/)** - Design Patterns, Architecture
+- **[03_backend_engineering/](03_backend_engineering/)** - APIs, Databases, Microservices
+- **[04_devops_infrastructure/](04_devops_infrastructure/)** - Cloud, Containers, CI/CD
+- **[05_ai_ml/](05_ai_ml/)** - Machine Learning for Backend Engineers
+- **[06_behavioral/](06_behavioral/)** - Leadership, Communication
+- **[07_company_specific/](07_company_specific/)** - Razorpay, FAANG+ Companies
+- **[08_interview_prep/](08_interview_prep/)** - Practice Problems, Mock Interviews
+- **[09_curriculum/](09_curriculum/)** - Structured Learning Paths
+- **[10_resources/](10_resources/)** - Tools, References, External Resources
 
-## 📚 Key Topics
-
-### System Design
-
-- Load Balancing, Caching, Rate Limiting
-- Circuit Breaker, Event Sourcing
-- Microservices Architecture
-
-### Algorithms
-
-- Arrays, Graphs, Dynamic Programming
-- Advanced Data Structures
-- String Algorithms
-
-### Backend
-
-- Go Concurrency Patterns
-- Database Optimization
-- Transaction Management
-
-### Behavioral
-
-- Leadership Scenarios
-- Conflict Resolution
-- Teamwork & Collaboration
+### Essential Links
+- [📋 Master Index](MASTER_INDEX.md/) - Complete navigation guide
+- [🎯 Interview Checklist](08_interview_prep/guides/Interview_Preparation_Complete_Checklist.md/)
+- [🏗️ System Design Mastery](08_interview_prep/guides/SYSTEM_DESIGN_INTERVIEW_MASTERY.md/)
+- [💼 Razorpay Specific](07_company_specific/razorpay/)
 
 ## 🚀 Quick Start
 
-### **For Senior Software Engineer Role**
-1. **Week 1-2**: `01_fundamentals/` + `02_system_design/patterns/`
-2. **Week 3-4**: `03_backend_engineering/` + `04_devops_infrastructure/`
-3. **Week 5-6**: `07_company_specific/razorpay/` + `08_interview_prep/`
+### For Senior Engineers
+```bash
+cd 01_fundamentals/  # Start with fundamentals
+cd ../02_system_design/  # Then system design
+cd ../07_company_specific/razorpay/  # Company-specific
+```
 
-### **For Staff Software Engineer Role**
-1. **Week 1-2**: `02_system_design/` + `03_backend_engineering/`
-2. **Week 3-4**: `04_devops_infrastructure/` + `05_ai_ml/`
-3. **Week 5-6**: `06_behavioral/` + `07_company_specific/`
+### For Staff Engineers
+```bash
+cd 02_system_design/architectures/  # Advanced architecture
+cd ../../03_backend_engineering/  # Backend engineering
+cd ../04_devops_infrastructure/  # DevOps
+```
 
-### **For Tech Lead Role**
-1. **Week 1-2**: `06_behavioral/` + `02_system_design/architectures/`
-2. **Week 3-4**: `03_backend_engineering/microservices/` + `04_devops_infrastructure/`
-3. **Week 5-6**: `07_company_specific/razorpay/` + `08_interview_prep/`
+## 📚 Recommended Books
 
-## 📖 Content Format
+### Core Computer Science
+- **"Designing Data-Intensive Applications"** by Martin Kleppmann
+- **"System Design Interview"** by Alex Xu
+- **"Clean Architecture"** by Robert C. Martin
 
-Each file includes:
+### Algorithms & Data Structures
+- **"Introduction to Algorithms"** by Cormen, Leiserson, Rivest, and Stein
+- **"Cracking the Coding Interview"** by Gayle Laakmann McDowell
 
-- 📘 Theory with detailed explanations
-- 📊 Mermaid.js diagrams
-- 🧩 Step-by-step examples
-- 💻 Go & Node.js implementations
-- ⏱ Complexity analysis
-- 🚀 Optimization techniques
-- ❓ Follow-up questions
+### Backend Engineering
+- **"Building Microservices"** by Sam Newman
+- **"Microservices Patterns"** by Chris Richardson
 
-## 🎯 Preparation Strategy
+## 🛠️ Technologies Covered
 
-### **Phase 1: Fundamentals** (Weeks 1-2)
-- Algorithms and Data Structures (`01_fundamentals/`)
-- System Design Patterns (`02_system_design/patterns/`)
-- Programming Fundamentals (`01_fundamentals/programming/`)
+- **Languages**: Go, Node.js, Python, Java
+- **Databases**: PostgreSQL, MongoDB, Redis, Cassandra
+- **Infrastructure**: Docker, Kubernetes, AWS, GCP
+- **Monitoring**: Prometheus, Grafana, Jaeger
 
-### **Phase 2: Advanced Topics** (Weeks 3-4)
-- Backend Engineering (`03_backend_engineering/`)
-- DevOps and Infrastructure (`04_devops_infrastructure/`)
-- AI/ML Concepts (`05_ai_ml/`)
+## 🤝 Contributing
 
-### **Phase 3: Specialization** (Weeks 5-6)
-- Company-Specific Content (`07_company_specific/`)
-- Behavioral Preparation (`06_behavioral/`)
-- Mock Interviews (`08_interview_prep/`)
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
-## ✅ **Key Improvements**
+## 📄 License
 
-### **Eliminated Duplication**
-- **AI/ML**: Consolidated `ai_ml/` and `AI-ML/` into `05_ai_ml/`
-- **Backend**: Separated `backend/` and `Backend-DevOps/` into logical sections
-- **Company Content**: Merged `company/`, `company_specific/`, and `Company-Specific/` into `07_company_specific/`
-- **System Design**: Consolidated scattered system design files into `02_system_design/`
-
-### **Improved Organization**
-- **Numbered Directories**: Clear learning progression from 01 to 10
-- **Logical Grouping**: Related content grouped together
-- **Consistent Naming**: Standardized directory and file names
-- **Clear Hierarchy**: Easy to navigate and find content
-
-## 🔧 Technologies
-
-- **Go**: Primary implementation language
-- **Node.js**: JavaScript examples
-- **Mermaid.js**: Architecture diagrams
-- **Docker/Kubernetes**: Infrastructure examples
+MIT License - see [LICENSE](LICENSE/) file for details.
 
 ---
 
-**Good luck with your interviews! 🚀**
+**⭐ If this repository helped you, please give it a star! ⭐**

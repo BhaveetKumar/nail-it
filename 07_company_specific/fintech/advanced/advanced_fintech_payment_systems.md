@@ -1,14 +1,14 @@
 # 💳 Advanced Fintech & Payment Systems
 
 ## Table of Contents
-1. [Payment Processing Architecture](#payment-processing-architecture)
-2. [Payment Gateways](#payment-gateways)
-3. [Fraud Detection](#fraud-detection)
-4. [Compliance & Regulations](#compliance--regulations)
-5. [Settlement & Reconciliation](#settlement--reconciliation)
-6. [Risk Management](#risk-management)
-7. [Go Implementation Examples](#go-implementation-examples)
-8. [Interview Questions](#interview-questions)
+1. [Payment Processing Architecture](#payment-processing-architecture/)
+2. [Payment Gateways](#payment-gateways/)
+3. [Fraud Detection](#fraud-detection/)
+4. [Compliance & Regulations](#compliance--regulations/)
+5. [Settlement & Reconciliation](#settlement--reconciliation/)
+6. [Risk Management](#risk-management/)
+7. [Go Implementation Examples](#go-implementation-examples/)
+8. [Interview Questions](#interview-questions/)
 
 ## Payment Processing Architecture
 

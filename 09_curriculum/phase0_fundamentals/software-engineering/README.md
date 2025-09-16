@@ -6,10 +6,10 @@ This module covers the essential software engineering practices, including versi
 
 ## Table of Contents
 
-1. [Version Control (Git)](./version-control-git.md)
-2. [Testing Strategies](./testing-strategies.md)
-3. [Code Quality](./code-quality.md)
-4. [Development Practices](./development-practices.md)
+1. [Version Control (Git)](version-control-git.md/)
+2. [Testing Strategies](testing-strategies.md/)
+3. [Code Quality](code-quality.md/)
+4. [Development Practices](development-practices.md/)
 
 ## Learning Objectives
 
@@ -73,4 +73,4 @@ This module covers the essential software engineering practices, including versi
 
 ---
 
-**Next**: [Version Control (Git)](./version-control-git.md) | **Up**: [Phase 0](../README.md)
+**Next**: [Version Control (Git)](version-control-git.md/) | **Up**: [Phase 0](README.md/)

@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Strategic Analysis](#strategic-analysis)
-3. [Vision and Mission Development](#vision-and-mission-development)
-4. [Strategic Planning Process](#strategic-planning-process)
-5. [Implementation Planning](#implementation-planning)
-6. [Performance Measurement](#performance-measurement)
-7. [Implementations](#implementations)
-8. [Follow-up Questions](#follow-up-questions)
-9. [Sources](#sources)
-10. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Strategic Analysis](#strategic-analysis/)
+3. [Vision and Mission Development](#vision-and-mission-development/)
+4. [Strategic Planning Process](#strategic-planning-process/)
+5. [Implementation Planning](#implementation-planning/)
+6. [Performance Measurement](#performance-measurement/)
+7. [Implementations](#implementations/)
+8. [Follow-up Questions](#follow-up-questions/)
+9. [Sources](#sources/)
+10. [Projects](#projects/)
 
 ## Overview
 
@@ -1035,4 +1035,4 @@ A: Clear vision/mission, specific goals, actionable strategies, resource allocat
 
 ---
 
-**Next**: [Advanced Specializations](./advanced-specializations/README.md) | **Previous**: [Mentoring & Coaching](./mentoring-coaching/README.md) | **Up**: [Phase 3](../README.md)
+**Next**: [Advanced Specializations](advanced-specializations/README.md/) | **Previous**: [Mentoring & Coaching](mentoring-coaching/README.md/) | **Up**: [Phase 3](README.md/)

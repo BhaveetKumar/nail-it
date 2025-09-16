@@ -8,14 +8,14 @@ This guide covers all major database systems, their architectures, use cases, an
 
 ## 📚 **Table of Contents**
 
-1. [Relational Databases](#relational-databases)
-2. [NoSQL Databases](#nosql-databases)
-3. [Vector Databases](#vector-databases)
-4. [Time-Series Databases](#time-series-databases)
-5. [Database Design Patterns](#database-design-patterns)
-6. [Performance Optimization](#performance-optimization)
-7. [Scaling Strategies](#scaling-strategies)
-8. [Interview Questions](#interview-questions)
+1. [Relational Databases](#relational-databases/)
+2. [NoSQL Databases](#nosql-databases/)
+3. [Vector Databases](#vector-databases/)
+4. [Time-Series Databases](#time-series-databases/)
+5. [Database Design Patterns](#database-design-patterns/)
+6. [Performance Optimization](#performance-optimization/)
+7. [Scaling Strategies](#scaling-strategies/)
+8. [Interview Questions](#interview-questions/)
 
 ---
 

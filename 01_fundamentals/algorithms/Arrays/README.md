@@ -6,37 +6,37 @@
 
 ### **Two Pointers**
 
-- [Two Sum](./TwoSum.md) - Find two numbers that add up to target
-- [Container With Most Water](./ContainerWithMostWater.md) - Maximum area between two lines
-- [3Sum](./3Sum.md) - Find all unique triplets that sum to zero
-- [4Sum](./4Sum.md) - Find all unique quadruplets that sum to target
-- [Remove Duplicates](./RemoveDuplicates.md) - Remove duplicates from sorted array
-- [Move Zeroes](./MoveZeroes.md) - Move all zeros to end
+- [Two Sum](TwoSum.md/) - Find two numbers that add up to target
+- [Container With Most Water](ContainerWithMostWater.md/) - Maximum area between two lines
+- [3Sum](3Sum.md/) - Find all unique triplets that sum to zero
+- [4Sum](4Sum.md/) - Find all unique quadruplets that sum to target
+- [Remove Duplicates](RemoveDuplicates.md/) - Remove duplicates from sorted array
+- [Move Zeroes](MoveZeroes.md/) - Move all zeros to end
 
 ### **Sliding Window**
 
-- [Maximum Subarray](./MaximumSubarray.md) - Kadane's algorithm
-- [Longest Substring Without Repeating Characters](./LongestSubstring.md) - Sliding window technique
-- [Minimum Window Substring](./MinimumWindowSubstring.md) - Variable window size
-- [Longest Repeating Character Replacement](./LongestRepeatingCharacterReplacement.md) - Sliding window with character replacement
+- [Maximum Subarray](MaximumSubarray.md/) - Kadane's algorithm
+- [Longest Substring Without Repeating Characters](LongestSubstring.md/) - Sliding window technique
+- [Minimum Window Substring](MinimumWindowSubstring.md/) - Variable window size
+- [Longest Repeating Character Replacement](LongestRepeatingCharacterReplacement.md/) - Sliding window with character replacement
 
 ### **Prefix Sum**
 
-- [Subarray Sum Equals K](./SubarraySumEqualsK.md) - Count subarrays with sum K
-- [Range Sum Query](./RangeSumQuery.md) - Multiple range sum queries
-- [Product of Array Except Self](./ProductOfArrayExceptSelf.md) - Array without division
+- [Subarray Sum Equals K](SubarraySumEqualsK.md/) - Count subarrays with sum K
+- [Range Sum Query](RangeSumQuery.md/) - Multiple range sum queries
+- [Product of Array Except Self](ProductOfArrayExceptSelf.md/) - Array without division
 
 ### **Matrix Operations**
 
-- [Spiral Matrix](./SpiralMatrix.md) - Traverse matrix in spiral order
-- [Rotate Image](./RotateImage.md) - Rotate matrix 90 degrees clockwise
-- [Set Matrix Zeroes](./SetMatrixZeroes.md) - Set entire row/column to zero
+- [Spiral Matrix](SpiralMatrix.md/) - Traverse matrix in spiral order
+- [Rotate Image](RotateImage.md/) - Rotate matrix 90 degrees clockwise
+- [Set Matrix Zeroes](SetMatrixZeroes.md/) - Set entire row/column to zero
 
 ### **Sorting & Searching**
 
-- [Merge Sorted Arrays](./MergeSortedArrays.md) - Merge two sorted arrays
-- [Find First and Last Position](./FindFirstAndLastPosition.md) - Binary search for range
-- [Search in Rotated Sorted Array](./SearchInRotatedSortedArray.md) - Binary search in rotated array
+- [Merge Sorted Arrays](MergeSortedArrays.md/) - Merge two sorted arrays
+- [Find First and Last Position](FindFirstAndLastPosition.md/) - Binary search for range
+- [Search in Rotated Sorted Array](SearchInRotatedSortedArray.md/) - Binary search in rotated array
 
 ---
 

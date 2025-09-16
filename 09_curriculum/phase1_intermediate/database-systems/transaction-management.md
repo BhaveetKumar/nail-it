@@ -6,14 +6,14 @@ This module covers transaction management concepts including ACID properties, co
 
 ## Table of Contents
 
-1. [ACID Properties](#acid-properties)
-2. [Concurrency Control](#concurrency-control)
-3. [Locking Mechanisms](#locking-mechanisms)
-4. [Transaction Isolation Levels](#transaction-isolation-levels)
-5. [Deadlock Detection](#deadlock-detection)
-6. [Applications](#applications)
-7. [Complexity Analysis](#complexity-analysis)
-8. [Follow-up Questions](#follow-up-questions)
+1. [ACID Properties](#acid-properties/)
+2. [Concurrency Control](#concurrency-control/)
+3. [Locking Mechanisms](#locking-mechanisms/)
+4. [Transaction Isolation Levels](#transaction-isolation-levels/)
+5. [Deadlock Detection](#deadlock-detection/)
+6. [Applications](#applications/)
+7. [Complexity Analysis](#complexity-analysis/)
+8. [Follow-up Questions](#follow-up-questions/)
 
 ## ACID Properties
 
@@ -740,4 +740,4 @@ A: Use row-level locking for high-concurrency applications where different trans
 
 ---
 
-**Next**: [NoSQL Databases](./nosql-databases.md) | **Previous**: [Database Systems](../README.md) | **Up**: [Database Systems](../README.md)
+**Next**: [NoSQL Databases](nosql-databases.md/) | **Previous**: [Database Systems](README.md/) | **Up**: [Database Systems](README.md/)

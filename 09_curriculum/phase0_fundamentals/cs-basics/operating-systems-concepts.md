@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Process Management](#process-management)
-3. [Memory Management](#memory-management)
-4. [File Systems](#file-systems)
-5. [Concurrency and Synchronization](#concurrency-and-synchronization)
-6. [Implementations](#implementations)
-7. [Follow-up Questions](#follow-up-questions)
-8. [Sources](#sources)
-9. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Process Management](#process-management/)
+3. [Memory Management](#memory-management/)
+4. [File Systems](#file-systems/)
+5. [Concurrency and Synchronization](#concurrency-and-synchronization/)
+6. [Implementations](#implementations/)
+7. [Follow-up Questions](#follow-up-questions/)
+8. [Sources](#sources/)
+9. [Projects](#projects/)
 
 ## Overview
 
@@ -1164,4 +1164,4 @@ A: Inodes provide efficient file access, support for hard links, and better perf
 
 ---
 
-**Next**: [Networks & Protocols](./networks-protocols.md) | **Previous**: [Computer Organization](./computer-organization.md) | **Up**: [Phase 0](../README.md)
+**Next**: [Networks & Protocols](networks-protocols.md/) | **Previous**: [Computer Organization](computer-organization.md/) | **Up**: [Phase 0](README.md/)

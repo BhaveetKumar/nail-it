@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Limits and Continuity](#limits-and-continuity)
-3. [Derivatives](#derivatives)
-4. [Integrals](#integrals)
-5. [Optimization](#optimization)
-6. [Applications](#applications)
-7. [Implementations](#implementations)
-8. [Follow-up Questions](#follow-up-questions)
-9. [Sources](#sources)
-10. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Limits and Continuity](#limits-and-continuity/)
+3. [Derivatives](#derivatives/)
+4. [Integrals](#integrals/)
+5. [Optimization](#optimization/)
+6. [Applications](#applications/)
+7. [Implementations](#implementations/)
+8. [Follow-up Questions](#follow-up-questions/)
+9. [Sources](#sources/)
+10. [Projects](#projects/)
 
 ## Overview
 
@@ -948,5 +948,5 @@ A: Use numerical integration when the function is too complex for analytical int
 
 ---
 
-**Next**: [Statistics & Probability](./statistics-probability.md) | **Previous**: [Linear Algebra](./linear-algebra.md) | **Up**: [Phase 0](../README.md)
+**Next**: [Statistics & Probability](statistics-probability.md/) | **Previous**: [Linear Algebra](linear-algebra.md/) | **Up**: [Phase 0](README.md/)
 

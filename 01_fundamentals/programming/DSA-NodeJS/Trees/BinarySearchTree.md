@@ -624,10 +624,10 @@ visualizeBST(bst.root);
 
 ## Related Problems
 
-- [Validate Binary Search Tree](./ValidateBinarySearchTree.md)
-- [Convert Sorted Array to BST](./ConvertSortedArrayToBST.md)
-- [Kth Smallest Element in BST](./KthSmallestElementInBST.md)
-- [Lowest Common Ancestor of BST](./LowestCommonAncestorOfBST.md)
+- [Validate Binary Search Tree](ValidateBinarySearchTree.md/)
+- [Convert Sorted Array to BST](ConvertSortedArrayToBST.md/)
+- [Kth Smallest Element in BST](KthSmallestElementInBST.md/)
+- [Lowest Common Ancestor of BST](LowestCommonAncestorOfBST.md/)
 
 ## Interview Tips
 

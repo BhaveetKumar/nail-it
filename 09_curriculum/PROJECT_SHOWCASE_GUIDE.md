@@ -2,13 +2,13 @@
 
 ## Table of Contents
 
-1. [Project Portfolio Overview](#project-portfolio-overview)
-2. [Phase 0 Projects](#phase-0-projects)
-3. [Phase 1 Projects](#phase-1-projects)
-4. [Phase 2 Projects](#phase-2-projects)
-5. [Phase 3 Projects](#phase-3-projects)
-6. [Portfolio Building Strategy](#portfolio-building-strategy)
-7. [Showcase and Presentation](#showcase-and-presentation)
+1. [Project Portfolio Overview](#project-portfolio-overview/)
+2. [Phase 0 Projects](#phase-0-projects/)
+3. [Phase 1 Projects](#phase-1-projects/)
+4. [Phase 2 Projects](#phase-2-projects/)
+5. [Phase 3 Projects](#phase-3-projects/)
+6. [Portfolio Building Strategy](#portfolio-building-strategy/)
+7. [Showcase and Presentation](#showcase-and-presentation/)
 
 ## Project Portfolio Overview
 
@@ -727,4 +727,4 @@ Planned enhancements and optimizations.
 
 ---
 
-**Next Steps**: [Choose Your First Project](#phase-0-projects) | [Set Up Development Environment](./LEARNING_PATH_GUIDE.md#resources-and-tools) | [Track Your Progress](../10_resources/progress-tracking/study_tracker.md)
+**Next Steps**: [Choose Your First Project](#phase-0-projects/) | [Set Up Development Environment](LEARNING_PATH_GUIDE.md#resources-and-tools/) | [Track Your Progress](10_resources/progress-tracking/study_tracker.md/)

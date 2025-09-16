@@ -1574,4 +1574,4 @@ func (v *Validator) Validate(data map[string]interface{}) ValidationResult {
 
 ---
 
-**Next**: [Advanced Topics](./AdvancedTopics/) - Multi-cloud, hybrid cloud, edge computing, serverless architecture
+**Next**: [Advanced Topics](AdvancedTopics/) - Multi-cloud, hybrid cloud, edge computing, serverless architecture

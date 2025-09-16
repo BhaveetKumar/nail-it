@@ -1,21 +1,21 @@
 # Node.js Security Complete Guide
 
 ## Table of Contents
-1. [Security Fundamentals](#security-fundamentals)
-2. [Authentication & Authorization](#authentication--authorization)
-3. [Input Validation & Sanitization](#input-validation--sanitization)
-4. [SQL Injection Prevention](#sql-injection-prevention)
-5. [XSS Prevention](#xss-prevention)
-6. [CSRF Protection](#csrf-protection)
-7. [Security Headers](#security-headers)
-8. [HTTPS & SSL/TLS](#https--ssltls)
-9. [Session Management](#session-management)
-10. [File Upload Security](#file-upload-security)
-11. [Dependency Security](#dependency-security)
-12. [Logging & Monitoring](#logging--monitoring)
-13. [Rate Limiting](#rate-limiting)
-14. [Error Handling](#error-handling)
-15. [Production Security](#production-security)
+1. [Security Fundamentals](#security-fundamentals/)
+2. [Authentication & Authorization](#authentication--authorization/)
+3. [Input Validation & Sanitization](#input-validation--sanitization/)
+4. [SQL Injection Prevention](#sql-injection-prevention/)
+5. [XSS Prevention](#xss-prevention/)
+6. [CSRF Protection](#csrf-protection/)
+7. [Security Headers](#security-headers/)
+8. [HTTPS & SSL/TLS](#https--ssltls/)
+9. [Session Management](#session-management/)
+10. [File Upload Security](#file-upload-security/)
+11. [Dependency Security](#dependency-security/)
+12. [Logging & Monitoring](#logging--monitoring/)
+13. [Rate Limiting](#rate-limiting/)
+14. [Error Handling](#error-handling/)
+15. [Production Security](#production-security/)
 
 ## Security Fundamentals
 

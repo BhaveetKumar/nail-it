@@ -1,16 +1,16 @@
 # Behavioral and Leadership Scenarios
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Leadership Scenarios](#leadership-scenarios)
-- [Team Management Scenarios](#team-management-scenarios)
-- [Conflict Resolution Scenarios](#conflict-resolution-scenarios)
-- [Technical Leadership Scenarios](#technical-leadership-scenarios)
-- [Communication Scenarios](#communication-scenarios)
-- [Problem-Solving Scenarios](#problem-solving-scenarios)
-- [Innovation and Change Management](#innovation-and-change-management)
-- [Crisis Management Scenarios](#crisis-management-scenarios)
-- [Career Development Scenarios](#career-development-scenarios)
+- [Introduction](#introduction/)
+- [Leadership Scenarios](#leadership-scenarios/)
+- [Team Management Scenarios](#team-management-scenarios/)
+- [Conflict Resolution Scenarios](#conflict-resolution-scenarios/)
+- [Technical Leadership Scenarios](#technical-leadership-scenarios/)
+- [Communication Scenarios](#communication-scenarios/)
+- [Problem-Solving Scenarios](#problem-solving-scenarios/)
+- [Innovation and Change Management](#innovation-and-change-management/)
+- [Crisis Management Scenarios](#crisis-management-scenarios/)
+- [Career Development Scenarios](#career-development-scenarios/)
 
 ## Introduction
 
@@ -711,11 +711,11 @@ Practice these scenarios regularly and be prepared to provide specific examples 
 
 ## Additional Resources
 
-- [Leadership and Management Books](https://www.goodreads.com/shelf/show/leadership)
+- [Leadership and Management Books](https://www.goodreads.com/shelf/show/leadership/)
 - [Emotional Intelligence](https://www.danielgoleman.info/)
 - [Crucial Conversations](https://www.cruciallearning.com/crucial-conversations/)
 - [The 7 Habits of Highly Effective People](https://www.franklincovey.com/the-7-habits/)
 - [Dare to Lead](https://brenebrown.com/book/dare-to-lead/)
 - [The Lean Startup](https://theleanstartup.com/)
-- [Good to Great](https://www.jimcollins.com/books.html)
+- [Good to Great](https://www.jimcollins.com/books.html/)
 - [The Five Dysfunctions of a Team](https://www.tablegroup.com/books/dysfunctions/)

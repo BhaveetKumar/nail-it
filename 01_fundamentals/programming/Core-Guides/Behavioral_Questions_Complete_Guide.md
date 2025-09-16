@@ -8,14 +8,14 @@ This guide covers behavioral interview questions commonly asked in tech companie
 
 ## 📚 **Table of Contents**
 
-1. [STAR Method Framework](#star-method-framework)
-2. [Leadership and Teamwork](#leadership-and-teamwork)
-3. [Problem Solving and Innovation](#problem-solving-and-innovation)
-4. [Communication and Collaboration](#communication-and-collaboration)
-5. [Adaptability and Learning](#adaptability-and-learning)
-6. [Conflict Resolution](#conflict-resolution)
-7. [Company-Specific Questions](#company-specific-questions)
-8. [Preparation Strategies](#preparation-strategies)
+1. [STAR Method Framework](#star-method-framework/)
+2. [Leadership and Teamwork](#leadership-and-teamwork/)
+3. [Problem Solving and Innovation](#problem-solving-and-innovation/)
+4. [Communication and Collaboration](#communication-and-collaboration/)
+5. [Adaptability and Learning](#adaptability-and-learning/)
+6. [Conflict Resolution](#conflict-resolution/)
+7. [Company-Specific Questions](#company-specific-questions/)
+8. [Preparation Strategies](#preparation-strategies/)
 
 ---
 

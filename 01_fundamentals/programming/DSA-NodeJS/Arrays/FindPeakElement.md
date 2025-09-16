@@ -350,10 +350,10 @@ visualizePeak(exampleArray, peakIndex);
 
 ## Related Problems
 
-- [Find Minimum in Rotated Sorted Array](./FindMinimumInRotatedSortedArray.md)
-- [Search in Rotated Sorted Array](./SearchInRotatedSortedArray.md)
-- [Mountain Array](./MountainArray.md)
-- [Peak Index in Mountain Array](./PeakIndexInMountainArray.md)
+- [Find Minimum in Rotated Sorted Array](FindMinimumInRotatedSortedArray.md/)
+- [Search in Rotated Sorted Array](SearchInRotatedSortedArray.md/)
+- [Mountain Array](MountainArray.md/)
+- [Peak Index in Mountain Array](PeakIndexInMountainArray.md/)
 
 ## Interview Tips
 

@@ -6,35 +6,35 @@
 
 ### **Permutations and Combinations**
 
-- [Permutations](./Permutations.md) - Generate all permutations
-- [Permutations II](./PermutationsII.md) - Permutations with duplicates
-- [Combinations](./Combinations.md) - Generate all combinations
-- [Combination Sum](./CombinationSum.md) - Find combinations that sum to target
-- [Combination Sum II](./CombinationSumII.md) - Combination sum with duplicates
+- [Permutations](Permutations.md/) - Generate all permutations
+- [Permutations II](PermutationsII.md/) - Permutations with duplicates
+- [Combinations](Combinations.md/) - Generate all combinations
+- [Combination Sum](CombinationSum.md/) - Find combinations that sum to target
+- [Combination Sum II](CombinationSumII.md/) - Combination sum with duplicates
 
 ### **N-Queens and Similar Problems**
 
-- [N-Queens](./NQueens.md) - Place N queens on N×N board
-- [N-Queens II](./NQueensII.md) - Count number of solutions
-- [Sudoku Solver](./SudokuSolver.md) - Solve Sudoku puzzle
-- [Word Search](./WordSearch.md) - Find word in 2D grid
-- [Word Search II](./WordSearchII.md) - Find multiple words
+- [N-Queens](NQueens.md/) - Place N queens on N×N board
+- [N-Queens II](NQueensII.md/) - Count number of solutions
+- [Sudoku Solver](SudokuSolver.md/) - Solve Sudoku puzzle
+- [Word Search](WordSearch.md/) - Find word in 2D grid
+- [Word Search II](WordSearchII.md/) - Find multiple words
 
 ### **Subset Problems**
 
-- [Subsets](./Subsets.md) - Generate all subsets
-- [Subsets II](./SubsetsII.md) - Subsets with duplicates
-- [Generate Parentheses](./GenerateParentheses.md) - Generate valid parentheses
-- [Letter Combinations of a Phone Number](./LetterCombinations.md) - Phone number combinations
-- [Restore IP Addresses](./RestoreIPAddresses.md) - Valid IP address restoration
+- [Subsets](Subsets.md/) - Generate all subsets
+- [Subsets II](SubsetsII.md/) - Subsets with duplicates
+- [Generate Parentheses](GenerateParentheses.md/) - Generate valid parentheses
+- [Letter Combinations of a Phone Number](LetterCombinations.md/) - Phone number combinations
+- [Restore IP Addresses](RestoreIPAddresses.md/) - Valid IP address restoration
 
 ### **Advanced Backtracking**
 
-- [Palindrome Partitioning](./PalindromePartitioning.md) - Partition string into palindromes
-- [Word Break II](./WordBreakII.md) - All possible word breaks
-- [Expression Add Operators](./ExpressionAddOperators.md) - Add operators to expression
-- [Remove Invalid Parentheses](./RemoveInvalidParentheses.md) - Remove minimum parentheses
-- [Word Pattern II](./WordPatternII.md) - Match string to pattern
+- [Palindrome Partitioning](PalindromePartitioning.md/) - Partition string into palindromes
+- [Word Break II](WordBreakII.md/) - All possible word breaks
+- [Expression Add Operators](ExpressionAddOperators.md/) - Add operators to expression
+- [Remove Invalid Parentheses](RemoveInvalidParentheses.md/) - Remove minimum parentheses
+- [Word Pattern II](WordPatternII.md/) - Match string to pattern
 
 ---
 

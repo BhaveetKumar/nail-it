@@ -2,18 +2,18 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Performance Measurement](#performance-measurement)
-3. [Memory Optimization](#memory-optimization)
-4. [CPU Optimization](#cpu-optimization)
-5. [I/O Optimization](#io-optimization)
-6. [Database Performance](#database-performance)
-7. [Caching Strategies](#caching-strategies)
-8. [Monitoring and Profiling](#monitoring-and-profiling)
-9. [Implementations](#implementations)
-10. [Follow-up Questions](#follow-up-questions)
-11. [Sources](#sources)
-12. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Performance Measurement](#performance-measurement/)
+3. [Memory Optimization](#memory-optimization/)
+4. [CPU Optimization](#cpu-optimization/)
+5. [I/O Optimization](#io-optimization/)
+6. [Database Performance](#database-performance/)
+7. [Caching Strategies](#caching-strategies/)
+8. [Monitoring and Profiling](#monitoring-and-profiling/)
+9. [Implementations](#implementations/)
+10. [Follow-up Questions](#follow-up-questions/)
+11. [Sources](#sources/)
+12. [Projects](#projects/)
 
 ## Overview
 
@@ -869,5 +869,5 @@ A: Worker pools limit resource usage, improve throughput, and provide better con
 
 ---
 
-**Next**: [Security Engineering](./security-engineering/README.md) | **Previous**: [Advanced Algorithms](./advanced-algorithms/README.md) | **Up**: [Phase 2](../README.md)
+**Next**: [Security Engineering](security-engineering/README.md/) | **Previous**: [Advanced Algorithms](advanced-algorithms/README.md/) | **Up**: [Phase 2](README.md/)
 

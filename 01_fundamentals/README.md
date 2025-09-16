@@ -5,20 +5,20 @@
 ## 📚 **Contents**
 
 ### **💻 Programming & Algorithms**
-- [**Go Expertise Complete Guide**](./Go_Expertise_Complete_Guide.md) - Deep dive into Golang from fundamentals to advanced concepts
-- [**DSA Questions & Answers Guide**](./DSA_Questions_Answers_Guide.md) - Complete data structures and algorithms with Go implementations
+- [**Go Expertise Complete Guide**](Go_Expertise_Complete_Guide.md/) - Deep dive into Golang from fundamentals to advanced concepts
+- [**DSA Questions & Answers Guide**](DSA_Questions_Answers_Guide.md/) - Complete data structures and algorithms with Go implementations
 
 ### **🏗️ System Design & Architecture**
-- [**System Design Concepts Guide**](./System_Design_Concepts_Guide.md) - HLD/LLD, scalability, microservices, distributed systems
+- [**System Design Concepts Guide**](System_Design_Concepts_Guide.md/) - HLD/LLD, scalability, microservices, distributed systems
 
 ### **🗄️ Databases & Data Engineering**
-- [**Databases Complete Guide**](./Databases_Complete_Guide.md) - Relational, NoSQL, and specialized databases
-- [**Databases Complete Guide Part 2**](./Databases_Complete_Guide_Part2.md) - Advanced database concepts and optimization
-- [**Designing Data-Intensive Applications Summary**](./Designing_Data_Intensive_Applications_Summary.md) - DDIA book summary with practical implementations
+- [**Databases Complete Guide**](Databases_Complete_Guide.md/) - Relational, NoSQL, and specialized databases
+- [**Databases Complete Guide Part 2**](Databases_Complete_Guide_Part2.md/) - Advanced database concepts and optimization
+- [**Designing Data-Intensive Applications Summary**](Designing_Data_Intensive_Applications_Summary.md/) - DDIA book summary with practical implementations
 
 ### **🖥️ Operating Systems & DevOps**
-- [**Operating System Concepts Guide**](./Operating_System_Concepts_Guide.md) - OS fundamentals with Go code examples
-- [**DevOps Tools Complete Guide**](./DevOps_Tools_Complete_Guide.md) - CI/CD, containers, cloud platforms, monitoring
+- [**Operating System Concepts Guide**](Operating_System_Concepts_Guide.md/) - OS fundamentals with Go code examples
+- [**DevOps Tools Complete Guide**](DevOps_Tools_Complete_Guide.md/) - CI/CD, containers, cloud platforms, monitoring
 
 ## 🎯 **Purpose**
 

@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Books & Publications](#books--publications)
-3. [Online Courses](#online-courses)
-4. [Video Channels](#video-channels)
-5. [Podcasts](#podcasts)
-6. [Blogs & Articles](#blogs--articles)
-7. [Tools & Platforms](#tools--platforms)
-8. [Study Schedules](#study-schedules)
-9. [Follow-up Questions](#follow-up-questions)
-10. [Sources](#sources)
+1. [Overview](#overview/)
+2. [Books & Publications](#books--publications/)
+3. [Online Courses](#online-courses/)
+4. [Video Channels](#video-channels/)
+5. [Podcasts](#podcasts/)
+6. [Blogs & Articles](#blogs--articles/)
+7. [Tools & Platforms](#tools--platforms/)
+8. [Study Schedules](#study-schedules/)
+9. [Follow-up Questions](#follow-up-questions/)
+10. [Sources](#sources/)
 
 ## Overview
 
@@ -214,39 +214,39 @@ Learning resources are curated materials, tools, and platforms that support the 
 ### 1. Technical Channels
 
 #### System Design & Architecture
-- **Asli Engineering** - [YouTube Channel](https://www.youtube.com/@AsliEngineering)
+- **Asli Engineering** - [YouTube Channel](https://www.youtube.com/@AsliEngineering/)
   - **Focus**: System design, scalability, microservices
   - **Content**: Deep dives into real-world systems
   - **Frequency**: Weekly
   - **Level**: Intermediate to Advanced
 
-- **Gaurav Sen** - [YouTube Channel](https://www.youtube.com/@gkcs)
+- **Gaurav Sen** - [YouTube Channel](https://www.youtube.com/@gkcs/)
   - **Focus**: Algorithms, system design, interview prep
   - **Content**: Problem-solving techniques and system design
   - **Frequency**: Weekly
   - **Level**: All levels
 
 #### Programming & Development
-- **Traversy Media** - [YouTube Channel](https://www.youtube.com/c/TraversyMedia)
+- **Traversy Media** - [YouTube Channel](https://www.youtube.com/c/TraversyMedia/)
   - **Focus**: Web development, full-stack programming
   - **Content**: Tutorials, project walkthroughs
   - **Frequency**: Daily
   - **Level**: Beginner to Intermediate
 
-- **The Net Ninja** - [YouTube Channel](https://www.youtube.com/c/TheNetNinja)
+- **The Net Ninja** - [YouTube Channel](https://www.youtube.com/c/TheNetNinja/)
   - **Focus**: Web development, modern frameworks
   - **Content**: Step-by-step tutorials
   - **Frequency**: Weekly
   - **Level**: Beginner to Intermediate
 
 #### Machine Learning & AI
-- **3Blue1Brown** - [YouTube Channel](https://www.youtube.com/c/3blue1brown)
+- **3Blue1Brown** - [YouTube Channel](https://www.youtube.com/c/3blue1brown/)
   - **Focus**: Mathematics, machine learning, neural networks
   - **Content**: Visual explanations of complex concepts
   - **Frequency**: Monthly
   - **Level**: Intermediate to Advanced
 
-- **Two Minute Papers** - [YouTube Channel](https://www.youtube.com/c/TwoMinutePapers)
+- **Two Minute Papers** - [YouTube Channel](https://www.youtube.com/c/TwoMinutePapers/)
   - **Focus**: AI research, computer graphics
   - **Content**: Research paper summaries
   - **Frequency**: Weekly
@@ -255,13 +255,13 @@ Learning resources are curated materials, tools, and platforms that support the 
 ### 2. Interview Preparation
 
 #### Coding Interviews
-- **Back To Back SWE** - [YouTube Channel](https://www.youtube.com/c/BackToBackSWE)
+- **Back To Back SWE** - [YouTube Channel](https://www.youtube.com/c/BackToBackSWE/)
   - **Focus**: Coding interview preparation
   - **Content**: Problem-solving walkthroughs
   - **Frequency**: Weekly
   - **Level**: All levels
 
-- **Tech Interview Pro** - [YouTube Channel](https://www.youtube.com/c/TechInterviewPro)
+- **Tech Interview Pro** - [YouTube Channel](https://www.youtube.com/c/TechInterviewPro/)
   - **Focus**: Technical interview strategies
   - **Content**: Interview tips and techniques
   - **Frequency**: Weekly
@@ -406,7 +406,7 @@ Learning resources are curated materials, tools, and platforms that support the 
   - **Level**: All levels
 
 #### System Design Practice
-- **System Design Primer** - [GitHub](https://github.com/donnemartin/system-design-primer)
+- **System Design Primer** - [GitHub](https://github.com/donnemartin/system-design-primer/)
   - **Focus**: System design concepts and examples
   - **Features**: Comprehensive guide, examples
   - **Level**: Intermediate to Advanced
@@ -563,13 +563,13 @@ A: Use books for deep understanding, videos for visual learning, practice platfo
 ## Sources
 
 ### Book Recommendations
-- **Amazon**: [Computer Science Books](https://www.amazon.com/Computer-Science-Books/s?k=Computer+Science+Books)
-- **Goodreads**: [Programming Books](https://www.goodreads.com/shelf/show/programming)
+- **Amazon**: [Computer Science Books](https://www.amazon.com/Computer-Science-Books/s?k=Computer+Science+Books/)
+- **Goodreads**: [Programming Books](https://www.goodreads.com/shelf/show/programming/)
 - **O'Reilly**: [Technical Books](https://www.oreilly.com/)
 
 ### Online Learning
-- **Coursera**: [Computer Science Courses](https://www.coursera.org/browse/computer-science)
-- **edX**: [CS Courses](https://www.edx.org/course/subject/computer-science)
+- **Coursera**: [Computer Science Courses](https://www.coursera.org/browse/computer-science/)
+- **edX**: [CS Courses](https://www.edx.org/course/subject/computer-science/)
 - **Udemy**: [Programming Courses](https://www.udemy.com/courses/development/)
 
 ### Practice Platforms
@@ -579,4 +579,4 @@ A: Use books for deep understanding, videos for visual learning, practice platfo
 
 ---
 
-**Next**: [Assessment Tools](../assessment_tools/README.md) | **Previous**: [Real-World Projects](../real_world_projects/README.md) | **Up**: [Learning Resources](../README.md)
+**Next**: [Assessment Tools](assessment_tools/README.md/) | **Previous**: [Real-World Projects](real_world_projects/README.md/) | **Up**: [Learning Resources](README.md/)

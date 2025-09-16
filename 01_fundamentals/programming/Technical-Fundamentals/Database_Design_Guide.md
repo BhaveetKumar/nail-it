@@ -8,14 +8,14 @@ This comprehensive guide covers database design principles, SQL and NoSQL databa
 
 ## 🎯 Table of Contents
 
-1. [Database Design Principles](#database-design-principles)
-2. [SQL Databases](#sql-databases)
-3. [NoSQL Databases](#nosql-databases)
-4. [Database Optimization](#database-optimization)
-5. [Connection Management](#connection-management)
-6. [Transactions and ACID](#transactions-and-acid)
-7. [Database Security](#database-security)
-8. [Performance Monitoring](#performance-monitoring)
+1. [Database Design Principles](#database-design-principles/)
+2. [SQL Databases](#sql-databases/)
+3. [NoSQL Databases](#nosql-databases/)
+4. [Database Optimization](#database-optimization/)
+5. [Connection Management](#connection-management/)
+6. [Transactions and ACID](#transactions-and-acid/)
+7. [Database Security](#database-security/)
+8. [Performance Monitoring](#performance-monitoring/)
 
 ## 🏗️ Database Design Principles
 

@@ -1,16 +1,16 @@
 # Advanced Coding Interview Problems
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [System Design Coding Problems](#system-design-coding-problems)
-- [Distributed Systems Problems](#distributed-systems-problems)
-- [Real-Time Systems Problems](#real-time-systems-problems)
-- [Machine Learning Problems](#machine-learning-problems)
-- [Financial Systems Problems](#financial-systems-problems)
-- [Performance Optimization Problems](#performance-optimization-problems)
-- [Security and Cryptography Problems](#security-and-cryptography-problems)
-- [Database and Storage Problems](#database-and-storage-problems)
-- [Concurrency and Parallelism Problems](#concurrency-and-parallelism-problems)
+- [Introduction](#introduction/)
+- [System Design Coding Problems](#system-design-coding-problems/)
+- [Distributed Systems Problems](#distributed-systems-problems/)
+- [Real-Time Systems Problems](#real-time-systems-problems/)
+- [Machine Learning Problems](#machine-learning-problems/)
+- [Financial Systems Problems](#financial-systems-problems/)
+- [Performance Optimization Problems](#performance-optimization-problems/)
+- [Security and Cryptography Problems](#security-and-cryptography-problems/)
+- [Database and Storage Problems](#database-and-storage-problems/)
+- [Concurrency and Parallelism Problems](#concurrency-and-parallelism-problems/)
 
 ## Introduction
 

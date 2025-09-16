@@ -1,15 +1,15 @@
 # Performance Engineering
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Performance Profiling](#performance-profiling)
-- [Memory Optimization](#memory-optimization)
-- [CPU Optimization](#cpu-optimization)
-- [I/O Optimization](#io-optimization)
-- [Database Performance](#database-performance)
-- [Caching Strategies](#caching-strategies)
-- [Load Testing](#load-testing)
-- [Performance Monitoring](#performance-monitoring)
+- [Introduction](#introduction/)
+- [Performance Profiling](#performance-profiling/)
+- [Memory Optimization](#memory-optimization/)
+- [CPU Optimization](#cpu-optimization/)
+- [I/O Optimization](#io-optimization/)
+- [Database Performance](#database-performance/)
+- [Caching Strategies](#caching-strategies/)
+- [Load Testing](#load-testing/)
+- [Performance Monitoring](#performance-monitoring/)
 
 ## Introduction
 

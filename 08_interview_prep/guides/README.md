@@ -5,8 +5,8 @@
 ## 📚 **Contents**
 
 ### **🎯 Main Preparation Guides**
-- [**Advanced Backend Engineer Preparation**](./Advanced_Backend_Engineer_Preparation.md) - Comprehensive backend engineering guide for 10+ years experience
-- [**Behavioral Questions Complete Guide**](./Behavioral_Questions_Complete_Guide.md) - STAR method and common behavioral questions
+- [**Advanced Backend Engineer Preparation**](Advanced_Backend_Engineer_Preparation.md/) - Comprehensive backend engineering guide for 10+ years experience
+- [**Behavioral Questions Complete Guide**](Behavioral_Questions_Complete_Guide.md/) - STAR method and common behavioral questions
 
 ## 🎯 **Purpose**
 

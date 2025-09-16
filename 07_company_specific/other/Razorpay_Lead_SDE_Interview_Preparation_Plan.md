@@ -1456,7 +1456,7 @@ Culture is built through consistent actions, not just words. It requires ongoing
 
 ### Technical Resources:
 
-- [System Design Primer](https://github.com/donnemartin/system-design-primer)
+- [System Design Primer](https://github.com/donnemartin/system-design-primer/)
 - [Designing Data-Intensive Applications](https://dataintensive.net/)
 - [High Scalability Blog](http://highscalability.com/)
 

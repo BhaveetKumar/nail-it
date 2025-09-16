@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Unit Testing](#unit-testing)
-3. [Integration Testing](#integration-testing)
-4. [Test-Driven Development (TDD)](#test-driven-development-tdd)
-5. [Behavior-Driven Development (BDD)](#behavior-driven-development-bdd)
-6. [Implementations](#implementations)
-7. [Follow-up Questions](#follow-up-questions)
-8. [Sources](#sources)
-9. [Projects](#projects)
+1. [Overview](#overview/)
+2. [Unit Testing](#unit-testing/)
+3. [Integration Testing](#integration-testing/)
+4. [Test-Driven Development (TDD)](#test-driven-development-tdd/)
+5. [Behavior-Driven Development (BDD)](#behavior-driven-development-bdd/)
+6. [Implementations](#implementations/)
+7. [Follow-up Questions](#follow-up-questions/)
+8. [Sources](#sources/)
+9. [Projects](#projects/)
 
 ## Overview
 
@@ -477,4 +477,4 @@ A: BDD focuses on behavior and user stories, using natural language, while TDD f
 
 ---
 
-**Next**: [Phase 1](../phase1_intermediate/README.md) | **Previous**: [Version Control](./version-control-git.md) | **Up**: [Phase 0](../README.md)
+**Next**: [Phase 1](phase1_intermediate/README.md/) | **Previous**: [Version Control](version-control-git.md/) | **Up**: [Phase 0](README.md/)

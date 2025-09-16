@@ -1,15 +1,15 @@
 # 🔧 Compiler Design & Language Implementation
 
 ## Table of Contents
-1. [Lexical Analysis](#lexical-analysis)
-2. [Syntax Analysis](#syntax-analysis)
-3. [Semantic Analysis](#semantic-analysis)
-4. [Intermediate Code Generation](#intermediate-code-generation)
-5. [Code Optimization](#code-optimization)
-6. [Code Generation](#code-generation)
-7. [Runtime Systems](#runtime-systems)
-8. [Go Implementation Examples](#go-implementation-examples)
-9. [Interview Questions](#interview-questions)
+1. [Lexical Analysis](#lexical-analysis/)
+2. [Syntax Analysis](#syntax-analysis/)
+3. [Semantic Analysis](#semantic-analysis/)
+4. [Intermediate Code Generation](#intermediate-code-generation/)
+5. [Code Optimization](#code-optimization/)
+6. [Code Generation](#code-generation/)
+7. [Runtime Systems](#runtime-systems/)
+8. [Go Implementation Examples](#go-implementation-examples/)
+9. [Interview Questions](#interview-questions/)
 
 ## Lexical Analysis
 

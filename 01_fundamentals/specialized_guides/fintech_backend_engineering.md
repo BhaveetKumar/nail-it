@@ -1,16 +1,16 @@
 # Fintech Backend Engineering Specialized Guide
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Payment Processing Systems](#payment-processing-systems)
-- [Banking and Financial Services](#banking-and-financial-services)
-- [Regulatory Compliance](#regulatory-compliance)
-- [Security and Fraud Prevention](#security-and-fraud-prevention)
-- [Real-time Financial Data](#real-time-financial-data)
-- [Blockchain and Cryptocurrency](#blockchain-and-cryptocurrency)
-- [Risk Management Systems](#risk-management-systems)
-- [Financial APIs and Integrations](#financial-apis-and-integrations)
-- [Performance and Scalability](#performance-and-scalability)
+- [Introduction](#introduction/)
+- [Payment Processing Systems](#payment-processing-systems/)
+- [Banking and Financial Services](#banking-and-financial-services/)
+- [Regulatory Compliance](#regulatory-compliance/)
+- [Security and Fraud Prevention](#security-and-fraud-prevention/)
+- [Real-time Financial Data](#real-time-financial-data/)
+- [Blockchain and Cryptocurrency](#blockchain-and-cryptocurrency/)
+- [Risk Management Systems](#risk-management-systems/)
+- [Financial APIs and Integrations](#financial-apis-and-integrations/)
+- [Performance and Scalability](#performance-and-scalability/)
 
 ## Introduction
 

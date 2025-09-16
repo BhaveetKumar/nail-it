@@ -6,14 +6,14 @@ This module covers advanced process management concepts including scheduling alg
 
 ## Table of Contents
 
-1. [Process Scheduling](#process-scheduling)
-2. [Synchronization Primitives](#synchronization-primitives)
-3. [Inter-Process Communication](#inter-process-communication)
-4. [Process Lifecycle](#process-lifecycle)
-5. [Memory Management](#memory-management)
-6. [Applications](#applications)
-7. [Complexity Analysis](#complexity-analysis)
-8. [Follow-up Questions](#follow-up-questions)
+1. [Process Scheduling](#process-scheduling/)
+2. [Synchronization Primitives](#synchronization-primitives/)
+3. [Inter-Process Communication](#inter-process-communication/)
+4. [Process Lifecycle](#process-lifecycle/)
+5. [Memory Management](#memory-management/)
+6. [Applications](#applications/)
+7. [Complexity Analysis](#complexity-analysis/)
+8. [Follow-up Questions](#follow-up-questions/)
 
 ## Process Scheduling
 
@@ -764,4 +764,4 @@ A: Use shared memory for high-performance communication between processes on the
 
 ---
 
-**Next**: [Memory Management](./memory-management.md) | **Previous**: [OS Deep Dive](../README.md) | **Up**: [OS Deep Dive](../README.md)
+**Next**: [Memory Management](memory-management.md/) | **Previous**: [OS Deep Dive](README.md/) | **Up**: [OS Deep Dive](README.md/)

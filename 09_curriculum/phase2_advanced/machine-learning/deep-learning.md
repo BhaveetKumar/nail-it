@@ -6,13 +6,13 @@ This module covers deep learning concepts including neural networks, backpropaga
 
 ## Table of Contents
 
-1. [Neural Networks](#neural-networks)
-2. [Backpropagation](#backpropagation)
-3. [Convolutional Neural Networks](#convolutional-neural-networks)
-4. [Recurrent Neural Networks](#recurrent-neural-networks)
-5. [Applications](#applications)
-6. [Complexity Analysis](#complexity-analysis)
-7. [Follow-up Questions](#follow-up-questions)
+1. [Neural Networks](#neural-networks/)
+2. [Backpropagation](#backpropagation/)
+3. [Convolutional Neural Networks](#convolutional-neural-networks/)
+4. [Recurrent Neural Networks](#recurrent-neural-networks/)
+5. [Applications](#applications/)
+6. [Complexity Analysis](#complexity-analysis/)
+7. [Follow-up Questions](#follow-up-questions/)
 
 ## Neural Networks
 
@@ -1107,4 +1107,4 @@ A: CNNs are more efficient, have fewer parameters, are translation invariant, an
 
 ---
 
-**Next**: [Recurrent Neural Networks](./recurrent-neural-networks.md) | **Previous**: [Machine Learning](../README.md) | **Up**: [Machine Learning](../README.md)
+**Next**: [Recurrent Neural Networks](recurrent-neural-networks.md/) | **Previous**: [Machine Learning](README.md/) | **Up**: [Machine Learning](README.md/)

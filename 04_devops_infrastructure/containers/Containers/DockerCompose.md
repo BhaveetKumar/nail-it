@@ -706,4 +706,4 @@ services:
 
 ---
 
-**Next**: [Kubernetes Basics](./KubernetesBasics.md) - Container orchestration, scaling, management
+**Next**: [Kubernetes Basics](KubernetesBasics.md/) - Container orchestration, scaling, management

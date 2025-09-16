@@ -12,12 +12,12 @@
 
 ## 📚 **Table of Contents**
 
-1. [MLOps Fundamentals](#mlops-fundamentals)
-2. [Deployment Strategies](#deployment-strategies)
-3. [CI/CD for ML](#cicd-for-ml)
-4. [Model Monitoring](#model-monitoring)
-5. [Production Implementation](#production-implementation)
-6. [Interview Questions](#interview-questions)
+1. [MLOps Fundamentals](#mlops-fundamentals/)
+2. [Deployment Strategies](#deployment-strategies/)
+3. [CI/CD for ML](#cicd-for-ml/)
+4. [Model Monitoring](#model-monitoring/)
+5. [Production Implementation](#production-implementation/)
+6. [Interview Questions](#interview-questions/)
 
 ---
 

@@ -4,16 +4,16 @@
 
 ## 📋 Table of Contents
 
-1. [🔄 Process Management](#-process-management)
-2. [🧠 Memory Management](#-memory-management)
-3. [📁 File Systems](#-file-systems)
-4. [⏰ Scheduling Algorithms](#-scheduling-algorithms)
-5. [🔗 Inter-Process Communication](#-inter-process-communication)
-6. [🔒 Deadlocks & Synchronization](#-deadlocks--synchronization)
-7. [🔧 System Calls](#-system-calls)
-8. [🧠 Virtual Memory](#-virtual-memory)
-9. [🎯 FAANG Interview Questions](#-faang-interview-questions)
-10. [📚 Additional Resources](#-additional-resources)
+1. [🔄 Process Management](#-process-management/)
+2. [🧠 Memory Management](#-memory-management/)
+3. [📁 File Systems](#-file-systems/)
+4. [⏰ Scheduling Algorithms](#-scheduling-algorithms/)
+5. [🔗 Inter-Process Communication](#-inter-process-communication/)
+6. [🔒 Deadlocks & Synchronization](#-deadlocks--synchronization/)
+7. [🔧 System Calls](#-system-calls/)
+8. [🧠 Virtual Memory](#-virtual-memory/)
+9. [🎯 FAANG Interview Questions](#-faang-interview-questions/)
+10. [📚 Additional Resources](#-additional-resources/)
 
 ---
 
@@ -1739,7 +1739,7 @@ func main() {
 ### **Books**
 
 - [Operating System Concepts](https://www.os-book.com/) - Abraham Silberschatz
-- [Modern Operating Systems](https://www.pearson.com/us/higher-education/program/Tanenbaum-Modern-Operating-Systems-4th-Edition/PGM241619.html) - Andrew Tanenbaum
+- [Modern Operating Systems](https://www.pearson.com/us/higher-education/program/Tanenbaum-Modern-Operating-Systems-4th-Edition/PGM241619.html/) - Andrew Tanenbaum
 - [Operating Systems: Three Easy Pieces](http://pages.cs.wisc.edu/~remzi/OSTEP/) - Remzi Arpaci-Dusseau
 
 ### **Online Resources**
@@ -1750,9 +1750,9 @@ func main() {
 
 ### **Video Resources**
 
-- [CS 162: Operating Systems](https://www.youtube.com/playlist?list=PL-XXv-cvA_iBDyz-ba4yDskqMDY6A1w_c) - UC Berkeley
-- [Operating System Concepts](https://www.youtube.com/playlist?list=PLbMVogVj5nJQ2uWfLpByyqKqBE4XkE4iR) - Tutorials Point
-- [Linux Kernel Development](https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMOVlF7WwvU0n1-Gxc) - Linux Foundation
+- [CS 162: Operating Systems](https://www.youtube.com/playlist?list=PL-XXv-cvA_iBDyz-ba4yDskqMDY6A1w_c/) - UC Berkeley
+- [Operating System Concepts](https://www.youtube.com/playlist?list=PLbMVogVj5nJQ2uWfLpByyqKqBE4XkE4iR/) - Tutorials Point
+- [Linux Kernel Development](https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMOVlF7WwvU0n1-Gxc/) - Linux Foundation
 
 ---
 

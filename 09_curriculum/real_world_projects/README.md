@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [E-commerce Platform](#e-commerce-platform)
-3. [Social Media Application](#social-media-application)
-4. [Payment Processing System](#payment-processing-system)
-5. [Content Management System](#content-management-system)
-6. [Data Analytics Platform](#data-analytics-platform)
-7. [Microservices Architecture](#microservices-architecture)
-8. [Follow-up Questions](#follow-up-questions)
-9. [Sources](#sources)
+1. [Overview](#overview/)
+2. [E-commerce Platform](#e-commerce-platform/)
+3. [Social Media Application](#social-media-application/)
+4. [Payment Processing System](#payment-processing-system/)
+5. [Content Management System](#content-management-system/)
+6. [Data Analytics Platform](#data-analytics-platform/)
+7. [Microservices Architecture](#microservices-architecture/)
+8. [Follow-up Questions](#follow-up-questions/)
+9. [Sources](#sources/)
 
 ## Overview
 
@@ -1415,4 +1415,4 @@ A: Start with MVP, iterate incrementally, use proven patterns, implement proper 
 
 ---
 
-**Next**: [Assessment Tools](../assessment_tools/README.md) | **Previous**: [Practice Exercises](../practice_exercises/README.md) | **Up**: [Real-World Projects](../README.md)
+**Next**: [Assessment Tools](assessment_tools/README.md/) | **Previous**: [Practice Exercises](practice_exercises/README.md/) | **Up**: [Real-World Projects](README.md/)

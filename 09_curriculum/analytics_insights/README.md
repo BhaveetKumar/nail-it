@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Learning Analytics](#learning-analytics)
-3. [Performance Metrics](#performance-metrics)
-4. [User Behavior Analysis](#user-behavior-analysis)
-5. [Content Effectiveness](#content-effectiveness)
-6. [Predictive Analytics](#predictive-analytics)
-7. [Reporting Dashboard](#reporting-dashboard)
-8. [Follow-up Questions](#follow-up-questions)
-9. [Sources](#sources)
+1. [Overview](#overview/)
+2. [Learning Analytics](#learning-analytics/)
+3. [Performance Metrics](#performance-metrics/)
+4. [User Behavior Analysis](#user-behavior-analysis/)
+5. [Content Effectiveness](#content-effectiveness/)
+6. [Predictive Analytics](#predictive-analytics/)
+7. [Reporting Dashboard](#reporting-dashboard/)
+8. [Follow-up Questions](#follow-up-questions/)
+9. [Sources](#sources/)
 
 ## Overview
 
@@ -986,4 +986,4 @@ A: Analyze completion rates, user feedback, time spent, and learning outcomes to
 
 ---
 
-**Next**: [Maintenance Updates](../maintenance_updates/README.md) | **Previous**: [Community Contributions](../community_contributions/README.md) | **Up**: [Analytics Insights](../README.md)
+**Next**: [Maintenance Updates](maintenance_updates/README.md/) | **Previous**: [Community Contributions](community_contributions/README.md/) | **Up**: [Analytics Insights](README.md/)

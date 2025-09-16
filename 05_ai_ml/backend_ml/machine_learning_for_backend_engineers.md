@@ -1,15 +1,15 @@
 # 🤖 Machine Learning for Backend Engineers
 
 ## Table of Contents
-1. [ML Fundamentals for Backend](#ml-fundamentals-for-backend)
-2. [Model Serving & APIs](#model-serving--apis)
-3. [Feature Engineering](#feature-engineering)
-4. [Model Deployment](#model-deployment)
-5. [MLOps for Backend](#mlops-for-backend)
-6. [Real-time ML Systems](#real-time-ml-systems)
-7. [ML Infrastructure](#ml-infrastructure)
-8. [Go Implementation Examples](#go-implementation-examples)
-9. [Interview Questions](#interview-questions)
+1. [ML Fundamentals for Backend](#ml-fundamentals-for-backend/)
+2. [Model Serving & APIs](#model-serving--apis/)
+3. [Feature Engineering](#feature-engineering/)
+4. [Model Deployment](#model-deployment/)
+5. [MLOps for Backend](#mlops-for-backend/)
+6. [Real-time ML Systems](#real-time-ml-systems/)
+7. [ML Infrastructure](#ml-infrastructure/)
+8. [Go Implementation Examples](#go-implementation-examples/)
+9. [Interview Questions](#interview-questions/)
 
 ## ML Fundamentals for Backend
 

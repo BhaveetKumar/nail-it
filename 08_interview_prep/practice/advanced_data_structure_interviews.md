@@ -1,15 +1,15 @@
 # Advanced Data Structure Interviews
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Advanced Trees](#advanced-trees)
-- [Advanced Graphs](#advanced-graphs)
-- [Advanced Hash Tables](#advanced-hash-tables)
-- [Advanced Heaps](#advanced-heaps)
-- [Advanced Tries](#advanced-tries)
-- [Advanced Segment Trees](#advanced-segment-trees)
-- [Advanced Fenwick Trees](#advanced-fenwick-trees)
-- [Advanced Disjoint Sets](#advanced-disjoint-sets)
+- [Introduction](#introduction/)
+- [Advanced Trees](#advanced-trees/)
+- [Advanced Graphs](#advanced-graphs/)
+- [Advanced Hash Tables](#advanced-hash-tables/)
+- [Advanced Heaps](#advanced-heaps/)
+- [Advanced Tries](#advanced-tries/)
+- [Advanced Segment Trees](#advanced-segment-trees/)
+- [Advanced Fenwick Trees](#advanced-fenwick-trees/)
+- [Advanced Disjoint Sets](#advanced-disjoint-sets/)
 
 ## Introduction
 

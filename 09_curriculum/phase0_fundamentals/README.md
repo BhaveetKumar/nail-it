@@ -14,25 +14,25 @@ Phase 0 establishes the foundational knowledge required for software engineering
 
 ### 📚 Modules
 
-#### 1. [Mathematics](./mathematics/)
+#### 1. [Mathematics](mathematics/)
 - **Linear Algebra**: Vectors, matrices, eigenvalues, SVD
 - **Calculus**: Derivatives, integrals, optimization
 - **Statistics & Probability**: Distributions, hypothesis testing
 - **Discrete Mathematics**: Logic, sets, graphs, combinatorics
 
-#### 2. [Programming](./programming/)
+#### 2. [Programming](programming/)
 - **Go Fundamentals**: Syntax, concurrency, error handling
 - **Node.js Fundamentals**: Async programming, modules, APIs
 - **Data Structures & Algorithms**: Arrays, trees, graphs, sorting
 - **Design Patterns**: Creational, structural, behavioral patterns
 
-#### 3. [Computer Science Basics](./cs-basics/)
+#### 3. [Computer Science Basics](cs-basics/)
 - **Computer Organization**: CPU, memory, cache, assembly
 - **Operating Systems**: Processes, memory management, file systems
 - **Networks & Protocols**: TCP/IP, HTTP, security protocols
 - **Database Fundamentals**: SQL, NoSQL, ACID properties
 
-#### 4. [Software Engineering](./software-engineering/)
+#### 4. [Software Engineering](software-engineering/)
 - **Version Control**: Git workflows, collaboration
 - **Testing Strategies**: Unit, integration, TDD/BDD
 - **Code Quality**: Reviews, documentation, standards
@@ -130,4 +130,4 @@ After completing Phase 0, you'll be ready for:
 
 ---
 
-**Next**: [Phase 1: Intermediate](../phase1_intermediate/README.md) | **Previous**: [Master Engineer Curriculum](../README.md) | **Up**: [Master Engineer Curriculum](../README.md)
+**Next**: [Phase 1: Intermediate](phase1_intermediate/README.md/) | **Previous**: [Master Engineer Curriculum](README.md/) | **Up**: [Master Engineer Curriculum](README.md/)

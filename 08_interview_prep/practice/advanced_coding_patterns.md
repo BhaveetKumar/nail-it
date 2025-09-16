@@ -1,12 +1,12 @@
 # Advanced Coding Patterns
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Design Patterns](#design-patterns)
-- [Concurrency Patterns](#concurrency-patterns)
-- [Performance Patterns](#performance-patterns)
-- [Error Handling Patterns](#error-handling-patterns)
-- [Testing Patterns](#testing-patterns)
+- [Introduction](#introduction/)
+- [Design Patterns](#design-patterns/)
+- [Concurrency Patterns](#concurrency-patterns/)
+- [Performance Patterns](#performance-patterns/)
+- [Error Handling Patterns](#error-handling-patterns/)
+- [Testing Patterns](#testing-patterns/)
 
 ## Introduction
 

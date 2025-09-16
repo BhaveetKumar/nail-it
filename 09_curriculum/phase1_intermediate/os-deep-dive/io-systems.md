@@ -6,14 +6,14 @@ This module covers I/O system concepts including device drivers, interrupt handl
 
 ## Table of Contents
 
-1. [Device Drivers](#device-drivers)
-2. [Interrupt Handling](#interrupt-handling)
-3. [I/O Scheduling](#io-scheduling)
-4. [Buffering Strategies](#buffering-strategies)
-5. [I/O Optimization](#io-optimization)
-6. [Applications](#applications)
-7. [Complexity Analysis](#complexity-analysis)
-8. [Follow-up Questions](#follow-up-questions)
+1. [Device Drivers](#device-drivers/)
+2. [Interrupt Handling](#interrupt-handling/)
+3. [I/O Scheduling](#io-scheduling/)
+4. [Buffering Strategies](#buffering-strategies/)
+5. [I/O Optimization](#io-optimization/)
+6. [Applications](#applications/)
+7. [Complexity Analysis](#complexity-analysis/)
+8. [Follow-up Questions](#follow-up-questions/)
 
 ## Device Drivers
 
@@ -1033,4 +1033,4 @@ A: Choose SCAN when you want to minimize disk head movement and improve throughp
 
 ---
 
-**Next**: [Concurrency and Synchronization](./concurrency-synchronization.md) | **Previous**: [OS Deep Dive](../README.md) | **Up**: [OS Deep Dive](../README.md)
+**Next**: [Concurrency and Synchronization](concurrency-synchronization.md/) | **Previous**: [OS Deep Dive](README.md/) | **Up**: [OS Deep Dive](README.md/)

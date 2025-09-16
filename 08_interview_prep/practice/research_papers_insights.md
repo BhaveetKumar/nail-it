@@ -1,14 +1,14 @@
 # Research Papers Insights for Backend Engineering
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Distributed Systems Research](#distributed-systems-research)
-- [Database Systems Research](#database-systems-research)
-- [Machine Learning Research](#machine-learning-research)
-- [Performance Engineering Research](#performance-engineering-research)
-- [Security Research](#security-research)
-- [Cloud Computing Research](#cloud-computing-research)
-- [Real-Time Systems Research](#real-time-systems-research)
+- [Introduction](#introduction/)
+- [Distributed Systems Research](#distributed-systems-research/)
+- [Database Systems Research](#database-systems-research/)
+- [Machine Learning Research](#machine-learning-research/)
+- [Performance Engineering Research](#performance-engineering-research/)
+- [Security Research](#security-research/)
+- [Cloud Computing Research](#cloud-computing-research/)
+- [Real-Time Systems Research](#real-time-systems-research/)
 
 ## Introduction
 

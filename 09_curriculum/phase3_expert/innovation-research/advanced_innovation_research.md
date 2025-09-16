@@ -1,14 +1,14 @@
 # Advanced Innovation Research
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Research Methodologies](#research-methodologies)
-- [Technology Trends Analysis](#technology-trends-analysis)
-- [Innovation Frameworks](#innovation-frameworks)
-- [Prototype Development](#prototype-development)
-- [Technology Evaluation](#technology-evaluation)
-- [Research Publication](#research-publication)
-- [Thought Leadership](#thought-leadership)
+- [Introduction](#introduction/)
+- [Research Methodologies](#research-methodologies/)
+- [Technology Trends Analysis](#technology-trends-analysis/)
+- [Innovation Frameworks](#innovation-frameworks/)
+- [Prototype Development](#prototype-development/)
+- [Technology Evaluation](#technology-evaluation/)
+- [Research Publication](#research-publication/)
+- [Thought Leadership](#thought-leadership/)
 
 ## Introduction
 

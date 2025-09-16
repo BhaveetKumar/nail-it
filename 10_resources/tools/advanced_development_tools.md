@@ -1,16 +1,16 @@
 # Advanced Development Tools for Backend Engineers
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Performance Profiling Tools](#performance-profiling-tools)
-- [Database Tools](#database-tools)
-- [Monitoring and Observability](#monitoring-and-observability)
-- [Testing Tools](#testing-tools)
-- [Security Tools](#security-tools)
-- [DevOps and Deployment](#devops-and-deployment)
-- [Code Quality and Analysis](#code-quality-and-analysis)
-- [API Development Tools](#api-development-tools)
-- [Cloud and Infrastructure](#cloud-and-infrastructure)
+- [Introduction](#introduction/)
+- [Performance Profiling Tools](#performance-profiling-tools/)
+- [Database Tools](#database-tools/)
+- [Monitoring and Observability](#monitoring-and-observability/)
+- [Testing Tools](#testing-tools/)
+- [Security Tools](#security-tools/)
+- [DevOps and Deployment](#devops-and-deployment/)
+- [Code Quality and Analysis](#code-quality-and-analysis/)
+- [API Development Tools](#api-development-tools/)
+- [Cloud and Infrastructure](#cloud-and-infrastructure/)
 
 ## Introduction
 
@@ -1370,7 +1370,7 @@ Mastering these tools will significantly improve your productivity and the quali
 
 ## Additional Resources
 
-- [Go Tools](https://golang.org/cmd/go/#hdr-List_of_tools)
+- [Go Tools](https://golang.org/cmd/go/#hdr-List_of_tools/)
 - [Node.js Tools](https://nodejs.org/en/docs/)
 - [Docker Best Practices](https://docs.docker.com/develop/dev-best-practices/)
 - [Kubernetes Documentation](https://kubernetes.io/docs/)

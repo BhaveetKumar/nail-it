@@ -5,11 +5,11 @@
 ## 📚 **Contents**
 
 ### **📋 Original Preparation Guides**
-- [**Engineering Lead Software Development Engineer Interview Prep Guide**](./Engineering___Lead_Software_Development_Engineer___Interview_Prep_Guide.md) - Official Razorpay preparation guide (Markdown)
-- [**Engineering Lead Software Development Engineer Interview Prep Guide**](./Engineering___Lead_Software_Development_Engineer___Interview_Prep_Guide.pdf) - Official Razorpay preparation guide (PDF)
+- [**Engineering Lead Software Development Engineer Interview Prep Guide**](Engineering___Lead_Software_Development_Engineer___Interview_Prep_Guide.md/) - Official Razorpay preparation guide (Markdown)
+- [**Engineering Lead Software Development Engineer Interview Prep Guide**](Engineering___Lead_Software_Development_Engineer___Interview_Prep_Guide.pdf/) - Official Razorpay preparation guide (PDF)
 
 ### **📝 Reference Documents**
-- [**abc.md**](./abc.md) - Reference document with additional content
+- [**abc.md**](abc.md/) - Reference document with additional content
 
 ## 🎯 **Purpose**
 

@@ -6,15 +6,15 @@ This module covers advanced memory management concepts including virtual memory,
 
 ## Table of Contents
 
-1. [Virtual Memory](#virtual-memory)
-2. [Paging Systems](#paging-systems)
-3. [Segmentation](#segmentation)
-4. [Memory Allocation](#memory-allocation)
-5. [Garbage Collection](#garbage-collection)
-6. [Memory Optimization](#memory-optimization)
-7. [Applications](#applications)
-8. [Complexity Analysis](#complexity-analysis)
-9. [Follow-up Questions](#follow-up-questions)
+1. [Virtual Memory](#virtual-memory/)
+2. [Paging Systems](#paging-systems/)
+3. [Segmentation](#segmentation/)
+4. [Memory Allocation](#memory-allocation/)
+5. [Garbage Collection](#garbage-collection/)
+6. [Memory Optimization](#memory-optimization/)
+7. [Applications](#applications/)
+8. [Complexity Analysis](#complexity-analysis/)
+9. [Follow-up Questions](#follow-up-questions/)
 
 ## Virtual Memory
 
@@ -1017,4 +1017,4 @@ A: First-fit allocates the first suitable block found, which is faster but may l
 
 ---
 
-**Next**: [File Systems](./file-systems.md) | **Previous**: [OS Deep Dive](../README.md) | **Up**: [OS Deep Dive](../README.md)
+**Next**: [File Systems](file-systems.md/) | **Previous**: [OS Deep Dive](README.md/) | **Up**: [OS Deep Dive](README.md/)

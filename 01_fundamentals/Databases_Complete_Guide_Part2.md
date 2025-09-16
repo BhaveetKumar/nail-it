@@ -1153,12 +1153,12 @@ func main() {
 - [MySQL Documentation](https://dev.mysql.com/doc/)
 - [PostgreSQL Documentation](https://www.postgresql.org/docs/)
 - [MongoDB Documentation](https://docs.mongodb.com/)
-- [Redis Documentation](https://redis.io/documentation)
+- [Redis Documentation](https://redis.io/documentation/)
 
 ### **Video Resources**
-- [Database Design Course](https://www.youtube.com/watch?v=ztHopE5Wnpc) - freeCodeCamp
-- [SQL Tutorial](https://www.youtube.com/watch?v=HXV3zeQKqGY) - freeCodeCamp
-- [NoSQL Databases](https://www.youtube.com/watch?v=uD3p_rZPBcQ) - freeCodeCamp
+- [Database Design Course](https://www.youtube.com/watch?v=ztHopE5Wnpc/) - freeCodeCamp
+- [SQL Tutorial](https://www.youtube.com/watch?v=HXV3zeQKqGY/) - freeCodeCamp
+- [NoSQL Databases](https://www.youtube.com/watch?v=uD3p_rZPBcQ/) - freeCodeCamp
 
 ---
 

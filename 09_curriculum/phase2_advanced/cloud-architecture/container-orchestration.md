@@ -6,13 +6,13 @@ This module covers container orchestration concepts including container lifecycl
 
 ## Table of Contents
 
-1. [Container Lifecycle Management](#container-lifecycle-management)
-2. [Resource Scheduling](#resource-scheduling)
-3. [Health Monitoring](#health-monitoring)
-4. [Scaling Strategies](#scaling-strategies)
-5. [Applications](#applications)
-6. [Complexity Analysis](#complexity-analysis)
-7. [Follow-up Questions](#follow-up-questions)
+1. [Container Lifecycle Management](#container-lifecycle-management/)
+2. [Resource Scheduling](#resource-scheduling/)
+3. [Health Monitoring](#health-monitoring/)
+4. [Scaling Strategies](#scaling-strategies/)
+5. [Applications](#applications/)
+6. [Complexity Analysis](#complexity-analysis/)
+7. [Follow-up Questions](#follow-up-questions/)
 
 ## Container Lifecycle Management
 
@@ -757,4 +757,4 @@ A: Health checks include liveness probes (is container running?), readiness prob
 
 ---
 
-**Next**: [Serverless Architecture](./serverless-architecture.md) | **Previous**: [Cloud Architecture](../README.md) | **Up**: [Cloud Architecture](../README.md)
+**Next**: [Serverless Architecture](serverless-architecture.md/) | **Previous**: [Cloud Architecture](README.md/) | **Up**: [Cloud Architecture](README.md/)

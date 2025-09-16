@@ -1,16 +1,16 @@
 # Observability and Monitoring Systems
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Logging Systems](#logging-systems)
-- [Metrics Collection](#metrics-collection)
-- [Distributed Tracing](#distributed-tracing)
-- [Alerting Systems](#alerting-systems)
-- [Dashboard and Visualization](#dashboard-and-visualization)
-- [Performance Monitoring](#performance-monitoring)
-- [Error Tracking](#error-tracking)
-- [Synthetic Monitoring](#synthetic-monitoring)
-- [Observability Platforms](#observability-platforms)
+- [Introduction](#introduction/)
+- [Logging Systems](#logging-systems/)
+- [Metrics Collection](#metrics-collection/)
+- [Distributed Tracing](#distributed-tracing/)
+- [Alerting Systems](#alerting-systems/)
+- [Dashboard and Visualization](#dashboard-and-visualization/)
+- [Performance Monitoring](#performance-monitoring/)
+- [Error Tracking](#error-tracking/)
+- [Synthetic Monitoring](#synthetic-monitoring/)
+- [Observability Platforms](#observability-platforms/)
 
 ## Introduction
 

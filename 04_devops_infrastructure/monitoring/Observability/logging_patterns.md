@@ -1,16 +1,16 @@
 # Logging Patterns and Best Practices
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Logging Levels](#logging-levels)
-3. [Structured Logging](#structured-logging)
-4. [Log Aggregation Patterns](#log-aggregation-patterns)
-5. [Performance Considerations](#performance-considerations)
-6. [Security and Compliance](#security-and-compliance)
-7. [Golang Implementation](#golang-implementation)
-8. [Microservices Logging](#microservices-logging)
-9. [Best Practices](#best-practices)
-10. [Common Pitfalls](#common-pitfalls)
+1. [Introduction](#introduction/)
+2. [Logging Levels](#logging-levels/)
+3. [Structured Logging](#structured-logging/)
+4. [Log Aggregation Patterns](#log-aggregation-patterns/)
+5. [Performance Considerations](#performance-considerations/)
+6. [Security and Compliance](#security-and-compliance/)
+7. [Golang Implementation](#golang-implementation/)
+8. [Microservices Logging](#microservices-logging/)
+9. [Best Practices](#best-practices/)
+10. [Common Pitfalls](#common-pitfalls/)
 
 ## Introduction
 

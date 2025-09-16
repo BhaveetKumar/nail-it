@@ -6,25 +6,25 @@
 
 ### **Core Patterns**
 
-1. [Arrays](./Arrays/) - Two Pointers, Sliding Window, Prefix Sum (40+ problems)
-2. [Strings](./Strings/) - Pattern Matching, String Manipulation (25+ problems)
-3. [Linked Lists](./LinkedLists/) - Traversal, Reversal, Cycle Detection (20+ problems)
-4. [Trees](./Trees/) - Binary Trees, BST, Traversals (25+ problems)
-5. [Graphs](./Graphs/) - BFS, DFS, Shortest Path, Topological Sort (15+ problems)
-6. [Dynamic Programming](./DynamicProgramming/) - Memoization, Tabulation (15+ problems)
-7. [Greedy](./Greedy/) - Activity Selection, Interval Scheduling (10+ problems)
-8. [Backtracking](./Backtracking/) - N-Queens, Permutations, Combinations (10+ problems)
+1. [Arrays](Arrays/) - Two Pointers, Sliding Window, Prefix Sum (40+ problems)
+2. [Strings](Strings/) - Pattern Matching, String Manipulation (25+ problems)
+3. [Linked Lists](LinkedLists/) - Traversal, Reversal, Cycle Detection (20+ problems)
+4. [Trees](Trees/) - Binary Trees, BST, Traversals (25+ problems)
+5. [Graphs](Graphs/) - BFS, DFS, Shortest Path, Topological Sort (15+ problems)
+6. [Dynamic Programming](DynamicProgramming/) - Memoization, Tabulation (15+ problems)
+7. [Greedy](Greedy/) - Activity Selection, Interval Scheduling (10+ problems)
+8. [Backtracking](Backtracking/) - N-Queens, Permutations, Combinations (10+ problems)
 
 ### **Advanced Patterns**
 
-9. [Bit Manipulation](./BitManipulation/) - XOR, AND, OR operations (10+ problems)
-10. [Sliding Window](./SlidingWindow/) - Fixed/Variable window problems (10+ problems)
-11. [Stack & Queue](./StackQueue/) - Monotonic stack, BFS with queue (10+ problems)
-12. [Heap](./Heap/) - Priority Queue, K-th largest/smallest (10+ problems)
-13. [Math](./Math/) - Number theory, Combinatorics (10+ problems)
-14. [Two Pointers](./TwoPointers/) - Fast/Slow pointers, Meeting point (10+ problems)
-15. [Sorting](./Sorting/) - Quick Sort, Merge Sort, Counting Sort (10+ problems)
-16. [Searching](./Searching/) - Binary Search, Ternary Search (10+ problems)
+9. [Bit Manipulation](BitManipulation/) - XOR, AND, OR operations (10+ problems)
+10. [Sliding Window](SlidingWindow/) - Fixed/Variable window problems (10+ problems)
+11. [Stack & Queue](StackQueue/) - Monotonic stack, BFS with queue (10+ problems)
+12. [Heap](Heap/) - Priority Queue, K-th largest/smallest (10+ problems)
+13. [Math](Math/) - Number theory, Combinatorics (10+ problems)
+14. [Two Pointers](TwoPointers/) - Fast/Slow pointers, Meeting point (10+ problems)
+15. [Sorting](Sorting/) - Quick Sort, Merge Sort, Counting Sort (10+ problems)
+16. [Searching](Searching/) - Binary Search, Ternary Search (10+ problems)
 
 ## 🎯 Pattern Explanations
 
@@ -339,27 +339,27 @@
 
 ### **Beginner (Week 1-2)**
 
-- Start with [Arrays](./Arrays/) - Two Sum, Maximum Subarray
-- Move to [Strings](./Strings/) - Valid Parentheses, Longest Substring
-- Practice [Linked Lists](./LinkedLists/) - Reverse List, Merge Lists
+- Start with [Arrays](Arrays/) - Two Sum, Maximum Subarray
+- Move to [Strings](Strings/) - Valid Parentheses, Longest Substring
+- Practice [Linked Lists](LinkedLists/) - Reverse List, Merge Lists
 
 ### **Intermediate (Week 3-4)**
 
-- Master [Trees](./Trees/) - Binary Tree Traversals, BST operations
-- Learn [Dynamic Programming](./DynamicProgramming/) - Fibonacci, LCS
-- Practice [Two Pointers](./TwoPointers/) - Container With Most Water
+- Master [Trees](Trees/) - Binary Tree Traversals, BST operations
+- Learn [Dynamic Programming](DynamicProgramming/) - Fibonacci, LCS
+- Practice [Two Pointers](TwoPointers/) - Container With Most Water
 
 ### **Advanced (Week 5-6)**
 
-- Conquer [Graphs](./Graphs/) - BFS, DFS, Shortest Path algorithms
-- Master [Backtracking](./Backtracking/) - N-Queens, Permutations
-- Learn [Bit Manipulation](./BitManipulation/) - Single Number, Power of Two
+- Conquer [Graphs](Graphs/) - BFS, DFS, Shortest Path algorithms
+- Master [Backtracking](Backtracking/) - N-Queens, Permutations
+- Learn [Bit Manipulation](BitManipulation/) - Single Number, Power of Two
 
 ### **Expert (Week 7-8)**
 
-- Advanced [Dynamic Programming](./DynamicProgramming/) - Knapsack, Edit Distance
-- Complex [Graphs](./Graphs/) - Network Flow, Minimum Spanning Tree
-- Contest-level [Math](./Math/) - Combinatorics, Number Theory
+- Advanced [Dynamic Programming](DynamicProgramming/) - Knapsack, Edit Distance
+- Complex [Graphs](Graphs/) - Network Flow, Minimum Spanning Tree
+- Contest-level [Math](Math/) - Combinatorics, Number Theory
 
 ---
 
@@ -452,7 +452,7 @@ type Comparable interface {
 
 ### **Books**
 
-- [Introduction to Algorithms](https://mitpress.mit.edu/books/introduction-algorithms) - Cormen, Leiserson, Rivest, Stein
+- [Introduction to Algorithms](https://mitpress.mit.edu/books/introduction-algorithms/) - Cormen, Leiserson, Rivest, Stein
 - [Algorithm Design Manual](https://www.algorist.com/) - Steven Skiena
 - [Go Programming Language](https://www.gopl.io/) - Alan Donovan, Brian Kernighan
 
@@ -466,7 +466,7 @@ type Comparable interface {
 ### **Go Resources**
 
 - [Go by Example](https://gobyexample.com/) - Interactive Go tutorial
-- [Effective Go](https://golang.org/doc/effective_go.html) - Go best practices
+- [Effective Go](https://golang.org/doc/effective_go.html/) - Go best practices
 - [Go Playground](https://play.golang.org/) - Online Go compiler
 
 ---

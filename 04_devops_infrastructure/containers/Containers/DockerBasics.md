@@ -630,4 +630,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 
 ---
 
-**Next**: [Docker Compose](./DockerCompose.md) - Multi-container applications, orchestration
+**Next**: [Docker Compose](DockerCompose.md/) - Multi-container applications, orchestration
