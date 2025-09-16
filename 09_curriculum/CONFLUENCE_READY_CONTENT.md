@@ -175,4 +175,3 @@ The Master Engineer Curriculum provides everything needed for engineers to progr
 
 *Last Updated: December 2024*
 *Version: 1.0.0*
-*Status: Complete*
