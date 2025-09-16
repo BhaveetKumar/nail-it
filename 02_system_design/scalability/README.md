@@ -1,27 +1,24 @@
-# 08 Interview Prep
+# Scalability
 
-Comprehensive interview preparation materials and practice
+Scalability patterns and load balancing strategies
 
 ## 📚 Table of Contents
 
 ### 📁 Directories
 
-- **[Checklists](checklists/)**
-- **[Guides](guides/)**
-- **[Mock Interviews](mock_interviews/)**
-- **[Practice](practice/)**
+- **[Load Balancing](load_balancing/)**
 
 ### 📄 Files
 
+- **[Scalability Patterns Deep Dive](SCALABILITY_PATTERNS_DEEP_DIVE.md)** - 📈 **Scalability Patterns Deep Dive**
 
 ## 🚀 Quick Start
 
 ### Explore Subdirectories
-1. **[Checklists](checklists/)** - Preparation checklists and templates
-1. **[Guides](guides/)** - Interview preparation guides and roadmaps
-1. **[Mock Interviews](mock_interviews/)** - Mock interview scenarios and practice
+1. **[Load Balancing](load_balancing/)** - Explore this directory
 
 ### Key Files
+1. **[Scalability Patterns Deep Dive](SCALABILITY_PATTERNS_DEEP_DIVE.md)**
 
 ## 🔗 Navigation
 
@@ -36,4 +33,4 @@ Found an issue or want to add content? Please see our [Contributing Guidelines](
 ---
 
 **Last Updated**: December 2024
-**Directory**: `08_interview_prep`
+**Directory**: `02_system_design/scalability`

@@ -1,15 +1,44 @@
-# Company-Specific Content
+# 07 Company Specific
 
-Interview preparation materials for specific companies.
+Interview preparation materials for specific companies
 
-## Contents
-- [Razorpay](razorpay/)
-- [FAANG+](faang/)
-- [Other Companies](other/)
-- [Fintech](fintech/)
+## 📚 Table of Contents
 
-## Quick Start
-1. Choose your target company
-2. Study company-specific content
-3. Practice with mock interviews
-4. Review recent interview experiences
+### 📁 Directories
+
+- **[Atlassian](atlassian/)**
+- **[Faang](faang/)**
+- **[Fintech](fintech/)**
+- **[Meta](meta/)**
+- **[Other](other/)**
+- **[Razorpay](razorpay/)**
+- **[Shared](shared/)**
+
+### 📄 Files
+
+- **[Faang Plus Companies](faang_plus_companies.md)** - FAANG+ Companies Interview Preparation
+
+## 🚀 Quick Start
+
+### Explore Subdirectories
+1. **[Atlassian](atlassian/)** - Atlassian interview preparation materials
+1. **[Faang](faang/)** - FAANG company interview patterns and preparation
+1. **[Fintech](fintech/)** - Fintech and payment systems preparation
+
+### Key Files
+1. **[Faang Plus Companies](faang_plus_companies.md)**
+
+## 🔗 Navigation
+
+- **← Back to Parent**: [../](../)
+- **🏠 Home**: [../../](../..)
+- **📋 Master Index**: [../../MASTER_INDEX.md](../..MASTER_INDEX.md)
+
+## 🤝 Contributing
+
+Found an issue or want to add content? Please see our [Contributing Guidelines](../../CONTRIBUTING.md) for details.
+
+---
+
+**Last Updated**: December 2024
+**Directory**: `07_company_specific`

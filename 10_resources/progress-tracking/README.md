@@ -1,27 +1,26 @@
-# 08 Interview Prep
-
-Comprehensive interview preparation materials and practice
+# Progress Tracking
 
 ## 📚 Table of Contents
 
 ### 📁 Directories
 
-- **[Checklists](checklists/)**
-- **[Guides](guides/)**
-- **[Mock Interviews](mock_interviews/)**
-- **[Practice](practice/)**
+- **[Assessments](assessments/)**
+- **[Mentorship](mentorship/)**
+- **[Portfolios](portfolios/)**
 
 ### 📄 Files
 
+- **[Study Tracker](study_tracker.md)** - 📊 Master Engineer Study Tracker
 
 ## 🚀 Quick Start
 
 ### Explore Subdirectories
-1. **[Checklists](checklists/)** - Preparation checklists and templates
-1. **[Guides](guides/)** - Interview preparation guides and roadmaps
-1. **[Mock Interviews](mock_interviews/)** - Mock interview scenarios and practice
+1. **[Assessments](assessments/)** - Explore this directory
+1. **[Mentorship](mentorship/)** - Explore this directory
+1. **[Portfolios](portfolios/)** - Explore this directory
 
 ### Key Files
+1. **[Study Tracker](study_tracker.md)**
 
 ## 🔗 Navigation
 
@@ -36,4 +35,4 @@ Found an issue or want to add content? Please see our [Contributing Guidelines](
 ---
 
 **Last Updated**: December 2024
-**Directory**: `08_interview_prep`
+**Directory**: `10_resources/progress-tracking`

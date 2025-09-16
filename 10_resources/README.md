@@ -1,15 +1,46 @@
-# Additional Resources
+# 10 Resources
 
-Tools, references, and external resources for interview preparation.
+Additional resources, tools, and references
 
-## Contents
-- [Reference Guides](reference/)
-- [Tools](tools/)
-- [External Resources](external/)
-- [Open Source Projects](open_source_projects.md/)
+## 📚 Table of Contents
 
-## Quick Start
-1. Use reference guides for quick lookup
-2. Explore development tools
-3. Check external resources
-4. Contribute to open source projects
+### 📁 Directories
+
+- **[External](external/)**
+- **[Progress Tracking](progress-tracking/)**
+- **[Projects](projects/)**
+- **[Reference](reference/)**
+- **[Resources](resources/)**
+- **[Tools](tools/)**
+
+### 📄 Files
+
+- **[Chat](chat.md)** - 🚀 Master Engineer Curriculum - Progress Log
+- **[Comprehensive Resources](comprehensive_resources.md)** - 📚 Comprehensive Resources
+- **[Open Source Projects](open_source_projects.md)** - Open Source Projects for Resume Enhancement
+
+## 🚀 Quick Start
+
+### Explore Subdirectories
+1. **[External](external/)** - External resources and references
+1. **[Progress Tracking](progress-tracking/)** - Explore this directory
+1. **[Projects](projects/)** - Real-world projects and implementations
+
+### Key Files
+1. **[Chat](chat.md)**
+1. **[Comprehensive Resources](comprehensive_resources.md)**
+
+## 🔗 Navigation
+
+- **← Back to Parent**: [../](../)
+- **🏠 Home**: [../../](../..)
+- **📋 Master Index**: [../../MASTER_INDEX.md](../..MASTER_INDEX.md)
+
+## 🤝 Contributing
+
+Found an issue or want to add content? Please see our [Contributing Guidelines](../../CONTRIBUTING.md) for details.
+
+---
+
+**Last Updated**: December 2024
+**Directory**: `10_resources`

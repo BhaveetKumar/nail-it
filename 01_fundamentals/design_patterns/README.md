@@ -1,0 +1,27 @@
+# Design Patterns
+
+## 📚 Table of Contents
+
+### 📄 Files
+
+- **[Software Design Patterns](software_design_patterns.md)** - 🎨 Software Design Patterns for Backend Engineers
+
+## 🚀 Quick Start
+
+### Key Files
+1. **[Software Design Patterns](software_design_patterns.md)**
+
+## 🔗 Navigation
+
+- **← Back to Parent**: [../](../)
+- **🏠 Home**: [../../](../..)
+- **📋 Master Index**: [../../MASTER_INDEX.md](../..MASTER_INDEX.md)
+
+## 🤝 Contributing
+
+Found an issue or want to add content? Please see our [Contributing Guidelines](../../CONTRIBUTING.md) for details.
+
+---
+
+**Last Updated**: December 2024
+**Directory**: `01_fundamentals/design_patterns`

@@ -1,27 +1,24 @@
-# 08 Interview Prep
+# Fintech
 
-Comprehensive interview preparation materials and practice
+Fintech and payment systems preparation
 
 ## 📚 Table of Contents
 
 ### 📁 Directories
 
-- **[Checklists](checklists/)**
-- **[Guides](guides/)**
-- **[Mock Interviews](mock_interviews/)**
-- **[Practice](practice/)**
+- **[Advanced](advanced/)**
 
 ### 📄 Files
 
+- **[Fintech Comprehensive Guide](fintech_comprehensive_guide.md)** - 💰 Fintech Comprehensive Guide for Backend Engineers
 
 ## 🚀 Quick Start
 
 ### Explore Subdirectories
-1. **[Checklists](checklists/)** - Preparation checklists and templates
-1. **[Guides](guides/)** - Interview preparation guides and roadmaps
-1. **[Mock Interviews](mock_interviews/)** - Mock interview scenarios and practice
+1. **[Advanced](advanced/)** - Explore this directory
 
 ### Key Files
+1. **[Fintech Comprehensive Guide](fintech_comprehensive_guide.md)**
 
 ## 🔗 Navigation
 
@@ -36,4 +33,4 @@ Found an issue or want to add content? Please see our [Contributing Guidelines](
 ---
 
 **Last Updated**: December 2024
-**Directory**: `08_interview_prep`
+**Directory**: `07_company_specific/fintech`

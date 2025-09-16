@@ -1,27 +1,26 @@
-# 08 Interview Prep
+# Cloud
 
-Comprehensive interview preparation materials and practice
+Cloud platform services and architectures
 
 ## 📚 Table of Contents
 
 ### 📁 Directories
 
-- **[Checklists](checklists/)**
-- **[Guides](guides/)**
-- **[Mock Interviews](mock_interviews/)**
-- **[Practice](practice/)**
+- **[Aws](AWS/)**
+- **[Gcp](GCP/)**
 
 ### 📄 Files
 
+- **[Cloud Native Architecture](CLOUD_NATIVE_ARCHITECTURE.md)** - ☁️ **Cloud-Native Architecture**
 
 ## 🚀 Quick Start
 
 ### Explore Subdirectories
-1. **[Checklists](checklists/)** - Preparation checklists and templates
-1. **[Guides](guides/)** - Interview preparation guides and roadmaps
-1. **[Mock Interviews](mock_interviews/)** - Mock interview scenarios and practice
+1. **[Aws](AWS/)** - Explore this directory
+1. **[Gcp](GCP/)** - Explore this directory
 
 ### Key Files
+1. **[Cloud Native Architecture](CLOUD_NATIVE_ARCHITECTURE.md)**
 
 ## 🔗 Navigation
 
@@ -36,4 +35,4 @@ Found an issue or want to add content? Please see our [Contributing Guidelines](
 ---
 
 **Last Updated**: December 2024
-**Directory**: `08_interview_prep`
+**Directory**: `04_devops_infrastructure/cloud`
