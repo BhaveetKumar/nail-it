@@ -1,7 +1,7 @@
 # 🚀 Ultimate Backend Engineering Interview Preparation
 
-[![GitHub stars](https://img.shields.io/github/stars/BhaveetKumar/nail-it.svg/)](https://github.com/BhaveetKumar/nail-it/stargazers/)
-[![GitHub forks](https://img.shields.io/github/forks/BhaveetKumar/nail-it.svg/)](https://github.com/BhaveetKumar/nail-it/network/)
+[![GitHub stars](https://img.shields.io/github/stars/BhaveetKumar/nail-it.svg)](https://github.com/BhaveetKumar/nail-it/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/BhaveetKumar/nail-it.svg)](https://github.com/BhaveetKumar/nail-it/network)
 
 > **The most comprehensive backend engineering interview preparation repository** 🎯
 
@@ -25,9 +25,9 @@
 - **[10_resources/](10_resources/)** - Tools, References, External Resources
 
 ### Essential Links
-- [📋 Master Index](MASTER_INDEX.md/) - Complete navigation guide
-- [🎯 Interview Checklist](08_interview_prep/guides/Interview_Preparation_Complete_Checklist.md/)
-- [🏗️ System Design Mastery](08_interview_prep/guides/SYSTEM_DESIGN_INTERVIEW_MASTERY.md/)
+- [📋 Master Index](MASTER_INDEX.md) - Complete navigation guide
+- [🎯 Interview Checklist](08_interview_prep/guides/Interview_Preparation_Complete_Checklist.md)
+- [🏗️ System Design Mastery](08_interview_prep/guides/SYSTEM_DESIGN_INTERVIEW_MASTERY.md)
 - [💼 Razorpay Specific](07_company_specific/razorpay/)
 
 ## 🚀 Quick Start
