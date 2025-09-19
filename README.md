@@ -6,8 +6,10 @@
 > **The most comprehensive backend engineering interview preparation repository** 🎯
 
 ## 📊 Repository Statistics
-- **📁 808+ Markdown Files**
-- **📝 600,000+ Lines of Content**
+- **📁 500+ Markdown Files + 14 Comprehensive Guides**
+- **📝 90,000+ Words of Production-Ready Content**
+- **💻 400+ Complete Code Examples**
+- **🏗️ 60+ Architecture Patterns**
 - **🎯 Complete Backend Engineering Coverage**
 
 ## 🎯 Quick Navigation
@@ -26,9 +28,11 @@
 
 ### Essential Links
 - [📋 Master Index](MASTER_INDEX.md) - Complete navigation guide
+- [🚀 Quick Start Guide](QUICK_START_GUIDE.md) - Get started in 5 minutes
 - [🎯 Interview Checklist](08_interview_prep/guides/Interview_Preparation_Complete_Checklist.md)
 - [🏗️ System Design Mastery](08_interview_prep/guides/SYSTEM_DESIGN_INTERVIEW_MASTERY.md)
 - [💼 Razorpay Specific](07_company_specific/razorpay/)
+- [📊 Repository Enhancement Summary](REPOSITORY_ENHANCEMENT_COMPLETE.md)
 
 ## 🚀 Quick Start
 
