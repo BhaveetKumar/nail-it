@@ -38,3 +38,20 @@ Implement a small async web service with request tracing, persistence, and grace
 ## Stretch
 
 - Rate limiting, backpressure tests, chaos tests.
+
+
+---
+
+## AUTO-GENERATED: Starter Content
+
+<!-- AUTO-GENERATED - REVIEW REQUIRED -->
+
+This section seeds the document with a short introduction, learning objectives, and related links to code samples.
+
+**Learning objectives:**
+- Understand the core concepts.
+- See practical code examples.
+
+**Related files:**
+
+Please replace this auto-generated section with curated content.

@@ -9,6 +9,18 @@ on:
       - 'rust-curriculum/projects/**'
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - name: Format check (workspace)
+        working-directory: rust-curriculum
+        run: cargo fmt --all -- --check
+      - name: Clippy (workspace)
+        working-directory: rust-curriculum
+        run: cargo clippy --all-targets -- -D warnings
   grpc-build:
     runs-on: ubuntu-latest
     steps:

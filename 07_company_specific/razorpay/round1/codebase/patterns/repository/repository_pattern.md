@@ -314,7 +314,7 @@ type GenericDatabaseRepository[T any, K comparable] struct {
 }
 
 func NewGenericDatabaseRepository[T any, K comparable](
-    db *sql.DB, tableName, idField string,
+    README.md
 ) *GenericDatabaseRepository[T, K] {
     return &GenericDatabaseRepository[T, K]{
         db:        db,

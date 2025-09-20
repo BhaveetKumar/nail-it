@@ -1,0 +1,24 @@
+name: Weekly Benches
+
+on:
+  schedule:
+    - cron: '0 3 * * 1' # Mondays at 03:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  benches:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - name: Run benches (DSA)
+        working-directory: rust-curriculum
+        run: |
+          cargo bench -p dsa_library -- --save-baseline weekly
+      - name: Upload bench artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dsa_benches
+          path: |
+            rust-curriculum/target/criterion

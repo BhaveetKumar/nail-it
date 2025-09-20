@@ -27,3 +27,20 @@ The example crate `examples/lesson24_actix` includes:
 
 - [Actix Web Guide](https://actix.rs/docs/)
 - [`actix-web` crate](https://crates.io/crates/actix-web)
+
+
+---
+
+## AUTO-GENERATED: Starter Content
+
+<!-- AUTO-GENERATED - REVIEW REQUIRED -->
+
+This section seeds the document with a short introduction, learning objectives, and related links to code samples.
+
+**Learning objectives:**
+- Understand the core concepts.
+- See practical code examples.
+
+**Related files:**
+
+Please replace this auto-generated section with curated content.

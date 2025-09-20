@@ -765,3 +765,17 @@ A: Start with requirements, estimate scale, identify components, design data flo
 ---
 
 **Next**: [Video Notes](../../README.md) | **Previous**: [Phase 3 Expert](../../README.md) | **Up**: [Company Prep](README.md)
+
+
+## Coding Practice/
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #coding-practice/ -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Technical Questions/
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #technical-questions/ -->
+
+Placeholder content. Please replace with proper section.

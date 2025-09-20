@@ -39,3 +39,20 @@ Build a fast, robust CLI to parse logs (JSON/NDJSON and text), filter, aggregate
 ## Stretch
 
 - Plugins via trait objects; async reading; gzip support.
+
+
+---
+
+## AUTO-GENERATED: Starter Content
+
+<!-- AUTO-GENERATED - REVIEW REQUIRED -->
+
+This section seeds the document with a short introduction, learning objectives, and related links to code samples.
+
+**Learning objectives:**
+- Understand the core concepts.
+- See practical code examples.
+
+**Related files:**
+
+Please replace this auto-generated section with curated content.

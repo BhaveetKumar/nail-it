@@ -2235,8 +2235,7 @@ type LazyTransformIterator[T, U any] struct {
 }
 
 func NewLazyTransformIterator[T, U any](
-    source Iterator[T],
-    transform func(T/) U,
+    README.md) U,
     filter func(T) bool,
 ) *LazyTransformIterator[T, U] {
     return &LazyTransformIterator[T, U]{
@@ -2308,11 +2307,7 @@ type LazyDatabaseIterator[T any] struct {
 }
 
 func NewLazyDatabaseIterator[T any](
-    db Database,
-    query string,
-    args []interface{},
-    batchSize int,
-    mapper func(*sql.Rows/) (T, error),
+    README.md) (T, error),
 ) *LazyDatabaseIterator[T] {
     return &LazyDatabaseIterator[T]{
         db:        db,

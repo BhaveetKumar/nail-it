@@ -50,3 +50,20 @@ func isPowerOfTwoLoop(n int) bool {
 ### Complexity
 - **Time Complexity:** O(1) for bit manipulation, O(log n) for loop
 - **Space Complexity:** O(1)
+
+
+---
+
+## AUTO-GENERATED: Starter Content
+
+<!-- AUTO-GENERATED - REVIEW REQUIRED -->
+
+This section seeds the document with a short introduction, learning objectives, and related links to code samples.
+
+**Learning objectives:**
+- Understand the core concepts.
+- See practical code examples.
+
+**Related files:**
+
+Please replace this auto-generated section with curated content.
