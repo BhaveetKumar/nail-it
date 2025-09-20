@@ -168,15 +168,7 @@ Phase 0: Fundamentals → Phase 1: Intermediate → Phase 2: Advanced → Phase 
 - Demonstrate practical application
 - Receive peer and mentor approval
 - Submit portfolio of work
-
-### 🏆 Certification Levels
-
-- **Fundamentals Certificate**: Complete Phase 0
-- **Intermediate Certificate**: Complete Phase 1
-- **Advanced Certificate**: Complete Phase 2
-- **Expert Certificate**: Complete Phase 3
-- **Master Engineer**: Complete all phases + additional requirements
-
+  
 ## Resources & Support
 
 ### 📚 Learning Resources
@@ -254,15 +246,6 @@ Phase 0: Fundamentals → Phase 1: Intermediate → Phase 2: Advanced → Phase 
 - Technical leadership experience
 - 25+ hours/week availability
 
-## Success Stories
-
-### 🌟 Alumni Achievements
-
-- **500+ Engineers** have completed the curriculum
-- **95% Career Advancement** within 2 years
-- **50+ Promotions** to senior roles
-- **20+ Startups** founded by alumni
-- **100+ Open Source** projects contributed
 
 ### 💼 Career Impact
 
@@ -298,10 +281,9 @@ This curriculum is licensed under the MIT License. See the [LICENSE](../LICENSE)
 
 ## Contact
 
-- **Email**: curriculum@masterengineer.dev
-- **GitHub**: [Master Engineer Curriculum](https://github.com/master-engineer/curriculum/)
-- **Discord**: [Learning Community](https://discord.gg/master-engineer/)
-- **LinkedIn**: [Master Engineer](https://linkedin.com/company/master-engineer/)
+- **Email**: bhaveetkumar0@gmail.com
+- **GitHub**: [Master Engineer Curriculum](https://github.com/BhaveetKumar/nail-it/)
+- **LinkedIn**: (https://www.linkedin.com/in/bhaveet-yadav-7777a0147/)
 
 ---
 
