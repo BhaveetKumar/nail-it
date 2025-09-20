@@ -4,14 +4,14 @@
 
 ## 📋 Table of Contents
 
-1. [Array & String Problems](#array--string-problems/)
-2. [Linked List Problems](#linked-list-problems/)
-3. [Tree & Graph Problems](#tree--graph-problems/)
-4. [Dynamic Programming](#dynamic-programming/)
-5. [Sorting & Searching](#sorting--searching/)
-6. [Greedy Algorithms](#greedy-algorithms/)
-7. [Backtracking](#backtracking/)
-8. [FAANG Interview Questions](#faang-interview-questions/)
+1. [Array & String Problems](#array--string-problems)
+2. [Linked List Problems](#linked-list-problems)
+3. [Tree & Graph Problems](#tree--graph-problems)
+4. [Dynamic Programming](#dynamic-programming)
+5. [Sorting & Searching](#sorting--searching)
+6. [Greedy Algorithms](#greedy-algorithms)
+7. [Backtracking](#backtracking)
+8. [FAANG Interview Questions](#faang-interview-questions)
 
 ---
 
