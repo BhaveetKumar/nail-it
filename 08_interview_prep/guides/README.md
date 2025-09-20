@@ -34,3 +34,20 @@ This folder contains the core preparation guides that form the foundation of you
 ---
 
 **🎉 These guides form the foundation of your interview preparation journey!**
+
+
+---
+
+## AUTO-GENERATED: Starter Content
+
+<!-- AUTO-GENERATED - REVIEW REQUIRED -->
+
+This section seeds the document with a short introduction, learning objectives, and related links to code samples.
+
+**Learning objectives:**
+- Understand the core concepts.
+- See practical code examples.
+
+**Related files:**
+
+Please replace this auto-generated section with curated content.

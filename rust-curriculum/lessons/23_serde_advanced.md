@@ -28,3 +28,20 @@ The example crate `examples/lesson23_serde_advanced` includes:
 
 - [Serde Attributes Reference](https://serde.rs/attributes.html)
 - [`base64` crate](https://crates.io/crates/base64)
+
+
+---
+
+## AUTO-GENERATED: Starter Content
+
+<!-- AUTO-GENERATED - REVIEW REQUIRED -->
+
+This section seeds the document with a short introduction, learning objectives, and related links to code samples.
+
+**Learning objectives:**
+- Understand the core concepts.
+- See practical code examples.
+
+**Related files:**
+
+Please replace this auto-generated section with curated content.

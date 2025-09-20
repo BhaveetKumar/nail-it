@@ -78,4 +78,6 @@
   ,{"title": "RTIC book", "url": "https://rtic.rs/2/book/en/", "fetched_at": "2025-09-20T00:00:00Z"}
   ,{"title": "Apache Kafka", "url": "https://kafka.apache.org/", "fetched_at": "2025-09-20T00:00:00Z"}
   ,{"title": "NATS.io", "url": "https://nats.io/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: protoc-bin-vendored", "url": "https://crates.io/crates/protoc-bin-vendored", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "peaceiris/actions-gh-pages", "url": "https://github.com/peaceiris/actions-gh-pages", "fetched_at": "2025-09-20T00:00:00Z"}
 ]
