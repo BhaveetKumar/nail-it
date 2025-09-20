@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Leadership Principles](#leadership-principles/)
-3. [Technical Decision Making](#technical-decision-making/)
-4. [Team Building](#team-building/)
-5. [Communication Strategies](#communication-strategies/)
-6. [Change Management](#change-management/)
-7. [Innovation Leadership](#innovation-leadership/)
-8. [Implementations](#implementations/)
-9. [Follow-up Questions](#follow-up-questions/)
-10. [Sources](#sources/)
-11. [Projects](#projects/)
+1. [Overview](#overview)
+2. [Leadership Principles](#leadership-principles)
+3. [Technical Decision Making](#technical-decision-making)
+4. [Team Building](#team-building)
+5. [Communication Strategies](#communication-strategies)
+6. [Change Management](#change-management)
+7. [Innovation Leadership](#innovation-leadership)
+8. [Implementations](#implementations)
+9. [Follow-up Questions](#follow-up-questions)
+10. [Sources](#sources)
+11. [Projects](#projects)
 
 ## Overview
 

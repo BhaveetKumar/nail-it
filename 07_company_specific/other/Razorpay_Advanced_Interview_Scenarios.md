@@ -4,11 +4,11 @@
 
 ## 📋 Table of Contents
 
-1. [Advanced System Design Scenarios](#advanced-system-design-scenarios/)
-2. [Go Runtime Deep Dive Questions](#go-runtime-deep-dive-questions/)
-3. [Performance Engineering Challenges](#performance-engineering-challenges/)
-4. [Leadership & Architecture Scenarios](#leadership--architecture-scenarios/)
-5. [Razorpay-Specific Technical Challenges](#razorpay-specific-technical-challenges/)
+1. [Advanced System Design Scenarios](#advanced-system-design-scenarios)
+2. [Go Runtime Deep Dive Questions](#go-runtime-deep-dive-questions)
+3. [Performance Engineering Challenges](#performance-engineering-challenges)
+4. [Leadership & Architecture Scenarios](#leadership--architecture-scenarios)
+5. [Razorpay-Specific Technical Challenges](#razorpay-specific-technical-challenges)
 
 ---
 

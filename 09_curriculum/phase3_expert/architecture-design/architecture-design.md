@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [System Architecture Principles](#system-architecture-principles/)
-3. [Architecture Patterns](#architecture-patterns/)
-4. [Scalability Design](#scalability-design/)
-5. [Reliability Design](#reliability-design/)
-6. [Security Architecture](#security-architecture/)
-7. [Performance Architecture](#performance-architecture/)
-8. [Implementations](#implementations/)
-9. [Follow-up Questions](#follow-up-questions/)
-10. [Sources](#sources/)
-11. [Projects](#projects/)
+1. [Overview](#overview)
+2. [System Architecture Principles](#system-architecture-principles)
+3. [Architecture Patterns](#architecture-patterns)
+4. [Scalability Design](#scalability-design)
+5. [Reliability Design](#reliability-design)
+6. [Security Architecture](#security-architecture)
+7. [Performance Architecture](#performance-architecture)
+8. [Implementations](#implementations)
+9. [Follow-up Questions](#follow-up-questions)
+10. [Sources](#sources)
+11. [Projects](#projects)
 
 ## Overview
 

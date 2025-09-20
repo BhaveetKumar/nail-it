@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Descriptive Statistics](#descriptive-statistics/)
-3. [Probability Theory](#probability-theory/)
-4. [Probability Distributions](#probability-distributions/)
-5. [Hypothesis Testing](#hypothesis-testing/)
-6. [Regression Analysis](#regression-analysis/)
-7. [Applications](#applications/)
-8. [Implementations](#implementations/)
-9. [Follow-up Questions](#follow-up-questions/)
-10. [Sources](#sources/)
-11. [Projects](#projects/)
+1. [Overview](#overview)
+2. [Descriptive Statistics](#descriptive-statistics)
+3. [Probability Theory](#probability-theory)
+4. [Probability Distributions](#probability-distributions)
+5. [Hypothesis Testing](#hypothesis-testing)
+6. [Regression Analysis](#regression-analysis)
+7. [Applications](#applications)
+8. [Implementations](#implementations)
+9. [Follow-up Questions](#follow-up-questions)
+10. [Sources](#sources)
+11. [Projects](#projects)
 
 ## Overview
 

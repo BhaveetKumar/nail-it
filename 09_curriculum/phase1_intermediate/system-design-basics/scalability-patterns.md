@@ -6,14 +6,14 @@ This module covers scalability patterns including horizontal scaling, vertical s
 
 ## Table of Contents
 
-1. [Horizontal Scaling](#horizontal-scaling/)
-2. [Vertical Scaling](#vertical-scaling/)
-3. [Load Balancing](#load-balancing/)
-4. [Caching Strategies](#caching-strategies/)
-5. [Database Sharding](#database-sharding/)
-6. [Applications](#applications/)
-7. [Complexity Analysis](#complexity-analysis/)
-8. [Follow-up Questions](#follow-up-questions/)
+1. [Horizontal Scaling](#horizontal-scaling)
+2. [Vertical Scaling](#vertical-scaling)
+3. [Load Balancing](#load-balancing)
+4. [Caching Strategies](#caching-strategies)
+5. [Database Sharding](#database-sharding)
+6. [Applications](#applications)
+7. [Complexity Analysis](#complexity-analysis)
+8. [Follow-up Questions](#follow-up-questions)
 
 ## Horizontal Scaling
 

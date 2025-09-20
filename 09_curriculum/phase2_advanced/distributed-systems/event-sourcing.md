@@ -6,13 +6,13 @@ This module covers event sourcing patterns including event stores, event streams
 
 ## Table of Contents
 
-1. [Event Store](#event-store/)
-2. [Event Streams](#event-streams/)
-3. [Snapshots](#snapshots/)
-4. [CQRS Implementation](#cqrs-implementation/)
-5. [Applications](#applications/)
-6. [Complexity Analysis](#complexity-analysis/)
-7. [Follow-up Questions](#follow-up-questions/)
+1. [Event Store](#event-store)
+2. [Event Streams](#event-streams)
+3. [Snapshots](#snapshots)
+4. [CQRS Implementation](#cqrs-implementation)
+5. [Applications](#applications)
+6. [Complexity Analysis](#complexity-analysis)
+7. [Follow-up Questions](#follow-up-questions)
 
 ## Event Store
 

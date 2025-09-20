@@ -6,14 +6,14 @@ This module covers RESTful API design concepts including HTTP methods, status co
 
 ## Table of Contents
 
-1. [HTTP Methods & Status Codes](#http-methods--status-codes/)
-2. [Resource Design](#resource-design/)
-3. [API Versioning](#api-versioning/)
-4. [Error Handling](#error-handling/)
-5. [Pagination & Filtering](#pagination--filtering/)
-6. [Applications](#applications/)
-7. [Complexity Analysis](#complexity-analysis/)
-8. [Follow-up Questions](#follow-up-questions/)
+1. [HTTP Methods & Status Codes](#http-methods--status-codes)
+2. [Resource Design](#resource-design)
+3. [API Versioning](#api-versioning)
+4. [Error Handling](#error-handling)
+5. [Pagination & Filtering](#pagination--filtering)
+6. [Applications](#applications)
+7. [Complexity Analysis](#complexity-analysis)
+8. [Follow-up Questions](#follow-up-questions)
 
 ## HTTP Methods & Status Codes
 

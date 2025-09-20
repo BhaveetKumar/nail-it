@@ -2,18 +2,18 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Supervised Learning](#supervised-learning/)
-3. [Unsupervised Learning](#unsupervised-learning/)
-4. [Deep Learning](#deep-learning/)
-5. [Natural Language Processing](#natural-language-processing/)
-6. [Computer Vision](#computer-vision/)
-7. [Model Deployment](#model-deployment/)
-8. [MLOps](#mlops/)
-9. [Implementations](#implementations/)
-10. [Follow-up Questions](#follow-up-questions/)
-11. [Sources](#sources/)
-12. [Projects](#projects/)
+1. [Overview](#overview)
+2. [Supervised Learning](#supervised-learning)
+3. [Unsupervised Learning](#unsupervised-learning)
+4. [Deep Learning](#deep-learning)
+5. [Natural Language Processing](#natural-language-processing)
+6. [Computer Vision](#computer-vision)
+7. [Model Deployment](#model-deployment)
+8. [MLOps](#mlops)
+9. [Implementations](#implementations)
+10. [Follow-up Questions](#follow-up-questions)
+11. [Sources](#sources)
+12. [Projects](#projects)
 
 ## Overview
 

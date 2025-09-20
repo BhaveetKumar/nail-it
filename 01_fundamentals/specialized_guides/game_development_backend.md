@@ -1,16 +1,16 @@
 # Game Development Backend Systems
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Game Server Architecture](#game-server-architecture/)
-- [Real-Time Multiplayer](#real-time-multiplayer/)
-- [Game State Management](#game-state-management/)
-- [Player Management](#player-management/)
-- [Matchmaking Systems](#matchmaking-systems/)
-- [Economy and Monetization](#economy-and-monetization/)
-- [Analytics and Telemetry](#analytics-and-telemetry/)
-- [Anti-Cheat Systems](#anti-cheat-systems/)
-- [Content Delivery](#content-delivery/)
+- [Introduction](#introduction)
+- [Game Server Architecture](#game-server-architecture)
+- [Real-Time Multiplayer](#real-time-multiplayer)
+- [Game State Management](#game-state-management)
+- [Player Management](#player-management)
+- [Matchmaking Systems](#matchmaking-systems)
+- [Economy and Monetization](#economy-and-monetization)
+- [Analytics and Telemetry](#analytics-and-telemetry)
+- [Anti-Cheat Systems](#anti-cheat-systems)
+- [Content Delivery](#content-delivery)
 
 ## Introduction
 

@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Consensus Algorithms](#consensus-algorithms/)
-3. [Distributed Storage](#distributed-storage/)
-4. [Event Sourcing](#event-sourcing/)
-5. [Service Mesh](#service-mesh/)
-6. [Distributed Tracing](#distributed-tracing/)
-7. [Fault Tolerance](#fault-tolerance/)
-8. [Implementations](#implementations/)
-9. [Follow-up Questions](#follow-up-questions/)
-10. [Sources](#sources/)
-11. [Projects](#projects/)
+1. [Overview](#overview)
+2. [Consensus Algorithms](#consensus-algorithms)
+3. [Distributed Storage](#distributed-storage)
+4. [Event Sourcing](#event-sourcing)
+5. [Service Mesh](#service-mesh)
+6. [Distributed Tracing](#distributed-tracing)
+7. [Fault Tolerance](#fault-tolerance)
+8. [Implementations](#implementations)
+9. [Follow-up Questions](#follow-up-questions)
+10. [Sources](#sources)
+11. [Projects](#projects)
 
 ## Overview
 

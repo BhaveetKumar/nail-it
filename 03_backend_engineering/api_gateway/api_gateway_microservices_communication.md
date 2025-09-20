@@ -1,15 +1,15 @@
 # 🌐 API Gateway & Microservices Communication
 
 ## Table of Contents
-1. [API Gateway Fundamentals](#api-gateway-fundamentals/)
-2. [Request Routing](#request-routing/)
-3. [Authentication & Authorization](#authentication--authorization/)
-4. [Rate Limiting & Throttling](#rate-limiting--throttling/)
-5. [Circuit Breaker Pattern](#circuit-breaker-pattern/)
-6. [Service Discovery](#service-discovery/)
-7. [Load Balancing](#load-balancing/)
-8. [Go Implementation Examples](#go-implementation-examples/)
-9. [Interview Questions](#interview-questions/)
+1. [API Gateway Fundamentals](#api-gateway-fundamentals)
+2. [Request Routing](#request-routing)
+3. [Authentication & Authorization](#authentication--authorization)
+4. [Rate Limiting & Throttling](#rate-limiting--throttling)
+5. [Circuit Breaker Pattern](#circuit-breaker-pattern)
+6. [Service Discovery](#service-discovery)
+7. [Load Balancing](#load-balancing)
+8. [Go Implementation Examples](#go-implementation-examples)
+9. [Interview Questions](#interview-questions)
 
 ## API Gateway Fundamentals
 

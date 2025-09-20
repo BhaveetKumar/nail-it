@@ -1,16 +1,16 @@
 # Advanced Technical Leadership
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Leadership Principles](#leadership-principles/)
-- [Decision Making Frameworks](#decision-making-frameworks/)
-- [Team Building and Management](#team-building-and-management/)
-- [Communication and Influence](#communication-and-influence/)
-- [Change Management](#change-management/)
-- [Innovation Leadership](#innovation-leadership/)
-- [Strategic Thinking](#strategic-thinking/)
-- [Performance Management](#performance-management/)
-- [Crisis Leadership](#crisis-leadership/)
+- [Introduction](#introduction)
+- [Leadership Principles](#leadership-principles)
+- [Decision Making Frameworks](#decision-making-frameworks)
+- [Team Building and Management](#team-building-and-management)
+- [Communication and Influence](#communication-and-influence)
+- [Change Management](#change-management)
+- [Innovation Leadership](#innovation-leadership)
+- [Strategic Thinking](#strategic-thinking)
+- [Performance Management](#performance-management)
+- [Crisis Leadership](#crisis-leadership)
 
 ## Introduction
 

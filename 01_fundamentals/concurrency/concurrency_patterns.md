@@ -1,16 +1,16 @@
 # ⚡ Concurrency and Parallelism in Go
 
 ## Table of Contents
-1. [Concurrency vs Parallelism](#concurrency-vs-parallelism/)
-2. [Goroutines](#goroutines/)
-3. [Channels](#channels/)
-4. [Synchronization](#synchronization/)
-5. [Select Statement](#select-statement/)
-6. [Context Package](#context-package/)
-7. [Common Patterns](#common-patterns/)
-8. [Error Handling](#error-handling/)
-9. [Performance Considerations](#performance-considerations/)
-10. [Interview Questions](#interview-questions/)
+1. [Concurrency vs Parallelism](#concurrency-vs-parallelism)
+2. [Goroutines](#goroutines)
+3. [Channels](#channels)
+4. [Synchronization](#synchronization)
+5. [Select Statement](#select-statement)
+6. [Context Package](#context-package)
+7. [Common Patterns](#common-patterns)
+8. [Error Handling](#error-handling)
+9. [Performance Considerations](#performance-considerations)
+10. [Interview Questions](#interview-questions)
 
 ## Concurrency vs Parallelism
 

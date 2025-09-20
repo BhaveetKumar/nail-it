@@ -1,14 +1,14 @@
 # Advanced Optimization Techniques
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Algorithm Optimization](#algorithm-optimization/)
-- [Memory Optimization](#memory-optimization/)
-- [Concurrency Optimization](#concurrency-optimization/)
-- [Database Optimization](#database-optimization/)
-- [Network Optimization](#network-optimization/)
-- [Caching Strategies](#caching-strategies/)
-- [Performance Profiling](#performance-profiling/)
+- [Introduction](#introduction)
+- [Algorithm Optimization](#algorithm-optimization)
+- [Memory Optimization](#memory-optimization)
+- [Concurrency Optimization](#concurrency-optimization)
+- [Database Optimization](#database-optimization)
+- [Network Optimization](#network-optimization)
+- [Caching Strategies](#caching-strategies)
+- [Performance Profiling](#performance-profiling)
 
 ## Introduction
 

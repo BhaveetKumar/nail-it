@@ -2,13 +2,13 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Video Categories](#video-categories/)
-3. [Content Extraction Process](#content-extraction-process/)
-4. [Implementation Notes](#implementation-notes/)
-5. [Cross-References](#cross-references/)
-6. [Follow-up Questions](#follow-up-questions/)
-7. [Sources](#sources/)
+1. [Overview](#overview)
+2. [Video Categories](#video-categories)
+3. [Content Extraction Process](#content-extraction-process)
+4. [Implementation Notes](#implementation-notes)
+5. [Cross-References](#cross-references)
+6. [Follow-up Questions](#follow-up-questions)
+7. [Sources](#sources)
 
 ## Overview
 

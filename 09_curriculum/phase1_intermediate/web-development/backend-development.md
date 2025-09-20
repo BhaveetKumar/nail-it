@@ -6,15 +6,15 @@ This module covers backend development concepts including Express.js, FastAPI, S
 
 ## Table of Contents
 
-1. [Express.js Fundamentals](#expressjs-fundamentals/)
-2. [FastAPI Fundamentals](#fastapi-fundamentals/)
-3. [Spring Boot Fundamentals](#spring-boot-fundamentals/)
-4. [RESTful API Design](#restful-api-design/)
-5. [Authentication & Authorization](#authentication--authorization/)
-6. [Database Integration](#database-integration/)
-7. [Applications](#applications/)
-8. [Complexity Analysis](#complexity-analysis/)
-9. [Follow-up Questions](#follow-up-questions/)
+1. [Express.js Fundamentals](#expressjs-fundamentals)
+2. [FastAPI Fundamentals](#fastapi-fundamentals)
+3. [Spring Boot Fundamentals](#spring-boot-fundamentals)
+4. [RESTful API Design](#restful-api-design)
+5. [Authentication & Authorization](#authentication--authorization)
+6. [Database Integration](#database-integration)
+7. [Applications](#applications)
+8. [Complexity Analysis](#complexity-analysis)
+9. [Follow-up Questions](#follow-up-questions)
 
 ## Express.js Fundamentals
 

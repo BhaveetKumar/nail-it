@@ -4,12 +4,12 @@
 
 ### 📋 Table of Contents
 
-1. [Curriculum Overview](#curriculum-overview/)
-2. [Learning Paths](#learning-paths/)
-3. [Phase Structure](#phase-structure/)
-4. [Assessment Framework](#assessment-framework/)
-5. [Resources & Sources](#resources--sources/)
-6. [Progress Tracking](#progress-tracking/)
+1. [Curriculum Overview](#curriculum-overview)
+2. [Learning Paths](#learning-paths)
+3. [Phase Structure](#phase-structure)
+4. [Assessment Framework](#assessment-framework)
+5. [Resources & Sources](#resources--sources)
+6. [Progress Tracking](#progress-tracking)
 
 ---
 

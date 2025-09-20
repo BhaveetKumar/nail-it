@@ -1,16 +1,16 @@
 # 🗄️ Advanced Database Concepts & Optimization
 
 ## Table of Contents
-1. [Database Internals](#database-internals/)
-2. [Query Optimization](#query-optimization/)
-3. [Indexing Strategies](#indexing-strategies/)
-4. [Transaction Management](#transaction-management/)
-5. [Concurrency Control](#concurrency-control/)
-6. [Database Sharding](#database-sharding/)
-7. [Replication Strategies](#replication-strategies/)
-8. [Performance Tuning](#performance-tuning/)
-9. [Go Implementation Examples](#go-implementation-examples/)
-10. [Interview Questions](#interview-questions/)
+1. [Database Internals](#database-internals)
+2. [Query Optimization](#query-optimization)
+3. [Indexing Strategies](#indexing-strategies)
+4. [Transaction Management](#transaction-management)
+5. [Concurrency Control](#concurrency-control)
+6. [Database Sharding](#database-sharding)
+7. [Replication Strategies](#replication-strategies)
+8. [Performance Tuning](#performance-tuning)
+9. [Go Implementation Examples](#go-implementation-examples)
+10. [Interview Questions](#interview-questions)
 
 ## Database Internals
 

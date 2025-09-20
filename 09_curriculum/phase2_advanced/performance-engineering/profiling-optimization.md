@@ -6,13 +6,13 @@ This module covers performance profiling and optimization techniques including C
 
 ## Table of Contents
 
-1. [CPU Profiling](#cpu-profiling/)
-2. [Memory Profiling](#memory-profiling/)
-3. [Bottleneck Identification](#bottleneck-identification/)
-4. [Optimization Strategies](#optimization-strategies/)
-5. [Applications](#applications/)
-6. [Complexity Analysis](#complexity-analysis/)
-7. [Follow-up Questions](#follow-up-questions/)
+1. [CPU Profiling](#cpu-profiling)
+2. [Memory Profiling](#memory-profiling)
+3. [Bottleneck Identification](#bottleneck-identification)
+4. [Optimization Strategies](#optimization-strategies)
+5. [Applications](#applications)
+6. [Complexity Analysis](#complexity-analysis)
+7. [Follow-up Questions](#follow-up-questions)
 
 ## CPU Profiling
 

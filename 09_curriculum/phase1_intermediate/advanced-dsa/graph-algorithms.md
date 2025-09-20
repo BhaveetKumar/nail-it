@@ -6,14 +6,14 @@ This module covers advanced graph algorithms including shortest path algorithms,
 
 ## Table of Contents
 
-1. [Shortest Path Algorithms](#shortest-path-algorithms/)
-2. [Minimum Spanning Trees](#minimum-spanning-trees/)
-3. [Topological Sorting](#topological-sorting/)
-4. [Strongly Connected Components](#strongly-connected-components/)
-5. [Network Flow](#network-flow/)
-6. [Applications](#applications/)
-7. [Complexity Analysis](#complexity-analysis/)
-8. [Follow-up Questions](#follow-up-questions/)
+1. [Shortest Path Algorithms](#shortest-path-algorithms)
+2. [Minimum Spanning Trees](#minimum-spanning-trees)
+3. [Topological Sorting](#topological-sorting)
+4. [Strongly Connected Components](#strongly-connected-components)
+5. [Network Flow](#network-flow)
+6. [Applications](#applications)
+7. [Complexity Analysis](#complexity-analysis)
+8. [Follow-up Questions](#follow-up-questions)
 
 ## Shortest Path Algorithms
 

@@ -12,14 +12,14 @@
 
 ## 📚 **Table of Contents**
 
-1. [What is TinyML?](#what-is-tinyml/)
-2. [TinyML vs Standard ML](#tinyml-vs-standard-ml/)
-3. [Challenges and Constraints](#challenges-and-constraints/)
-4. [TinyML Applications](#tinyml-applications/)
-5. [JavaScript for TinyML](#javascript-for-tinyml/)
-6. [Node.js Integration](#nodejs-integration/)
-7. [Getting Started](#getting-started/)
-8. [Interview Questions](#interview-questions/)
+1. [What is TinyML?](#what-is-tinyml)
+2. [TinyML vs Standard ML](#tinyml-vs-standard-ml)
+3. [Challenges and Constraints](#challenges-and-constraints)
+4. [TinyML Applications](#tinyml-applications)
+5. [JavaScript for TinyML](#javascript-for-tinyml)
+6. [Node.js Integration](#nodejs-integration)
+7. [Getting Started](#getting-started)
+8. [Interview Questions](#interview-questions)
 
 ---
 

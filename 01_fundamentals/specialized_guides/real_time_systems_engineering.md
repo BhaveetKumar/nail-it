@@ -1,16 +1,16 @@
 # Real-Time Systems Engineering Guide
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Real-Time System Fundamentals](#real-time-system-fundamentals/)
-- [Low-Latency Architecture](#low-latency-architecture/)
-- [Event-Driven Systems](#event-driven-systems/)
-- [Stream Processing](#stream-processing/)
-- [High-Frequency Trading Systems](#high-frequency-trading-systems/)
-- [Gaming and Interactive Systems](#gaming-and-interactive-systems/)
-- [IoT and Edge Computing](#iot-and-edge-computing/)
-- [Real-Time Communication](#real-time-communication/)
-- [Performance Optimization](#performance-optimization/)
+- [Introduction](#introduction)
+- [Real-Time System Fundamentals](#real-time-system-fundamentals)
+- [Low-Latency Architecture](#low-latency-architecture)
+- [Event-Driven Systems](#event-driven-systems)
+- [Stream Processing](#stream-processing)
+- [High-Frequency Trading Systems](#high-frequency-trading-systems)
+- [Gaming and Interactive Systems](#gaming-and-interactive-systems)
+- [IoT and Edge Computing](#iot-and-edge-computing)
+- [Real-Time Communication](#real-time-communication)
+- [Performance Optimization](#performance-optimization)
 
 ## Introduction
 

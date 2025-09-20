@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Logic and Proofs](#logic-and-proofs/)
-3. [Set Theory](#set-theory/)
-4. [Graph Theory](#graph-theory/)
-5. [Combinatorics](#combinatorics/)
-6. [Number Theory](#number-theory/)
-7. [Applications](#applications/)
-8. [Implementations](#implementations/)
-9. [Follow-up Questions](#follow-up-questions/)
-10. [Sources](#sources/)
-11. [Projects](#projects/)
+1. [Overview](#overview)
+2. [Logic and Proofs](#logic-and-proofs)
+3. [Set Theory](#set-theory)
+4. [Graph Theory](#graph-theory)
+5. [Combinatorics](#combinatorics)
+6. [Number Theory](#number-theory)
+7. [Applications](#applications)
+8. [Implementations](#implementations)
+9. [Follow-up Questions](#follow-up-questions)
+10. [Sources](#sources)
+11. [Projects](#projects)
 
 ## Overview
 

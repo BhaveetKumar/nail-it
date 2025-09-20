@@ -1,13 +1,13 @@
 # Advanced Graph Algorithms Comprehensive
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Network Flow Algorithms](#network-flow-algorithms/)
-- [Graph Connectivity](#graph-connectivity/)
-- [Planar Graphs](#planar-graphs/)
-- [Graph Coloring](#graph-coloring/)
-- [Graph Decomposition](#graph-decomposition/)
-- [Advanced Applications](#advanced-applications/)
+- [Introduction](#introduction)
+- [Network Flow Algorithms](#network-flow-algorithms)
+- [Graph Connectivity](#graph-connectivity)
+- [Planar Graphs](#planar-graphs)
+- [Graph Coloring](#graph-coloring)
+- [Graph Decomposition](#graph-decomposition)
+- [Advanced Applications](#advanced-applications)
 
 ## Introduction
 

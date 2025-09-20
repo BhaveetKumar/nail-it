@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Technical Specializations](#technical-specializations/)
-3. [Domain Expertise](#domain-expertise/)
-4. [Emerging Technologies](#emerging-technologies/)
-5. [Research and Development](#research-and-development/)
-6. [Thought Leadership](#thought-leadership/)
-7. [Implementations](#implementations/)
-8. [Follow-up Questions](#follow-up-questions/)
-9. [Sources](#sources/)
-10. [Projects](#projects/)
+1. [Overview](#overview)
+2. [Technical Specializations](#technical-specializations)
+3. [Domain Expertise](#domain-expertise)
+4. [Emerging Technologies](#emerging-technologies)
+5. [Research and Development](#research-and-development)
+6. [Thought Leadership](#thought-leadership)
+7. [Implementations](#implementations)
+8. [Follow-up Questions](#follow-up-questions)
+9. [Sources](#sources)
+10. [Projects](#projects)
 
 ## Overview
 

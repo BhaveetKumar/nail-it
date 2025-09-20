@@ -1,16 +1,16 @@
 # Blockchain and Decentralized Systems Guide
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Blockchain Fundamentals](#blockchain-fundamentals/)
-- [Cryptocurrency Systems](#cryptocurrency-systems/)
-- [Smart Contracts](#smart-contracts/)
-- [Decentralized Applications (DApps)](#decentralized-applications-dapps/)
-- [Consensus Mechanisms](#consensus-mechanisms/)
-- [DeFi (Decentralized Finance)](#defi-decentralized-finance/)
-- [NFTs and Digital Assets](#nfts-and-digital-assets/)
-- [Web3 Infrastructure](#web3-infrastructure/)
-- [Security and Privacy](#security-and-privacy/)
+- [Introduction](#introduction)
+- [Blockchain Fundamentals](#blockchain-fundamentals)
+- [Cryptocurrency Systems](#cryptocurrency-systems)
+- [Smart Contracts](#smart-contracts)
+- [Decentralized Applications (DApps)](#decentralized-applications-dapps)
+- [Consensus Mechanisms](#consensus-mechanisms)
+- [DeFi (Decentralized Finance)](#defi-decentralized-finance)
+- [NFTs and Digital Assets](#nfts-and-digital-assets)
+- [Web3 Infrastructure](#web3-infrastructure)
+- [Security and Privacy](#security-and-privacy)
 
 ## Introduction
 

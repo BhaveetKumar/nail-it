@@ -8,11 +8,11 @@ This guide covers system design questions and machine coding problems commonly a
 
 ## 📚 **Table of Contents**
 
-1. [Payment Gateway System Design](#payment-gateway-system-design/)
-2. [Real-time Notification System](#real-time-notification-system/)
-3. [Distributed Rate Limiting](#distributed-rate-limiting/)
-4. [Machine Coding Problems](#machine-coding-problems/)
-5. [Interview Discussion Framework](#interview-discussion-framework/)
+1. [Payment Gateway System Design](#payment-gateway-system-design)
+2. [Real-time Notification System](#real-time-notification-system)
+3. [Distributed Rate Limiting](#distributed-rate-limiting)
+4. [Machine Coding Problems](#machine-coding-problems)
+5. [Interview Discussion Framework](#interview-discussion-framework)
 
 ---
 

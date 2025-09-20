@@ -8,14 +8,14 @@ This comprehensive guide covers API design principles, patterns, and implementat
 
 ## 🎯 Table of Contents
 
-1. [REST API Design](#rest-api-design/)
-2. [GraphQL API Design](#graphql-api-design/)
-3. [gRPC API Design](#grpc-api-design/)
-4. [API Security](#api-security/)
-5. [API Documentation](#api-documentation/)
-6. [API Testing](#api-testing/)
-7. [API Performance](#api-performance/)
-8. [API Versioning](#api-versioning/)
+1. [REST API Design](#rest-api-design)
+2. [GraphQL API Design](#graphql-api-design)
+3. [gRPC API Design](#grpc-api-design)
+4. [API Security](#api-security)
+5. [API Documentation](#api-documentation)
+6. [API Testing](#api-testing)
+7. [API Performance](#api-performance)
+8. [API Versioning](#api-versioning)
 
 ## 🔗 REST API Design
 

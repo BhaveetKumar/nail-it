@@ -6,13 +6,13 @@ This module covers enterprise architecture concepts including architectural patt
 
 ## Table of Contents
 
-1. [Architectural Patterns](#architectural-patterns/)
-2. [System Integration](#system-integration/)
-3. [Scalability Design](#scalability-design/)
-4. [Governance and Standards](#governance-and-standards/)
-5. [Applications](#applications/)
-6. [Complexity Analysis](#complexity-analysis/)
-7. [Follow-up Questions](#follow-up-questions/)
+1. [Architectural Patterns](#architectural-patterns)
+2. [System Integration](#system-integration)
+3. [Scalability Design](#scalability-design)
+4. [Governance and Standards](#governance-and-standards)
+5. [Applications](#applications)
+6. [Complexity Analysis](#complexity-analysis)
+7. [Follow-up Questions](#follow-up-questions)
 
 ## Architectural Patterns
 

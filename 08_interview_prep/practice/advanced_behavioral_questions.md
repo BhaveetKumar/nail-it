@@ -1,16 +1,16 @@
 # Advanced Behavioral Interview Questions
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Leadership Questions](#leadership-questions/)
-- [Technical Leadership](#technical-leadership/)
-- [Conflict Resolution](#conflict-resolution/)
-- [Innovation and Problem Solving](#innovation-and-problem-solving/)
-- [Team Management](#team-management/)
-- [Communication and Influence](#communication-and-influence/)
-- [Decision Making](#decision-making/)
-- [Growth and Learning](#growth-and-learning/)
-- [Company-Specific Questions](#company-specific-questions/)
+- [Introduction](#introduction)
+- [Leadership Questions](#leadership-questions)
+- [Technical Leadership](#technical-leadership)
+- [Conflict Resolution](#conflict-resolution)
+- [Innovation and Problem Solving](#innovation-and-problem-solving)
+- [Team Management](#team-management)
+- [Communication and Influence](#communication-and-influence)
+- [Decision Making](#decision-making)
+- [Growth and Learning](#growth-and-learning)
+- [Company-Specific Questions](#company-specific-questions)
 
 ## Introduction
 

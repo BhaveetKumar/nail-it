@@ -4,14 +4,14 @@
 
 ## 📋 Table of Contents
 
-1. [🔗 Distributed Consensus Algorithms](#-distributed-consensus-algorithms/)
-2. [⚡ Advanced Concurrency Patterns](#-advanced-concurrency-patterns/)
-3. [🎯 Rate Limiting & Circuit Breakers](#-rate-limiting--circuit-breakers/)
-4. [🔍 Probabilistic Data Structures](#-probabilistic-data-structures/)
-5. [📊 Load Balancing Strategies](#-load-balancing-strategies/)
-6. [🔄 Message Queue Patterns](#-message-queue-patterns/)
-7. [🔐 Distributed Security](#-distributed-security/)
-8. [📈 Monitoring & Observability](#-monitoring--observability/)
+1. [🔗 Distributed Consensus Algorithms](#-distributed-consensus-algorithms)
+2. [⚡ Advanced Concurrency Patterns](#-advanced-concurrency-patterns)
+3. [🎯 Rate Limiting & Circuit Breakers](#-rate-limiting--circuit-breakers)
+4. [🔍 Probabilistic Data Structures](#-probabilistic-data-structures)
+5. [📊 Load Balancing Strategies](#-load-balancing-strategies)
+6. [🔄 Message Queue Patterns](#-message-queue-patterns)
+7. [🔐 Distributed Security](#-distributed-security)
+8. [📈 Monitoring & Observability](#-monitoring--observability)
 
 ---
 

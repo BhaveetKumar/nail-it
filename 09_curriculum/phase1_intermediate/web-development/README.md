@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Frontend Development](#frontend-development/)
-3. [Backend Development](#backend-development/)
-4. [Full-Stack Integration](#full-stack-integration/)
-5. [Web Security](#web-security/)
-6. [Performance Optimization](#performance-optimization/)
-7. [Modern Web Technologies](#modern-web-technologies/)
-8. [Implementations](#implementations/)
-9. [Follow-up Questions](#follow-up-questions/)
-10. [Sources](#sources/)
-11. [Projects](#projects/)
+1. [Overview](#overview)
+2. [Frontend Development](#frontend-development)
+3. [Backend Development](#backend-development)
+4. [Full-Stack Integration](#full-stack-integration)
+5. [Web Security](#web-security)
+6. [Performance Optimization](#performance-optimization)
+7. [Modern Web Technologies](#modern-web-technologies)
+8. [Implementations](#implementations)
+9. [Follow-up Questions](#follow-up-questions)
+10. [Sources](#sources)
+11. [Projects](#projects)
 
 ## Overview
 

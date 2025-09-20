@@ -1,16 +1,16 @@
 # Advanced AI/ML Backend Systems
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [MLOps Architecture](#mlops-architecture/)
-- [Model Serving Systems](#model-serving-systems/)
-- [Feature Engineering](#feature-engineering/)
-- [Model Training Infrastructure](#model-training-infrastructure/)
-- [Model Monitoring and Observability](#model-monitoring-and-observability/)
-- [A/B Testing for ML](#ab-testing-for-ml/)
-- [Model Versioning and Management](#model-versioning-and-management/)
-- [Real-Time Inference](#real-time-inference/)
-- [Batch Processing Systems](#batch-processing-systems/)
+- [Introduction](#introduction)
+- [MLOps Architecture](#mlops-architecture)
+- [Model Serving Systems](#model-serving-systems)
+- [Feature Engineering](#feature-engineering)
+- [Model Training Infrastructure](#model-training-infrastructure)
+- [Model Monitoring and Observability](#model-monitoring-and-observability)
+- [A/B Testing for ML](#ab-testing-for-ml)
+- [Model Versioning and Management](#model-versioning-and-management)
+- [Real-Time Inference](#real-time-inference)
+- [Batch Processing Systems](#batch-processing-systems)
 
 ## Introduction
 

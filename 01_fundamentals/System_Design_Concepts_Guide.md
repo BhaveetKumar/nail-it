@@ -4,15 +4,15 @@
 
 ## 📋 Table of Contents
 
-1. [System Design Fundamentals](#system-design-fundamentals/)
-2. [Load Balancing](#load-balancing/)
-3. [Caching Strategies](#caching-strategies/)
-4. [Database Design](#database-design/)
-5. [Microservices Architecture](#microservices-architecture/)
-6. [Message Queues](#message-queues/)
-7. [API Design](#api-design/)
-8. [Security & Authentication](#security--authentication/)
-9. [FAANG Interview Questions](#faang-interview-questions/)
+1. [System Design Fundamentals](#system-design-fundamentals)
+2. [Load Balancing](#load-balancing)
+3. [Caching Strategies](#caching-strategies)
+4. [Database Design](#database-design)
+5. [Microservices Architecture](#microservices-architecture)
+6. [Message Queues](#message-queues)
+7. [API Design](#api-design)
+8. [Security & Authentication](#security--authentication)
+9. [FAANG Interview Questions](#faang-interview-questions)
 
 ---
 

@@ -6,13 +6,13 @@ This module covers technology trend analysis including trend identification, imp
 
 ## Table of Contents
 
-1. [Trend Identification](#trend-identification/)
-2. [Impact Assessment](#impact-assessment/)
-3. [Adoption Strategies](#adoption-strategies/)
-4. [Innovation Management](#innovation-management/)
-5. [Applications](#applications/)
-6. [Complexity Analysis](#complexity-analysis/)
-7. [Follow-up Questions](#follow-up-questions/)
+1. [Trend Identification](#trend-identification)
+2. [Impact Assessment](#impact-assessment)
+3. [Adoption Strategies](#adoption-strategies)
+4. [Innovation Management](#innovation-management)
+5. [Applications](#applications)
+6. [Complexity Analysis](#complexity-analysis)
+7. [Follow-up Questions](#follow-up-questions)
 
 ## Trend Identification
 

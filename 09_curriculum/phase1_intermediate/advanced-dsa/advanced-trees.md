@@ -6,15 +6,15 @@ This module covers advanced tree data structures including AVL trees, Red-Black 
 
 ## Table of Contents
 
-1. [AVL Trees](#avl-trees/)
-2. [Red-Black Trees](#red-black-trees/)
-3. [B-Trees](#b-trees/)
-4. [Segment Trees](#segment-trees/)
-5. [Fenwick Trees (Binary Indexed Trees)](#fenwick-trees-binary-indexed-trees/)
-6. [Tries](#tries/)
-7. [Applications](#applications/)
-8. [Complexity Analysis](#complexity-analysis/)
-9. [Follow-up Questions](#follow-up-questions/)
+1. [AVL Trees](#avl-trees)
+2. [Red-Black Trees](#red-black-trees)
+3. [B-Trees](#b-trees)
+4. [Segment Trees](#segment-trees)
+5. [Fenwick Trees (Binary Indexed Trees)](#fenwick-trees-binary-indexed-trees)
+6. [Tries](#tries)
+7. [Applications](#applications)
+8. [Complexity Analysis](#complexity-analysis)
+9. [Follow-up Questions](#follow-up-questions)
 
 ## AVL Trees
 

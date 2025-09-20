@@ -1,14 +1,14 @@
 # Advanced Concurrency Interviews
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Goroutine Management](#goroutine-management/)
-- [Channel Patterns](#channel-patterns/)
-- [Synchronization Primitives](#synchronization-primitives/)
-- [Lock-Free Programming](#lock-free-programming/)
-- [Concurrent Data Structures](#concurrent-data-structures/)
-- [Race Condition Prevention](#race-condition-prevention/)
-- [Performance Optimization](#performance-optimization/)
+- [Introduction](#introduction)
+- [Goroutine Management](#goroutine-management)
+- [Channel Patterns](#channel-patterns)
+- [Synchronization Primitives](#synchronization-primitives)
+- [Lock-Free Programming](#lock-free-programming)
+- [Concurrent Data Structures](#concurrent-data-structures)
+- [Race Condition Prevention](#race-condition-prevention)
+- [Performance Optimization](#performance-optimization)
 
 ## Introduction
 

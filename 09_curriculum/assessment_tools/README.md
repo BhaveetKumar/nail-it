@@ -2,14 +2,14 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Skill Assessment](#skill-assessment/)
-3. [Progress Tracking](#progress-tracking/)
-4. [Certification System](#certification-system/)
-5. [Performance Metrics](#performance-metrics/)
-6. [Learning Analytics](#learning-analytics/)
-7. [Follow-up Questions](#follow-up-questions/)
-8. [Sources](#sources/)
+1. [Overview](#overview)
+2. [Skill Assessment](#skill-assessment)
+3. [Progress Tracking](#progress-tracking)
+4. [Certification System](#certification-system)
+5. [Performance Metrics](#performance-metrics)
+6. [Learning Analytics](#learning-analytics)
+7. [Follow-up Questions](#follow-up-questions)
+8. [Sources](#sources)
 
 ## Overview
 

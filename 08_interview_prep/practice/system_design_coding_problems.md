@@ -1,14 +1,14 @@
 # System Design Coding Problems
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Distributed Cache Implementation](#distributed-cache-implementation/)
-- [Message Queue System](#message-queue-system/)
-- [Load Balancer Implementation](#load-balancer-implementation/)
-- [Database Sharding](#database-sharding/)
-- [Real-time Analytics System](#real-time-analytics-system/)
-- [File Storage System](#file-storage-system/)
-- [Search Engine Components](#search-engine-components/)
+- [Introduction](#introduction)
+- [Distributed Cache Implementation](#distributed-cache-implementation)
+- [Message Queue System](#message-queue-system)
+- [Load Balancer Implementation](#load-balancer-implementation)
+- [Database Sharding](#database-sharding)
+- [Real-time Analytics System](#real-time-analytics-system)
+- [File Storage System](#file-storage-system)
+- [Search Engine Components](#search-engine-components)
 
 ## Introduction
 

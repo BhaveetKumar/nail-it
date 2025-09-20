@@ -8,21 +8,21 @@ This guide covers 15 machine coding problems commonly asked in technical intervi
 
 ## 📚 **Table of Contents**
 
-1. [Messaging API - Real-time Communication System](#1-messaging-api---real-time-communication-system/)
-2. [Price Comparison - Multi-Vendor Price Aggregation](#2-price-comparison---multi-vendor-price-aggregation/)
-3. [Cab Booking System](#3-cab-booking-system/)
-4. [Payment Gateway Skeleton](#4-payment-gateway-skeleton/)
-5. [Idempotent Payments](#5-idempotent-payments/)
-6. [Order Matching Engine](#6-order-matching-engine/)
-7. [Rate Limiter](#7-rate-limiter/)
-8. [Batch Job Scheduler](#8-batch-job-scheduler/)
-9. [Inventory Service](#9-inventory-service/)
-10. [Notification Service](#10-notification-service/)
-11. [File Upload Service](#11-file-upload-service/)
-12. [Analytics Aggregator](#12-analytics-aggregator/)
-13. [Shopping Cart](#13-shopping-cart/)
-14. [Cache Invalidation](#14-cache-invalidation/)
-15. [Transactional Saga](#15-transactional-saga/)
+1. [Messaging API - Real-time Communication System](#1-messaging-api---real-time-communication-system)
+2. [Price Comparison - Multi-Vendor Price Aggregation](#2-price-comparison---multi-vendor-price-aggregation)
+3. [Cab Booking System](#3-cab-booking-system)
+4. [Payment Gateway Skeleton](#4-payment-gateway-skeleton)
+5. [Idempotent Payments](#5-idempotent-payments)
+6. [Order Matching Engine](#6-order-matching-engine)
+7. [Rate Limiter](#7-rate-limiter)
+8. [Batch Job Scheduler](#8-batch-job-scheduler)
+9. [Inventory Service](#9-inventory-service)
+10. [Notification Service](#10-notification-service)
+11. [File Upload Service](#11-file-upload-service)
+12. [Analytics Aggregator](#12-analytics-aggregator)
+13. [Shopping Cart](#13-shopping-cart)
+14. [Cache Invalidation](#14-cache-invalidation)
+15. [Transactional Saga](#15-transactional-saga)
 
 ---
 

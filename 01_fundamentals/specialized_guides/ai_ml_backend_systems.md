@@ -1,16 +1,16 @@
 # AI/ML Backend Systems Guide
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [ML Infrastructure](#ml-infrastructure/)
-- [Model Serving](#model-serving/)
-- [Feature Engineering](#feature-engineering/)
-- [Data Pipelines](#data-pipelines/)
-- [Model Training](#model-training/)
-- [MLOps](#mlops/)
-- [Real-Time ML](#real-time-ml/)
-- [ML Monitoring](#ml-monitoring/)
-- [Case Studies](#case-studies/)
+- [Introduction](#introduction)
+- [ML Infrastructure](#ml-infrastructure)
+- [Model Serving](#model-serving)
+- [Feature Engineering](#feature-engineering)
+- [Data Pipelines](#data-pipelines)
+- [Model Training](#model-training)
+- [MLOps](#mlops)
+- [Real-Time ML](#real-time-ml)
+- [ML Monitoring](#ml-monitoring)
+- [Case Studies](#case-studies)
 
 ## Introduction
 

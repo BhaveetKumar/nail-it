@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Books & Publications](#books--publications/)
-3. [Online Courses](#online-courses/)
-4. [Video Channels](#video-channels/)
-5. [Podcasts](#podcasts/)
-6. [Blogs & Articles](#blogs--articles/)
-7. [Tools & Platforms](#tools--platforms/)
-8. [Study Schedules](#study-schedules/)
-9. [Follow-up Questions](#follow-up-questions/)
-10. [Sources](#sources/)
+1. [Overview](#overview)
+2. [Books & Publications](#books--publications)
+3. [Online Courses](#online-courses)
+4. [Video Channels](#video-channels)
+5. [Podcasts](#podcasts)
+6. [Blogs & Articles](#blogs--articles)
+7. [Tools & Platforms](#tools--platforms)
+8. [Study Schedules](#study-schedules)
+9. [Follow-up Questions](#follow-up-questions)
+10. [Sources](#sources)
 
 ## Overview
 

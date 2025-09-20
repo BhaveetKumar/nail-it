@@ -1,0 +1,33 @@
+name: Deploy Yew Demo
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'rust-curriculum/projects/wasm_yew_app/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - name: Install wasm-pack
+        run: |
+          curl -sSfL https://rustwasm.github.io/wasm-pack/installer/init.sh | sh
+      - name: Build Yew app
+        working-directory: rust-curriculum/projects/wasm_yew_app
+        run: wasm-pack build --target web
+      - name: Prepare site
+        run: |
+          mkdir -p site
+          cp rust-curriculum/projects/wasm_yew_app/index.html site/
+          cp -r rust-curriculum/projects/wasm_yew_app/pkg site/
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: site

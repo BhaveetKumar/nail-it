@@ -6,14 +6,14 @@ This module covers distributed storage systems including consistent hashing, dis
 
 ## Table of Contents
 
-1. [Consistent Hashing](#consistent-hashing/)
-2. [Distributed Hash Tables (DHT)](#distributed-hash-tables-dht/)
-3. [Replication Strategies](#replication-strategies/)
-4. [Data Partitioning](#data-partitioning/)
-5. [CAP Theorem](#cap-theorem/)
-6. [Applications](#applications/)
-7. [Complexity Analysis](#complexity-analysis/)
-8. [Follow-up Questions](#follow-up-questions/)
+1. [Consistent Hashing](#consistent-hashing)
+2. [Distributed Hash Tables (DHT)](#distributed-hash-tables-dht)
+3. [Replication Strategies](#replication-strategies)
+4. [Data Partitioning](#data-partitioning)
+5. [CAP Theorem](#cap-theorem)
+6. [Applications](#applications)
+7. [Complexity Analysis](#complexity-analysis)
+8. [Follow-up Questions](#follow-up-questions)
 
 ## Consistent Hashing
 

@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Update Strategy](#update-strategy/)
-3. [Version Management](#version-management/)
-4. [Content Updates](#content-updates/)
-5. [Dependency Management](#dependency-management/)
-6. [Security Updates](#security-updates/)
-7. [Performance Monitoring](#performance-monitoring/)
-8. [Follow-up Questions](#follow-up-questions/)
-9. [Sources](#sources/)
+1. [Overview](#overview)
+2. [Update Strategy](#update-strategy)
+3. [Version Management](#version-management)
+4. [Content Updates](#content-updates)
+5. [Dependency Management](#dependency-management)
+6. [Security Updates](#security-updates)
+7. [Performance Monitoring](#performance-monitoring)
+8. [Follow-up Questions](#follow-up-questions)
+9. [Sources](#sources)
 
 ## Overview
 

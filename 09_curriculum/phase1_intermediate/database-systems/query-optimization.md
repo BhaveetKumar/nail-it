@@ -6,14 +6,14 @@ This module covers query optimization concepts including query planning, cost es
 
 ## Table of Contents
 
-1. [Query Planning](#query-planning/)
-2. [Cost Estimation](#cost-estimation/)
-3. [Join Algorithms](#join-algorithms/)
-4. [Index Selection](#index-selection/)
-5. [Query Rewriting](#query-rewriting/)
-6. [Applications](#applications/)
-7. [Complexity Analysis](#complexity-analysis/)
-8. [Follow-up Questions](#follow-up-questions/)
+1. [Query Planning](#query-planning)
+2. [Cost Estimation](#cost-estimation)
+3. [Join Algorithms](#join-algorithms)
+4. [Index Selection](#index-selection)
+5. [Query Rewriting](#query-rewriting)
+6. [Applications](#applications)
+7. [Complexity Analysis](#complexity-analysis)
+8. [Follow-up Questions](#follow-up-questions)
 
 ## Query Planning
 

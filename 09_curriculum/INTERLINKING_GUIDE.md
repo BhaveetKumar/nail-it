@@ -2,12 +2,12 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Interlinking Strategy](#interlinking-strategy/)
-3. [Cross-Reference System](#cross-reference-system/)
-4. [Navigation Structure](#navigation-structure/)
-5. [Implementation Examples](#implementation-examples/)
-6. [Maintenance Guidelines](#maintenance-guidelines/)
+1. [Overview](#overview)
+2. [Interlinking Strategy](#interlinking-strategy)
+3. [Cross-Reference System](#cross-reference-system)
+4. [Navigation Structure](#navigation-structure)
+5. [Implementation Examples](#implementation-examples)
+6. [Maintenance Guidelines](#maintenance-guidelines)
 
 ## Overview
 
@@ -114,13 +114,13 @@ Programming → Web Development → Distributed Systems → Leadership
 ```markdown
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Theory](#theory/)
-3. [Implementations](#implementations/)
-4. [Examples](#examples/)
-5. [Follow-up Questions](#follow-up-questions/)
-6. [Sources](#sources/)
-7. [Projects](#projects/)
+1. [Overview](#overview)
+2. [Theory](#theory)
+3. [Implementations](#implementations)
+4. [Examples](#examples)
+5. [Follow-up Questions](#follow-up-questions)
+6. [Sources](#sources)
+7. [Projects](#projects)
 ```
 
 ## Implementation Examples

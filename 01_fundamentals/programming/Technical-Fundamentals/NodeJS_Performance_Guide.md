@@ -12,15 +12,15 @@
 
 ## 📚 **Table of Contents**
 
-1. [Performance Fundamentals](#performance-fundamentals/)
-2. [Memory Management](#memory-management/)
-3. [CPU Optimization](#cpu-optimization/)
-4. [I/O Optimization](#io-optimization/)
-5. [Caching Strategies](#caching-strategies/)
-6. [Database Optimization](#database-optimization/)
-7. [Profiling and Monitoring](#profiling-and-monitoring/)
-8. [Production Optimization](#production-optimization/)
-9. [Interview Questions](#interview-questions/)
+1. [Performance Fundamentals](#performance-fundamentals)
+2. [Memory Management](#memory-management)
+3. [CPU Optimization](#cpu-optimization)
+4. [I/O Optimization](#io-optimization)
+5. [Caching Strategies](#caching-strategies)
+6. [Database Optimization](#database-optimization)
+7. [Profiling and Monitoring](#profiling-and-monitoring)
+8. [Production Optimization](#production-optimization)
+9. [Interview Questions](#interview-questions)
 
 ---
 

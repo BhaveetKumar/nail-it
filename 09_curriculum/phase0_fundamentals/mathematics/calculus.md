@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Limits and Continuity](#limits-and-continuity/)
-3. [Derivatives](#derivatives/)
-4. [Integrals](#integrals/)
-5. [Optimization](#optimization/)
-6. [Applications](#applications/)
-7. [Implementations](#implementations/)
-8. [Follow-up Questions](#follow-up-questions/)
-9. [Sources](#sources/)
-10. [Projects](#projects/)
+1. [Overview](#overview)
+2. [Limits and Continuity](#limits-and-continuity)
+3. [Derivatives](#derivatives)
+4. [Integrals](#integrals)
+5. [Optimization](#optimization)
+6. [Applications](#applications)
+7. [Implementations](#implementations)
+8. [Follow-up Questions](#follow-up-questions)
+9. [Sources](#sources)
+10. [Projects](#projects)
 
 ## Overview
 

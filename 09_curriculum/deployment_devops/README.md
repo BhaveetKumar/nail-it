@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Infrastructure Setup](#infrastructure-setup/)
-3. [CI/CD Pipeline](#cicd-pipeline/)
-4. [Container Orchestration](#container-orchestration/)
-5. [Monitoring & Logging](#monitoring--logging/)
-6. [Security & Compliance](#security--compliance/)
-7. [Backup & Recovery](#backup--recovery/)
-8. [Follow-up Questions](#follow-up-questions/)
-9. [Sources](#sources/)
+1. [Overview](#overview)
+2. [Infrastructure Setup](#infrastructure-setup)
+3. [CI/CD Pipeline](#cicd-pipeline)
+4. [Container Orchestration](#container-orchestration)
+5. [Monitoring & Logging](#monitoring--logging)
+6. [Security & Compliance](#security--compliance)
+7. [Backup & Recovery](#backup--recovery)
+8. [Follow-up Questions](#follow-up-questions)
+9. [Sources](#sources)
 
 ## Overview
 

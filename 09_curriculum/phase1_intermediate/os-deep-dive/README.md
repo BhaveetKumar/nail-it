@@ -2,18 +2,18 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Process Management](#process-management/)
-3. [Memory Management](#memory-management/)
-4. [File Systems](#file-systems/)
-5. [I/O Systems](#io-systems/)
-6. [Concurrency and Synchronization](#concurrency-and-synchronization/)
-7. [System Calls](#system-calls/)
-8. [Performance Optimization](#performance-optimization/)
-9. [Implementations](#implementations/)
-10. [Follow-up Questions](#follow-up-questions/)
-11. [Sources](#sources/)
-12. [Projects](#projects/)
+1. [Overview](#overview)
+2. [Process Management](#process-management)
+3. [Memory Management](#memory-management)
+4. [File Systems](#file-systems)
+5. [I/O Systems](#io-systems)
+6. [Concurrency and Synchronization](#concurrency-and-synchronization)
+7. [System Calls](#system-calls)
+8. [Performance Optimization](#performance-optimization)
+9. [Implementations](#implementations)
+10. [Follow-up Questions](#follow-up-questions)
+11. [Sources](#sources)
+12. [Projects](#projects)
 
 ## Overview
 

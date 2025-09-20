@@ -6,13 +6,13 @@ This module covers API documentation concepts including OpenAPI/Swagger specific
 
 ## Table of Contents
 
-1. [OpenAPI/Swagger Specifications](#openapiswagger-specifications/)
-2. [Interactive Documentation](#interactive-documentation/)
-3. [Code Generation](#code-generation/)
-4. [Documentation Best Practices](#documentation-best-practices/)
-5. [Applications](#applications/)
-6. [Complexity Analysis](#complexity-analysis/)
-7. [Follow-up Questions](#follow-up-questions/)
+1. [OpenAPI/Swagger Specifications](#openapiswagger-specifications)
+2. [Interactive Documentation](#interactive-documentation)
+3. [Code Generation](#code-generation)
+4. [Documentation Best Practices](#documentation-best-practices)
+5. [Applications](#applications)
+6. [Complexity Analysis](#complexity-analysis)
+7. [Follow-up Questions](#follow-up-questions)
 
 ## OpenAPI/Swagger Specifications
 

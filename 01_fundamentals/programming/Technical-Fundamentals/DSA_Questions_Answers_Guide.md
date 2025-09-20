@@ -8,14 +8,14 @@ This guide covers essential data structures and algorithms with detailed explana
 
 ## 📚 **Table of Contents**
 
-1. [Arrays and Strings](#arrays-and-strings/)
-2. [Linked Lists](#linked-lists/)
-3. [Stacks and Queues](#stacks-and-queues/)
-4. [Trees and Graphs](#trees-and-graphs/)
-5. [Dynamic Programming](#dynamic-programming/)
-6. [Sorting and Searching](#sorting-and-searching/)
-7. [Hash Tables and Sets](#hash-tables-and-sets/)
-8. [Advanced Algorithms](#advanced-algorithms/)
+1. [Arrays and Strings](#arrays-and-strings)
+2. [Linked Lists](#linked-lists)
+3. [Stacks and Queues](#stacks-and-queues)
+4. [Trees and Graphs](#trees-and-graphs)
+5. [Dynamic Programming](#dynamic-programming)
+6. [Sorting and Searching](#sorting-and-searching)
+7. [Hash Tables and Sets](#hash-tables-and-sets)
+8. [Advanced Algorithms](#advanced-algorithms)
 
 ---
 

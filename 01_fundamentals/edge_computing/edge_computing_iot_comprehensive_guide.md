@@ -1,14 +1,14 @@
 # 🌐 Edge Computing & IoT Comprehensive Guide
 
 ## Table of Contents
-1. [Edge Computing Fundamentals](#edge-computing-fundamentals/)
-2. [IoT Device Management](#iot-device-management/)
-3. [Edge Analytics](#edge-analytics/)
-4. [Fog Computing](#fog-computing/)
-5. [5G and Edge Networks](#5g-and-edge-networks/)
-6. [Edge Security](#edge-security/)
-7. [Go Implementation Examples](#go-implementation-examples/)
-8. [Interview Questions](#interview-questions/)
+1. [Edge Computing Fundamentals](#edge-computing-fundamentals)
+2. [IoT Device Management](#iot-device-management)
+3. [Edge Analytics](#edge-analytics)
+4. [Fog Computing](#fog-computing)
+5. [5G and Edge Networks](#5g-and-edge-networks)
+6. [Edge Security](#edge-security)
+7. [Go Implementation Examples](#go-implementation-examples)
+8. [Interview Questions](#interview-questions)
 
 ## Edge Computing Fundamentals
 

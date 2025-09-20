@@ -2,13 +2,13 @@
 
 ## 📚 Table of Contents
 
-1. [Concurrency Patterns](#concurrency-patterns/)
-2. [Error Handling](#error-handling/)
-3. [Interface Design](#interface-design/)
-4. [Data Structures](#data-structures/)
-5. [Algorithm Patterns](#algorithm-patterns/)
-6. [Testing Patterns](#testing-patterns/)
-7. [Performance Optimization](#performance-optimization/)
+1. [Concurrency Patterns](#concurrency-patterns)
+2. [Error Handling](#error-handling)
+3. [Interface Design](#interface-design)
+4. [Data Structures](#data-structures)
+5. [Algorithm Patterns](#algorithm-patterns)
+6. [Testing Patterns](#testing-patterns)
+7. [Performance Optimization](#performance-optimization)
 
 ## Concurrency Patterns
 

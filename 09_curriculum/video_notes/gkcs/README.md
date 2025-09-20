@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [System Design Videos](#system-design-videos/)
-3. [Algorithm Videos](#algorithm-videos/)
-4. [Database Videos](#database-videos/)
-5. [Distributed Systems Videos](#distributed-systems-videos/)
-6. [Implementation Examples](#implementation-examples/)
-7. [Cross-References](#cross-references/)
-8. [Follow-up Questions](#follow-up-questions/)
-9. [Sources](#sources/)
+1. [Overview](#overview)
+2. [System Design Videos](#system-design-videos)
+3. [Algorithm Videos](#algorithm-videos)
+4. [Database Videos](#database-videos)
+5. [Distributed Systems Videos](#distributed-systems-videos)
+6. [Implementation Examples](#implementation-examples)
+7. [Cross-References](#cross-references)
+8. [Follow-up Questions](#follow-up-questions)
+9. [Sources](#sources)
 
 ## Overview
 

@@ -12,13 +12,13 @@
 
 ## 📚 **Table of Contents**
 
-1. [Data Pipeline Fundamentals](#data-pipeline-fundamentals/)
-2. [ETL vs ELT Patterns](#etl-vs-elt-patterns/)
-3. [Data Validation & Quality](#data-validation--quality/)
-4. [Real-time Data Processing](#real-time-data-processing/)
-5. [Batch Processing](#batch-processing/)
-6. [Pipeline Orchestration](#pipeline-orchestration/)
-7. [Interview Questions](#interview-questions/)
+1. [Data Pipeline Fundamentals](#data-pipeline-fundamentals)
+2. [ETL vs ELT Patterns](#etl-vs-elt-patterns)
+3. [Data Validation & Quality](#data-validation--quality)
+4. [Real-time Data Processing](#real-time-data-processing)
+5. [Batch Processing](#batch-processing)
+6. [Pipeline Orchestration](#pipeline-orchestration)
+7. [Interview Questions](#interview-questions)
 
 ---
 

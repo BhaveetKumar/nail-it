@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Mobile App Architecture](#mobile-app-architecture/)
-3. [Core Features](#core-features/)
-4. [Offline Support](#offline-support/)
-5. [Push Notifications](#push-notifications/)
-6. [Cross-Platform Development](#cross-platform-development/)
-7. [API Integration](#api-integration/)
-8. [Follow-up Questions](#follow-up-questions/)
-9. [Sources](#sources/)
+1. [Overview](#overview)
+2. [Mobile App Architecture](#mobile-app-architecture)
+3. [Core Features](#core-features)
+4. [Offline Support](#offline-support)
+5. [Push Notifications](#push-notifications)
+6. [Cross-Platform Development](#cross-platform-development)
+7. [API Integration](#api-integration)
+8. [Follow-up Questions](#follow-up-questions)
+9. [Sources](#sources)
 
 ## Overview
 

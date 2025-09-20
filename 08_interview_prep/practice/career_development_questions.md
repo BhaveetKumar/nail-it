@@ -1,14 +1,14 @@
 # Career Development Questions & Answers
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Short-term Career Goals (1-2 years)](#short-term-career-goals-1-2-years/)
-- [Medium-term Career Goals (3-5 years)](#medium-term-career-goals-3-5-years/)
-- [Long-term Career Goals (5-10 years)](#long-term-career-goals-5-10-years/)
-- [Leadership Development](#leadership-development/)
-- [Technical Growth](#technical-growth/)
-- [Industry Impact](#industry-impact/)
-- [Personal Development](#personal-development/)
+- [Introduction](#introduction)
+- [Short-term Career Goals (1-2 years)](#short-term-career-goals-1-2-years)
+- [Medium-term Career Goals (3-5 years)](#medium-term-career-goals-3-5-years)
+- [Long-term Career Goals (5-10 years)](#long-term-career-goals-5-10-years)
+- [Leadership Development](#leadership-development)
+- [Technical Growth](#technical-growth)
+- [Industry Impact](#industry-impact)
+- [Personal Development](#personal-development)
 
 ## Introduction
 

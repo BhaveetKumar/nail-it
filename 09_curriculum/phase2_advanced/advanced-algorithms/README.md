@@ -2,18 +2,18 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Advanced Graph Algorithms](#advanced-graph-algorithms/)
-3. [String Algorithms](#string-algorithms/)
-4. [Computational Geometry](#computational-geometry/)
-5. [Number Theory](#number-theory/)
-6. [Combinatorics](#combinatorics/)
-7. [Game Theory](#game-theory/)
-8. [Optimization Algorithms](#optimization-algorithms/)
-9. [Implementations](#implementations/)
-10. [Follow-up Questions](#follow-up-questions/)
-11. [Sources](#sources/)
-12. [Projects](#projects/)
+1. [Overview](#overview)
+2. [Advanced Graph Algorithms](#advanced-graph-algorithms)
+3. [String Algorithms](#string-algorithms)
+4. [Computational Geometry](#computational-geometry)
+5. [Number Theory](#number-theory)
+6. [Combinatorics](#combinatorics)
+7. [Game Theory](#game-theory)
+8. [Optimization Algorithms](#optimization-algorithms)
+9. [Implementations](#implementations)
+10. [Follow-up Questions](#follow-up-questions)
+11. [Sources](#sources)
+12. [Projects](#projects)
 
 ## Overview
 

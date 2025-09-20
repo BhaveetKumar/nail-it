@@ -1,15 +1,15 @@
 # 📊 Advanced Monitoring & Observability
 
 ## Table of Contents
-1. [Observability Pillars](#observability-pillars/)
-2. [Distributed Tracing](#distributed-tracing/)
-3. [Metrics Collection](#metrics-collection/)
-4. [Log Aggregation](#log-aggregation/)
-5. [Alerting Systems](#alerting-systems/)
-6. [Performance Monitoring](#performance-monitoring/)
-7. [SLA/SLO Management](#slaslo-management/)
-8. [Go Implementation Examples](#go-implementation-examples/)
-9. [Interview Questions](#interview-questions/)
+1. [Observability Pillars](#observability-pillars)
+2. [Distributed Tracing](#distributed-tracing)
+3. [Metrics Collection](#metrics-collection)
+4. [Log Aggregation](#log-aggregation)
+5. [Alerting Systems](#alerting-systems)
+6. [Performance Monitoring](#performance-monitoring)
+7. [SLA/SLO Management](#slaslo-management)
+8. [Go Implementation Examples](#go-implementation-examples)
+9. [Interview Questions](#interview-questions)
 
 ## Observability Pillars
 

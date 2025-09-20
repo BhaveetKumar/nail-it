@@ -1,15 +1,15 @@
 # Quantum Computing Algorithms for Backend Engineers
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Quantum Computing Fundamentals](#quantum-computing-fundamentals/)
-- [Quantum Algorithms](#quantum-algorithms/)
-- [Quantum Machine Learning](#quantum-machine-learning/)
-- [Quantum Cryptography](#quantum-cryptography/)
-- [Quantum Optimization](#quantum-optimization/)
-- [Implementation Examples](#implementation-examples/)
-- [Real-World Applications](#real-world-applications/)
-- [Future of Quantum Computing](#future-of-quantum-computing/)
+- [Introduction](#introduction)
+- [Quantum Computing Fundamentals](#quantum-computing-fundamentals)
+- [Quantum Algorithms](#quantum-algorithms)
+- [Quantum Machine Learning](#quantum-machine-learning)
+- [Quantum Cryptography](#quantum-cryptography)
+- [Quantum Optimization](#quantum-optimization)
+- [Implementation Examples](#implementation-examples)
+- [Real-World Applications](#real-world-applications)
+- [Future of Quantum Computing](#future-of-quantum-computing)
 
 ## Introduction
 

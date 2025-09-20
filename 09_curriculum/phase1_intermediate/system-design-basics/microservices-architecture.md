@@ -6,13 +6,13 @@ This module covers microservices architecture concepts including service decompo
 
 ## Table of Contents
 
-1. [Service Decomposition](#service-decomposition/)
-2. [Communication Patterns](#communication-patterns/)
-3. [Service Discovery](#service-discovery/)
-4. [Deployment Strategies](#deployment-strategies/)
-5. [Applications](#applications/)
-6. [Complexity Analysis](#complexity-analysis/)
-7. [Follow-up Questions](#follow-up-questions/)
+1. [Service Decomposition](#service-decomposition)
+2. [Communication Patterns](#communication-patterns)
+3. [Service Discovery](#service-discovery)
+4. [Deployment Strategies](#deployment-strategies)
+5. [Applications](#applications)
+6. [Complexity Analysis](#complexity-analysis)
+7. [Follow-up Questions](#follow-up-questions)
 
 ## Service Decomposition
 

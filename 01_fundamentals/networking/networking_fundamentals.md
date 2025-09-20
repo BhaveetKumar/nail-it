@@ -1,16 +1,16 @@
 # 🌐 Networking Fundamentals for Backend Engineers
 
 ## Table of Contents
-1. [OSI Model](#osi-model/)
-2. [TCP/IP Protocol Suite](#tcpip-protocol-suite/)
-3. [HTTP/HTTPS](#httphttps/)
-4. [DNS](#dns/)
-5. [Load Balancing](#load-balancing/)
-6. [CDN](#cdn/)
-7. [WebSockets](#websockets/)
-8. [Network Security](#network-security/)
-9. [Performance Optimization](#performance-optimization/)
-10. [Interview Questions](#interview-questions/)
+1. [OSI Model](#osi-model)
+2. [TCP/IP Protocol Suite](#tcpip-protocol-suite)
+3. [HTTP/HTTPS](#httphttps)
+4. [DNS](#dns)
+5. [Load Balancing](#load-balancing)
+6. [CDN](#cdn)
+7. [WebSockets](#websockets)
+8. [Network Security](#network-security)
+9. [Performance Optimization](#performance-optimization)
+10. [Interview Questions](#interview-questions)
 
 ## OSI Model
 

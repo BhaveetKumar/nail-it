@@ -1,13 +1,13 @@
 # Advanced Numerical Algorithms
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Root Finding](#root-finding/)
-- [Numerical Integration](#numerical-integration/)
-- [Linear Algebra](#linear-algebra/)
-- [Optimization](#optimization/)
-- [Differential Equations](#differential-equations/)
-- [Advanced Applications](#advanced-applications/)
+- [Introduction](#introduction)
+- [Root Finding](#root-finding)
+- [Numerical Integration](#numerical-integration)
+- [Linear Algebra](#linear-algebra)
+- [Optimization](#optimization)
+- [Differential Equations](#differential-equations)
+- [Advanced Applications](#advanced-applications)
 
 ## Introduction
 

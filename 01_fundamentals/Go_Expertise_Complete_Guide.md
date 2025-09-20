@@ -4,14 +4,14 @@
 
 ## 📋 Table of Contents
 
-1. [Go Fundamentals](#go-fundamentals/)
-2. [Advanced Go Concepts](#advanced-go-concepts/)
-3. [Design Patterns in Go](#design-patterns-in-go/)
-4. [Go Architecture & Best Practices](#go-architecture--best-practices/)
-5. [Debugging & Error Handling](#debugging--error-handling/)
-6. [Performance Optimization](#performance-optimization/)
-7. [Concurrency Deep Dive](#concurrency-deep-dive/)
-8. [FAANG Interview Questions](#faang-interview-questions/)
+1. [Go Fundamentals](#go-fundamentals)
+2. [Advanced Go Concepts](#advanced-go-concepts)
+3. [Design Patterns in Go](#design-patterns-in-go)
+4. [Go Architecture & Best Practices](#go-architecture--best-practices)
+5. [Debugging & Error Handling](#debugging--error-handling)
+6. [Performance Optimization](#performance-optimization)
+7. [Concurrency Deep Dive](#concurrency-deep-dive)
+8. [FAANG Interview Questions](#faang-interview-questions)
 
 ---
 

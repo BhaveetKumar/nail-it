@@ -6,13 +6,13 @@ This module covers network security concepts including firewalls, intrusion dete
 
 ## Table of Contents
 
-1. [Firewall Management](#firewall-management/)
-2. [Intrusion Detection](#intrusion-detection/)
-3. [VPN Implementation](#vpn-implementation/)
-4. [Secure Protocols](#secure-protocols/)
-5. [Applications](#applications/)
-6. [Complexity Analysis](#complexity-analysis/)
-7. [Follow-up Questions](#follow-up-questions/)
+1. [Firewall Management](#firewall-management)
+2. [Intrusion Detection](#intrusion-detection)
+3. [VPN Implementation](#vpn-implementation)
+4. [Secure Protocols](#secure-protocols)
+5. [Applications](#applications)
+6. [Complexity Analysis](#complexity-analysis)
+7. [Follow-up Questions](#follow-up-questions)
 
 ## Firewall Management
 

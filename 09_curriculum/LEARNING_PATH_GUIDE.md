@@ -2,12 +2,12 @@
 
 ## Table of Contents
 
-1. [Quick Start Guide](#quick-start-guide/)
-2. [Learning Paths by Career Goal](#learning-paths-by-career-goal/)
-3. [Phase-by-Phase Breakdown](#phase-by-phase-breakdown/)
-4. [Assessment and Progress Tracking](#assessment-and-progress-tracking/)
-5. [Study Strategies](#study-strategies/)
-6. [Resources and Tools](#resources-and-tools/)
+1. [Quick Start Guide](#quick-start-guide)
+2. [Learning Paths by Career Goal](#learning-paths-by-career-goal)
+3. [Phase-by-Phase Breakdown](#phase-by-phase-breakdown)
+4. [Assessment and Progress Tracking](#assessment-and-progress-tracking)
+5. [Study Strategies](#study-strategies)
+6. [Resources and Tools](#resources-and-tools)
 
 ## Quick Start Guide
 
@@ -36,7 +36,7 @@
 
 **Skip to**: [Phase 1: Intermediate](phase1_intermediate/) or [Phase 2: Advanced](phase2_advanced/)
 
-**Assessment**: Take the [Skill Assessment Quiz](#assessment-and-progress-tracking/) to determine your starting point.
+**Assessment**: Take the [Skill Assessment Quiz](#assessment-and-progress-tracking) to determine your starting point.
 
 ## Learning Paths by Career Goal
 
@@ -397,4 +397,4 @@
 
 ---
 
-**Next Steps**: [Start with Phase 0](phase0_fundamentals/) | [Take Assessment](#assessment-and-progress-tracking/) | [Track Progress](../10_resources/progress-tracking/study_tracker.md)
+**Next Steps**: [Start with Phase 0](phase0_fundamentals/) | [Take Assessment](#assessment-and-progress-tracking) | [Track Progress](../10_resources/progress-tracking/study_tracker.md)

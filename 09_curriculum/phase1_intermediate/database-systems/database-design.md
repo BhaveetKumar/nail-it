@@ -6,14 +6,14 @@ This module covers database design concepts including normalization, relationshi
 
 ## Table of Contents
 
-1. [Database Normalization](#database-normalization/)
-2. [Entity-Relationship Modeling](#entity-relationship-modeling/)
-3. [Indexing Strategies](#indexing-strategies/)
-4. [Query Optimization](#query-optimization/)
-5. [Transaction Management](#transaction-management/)
-6. [Applications](#applications/)
-7. [Complexity Analysis](#complexity-analysis/)
-8. [Follow-up Questions](#follow-up-questions/)
+1. [Database Normalization](#database-normalization)
+2. [Entity-Relationship Modeling](#entity-relationship-modeling)
+3. [Indexing Strategies](#indexing-strategies)
+4. [Query Optimization](#query-optimization)
+5. [Transaction Management](#transaction-management)
+6. [Applications](#applications)
+7. [Complexity Analysis](#complexity-analysis)
+8. [Follow-up Questions](#follow-up-questions)
 
 ## Database Normalization
 

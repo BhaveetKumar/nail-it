@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Git Fundamentals](#git-fundamentals/)
-3. [Branching and Merging](#branching-and-merging/)
-4. [Collaboration Workflows](#collaboration-workflows/)
-5. [Advanced Git Features](#advanced-git-features/)
-6. [Implementations](#implementations/)
-7. [Follow-up Questions](#follow-up-questions/)
-8. [Sources](#sources/)
-9. [Projects](#projects/)
+1. [Overview](#overview)
+2. [Git Fundamentals](#git-fundamentals)
+3. [Branching and Merging](#branching-and-merging)
+4. [Collaboration Workflows](#collaboration-workflows)
+5. [Advanced Git Features](#advanced-git-features)
+6. [Implementations](#implementations)
+7. [Follow-up Questions](#follow-up-questions)
+8. [Sources](#sources)
+9. [Projects](#projects)
 
 ## Overview
 

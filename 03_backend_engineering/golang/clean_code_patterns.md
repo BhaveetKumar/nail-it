@@ -1,16 +1,16 @@
 # Clean Code Patterns - Robert C. Martin Principles
 
 ## Table of Contents
-1. [Introduction](#introduction/)
-2. [Meaningful Names](#meaningful-names/)
-3. [Functions](#functions/)
-4. [Comments](#comments/)
-5. [Formatting](#formatting/)
-6. [Error Handling](#error-handling/)
-7. [Classes and Data Structures](#classes-and-data-structures/)
-8. [System Design](#system-design/)
-9. [Concurrency](#concurrency/)
-10. [Golang Best Practices](#golang-best-practices/)
+1. [Introduction](#introduction)
+2. [Meaningful Names](#meaningful-names)
+3. [Functions](#functions)
+4. [Comments](#comments)
+5. [Formatting](#formatting)
+6. [Error Handling](#error-handling)
+7. [Classes and Data Structures](#classes-and-data-structures)
+8. [System Design](#system-design)
+9. [Concurrency](#concurrency)
+10. [Golang Best Practices](#golang-best-practices)
 
 ## Introduction
 

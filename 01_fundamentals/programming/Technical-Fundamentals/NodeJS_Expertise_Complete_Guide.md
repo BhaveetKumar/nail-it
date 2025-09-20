@@ -12,17 +12,17 @@
 
 ## 📚 **Table of Contents**
 
-1. [Node.js Fundamentals](#nodejs-fundamentals/)
-2. [Event Loop and Async Programming](#event-loop-and-async-programming/)
-3. [Modules and Package Management](#modules-and-package-management/)
-4. [File System and Streams](#file-system-and-streams/)
-5. [HTTP and Web Servers](#http-and-web-servers/)
-6. [Database Integration](#database-integration/)
-7. [Testing and Debugging](#testing-and-debugging/)
-8. [Performance Optimization](#performance-optimization/)
-9. [Security Best Practices](#security-best-practices/)
-10. [Production Deployment](#production-deployment/)
-11. [Interview Questions](#interview-questions/)
+1. [Node.js Fundamentals](#nodejs-fundamentals)
+2. [Event Loop and Async Programming](#event-loop-and-async-programming)
+3. [Modules and Package Management](#modules-and-package-management)
+4. [File System and Streams](#file-system-and-streams)
+5. [HTTP and Web Servers](#http-and-web-servers)
+6. [Database Integration](#database-integration)
+7. [Testing and Debugging](#testing-and-debugging)
+8. [Performance Optimization](#performance-optimization)
+9. [Security Best Practices](#security-best-practices)
+10. [Production Deployment](#production-deployment)
+11. [Interview Questions](#interview-questions)
 
 ---
 

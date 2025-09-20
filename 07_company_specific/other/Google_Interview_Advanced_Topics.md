@@ -4,18 +4,18 @@
 
 ## 📋 Table of Contents
 
-1. [🔗 Distributed Consensus Algorithms](#-distributed-consensus-algorithms/)
-2. [🌐 Advanced System Design Patterns](#-advanced-system-design-patterns/)
-3. [📊 Advanced Data Structures](#-advanced-data-structures/)
-4. [⚡ Advanced Algorithms](#-advanced-algorithms/)
-5. [🔄 Concurrency & Parallelism](#-concurrency--parallelism/)
-6. [🎯 Rate Limiting & Circuit Breakers](#-rate-limiting--circuit-breakers/)
-7. [🔍 Probabilistic Data Structures](#-probabilistic-data-structures/)
-8. [📈 Event-Driven Architecture](#-event-driven-architecture/)
-9. [🏗️ Microservices Patterns](#-microservices-patterns/)
-10. [🔐 Security & Authentication](#-security--authentication/)
-11. [📊 Monitoring & Observability](#-monitoring--observability/)
-12. [🎯 Google-Specific Interview Questions](#-google-specific-interview-questions/)
+1. [🔗 Distributed Consensus Algorithms](#-distributed-consensus-algorithms)
+2. [🌐 Advanced System Design Patterns](#-advanced-system-design-patterns)
+3. [📊 Advanced Data Structures](#-advanced-data-structures)
+4. [⚡ Advanced Algorithms](#-advanced-algorithms)
+5. [🔄 Concurrency & Parallelism](#-concurrency--parallelism)
+6. [🎯 Rate Limiting & Circuit Breakers](#-rate-limiting--circuit-breakers)
+7. [🔍 Probabilistic Data Structures](#-probabilistic-data-structures)
+8. [📈 Event-Driven Architecture](#-event-driven-architecture)
+9. [🏗️ Microservices Patterns](#-microservices-patterns)
+10. [🔐 Security & Authentication](#-security--authentication)
+11. [📊 Monitoring & Observability](#-monitoring--observability)
+12. [🎯 Google-Specific Interview Questions](#-google-specific-interview-questions)
 
 ---
 

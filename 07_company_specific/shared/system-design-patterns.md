@@ -2,14 +2,14 @@
 
 ## 📚 Table of Contents
 
-1. [Scalability Patterns](#scalability-patterns/)
-2. [Caching Patterns](#caching-patterns/)
-3. [Database Patterns](#database-patterns/)
-4. [Communication Patterns](#communication-patterns/)
-5. [Consistency Patterns](#consistency-patterns/)
-6. [Fault Tolerance Patterns](#fault-tolerance-patterns/)
-7. [Security Patterns](#security-patterns/)
-8. [Monitoring Patterns](#monitoring-patterns/)
+1. [Scalability Patterns](#scalability-patterns)
+2. [Caching Patterns](#caching-patterns)
+3. [Database Patterns](#database-patterns)
+4. [Communication Patterns](#communication-patterns)
+5. [Consistency Patterns](#consistency-patterns)
+6. [Fault Tolerance Patterns](#fault-tolerance-patterns)
+7. [Security Patterns](#security-patterns)
+8. [Monitoring Patterns](#monitoring-patterns)
 
 ## Scalability Patterns
 

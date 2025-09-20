@@ -2,12 +2,12 @@
 
 ## Table of Contents
 
-1. [Assessment Framework](#assessment-framework/)
-2. [Phase Assessments](#phase-assessments/)
-3. [Skill Certifications](#skill-certifications/)
-4. [Portfolio Evaluation](#portfolio-evaluation/)
-5. [Continuous Assessment](#continuous-assessment/)
-6. [Certification Process](#certification-process/)
+1. [Assessment Framework](#assessment-framework)
+2. [Phase Assessments](#phase-assessments)
+3. [Skill Certifications](#skill-certifications)
+4. [Portfolio Evaluation](#portfolio-evaluation)
+5. [Continuous Assessment](#continuous-assessment)
+6. [Certification Process](#certification-process)
 
 ## Assessment Framework
 

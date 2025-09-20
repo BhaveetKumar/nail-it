@@ -1,16 +1,16 @@
 # Go Programming Language Patterns - Donovan & Kernighan
 
 ## Table of Contents
-1. [Introduction](#introduction/)
-2. [Basic Data Types](#basic-data-types/)
-3. [Composite Types](#composite-types/)
-4. [Functions](#functions/)
-5. [Methods](#methods/)
-6. [Interfaces](#interfaces/)
-7. [Goroutines and Channels](#goroutines-and-channels/)
-8. [Packages and the Go Tool](#packages-and-the-go-tool/)
-9. [Testing](#testing/)
-10. [Reflection](#reflection/)
+1. [Introduction](#introduction)
+2. [Basic Data Types](#basic-data-types)
+3. [Composite Types](#composite-types)
+4. [Functions](#functions)
+5. [Methods](#methods)
+6. [Interfaces](#interfaces)
+7. [Goroutines and Channels](#goroutines-and-channels)
+8. [Packages and the Go Tool](#packages-and-the-go-tool)
+9. [Testing](#testing)
+10. [Reflection](#reflection)
 
 ## Introduction
 

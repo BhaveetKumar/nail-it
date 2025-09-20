@@ -4,13 +4,13 @@
 
 ## 📋 Table of Contents
 
-1. [Book Overview](#book-overview/)
-2. [Part I: Foundations of Data Systems](#part-i-foundations-of-data-systems/)
-3. [Part II: Distributed Data](#part-ii-distributed-data/)
-4. [Part III: Derived Data](#part-iii-derived-data/)
-5. [Database Types & Architectures](#database-types--architectures/)
-6. [Error Handling & Scaling](#error-handling--scaling/)
-7. [FAANG Interview Questions](#faang-interview-questions/)
+1. [Book Overview](#book-overview)
+2. [Part I: Foundations of Data Systems](#part-i-foundations-of-data-systems)
+3. [Part II: Distributed Data](#part-ii-distributed-data)
+4. [Part III: Derived Data](#part-iii-derived-data)
+5. [Database Types & Architectures](#database-types--architectures)
+6. [Error Handling & Scaling](#error-handling--scaling)
+7. [FAANG Interview Questions](#faang-interview-questions)
 
 ---
 

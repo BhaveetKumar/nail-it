@@ -1,16 +1,16 @@
 # Database Design Patterns - Success in Tech Methodology
 
 ## Table of Contents
-1. [Introduction](#introduction/)
-2. [Database Design Fundamentals](#database-design-fundamentals/)
-3. [Normalization Patterns](#normalization-patterns/)
-4. [Denormalization Strategies](#denormalization-strategies/)
-5. [Indexing Patterns](#indexing-patterns/)
-6. [Partitioning Strategies](#partitioning-strategies/)
-7. [Replication Patterns](#replication-patterns/)
-8. [Sharding Strategies](#sharding-strategies/)
-9. [Caching Patterns](#caching-patterns/)
-10. [Golang Implementation](#golang-implementation/)
+1. [Introduction](#introduction)
+2. [Database Design Fundamentals](#database-design-fundamentals)
+3. [Normalization Patterns](#normalization-patterns)
+4. [Denormalization Strategies](#denormalization-strategies)
+5. [Indexing Patterns](#indexing-patterns)
+6. [Partitioning Strategies](#partitioning-strategies)
+7. [Replication Patterns](#replication-patterns)
+8. [Sharding Strategies](#sharding-strategies)
+9. [Caching Patterns](#caching-patterns)
+10. [Golang Implementation](#golang-implementation)
 
 ## Introduction
 

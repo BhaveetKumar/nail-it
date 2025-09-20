@@ -1,16 +1,16 @@
 # 🧮 Mathematics for Software Engineers
 
 ## Table of Contents
-1. [Linear Algebra](#linear-algebra/)
-2. [Probability and Statistics](#probability-and-statistics/)
-3. [Discrete Mathematics](#discrete-mathematics/)
-4. [Graph Theory](#graph-theory/)
-5. [Calculus](#calculus/)
-6. [Number Theory](#number-theory/)
-7. [Combinatorics](#combinatorics/)
-8. [Algorithm Analysis](#algorithm-analysis/)
-9. [Go Implementations](#go-implementations/)
-10. [Interview Questions](#interview-questions/)
+1. [Linear Algebra](#linear-algebra)
+2. [Probability and Statistics](#probability-and-statistics)
+3. [Discrete Mathematics](#discrete-mathematics)
+4. [Graph Theory](#graph-theory)
+5. [Calculus](#calculus)
+6. [Number Theory](#number-theory)
+7. [Combinatorics](#combinatorics)
+8. [Algorithm Analysis](#algorithm-analysis)
+9. [Go Implementations](#go-implementations)
+10. [Interview Questions](#interview-questions)
 
 ## Linear Algebra
 

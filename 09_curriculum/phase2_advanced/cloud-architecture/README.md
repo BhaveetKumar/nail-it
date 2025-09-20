@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Cloud Computing Models](#cloud-computing-models/)
-3. [Microservices and Containerization](#microservices-and-containerization/)
-4. [Kubernetes Orchestration](#kubernetes-orchestration/)
-5. [Serverless Architecture](#serverless-architecture/)
-6. [Cloud Security](#cloud-security/)
-7. [Cloud Monitoring and Observability](#cloud-monitoring-and-observability/)
-8. [Implementations](#implementations/)
-9. [Follow-up Questions](#follow-up-questions/)
-10. [Sources](#sources/)
-11. [Projects](#projects/)
+1. [Overview](#overview)
+2. [Cloud Computing Models](#cloud-computing-models)
+3. [Microservices and Containerization](#microservices-and-containerization)
+4. [Kubernetes Orchestration](#kubernetes-orchestration)
+5. [Serverless Architecture](#serverless-architecture)
+6. [Cloud Security](#cloud-security)
+7. [Cloud Monitoring and Observability](#cloud-monitoring-and-observability)
+8. [Implementations](#implementations)
+9. [Follow-up Questions](#follow-up-questions)
+10. [Sources](#sources)
+11. [Projects](#projects)
 
 ## Overview
 

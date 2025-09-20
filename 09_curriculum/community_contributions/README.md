@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Contribution Guidelines](#contribution-guidelines/)
-3. [Code of Conduct](#code-of-conduct/)
-4. [Getting Started](#getting-started/)
-5. [Contribution Types](#contribution-types/)
-6. [Review Process](#review-process/)
-7. [Recognition](#recognition/)
-8. [Follow-up Questions](#follow-up-questions/)
-9. [Sources](#sources/)
+1. [Overview](#overview)
+2. [Contribution Guidelines](#contribution-guidelines)
+3. [Code of Conduct](#code-of-conduct)
+4. [Getting Started](#getting-started)
+5. [Contribution Types](#contribution-types)
+6. [Review Process](#review-process)
+7. [Recognition](#recognition)
+8. [Follow-up Questions](#follow-up-questions)
+9. [Sources](#sources)
 
 ## Overview
 

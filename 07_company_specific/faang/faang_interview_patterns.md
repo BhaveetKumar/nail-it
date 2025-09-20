@@ -1,16 +1,16 @@
 # FAANG Interview Patterns and Strategies
 
 ## Table of Contents
-1. [Introduction](#introduction/)
-2. [Google Interview Patterns](#google-interview-patterns/)
-3. [Amazon Interview Patterns](#amazon-interview-patterns/)
-4. [Meta Interview Patterns](#meta-interview-patterns/)
-5. [Apple Interview Patterns](#apple-interview-patterns/)
-6. [Netflix Interview Patterns](#netflix-interview-patterns/)
-7. [Common FAANG Patterns](#common-faang-patterns/)
-8. [Behavioral Questions](#behavioral-questions/)
-9. [System Design Patterns](#system-design-patterns/)
-10. [Coding Patterns](#coding-patterns/)
+1. [Introduction](#introduction)
+2. [Google Interview Patterns](#google-interview-patterns)
+3. [Amazon Interview Patterns](#amazon-interview-patterns)
+4. [Meta Interview Patterns](#meta-interview-patterns)
+5. [Apple Interview Patterns](#apple-interview-patterns)
+6. [Netflix Interview Patterns](#netflix-interview-patterns)
+7. [Common FAANG Patterns](#common-faang-patterns)
+8. [Behavioral Questions](#behavioral-questions)
+9. [System Design Patterns](#system-design-patterns)
+10. [Coding Patterns](#coding-patterns)
 
 ## Introduction
 

@@ -1,12 +1,12 @@
 # Advanced Dynamic Programming
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Advanced DP Patterns](#advanced-dp-patterns/)
-- [Optimization Techniques](#optimization-techniques/)
-- [Complex State Management](#complex-state-management/)
-- [DP with Data Structures](#dp-with-data-structures/)
-- [Advanced Applications](#advanced-applications/)
+- [Introduction](#introduction)
+- [Advanced DP Patterns](#advanced-dp-patterns)
+- [Optimization Techniques](#optimization-techniques)
+- [Complex State Management](#complex-state-management)
+- [DP with Data Structures](#dp-with-data-structures)
+- [Advanced Applications](#advanced-applications)
 
 ## Introduction
 

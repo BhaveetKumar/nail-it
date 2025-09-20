@@ -4,16 +4,16 @@
 
 ## 📋 Table of Contents
 
-1. [🔄 Process Management](#-process-management/)
-2. [🧠 Memory Management](#-memory-management/)
-3. [📁 File Systems](#-file-systems/)
-4. [⏰ Scheduling Algorithms](#-scheduling-algorithms/)
-5. [🔗 Inter-Process Communication](#-inter-process-communication/)
-6. [🔒 Deadlocks & Synchronization](#-deadlocks--synchronization/)
-7. [🔧 System Calls](#-system-calls/)
-8. [🧠 Virtual Memory](#-virtual-memory/)
-9. [🎯 FAANG Interview Questions](#-faang-interview-questions/)
-10. [📚 Additional Resources](#-additional-resources/)
+1. [🔄 Process Management](#-process-management)
+2. [🧠 Memory Management](#-memory-management)
+3. [📁 File Systems](#-file-systems)
+4. [⏰ Scheduling Algorithms](#-scheduling-algorithms)
+5. [🔗 Inter-Process Communication](#-inter-process-communication)
+6. [🔒 Deadlocks & Synchronization](#-deadlocks--synchronization)
+7. [🔧 System Calls](#-system-calls)
+8. [🧠 Virtual Memory](#-virtual-memory)
+9. [🎯 FAANG Interview Questions](#-faang-interview-questions)
+10. [📚 Additional Resources](#-additional-resources)
 
 ---
 

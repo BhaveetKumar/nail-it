@@ -1,16 +1,16 @@
 # Cybersecurity Backend Systems
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Threat Detection and Prevention](#threat-detection-and-prevention/)
-- [Identity and Access Management](#identity-and-access-management/)
-- [Data Protection and Encryption](#data-protection-and-encryption/)
-- [Network Security](#network-security/)
-- [Application Security](#application-security/)
-- [Incident Response](#incident-response/)
-- [Security Monitoring](#security-monitoring/)
-- [Compliance and Governance](#compliance-and-governance/)
-- [Security Automation](#security-automation/)
+- [Introduction](#introduction)
+- [Threat Detection and Prevention](#threat-detection-and-prevention)
+- [Identity and Access Management](#identity-and-access-management)
+- [Data Protection and Encryption](#data-protection-and-encryption)
+- [Network Security](#network-security)
+- [Application Security](#application-security)
+- [Incident Response](#incident-response)
+- [Security Monitoring](#security-monitoring)
+- [Compliance and Governance](#compliance-and-governance)
+- [Security Automation](#security-automation)
 
 ## Introduction
 

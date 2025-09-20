@@ -1,21 +1,21 @@
 # FAANG+ Companies Interview Preparation
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Google](#google/)
-- [Microsoft](#microsoft/)
-- [Meta (Facebook)](#meta-facebook/)
-- [Netflix](#netflix/)
-- [Rippling](#rippling/)
-- [Amazon](#amazon/)
-- [Apple](#apple/)
-- [Uber](#uber/)
-- [Airbnb](#airbnb/)
-- [Stripe](#stripe/)
-- [Snowflake](#snowflake/)
-- [Databricks](#databricks/)
-- [Palantir](#palantir/)
-- [General Preparation Tips](#general-preparation-tips/)
+- [Introduction](#introduction)
+- [Google](#google)
+- [Microsoft](#microsoft)
+- [Meta (Facebook)](#meta-facebook)
+- [Netflix](#netflix)
+- [Rippling](#rippling)
+- [Amazon](#amazon)
+- [Apple](#apple)
+- [Uber](#uber)
+- [Airbnb](#airbnb)
+- [Stripe](#stripe)
+- [Snowflake](#snowflake)
+- [Databricks](#databricks)
+- [Palantir](#palantir)
+- [General Preparation Tips](#general-preparation-tips)
 
 ## Introduction
 

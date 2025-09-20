@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Architecture Principles](#architecture-principles/)
-3. [Design Patterns](#design-patterns/)
-4. [Scalability Patterns](#scalability-patterns/)
-5. [Microservices Architecture](#microservices-architecture/)
-6. [Event-Driven Architecture](#event-driven-architecture/)
-7. [Domain-Driven Design](#domain-driven-design/)
-8. [Implementations](#implementations/)
-9. [Follow-up Questions](#follow-up-questions/)
-10. [Sources](#sources/)
-11. [Projects](#projects/)
+1. [Overview](#overview)
+2. [Architecture Principles](#architecture-principles)
+3. [Design Patterns](#design-patterns)
+4. [Scalability Patterns](#scalability-patterns)
+5. [Microservices Architecture](#microservices-architecture)
+6. [Event-Driven Architecture](#event-driven-architecture)
+7. [Domain-Driven Design](#domain-driven-design)
+8. [Implementations](#implementations)
+9. [Follow-up Questions](#follow-up-questions)
+10. [Sources](#sources)
+11. [Projects](#projects)
 
 ## Overview
 

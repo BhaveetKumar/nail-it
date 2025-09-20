@@ -2,14 +2,14 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Accessibility Standards](#accessibility-standards/)
-3. [Inclusive Design](#inclusive-design/)
-4. [Assistive Technologies](#assistive-technologies/)
-5. [Multilingual Support](#multilingual-support/)
-6. [Cultural Sensitivity](#cultural-sensitivity/)
-7. [Follow-up Questions](#follow-up-questions/)
-8. [Sources](#sources/)
+1. [Overview](#overview)
+2. [Accessibility Standards](#accessibility-standards)
+3. [Inclusive Design](#inclusive-design)
+4. [Assistive Technologies](#assistive-technologies)
+5. [Multilingual Support](#multilingual-support)
+6. [Cultural Sensitivity](#cultural-sensitivity)
+7. [Follow-up Questions](#follow-up-questions)
+8. [Sources](#sources)
 
 ## Overview
 

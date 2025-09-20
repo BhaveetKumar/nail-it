@@ -1,16 +1,16 @@
 # Behavioral and Leadership Scenarios
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Leadership Scenarios](#leadership-scenarios/)
-- [Team Management Scenarios](#team-management-scenarios/)
-- [Conflict Resolution Scenarios](#conflict-resolution-scenarios/)
-- [Technical Leadership Scenarios](#technical-leadership-scenarios/)
-- [Communication Scenarios](#communication-scenarios/)
-- [Problem-Solving Scenarios](#problem-solving-scenarios/)
-- [Innovation and Change Management](#innovation-and-change-management/)
-- [Crisis Management Scenarios](#crisis-management-scenarios/)
-- [Career Development Scenarios](#career-development-scenarios/)
+- [Introduction](#introduction)
+- [Leadership Scenarios](#leadership-scenarios)
+- [Team Management Scenarios](#team-management-scenarios)
+- [Conflict Resolution Scenarios](#conflict-resolution-scenarios)
+- [Technical Leadership Scenarios](#technical-leadership-scenarios)
+- [Communication Scenarios](#communication-scenarios)
+- [Problem-Solving Scenarios](#problem-solving-scenarios)
+- [Innovation and Change Management](#innovation-and-change-management)
+- [Crisis Management Scenarios](#crisis-management-scenarios)
+- [Career Development Scenarios](#career-development-scenarios)
 
 ## Introduction
 

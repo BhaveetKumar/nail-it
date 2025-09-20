@@ -1,16 +1,16 @@
 # 🌐 Distributed Systems Comprehensive Guide
 
 ## Table of Contents
-1. [Consensus Algorithms](#consensus-algorithms/)
-2. [Distributed Coordination](#distributed-coordination/)
-3. [Replication Strategies](#replication-strategies/)
-4. [Partitioning and Sharding](#partitioning-and-sharding/)
-5. [Distributed Caching](#distributed-caching/)
-6. [Message Queues and Event Streaming](#message-queues-and-event-streaming/)
-7. [Service Discovery](#service-discovery/)
-8. [Load Balancing](#load-balancing/)
-9. [Go Implementation Examples](#go-implementation-examples/)
-10. [Interview Questions](#interview-questions/)
+1. [Consensus Algorithms](#consensus-algorithms)
+2. [Distributed Coordination](#distributed-coordination)
+3. [Replication Strategies](#replication-strategies)
+4. [Partitioning and Sharding](#partitioning-and-sharding)
+5. [Distributed Caching](#distributed-caching)
+6. [Message Queues and Event Streaming](#message-queues-and-event-streaming)
+7. [Service Discovery](#service-discovery)
+8. [Load Balancing](#load-balancing)
+9. [Go Implementation Examples](#go-implementation-examples)
+10. [Interview Questions](#interview-questions)
 
 ## Consensus Algorithms
 

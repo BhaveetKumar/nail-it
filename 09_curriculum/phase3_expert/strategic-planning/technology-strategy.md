@@ -6,13 +6,13 @@ This module covers technology strategy concepts including strategic planning, te
 
 ## Table of Contents
 
-1. [Strategic Planning](#strategic-planning/)
-2. [Technology Roadmaps](#technology-roadmaps/)
-3. [Investment Decisions](#investment-decisions/)
-4. [Organizational Alignment](#organizational-alignment/)
-5. [Applications](#applications/)
-6. [Complexity Analysis](#complexity-analysis/)
-7. [Follow-up Questions](#follow-up-questions/)
+1. [Strategic Planning](#strategic-planning)
+2. [Technology Roadmaps](#technology-roadmaps)
+3. [Investment Decisions](#investment-decisions)
+4. [Organizational Alignment](#organizational-alignment)
+5. [Applications](#applications)
+6. [Complexity Analysis](#complexity-analysis)
+7. [Follow-up Questions](#follow-up-questions)
 
 ## Strategic Planning
 

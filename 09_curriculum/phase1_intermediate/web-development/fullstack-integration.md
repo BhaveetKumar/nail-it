@@ -6,14 +6,14 @@ This module covers full-stack integration concepts including API design, state m
 
 ## Table of Contents
 
-1. [API Design](#api-design/)
-2. [State Management](#state-management/)
-3. [Authentication & Authorization](#authentication--authorization/)
-4. [Real-Time Communication](#real-time-communication/)
-5. [Deployment Strategies](#deployment-strategies/)
-6. [Applications](#applications/)
-7. [Complexity Analysis](#complexity-analysis/)
-8. [Follow-up Questions](#follow-up-questions/)
+1. [API Design](#api-design)
+2. [State Management](#state-management)
+3. [Authentication & Authorization](#authentication--authorization)
+4. [Real-Time Communication](#real-time-communication)
+5. [Deployment Strategies](#deployment-strategies)
+6. [Applications](#applications)
+7. [Complexity Analysis](#complexity-analysis)
+8. [Follow-up Questions](#follow-up-questions)
 
 ## API Design
 

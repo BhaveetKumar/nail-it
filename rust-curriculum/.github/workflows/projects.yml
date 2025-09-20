@@ -47,6 +47,9 @@ jobs:
       - name: Test DSA library
         working-directory: rust-curriculum
         run: cargo test -p dsa_library --all-features
+      - name: Compile benches (no run)
+        working-directory: rust-curriculum
+        run: cargo bench -p dsa_library --no-run
   streaming-build-test:
     runs-on: ubuntu-latest
     steps:

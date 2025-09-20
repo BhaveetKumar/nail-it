@@ -1,14 +1,14 @@
 # 🎨 Software Design Patterns for Backend Engineers
 
 ## Table of Contents
-1. [SOLID Principles](#solid-principles/)
-2. [Creational Patterns](#creational-patterns/)
-3. [Structural Patterns](#structural-patterns/)
-4. [Behavioral Patterns](#behavioral-patterns/)
-5. [Concurrency Patterns](#concurrency-patterns/)
-6. [Architectural Patterns](#architectural-patterns/)
-7. [Go Implementation Examples](#go-implementation-examples/)
-8. [Interview Questions](#interview-questions/)
+1. [SOLID Principles](#solid-principles)
+2. [Creational Patterns](#creational-patterns)
+3. [Structural Patterns](#structural-patterns)
+4. [Behavioral Patterns](#behavioral-patterns)
+5. [Concurrency Patterns](#concurrency-patterns)
+6. [Architectural Patterns](#architectural-patterns)
+7. [Go Implementation Examples](#go-implementation-examples)
+8. [Interview Questions](#interview-questions)
 
 ## SOLID Principles
 

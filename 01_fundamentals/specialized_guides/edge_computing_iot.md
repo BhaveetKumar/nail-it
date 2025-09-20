@@ -1,16 +1,16 @@
 # Edge Computing and IoT Systems Guide
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Edge Computing Fundamentals](#edge-computing-fundamentals/)
-- [IoT Architecture Patterns](#iot-architecture-patterns/)
-- [Edge Data Processing](#edge-data-processing/)
-- [Real-Time Communication](#real-time-communication/)
-- [Security and Privacy](#security-and-privacy/)
-- [Device Management](#device-management/)
-- [Performance Optimization](#performance-optimization/)
-- [Monitoring and Observability](#monitoring-and-observability/)
-- [Case Studies and Examples](#case-studies-and-examples/)
+- [Introduction](#introduction)
+- [Edge Computing Fundamentals](#edge-computing-fundamentals)
+- [IoT Architecture Patterns](#iot-architecture-patterns)
+- [Edge Data Processing](#edge-data-processing)
+- [Real-Time Communication](#real-time-communication)
+- [Security and Privacy](#security-and-privacy)
+- [Device Management](#device-management)
+- [Performance Optimization](#performance-optimization)
+- [Monitoring and Observability](#monitoring-and-observability)
+- [Case Studies and Examples](#case-studies-and-examples)
 
 ## Introduction
 

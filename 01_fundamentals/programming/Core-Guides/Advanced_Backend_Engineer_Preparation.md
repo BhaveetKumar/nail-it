@@ -8,14 +8,14 @@ This guide provides a complete roadmap for preparing for advanced backend engine
 
 ## 📚 **Table of Contents**
 
-1. [System Architecture Patterns](#system-architecture-patterns/)
-2. [Microservices Design](#microservices-design/)
-3. [API Design and Development](#api-design-and-development/)
-4. [Performance Optimization](#performance-optimization/)
-5. [Scalability Strategies](#scalability-strategies/)
-6. [Security Best Practices](#security-best-practices/)
-7. [Monitoring and Observability](#monitoring-and-observability/)
-8. [Production Readiness](#production-readiness/)
+1. [System Architecture Patterns](#system-architecture-patterns)
+2. [Microservices Design](#microservices-design)
+3. [API Design and Development](#api-design-and-development)
+4. [Performance Optimization](#performance-optimization)
+5. [Scalability Strategies](#scalability-strategies)
+6. [Security Best Practices](#security-best-practices)
+7. [Monitoring and Observability](#monitoring-and-observability)
+8. [Production Readiness](#production-readiness)
 
 ---
 

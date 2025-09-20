@@ -6,14 +6,14 @@ This module covers advanced string algorithms including pattern matching, string
 
 ## Table of Contents
 
-1. [Pattern Matching](#pattern-matching/)
-2. [String Processing](#string-processing/)
-3. [Suffix Arrays](#suffix-arrays/)
-4. [Trie Applications](#trie-applications/)
-5. [String Hashing](#string-hashing/)
-6. [Applications](#applications/)
-7. [Complexity Analysis](#complexity-analysis/)
-8. [Follow-up Questions](#follow-up-questions/)
+1. [Pattern Matching](#pattern-matching)
+2. [String Processing](#string-processing)
+3. [Suffix Arrays](#suffix-arrays)
+4. [Trie Applications](#trie-applications)
+5. [String Hashing](#string-hashing)
+6. [Applications](#applications)
+7. [Complexity Analysis](#complexity-analysis)
+8. [Follow-up Questions](#follow-up-questions)
 
 ## Pattern Matching
 

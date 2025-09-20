@@ -4,13 +4,13 @@
 
 ## 📋 Table of Contents
 
-1. [🔗 Advanced Graph Algorithms](#-advanced-graph-algorithms/)
-2. [📊 Advanced Data Structures](#-advanced-data-structures/)
-3. [⚡ Dynamic Programming Patterns](#-dynamic-programming-patterns/)
-4. [🎯 String Algorithms](#-string-algorithms/)
-5. [🔢 Number Theory & Math](#-number-theory--math/)
-6. [🌐 Network Flow Algorithms](#-network-flow-algorithms/)
-7. [🎯 Google-Specific Algorithm Questions](#-google-specific-algorithm-questions/)
+1. [🔗 Advanced Graph Algorithms](#-advanced-graph-algorithms)
+2. [📊 Advanced Data Structures](#-advanced-data-structures)
+3. [⚡ Dynamic Programming Patterns](#-dynamic-programming-patterns)
+4. [🎯 String Algorithms](#-string-algorithms)
+5. [🔢 Number Theory & Math](#-number-theory--math)
+6. [🌐 Network Flow Algorithms](#-network-flow-algorithms)
+7. [🎯 Google-Specific Algorithm Questions](#-google-specific-algorithm-questions)
 
 ---
 

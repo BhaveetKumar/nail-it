@@ -2,14 +2,14 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [FAANG Companies](#faang-companies/)
-3. [Fintech Companies](#fintech-companies/)
-4. [Startup Companies](#startup-companies/)
-5. [Interview Strategies](#interview-strategies/)
-6. [Practice Materials](#practice-materials/)
-7. [Follow-up Questions](#follow-up-questions/)
-8. [Sources](#sources/)
+1. [Overview](#overview)
+2. [FAANG Companies](#faang-companies)
+3. [Fintech Companies](#fintech-companies)
+4. [Startup Companies](#startup-companies)
+5. [Interview Strategies](#interview-strategies)
+6. [Practice Materials](#practice-materials)
+7. [Follow-up Questions](#follow-up-questions)
+8. [Sources](#sources)
 
 ## Overview
 

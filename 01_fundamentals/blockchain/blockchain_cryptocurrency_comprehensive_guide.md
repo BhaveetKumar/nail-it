@@ -1,14 +1,14 @@
 # ⛓️ Blockchain & Cryptocurrency Comprehensive Guide
 
 ## Table of Contents
-1. [Blockchain Fundamentals](#blockchain-fundamentals/)
-2. [Cryptocurrency Implementation](#cryptocurrency-implementation/)
-3. [Smart Contracts](#smart-contracts/)
-4. [Consensus Algorithms](#consensus-algorithms/)
-5. [DeFi (Decentralized Finance)](#defi-decentralized-finance/)
-6. [NFTs and Digital Assets](#nfts-and-digital-assets/)
-7. [Go Implementation Examples](#go-implementation-examples/)
-8. [Interview Questions](#interview-questions/)
+1. [Blockchain Fundamentals](#blockchain-fundamentals)
+2. [Cryptocurrency Implementation](#cryptocurrency-implementation)
+3. [Smart Contracts](#smart-contracts)
+4. [Consensus Algorithms](#consensus-algorithms)
+5. [DeFi (Decentralized Finance)](#defi-decentralized-finance)
+6. [NFTs and Digital Assets](#nfts-and-digital-assets)
+7. [Go Implementation Examples](#go-implementation-examples)
+8. [Interview Questions](#interview-questions)
 
 ## Blockchain Fundamentals
 

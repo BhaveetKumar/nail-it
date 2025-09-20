@@ -4,13 +4,13 @@
 
 ## 📋 Table of Contents
 
-1. [Advanced Go Runtime & Concurrency](#advanced-go-runtime--concurrency/)
-2. [System Design at Scale](#system-design-at-scale/)
-3. [Operating System Deep Dive](#operating-system-deep-dive/)
-4. [Razorpay-Specific Technical Challenges](#razorpay-specific-technical-challenges/)
-5. [Advanced DSA & Algorithm Patterns](#advanced-dsa--algorithm-patterns/)
-6. [Performance Engineering](#performance-engineering/)
-7. [Leadership & Architecture Decisions](#leadership--architecture-decisions/)
+1. [Advanced Go Runtime & Concurrency](#advanced-go-runtime--concurrency)
+2. [System Design at Scale](#system-design-at-scale)
+3. [Operating System Deep Dive](#operating-system-deep-dive)
+4. [Razorpay-Specific Technical Challenges](#razorpay-specific-technical-challenges)
+5. [Advanced DSA & Algorithm Patterns](#advanced-dsa--algorithm-patterns)
+6. [Performance Engineering](#performance-engineering)
+7. [Leadership & Architecture Decisions](#leadership--architecture-decisions)
 
 ---
 

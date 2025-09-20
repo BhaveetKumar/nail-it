@@ -6,13 +6,13 @@ This module covers advanced decision-making frameworks for technical leaders inc
 
 ## Table of Contents
 
-1. [Decision Frameworks](#decision-frameworks/)
-2. [Risk Assessment](#risk-assessment/)
-3. [Stakeholder Management](#stakeholder-management/)
-4. [Decision Implementation](#decision-implementation/)
-5. [Applications](#applications/)
-6. [Complexity Analysis](#complexity-analysis/)
-7. [Follow-up Questions](#follow-up-questions/)
+1. [Decision Frameworks](#decision-frameworks)
+2. [Risk Assessment](#risk-assessment)
+3. [Stakeholder Management](#stakeholder-management)
+4. [Decision Implementation](#decision-implementation)
+5. [Applications](#applications)
+6. [Complexity Analysis](#complexity-analysis)
+7. [Follow-up Questions](#follow-up-questions)
 
 ## Decision Frameworks
 

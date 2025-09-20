@@ -1,16 +1,16 @@
 # 💰 Fintech Comprehensive Guide for Backend Engineers
 
 ## Table of Contents
-1. [Payment Systems](#payment-systems/)
-2. [Banking Infrastructure](#banking-infrastructure/)
-3. [Cryptocurrency & Blockchain](#cryptocurrency--blockchain/)
-4. [Risk Management](#risk-management/)
-5. [Regulatory Compliance](#regulatory-compliance/)
-6. [Security in Fintech](#security-in-fintech/)
-7. [Real-time Processing](#real-time-processing/)
-8. [Data Analytics](#data-analytics/)
-9. [System Design Patterns](#system-design-patterns/)
-10. [Interview Questions](#interview-questions/)
+1. [Payment Systems](#payment-systems)
+2. [Banking Infrastructure](#banking-infrastructure)
+3. [Cryptocurrency & Blockchain](#cryptocurrency--blockchain)
+4. [Risk Management](#risk-management)
+5. [Regulatory Compliance](#regulatory-compliance)
+6. [Security in Fintech](#security-in-fintech)
+7. [Real-time Processing](#real-time-processing)
+8. [Data Analytics](#data-analytics)
+9. [System Design Patterns](#system-design-patterns)
+10. [Interview Questions](#interview-questions)
 
 ## Payment Systems
 

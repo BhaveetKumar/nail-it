@@ -1,13 +1,13 @@
 # Advanced Algorithm Interviews
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Complex Data Structures](#complex-data-structures/)
-- [Advanced Graph Problems](#advanced-graph-problems/)
-- [Dynamic Programming](#dynamic-programming/)
-- [Greedy Algorithms](#greedy-algorithms/)
-- [Backtracking](#backtracking/)
-- [Mathematical Algorithms](#mathematical-algorithms/)
+- [Introduction](#introduction)
+- [Complex Data Structures](#complex-data-structures)
+- [Advanced Graph Problems](#advanced-graph-problems)
+- [Dynamic Programming](#dynamic-programming)
+- [Greedy Algorithms](#greedy-algorithms)
+- [Backtracking](#backtracking)
+- [Mathematical Algorithms](#mathematical-algorithms)
 
 ## Introduction
 

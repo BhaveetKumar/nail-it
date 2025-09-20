@@ -4,14 +4,14 @@
 
 ## 📋 Table of Contents
 
-1. [🔗 Distributed Consensus & Consistency](#-distributed-consensus--consistency/)
-2. [🌐 Event-Driven Architecture](#-event-driven-architecture/)
-3. [📊 CQRS & Event Sourcing](#-cqrs--event-sourcing/)
-4. [⚡ Microservices Patterns](#-microservices-patterns/)
-5. [🎯 Advanced Caching Strategies](#-advanced-caching-strategies/)
-6. [🔍 Monitoring & Observability](#-monitoring--observability/)
-7. [🔐 Security & Authentication](#-security--authentication/)
-8. [📈 Scalability Patterns](#-scalability-patterns/)
+1. [🔗 Distributed Consensus & Consistency](#-distributed-consensus--consistency)
+2. [🌐 Event-Driven Architecture](#-event-driven-architecture)
+3. [📊 CQRS & Event Sourcing](#-cqrs--event-sourcing)
+4. [⚡ Microservices Patterns](#-microservices-patterns)
+5. [🎯 Advanced Caching Strategies](#-advanced-caching-strategies)
+6. [🔍 Monitoring & Observability](#-monitoring--observability)
+7. [🔐 Security & Authentication](#-security--authentication)
+8. [📈 Scalability Patterns](#-scalability-patterns)
 
 ---
 

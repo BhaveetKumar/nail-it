@@ -1,16 +1,16 @@
 # Advanced Architecture Design
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [System Architecture Principles](#system-architecture-principles/)
-- [Architecture Patterns](#architecture-patterns/)
-- [Scalability Design](#scalability-design/)
-- [Reliability Design](#reliability-design/)
-- [Security Architecture](#security-architecture/)
-- [Performance Architecture](#performance-architecture/)
-- [Microservices Architecture](#microservices-architecture/)
-- [Event-Driven Architecture](#event-driven-architecture/)
-- [Serverless Architecture](#serverless-architecture/)
+- [Introduction](#introduction)
+- [System Architecture Principles](#system-architecture-principles)
+- [Architecture Patterns](#architecture-patterns)
+- [Scalability Design](#scalability-design)
+- [Reliability Design](#reliability-design)
+- [Security Architecture](#security-architecture)
+- [Performance Architecture](#performance-architecture)
+- [Microservices Architecture](#microservices-architecture)
+- [Event-Driven Architecture](#event-driven-architecture)
+- [Serverless Architecture](#serverless-architecture)
 
 ## Introduction
 

@@ -1,14 +1,14 @@
 # Razorpay Mock Interview Scenarios
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Technical Deep Dive Scenarios](#technical-deep-dive-scenarios/)
-- [System Design Scenarios](#system-design-scenarios/)
-- [Coding Challenges](#coding-challenges/)
-- [Behavioral Scenarios](#behavioral-scenarios/)
-- [Leadership Scenarios](#leadership-scenarios/)
-- [Product and Business Scenarios](#product-and-business-scenarios/)
-- [Architecture and Scalability Scenarios](#architecture-and-scalability-scenarios/)
+- [Introduction](#introduction)
+- [Technical Deep Dive Scenarios](#technical-deep-dive-scenarios)
+- [System Design Scenarios](#system-design-scenarios)
+- [Coding Challenges](#coding-challenges)
+- [Behavioral Scenarios](#behavioral-scenarios)
+- [Leadership Scenarios](#leadership-scenarios)
+- [Product and Business Scenarios](#product-and-business-scenarios)
+- [Architecture and Scalability Scenarios](#architecture-and-scalability-scenarios)
 
 ## Introduction
 

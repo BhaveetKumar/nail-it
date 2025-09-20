@@ -1,16 +1,16 @@
 # Advanced Coding Challenges for Backend Engineers
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [System Design Coding Challenges](#system-design-coding-challenges/)
-- [Concurrency and Parallelism](#concurrency-and-parallelism/)
-- [Distributed Systems Challenges](#distributed-systems-challenges/)
-- [Database and Storage Challenges](#database-and-storage-challenges/)
-- [Performance Optimization Challenges](#performance-optimization-challenges/)
-- [Real-time Systems Challenges](#real-time-systems-challenges/)
-- [Security and Cryptography Challenges](#security-and-cryptography-challenges/)
-- [Machine Learning Integration Challenges](#machine-learning-integration-challenges/)
-- [Microservices Challenges](#microservices-challenges/)
+- [Introduction](#introduction)
+- [System Design Coding Challenges](#system-design-coding-challenges)
+- [Concurrency and Parallelism](#concurrency-and-parallelism)
+- [Distributed Systems Challenges](#distributed-systems-challenges)
+- [Database and Storage Challenges](#database-and-storage-challenges)
+- [Performance Optimization Challenges](#performance-optimization-challenges)
+- [Real-time Systems Challenges](#real-time-systems-challenges)
+- [Security and Cryptography Challenges](#security-and-cryptography-challenges)
+- [Machine Learning Integration Challenges](#machine-learning-integration-challenges)
+- [Microservices Challenges](#microservices-challenges)
 
 ## Introduction
 

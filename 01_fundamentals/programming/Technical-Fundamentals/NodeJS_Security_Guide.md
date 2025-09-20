@@ -12,15 +12,15 @@
 
 ## 📚 **Table of Contents**
 
-1. [Security Fundamentals](#security-fundamentals/)
-2. [Authentication & Authorization](#authentication--authorization/)
-3. [Input Validation & Sanitization](#input-validation--sanitization/)
-4. [Data Protection](#data-protection/)
-5. [Network Security](#network-security/)
-6. [Dependency Security](#dependency-security/)
-7. [Security Headers](#security-headers/)
-8. [Monitoring & Logging](#monitoring--logging/)
-9. [Interview Questions](#interview-questions/)
+1. [Security Fundamentals](#security-fundamentals)
+2. [Authentication & Authorization](#authentication--authorization)
+3. [Input Validation & Sanitization](#input-validation--sanitization)
+4. [Data Protection](#data-protection)
+5. [Network Security](#network-security)
+6. [Dependency Security](#dependency-security)
+7. [Security Headers](#security-headers)
+8. [Monitoring & Logging](#monitoring--logging)
+9. [Interview Questions](#interview-questions)
 
 ---
 

@@ -1,14 +1,14 @@
 # Advanced Coding Interviews Comprehensive
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [System Design Coding](#system-design-coding/)
-- [Algorithm Design](#algorithm-design/)
-- [Data Structure Implementation](#data-structure-implementation/)
-- [Concurrency and Threading](#concurrency-and-threading/)
-- [Performance Optimization](#performance-optimization/)
-- [Error Handling and Edge Cases](#error-handling-and-edge-cases/)
-- [Testing and Validation](#testing-and-validation/)
+- [Introduction](#introduction)
+- [System Design Coding](#system-design-coding)
+- [Algorithm Design](#algorithm-design)
+- [Data Structure Implementation](#data-structure-implementation)
+- [Concurrency and Threading](#concurrency-and-threading)
+- [Performance Optimization](#performance-optimization)
+- [Error Handling and Edge Cases](#error-handling-and-edge-cases)
+- [Testing and Validation](#testing-and-validation)
 
 ## Introduction
 

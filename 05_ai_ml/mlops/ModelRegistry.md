@@ -12,12 +12,12 @@
 
 ## 📚 **Table of Contents**
 
-1. [Model Registry Fundamentals](#model-registry-fundamentals/)
-2. [Model Versioning](#model-versioning/)
-3. [Model Metadata](#model-metadata/)
-4. [Model Lifecycle Management](#model-lifecycle-management/)
-5. [Model Deployment Pipeline](#model-deployment-pipeline/)
-6. [Interview Questions](#interview-questions/)
+1. [Model Registry Fundamentals](#model-registry-fundamentals)
+2. [Model Versioning](#model-versioning)
+3. [Model Metadata](#model-metadata)
+4. [Model Lifecycle Management](#model-lifecycle-management)
+5. [Model Deployment Pipeline](#model-deployment-pipeline)
+6. [Interview Questions](#interview-questions)
 
 ---
 

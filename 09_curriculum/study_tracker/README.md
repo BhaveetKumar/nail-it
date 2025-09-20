@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Progress Tracking System](#progress-tracking-system/)
-3. [Study Schedules](#study-schedules/)
-4. [Assessment Tracking](#assessment-tracking/)
-5. [Goal Setting](#goal-setting/)
-6. [Analytics Dashboard](#analytics-dashboard/)
-7. [Mobile App Integration](#mobile-app-integration/)
-8. [Follow-up Questions](#follow-up-questions/)
-9. [Sources](#sources/)
+1. [Overview](#overview)
+2. [Progress Tracking System](#progress-tracking-system)
+3. [Study Schedules](#study-schedules)
+4. [Assessment Tracking](#assessment-tracking)
+5. [Goal Setting](#goal-setting)
+6. [Analytics Dashboard](#analytics-dashboard)
+7. [Mobile App Integration](#mobile-app-integration)
+8. [Follow-up Questions](#follow-up-questions)
+9. [Sources](#sources)
 
 ## Overview
 

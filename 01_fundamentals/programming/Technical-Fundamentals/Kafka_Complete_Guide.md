@@ -2,14 +2,14 @@
 
 ## Table of Contents
 
-1. [Kafka Fundamentals](#kafka-fundamentals/)
-2. [Core Concepts & Architecture](#core-concepts--architecture/)
-3. [Node.js Kafka Integration](#nodejs-kafka-integration/)
-4. [Advanced Patterns & Edge Cases](#advanced-patterns--edge-cases/)
-5. [Scaling & Performance](#scaling--performance/)
-6. [Production Operations](#production-operations/)
-7. [Monitoring & Troubleshooting](#monitoring--troubleshooting/)
-8. [Real-world Use Cases](#real-world-use-cases/)
+1. [Kafka Fundamentals](#kafka-fundamentals)
+2. [Core Concepts & Architecture](#core-concepts--architecture)
+3. [Node.js Kafka Integration](#nodejs-kafka-integration)
+4. [Advanced Patterns & Edge Cases](#advanced-patterns--edge-cases)
+5. [Scaling & Performance](#scaling--performance)
+6. [Production Operations](#production-operations)
+7. [Monitoring & Troubleshooting](#monitoring--troubleshooting)
+8. [Real-world Use Cases](#real-world-use-cases)
 
 ---
 

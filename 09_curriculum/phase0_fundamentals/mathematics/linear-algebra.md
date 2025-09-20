@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Vectors](#vectors/)
-3. [Matrices](#matrices/)
-4. [Eigenvalues and Eigenvectors](#eigenvalues-and-eigenvectors/)
-5. [Singular Value Decomposition](#singular-value-decomposition/)
-6. [Applications](#applications/)
-7. [Implementations](#implementations/)
-8. [Follow-up Questions](#follow-up-questions/)
-9. [Sources](#sources/)
-10. [Projects](#projects/)
+1. [Overview](#overview)
+2. [Vectors](#vectors)
+3. [Matrices](#matrices)
+4. [Eigenvalues and Eigenvectors](#eigenvalues-and-eigenvectors)
+5. [Singular Value Decomposition](#singular-value-decomposition)
+6. [Applications](#applications)
+7. [Implementations](#implementations)
+8. [Follow-up Questions](#follow-up-questions)
+9. [Sources](#sources)
+10. [Projects](#projects)
 
 ## Overview
 

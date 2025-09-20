@@ -12,17 +12,17 @@
 
 ## 📚 **Table of Contents**
 
-1. [System Design Fundamentals](#system-design-fundamentals/)
-2. [Scalability Patterns](#scalability-patterns/)
-3. [Microservices Architecture](#microservices-architecture/)
-4. [Database Design](#database-design/)
-5. [Caching Strategies](#caching-strategies/)
-6. [Load Balancing](#load-balancing/)
-7. [Message Queues](#message-queues/)
-8. [API Design](#api-design/)
-9. [Security & Authentication](#security--authentication/)
-10. [Monitoring & Observability](#monitoring--observability/)
-11. [Interview Questions](#interview-questions/)
+1. [System Design Fundamentals](#system-design-fundamentals)
+2. [Scalability Patterns](#scalability-patterns)
+3. [Microservices Architecture](#microservices-architecture)
+4. [Database Design](#database-design)
+5. [Caching Strategies](#caching-strategies)
+6. [Load Balancing](#load-balancing)
+7. [Message Queues](#message-queues)
+8. [API Design](#api-design)
+9. [Security & Authentication](#security--authentication)
+10. [Monitoring & Observability](#monitoring--observability)
+11. [Interview Questions](#interview-questions)
 
 ---
 

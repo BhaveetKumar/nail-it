@@ -1,13 +1,13 @@
 # Advanced Security Interviews
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Authentication and Authorization](#authentication-and-authorization/)
-- [Cryptography](#cryptography/)
-- [Web Security](#web-security/)
-- [API Security](#api-security/)
-- [Infrastructure Security](#infrastructure-security/)
-- [Security Monitoring](#security-monitoring/)
+- [Introduction](#introduction)
+- [Authentication and Authorization](#authentication-and-authorization)
+- [Cryptography](#cryptography)
+- [Web Security](#web-security)
+- [API Security](#api-security)
+- [Infrastructure Security](#infrastructure-security)
+- [Security Monitoring](#security-monitoring)
 
 ## Introduction
 

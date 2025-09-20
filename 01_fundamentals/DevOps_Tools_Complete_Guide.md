@@ -4,14 +4,14 @@
 
 ## 📋 Table of Contents
 
-1. [Containerization with Docker](#containerization-with-docker/)
-2. [Orchestration with Kubernetes](#orchestration-with-kubernetes/)
-3. [CI/CD Pipelines](#cicd-pipelines/)
-4. [Infrastructure as Code](#infrastructure-as-code/)
-5. [Monitoring & Logging](#monitoring--logging/)
-6. [Security & Compliance](#security--compliance/)
-7. [Cloud Platforms](#cloud-platforms/)
-8. [Best Practices](#best-practices/)
+1. [Containerization with Docker](#containerization-with-docker)
+2. [Orchestration with Kubernetes](#orchestration-with-kubernetes)
+3. [CI/CD Pipelines](#cicd-pipelines)
+4. [Infrastructure as Code](#infrastructure-as-code)
+5. [Monitoring & Logging](#monitoring--logging)
+6. [Security & Compliance](#security--compliance)
+7. [Cloud Platforms](#cloud-platforms)
+8. [Best Practices](#best-practices)
 
 ---
 

@@ -1,3 +1,29 @@
+# DSA Library
+
+Algorithms included:
+
+- `binary_search(&[T], &T) -> Option<usize>`
+- `quicksort(&mut [T])`
+- `bfs(adj: &HashMap<usize, Vec<usize>>, start) -> Vec<usize>`
+- `dfs(adj: &HashMap<usize, Vec<usize>>, start) -> Vec<usize>`
+- `dijkstra(adj: &HashMap<usize, Vec<(usize,i64)>>, start) -> HashMap<usize, i64>`
+
+Examples:
+
+```rust
+use dsa_library::{binary_search, quicksort};
+let data = [1,2,3,4,5];
+assert_eq!(binary_search(&data, &3), Some(2));
+let mut v = vec![3,1,4];
+quicksort(&mut v);
+assert_eq!(v, vec![1,3,4]);
+```
+
+Benches:
+
+```sh
+cargo bench -p dsa_library
+```
 # Algorithms & Data Structures Library (Skeleton)
 
 Implement classic DS & algorithms with safe paths and optional unsafe optimizations (feature-gated), plus criterion benchmarks.

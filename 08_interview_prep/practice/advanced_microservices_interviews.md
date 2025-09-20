@@ -1,13 +1,13 @@
 # Advanced Microservices Interviews
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Microservices Architecture](#microservices-architecture/)
-- [Service Communication](#service-communication/)
-- [Data Management](#data-management/)
-- [Service Discovery](#service-discovery/)
-- [API Gateway](#api-gateway/)
-- [Monitoring and Observability](#monitoring-and-observability/)
+- [Introduction](#introduction)
+- [Microservices Architecture](#microservices-architecture)
+- [Service Communication](#service-communication)
+- [Data Management](#data-management)
+- [Service Discovery](#service-discovery)
+- [API Gateway](#api-gateway)
+- [Monitoring and Observability](#monitoring-and-observability)
 
 ## Introduction
 

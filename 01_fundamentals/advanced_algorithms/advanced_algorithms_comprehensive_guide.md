@@ -1,16 +1,16 @@
 # 🧮 Advanced Algorithms Comprehensive Guide
 
 ## Table of Contents
-1. [Graph Algorithms](#graph-algorithms/)
-2. [Dynamic Programming](#dynamic-programming/)
-3. [String Algorithms](#string-algorithms/)
-4. [Computational Geometry](#computational-geometry/)
-5. [Number Theory Algorithms](#number-theory-algorithms/)
-6. [Advanced Data Structures](#advanced-data-structures/)
-7. [Optimization Algorithms](#optimization-algorithms/)
-8. [Parallel Algorithms](#parallel-algorithms/)
-9. [Go Implementation Examples](#go-implementation-examples/)
-10. [Interview Questions](#interview-questions/)
+1. [Graph Algorithms](#graph-algorithms)
+2. [Dynamic Programming](#dynamic-programming)
+3. [String Algorithms](#string-algorithms)
+4. [Computational Geometry](#computational-geometry)
+5. [Number Theory Algorithms](#number-theory-algorithms)
+6. [Advanced Data Structures](#advanced-data-structures)
+7. [Optimization Algorithms](#optimization-algorithms)
+8. [Parallel Algorithms](#parallel-algorithms)
+9. [Go Implementation Examples](#go-implementation-examples)
+10. [Interview Questions](#interview-questions)
 
 ## Graph Algorithms
 

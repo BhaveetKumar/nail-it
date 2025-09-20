@@ -1,16 +1,16 @@
 # Comprehensive Problem Sets for Backend Engineers
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [System Design Problems](#system-design-problems/)
-- [Coding Challenges](#coding-challenges/)
-- [Database Design Problems](#database-design-problems/)
-- [Distributed Systems Problems](#distributed-systems-problems/)
-- [Performance Optimization Problems](#performance-optimization-problems/)
-- [Security and Compliance Problems](#security-and-compliance-problems/)
-- [Real-Time Systems Problems](#real-time-systems-problems/)
-- [Machine Learning Integration Problems](#machine-learning-integration-problems/)
-- [DevOps and Infrastructure Problems](#devops-and-infrastructure-problems/)
+- [Introduction](#introduction)
+- [System Design Problems](#system-design-problems)
+- [Coding Challenges](#coding-challenges)
+- [Database Design Problems](#database-design-problems)
+- [Distributed Systems Problems](#distributed-systems-problems)
+- [Performance Optimization Problems](#performance-optimization-problems)
+- [Security and Compliance Problems](#security-and-compliance-problems)
+- [Real-Time Systems Problems](#real-time-systems-problems)
+- [Machine Learning Integration Problems](#machine-learning-integration-problems)
+- [DevOps and Infrastructure Problems](#devops-and-infrastructure-problems)
 
 ## Introduction
 

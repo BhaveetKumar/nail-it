@@ -4,15 +4,15 @@
 
 ## 📋 Table of Contents
 
-1. [STAR Method Framework](#star-method-framework/)
-2. [Leadership & Management](#leadership--management/)
-3. [Conflict Resolution](#conflict-resolution/)
-4. [Problem Solving & Innovation](#problem-solving--innovation/)
-5. [Teamwork & Collaboration](#teamwork--collaboration/)
-6. [Communication & Influence](#communication--influence/)
-7. [Adaptability & Learning](#adaptability--learning/)
-8. [FAANG Company Specific](#faang-company-specific/)
-9. [Common Follow-up Questions](#common-follow-up-questions/)
+1. [STAR Method Framework](#star-method-framework)
+2. [Leadership & Management](#leadership--management)
+3. [Conflict Resolution](#conflict-resolution)
+4. [Problem Solving & Innovation](#problem-solving--innovation)
+5. [Teamwork & Collaboration](#teamwork--collaboration)
+6. [Communication & Influence](#communication--influence)
+7. [Adaptability & Learning](#adaptability--learning)
+8. [FAANG Company Specific](#faang-company-specific)
+9. [Common Follow-up Questions](#common-follow-up-questions)
 
 ---
 

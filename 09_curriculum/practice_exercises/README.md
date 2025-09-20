@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Algorithm Practice](#algorithm-practice/)
-3. [System Design Practice](#system-design-practice/)
-4. [Database Practice](#database-practice/)
-5. [Distributed Systems Practice](#distributed-systems-practice/)
-6. [Real-World Projects](#real-world-projects/)
-7. [Assessment Tools](#assessment-tools/)
-8. [Follow-up Questions](#follow-up-questions/)
-9. [Sources](#sources/)
+1. [Overview](#overview)
+2. [Algorithm Practice](#algorithm-practice)
+3. [System Design Practice](#system-design-practice)
+4. [Database Practice](#database-practice)
+5. [Distributed Systems Practice](#distributed-systems-practice)
+6. [Real-World Projects](#real-world-projects)
+7. [Assessment Tools](#assessment-tools)
+8. [Follow-up Questions](#follow-up-questions)
+9. [Sources](#sources)
 
 ## Overview
 

@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Basic Syntax](#basic-syntax/)
-3. [Data Types](#data-types/)
-4. [Control Structures](#control-structures/)
-5. [Functions](#functions/)
-6. [Structs and Interfaces](#structs-and-interfaces/)
-7. [Concurrency](#concurrency/)
-8. [Error Handling](#error-handling/)
-9. [Packages and Modules](#packages-and-modules/)
-10. [Best Practices](#best-practices/)
+1. [Overview](#overview)
+2. [Basic Syntax](#basic-syntax)
+3. [Data Types](#data-types)
+4. [Control Structures](#control-structures)
+5. [Functions](#functions)
+6. [Structs and Interfaces](#structs-and-interfaces)
+7. [Concurrency](#concurrency)
+8. [Error Handling](#error-handling)
+9. [Packages and Modules](#packages-and-modules)
+10. [Best Practices](#best-practices)
 
 ## Overview
 

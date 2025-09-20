@@ -6,13 +6,13 @@ This module covers code quality practices including code review, documentation, 
 
 ## Table of Contents
 
-1. [Code Review](#code-review/)
-2. [Documentation](#documentation/)
-3. [Coding Standards](#coding-standards/)
-4. [Refactoring](#refactoring/)
-5. [Applications](#applications/)
-6. [Complexity Analysis](#complexity-analysis/)
-7. [Follow-up Questions](#follow-up-questions/)
+1. [Code Review](#code-review)
+2. [Documentation](#documentation)
+3. [Coding Standards](#coding-standards)
+4. [Refactoring](#refactoring)
+5. [Applications](#applications)
+6. [Complexity Analysis](#complexity-analysis)
+7. [Follow-up Questions](#follow-up-questions)
 
 ## Code Review
 

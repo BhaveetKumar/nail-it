@@ -1,16 +1,16 @@
 # Streaming Media Backend Systems
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Video Streaming Architecture](#video-streaming-architecture/)
-- [Content Delivery Networks](#content-delivery-networks/)
-- [Adaptive Bitrate Streaming](#adaptive-bitrate-streaming/)
-- [Live Streaming](#live-streaming/)
-- [Video Processing](#video-processing/)
-- [Content Management](#content-management/)
-- [Analytics and Monitoring](#analytics-and-monitoring/)
-- [Security and DRM](#security-and-drm/)
-- [Scalability and Performance](#scalability-and-performance/)
+- [Introduction](#introduction)
+- [Video Streaming Architecture](#video-streaming-architecture)
+- [Content Delivery Networks](#content-delivery-networks)
+- [Adaptive Bitrate Streaming](#adaptive-bitrate-streaming)
+- [Live Streaming](#live-streaming)
+- [Video Processing](#video-processing)
+- [Content Management](#content-management)
+- [Analytics and Monitoring](#analytics-and-monitoring)
+- [Security and DRM](#security-and-drm)
+- [Scalability and Performance](#scalability-and-performance)
 
 ## Introduction
 

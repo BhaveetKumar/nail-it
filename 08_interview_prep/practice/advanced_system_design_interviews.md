@@ -1,14 +1,14 @@
 # Advanced System Design Interviews
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Large-Scale Systems](#large-scale-systems/)
-- [Real-Time Systems](#real-time-systems/)
-- [Distributed Systems](#distributed-systems/)
-- [Microservices Architecture](#microservices-architecture/)
-- [Data Processing Systems](#data-processing-systems/)
-- [Storage Systems](#storage-systems/)
-- [Communication Systems](#communication-systems/)
+- [Introduction](#introduction)
+- [Large-Scale Systems](#large-scale-systems)
+- [Real-Time Systems](#real-time-systems)
+- [Distributed Systems](#distributed-systems)
+- [Microservices Architecture](#microservices-architecture)
+- [Data Processing Systems](#data-processing-systems)
+- [Storage Systems](#storage-systems)
+- [Communication Systems](#communication-systems)
 
 ## Introduction
 

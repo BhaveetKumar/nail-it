@@ -6,13 +6,13 @@ This module covers number theory algorithms including prime number generation, m
 
 ## Table of Contents
 
-1. [Prime Number Algorithms](#prime-number-algorithms/)
-2. [Modular Arithmetic](#modular-arithmetic/)
-3. [Greatest Common Divisor](#greatest-common-divisor/)
-4. [Cryptographic Applications](#cryptographic-applications/)
-5. [Applications](#applications/)
-6. [Complexity Analysis](#complexity-analysis/)
-7. [Follow-up Questions](#follow-up-questions/)
+1. [Prime Number Algorithms](#prime-number-algorithms)
+2. [Modular Arithmetic](#modular-arithmetic)
+3. [Greatest Common Divisor](#greatest-common-divisor)
+4. [Cryptographic Applications](#cryptographic-applications)
+5. [Applications](#applications)
+6. [Complexity Analysis](#complexity-analysis)
+7. [Follow-up Questions](#follow-up-questions)
 
 ## Prime Number Algorithms
 

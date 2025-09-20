@@ -6,13 +6,13 @@ This module covers cryptographic concepts including symmetric encryption, asymme
 
 ## Table of Contents
 
-1. [Symmetric Encryption](#symmetric-encryption/)
-2. [Asymmetric Encryption](#asymmetric-encryption/)
-3. [Digital Signatures](#digital-signatures/)
-4. [Hash Functions](#hash-functions/)
-5. [Applications](#applications/)
-6. [Complexity Analysis](#complexity-analysis/)
-7. [Follow-up Questions](#follow-up-questions/)
+1. [Symmetric Encryption](#symmetric-encryption)
+2. [Asymmetric Encryption](#asymmetric-encryption)
+3. [Digital Signatures](#digital-signatures)
+4. [Hash Functions](#hash-functions)
+5. [Applications](#applications)
+6. [Complexity Analysis](#complexity-analysis)
+7. [Follow-up Questions](#follow-up-questions)
 
 ## Symmetric Encryption
 

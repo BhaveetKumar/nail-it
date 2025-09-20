@@ -1,16 +1,16 @@
 # Cloud Native Architecture Guide
 
 ## Table of Contents
-- [Introduction](#introduction/)
-- [Cloud Native Principles](#cloud-native-principles/)
-- [Containerization and Orchestration](#containerization-and-orchestration/)
-- [Microservices Architecture](#microservices-architecture/)
-- [Service Mesh](#service-mesh/)
-- [API Gateway and Management](#api-gateway-and-management/)
-- [Event-Driven Architecture](#event-driven-architecture/)
-- [Observability and Monitoring](#observability-and-monitoring/)
-- [Security and Compliance](#security-and-compliance/)
-- [DevOps and GitOps](#devops-and-gitops/)
+- [Introduction](#introduction)
+- [Cloud Native Principles](#cloud-native-principles)
+- [Containerization and Orchestration](#containerization-and-orchestration)
+- [Microservices Architecture](#microservices-architecture)
+- [Service Mesh](#service-mesh)
+- [API Gateway and Management](#api-gateway-and-management)
+- [Event-Driven Architecture](#event-driven-architecture)
+- [Observability and Monitoring](#observability-and-monitoring)
+- [Security and Compliance](#security-and-compliance)
+- [DevOps and GitOps](#devops-and-gitops)
 
 ## Introduction
 
