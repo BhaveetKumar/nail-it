@@ -1,0 +1,55 @@
+name: Rust Curriculum CI
+
+on:
+  push:
+    paths:
+      - 'rust-curriculum/**'
+  pull_request:
+    paths:
+      - 'rust-curriculum/**'
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        toolchain: [stable, nightly]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.toolchain }}
+      - name: Install tools
+        run: |
+          cargo install cargo-audit || true
+          cargo install cargo-deny || true
+      - name: Format check (workspace)
+        if: matrix.toolchain == 'stable'
+        working-directory: rust-curriculum
+        run: cargo fmt --all -- --check
+      - name: Clippy (workspace)
+        working-directory: rust-curriculum
+        run: cargo clippy --all-targets -- -D warnings
+      - name: Build workspace
+        working-directory: rust-curriculum
+        run: cargo build --workspace --all-targets
+      - name: Test workspace
+        working-directory: rust-curriculum
+        run: cargo test --workspace --all-targets --all-features
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - name: Install tools
+        run: |
+          cargo install cargo-audit || true
+          cargo install cargo-deny || true
+      - name: Audit
+        working-directory: rust-curriculum
+        run: cargo audit || true
+      - name: Cargo deny check (advisories and licenses)
+        working-directory: rust-curriculum
+        run: cargo deny check || true

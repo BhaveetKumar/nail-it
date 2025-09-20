@@ -1,0 +1,370 @@
+{
+  "sources": [
+    {
+      "title": "The Rust Programming Language (The Book)",
+      "url": "https://doc.rust-lang.org/book/",
+      "type": "official_documentation",
+      "description": "Official comprehensive guide to Rust programming language",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "core_fundamentals"
+    },
+    {
+      "title": "Rust by Example",
+      "url": "https://doc.rust-lang.org/rust-by-example/",
+      "type": "official_documentation",
+      "description": "Interactive examples and exercises for learning Rust",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "practical_examples"
+    },
+    {
+      "title": "The Rustonomicon",
+      "url": "https://doc.rust-lang.org/nomicon/",
+      "type": "official_documentation",
+      "description": "The Dark Arts of Advanced and Unsafe Rust Programming",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "unsafe_rust"
+    },
+    {
+      "title": "Asynchronous Programming in Rust",
+      "url": "https://rust-lang.github.io/async-book/",
+      "type": "official_documentation",
+      "description": "Comprehensive guide to async programming in Rust",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "async_programming"
+    },
+    {
+      "title": "Tokio Documentation",
+      "url": "https://tokio.rs/",
+      "type": "official_documentation",
+      "description": "Official documentation for the Tokio async runtime",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "async_runtime"
+    },
+    {
+      "title": "Cargo Book",
+      "url": "https://doc.rust-lang.org/cargo/",
+      "type": "official_documentation",
+      "description": "Official guide to Cargo package manager",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "package_management"
+    },
+    {
+      "title": "Rust Reference",
+      "url": "https://doc.rust-lang.org/reference/",
+      "type": "official_documentation",
+      "description": "Comprehensive reference for the Rust language",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "language_reference"
+    },
+    {
+      "title": "Rust Edition Guide",
+      "url": "https://doc.rust-lang.org/edition-guide/",
+      "type": "official_documentation",
+      "description": "Guide to Rust editions and migration",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "editions"
+    },
+    {
+      "title": "Rustlings",
+      "url": "https://github.com/rust-lang/rustlings",
+      "type": "interactive_exercises",
+      "description": "Small exercises to get you used to reading and writing Rust code",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "beginner_exercises"
+    },
+    {
+      "title": "Exercism Rust Track",
+      "url": "https://exercism.org/tracks/rust",
+      "type": "coding_challenges",
+      "description": "Practice Rust with mentor-guided exercises",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "practice_problems"
+    },
+    {
+      "title": "Rust Users Forum",
+      "url": "https://users.rust-lang.org/",
+      "type": "community_forum",
+      "description": "Official community forum for Rust users",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "community_support"
+    },
+    {
+      "title": "Rust Internals Forum",
+      "url": "https://internals.rust-lang.org/",
+      "type": "community_forum",
+      "description": "Forum for discussing Rust language development",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "language_development"
+    },
+    {
+      "title": "This Week in Rust",
+      "url": "https://this-week-in-rust.org/",
+      "type": "newsletter",
+      "description": "Weekly newsletter about Rust community and ecosystem",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "community_news"
+    },
+    {
+      "title": "RustConf",
+      "url": "https://rustconf.com/",
+      "type": "conference",
+      "description": "Annual Rust conference",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "conferences"
+    },
+    {
+      "title": "rust-analyzer",
+      "url": "https://rust-analyzer.github.io/",
+      "type": "development_tool",
+      "description": "Rust language server for IDEs",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "development_tools"
+    },
+    {
+      "title": "Clippy",
+      "url": "https://github.com/rust-lang/rust-clippy",
+      "type": "development_tool",
+      "description": "Rust linter to catch common mistakes",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "code_quality"
+    },
+    {
+      "title": "Criterion.rs",
+      "url": "https://github.com/bheisler/criterion.rs",
+      "type": "benchmarking_tool",
+      "description": "Statistics-driven benchmarking library for Rust",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "performance_testing"
+    },
+    {
+      "title": "Miri",
+      "url": "https://github.com/rust-lang/miri",
+      "type": "testing_tool",
+      "description": "Interpreter for Rust's mid-level intermediate representation",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "undefined_behavior_detection"
+    },
+    {
+      "title": "cargo-audit",
+      "url": "https://github.com/RustSec/cargo-audit",
+      "type": "security_tool",
+      "description": "Audit Cargo.lock files for security vulnerabilities",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "security_auditing"
+    },
+    {
+      "title": "wasm-pack",
+      "url": "https://rustwasm.github.io/wasm-pack/",
+      "type": "webassembly_tool",
+      "description": "Tool for building and packaging Rust-generated WebAssembly",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "webassembly"
+    },
+    {
+      "title": "Embedded Rust Book",
+      "url": "https://docs.rust-embedded.org/book/",
+      "type": "specialized_documentation",
+      "description": "Guide to embedded systems programming in Rust",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "embedded_programming"
+    },
+    {
+      "title": "RTIC (Real-Time Interrupt-driven Concurrency)",
+      "url": "https://rtic.rs/",
+      "type": "embedded_framework",
+      "description": "Framework for building real-time systems in Rust",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "real_time_systems"
+    },
+    {
+      "title": "Bevy Game Engine",
+      "url": "https://bevyengine.org/",
+      "type": "game_engine",
+      "description": "Data-driven game engine built in Rust",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "game_development"
+    },
+    {
+      "title": "Yew Web Framework",
+      "url": "https://yew.rs/",
+      "type": "web_framework",
+      "description": "Rust framework for building client-side web applications",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "web_development"
+    },
+    {
+      "title": "Actix Web",
+      "url": "https://actix.rs/",
+      "type": "web_framework",
+      "description": "Powerful, pragmatic, and extremely fast web framework for Rust",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "web_servers"
+    },
+    {
+      "title": "Tonic gRPC Framework",
+      "url": "https://github.com/hyperium/tonic",
+      "type": "grpc_framework",
+      "description": "A gRPC over HTTP/2 implementation focused on high performance",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "grpc_services"
+    },
+    {
+      "title": "SQLx",
+      "url": "https://github.com/launchbadge/sqlx",
+      "type": "database_library",
+      "description": "Async SQL toolkit for Rust",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "database_access"
+    },
+    {
+      "title": "Diesel ORM",
+      "url": "https://diesel.rs/",
+      "type": "orm_framework",
+      "description": "A safe, extensible ORM and Query Builder for Rust",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "database_orm"
+    },
+    {
+      "title": "Serde",
+      "url": "https://serde.rs/",
+      "type": "serialization_framework",
+      "description": "Serialization framework for Rust",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "data_serialization"
+    },
+    {
+      "title": "Clap CLI Framework",
+      "url": "https://clap.rs/",
+      "type": "cli_framework",
+      "description": "Command line argument parser for Rust",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "command_line_tools"
+    },
+    {
+      "title": "anyhow Error Handling",
+      "url": "https://github.com/dtolnay/anyhow",
+      "type": "error_handling_library",
+      "description": "Flexible concrete Error type built on std::error::Error",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "error_handling"
+    },
+    {
+      "title": "thiserror Error Derive",
+      "url": "https://github.com/dtolnay/thiserror",
+      "type": "error_handling_library",
+      "description": "derive(Error) for struct and enum error types",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "error_handling"
+    },
+    {
+      "title": "Rust API Guidelines",
+      "url": "https://rust-lang.github.io/api-guidelines/",
+      "type": "best_practices",
+      "description": "Guidelines for designing Rust APIs",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "api_design"
+    },
+    {
+      "title": "Rust Performance Book",
+      "url": "https://nnethercote.github.io/perf-book/",
+      "type": "performance_guide",
+      "description": "Guide to optimizing Rust programs for performance",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "performance_optimization"
+    },
+    {
+      "title": "Rust for JavaScript Developers",
+      "url": "https://rustforjs.dev/",
+      "type": "migration_guide",
+      "description": "Guide for JavaScript developers learning Rust",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "language_migration"
+    },
+    {
+      "title": "Rust for C++ Developers",
+      "url": "https://github.com/nrc/r4cppp",
+      "type": "migration_guide",
+      "description": "Guide for C++ developers learning Rust",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "language_migration"
+    },
+    {
+      "title": "Rust for Python Developers",
+      "url": "https://github.com/rochacbruno/rust-python-example",
+      "type": "migration_guide",
+      "description": "Examples and patterns for Python developers learning Rust",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "language_migration"
+    },
+    {
+      "title": "Rust Learning Resources",
+      "url": "https://github.com/ctjhoa/rust-learning",
+      "type": "curated_list",
+      "description": "Curated list of Rust learning resources",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "learning_resources"
+    },
+    {
+      "title": "Awesome Rust",
+      "url": "https://github.com/rust-unofficial/awesome-rust",
+      "type": "curated_list",
+      "description": "Curated list of Rust code and resources",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "ecosystem_overview"
+    },
+    {
+      "title": "Rust Design Patterns",
+      "url": "https://rust-unofficial.github.io/patterns/",
+      "type": "design_patterns",
+      "description": "Collection of Rust design patterns and idioms",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "design_patterns"
+    },
+    {
+      "title": "Rust Cookbook",
+      "url": "https://rust-lang-nursery.github.io/rust-cookbook/",
+      "type": "practical_examples",
+      "description": "Collection of simple examples that demonstrate good practices",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "practical_examples"
+    },
+    {
+      "title": "Rust Security Advisory Database",
+      "url": "https://rustsec.org/",
+      "type": "security_database",
+      "description": "Security advisory database for Rust crates",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "security"
+    },
+    {
+      "title": "Rust RFCs",
+      "url": "https://github.com/rust-lang/rfcs",
+      "type": "language_evolution",
+      "description": "Request for Comments for Rust language evolution",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "language_development"
+    },
+    {
+      "title": "Rust Forge",
+      "url": "https://forge.rust-lang.org/",
+      "type": "development_guide",
+      "description": "Documentation for Rust developers and maintainers",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "contributing"
+    },
+    {
+      "title": "Rust Compiler Development Guide",
+      "url": "https://rustc-dev-guide.rust-lang.org/",
+      "type": "compiler_development",
+      "description": "Guide for contributing to the Rust compiler",
+      "fetched_at": "2024-12-19T00:00:00Z",
+      "relevance": "compiler_contributing"
+    }
+  ],
+  "metadata": {
+    "total_sources": 45,
+    "last_updated": "2024-12-19T00:00:00Z",
+    "rust_version": "1.75.0",
+    "curriculum_version": "1.0"
+  }
+}

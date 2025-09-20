@@ -1074,4 +1074,4 @@ A: Implement authentication, authorization, encryption, security scanning, compl
 
 ---
 
-**Next**: [Mobile App](mobile_app/README.md/) | **Previous**: [Study Tracker](study_tracker/README.md/) | **Up**: [Deployment DevOps](README.md/)
+**Next**: [Mobile App](../../README.md) | **Previous**: [Study Tracker](../../README.md) | **Up**: [Deployment DevOps](README.md/)

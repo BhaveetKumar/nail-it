@@ -1,0 +1,125 @@
+You are an expert curriculum-generator and senior Rust instructor + engineer. 
+Goal: create a **complete, end-to-end Rust learning curriculum** that starts at "never coded in Rust" and goes all the way to "20-year expert / Rust core contributor level", synthesizing and citing everything authoritative on the web **as of the run time (include the fetch timestamp in every citation)**.
+
+Important constraints:
+- Always prefer **official, canonical, and high-quality community** sources (rust-lang docs, official books, core crates, RFCs, major frameworks, well-known tutorial series).
+- For each factual statement that can be checked on the web, include a source link and the exact fetch date/time.
+- When recommending crate versions or toolchain versions, query crates.io / rustup for the **latest stable versions** and pin them in examples (include the version and fetch timestamp).
+- Prefer **stable Rust** for examples unless a concept explicitly requires nightly — if nightly features are used, explain why and list minimum nightly version.
+- Produce **runnable** code snippets and include `cargo.toml`, tests, and `cargo` commands to run them. Where cross-compilation or platform specifics apply, include reproducible Docker or GitHub Actions steps.
+- Output formats to produce: Markdown lessons (one file per lesson), a JSON curriculum index, slide deck (markdown/reveal.js), runnable sample repo skeleton (file list + contents), cheat-sheets, flashcards (Q/A pairs), interview Q&A (junior → senior → staff), and a Confluence-ready summary.
+- Create progressive difficulty and multiple learning tracks (systems, web/backend, async, embedded, WASM, game dev, compiler internals, data structures & algorithms in Rust, competitive programming).
+- Provide an automated test-suite and CI workflow that verifies examples compile/run on the latest stable toolchain.
+- Provide a curated "further reading / community" section (conferences, channels, podcasts, blogs, GitHub projects) and a "contribution path" for becoming a core contributor to Rust.
+
+SEED SOURCES (MUST consult and cite these first):
+- The Rust Programming Language (the book). :contentReference[oaicite:1]{index=1}
+- Rust By Example. :contentReference[oaicite:2]{index=2}
+- The Rustonomicon (unsafe). :contentReference[oaicite:3]{index=3}
+- Asynchronous Programming in Rust (Async Book). :contentReference[oaicite:4]{index=4}
+- Tokio (async runtime) docs & tutorial. :contentReference[oaicite:5]{index=5}
+
+TASKS — deliver the following artifacts in a single run (do not wait for user confirmation):
+1. **Master Outline (single Markdown file)**  
+   - Module list (Beginner → Intermediate → Advanced → Expert/Core).  
+   - For each module: learning objectives, prerequisites, estimated number of lessons (and recommended study effort per lesson as "suggested practice", not a delivery time), and expected outcomes.
+
+2. **Lesson Pack** (a directory of Markdown files, one lesson per file) for all modules:  
+   - Each lesson must include: Overview, Concepts, Idiomatic examples, Hands-on exercise(s) with input/output, Unit tests, `cargo` commands to run, "Common mistakes" & debugging tips, and "Further reading" (with exact links + fetch timestamp).
+   - Example lesson topics (non-exhaustive):  
+     - Rust basics: variables, mutability, shadowing, types, pattern matching, collections.  
+     - Ownership, moving, borrowing, mutable borrows, lifetimes (including advanced lifetime patterns).  
+     - Generics, traits, trait objects, associated types, specialization (if still unstable, explain).  
+     - Error handling: `Result`, `Option`, `anyhow`, `thiserror`, error propagation.  
+     - Iterators, closures, functional style.  
+     - Concurrency: threads, `Send`/`Sync`, data races, channels, atomics.  
+     - Async/await: futures, pinning, `std::future::Future`, executors, tasks, cancellation. (Include Tokio & async-std examples & tradeoffs). :contentReference[oaicite:6]{index=6}  
+     - Macros: declarative macros (`macro_rules!`), procedural macros (proc_macro, syn, quote), derive macros, hygiene, macro design.  
+     - Unsafe Rust: invariants, `unsafe` blocks, FFI patterns, `extern "C"`, raw pointers, `std::mem` tools. :contentReference[oaicite:7]{index=7}  
+     - FFI & embedding in C/C++ ecosystems.  
+     - no_std / embedded Rust (HAL, RTIC, svd2rust, cortex-m). :contentReference[oaicite:8]{index=8}  
+     - WASM: `wasm-bindgen`, `wasm-pack`, `yew` and integration patterns.  
+     - Networking: `reqwest`, `hyper`, `tonic` (gRPC), real-time streaming.  
+     - Databases: `sqlx` (async), `diesel` (ORM), patterns for migrations/testing.  
+     - Performance & Profiling: cargo-criterion, flamegraphs, `perf`, `tokio-console`/tracing.  
+     - Tooling & Developer Experience: rustup, cargo, clippy, rustfmt, MIRI, cargo-audit, cargo-deny, rust-analyzer, VSCode/Neovim setup.  
+     - Compiler internals & MIR → lowering → LLVM, writing a lint, contributing to rustc.  
+     - Building a complete production service: code, CI, containerization, observability, fault injection tests, tracing, performance tuning.  
+     - Advanced topics: custom allocators, async runtimes internals, writing a garbage-collected container, language design notes, unsafe abstractions, formal verification tools if any, and research directions.
+
+3. **Projects (detailed project-based modules)** — for each project include: full spec, milestone breakdown, skeleton repo with `Cargo.toml`, sample tests, sample GitHub Actions, Dockerfile, and deployment notes. Example projects (implement all):  
+   - CLI tool with Clap, async tasks, streaming input, config & plugin system.  
+   - High-performance async web server + small microservice with Tokio + Hyper + SQLX + tracing + metrics.  
+   - gRPC service with Tonic + streaming + auth + CI + load testing.  
+   - Single-page WASM app using Yew or Sycamore, with JS interop and wasm-pack.  
+   - Embedded firmware: blink LED + RTOS-free sensor polling + OTA update pattern (using Cortex-M target).  
+   - Real-time streaming system (backpressure, backoff, exactly-once guarantees) using Kafka or nats (bindings).  
+   - Implement core algorithms & data structure library (safe, unsafe optimized paths) and benchmarks.  
+   - A small toy OS component or kernel module in Rust (document safety considerations).
+
+4. **Exercises & Assessments**  
+   - For each lesson, 3-10 exercises (beginner → hard) with test harnesses. Provide solutions in a separate folder with commentary and complexity analysis.  
+   - Provide a curated "DSA in Rust" path with 100+ problems and full solutions (including LeetCode-style translations).
+
+5. **Cheat-sheets / One-pagers**  
+   - Ownership & lifetimes cheat-sheet.  
+   - `cargo` commands, toolchain management, cross-compile quick reference.  
+   - Macro writing quick reference.  
+   - Async patterns & pitfalls.
+
+6. **Interview Pack**  
+   - 200+ interview questions ranked by level (junior → staff), model answers, and code snippets.  
+   - System design + Rust-specific design choices (memory, ownership, concurrency).
+
+7. **Contribution & Career Path**  
+   - Roadmap to become an open-source contributor and rustc contributor (issues to start with, repositories, mentorship channels).  
+   - Real-job skills checklist and portfolio project suggestions.
+
+8. **Automation & Repo Setup**  
+   - Create a repository skeleton layout with names and contents (folders: lessons/, projects/, examples/, tests/, slides/, cheatsheets/, solutions/).  
+   - Add GitHub Actions that run: `rustup toolchain install`, `cargo fmt -- --check`, `cargo clippy -- -D warnings`, `cargo test --all`, `cargo audit`, `cargo-deny` (if used), build matrix (stable + latest nightly) for relevant examples.  
+   - Provide a `Makefile` and `Dockerfile` to reproduce dev environment.
+
+9. **Quality & Verification**  
+   - For each code example: run `cargo check` and `cargo test` locally (or via container). If any code requires nightly, include a nightly job in CI and comment why.  
+   - Include a final validation report listing all lessons/examples and whether they compiled/tested on the pinned stable toolchain (with timestamps).
+
+10. **Packaging & Export**  
+   - Export a single `curriculum.json` index that maps modules → lessons → files → status (draft/verified).  
+   - Produce a Confluence-ready summary (one page) and a zip of the lesson files for upload.
+
+FORMAT OF THE PROMPTED OUTPUT
+- Primary output: a published repo skeleton (file listing + content) and a `curriculum_index.json`.  
+- Secondary outputs: slides, cheat-sheets, flashcards, interview pack, curated resource list.
+
+PRIORITIZATION & SCOPE
+- If total content is very large, prioritize by: Official core language docs → async & runtime → tooling → ecosystems (web, embedded, wasm) → advanced internals.  
+- Always mark content as (DRAFT) or (VERIFIED) depending on whether code has been checked.
+
+STYLE & PEDAGOGY
+- Use clear, incremental examples; prefer "show then explain".  
+- For advanced topics, include both intuition and formal reasoning when appropriate.  
+- Add "Common Pitfalls" and "Test your understanding" boxes.
+
+EXACT DELIVERABLE CHECKLIST (for the run)
+- [ ] curriculum_index.json  
+- [ ] lessons/00_intro.md ... lessons/N_last_advanced.md (all lesson files)  
+- [ ] projects/ (skeleton repos + README per project)  
+- [ ] tests/solutions/ (test harness & solutions)  
+- [ ] CI/.github/workflows/ (GitHub Actions files)  
+- [ ] cheatsheets/*.md  
+- [ ] slides/*.md or reveal.js bundle  
+- [ ] confluence_summary.md  
+- [ ] final_report.md with list of all external sources cited (link + fetched_at timestamp)
+
+USAGE NOTES FOR THE ASSISTANT (how to run this prompt)
+- Before generating content, crawl the seed sources and then extend to other authoritative sources (crates.io for crates, docs.rs, GitHub repos of major frameworks, and top community resources like rustlings, awesome-rust). For each external source used include link + fetched_at in the "further reading" of the relevant lesson.  
+- When searching for crate versions or API changes, consult crates.io and docs.rs and record the exact version string used in code examples.
+- Make the repository self-contained and ready to `git clone` + `cargo test` (for the parts that can run on the target platform).
+- Keep length reasonable for each message but produce the full set of artifacts in this single run (if token limits are hit, produce a ZIP-like manifest first and then continue generating files in subsequent assistant messages without asking — automatically pick up where you left off).
+
+Deliver everything as Markdown + code files. Provide all citations at the end in a machine-readable `sources.json` with url + title + fetched_at.
+
+Start now: first produce the **Master Outline** (module list + lesson counts + short descriptions for each module). Then begin generating the lesson files in the order listed in the outline (start with beginner lessons). For each lesson created, include a "verified: true/false" field depending on whether you were able to compile/test the examples during generation; if false, add steps to reproduce and fix.
+
+End of prompt.

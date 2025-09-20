@@ -23,31 +23,31 @@ Dynamic Programming (DP) is a method for solving complex problems by breaking th
 ### 1. [Fibonacci Sequence](Fibonacci.md/)
 Calculate the nth Fibonacci number using DP.
 
-### 2. [Climbing Stairs](ClimbingStairs.md/)
+### 2. [Climbing Stairs](../../../algorithms/Arrays/ClimbingStairs.md)
 Find number of ways to climb n stairs with 1 or 2 steps.
 
-### 3. [House Robber](HouseRobber.md/)
+### 3. [House Robber](../../../algorithms/DynamicProgramming/HouseRobber.md)
 Maximize money robbed from houses without robbing adjacent ones.
 
-### 4. [Longest Common Subsequence](LongestCommonSubsequence.md/)
+### 4. [Longest Common Subsequence](../../../algorithms/DynamicProgramming/LongestCommonSubsequence.md)
 Find the longest common subsequence between two strings.
 
-### 5. [Edit Distance](EditDistance.md/)
+### 5. [Edit Distance](../../../algorithms/DynamicProgramming/EditDistance.md)
 Find minimum operations to convert one string to another.
 
-### 6. [Coin Change](CoinChange.md/)
+### 6. [Coin Change](../../../algorithms/DynamicProgramming/CoinChange.md)
 Find minimum number of coins to make a target amount.
 
-### 7. [Knapsack Problem](Knapsack.md/)
+### 7. [Knapsack Problem](../../../algorithms/DynamicProgramming/Knapsack.md)
 Maximize value in knapsack with weight constraint.
 
-### 8. [Longest Increasing Subsequence](LongestIncreasingSubsequence.md/)
+### 8. [Longest Increasing Subsequence](../../../algorithms/DynamicProgramming/LongestIncreasingSubsequence.md)
 Find length of longest increasing subsequence.
 
-### 9. [Word Break](WordBreak.md/)
+### 9. [Word Break](../../../algorithms/Strings/WordBreak.md)
 Check if string can be segmented into dictionary words.
 
-### 10. [Unique Paths](UniquePaths.md/)
+### 10. [Unique Paths](../../../algorithms/Arrays/UniquePaths.md)
 Find number of unique paths in a grid.
 
 ## Time & Space Complexity

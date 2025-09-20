@@ -15,7 +15,7 @@
 ### **String Manipulation**
 
 - [String to Integer (atoi)](StringToInteger.md/) - Parsing with edge cases
-- [Roman to Integer](RomanToInteger.md/) - Symbol to value conversion
+- [Roman to Integer](../Math/RomanToInteger.md) - Symbol to value conversion
 - [Integer to Roman](IntegerToRoman.md/) - Value to symbol conversion
 - [Valid Anagram](ValidAnagram.md/) - Character frequency comparison
 - [Group Anagrams](GroupAnagrams.md/) - Anagram grouping
@@ -24,9 +24,9 @@
 
 - [Longest Common Prefix](LongestCommonPrefix.md/) - Prefix comparison
 - [Implement strStr()](ImplementStrStr.md/) - KMP algorithm
-- [Minimum Window Substring](MinimumWindowSubstring.md/) - Sliding window
+- [Minimum Window Substring](../SlidingWindow/MinimumWindowSubstring.md) - Sliding window
 - [Permutation in String](PermutationInString.md/) - Sliding window with frequency
-- [Find All Anagrams in a String](FindAllAnagramsInString.md/) - Sliding window
+- [Find All Anagrams in a String](../SlidingWindow/FindAllAnagramsInString.md) - Sliding window
 
 ---
 

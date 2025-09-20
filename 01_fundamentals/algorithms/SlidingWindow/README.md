@@ -22,8 +22,8 @@
 
 ### **Advanced Sliding Window**
 
-- [Subarray Sum Equals K](SubarraySumEqualsK.md/) - Find subarrays with sum K
-- [Permutation in String](PermutationInString.md/) - Check if permutation exists
+- [Subarray Sum Equals K](../Arrays/SubarraySumEqualsK.md) - Find subarrays with sum K
+- [Permutation in String](../Strings/PermutationInString.md) - Check if permutation exists
 - [Find All Anagrams in a String](FindAllAnagramsInString.md/) - Find all anagram occurrences
 - [Sliding Window Maximum](SlidingWindowMaximum.md/) - Find maximum in sliding window
 - [Longest Subarray with Sum at Most K](LongestSubarrayWithSumAtMostK.md/) - Find longest subarray with sum ≤ K

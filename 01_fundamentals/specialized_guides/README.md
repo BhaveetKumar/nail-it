@@ -33,7 +33,7 @@ Specialized guides for different domains and technologies
 
 - **← Back to Parent**: [../](../)
 - **🏠 Home**: [../../](../..)
-- **📋 Master Index**: [../../MASTER_INDEX.md](../..MASTER_INDEX.md)
+- **📋 Master Index**: [../../MASTER_INDEX.md](../../..MASTER_INDEX.md)
 
 ## 🤝 Contributing
 

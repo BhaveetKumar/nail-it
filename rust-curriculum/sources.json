@@ -1,0 +1,81 @@
+[
+  {"title": "The Rust Programming Language", "url": "https://doc.rust-lang.org/book/", "fetched_at": "2025-09-19T00:00:00Z"},
+  {"title": "Rust By Example", "url": "https://doc.rust-lang.org/rust-by-example/", "fetched_at": "2025-09-19T00:00:00Z"},
+  {"title": "The Rustonomicon", "url": "https://doc.rust-lang.org/nomicon/", "fetched_at": "2025-09-19T00:00:00Z"},
+  {"title": "Asynchronous Programming in Rust", "url": "https://rust-lang.github.io/async-book/", "fetched_at": "2025-09-19T00:00:00Z"},
+  {"title": "Tokio Tutorial", "url": "https://tokio.rs/tokio/tutorial", "fetched_at": "2025-09-19T00:00:00Z"},
+  {"title": "crates.io: criterion", "url": "https://crates.io/crates/criterion", "fetched_at": "2025-09-19T00:00:00Z"},
+  {"title": "docs.rs: criterion 0.7.0", "url": "https://docs.rs/criterion/0.7.0/criterion/", "fetched_at": "2025-09-19T00:00:00Z"},
+  {"title": "crates.io: itertools", "url": "https://crates.io/crates/itertools", "fetched_at": "2025-09-19T00:00:00Z"},
+  {"title": "docs.rs: itertools 0.13.0", "url": "https://docs.rs/itertools/0.13.0/itertools/", "fetched_at": "2025-09-19T00:00:00Z"}
+  ,{"title": "crates.io: anyhow", "url": "https://crates.io/crates/anyhow", "fetched_at": "2025-09-19T00:00:00Z"}
+  ,{"title": "docs.rs: anyhow 1.0.100", "url": "https://docs.rs/anyhow/1.0.100/anyhow/", "fetched_at": "2025-09-19T00:00:00Z"}
+  ,{"title": "crates.io: thiserror", "url": "https://crates.io/crates/thiserror", "fetched_at": "2025-09-19T00:00:00Z"}
+  ,{"title": "docs.rs: thiserror 1.0.69", "url": "https://docs.rs/thiserror/1.0.69/thiserror/", "fetched_at": "2025-09-19T00:00:00Z"}
+  ,{"title": "crates.io: tokio", "url": "https://crates.io/crates/tokio", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: tokio 1.x", "url": "https://docs.rs/tokio/latest/tokio/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: axum", "url": "https://crates.io/crates/axum", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: axum 0.7", "url": "https://docs.rs/axum/0.7.9/axum/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: tower", "url": "https://crates.io/crates/tower", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: tower 0.5", "url": "https://docs.rs/tower/0.5.2/tower/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: http", "url": "https://crates.io/crates/http", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: http 1.x", "url": "https://docs.rs/http/1.3.1/http/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: tracing", "url": "https://crates.io/crates/tracing", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: tracing 0.1", "url": "https://docs.rs/tracing/0.1.40/tracing/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: tracing-subscriber", "url": "https://crates.io/crates/tracing-subscriber", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: tracing-subscriber 0.3", "url": "https://docs.rs/tracing-subscriber/0.3.18/tracing_subscriber/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: sled", "url": "https://crates.io/crates/sled", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: sled 0.34", "url": "https://docs.rs/sled/0.34.7/sled/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: tempfile", "url": "https://crates.io/crates/tempfile", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: tempfile 3", "url": "https://docs.rs/tempfile/3.12.0/tempfile/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "Proptest Book", "url": "https://altsysrq.github.io/proptest-book/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: proptest", "url": "https://crates.io/crates/proptest", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: proptest 1", "url": "https://docs.rs/proptest/1/proptest/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "TRPL: Unsafe Rust", "url": "https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "std::ptr", "url": "https://doc.rust-lang.org/std/ptr/index.html", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "Rustonomicon: FFI", "url": "https://doc.rust-lang.org/nomicon/ffi.html", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: libc", "url": "https://crates.io/crates/libc", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: libc", "url": "https://docs.rs/libc/latest/libc/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: cc", "url": "https://crates.io/crates/cc", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: cc", "url": "https://docs.rs/cc/latest/cc/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "Rayon Guide", "url": "https://docs.rs/rayon/latest/rayon/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: rayon", "url": "https://crates.io/crates/rayon", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "YouTube: Official Rust", "url": "https://www.youtube.com/@RustVideos", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "YouTube: RustConf Playlist", "url": "https://www.youtube.com/playlist?list=PL85XCvVPmGQisu6YMU9KNv3rj9gT1ZqfG", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "YouTube: Jon Gjengset", "url": "https://www.youtube.com/c/JonGjengset", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "YouTube: Let's Get Rusty", "url": "https://www.youtube.com/c/LetsGetRusty", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "YouTube: Tensor Programming", "url": "https://www.youtube.com/c/TensorProgramming", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "YouTube: Ryan Levick", "url": "https://www.youtube.com/c/RyanLevicksVideos", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "Blog: Rust Lang", "url": "https://blog.rust-lang.org", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "Blog: Tokio", "url": "https://tokio.rs/blog", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "Blog: Fasterthanli.me", "url": "https://fasterthanli.me", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "Blog: Without Boats", "url": "https://without.boats", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "Blog: Matklad", "url": "https://matklad.github.io", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "Newsletter: This Week in Rust", "url": "https://this-week-in-rust.org", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "Repo: Awesome Rust", "url": "https://github.com/rust-unofficial/awesome-rust", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "Repo: Rustlings", "url": "https://github.com/rust-lang/rustlings", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: serde", "url": "https://crates.io/crates/serde", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: serde 1", "url": "https://docs.rs/serde/1.0.225/serde/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: serde_json", "url": "https://crates.io/crates/serde_json", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: serde_json 1", "url": "https://docs.rs/serde_json/1.0.145/serde_json/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: crossbeam", "url": "https://crates.io/crates/crossbeam", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: crossbeam-channel", "url": "https://crates.io/crates/crossbeam-channel", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "GitHub: crossbeam", "url": "https://github.com/crossbeam-rs/crossbeam", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: base64", "url": "https://crates.io/crates/base64", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: base64 0.22", "url": "https://docs.rs/base64/0.22.1/base64/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: actix-web", "url": "https://crates.io/crates/actix-web", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "Actix Web Guide", "url": "https://actix.rs/docs/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: tonic", "url": "https://crates.io/crates/tonic", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: tonic", "url": "https://docs.rs/tonic/latest/tonic/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: sqlx", "url": "https://crates.io/crates/sqlx", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: sqlx", "url": "https://docs.rs/sqlx/latest/sqlx/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: hyper", "url": "https://crates.io/crates/hyper", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "docs.rs: hyper 1", "url": "https://docs.rs/hyper/1/hyper/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: yew", "url": "https://crates.io/crates/yew", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "Yew Docs", "url": "https://yew.rs/docs/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "wasm-pack", "url": "https://rustwasm.github.io/wasm-pack/installer/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "crates.io: cortex-m", "url": "https://crates.io/crates/cortex-m", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "RTIC book", "url": "https://rtic.rs/2/book/en/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "Apache Kafka", "url": "https://kafka.apache.org/", "fetched_at": "2025-09-20T00:00:00Z"}
+  ,{"title": "NATS.io", "url": "https://nats.io/", "fetched_at": "2025-09-20T00:00:00Z"}
+]

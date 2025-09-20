@@ -189,7 +189,7 @@ func (h *CQRSHandler) HandleCommand(ctx context.Context, cmd Command) error {
 
 #### Resources
 - [Enterprise Architecture Patterns](enterprise_patterns.md)
-- [Distributed Systems Design](distributed_systems.md)
+- [Distributed Systems Design](../../02_system_design/patterns/distributed_systems.md)
 - [Performance Optimization Guide](performance_optimization.md)
 
 ### Module 3: Advanced Engineering Practices (Weeks 5-6)
@@ -953,7 +953,7 @@ To receive Expert Level certification, candidates must:
 - [Engineering Blogs](engineering_blogs.md)
 - [Technical Conferences](technical_conferences.md)
 - [Research Papers](research_papers.md)
-- [Open Source Projects](open_source_projects.md)
+- [Open Source Projects](../../10_resources/open_source_projects.md)
 - [Professional Networks](professional_networks.md)
 
 ### Continuous Learning

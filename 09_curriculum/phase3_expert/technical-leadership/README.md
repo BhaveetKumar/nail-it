@@ -949,4 +949,4 @@ A: Use analogies, focus on business value, avoid jargon, provide visual aids, an
 
 ---
 
-**Next**: [Architecture Design](architecture-design/README.md/) | **Previous**: [Phase 2](phase2_advanced/README.md/) | **Up**: [Phase 3](README.md/)
+**Next**: [Architecture Design](../../../README.md) | **Previous**: [Phase 2](../../../README.md) | **Up**: [Phase 3](README.md/)

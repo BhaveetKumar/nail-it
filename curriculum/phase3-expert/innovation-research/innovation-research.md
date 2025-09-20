@@ -1010,4 +1010,4 @@ A: Create a culture of experimentation, provide resources for research, encourag
 
 ---
 
-**Next**: [Mentoring Coaching](mentoring-coaching.md/) | **Previous**: [Technical Leadership](technical-leadership.md/) | **Up**: [Phase 3](README.md/)
+**Next**: [Mentoring Coaching](../mentoring-coaching/mentoring-coaching.md) | **Previous**: [Technical Leadership](../technical-leadership/technical-leadership.md) | **Up**: [Phase 3](README.md/)

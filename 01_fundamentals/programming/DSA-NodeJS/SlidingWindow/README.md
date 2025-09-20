@@ -52,19 +52,19 @@ Find the maximum sum of any contiguous subarray of size k.
 ### 2. [Longest Substring Without Repeating Characters](LongestSubstringNoRepeat.md/)
 Find the length of the longest substring without repeating characters.
 
-### 3. [Minimum Window Substring](MinimumWindowSubstring.md/)
+### 3. [Minimum Window Substring](../../../algorithms/SlidingWindow/MinimumWindowSubstring.md)
 Find the minimum window in string S that contains all characters in string T.
 
 ### 4. [Longest Substring with At Most K Distinct Characters](LongestSubstringKDistinct.md/)
 Find the length of the longest substring with at most k distinct characters.
 
-### 5. [Fruit Into Baskets](FruitIntoBaskets.md/)
+### 5. [Fruit Into Baskets](../../../algorithms/SlidingWindow/FruitIntoBaskets.md)
 Find the maximum number of fruits you can collect with two baskets.
 
-### 6. [Longest Repeating Character Replacement](LongestRepeatingCharacterReplacement.md/)
+### 6. [Longest Repeating Character Replacement](../../../algorithms/SlidingWindow/LongestRepeatingCharacterReplacement.md)
 Find the length of the longest substring with same character after k replacements.
 
-### 7. [Permutation in String](PermutationInString.md/)
+### 7. [Permutation in String](../../../algorithms/Strings/PermutationInString.md)
 Check if string s2 contains a permutation of string s1.
 
 ### 8. [Find All Anagrams in a String](FindAllAnagrams.md/)

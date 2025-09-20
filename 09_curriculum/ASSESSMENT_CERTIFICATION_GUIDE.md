@@ -510,4 +510,4 @@ Design and implement a simple URL shortener service with the following requireme
 
 ---
 
-**Next Steps**: [Take Skill Assessment](LEARNING_PATH_GUIDE.md#assessment-and-progress-tracking/) | [Build Your Portfolio](PROJECT_SHOWCASE_GUIDE.md/) | [Track Your Progress](10_resources/progress-tracking/study_tracker.md/)
+**Next Steps**: [Take Skill Assessment](LEARNING_PATH_GUIDE.md#assessment-and-progress-tracking/) | [Build Your Portfolio](PROJECT_SHOWCASE_GUIDE.md/) | [Track Your Progress](../10_resources/progress-tracking/study_tracker.md)

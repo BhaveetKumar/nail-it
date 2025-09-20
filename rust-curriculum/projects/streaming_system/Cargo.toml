@@ -1,0 +1,11 @@
+[package]
+name = "streaming_system"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "streaming_system"
+path = "src/lib.rs"
+
+[dependencies]
+crossbeam-channel = "0.5"

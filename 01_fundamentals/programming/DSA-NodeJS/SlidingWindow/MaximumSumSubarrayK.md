@@ -270,6 +270,6 @@ try {
 
 - [Maximum Sum Subarray](MaximumSumSubarray.md/) - Variable size window
 - [Longest Substring Without Repeating Characters](LongestSubstringNoRepeat.md/) - Variable size window
-- [Minimum Window Substring](MinimumWindowSubstring.md/) - Variable size window
-- [Fruit Into Baskets](FruitIntoBaskets.md/) - Variable size window
+- [Minimum Window Substring](../../../algorithms/SlidingWindow/MinimumWindowSubstring.md) - Variable size window
+- [Fruit Into Baskets](../../../algorithms/SlidingWindow/FruitIntoBaskets.md) - Variable size window
 - [Longest Substring with At Most K Distinct Characters](LongestSubstringKDistinct.md/) - Variable size window

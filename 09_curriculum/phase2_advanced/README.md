@@ -163,4 +163,4 @@ After completing Phase 2, you'll be ready for:
 
 ---
 
-**Next**: [Phase 3: Expert](phase3_expert/README.md/) | **Previous**: [Phase 1: Intermediate](phase1_intermediate/README.md/) | **Up**: [Master Engineer Curriculum](README.md/)
+**Next**: [Phase 3: Expert](../../README.md) | **Previous**: [Phase 1: Intermediate](../../README.md) | **Up**: [Master Engineer Curriculum](README.md/)

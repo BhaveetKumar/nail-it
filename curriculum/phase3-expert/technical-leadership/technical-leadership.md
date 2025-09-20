@@ -587,4 +587,4 @@ A: Provide growth opportunities, offer challenging projects, give regular feedba
 
 ---
 
-**Next**: [Innovation Research](innovation-research.md/) | **Previous**: [Phase 2](phase2-advanced/README.md/) | **Up**: [Phase 3](README.md/)
+**Next**: [Innovation Research](../innovation-research/innovation-research.md) | **Previous**: [Phase 2](../../../README.md) | **Up**: [Phase 3](README.md)

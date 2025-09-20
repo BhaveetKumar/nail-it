@@ -1,0 +1,620 @@
+{
+  "curriculum": {
+    "title": "Complete Rust Learning Curriculum",
+    "version": "1.0",
+    "last_updated": "2024-12-19T00:00:00Z",
+    "description": "Comprehensive Rust learning path from beginner to expert",
+    "total_modules": 30,
+    "total_lessons": 200,
+    "estimated_duration_months": 12,
+    "prerequisites": ["Basic programming knowledge"],
+    "learning_tracks": [
+      "Systems Programming",
+      "Web/Backend Development", 
+      "Async Programming",
+      "Embedded Development",
+      "Game Development",
+      "Compiler Internals",
+      "Data Structures & Algorithms"
+    ]
+  },
+  "modules": {
+    "beginner": {
+      "level": "Beginner",
+      "duration_weeks": 10,
+      "modules": [
+        {
+          "id": 1,
+          "title": "Introduction to Rust",
+          "lessons": 4,
+          "duration_weeks": 1,
+          "prerequisites": [],
+          "learning_objectives": [
+            "Understand Rust's history and philosophy",
+            "Set up development environment", 
+            "Write first Rust program",
+            "Understand Rust's key features"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 2,
+          "title": "Basic Syntax and Data Types",
+          "lessons": 6,
+          "duration_weeks": 1.5,
+          "prerequisites": [1],
+          "learning_objectives": [
+            "Master variables, mutability, and shadowing",
+            "Understand all primitive data types",
+            "Learn control flow structures",
+            "Practice with functions and scope"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 3,
+          "title": "Ownership and Borrowing",
+          "lessons": 8,
+          "duration_weeks": 2,
+          "prerequisites": [2],
+          "learning_objectives": [
+            "Master Rust's ownership system",
+            "Understand borrowing and references",
+            "Learn about slices and string handling",
+            "Practice memory-safe programming"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 4,
+          "title": "Structs, Enums, and Pattern Matching",
+          "lessons": 6,
+          "duration_weeks": 1.5,
+          "prerequisites": [3],
+          "learning_objectives": [
+            "Define and use custom data types",
+            "Master pattern matching with match",
+            "Understand Option and Result types",
+            "Implement methods and associated functions"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 5,
+          "title": "Error Handling",
+          "lessons": 5,
+          "duration_weeks": 1,
+          "prerequisites": [4],
+          "learning_objectives": [
+            "Master Result and Option types",
+            "Learn error propagation with ?",
+            "Create custom error types",
+            "Handle panics and recovery"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 6,
+          "title": "Collections and Iterators",
+          "lessons": 6,
+          "duration_weeks": 1.5,
+          "prerequisites": [5],
+          "learning_objectives": [
+            "Master vectors, hash maps, and strings",
+            "Understand iterator patterns",
+            "Learn functional programming concepts",
+            "Practice with closures and higher-order functions"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 7,
+          "title": "Modules and Crates",
+          "lessons": 5,
+          "duration_weeks": 1,
+          "prerequisites": [6],
+          "learning_objectives": [
+            "Organize code with modules",
+            "Understand crate system",
+            "Manage dependencies with Cargo",
+            "Publish and use external crates"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 8,
+          "title": "Testing and Documentation",
+          "lessons": 4,
+          "duration_weeks": 1,
+          "prerequisites": [7],
+          "learning_objectives": [
+            "Write unit and integration tests",
+            "Use testing frameworks and tools",
+            "Document code with rustdoc",
+            "Practice test-driven development"
+          ],
+          "status": "draft"
+        }
+      ]
+    },
+    "intermediate": {
+      "level": "Intermediate",
+      "duration_weeks": 12,
+      "modules": [
+        {
+          "id": 9,
+          "title": "Generics and Traits",
+          "lessons": 8,
+          "duration_weeks": 2,
+          "prerequisites": [8],
+          "learning_objectives": [
+            "Master generic programming",
+            "Understand trait system",
+            "Learn trait bounds and associated types",
+            "Practice with trait objects"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 10,
+          "title": "Concurrency and Threading",
+          "lessons": 7,
+          "duration_weeks": 1.5,
+          "prerequisites": [9],
+          "learning_objectives": [
+            "Understand Send and Sync traits",
+            "Master thread creation and management",
+            "Learn message passing with channels",
+            "Practice shared state concurrency"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 11,
+          "title": "Async Programming",
+          "lessons": 10,
+          "duration_weeks": 2.5,
+          "prerequisites": [10],
+          "learning_objectives": [
+            "Master async/await syntax",
+            "Understand futures and executors",
+            "Learn Tokio ecosystem",
+            "Practice async I/O and networking"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 12,
+          "title": "Macros",
+          "lessons": 6,
+          "duration_weeks": 1.5,
+          "prerequisites": [11],
+          "learning_objectives": [
+            "Write declarative macros with macro_rules!",
+            "Understand procedural macros",
+            "Learn derive macros and attribute macros",
+            "Practice macro hygiene and best practices"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 13,
+          "title": "Unsafe Rust",
+          "lessons": 8,
+          "duration_weeks": 2,
+          "prerequisites": [12],
+          "learning_objectives": [
+            "Understand unsafe blocks and functions",
+            "Learn raw pointers and memory management",
+            "Master FFI with C/C++",
+            "Practice unsafe abstractions"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 14,
+          "title": "Web Development",
+          "lessons": 8,
+          "duration_weeks": 2,
+          "prerequisites": [13],
+          "learning_objectives": [
+            "Build web servers with Actix Web",
+            "Handle HTTP requests and responses",
+            "Integrate with databases",
+            "Deploy web applications"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 15,
+          "title": "Database Integration",
+          "lessons": 6,
+          "duration_weeks": 1.5,
+          "prerequisites": [14],
+          "learning_objectives": [
+            "Use SQLx for async database access",
+            "Implement ORM with Diesel",
+            "Handle migrations and schema changes",
+            "Practice database testing"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 16,
+          "title": "Performance and Profiling",
+          "lessons": 6,
+          "duration_weeks": 1.5,
+          "prerequisites": [15],
+          "learning_objectives": [
+            "Profile Rust applications",
+            "Optimize for performance",
+            "Use benchmarking tools",
+            "Understand memory layout and optimization"
+          ],
+          "status": "draft"
+        }
+      ]
+    },
+    "advanced": {
+      "level": "Advanced",
+      "duration_weeks": 12,
+      "modules": [
+        {
+          "id": 17,
+          "title": "Embedded Programming",
+          "lessons": 10,
+          "duration_weeks": 2.5,
+          "prerequisites": [16],
+          "learning_objectives": [
+            "Program with no_std",
+            "Use Hardware Abstraction Layers (HAL)",
+            "Implement real-time systems with RTIC",
+            "Practice with microcontrollers"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 18,
+          "title": "WebAssembly (WASM)",
+          "lessons": 8,
+          "duration_weeks": 2,
+          "prerequisites": [17],
+          "learning_objectives": [
+            "Compile Rust to WebAssembly",
+            "Use wasm-bindgen for JS interop",
+            "Build web applications with Yew",
+            "Optimize WASM performance"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 19,
+          "title": "Game Development",
+          "lessons": 8,
+          "duration_weeks": 2,
+          "prerequisites": [18],
+          "learning_objectives": [
+            "Use game engines like Bevy",
+            "Implement graphics programming",
+            "Handle input and game loops",
+            "Practice with ECS architecture"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 20,
+          "title": "Networking and Distributed Systems",
+          "lessons": 8,
+          "duration_weeks": 2,
+          "prerequisites": [19],
+          "learning_objectives": [
+            "Build gRPC services with Tonic",
+            "Implement distributed systems patterns",
+            "Handle network protocols",
+            "Practice with message queues"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 21,
+          "title": "Advanced Async Patterns",
+          "lessons": 6,
+          "duration_weeks": 1.5,
+          "prerequisites": [20],
+          "learning_objectives": [
+            "Master advanced async patterns",
+            "Implement custom executors",
+            "Handle async cancellation",
+            "Practice with async streams"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 22,
+          "title": "Compiler Internals",
+          "lessons": 8,
+          "duration_weeks": 2,
+          "prerequisites": [21],
+          "learning_objectives": [
+            "Understand rustc architecture",
+            "Learn about MIR and LLVM",
+            "Write custom lints",
+            "Practice with compiler plugins"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 23,
+          "title": "Advanced Memory Management",
+          "lessons": 6,
+          "duration_weeks": 1.5,
+          "prerequisites": [22],
+          "learning_objectives": [
+            "Implement custom allocators",
+            "Understand memory layout",
+            "Practice with zero-copy patterns",
+            "Learn about memory pools"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 24,
+          "title": "Language Design and Research",
+          "lessons": 6,
+          "duration_weeks": 1.5,
+          "prerequisites": [23],
+          "learning_objectives": [
+            "Understand Rust's design principles",
+            "Learn about language evolution",
+            "Practice with formal verification",
+            "Explore research directions"
+          ],
+          "status": "draft"
+        }
+      ]
+    },
+    "expert": {
+      "level": "Expert",
+      "duration_weeks": 6,
+      "modules": [
+        {
+          "id": 25,
+          "title": "Contributing to Rust",
+          "lessons": 6,
+          "duration_weeks": 1.5,
+          "prerequisites": [24],
+          "learning_objectives": [
+            "Contribute to rustc",
+            "Participate in RFC process",
+            "Mentor other developers",
+            "Lead Rust projects"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 26,
+          "title": "Advanced Systems Programming",
+          "lessons": 8,
+          "duration_weeks": 2,
+          "prerequisites": [25],
+          "learning_objectives": [
+            "Build operating system components",
+            "Implement kernel modules",
+            "Practice with device drivers",
+            "Handle low-level system calls"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 27,
+          "title": "Formal Verification",
+          "lessons": 6,
+          "duration_weeks": 1.5,
+          "prerequisites": [26],
+          "learning_objectives": [
+            "Use formal verification tools",
+            "Prove program correctness",
+            "Practice with theorem provers",
+            "Implement verified algorithms"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 28,
+          "title": "Advanced Concurrency",
+          "lessons": 6,
+          "duration_weeks": 1.5,
+          "prerequisites": [27],
+          "learning_objectives": [
+            "Implement lock-free data structures",
+            "Practice with atomic operations",
+            "Handle complex synchronization",
+            "Optimize concurrent algorithms"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 29,
+          "title": "Domain-Specific Languages",
+          "lessons": 6,
+          "duration_weeks": 1.5,
+          "prerequisites": [28],
+          "learning_objectives": [
+            "Design DSLs in Rust",
+            "Implement parsers and interpreters",
+            "Practice with macro-based DSLs",
+            "Handle code generation"
+          ],
+          "status": "draft"
+        },
+        {
+          "id": 30,
+          "title": "Capstone Project",
+          "lessons": 4,
+          "duration_weeks": 1,
+          "prerequisites": [29],
+          "learning_objectives": [
+            "Build a complete production system",
+            "Apply all learned concepts",
+            "Practice with real-world constraints",
+            "Present and document the project"
+          ],
+          "status": "draft"
+        }
+      ]
+    }
+  },
+  "projects": [
+    {
+      "id": 1,
+      "title": "CLI Tool with Plugin System",
+      "level": "intermediate",
+      "modules": [7, 8, 9],
+      "description": "Build a command-line tool with async tasks, streaming input, config & plugin system",
+      "technologies": ["clap", "tokio", "serde", "anyhow"],
+      "status": "draft"
+    },
+    {
+      "id": 2,
+      "title": "High-Performance Web Server",
+      "level": "intermediate",
+      "modules": [11, 14, 15, 16],
+      "description": "Build an async web server with Tokio + Hyper + SQLX + tracing + metrics",
+      "technologies": ["tokio", "hyper", "sqlx", "tracing", "metrics"],
+      "status": "draft"
+    },
+    {
+      "id": 3,
+      "title": "gRPC Service with Streaming",
+      "level": "advanced",
+      "modules": [11, 20, 21],
+      "description": "Build a gRPC service with Tonic + streaming + auth + CI + load testing",
+      "technologies": ["tonic", "tokio", "tower", "prost"],
+      "status": "draft"
+    },
+    {
+      "id": 4,
+      "title": "WASM Single-Page App",
+      "level": "advanced",
+      "modules": [18, 19],
+      "description": "Build a single-page WASM app using Yew with JS interop",
+      "technologies": ["yew", "wasm-bindgen", "wasm-pack"],
+      "status": "draft"
+    },
+    {
+      "id": 5,
+      "title": "Embedded Firmware",
+      "level": "advanced",
+      "modules": [17],
+      "description": "Build embedded firmware with LED control + sensor polling + OTA updates",
+      "technologies": ["cortex-m", "rtic", "embedded-hal"],
+      "status": "draft"
+    },
+    {
+      "id": 6,
+      "title": "Real-time Streaming System",
+      "level": "advanced",
+      "modules": [11, 20, 21],
+      "description": "Build a real-time streaming system with backpressure and exactly-once guarantees",
+      "technologies": ["tokio", "kafka", "nats"],
+      "status": "draft"
+    },
+    {
+      "id": 7,
+      "title": "Algorithms & Data Structures Library",
+      "level": "advanced",
+      "modules": [9, 10, 16, 23],
+      "description": "Implement core algorithms & data structures with safe and unsafe optimized paths",
+      "technologies": ["criterion", "proptest", "miri"],
+      "status": "draft"
+    },
+    {
+      "id": 8,
+      "title": "Toy OS Component",
+      "level": "expert",
+      "modules": [26, 27],
+      "description": "Build a small toy OS component or kernel module with safety considerations",
+      "technologies": ["no_std", "custom_allocator", "unsafe"],
+      "status": "draft"
+    }
+  ],
+  "assessments": {
+    "quizzes": {
+      "total": 200,
+      "by_level": {
+        "beginner": 80,
+        "intermediate": 60,
+        "advanced": 40,
+        "expert": 20
+      }
+    },
+    "coding_exercises": {
+      "total": 300,
+      "by_level": {
+        "beginner": 120,
+        "intermediate": 100,
+        "advanced": 60,
+        "expert": 20
+      }
+    },
+    "projects": {
+      "total": 8,
+      "by_level": {
+        "beginner": 0,
+        "intermediate": 2,
+        "advanced": 5,
+        "expert": 1
+      }
+    }
+  },
+  "tools_and_versions": {
+    "rust_toolchain": {
+      "stable": "1.75.0",
+      "nightly": "1.76.0-nightly",
+      "last_updated": "2024-12-19T00:00:00Z"
+    },
+    "major_crates": {
+      "tokio": "1.35.0",
+      "serde": "1.0.195",
+      "clap": "4.4.0",
+      "actix-web": "4.4.0",
+      "sqlx": "0.7.0",
+      "tonic": "0.10.0",
+      "yew": "0.21.0",
+      "bevy": "0.12.0",
+      "last_updated": "2024-12-19T00:00:00Z"
+    }
+  },
+  "sources": [
+    {
+      "title": "The Rust Programming Language (The Book)",
+      "url": "https://doc.rust-lang.org/book/",
+      "type": "official_documentation",
+      "fetched_at": "2024-12-19T00:00:00Z"
+    },
+    {
+      "title": "Rust by Example",
+      "url": "https://doc.rust-lang.org/rust-by-example/",
+      "type": "official_documentation", 
+      "fetched_at": "2024-12-19T00:00:00Z"
+    },
+    {
+      "title": "The Rustonomicon",
+      "url": "https://doc.rust-lang.org/nomicon/",
+      "type": "official_documentation",
+      "fetched_at": "2024-12-19T00:00:00Z"
+    },
+    {
+      "title": "Asynchronous Programming in Rust",
+      "url": "https://rust-lang.github.io/async-book/",
+      "type": "official_documentation",
+      "fetched_at": "2024-12-19T00:00:00Z"
+    },
+    {
+      "title": "Tokio Documentation",
+      "url": "https://tokio.rs/",
+      "type": "official_documentation",
+      "fetched_at": "2024-12-19T00:00:00Z"
+    }
+  ]
+}

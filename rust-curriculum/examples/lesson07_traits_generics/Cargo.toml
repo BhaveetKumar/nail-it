@@ -1,0 +1,8 @@
+[package]
+name = "lesson07_traits_generics"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "lesson07_traits_generics"
+path = "src/lib.rs"

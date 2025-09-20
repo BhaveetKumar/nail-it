@@ -698,4 +698,4 @@ A: Governance ensures consistency, compliance, standards adherence, and alignmen
 
 ---
 
-**Next**: [Innovation Research](innovation-research/README.md/) | **Previous**: [Architecture Design](README.md/) | **Up**: [Phase 3 Expert](README.md/)
+**Next**: [Innovation Research](../../../README.md) | **Previous**: [Architecture Design](README.md/) | **Up**: [Phase 3 Expert](README.md/)

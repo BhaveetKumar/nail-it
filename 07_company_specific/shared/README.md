@@ -23,7 +23,7 @@ Shared resources and common patterns
 
 - **← Back to Parent**: [../](../)
 - **🏠 Home**: [../../](../..)
-- **📋 Master Index**: [../../MASTER_INDEX.md](../..MASTER_INDEX.md)
+- **📋 Master Index**: [../../MASTER_INDEX.md](../../..MASTER_INDEX.md)
 
 ## 🤝 Contributing
 

@@ -52,25 +52,25 @@ Place n queens on an n×n chessboard so no two queens attack each other.
 ### 3. [Combination Sum](CombinationSum.md/)
 Find all unique combinations that sum to a target value.
 
-### 4. [Permutations](Permutations.md/)
+### 4. [Permutations](../../../algorithms/Backtracking/Permutations.md)
 Generate all possible permutations of an array.
 
-### 5. [Subsets](Subsets.md/)
+### 5. [Subsets](../../../algorithms/BitManipulation/Subsets.md)
 Generate all possible subsets of an array.
 
-### 6. [Word Search](WordSearch.md/)
+### 6. [Word Search](../../../algorithms/Arrays/WordSearch.md)
 Find if a word exists in a 2D board using adjacent cells.
 
-### 7. [Sudoku Solver](SudokuSolver.md/)
+### 7. [Sudoku Solver](../../../algorithms/Backtracking/SudokuSolver.md)
 Solve a 9×9 Sudoku puzzle using backtracking.
 
-### 8. [Letter Combinations](LetterCombinations.md/)
+### 8. [Letter Combinations](../../../algorithms/Backtracking/LetterCombinations.md)
 Generate all possible letter combinations from phone number digits.
 
-### 9. [Palindrome Partitioning](PalindromePartitioning.md/)
+### 9. [Palindrome Partitioning](../../../algorithms/Backtracking/PalindromePartitioning.md)
 Partition a string into palindromic substrings.
 
-### 10. [Restore IP Addresses](RestoreIPAddresses.md/)
+### 10. [Restore IP Addresses](../../../algorithms/Backtracking/RestoreIPAddresses.md)
 Restore valid IP addresses from a string of digits.
 
 ## Time & Space Complexity

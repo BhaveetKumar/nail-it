@@ -17,8 +17,8 @@
 
 - [Maximum Subarray](MaximumSubarray.md/) - Kadane's algorithm
 - [Longest Substring Without Repeating Characters](LongestSubstring.md/) - Sliding window technique
-- [Minimum Window Substring](MinimumWindowSubstring.md/) - Variable window size
-- [Longest Repeating Character Replacement](LongestRepeatingCharacterReplacement.md/) - Sliding window with character replacement
+- [Minimum Window Substring](../SlidingWindow/MinimumWindowSubstring.md) - Variable window size
+- [Longest Repeating Character Replacement](../SlidingWindow/LongestRepeatingCharacterReplacement.md) - Sliding window with character replacement
 
 ### **Prefix Sum**
 

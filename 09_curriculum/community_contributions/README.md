@@ -456,4 +456,4 @@ A: Reviews typically take 1-3 business days, depending on the complexity and cur
 
 ---
 
-**Next**: [Testing QA](testing_qa/README.md/) | **Previous**: [Deployment DevOps](deployment_devops/README.md/) | **Up**: [Community Contributions](README.md/)
+**Next**: [Testing QA](../../README.md) | **Previous**: [Deployment DevOps](../../README.md) | **Up**: [Community Contributions](README.md/)

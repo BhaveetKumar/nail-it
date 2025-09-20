@@ -1,0 +1,8 @@
+[package]
+name = "lesson09_macros_intro"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "lesson09_macros_intro"
+path = "src/lib.rs"

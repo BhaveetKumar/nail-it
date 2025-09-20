@@ -844,6 +844,6 @@ func (prs *PullRequestService) MergePullRequest(prID, userID string) error {
 
 ## 🔗 Related Content
 
-- [Coding Round 1](atlassian/round1-coding.md/) - For coding problems
-- [Behavioral Round 3](atlassian/round3-behavioral.md/) - For behavioral questions
+- [Coding Round 1](../meta/round1-coding.md) - For coding problems
+- [Behavioral Round 3](round3-behavioral.md) - For behavioral questions
 - [Golang Patterns](../shared/golang-coding-patterns.md/) - For implementation details

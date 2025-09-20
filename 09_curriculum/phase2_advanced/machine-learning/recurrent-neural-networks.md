@@ -656,4 +656,4 @@ A: GRU combines the forget and input gates into a single update gate and merges 
 
 ---
 
-**Next**: [Transformers](transformers.md/) | **Previous**: [Machine Learning](README.md/) | **Up**: [Machine Learning](README.md/)
+**Next**: [Transformers](../../../05_ai_ml/deep_learning/transformers.md) | **Previous**: [Machine Learning](README.md/) | **Up**: [Machine Learning](README.md/)

@@ -16,9 +16,9 @@
 
 - [Pascal's Triangle](PascalsTriangle.md/) - Generate Pascal's triangle
 - [Pascal's Triangle II](PascalsTriangleII.md/) - Get specific row
-- [Unique Paths](UniquePaths.md/) - Count paths in grid
-- [Unique Paths II](UniquePathsII.md/) - Count paths with obstacles
-- [Climbing Stairs](ClimbingStairs.md/) - Count ways to climb stairs
+- [Unique Paths](../Arrays/UniquePaths.md) - Count paths in grid
+- [Unique Paths II](../Arrays/UniquePathsII.md) - Count paths with obstacles
+- [Climbing Stairs](../Arrays/ClimbingStairs.md) - Count ways to climb stairs
 
 ### **Arithmetic**
 

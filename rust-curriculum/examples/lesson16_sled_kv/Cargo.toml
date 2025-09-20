@@ -1,0 +1,8 @@
+[package]
+name = "lesson16_sled_kv"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+sled = "0.34"
+tempfile = "3"

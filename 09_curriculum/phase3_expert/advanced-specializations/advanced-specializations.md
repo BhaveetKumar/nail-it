@@ -960,7 +960,7 @@ A: Follow research papers, experiment with new technologies, participate in beta
 
 ---
 
-**Next**: [Phase 3 README](README.md/) | **Previous**: [Strategic Planning](strategic-planning.md/) | **Up**: [Phase 3](README.md/)
+**Next**: [Phase 3 README](README.md/) | **Previous**: [Strategic Planning](../../../curriculum/phase3-expert/strategic-planning/strategic-planning.md) | **Up**: [Phase 3](README.md/)
 
 
 continue

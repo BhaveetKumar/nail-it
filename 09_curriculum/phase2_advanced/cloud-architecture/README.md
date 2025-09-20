@@ -1446,5 +1446,5 @@ A: Deployments are for stateless applications with random pod names, while State
 
 ---
 
-**Next**: [Advanced Algorithms](advanced-algorithms/README.md/) | **Previous**: [Machine Learning](machine-learning/README.md/) | **Up**: [Phase 2](README.md/)
+**Next**: [Advanced Algorithms](../../../README.md) | **Previous**: [Machine Learning](../../../README.md) | **Up**: [Phase 2](README.md/)
 

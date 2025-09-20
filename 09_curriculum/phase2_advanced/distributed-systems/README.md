@@ -1147,5 +1147,5 @@ A: Event sourcing provides complete audit trail, enables time travel, supports r
 
 ---
 
-**Next**: [Machine Learning](machine-learning/README.md/) | **Previous**: [Phase 1](phase1_intermediate/README.md/) | **Up**: [Phase 2](README.md/)
+**Next**: [Machine Learning](../../../README.md) | **Previous**: [Phase 1](../../../README.md) | **Up**: [Phase 2](README.md/)
 

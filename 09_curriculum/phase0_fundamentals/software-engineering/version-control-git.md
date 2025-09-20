@@ -897,4 +897,4 @@ A: Feature branches isolate changes, enable parallel development, and provide a 
 
 ---
 
-**Next**: [Testing Strategies](testing-strategies.md/) | **Previous**: [Database Fundamentals](cs-basics/database-fundamentals.md/) | **Up**: [Phase 0](README.md/)
+**Next**: [Testing Strategies](testing-strategies.md/) | **Previous**: [Database Fundamentals](../cs-basics/database-fundamentals.md) | **Up**: [Phase 0](README.md/)

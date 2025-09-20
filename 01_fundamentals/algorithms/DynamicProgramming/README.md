@@ -10,7 +10,7 @@
 - [House Robber](HouseRobber.md/) - Maximum sum with constraints
 - [Longest Increasing Subsequence](LongestIncreasingSubsequence.md/) - LIS with O(n log n) solution
 - [Word Break](WordBreak.md/) - String segmentation problem
-- [Decode Ways](DecodeWays.md/) - String to number conversion
+- [Decode Ways](../Strings/DecodeWays.md) - String to number conversion
 
 ### **2D DP**
 
@@ -23,10 +23,10 @@
 ### **Advanced DP**
 
 - [Coin Change](CoinChange.md/) - Minimum coins problem
-- [Palindrome Partitioning](PalindromePartitioning.md/) - String partitioning
-- [Regular Expression Matching](RegularExpressionMatching.md/) - Pattern matching
-- [Wildcard Matching](WildcardMatching.md/) - Advanced pattern matching
-- [Maximum Product Subarray](MaximumProductSubarray.md/) - Array optimization
+- [Palindrome Partitioning](../Backtracking/PalindromePartitioning.md) - String partitioning
+- [Regular Expression Matching](../Strings/RegularExpressionMatching.md) - Pattern matching
+- [Wildcard Matching](../Strings/WildcardMatching.md) - Advanced pattern matching
+- [Maximum Product Subarray](../Arrays/MaximumProductSubarray.md) - Array optimization
 
 ---
 

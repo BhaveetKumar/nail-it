@@ -1,0 +1,12 @@
+[workspace]
+members = [
+    "examples/*",
+    "projects/grpc_tonic_service",
+    "projects/dsa_library",
+    "projects/streaming_system",
+    "projects/toy_os_component"
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"

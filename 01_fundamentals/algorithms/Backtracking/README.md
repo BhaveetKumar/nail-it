@@ -17,7 +17,7 @@
 - [N-Queens](NQueens.md/) - Place N queens on N×N board
 - [N-Queens II](NQueensII.md/) - Count number of solutions
 - [Sudoku Solver](SudokuSolver.md/) - Solve Sudoku puzzle
-- [Word Search](WordSearch.md/) - Find word in 2D grid
+- [Word Search](../Arrays/WordSearch.md) - Find word in 2D grid
 - [Word Search II](WordSearchII.md/) - Find multiple words
 
 ### **Subset Problems**

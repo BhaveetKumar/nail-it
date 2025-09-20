@@ -402,8 +402,8 @@ function productExceptK(nums, k) {
 
 - [**Two Sum**](TwoSum.md/) - Two numbers that sum to target
 - [**Maximum Subarray**](MaximumSubarray.md/) - Kadane's algorithm
-- [**Maximum Product Subarray**](MaximumProductSubarray.md/) - Product instead of sum
-- [**Trapping Rain Water**](TrappingRainWater.md/) - Prefix/suffix pattern
+- [**Maximum Product Subarray**](../../../algorithms/Arrays/MaximumProductSubarray.md) - Product instead of sum
+- [**Trapping Rain Water**](../../../algorithms/Arrays/TrappingRainWater.md) - Prefix/suffix pattern
 
 ## 🎉 **Summary**
 

@@ -1,0 +1,10 @@
+[package]
+name = "lesson14_http_axum"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = { version = "0.7", features = ["macros"] }
+tokio = { version = "1.40", features = ["rt", "macros"] }
+tower = "0.5"
+http = "1"

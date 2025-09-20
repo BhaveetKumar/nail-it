@@ -32,13 +32,13 @@ Asli Engineering provides high-quality system design and software engineering co
 - **Video**: "How to Scale Your System"
 - **Key Concepts**: Horizontal vs vertical scaling, load balancing, caching
 - **Implementation**: Golang and Node.js examples
-- **Cross-Reference**: [System Design Basics](phase1_intermediate/system-design-basics/README.md/)
+- **Cross-Reference**: [System Design Basics](../../../README.md)
 
 #### Database Design Videos
 - **Video**: "Database Design for Scale"
 - **Key Concepts**: Sharding, replication, consistency models
 - **Implementation**: Database optimization examples
-- **Cross-Reference**: [Database Systems](phase1_intermediate/database-systems/README.md/)
+- **Cross-Reference**: [Database Systems](../../../README.md)
 
 ### 2. Advanced System Design
 
@@ -46,13 +46,13 @@ Asli Engineering provides high-quality system design and software engineering co
 - **Video**: "Microservices Architecture Patterns"
 - **Key Concepts**: Service discovery, API gateway, circuit breakers
 - **Implementation**: Service mesh examples
-- **Cross-Reference**: [Distributed Systems](phase2_advanced/distributed-systems/README.md/)
+- **Cross-Reference**: [Distributed Systems](../../../README.md)
 
 #### Caching Strategies Videos
 - **Video**: "Caching Strategies for High Performance"
 - **Key Concepts**: CDN, Redis, cache invalidation
 - **Implementation**: Multi-level caching examples
-- **Cross-Reference**: [Performance Engineering](phase2_advanced/performance-engineering/README.md/)
+- **Cross-Reference**: [Performance Engineering](../../../README.md)
 
 ### 3. Real-World Case Studies
 
@@ -60,13 +60,13 @@ Asli Engineering provides high-quality system design and software engineering co
 - **Video**: "How Netflix Scales"
 - **Key Concepts**: CDN, microservices, data processing
 - **Implementation**: Netflix-like architecture examples
-- **Cross-Reference**: [Architecture Design](phase3_expert/architecture-design/README.md/)
+- **Cross-Reference**: [Architecture Design](../../../README.md)
 
 #### Technology Deep Dives
 - **Video**: "Kubernetes Deep Dive"
 - **Key Concepts**: Container orchestration, service mesh, monitoring
 - **Implementation**: K8s deployment examples
-- **Cross-Reference**: [Cloud Architecture](phase2_advanced/cloud-architecture/README.md/)
+- **Cross-Reference**: [Cloud Architecture](../../../README.md)
 
 ## Content Extraction Process
 
@@ -436,18 +436,18 @@ func main() {
 ### 1. Curriculum Integration
 
 #### Phase 1 Integration
-- **System Design Basics**: [Link to module](phase1_intermediate/system-design-basics/README.md/)
-- **Database Systems**: [Link to module](phase1_intermediate/database-systems/README.md/)
-- **Web Development**: [Link to module](phase1_intermediate/web-development/README.md/)
+- **System Design Basics**: [Link to module](../../../README.md)
+- **Database Systems**: [Link to module](../../../README.md)
+- **Web Development**: [Link to module](../../../README.md)
 
 #### Phase 2 Integration
-- **Distributed Systems**: [Link to module](phase2_advanced/distributed-systems/README.md/)
-- **Cloud Architecture**: [Link to module](phase2_advanced/cloud-architecture/README.md/)
-- **Performance Engineering**: [Link to module](phase2_advanced/performance-engineering/README.md/)
+- **Distributed Systems**: [Link to module](../../../README.md)
+- **Cloud Architecture**: [Link to module](../../../README.md)
+- **Performance Engineering**: [Link to module](../../../README.md)
 
 #### Phase 3 Integration
-- **Architecture Design**: [Link to module](phase3_expert/architecture-design/README.md/)
-- **Technical Leadership**: [Link to module](phase3_expert/technical-leadership/README.md/)
+- **Architecture Design**: [Link to module](../../../README.md)
+- **Technical Leadership**: [Link to module](../../../README.md)
 
 ### 2. Video Content Mapping
 
@@ -494,4 +494,4 @@ A: Map video topics to curriculum modules, create cross-references, and ensure c
 
 ---
 
-**Next**: [Company-Specific Interview Prep](company_prep/README.md/) | **Previous**: [Phase 3 Expert](phase3_expert/README.md/) | **Up**: [Video Notes](README.md/)
+**Next**: [Company-Specific Interview Prep](../../../README.md) | **Previous**: [Phase 3 Expert](../../../README.md) | **Up**: [Video Notes](README.md/)

@@ -8,24 +8,24 @@
 
 - [Binary Search](BinarySearch.md/) - Search in sorted array
 - [Search Insert Position](SearchInsertPosition.md/) - Find insertion point
-- [Find First and Last Position](FindFirstAndLastPosition.md/) - Search range
+- [Find First and Last Position](../Arrays/FindFirstAndLastPosition.md) - Search range
 - [Search in Rotated Sorted Array](SearchInRotatedSortedArray.md/) - Search in rotated array
-- [Find Minimum in Rotated Sorted Array](FindMinimumInRotatedSortedArray.md/) - Find minimum
+- [Find Minimum in Rotated Sorted Array](../Arrays/FindMinimumInRotatedSortedArray.md) - Find minimum
 
 ### **Advanced Searching**
 
 - [Search a 2D Matrix](Search2DMatrix.md/) - Search in 2D matrix
 - [Search in Rotated Sorted Array II](SearchInRotatedSortedArrayII.md/) - With duplicates
 - [Find Peak Element](FindPeakElement.md/) - Find local maximum
-- [Sqrt(x)](Sqrt.md/) - Binary search for square root
-- [Pow(x, n)](Pow.md/) - Fast power calculation
+- [Sqrt(x)](../Math/Sqrt.md) - Binary search for square root
+- [Pow(x, n)](../Math/Pow.md) - Fast power calculation
 
 ### **Search Applications**
 
 - [Guess Number Higher or Lower](GuessNumber.md/) - Interactive search
 - [First Bad Version](FirstBadVersion.md/) - Find first occurrence
 - [Kth Smallest Element](KthSmallestElement.md/) - Find kth element
-- [Median of Two Sorted Arrays](MedianOfTwoSortedArrays.md/) - Find median
+- [Median of Two Sorted Arrays](../Arrays/MedianOfTwoSortedArrays.md) - Find median
 - [Search Suggestions System](SearchSuggestionsSystem.md/) - Prefix search
 
 ---

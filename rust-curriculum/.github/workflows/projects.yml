@@ -1,0 +1,73 @@
+name: Projects CI
+
+on:
+  push:
+    paths:
+      - 'rust-curriculum/projects/**'
+  pull_request:
+    paths:
+      - 'rust-curriculum/projects/**'
+
+jobs:
+  grpc-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - name: Install protoc
+        uses: arduino/setup-protoc@v3
+      - name: Build gRPC project
+        working-directory: rust-curriculum/projects/grpc_tonic_service
+        run: cargo build --release
+      - name: Test gRPC project
+        working-directory: rust-curriculum/projects/grpc_tonic_service
+        run: cargo test --all-features
+  wasm-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - name: Install wasm-pack
+        run: |
+          curl -sSfL https://rustwasm.github.io/wasm-pack/installer/init.sh | sh
+      - name: Build Yew app
+        working-directory: rust-curriculum/projects/wasm_yew_app
+        run: wasm-pack build --target web
+  dsa-build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - name: Build DSA library
+        working-directory: rust-curriculum
+        run: cargo build -p dsa_library --all-targets
+      - name: Test DSA library
+        working-directory: rust-curriculum
+        run: cargo test -p dsa_library --all-features
+  streaming-build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - name: Build streaming_system
+        working-directory: rust-curriculum
+        run: cargo build -p streaming_system --all-targets
+      - name: Test streaming_system
+        working-directory: rust-curriculum
+        run: cargo test -p streaming_system --all-features
+  toyos-build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - name: Build toy_os_component
+        working-directory: rust-curriculum
+        run: cargo build -p toy_os_component --all-targets
+      - name: Test toy_os_component
+        working-directory: rust-curriculum
+        run: cargo test -p toy_os_component --all-features

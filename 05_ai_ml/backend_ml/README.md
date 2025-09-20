@@ -17,7 +17,7 @@ Backend systems for machine learning
 
 - **← Back to Parent**: [../](../)
 - **🏠 Home**: [../../](../..)
-- **📋 Master Index**: [../../MASTER_INDEX.md](../..MASTER_INDEX.md)
+- **📋 Master Index**: [../../MASTER_INDEX.md](../../..MASTER_INDEX.md)
 
 ## 🤝 Contributing
 

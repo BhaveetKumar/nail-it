@@ -96,7 +96,7 @@ Programming → Web Development → Distributed Systems → Leadership
 
 #### Standard Format
 ```markdown
-**Navigation**: [Home](README.md/) > [Phase 0](phase0_fundamentals/README.md/) > [Mathematics](phase0_fundamentals/mathematics/README.md/) > [Linear Algebra](linear-algebra.md/)
+**Navigation**: [Home](README.md/) > [Phase 0](phase0_fundamentals/README.md/) > [Mathematics](phase0_fundamentals/mathematics/README.md/) > [Linear Algebra](phase0_fundamentals/mathematics/linear-algebra.md)
 ```
 
 ### 2. Next/Previous Links
@@ -104,7 +104,7 @@ Programming → Web Development → Distributed Systems → Leadership
 #### Standard Format
 ```markdown
 ---
-**Previous**: [Previous Topic](previous/README.md/) | **Next**: [Next Topic](next/README.md/) | **Up**: [Parent Directory](README.md/)
+**Previous**: [Previous Topic](../README.md) | **Next**: [Next Topic](../README.md) | **Up**: [Parent Directory](README.md/)
 ---
 ```
 
@@ -135,22 +135,22 @@ Programming → Web Development → Distributed Systems → Leadership
 Linear algebra forms the mathematical foundation for many advanced algorithms and machine learning concepts.
 
 **Prerequisites**: 
-- [Mathematics Fundamentals](mathematics/README.md/)
+- [Mathematics Fundamentals](../README.md)
 
 **Builds Toward**:
 - [Advanced Data Structures](phase1_intermediate/advanced-dsa/README.md/)
 - [Machine Learning](phase2_advanced/machine-learning/README.md/)
 
 **Related Topics**:
-- [Calculus](calculus.md/) - For optimization algorithms
-- [Statistics](statistics-probability.md/) - For data analysis
+- [Calculus](phase0_fundamentals/mathematics/calculus.md) - For optimization algorithms
+- [Statistics](phase0_fundamentals/mathematics/statistics-probability.md) - For data analysis
 
 **Implementations**:
 - [Golang Examples](implementations/golang/)
 - [Node.js Examples](implementations/nodejs/)
 
 ---
-**Previous**: [Mathematics Overview](README.md/) | **Next**: [Calculus](calculus.md/) | **Up**: [Phase 0](README.md/)
+**Previous**: [Mathematics Overview](README.md/) | **Next**: [Calculus](phase0_fundamentals/mathematics/calculus.md) | **Up**: [Phase 0](README.md/)
 ---
 ```
 
@@ -177,7 +177,7 @@ This module covers fundamental system design concepts that are essential for bui
 - [Performance Engineering](phase2_advanced/performance-engineering/README.md/)
 
 ---
-**Previous**: [Web Development](web-development/README.md/) | **Next**: [API Design](api-design/README.md/) | **Up**: [Phase 1](README.md/)
+**Previous**: [Web Development](../README.md) | **Next**: [API Design](../README.md) | **Up**: [Phase 1](README.md/)
 ---
 ```
 
@@ -191,8 +191,8 @@ This module covers fundamental system design concepts that are essential for bui
 Comprehensive collection of data structure and algorithm problems with implementations in Golang and Node.js.
 
 **Prerequisites**:
-- [Programming Fundamentals](programming/README.md/)
-- [Mathematics](mathematics/README.md/)
+- [Programming Fundamentals](../README.md)
+- [Mathematics](../README.md)
 
 **Applications**:
 - [Software Design Patterns](programming/software-design-patterns.md/)

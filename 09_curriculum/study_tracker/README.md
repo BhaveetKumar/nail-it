@@ -1132,4 +1132,4 @@ A: Make goals specific, measurable, achievable, relevant, and time-bound (SMART)
 
 ---
 
-**Next**: [Learning Resources](learning_resources/README.md/) | **Previous**: [Assessment Tools](assessment_tools/README.md/) | **Up**: [Study Tracker](README.md/)
+**Next**: [Learning Resources](../../README.md) | **Previous**: [Assessment Tools](../../README.md) | **Up**: [Study Tracker](README.md/)

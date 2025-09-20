@@ -6,12 +6,12 @@ System design patterns, architectures, and case studies
 
 ### 📁 Directories
 
-- **[Architectures](architectures/)**
-- **[Case Studies](case_studies/)**
-- **[Distributed Systems](distributed_systems/)**
-- **[Patterns](patterns/)**
-- **[Realtime](realtime/)**
-- **[Scalability](scalability/)**
+- **[Architectures](architectures/README.md)**
+- **[Case Studies](case_studies/README.md)**
+- **[Distributed Systems](distributed_systems/README.md)**
+- **[Patterns](patterns/README.md)**
+- **[Realtime](realtime/README.md)**
+- **[Scalability](scalability/README.md)**
 
 ### 📄 Files
 
@@ -28,11 +28,13 @@ System design patterns, architectures, and case studies
 ## 🚀 Quick Start
 
 ### Explore Subdirectories
-1. **[Architectures](architectures/)** - System architectures and design patterns
-1. **[Case Studies](case_studies/)** - Real-world system design case studies
-1. **[Distributed Systems](distributed_systems/)** - Distributed systems concepts and implementations
+
+1. **[Architectures](architectures/README.md)** - System architectures and design patterns
+1. **[Case Studies](case_studies/README.md)** - Real-world system design case studies
+1. **[Distributed Systems](distributed_systems/README.md)** - Distributed systems concepts and implementations
 
 ### Key Files
+
 1. **[Arpit Bhyani System Design Concepts](ARPIT_BHYANI_SYSTEM_DESIGN_CONCEPTS.md)**
 1. **[Arpit Harkirt System Design Notes](ARPIT_HARKIRT_SYSTEM_DESIGN_NOTES.md)**
 1. **[Advanced System Design Scenarios](Advanced_System_Design_Scenarios.md)**
@@ -40,8 +42,8 @@ System design patterns, architectures, and case studies
 ## 🔗 Navigation
 
 - **← Back to Parent**: [../](../)
-- **🏠 Home**: [../../](../..)
-- **📋 Master Index**: [../../MASTER_INDEX.md](../..MASTER_INDEX.md)
+- **🏠 Home**: [../](../)
+- **📋 Master Index**: [../MASTER_INDEX.md](../MASTER_INDEX.md)
 
 ## 📖 Study Recommendations
 
@@ -52,7 +54,7 @@ System design patterns, architectures, and case studies
 
 ## 🤝 Contributing
 
-Found an issue or want to add content? Please see our [Contributing Guidelines](../../CONTRIBUTING.md) for details.
+Found an issue or want to add content? Please see our [Contributing Guidelines](../CONTRIBUTING.md) for details.
 
 ---
 

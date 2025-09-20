@@ -1,0 +1,33 @@
+{
+  "generated_at": "2025-09-19T00:00:00Z",
+  "status": "DRAFT",
+  "modules": [
+    {"id": "beg-basics", "title": "Rust Basics", "lessons": [
+  {"id": "lesson-01-intro", "file": "lessons/01_intro.md", "verified": true},
+  {"id": "lesson-02-ownership", "file": "lessons/02_ownership.md", "verified": true},
+  {"id": "lesson-03-tooling", "file": "lessons/03_tooling.md", "verified": true},
+  {"id": "lesson-04-pattern-matching", "file": "lessons/04_pattern_matching.md", "verified": true},
+  {"id": "lesson-05-collections-iterators", "file": "lessons/05_collections_iterators.md", "verified": true}
+  ,{"id": "lesson-06-error-handling", "file": "lessons/06_error_handling.md", "verified": true}
+  ,{"id": "lesson-07-traits-generics", "file": "lessons/07_traits_generics.md", "verified": true}
+  ,{"id": "lesson-08-trait-objects", "file": "lessons/08_trait_objects.md", "verified": true}
+  ,{"id": "lesson-09-macros-intro", "file": "lessons/09_macros_intro.md", "verified": true}
+  ,{"id": "lesson-10-async-basics", "file": "lessons/10_async_basics.md", "verified": true}
+  ,{"id": "lesson-11-async-channels", "file": "lessons/11_async_channels.md", "verified": true}
+  ,{"id": "lesson-12-async-select-timeouts", "file": "lessons/12_async_select_timeouts.md", "verified": true}
+  ,{"id": "lesson-13-async-io", "file": "lessons/13_async_io.md", "verified": true}
+  ,{"id": "lesson-14-http-axum", "file": "lessons/14_http_axum.md", "verified": true}
+  ,{"id": "lesson-15-tracing", "file": "lessons/15_tracing_observability.md", "verified": true}
+  ,{"id": "lesson-16-sled-kv", "file": "lessons/16_sled_kv.md", "verified": true}
+  ,{"id": "lesson-17-proptest", "file": "lessons/17_property_testing.md", "verified": true}
+  ,{"id": "lesson-18-unsafe-basics", "file": "lessons/18_unsafe_basics.md", "verified": true}
+  ,{"id": "lesson-19-ffi-basics", "file": "lessons/19_ffi_basics.md", "verified": true}
+  ,{"id": "lesson-20-parallelism-rayon", "file": "lessons/20_parallelism_rayon.md", "verified": true}
+  ,{"id": "lesson-21-serde-json", "file": "lessons/21_serde_json.md", "verified": true}
+  ,{"id": "lesson-22-crossbeam", "file": "lessons/22_concurrency_crossbeam.md", "verified": true}
+  ,{"id": "lesson-23-serde-advanced", "file": "lessons/23_serde_advanced.md", "verified": true}
+  ,{"id": "lesson-24-http-actix", "file": "lessons/24_http_actix.md", "verified": true}
+  ,{"id": "lesson-25-e2e-axum", "file": "lessons/25_e2e_service_axum.md", "verified": true}
+    ]}
+  ]
+}

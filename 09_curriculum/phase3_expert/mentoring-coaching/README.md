@@ -943,4 +943,4 @@ A: Assess current competencies, set clear goals, identify learning resources, cr
 
 ---
 
-**Next**: [Strategic Planning](strategic-planning/README.md/) | **Previous**: [Innovation Research](innovation-research/README.md/) | **Up**: [Phase 3](README.md/)
+**Next**: [Strategic Planning](../../../README.md) | **Previous**: [Innovation Research](../../../README.md) | **Up**: [Phase 3](README.md/)

@@ -1060,5 +1060,5 @@ A: Use segment trees for range queries and updates, especially when you need com
 
 ---
 
-**Next**: [Operating Systems Deep Dive](os-deep-dive/README.md/) | **Previous**: [Phase 1](README.md/) | **Up**: [Phase 1](README.md/)
+**Next**: [Operating Systems Deep Dive](../../../README.md) | **Previous**: [Phase 1](README.md/) | **Up**: [Phase 1](README.md/)
 

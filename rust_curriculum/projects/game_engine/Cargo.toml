@@ -1,0 +1,126 @@
+[package]
+name = "rust-game-engine"
+version = "0.1.0"
+edition = "2021"
+authors = ["Rust Student <student@example.com>"]
+description = "High-performance 2D/3D game engine built in Rust with modern graphics APIs"
+license = "MIT"
+
+[dependencies]
+# Graphics and Rendering
+wgpu = "0.18.0"
+winit = "0.29.0"
+image = "0.24.7"
+bytemuck = { version = "1.14.0", features = ["derive"] }
+
+# Math and Physics
+glam = "0.24.0"
+nalgebra = "0.32.0"
+rapier3d = { version = "0.17.0", features = ["simd-stable"] }
+
+# Audio
+rodio = "0.17.1"
+cpal = "0.15.2"
+
+# Input and Events
+gilrs = "0.10.6"
+winit = "0.29.0"
+
+# Serialization and Data
+serde = { version = "1.0.195", features = ["derive"] }
+serde_json = "1.0.111"
+ron = "0.8.0"
+bincode = "1.3.3"
+
+# Async and Concurrency
+tokio = { version = "1.35.0", features = ["full"] }
+futures = "0.3.28"
+async-trait = "0.1.74"
+
+# Logging and Debugging
+tracing = "0.1.37"
+tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
+tracing-wasm = "0.1.0"
+
+# Utilities
+anyhow = "1.0.75"
+thiserror = "1.0.50"
+uuid = { version = "1.6.1", features = ["v4", "serde"] }
+chrono = { version = "0.4.31", features = ["serde"] }
+rand = "0.8.5"
+noise = "0.8.0"
+
+# Asset Management
+crossbeam-channel = "0.5.8"
+dashmap = "5.5.3"
+parking_lot = "0.12.1"
+
+# Networking (for multiplayer)
+quinn = "0.10.0"
+bevy_networking_turbulence = "0.1.0"
+
+# Scripting (optional)
+mlua = { version = "0.9.0", features = ["lua54", "send"] }
+
+# Profiling and Performance
+criterion = { version = "0.5.1", features = ["html_reports"] }
+puffin = "0.15.0"
+puffin_egui = "0.15.0"
+
+# Platform-specific
+[target.'cfg(target_os = "android")'.dependencies]
+android_logger = "0.13.0"
+ndk = "0.7.0"
+
+[target.'cfg(target_os = "ios")'.dependencies]
+objc = "0.2.7"
+
+[dev-dependencies]
+# Testing
+criterion = { version = "0.5.1", features = ["html_reports"] }
+proptest = "1.3.0"
+
+# Examples and Tools
+clap = { version = "4.4.0", features = ["derive"] }
+env_logger = "0.10.0"
+
+[features]
+default = ["renderer-wgpu", "audio-rodio", "physics-rapier"]
+renderer-wgpu = ["wgpu"]
+renderer-opengl = []
+audio-rodio = ["rodio"]
+audio-cpal = ["cpal"]
+physics-rapier = ["rapier3d"]
+physics-nalgebra = ["nalgebra"]
+scripting-lua = ["mlua"]
+scripting-rhai = []
+networking-quinn = ["quinn"]
+profiling-puffin = ["puffin", "puffin_egui"]
+
+[profile.dev]
+opt-level = 1
+debug = true
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+opt-level = 3
+
+[profile.bench]
+lto = true
+codegen-units = 1
+panic = "abort"
+opt-level = 3
+
+[[bench]]
+name = "rendering_benchmarks"
+harness = false
+
+[[bench]]
+name = "physics_benchmarks"
+harness = false
+
+[[bench]]
+name = "audio_benchmarks"
+harness = false

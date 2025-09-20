@@ -367,7 +367,7 @@ function fibonacciMatrix(n) {
 
 ## Related Problems
 
-- [Climbing Stairs](ClimbingStairs.md/) - Similar recurrence relation
-- [House Robber](HouseRobber.md/) - DP with constraints
-- [Min Cost Climbing Stairs](MinCostClimbingStairs.md/) - Variation with costs
+- [Climbing Stairs](../../../algorithms/Arrays/ClimbingStairs.md) - Similar recurrence relation
+- [House Robber](../../../algorithms/DynamicProgramming/HouseRobber.md) - DP with constraints
+- [Min Cost Climbing Stairs](../Arrays/MinCostClimbingStairs.md) - Variation with costs
 - [N-th Tribonacci Number](Tribonacci.md/) - Three-term recurrence

@@ -415,9 +415,9 @@ function threeSumSmaller(nums, target) {
 ## 📚 **Related Problems**
 
 - [**Two Sum**](TwoSum.md/) - Two numbers that sum to target
-- [**Four Sum**](FourSum.md/) - Four numbers that sum to target
+- [**Four Sum**](../../../algorithms/TwoPointers/FourSum.md) - Four numbers that sum to target
 - [**Two Sum II**](TwoSumII.md/) - Sorted array two pointers
-- [**3Sum Closest**](ThreeSumClosest.md/) - Closest sum to target
+- [**3Sum Closest**](../../../algorithms/Arrays/ThreeSumClosest.md) - Closest sum to target
 
 ## 🎉 **Summary**
 

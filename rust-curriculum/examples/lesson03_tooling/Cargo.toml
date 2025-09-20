@@ -1,0 +1,7 @@
+[package]
+name = "lesson03_tooling"
+version = "0.1.0"
+edition = "2021"
+
+[dev-dependencies]
+criterion = "0.7"

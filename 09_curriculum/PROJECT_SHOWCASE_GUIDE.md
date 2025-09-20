@@ -727,4 +727,4 @@ Planned enhancements and optimizations.
 
 ---
 
-**Next Steps**: [Choose Your First Project](#phase-0-projects/) | [Set Up Development Environment](LEARNING_PATH_GUIDE.md#resources-and-tools/) | [Track Your Progress](10_resources/progress-tracking/study_tracker.md/)
+**Next Steps**: [Choose Your First Project](#phase-0-projects/) | [Set Up Development Environment](LEARNING_PATH_GUIDE.md#resources-and-tools/) | [Track Your Progress](../10_resources/progress-tracking/study_tracker.md)

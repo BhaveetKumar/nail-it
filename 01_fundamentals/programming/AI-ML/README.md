@@ -14,40 +14,40 @@
 
 ### **🔢 Foundations**
 
-- [**Math for ML**](Foundations/MathForML.md/) - Linear algebra, calculus, optimization
+- [**Math for ML**](../../../05_ai_ml/Foundations/MathForML.md) - Linear algebra, calculus, optimization
 - [**JavaScript for ML**](Foundations/JavaScriptForML.md/) - Node.js, TensorFlow.js, ML libraries
-- [**Probability & Statistics**](Foundations/ProbabilityAndStats.md/) - Statistical foundations for ML
+- [**Probability & Statistics**](../../../05_ai_ml/Foundations/ProbabilityAndStats.md) - Statistical foundations for ML
 
 ### **🧠 Machine Learning**
 
 - [**Linear Regression**](MachineLearning/LinearRegression.md/) - Mathematical foundations and implementation
 - [**Logistic Regression**](MachineLearning/LogisticRegression.md/) - Classification algorithms
-- [**Decision Trees**](MachineLearning/DecisionTrees.md/) - Tree-based algorithms
-- [**Random Forest**](MachineLearning/RandomForest.md/) - Ensemble methods
-- [**SVM**](MachineLearning/SVM.md/) - Support Vector Machines
+- [**Decision Trees**](../../../05_ai_ml/MachineLearning/DecisionTrees.md) - Tree-based algorithms
+- [**Random Forest**](../../../05_ai_ml/MachineLearning/RandomForest.md) - Ensemble methods
+- [**SVM**](../../../05_ai_ml/MachineLearning/SVM.md) - Support Vector Machines
 - [**Clustering**](MachineLearning/Clustering.md/) - K-means, hierarchical clustering
 - [**Dimensionality Reduction**](MachineLearning/DimensionalityReduction.md/) - PCA, t-SNE
 
 ### **🧠 Deep Learning**
 
-- [**Neural Networks**](DeepLearning/NeuralNetworks.md/) - Perceptrons, backpropagation, optimizers
-- [**CNNs**](DeepLearning/CNNs.md/) - Convolutional Neural Networks, ResNet, DenseNet
+- [**Neural Networks**](../../../05_ai_ml/DeepLearning/NeuralNetworks.md) - Perceptrons, backpropagation, optimizers
+- [**CNNs**](../../../05_ai_ml/DeepLearning/CNNs.md) - Convolutional Neural Networks, ResNet, DenseNet
 - [**RNNs**](DeepLearning/RNNs.md/) - Recurrent Neural Networks
 - [**LSTMs**](DeepLearning/LSTMs.md/) - Long Short-Term Memory networks
-- [**Transformers**](DeepLearning/Transformers.md/) - Transformer architecture
+- [**Transformers**](../../../05_ai_ml/deep_learning/transformers.md) - Transformer architecture
 - [**Attention Mechanism**](DeepLearning/AttentionMechanism.md/) - Attention mechanisms
 
 ### **🎨 Generative AI**
 
-- [**GPT**](GenerativeAI/GPT.md/) - Transformer architecture and attention mechanisms
-- [**Diffusion Models**](GenerativeAI/DiffusionModels.md/) - Mathematical foundations and implementation
-- [**LLM Training**](GenerativeAI/LLMTraining.md/) - Distributed training and optimization
-- [**Prompt Engineering**](GenerativeAI/PromptEngineering.md/) - Prompt design and techniques
-- [**Fine-tuning LLMs**](GenerativeAI/FineTuningLLMs.md/) - Fine-tuning strategies and considerations
+- [**GPT**](../../../05_ai_ml/GenerativeAI/GPT.md) - Transformer architecture and attention mechanisms
+- [**Diffusion Models**](../../../05_ai_ml/GenerativeAI/DiffusionModels.md) - Mathematical foundations and implementation
+- [**LLM Training**](../../../05_ai_ml/GenerativeAI/LLMTraining.md) - Distributed training and optimization
+- [**Prompt Engineering**](../../../05_ai_ml/GenerativeAI/PromptEngineering.md) - Prompt design and techniques
+- [**Fine-tuning LLMs**](../../../05_ai_ml/GenerativeAI/FineTuningLLMs.md) - Fine-tuning strategies and considerations
 
 ### **⚙️ Backend for AI**
 
-- [**Model Serving**](BackendForAI/ModelServing.md/) - Express.js, load balancing, auto-scaling
+- [**Model Serving**](../../../05_ai_ml/BackendForAI/ModelServing.md) - Express.js, load balancing, auto-scaling
 - [**APIs for AI**](BackendForAI/APIsForAI.md/) - REST, GraphQL, gRPC for AI models
 - [**Vector Databases**](BackendForAI/VectorDatabases.md/) - Pinecone, Weaviate, Chroma
 - [**Scaling AI**](BackendForAI/ScalingAI.md/) - Horizontal and vertical scaling
@@ -55,14 +55,14 @@
 
 ### **🔄 MLOps**
 
-- [**Model Deployment**](MLOps/ModelDeployment.md/) - CI/CD, monitoring, model registry
-- [**Data Pipelines**](MLOps/DataPipelines.md/) - ETL/ELT, data validation, quality
-- [**Model Registry**](MLOps/ModelRegistry.md/) - Versioning, metadata, lifecycle
+- [**Model Deployment**](../../../05_ai_ml/mlops/ModelDeployment.md) - CI/CD, monitoring, model registry
+- [**Data Pipelines**](../../../05_ai_ml/mlops/DataPipelines.md) - ETL/ELT, data validation, quality
+- [**Model Registry**](../../../05_ai_ml/mlops/ModelRegistry.md) - Versioning, metadata, lifecycle
 - [**Monitoring**](MLOps/Monitoring.md/) - Model performance, drift detection
 
 ### **📊 Case Studies**
 
-- [**Meta AI Practices**](CaseStudies/MetaAIPractices.md/) - Meta's AI research and infrastructure
+- [**Meta AI Practices**](../../../05_ai_ml/CaseStudies/MetaAIPractices.md) - Meta's AI research and infrastructure
 - [**Google Brain Practices**](CaseStudies/GoogleBrainPractices.md/) - Google's AI research and production
 - [**OpenAI Practices**](CaseStudies/OpenAIPractices.md/) - OpenAI's AI safety and production
 

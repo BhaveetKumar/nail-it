@@ -25,7 +25,7 @@
 
 3. **Week 5-8**: Data Structures & Algorithms
    - [DSA Questions](phase0_fundamentals/programming/dsa-questions-golang-nodejs.md/)
-   - [Software Design Patterns](phase0_fundamentals/programming/software-design-patterns.md/)
+   - [Software Design Patterns](programming/software-design-patterns.md)
 
 4. **Week 9-12**: Computer Science Basics
    - [Computer Organization](phase0_fundamentals/cs-basics/computer-organization.md/)
@@ -257,7 +257,7 @@
 
 ### 📈 Progress Tracking
 
-**Use the [Study Tracker](10_resources/progress-tracking/study_tracker.md/) to monitor your progress:**
+**Use the [Study Tracker](../10_resources/progress-tracking/study_tracker.md) to monitor your progress:**
 
 1. **Daily Reviews**:
    - What did I learn today?
@@ -397,4 +397,4 @@
 
 ---
 
-**Next Steps**: [Start with Phase 0](phase0_fundamentals/) | [Take Assessment](#assessment-and-progress-tracking/) | [Track Progress](10_resources/progress-tracking/study_tracker.md/)
+**Next Steps**: [Start with Phase 0](phase0_fundamentals/) | [Take Assessment](#assessment-and-progress-tracking/) | [Track Progress](../10_resources/progress-tracking/study_tracker.md)

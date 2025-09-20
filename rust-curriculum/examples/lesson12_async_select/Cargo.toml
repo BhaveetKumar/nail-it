@@ -1,0 +1,8 @@
+[package]
+name = "lesson12_async_select"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1.40", features = ["rt", "macros", "time"] }
+anyhow = "1.0.100"

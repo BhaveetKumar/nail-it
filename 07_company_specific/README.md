@@ -36,7 +36,7 @@ Interview preparation materials for specific companies
 
 ## 🤝 Contributing
 
-Found an issue or want to add content? Please see our [Contributing Guidelines](../../CONTRIBUTING.md) for details.
+Found an issue or want to add content? Please see our [Contributing Guidelines](../CONTRIBUTING.md) for details.
 
 ---
 

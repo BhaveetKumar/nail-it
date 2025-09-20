@@ -34,7 +34,7 @@ GKC provides in-depth technical content covering system design, algorithms, data
 - **Duration**: 45 minutes
 - **Key Concepts**: Horizontal scaling, load balancing, caching strategies
 - **Implementation**: Golang and Node.js examples
-- **Cross-Reference**: [Scalability Patterns](phase1_intermediate/system-design-basics/scalability-patterns.md/)
+- **Cross-Reference**: [Scalability Patterns](../../phase1_intermediate/system-design-basics/scalability-patterns.md)
 
 ```go
 package main
@@ -154,7 +154,7 @@ func main() {
 - **Duration**: 60 minutes
 - **Key Concepts**: Service discovery, API gateway, circuit breakers
 - **Implementation**: Service mesh examples
-- **Cross-Reference**: [Microservices Architecture](phase1_intermediate/system-design-basics/microservices-architecture.md/)
+- **Cross-Reference**: [Microservices Architecture](../../phase1_intermediate/system-design-basics/microservices-architecture.md)
 
 ### 2. Database Design
 
@@ -162,7 +162,7 @@ func main() {
 - **Duration**: 50 minutes
 - **Key Concepts**: Horizontal partitioning, consistent hashing, data distribution
 - **Implementation**: Sharding algorithms
-- **Cross-Reference**: [Database Systems](phase1_intermediate/database-systems/README.md/)
+- **Cross-Reference**: [Database Systems](../../../README.md)
 
 ```go
 package main
@@ -244,7 +244,7 @@ func main() {
 - **Duration**: 40 minutes
 - **Key Concepts**: B-trees, Red-black trees, Segment trees
 - **Implementation**: Tree operations and algorithms
-- **Cross-Reference**: [Advanced Trees](phase1_intermediate/advanced-dsa/advanced-trees.md/)
+- **Cross-Reference**: [Advanced Trees](../../phase1_intermediate/advanced-dsa/advanced-trees.md)
 
 ```go
 package main
@@ -405,7 +405,7 @@ func main() {
 - **Duration**: 55 minutes
 - **Key Concepts**: Shortest path, minimum spanning tree, topological sort
 - **Implementation**: Graph algorithms with optimizations
-- **Cross-Reference**: [Graph Algorithms](phase1_intermediate/advanced-dsa/graph-algorithms.md/)
+- **Cross-Reference**: [Graph Algorithms](../../phase1_intermediate/advanced-dsa/graph-algorithms.md)
 
 ## Database Videos
 
@@ -415,7 +415,7 @@ func main() {
 - **Duration**: 45 minutes
 - **Key Concepts**: Index optimization, query planning, execution strategies
 - **Implementation**: Query optimization examples
-- **Cross-Reference**: [Query Optimization](phase1_intermediate/database-systems/query-optimization.md/)
+- **Cross-Reference**: [Query Optimization](../../phase1_intermediate/database-systems/query-optimization.md)
 
 ```go
 package main
@@ -577,7 +577,7 @@ func main() {
 - **Duration**: 60 minutes
 - **Key Concepts**: Leader election, log replication, safety guarantees
 - **Implementation**: Raft implementation
-- **Cross-Reference**: [Consensus Algorithms](phase2_advanced/distributed-systems/consensus-algorithms.md/)
+- **Cross-Reference**: [Consensus Algorithms](../../phase2_advanced/distributed-systems/consensus-algorithms.md)
 
 ### 2. Distributed Storage
 
@@ -585,7 +585,7 @@ func main() {
 - **Duration**: 50 minutes
 - **Key Concepts**: Replication, consistency models, partition tolerance
 - **Implementation**: Storage system design
-- **Cross-Reference**: [Distributed Storage](phase2_advanced/distributed-systems/distributed-storage.md/)
+- **Cross-Reference**: [Distributed Storage](../../phase2_advanced/distributed-systems/distributed-storage.md)
 
 ## Implementation Examples
 
@@ -733,14 +733,14 @@ func main() {
 ### 1. Curriculum Integration
 
 #### Phase 1 Integration
-- **System Design Basics**: [Link to module](phase1_intermediate/system-design-basics/README.md/)
-- **Database Systems**: [Link to module](phase1_intermediate/database-systems/README.md/)
-- **Advanced DSA**: [Link to module](phase1_intermediate/advanced-dsa/README.md/)
+- **System Design Basics**: [Link to module](../../../README.md)
+- **Database Systems**: [Link to module](../../../README.md)
+- **Advanced DSA**: [Link to module](../../../README.md)
 
 #### Phase 2 Integration
-- **Distributed Systems**: [Link to module](phase2_advanced/distributed-systems/README.md/)
-- **Cloud Architecture**: [Link to module](phase2_advanced/cloud-architecture/README.md/)
-- **Performance Engineering**: [Link to module](phase2_advanced/performance-engineering/README.md/)
+- **Distributed Systems**: [Link to module](../../../README.md)
+- **Cloud Architecture**: [Link to module](../../../README.md)
+- **Performance Engineering**: [Link to module](../../../README.md)
 
 ### 2. Video Content Mapping
 
@@ -787,4 +787,4 @@ A: Map video topics to curriculum modules, create cross-references, and ensure c
 
 ---
 
-**Next**: [Asli Engineering](asli_engineering/README.md/) | **Previous**: [Company Prep](company_prep/README.md/) | **Up**: [Video Notes](README.md/)
+**Next**: [Asli Engineering](../../../README.md) | **Previous**: [Company Prep](../../../README.md) | **Up**: [Video Notes](README.md/)

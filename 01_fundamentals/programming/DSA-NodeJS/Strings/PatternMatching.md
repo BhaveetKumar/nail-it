@@ -474,9 +474,9 @@ matches.forEach(match => {
 
 ## Related Problems
 
-- [Find All Anagrams in String](FindAllAnagramsInString.md/)
-- [Longest Common Subsequence](LongestCommonSubsequence.md/)
-- [Edit Distance](EditDistance.md/)
+- [Find All Anagrams in String](../../../algorithms/SlidingWindow/FindAllAnagramsInString.md)
+- [Longest Common Subsequence](../../../algorithms/DynamicProgramming/LongestCommonSubsequence.md)
+- [Edit Distance](../../../algorithms/DynamicProgramming/EditDistance.md)
 - [Palindrome Substrings](PalindromeSubstrings.md/)
 
 ## Interview Tips

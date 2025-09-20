@@ -10,14 +10,14 @@
 - [Min Stack](MinStack.md/) - Stack with minimum element tracking
 - [Daily Temperatures](DailyTemperatures.md/) - Find next warmer temperature
 - [Largest Rectangle in Histogram](LargestRectangleInHistogram.md/) - Find largest rectangle
-- [Trapping Rain Water](TrappingRainWater.md/) - Collect rainwater between bars
+- [Trapping Rain Water](../Arrays/TrappingRainWater.md) - Collect rainwater between bars
 
 ### **Queue Problems**
 
 - [Implement Queue using Stacks](ImplementQueueUsingStacks.md/) - Queue implementation
 - [Implement Stack using Queues](ImplementStackUsingQueues.md/) - Stack implementation
-- [Sliding Window Maximum](SlidingWindowMaximum.md/) - Find maximum in sliding window
-- [First Unique Character in a String](FirstUniqueCharacterInString.md/) - Find first unique character
+- [Sliding Window Maximum](../SlidingWindow/SlidingWindowMaximum.md) - Find maximum in sliding window
+- [First Unique Character in a String](../Strings/FirstUniqueCharacterInString.md) - Find first unique character
 - [Design Circular Queue](DesignCircularQueue.md/) - Circular queue implementation
 
 ### **Monotonic Stack/Queue**
@@ -26,7 +26,7 @@
 - [Next Greater Element II](NextGreaterElementII.md/) - Circular array version
 - [Remove K Digits](RemoveKDigits.md/) - Remove digits to get smallest number
 - [Largest Rectangle in Histogram](LargestRectangleInHistogram.md/) - Find largest rectangle
-- [Trapping Rain Water](TrappingRainWater.md/) - Collect rainwater
+- [Trapping Rain Water](../Arrays/TrappingRainWater.md) - Collect rainwater
 
 ### **Advanced Stack/Queue**
 

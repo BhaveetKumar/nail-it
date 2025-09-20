@@ -1003,5 +1003,5 @@ A: Use parameterized queries, input validation, least privilege database access,
 
 ---
 
-**Next**: [Phase 3: Expert](phase3_expert/README.md/) | **Previous**: [Performance Engineering](performance-engineering/README.md/) | **Up**: [Phase 2](README.md/)
+**Next**: [Phase 3: Expert](../../../README.md) | **Previous**: [Performance Engineering](../../../README.md) | **Up**: [Phase 2](README.md/)
 

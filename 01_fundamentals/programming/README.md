@@ -78,11 +78,11 @@ This repository provides a complete learning path for Node.js developers targeti
 #### **Google Interview Preparation**
 
 - [**Google Interview 3-Month Plan**](Company-Specific/Google_Interview_3_Month_Plan.md/) - Complete preparation strategy
-- [**Google Interview Weekly Schedule**](Company-Specific/Google_Interview_Weekly_Schedule.md/) - Weekly study plan
-- [**Google Specific Interview Content**](Company-Specific/Google_Specific_Interview_Content.md/) - Google-specific questions
-- [**Google Advanced Algorithms Guide**](Company-Specific/Google_Advanced_Algorithms_Guide.md/) - Advanced algorithm patterns
-- [**Google System Design Advanced**](Company-Specific/Google_System_Design_Advanced.md/) - Google-scale system design
-- [**Google Distributed Systems Guide**](Company-Specific/Google_Distributed_Systems_Guide.md/) - Distributed systems concepts
+- [**Google Interview Weekly Schedule**](../../07_company_specific/other/Google_Interview_Weekly_Schedule.md) - Weekly study plan
+- [**Google Specific Interview Content**](../../07_company_specific/other/Google_Specific_Interview_Content.md) - Google-specific questions
+- [**Google Advanced Algorithms Guide**](../../07_company_specific/other/Google_Advanced_Algorithms_Guide.md) - Advanced algorithm patterns
+- [**Google System Design Advanced**](../../07_company_specific/other/Google_System_Design_Advanced.md) - Google-scale system design
+- [**Google Distributed Systems Guide**](../../07_company_specific/other/Google_Distributed_Systems_Guide.md) - Distributed systems concepts
 
 #### **Meta Interview Preparation**
 
@@ -92,9 +92,9 @@ This repository provides a complete learning path for Node.js developers targeti
 
 #### **Razorpay Interview Preparation**
 
-- [**Razorpay Lead SDE Preparation Plan**](Company-Specific/Razorpay_Lead_SDE_Interview_Preparation_Plan.md/) - Complete preparation strategy
-- [**Razorpay Advanced Interview Scenarios**](Company-Specific/Razorpay_Advanced_Interview_Scenarios.md/) - Real interview scenarios
-- [**Company-Specific Problems**](company/razorpay/) - Razorpay-specific coding problems
+- [**Razorpay Lead SDE Preparation Plan**](../../07_company_specific/other/Razorpay_Lead_SDE_Interview_Preparation_Plan.md) - Complete preparation strategy
+- [**Razorpay Advanced Interview Scenarios**](../../07_company_specific/other/Razorpay_Advanced_Interview_Scenarios.md) - Real interview scenarios
+- [**Company-Specific Problems**](../../07_company_specific/other/company/razorpay) - Razorpay-specific coding problems
 
 #### **Node.js Machine Coding Problems**
 
@@ -118,9 +118,9 @@ This repository provides a complete learning path for Node.js developers targeti
 ### **For Google Interviews**
 
 1. Follow [**Google Interview 3-Month Plan**](Company-Specific/Google_Interview_3_Month_Plan.md/)
-2. Use [**Google Interview Weekly Schedule**](Company-Specific/Google_Interview_Weekly_Schedule.md/)
-3. Study [**Google Specific Interview Content**](Company-Specific/Google_Specific_Interview_Content.md/)
-4. Practice with [**Google Advanced Algorithms Guide**](Company-Specific/Google_Advanced_Algorithms_Guide.md/)
+2. Use [**Google Interview Weekly Schedule**](../../07_company_specific/other/Google_Interview_Weekly_Schedule.md)
+3. Study [**Google Specific Interview Content**](../../07_company_specific/other/Google_Specific_Interview_Content.md)
+4. Practice with [**Google Advanced Algorithms Guide**](../../07_company_specific/other/Google_Advanced_Algorithms_Guide.md)
 
 ### **For AI/ML Roles**
 

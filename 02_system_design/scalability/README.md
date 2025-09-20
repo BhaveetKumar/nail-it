@@ -24,7 +24,7 @@ Scalability patterns and load balancing strategies
 
 - **← Back to Parent**: [../](../)
 - **🏠 Home**: [../../](../..)
-- **📋 Master Index**: [../../MASTER_INDEX.md](../..MASTER_INDEX.md)
+- **📋 Master Index**: [../../MASTER_INDEX.md](../../MASTER_INDEX.md)
 
 ## 🤝 Contributing
 

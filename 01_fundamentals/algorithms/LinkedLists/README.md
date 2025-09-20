@@ -23,8 +23,8 @@
 ### **Cycle Detection**
 
 - [Linked List Cycle](LinkedListCycle.md/) - Floyd's cycle detection
-- [Linked List Cycle II](LinkedListCycleII.md/) - Find cycle start node
-- [Find the Duplicate Number](FindTheDuplicateNumber.md/) - Cycle detection application
+- [Linked List Cycle II](../TwoPointers/LinkedListCycleII.md) - Find cycle start node
+- [Find the Duplicate Number](../Arrays/FindTheDuplicateNumber.md) - Cycle detection application
 
 ### **Advanced Algorithms**
 

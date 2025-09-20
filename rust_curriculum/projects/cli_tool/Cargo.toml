@@ -1,0 +1,51 @@
+[package]
+name = "rust-cli-tool"
+version = "0.1.0"
+edition = "2021"
+authors = ["Rust Student <student@example.com>"]
+description = "A CLI tool with async tasks, streaming input, config & plugin system"
+license = "MIT"
+
+[dependencies]
+# CLI argument parsing
+clap = { version = "4.4.0", features = ["derive", "env"] }
+
+# Async runtime
+tokio = { version = "1.35.0", features = ["full"] }
+
+# Serialization
+serde = { version = "1.0.195", features = ["derive"] }
+serde_json = "1.0.111"
+toml = "0.8.8"
+
+# Error handling
+anyhow = "1.0.75"
+thiserror = "1.0.50"
+
+# Logging and tracing
+tracing = "0.1.37"
+tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
+
+# File I/O and streaming
+tokio-util = { version = "0.7.10", features = ["io"] }
+futures = "0.3.28"
+
+# Plugin system
+libloading = "0.8.1"
+
+# Utilities
+dirs = "5.0.1"
+uuid = { version = "1.6.1", features = ["v4"] }
+
+[dev-dependencies]
+tempfile = "3.8.1"
+criterion = { version = "0.5.1", features = ["html_reports"] }
+
+[[bench]]
+name = "cli_benchmarks"
+harness = false
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"

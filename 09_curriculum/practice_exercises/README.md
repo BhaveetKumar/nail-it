@@ -1140,4 +1140,4 @@ A: Start with basic components, think about scalability, consider trade-offs, pr
 
 ---
 
-**Next**: [Assessment Tools](assessment_tools/README.md/) | **Previous**: [Video Notes](video_notes/README.md/) | **Up**: [Practice Exercises](README.md/)
+**Next**: [Assessment Tools](../../README.md) | **Previous**: [Video Notes](../../README.md) | **Up**: [Practice Exercises](README.md/)

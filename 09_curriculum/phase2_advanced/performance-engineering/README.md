@@ -869,5 +869,5 @@ A: Worker pools limit resource usage, improve throughput, and provide better con
 
 ---
 
-**Next**: [Security Engineering](security-engineering/README.md/) | **Previous**: [Advanced Algorithms](advanced-algorithms/README.md/) | **Up**: [Phase 2](README.md/)
+**Next**: [Security Engineering](../../../README.md) | **Previous**: [Advanced Algorithms](../../../README.md) | **Up**: [Phase 2](README.md/)
 

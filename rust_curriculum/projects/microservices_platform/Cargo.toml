@@ -1,0 +1,102 @@
+[package]
+name = "rust-microservices-platform"
+version = "0.1.0"
+edition = "2021"
+authors = ["Rust Student <student@example.com>"]
+description = "Complete microservices platform built in Rust with service mesh, API gateway, and observability"
+license = "MIT"
+
+[dependencies]
+# Web Framework
+axum = "0.7"
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors", "trace", "compression"] }
+hyper = { version = "1.0", features = ["full"] }
+
+# Async Runtime
+tokio = { version = "1.35", features = ["full"] }
+futures = "0.3"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+bincode = "1.3"
+
+# Database
+sqlx = { version = "0.7", features = ["postgres", "runtime-tokio-rustls", "migrate"] }
+redis = { version = "0.24", features = ["tokio-comp"] }
+
+# Authentication & Security
+jsonwebtoken = "9.2"
+argon2 = "0.5"
+uuid = { version = "1.6", features = ["v4", "serde"] }
+
+# Service Discovery & Load Balancing
+consul = "0.4"
+etcd-rs = "0.9"
+
+# Message Queue
+kafka = "0.9"
+lapin = { version = "2.0", features = ["tokio-io"] }
+
+# Observability
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+tracing-opentelemetry = "0.21"
+opentelemetry = { version = "0.21", features = ["trace", "metrics"] }
+opentelemetry-jaeger = "0.20"
+opentelemetry-prometheus = "0.10"
+prometheus = "0.13"
+
+# Configuration
+config = "0.14"
+clap = { version = "4.4", features = ["derive"] }
+
+# Error Handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Utilities
+chrono = { version = "0.4", features = ["serde"] }
+rand = "0.8"
+url = "2.4"
+
+# Testing
+mockall = "0.12"
+proptest = "1.0"
+
+[dev-dependencies]
+# Testing
+criterion = { version = "0.5", features = ["html_reports"] }
+tempfile = "3.0"
+testcontainers = "0.15"
+
+# Development Tools
+insta = "1.0"
+cargo-watch = "8.0"
+
+[features]
+default = ["postgres", "redis", "kafka", "jaeger"]
+postgres = ["sqlx/postgres"]
+redis = ["redis"]
+kafka = ["kafka"]
+jaeger = ["opentelemetry-jaeger"]
+prometheus = ["opentelemetry-prometheus"]
+
+[profile.dev]
+opt-level = 1
+debug = true
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+opt-level = 3
+
+[[bench]]
+name = "api_benchmarks"
+harness = false
+
+[[bench]]
+name = "database_benchmarks"
+harness = false

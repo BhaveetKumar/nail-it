@@ -890,4 +890,4 @@ A: Create valuable content, speak at conferences, contribute to open source, men
 
 ---
 
-**Previous**: [Strategic Planning](strategic-planning/README.md/) | **Up**: [Phase 3](README.md/)
+**Previous**: [Strategic Planning](../../../README.md) | **Up**: [Phase 3](README.md/)

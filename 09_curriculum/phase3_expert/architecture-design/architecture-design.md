@@ -1241,4 +1241,4 @@ A: Implement redundancy, use circuit breakers, design for graceful degradation, 
 
 ---
 
-**Next**: [Innovation Research](innovation-research.md/) | **Previous**: [Technical Leadership](technical-leadership.md/) | **Up**: [Phase 3](README.md/)
+**Next**: [Innovation Research](../../../curriculum/phase3-expert/innovation-research/innovation-research.md) | **Previous**: [Technical Leadership](../../../curriculum/phase3-expert/technical-leadership/technical-leadership.md) | **Up**: [Phase 3](README.md/)

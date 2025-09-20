@@ -7,26 +7,26 @@
 ### **Array Two Pointers**
 
 - [Two Sum](TwoSum.md/) - Find two numbers that sum to target
-- [3Sum](3Sum.md/) - Find three numbers that sum to zero
-- [4Sum](4Sum.md/) - Find four numbers that sum to target
+- [3Sum](../Arrays/3Sum.md) - Find three numbers that sum to zero
+- [4Sum](../Arrays/4Sum.md) - Find four numbers that sum to target
 - [Container With Most Water](ContainerWithMostWater.md/) - Maximum area between lines
-- [Trapping Rain Water](TrappingRainWater.md/) - Collect rainwater between bars
+- [Trapping Rain Water](../Arrays/TrappingRainWater.md) - Collect rainwater between bars
 
 ### **String Two Pointers**
 
 - [Valid Palindrome](ValidPalindrome.md/) - Check if string is palindrome
 - [Valid Palindrome II](ValidPalindromeII.md/) - Palindrome with one deletion
-- [Reverse String](ReverseString.md/) - Reverse string in-place
-- [Remove Duplicates](RemoveDuplicates.md/) - Remove duplicates from sorted array
+- [Reverse String](../Strings/ReverseString.md) - Reverse string in-place
+- [Remove Duplicates](../Arrays/RemoveDuplicates.md) - Remove duplicates from sorted array
 - [Move Zeroes](MoveZeroes.md/) - Move zeros to end
 
 ### **Fast and Slow Pointers**
 
-- [Linked List Cycle](LinkedListCycle.md/) - Detect cycle in linked list
+- [Linked List Cycle](../LinkedLists/LinkedListCycle.md) - Detect cycle in linked list
 - [Linked List Cycle II](LinkedListCycleII.md/) - Find cycle start node
-- [Middle of the Linked List](MiddleOfLinkedList.md/) - Find middle node
-- [Remove Nth Node From End](RemoveNthNodeFromEnd.md/) - Remove nth node from end
-- [Palindrome Linked List](PalindromeLinkedList.md/) - Check if list is palindrome
+- [Middle of the Linked List](../LinkedLists/MiddleOfLinkedList.md) - Find middle node
+- [Remove Nth Node From End](../LinkedLists/RemoveNthNodeFromEnd.md) - Remove nth node from end
+- [Palindrome Linked List](../LinkedLists/PalindromeLinkedList.md) - Check if list is palindrome
 
 ---
 

@@ -778,5 +778,5 @@ A: Explicit error handling makes errors visible in the code, forces developers t
 
 ---
 
-**Next**: [Node.js Fundamentals](nodejs-fundamentals.md/) | **Previous**: [Mathematics](mathematics/README.md/) | **Up**: [Phase 0](README.md/)
+**Next**: [Node.js Fundamentals](nodejs-fundamentals.md/) | **Previous**: [Mathematics](../../../README.md) | **Up**: [Phase 0](README.md/)
 

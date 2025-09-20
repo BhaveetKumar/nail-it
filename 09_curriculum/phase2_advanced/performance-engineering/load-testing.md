@@ -788,4 +788,4 @@ A: Response time, throughput, error rate, CPU usage, memory usage, database perf
 
 ---
 
-**Next**: [Security Engineering](security-engineering/README.md/) | **Previous**: [Performance Engineering](README.md/) | **Up**: [Phase 2 Advanced](README.md/)
+**Next**: [Security Engineering](../../../README.md) | **Previous**: [Performance Engineering](README.md/) | **Up**: [Phase 2 Advanced](README.md/)

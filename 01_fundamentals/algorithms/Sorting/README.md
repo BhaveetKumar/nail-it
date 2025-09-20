@@ -22,11 +22,11 @@
 
 ### **Sorting Applications**
 
-- [Sort Colors](SortColors.md/) - Dutch National Flag problem
+- [Sort Colors](../Arrays/SortColors.md) - Dutch National Flag problem
 - [Wiggle Sort](WiggleSort.md/) - Alternating sort
 - [H-Index](HIndex.md/) - Citation-based sorting
 - [Largest Number](LargestNumber.md/) - Custom comparison sorting
-- [Meeting Rooms](MeetingRooms.md/) - Interval sorting
+- [Meeting Rooms](../Greedy/MeetingRooms.md) - Interval sorting
 
 ---
 

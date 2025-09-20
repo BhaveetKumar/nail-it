@@ -1,0 +1,12 @@
+[package]
+name = "lesson06_errors"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "lesson06_errors"
+path = "src/lib.rs"
+
+[dependencies]
+thiserror = "1"
+anyhow = "1"

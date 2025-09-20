@@ -7,7 +7,7 @@
 ### **Basic Heap Operations**
 
 - [Kth Largest Element in an Array](KthLargestElementInArray.md/) - Find Kth largest element
-- [Kth Smallest Element in a BST](KthSmallestElementInBST.md/) - Find Kth smallest in BST
+- [Kth Smallest Element in a BST](../Trees/KthSmallestElementInBST.md) - Find Kth smallest in BST
 - [Find Median from Data Stream](FindMedianFromDataStream.md/) - Maintain median of stream
 - [Merge k Sorted Lists](MergeKSortedLists.md/) - Merge multiple sorted lists
 - [Top K Frequent Elements](TopKFrequentElements.md/) - Find most frequent elements

@@ -795,4 +795,4 @@ A: Use structured approaches like stakeholder mapping, influence-interest matric
 
 ---
 
-**Next**: [Strategic Planning](strategic-planning/README.md/) | **Previous**: [Technical Leadership](README.md/) | **Up**: [Phase 3 Expert](README.md/)
+**Next**: [Strategic Planning](../../../README.md) | **Previous**: [Technical Leadership](README.md/) | **Up**: [Phase 3 Expert](README.md/)

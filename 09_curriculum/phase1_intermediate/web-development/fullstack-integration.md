@@ -117,11 +117,11 @@ func (gw *APIGateway) HandleRequest(w http.ResponseWriter, r *http.Request) {
     // Apply middleware
     handler := endpoint.Handler
     for i := len(endpoint.Middleware) - 1; i >= 0; i-- {
-        handler = endpoint.Middleware[i](handler/)
+        handler = endpoint.Middleware[i](../../../08_interview_prep/practice/handler)
     }
     
     for i := len(gw.Middleware) - 1; i >= 0; i-- {
-        handler = gw.Middleware[i](handler/)
+        handler = gw.Middleware[i](../../../08_interview_prep/practice/handler)
     }
     
     // Handle request with timeout
@@ -846,4 +846,4 @@ A: JWT tokens are stateless and contain user information, making them suitable f
 
 ---
 
-**Next**: [API Design](api-design/README.md/) | **Previous**: [Web Development](README.md/) | **Up**: [Phase 1](README.md/)
+**Next**: [API Design](../../../README.md) | **Previous**: [Web Development](README.md/) | **Up**: [Phase 1](README.md/)

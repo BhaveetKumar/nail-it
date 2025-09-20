@@ -1401,5 +1401,5 @@ A: Configure CORS middleware on the backend to allow specific origins, methods, 
 
 ---
 
-**Next**: [API Design](api-design/README.md/) | **Previous**: [Database Systems](database-systems/README.md/) | **Up**: [Phase 1](README.md/)
+**Next**: [API Design](../../../README.md) | **Previous**: [Database Systems](../../../README.md) | **Up**: [Phase 1](README.md/)
 

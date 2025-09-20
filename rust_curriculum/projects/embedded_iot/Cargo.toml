@@ -1,0 +1,76 @@
+[package]
+name = "embedded-iot-device"
+version = "0.1.0"
+edition = "2021"
+authors = ["Rust Student <student@example.com>"]
+description = "IoT device firmware with sensor reading, wireless communication, and OTA updates"
+license = "MIT"
+
+[dependencies]
+# Embedded HAL and RTIC
+cortex-m = "0.7.7"
+cortex-m-rt = "0.7.3"
+cortex-m-semihosting = "0.3.7"
+panic-halt = "0.2.0"
+nb = "1.1.0"
+
+# Hardware Abstraction Layer
+stm32f1xx-hal = { version = "0.10.0", features = ["stm32f103", "rt"] }
+embedded-hal = "1.0.0"
+embedded-hal-async = "1.0.0"
+
+# Real-Time Operating System
+rtic = "2.1.0"
+
+# Communication
+heapless = "0.8.0"
+heapless-bytes = "0.2.0"
+postcard = "1.0.0"
+crc = "3.0.0"
+
+# Sensor drivers
+bmp280 = "0.2.0"
+dht22 = "0.2.0"
+ds18b20 = "0.2.0"
+
+# Wireless communication
+esp8266-hal = "0.5.0"
+esp-wifi = "0.5.0"
+
+# Time and delays
+fugit = "0.3.0"
+embedded-time = "0.12.0"
+
+# Logging and debugging
+defmt = "0.3.0"
+defmt-rtt = "0.4.0"
+defmt-serde = "0.3.0"
+
+# Serialization
+serde = { version = "1.0.195", features = ["derive"], default-features = false }
+serde-json-core = "0.5.1"
+
+# Error handling
+thiserror = { version = "1.0.50", default-features = false }
+
+# Utilities
+heapless = "0.8.0"
+heapless-bytes = "0.2.0"
+
+[dev-dependencies]
+cortex-m-test = "0.1.0"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+opt-level = "z"  # Optimize for size
+
+[profile.dev]
+panic = "abort"
+debug = true
+
+[features]
+default = ["std"]
+std = []
+no_std = []

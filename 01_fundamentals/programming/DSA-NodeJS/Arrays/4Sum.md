@@ -284,7 +284,7 @@ console.log(`Found ${result.length} quadruplets`);
 
 - [Two Sum](TwoSum.md/)
 - [3Sum](ThreeSum.md/)
-- [3Sum Closest](ThreeSumClosest.md/)
+- [3Sum Closest](../../../algorithms/Arrays/ThreeSumClosest.md)
 - [4Sum II](4SumII.md/)
 
 ## Interview Tips

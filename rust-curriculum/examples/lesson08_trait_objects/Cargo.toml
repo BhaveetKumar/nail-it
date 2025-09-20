@@ -1,0 +1,8 @@
+[package]
+name = "lesson08_trait_objects"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "lesson08_trait_objects"
+path = "src/lib.rs"

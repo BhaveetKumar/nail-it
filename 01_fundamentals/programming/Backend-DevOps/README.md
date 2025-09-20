@@ -17,7 +17,7 @@
 #### **Node.js & Express.js**
 - [**Node.js Complete Guide**](BackendFundamentals/NodeJS_Complete_Guide.md/) - From basics to production
 - [**Express.js Framework**](BackendFundamentals/ExpressJS_Guide.md/) - Web framework mastery
-- [**API Design**](BackendFundamentals/API_Design_Guide.md/) - REST, GraphQL, gRPC
+- [**API Design**](../../../03_backend_engineering/api_design/API_DESIGN_GUIDE.md) - REST, GraphQL, gRPC
 - [**Authentication & Authorization**](BackendFundamentals/Auth_Guide.md/) - JWT, OAuth2, RBAC
 
 #### **Database Integration**
@@ -30,7 +30,7 @@
 - [**Microservices Architecture**](BackendFundamentals/Microservices_Guide.md/) - Service design
 - [**API Gateway**](BackendFundamentals/API_Gateway_Guide.md/) - Request routing
 - [**Service Communication**](BackendFundamentals/Service_Communication.md/) - HTTP, gRPC, messaging
-- [**Event-Driven Architecture**](BackendFundamentals/Event_Driven_Architecture.md/) - Async patterns
+- [**Event-Driven Architecture**](../../../02_system_design/patterns/patterns/event_driven_architecture.md) - Async patterns
 
 ### **☁️ Cloud & Infrastructure**
 
@@ -118,7 +118,7 @@
 ### **🔒 Security & Compliance**
 
 #### **Application Security**
-- [**Node.js Security**](Security/NodeJS_Security_Guide.md/) - Secure coding practices
+- [**Node.js Security**](../Technical-Fundamentals/NodeJS_Security_Guide.md) - Secure coding practices
 - [**OWASP Top 10**](Security/OWASP_Guide.md/) - Web application vulnerabilities
 - [**Authentication Security**](Security/Auth_Security_Guide.md/) - Secure auth patterns
 - [**API Security**](Security/API_Security_Guide.md/) - API protection
@@ -138,8 +138,8 @@
 ### **⚡ Performance & Optimization**
 
 #### **Application Performance**
-- [**Node.js Performance**](Performance/NodeJS_Performance_Guide.md/) - Optimization techniques
-- [**Database Performance**](Performance/Database_Performance_Guide.md/) - Query optimization
+- [**Node.js Performance**](../Technical-Fundamentals/NodeJS_Performance_Guide.md) - Optimization techniques
+- [**Database Performance**](../../../03_backend_engineering/database_performance_guide.md) - Query optimization
 - [**Caching Strategies**](Performance/Caching_Strategies_Guide.md/) - Multi-level caching
 - [**CDN Optimization**](Performance/CDN_Guide.md/) - Content delivery
 

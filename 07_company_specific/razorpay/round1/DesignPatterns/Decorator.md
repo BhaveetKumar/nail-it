@@ -1113,7 +1113,7 @@ func AuthMiddleware(authService AuthService) Middleware {
 // Chain middlewares
 func ChainMiddlewares(handler HandlerFunc, middlewares ...Middleware) HandlerFunc {
     for i := len(middlewares) - 1; i >= 0; i-- {
-        handler = middlewares[i](handler/)
+        handler = middlewares[i](../../../../08_interview_prep/practice/handler)
     }
     return handler
 }

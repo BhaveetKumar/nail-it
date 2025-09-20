@@ -109,7 +109,7 @@ func (app *ExpressApp) Listen(port string) {
 
 func (app *ExpressApp) applyMiddleware(handler http.HandlerFunc) http.HandlerFunc {
     for i := len(app.Middleware) - 1; i >= 0; i-- {
-        handler = app.Middleware[i](handler/)
+        handler = app.Middleware[i](../../../08_interview_prep/practice/handler)
     }
     return handler
 }
@@ -328,7 +328,7 @@ func (app *FastAPIApp) Listen(port string) {
 
 func (app *FastAPIApp) applyMiddleware(handler http.HandlerFunc) http.HandlerFunc {
     for i := len(app.Middleware) - 1; i >= 0; i-- {
-        handler = app.Middleware[i](handler/)
+        handler = app.Middleware[i](../../../08_interview_prep/practice/handler)
     }
     return handler
 }
@@ -604,7 +604,7 @@ func (app *SpringBootApp) Run(port string) {
 
 func (app *SpringBootApp) applyMiddleware(handler http.HandlerFunc) http.HandlerFunc {
     for i := len(app.Middleware) - 1; i >= 0; i-- {
-        handler = app.Middleware[i](handler/)
+        handler = app.Middleware[i](../../../08_interview_prep/practice/handler)
     }
     return handler
 }

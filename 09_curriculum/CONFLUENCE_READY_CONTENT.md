@@ -54,10 +54,10 @@ Phase 0: Fundamentals - Complete
 {card}
 
 ### Modules
-- [Mathematics](phase0_0_intermediate/mathematics/README.md/)
-- [Programming](phase0_0_intermediate/programming/README.md/)
-- [Cs Basics](phase0_0_intermediate/cs-basics/README.md/)
-- [Software Engineering](phase0_0_intermediate/software-engineering/README.md/)
+- [Mathematics](../README.md)
+- [Programming](../README.md)
+- [Cs Basics](../README.md)
+- [Software Engineering](../README.md)
 
 ---
 
@@ -75,12 +75,12 @@ Phase 1: Intermediate - Complete
 {card}
 
 ### Modules
-- [Advanced Dsa](phase1_1_intermediate/advanced-dsa/README.md/)
-- [Os Deep Dive](phase1_1_intermediate/os-deep-dive/README.md/)
-- [Database Systems](phase1_1_intermediate/database-systems/README.md/)
-- [Web Development](phase1_1_intermediate/web-development/README.md/)
-- [Api Design](phase1_1_intermediate/api-design/README.md/)
-- [System Design Basics](phase1_1_intermediate/system-design-basics/README.md/)
+- [Advanced Dsa](../README.md)
+- [Os Deep Dive](../README.md)
+- [Database Systems](../README.md)
+- [Web Development](../README.md)
+- [Api Design](../README.md)
+- [System Design Basics](../README.md)
 
 ---
 
@@ -98,12 +98,12 @@ Phase 2: Advanced - Complete
 {card}
 
 ### Modules
-- [Advanced Algorithms](phase2_2_intermediate/advanced-algorithms/README.md/)
-- [Cloud Architecture](phase2_2_intermediate/cloud-architecture/README.md/)
-- [Machine Learning](phase2_2_intermediate/machine-learning/README.md/)
-- [Performance Engineering](phase2_2_intermediate/performance-engineering/README.md/)
-- [Security Engineering](phase2_2_intermediate/security-engineering/README.md/)
-- [Distributed Systems](phase2_2_intermediate/distributed-systems/README.md/)
+- [Advanced Algorithms](../README.md)
+- [Cloud Architecture](../README.md)
+- [Machine Learning](../README.md)
+- [Performance Engineering](../README.md)
+- [Security Engineering](../README.md)
+- [Distributed Systems](../README.md)
 
 ---
 
@@ -121,11 +121,11 @@ Phase 3: Expert - Complete
 {card}
 
 ### Modules
-- [Technical Leadership](phase3_3_intermediate/technical-leadership/README.md/)
-- [Architecture Design](phase3_3_intermediate/architecture-design/README.md/)
-- [Innovation Research](phase3_3_intermediate/innovation-research/README.md/)
-- [Mentoring Coaching](phase3_3_intermediate/mentoring-coaching/README.md/)
-- [Strategic Planning](phase3_3_intermediate/strategic-planning/README.md/)
+- [Technical Leadership](../README.md)
+- [Architecture Design](../README.md)
+- [Innovation Research](../README.md)
+- [Mentoring Coaching](../README.md)
+- [Strategic Planning](../README.md)
 
 ---
 

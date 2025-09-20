@@ -18,8 +18,8 @@
 - [**Probability & Statistics**](Foundations/ProbabilityAndStats.md/) - Statistical foundations for ML
 
 ### **🧠 Machine Learning**
-- [**Linear Regression**](MachineLearning/LinearRegression.md/) - Mathematical foundations and implementation
-- [**Logistic Regression**](MachineLearning/LogisticRegression.md/) - Classification algorithms
+- [**Linear Regression**](../01_fundamentals/programming/AI-ML/MachineLearning/LinearRegression.md) - Mathematical foundations and implementation
+- [**Logistic Regression**](../01_fundamentals/programming/AI-ML/MachineLearning/LogisticRegression.md) - Classification algorithms
 - [**Decision Trees**](MachineLearning/DecisionTrees.md/) - Tree-based algorithms
 - [**Random Forest**](MachineLearning/RandomForest.md/) - Ensemble methods
 - [**SVM**](MachineLearning/SVM.md/) - Support Vector Machines
@@ -46,15 +46,15 @@
 
 ### **📱 TinyML & Edge AI**
 - [**TinyML Complete Guide**](TinyML/) - Complete TinyML knowledge base
-  - [**Introduction**](TinyML/Introduction.md/) - TinyML fundamentals and challenges
-  - [**Frameworks & Tools**](TinyML/FrameworksAndTools.md/) - TensorFlow Lite, Edge Impulse
-  - [**Optimization Techniques**](TinyML/OptimizationTechniques.md/) - Quantization, pruning, distillation
-  - [**Use Cases**](TinyML/UseCases.md/) - Healthcare, voice, gesture recognition
-  - [**Code Examples**](TinyML/CodeExamples.md/) - Python training + Go inference
-  - [**Hardware & Deployment**](TinyML/HardwareAndDeployment.md/) - MCU programming, deployment
-  - [**System Design**](TinyML/SystemDesign.md/) - Architecture patterns, privacy-preserving ML
-  - [**Interview Questions**](TinyML/InterviewQuestions.md/) - FAANG-style questions
-  - [**Future of TinyML**](TinyML/FutureOfTinyML.md/) - Emerging trends and research
+  - [**Introduction**](../01_fundamentals/programming/AI-ML/TinyML/Introduction.md) - TinyML fundamentals and challenges
+  - [**Frameworks & Tools**](../01_fundamentals/programming/AI-ML/TinyML/FrameworksAndTools.md) - TensorFlow Lite, Edge Impulse
+  - [**Optimization Techniques**](../01_fundamentals/programming/AI-ML/TinyML/OptimizationTechniques.md) - Quantization, pruning, distillation
+  - [**Use Cases**](../01_fundamentals/programming/AI-ML/TinyML/UseCases.md) - Healthcare, voice, gesture recognition
+  - [**Code Examples**](../01_fundamentals/programming/AI-ML/TinyML/CodeExamples.md) - Python training + Go inference
+  - [**Hardware & Deployment**](../01_fundamentals/programming/AI-ML/TinyML/HardwareAndDeployment.md) - MCU programming, deployment
+  - [**System Design**](../01_fundamentals/programming/AI-ML/TinyML/SystemDesign.md) - Architecture patterns, privacy-preserving ML
+  - [**Interview Questions**](../01_fundamentals/programming/AI-ML/TinyML/InterviewQuestions.md) - FAANG-style questions
+  - [**Future of TinyML**](../01_fundamentals/programming/AI-ML/TinyML/FutureOfTinyML.md) - Emerging trends and research
 
 ## 🚀 **Getting Started**
 
@@ -68,8 +68,8 @@
 ### **For TinyML/Edge AI Roles**
 1. Complete [**Foundations**](Foundations/) and [**Machine Learning**](MachineLearning/)
 2. Study [**TinyML Complete Guide**](TinyML/) - All 9 sections
-3. Practice with [**Code Examples**](TinyML/CodeExamples.md/)
-4. Review [**Interview Questions**](TinyML/InterviewQuestions.md/)
+3. Practice with [**Code Examples**](../01_fundamentals/programming/AI-ML/TinyML/CodeExamples.md)
+4. Review [**Interview Questions**](../01_fundamentals/programming/AI-ML/TinyML/InterviewQuestions.md)
 
 ### **For Research/Academic Roles**
 1. Master [**Foundations**](Foundations/) - Mathematical foundations

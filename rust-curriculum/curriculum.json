@@ -1,0 +1,21 @@
+{
+  "exported_at": "2025-09-19T00:00:00Z",
+  "status": "DRAFT",
+  "modules": [
+    {
+      "id": "beg-basics",
+      "title": "Rust Basics",
+      "lessons": [
+        {"id": "lesson-01-intro", "file": "lessons/01_intro.md", "status": "verified"},
+        {"id": "lesson-02-ownership", "file": "lessons/02_ownership.md", "status": "verified"},
+        {"id": "lesson-03-tooling", "file": "lessons/03_tooling.md", "status": "verified"},
+        {"id": "lesson-04-pattern-matching", "file": "lessons/04_pattern_matching.md", "status": "verified"},
+        {"id": "lesson-05-collections-iterators", "file": "lessons/05_collections_iterators.md", "status": "verified"},
+        {"id": "lesson-06-error-handling", "file": "lessons/06_error_handling.md", "status": "verified"},
+        {"id": "lesson-07-traits-generics", "file": "lessons/07_traits_generics.md", "status": "verified"},
+        {"id": "lesson-08-trait-objects", "file": "lessons/08_trait_objects.md", "status": "verified"},
+        {"id": "lesson-09-macros-intro", "file": "lessons/09_macros_intro.md", "status": "verified"}
+      ]
+    }
+  ]
+}

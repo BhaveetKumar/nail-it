@@ -1,0 +1,8 @@
+[package]
+name = "lesson04_patterns"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "lesson04_patterns"
+path = "src/lib.rs"

@@ -45,19 +45,19 @@
 ### **💡 Dynamic Programming**
 - [**1D DP**](DynamicProgramming/1D_DP.md/) - One-dimensional problems
 - [**2D DP**](DynamicProgramming/2D_DP.md/) - Two-dimensional problems
-- [**Knapsack Problems**](DynamicProgramming/Knapsack.md/) - Optimization problems
+- [**Knapsack Problems**](../../algorithms/DynamicProgramming/Knapsack.md) - Optimization problems
 - [**String DP**](DynamicProgramming/StringDP.md/) - String-based DP
 
 ### **🎯 Greedy Algorithms**
-- [**Activity Selection**](Greedy/ActivitySelection.md/) - Scheduling problems
-- [**Huffman Coding**](Greedy/HuffmanCoding.md/) - Compression algorithms
+- [**Activity Selection**](../../algorithms/Greedy/ActivitySelection.md) - Scheduling problems
+- [**Huffman Coding**](../../algorithms/Greedy/HuffmanCoding.md) - Compression algorithms
 - [**Minimum Spanning Tree**](Greedy/MST.md/) - Kruskal and Prim's algorithms
 
 ### **🔍 Backtracking**
 - [**N-Queens**](Backtracking/NQueens.md/) - Classic backtracking problem
-- [**Subset Generation**](Backtracking/Subsets.md/) - Generating all subsets
-- [**Permutations**](Backtracking/Permutations.md/) - Arrangement problems
-- [**Sudoku Solver**](Backtracking/SudokuSolver.md/) - Constraint satisfaction
+- [**Subset Generation**](../../algorithms/BitManipulation/Subsets.md) - Generating all subsets
+- [**Permutations**](../../algorithms/Backtracking/Permutations.md) - Arrangement problems
+- [**Sudoku Solver**](../../algorithms/Backtracking/SudokuSolver.md) - Constraint satisfaction
 
 ### **⚡ Bit Manipulation**
 - [**Basic Operations**](BitManipulation/BasicOperations.md/) - AND, OR, XOR, NOT
@@ -66,11 +66,11 @@
 - [**Bit Masks**](BitManipulation/BitMasks.md/) - Using bits as flags
 
 ### **📊 Advanced Patterns**
-- [**Stack & Queue**](StackQueue/README.md/) - LIFO and FIFO data structures
-- [**Heap**](Heap/README.md/) - Priority queues and heap sort
-- [**Math**](Math/README.md/) - Mathematical algorithms
-- [**Sorting**](Sorting/README.md/) - All sorting algorithms
-- [**Searching**](Searching/README.md/) - Binary search and variants
+- [**Stack & Queue**](../../../README.md) - LIFO and FIFO data structures
+- [**Heap**](../../../README.md) - Priority queues and heap sort
+- [**Math**](../../../README.md) - Mathematical algorithms
+- [**Sorting**](../../../README.md) - All sorting algorithms
+- [**Searching**](../../../README.md) - Binary search and variants
 
 ## 🚀 **Getting Started**
 

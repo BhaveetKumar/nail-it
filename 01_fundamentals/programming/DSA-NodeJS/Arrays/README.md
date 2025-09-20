@@ -22,37 +22,37 @@
 - [**Two Sum II**](TwoSumII.md/) - Sorted array two pointers
 - [**3Sum**](ThreeSum.md/) - Three pointer technique
 - [**Container With Most Water**](ContainerWithMostWater.md/) - Area maximization
-- [**Remove Duplicates**](RemoveDuplicates.md/) - In-place deduplication
+- [**Remove Duplicates**](../../../algorithms/Arrays/RemoveDuplicates.md) - In-place deduplication
 
 ### **🪟 Sliding Window**
 - [**Maximum Subarray**](MaximumSubarray.md/) - Kadane's algorithm
-- [**Sliding Window Maximum**](SlidingWindowMaximum.md/) - Deque technique
-- [**Longest Substring Without Repeating Characters**](LongestSubstring.md/) - Character frequency
-- [**Minimum Window Substring**](MinimumWindowSubstring.md/) - Template matching
+- [**Sliding Window Maximum**](../../../algorithms/SlidingWindow/SlidingWindowMaximum.md) - Deque technique
+- [**Longest Substring Without Repeating Characters**](../../../algorithms/Arrays/LongestSubstring.md) - Character frequency
+- [**Minimum Window Substring**](../../../algorithms/SlidingWindow/MinimumWindowSubstring.md) - Template matching
 
 ### **📈 Prefix Sum**
-- [**Range Sum Query**](RangeSumQuery.md/) - Immutable array
-- [**Subarray Sum Equals K**](SubarraySumEqualsK.md/) - Hash map + prefix sum
+- [**Range Sum Query**](../../../algorithms/Arrays/RangeSumQuery.md) - Immutable array
+- [**Subarray Sum Equals K**](../../../algorithms/Arrays/SubarraySumEqualsK.md) - Hash map + prefix sum
 - [**Continuous Subarray Sum**](ContinuousSubarraySum.md/) - Modulo arithmetic
 - [**Maximum Size Subarray Sum Equals K**](MaxSizeSubarraySumK.md/) - Size optimization
 
 ### **🗺️ Hash Maps**
-- [**Group Anagrams**](GroupAnagrams.md/) - String sorting
-- [**Top K Frequent Elements**](TopKFrequentElements.md/) - Frequency counting
+- [**Group Anagrams**](../../../algorithms/Strings/GroupAnagrams.md) - String sorting
+- [**Top K Frequent Elements**](../../../algorithms/Heap/TopKFrequentElements.md) - Frequency counting
 - [**Intersection of Two Arrays**](IntersectionOfTwoArrays.md/) - Set operations
-- [**Valid Anagram**](ValidAnagram.md/) - Character frequency
+- [**Valid Anagram**](../../../algorithms/Strings/ValidAnagram.md) - Character frequency
 
 ### **🔄 Rotation & Transformation**
 - [**Rotate Array**](RotateArray.md/) - In-place rotation
 - [**Search in Rotated Sorted Array**](SearchRotatedSortedArray.md/) - Binary search
 - [**Find Minimum in Rotated Sorted Array**](FindMinRotatedSortedArray.md/) - Pivot finding
-- [**Spiral Matrix**](SpiralMatrix.md/) - Matrix traversal
+- [**Spiral Matrix**](../../../algorithms/Arrays/SpiralMatrix.md) - Matrix traversal
 
 ### **🎯 Advanced Problems**
 - [**Merge Intervals**](MergeIntervals.md/) - Interval merging
 - [**Insert Interval**](InsertInterval.md/) - Interval insertion
-- [**Meeting Rooms**](MeetingRooms.md/) - Scheduling problems
-- [**Trapping Rain Water**](TrappingRainWater.md/) - Water trapping
+- [**Meeting Rooms**](../../../algorithms/Greedy/MeetingRooms.md) - Scheduling problems
+- [**Trapping Rain Water**](../../../algorithms/Arrays/TrappingRainWater.md) - Water trapping
 
 ## 🚀 **Getting Started**
 

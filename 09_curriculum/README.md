@@ -294,7 +294,7 @@ We welcome contributions from the community to improve the curriculum:
 
 ## License
 
-This curriculum is licensed under the MIT License. See the [LICENSE](LICENSE/) file for details.
+This curriculum is licensed under the MIT License. See the [LICENSE](../LICENSE) file for details.
 
 ## Contact
 

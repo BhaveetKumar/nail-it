@@ -1,0 +1,65 @@
+[package]
+name = "rust-web-server"
+version = "0.1.0"
+edition = "2021"
+authors = ["Rust Student <student@example.com>"]
+description = "High-performance async web server with Tokio + Hyper + SQLX + tracing + metrics"
+license = "MIT"
+
+[dependencies]
+# Web framework
+hyper = { version = "1.0.0", features = ["full"] }
+tokio = { version = "1.35.0", features = ["full"] }
+tower = "0.4.13"
+tower-http = { version = "0.5.0", features = ["cors", "trace"] }
+
+# Serialization
+serde = { version = "1.0.195", features = ["derive"] }
+serde_json = "1.0.111"
+
+# Database
+sqlx = { version = "0.7.0", features = ["runtime-tokio-rustls", "postgres", "chrono", "uuid"] }
+chrono = { version = "0.4.31", features = ["serde"] }
+uuid = { version = "1.6.1", features = ["v4", "serde"] }
+
+# Logging and tracing
+tracing = "0.1.37"
+tracing-subscriber = { version = "0.3.17", features = ["env-filter", "json"] }
+tracing-opentelemetry = "0.21.0"
+
+# Metrics and monitoring
+metrics = "0.22.0"
+metrics-exporter-prometheus = "0.13.0"
+
+# Configuration
+config = "0.14.0"
+dotenvy = "0.15.7"
+
+# Error handling
+anyhow = "1.0.75"
+thiserror = "1.0.50"
+
+# HTTP client for external services
+reqwest = { version = "0.11.20", features = ["json"] }
+
+# Utilities
+futures = "0.3.28"
+tokio-util = { version = "0.7.10", features = ["codec"] }
+
+[dev-dependencies]
+# Testing
+tokio-test = "0.4.3"
+tempfile = "3.8.1"
+criterion = { version = "0.5.1", features = ["html_reports"] }
+
+# Test database
+sqlx = { version = "0.7.0", features = ["runtime-tokio-rustls", "postgres", "migrate"] }
+
+[[bench]]
+name = "web_server_benchmarks"
+harness = false
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
