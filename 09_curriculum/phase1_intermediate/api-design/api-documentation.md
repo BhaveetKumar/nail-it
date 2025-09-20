@@ -908,3 +908,10 @@ A: OpenAPI specifications can generate client SDKs in multiple languages, server
 ---
 
 **Next**: [System Design Basics](../../../README.md) | **Previous**: [API Design](README.md) | **Up**: [Phase 1](README.md)
+
+
+## Documentation Best Practices
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #documentation-best-practices -->
+
+Placeholder content. Please replace with proper section.

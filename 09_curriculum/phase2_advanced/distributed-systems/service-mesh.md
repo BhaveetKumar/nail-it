@@ -531,3 +531,17 @@ A: Service mesh provides cross-cutting concerns like service discovery, load bal
 ---
 
 **Next**: [Distributed Tracing](distributed-tracing.md) | **Previous**: [Distributed Systems](README.md) | **Up**: [Distributed Systems](README.md)
+
+
+## Circuit Breakers
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #circuit-breakers -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Observability
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #observability -->
+
+Placeholder content. Please replace with proper section.

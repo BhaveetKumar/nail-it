@@ -1135,3 +1135,45 @@ Mastering these problems will prepare you for senior engineering roles that requ
 - [Load Testing](https://www.loadtesting.com/)
 - [Monitoring and Observability](https://www.observability.com/)
 - [Caching Strategies](https://www.cachingstrategies.com/)
+
+
+## Financial Systems Problems
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #financial-systems-problems -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Social Media Systems Problems
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #social-media-systems-problems -->
+
+Placeholder content. Please replace with proper section.
+
+
+## E Commerce Systems Problems
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #e-commerce-systems-problems -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Gaming Systems Problems
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #gaming-systems-problems -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Iot Systems Problems
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #iot-systems-problems -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Blockchain Systems Problems
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #blockchain-systems-problems -->
+
+Placeholder content. Please replace with proper section.

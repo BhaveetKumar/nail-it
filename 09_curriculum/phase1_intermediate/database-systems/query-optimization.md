@@ -982,3 +982,10 @@ A: Create composite indexes when queries frequently filter or sort by multiple c
 ---
 
 **Next**: [Transaction Management](transaction-management.md) | **Previous**: [Database Systems](README.md) | **Up**: [Database Systems](README.md)
+
+
+## Query Rewriting
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #query-rewriting -->
+
+Placeholder content. Please replace with proper section.

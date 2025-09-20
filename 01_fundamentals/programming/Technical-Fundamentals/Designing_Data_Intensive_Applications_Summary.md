@@ -1069,3 +1069,31 @@ class LogManager {
 ---
 
 **🎉 This comprehensive summary covers all key concepts from "Designing Data-Intensive Applications" with Node.js implementations!**
+
+
+## Encoding And Evolution
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #encoding-and-evolution -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Consistency And Consensus
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #consistency-and-consensus -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Stream Processing
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #stream-processing -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Batch Processing
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #batch-processing -->
+
+Placeholder content. Please replace with proper section.

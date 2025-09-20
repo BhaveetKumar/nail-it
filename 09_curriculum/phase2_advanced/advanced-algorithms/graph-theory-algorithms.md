@@ -954,3 +954,10 @@ A: Tarjan's algorithm has O(V + E) time complexity, making it very efficient for
 ---
 
 **Next**: [Phase 3 Expert](../../../README.md) | **Previous**: [Advanced Algorithms](README.md) | **Up**: [Phase 2 Advanced](README.md)
+
+
+## Graph Coloring
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #graph-coloring -->
+
+Placeholder content. Please replace with proper section.

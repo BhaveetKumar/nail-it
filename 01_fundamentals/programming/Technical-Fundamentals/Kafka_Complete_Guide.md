@@ -2383,3 +2383,10 @@ The guide provides production-ready code examples, best practices, and covers ed
 - Test disaster recovery procedures regularly
 
 This guide serves as a complete reference for building robust, scalable, and production-ready Kafka applications with Node.js.
+
+
+## Monitoring  Troubleshooting
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #monitoring--troubleshooting -->
+
+Placeholder content. Please replace with proper section.

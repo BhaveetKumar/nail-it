@@ -788,3 +788,17 @@ A: URL versioning is simple but clutters URLs. Header versioning keeps URLs clea
 ---
 
 **Next**: [GraphQL APIs](graphql-apis.md) | **Previous**: [API Design](README.md) | **Up**: [API Design](README.md)
+
+
+## Error Handling
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #error-handling -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Pagination  Filtering
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #pagination--filtering -->
+
+Placeholder content. Please replace with proper section.

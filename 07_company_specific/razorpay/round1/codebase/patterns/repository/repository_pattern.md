@@ -313,9 +313,7 @@ type GenericDatabaseRepository[T any, K comparable] struct {
     idField   string
 }
 
-func NewGenericDatabaseRepository[T any, K comparable](
-    README.md
-) *GenericDatabaseRepository[T, K] {
+func NewGenericDatabaseRepository[T any, K comparable](README.md) *GenericDatabaseRepository[T, K] {
     return &GenericDatabaseRepository[T, K]{
         db:        db,
         tableName: tableName,

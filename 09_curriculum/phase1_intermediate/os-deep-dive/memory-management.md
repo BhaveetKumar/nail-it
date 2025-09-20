@@ -1018,3 +1018,17 @@ A: First-fit allocates the first suitable block found, which is faster but may l
 ---
 
 **Next**: [File Systems](file-systems.md) | **Previous**: [OS Deep Dive](README.md) | **Up**: [OS Deep Dive](README.md)
+
+
+## Segmentation
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #segmentation -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Memory Optimization
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #memory-optimization -->
+
+Placeholder content. Please replace with proper section.

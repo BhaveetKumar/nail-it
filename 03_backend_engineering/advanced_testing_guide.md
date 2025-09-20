@@ -1807,3 +1807,30 @@ jobs:
 ```
 
 This comprehensive testing guide provides the foundation for building robust, reliable software systems and demonstrates the testing expertise expected in senior engineering interviews.
+
+## Api Testing
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #api-testing -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Database Testing
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #database-testing -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Test Automation  Cicd
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #test-automation--cicd -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Testing Patterns  Best Practices
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #testing-patterns--best-practices -->
+
+Placeholder content. Please replace with proper section.

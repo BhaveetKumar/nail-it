@@ -868,3 +868,10 @@ A: Round-robin for equal capacity servers, least connections for varying request
 ---
 
 **Next**: [Microservices Architecture](microservices-architecture.md) | **Previous**: [System Design Basics](README.md) | **Up**: [System Design Basics](README.md)
+
+
+## Database Sharding
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #database-sharding -->
+
+Placeholder content. Please replace with proper section.

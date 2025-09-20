@@ -870,3 +870,10 @@ A: Consider query patterns, data distribution, update frequency, storage require
 ---
 
 **Next**: [Query Optimization](query-optimization.md) | **Previous**: [Database Systems](README.md) | **Up**: [Database Systems](README.md)
+
+
+## Transaction Management
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #transaction-management -->
+
+Placeholder content. Please replace with proper section.

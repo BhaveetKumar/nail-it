@@ -838,3 +838,17 @@ A: Synchronous operations are simpler to implement and debug but can block the c
 ---
 
 **Next**: [I/O Systems](io-systems.md) | **Previous**: [OS Deep Dive](README.md) | **Up**: [OS Deep Dive](README.md)
+
+
+## Caching Strategies
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #caching-strategies -->
+
+Placeholder content. Please replace with proper section.
+
+
+## File System Optimization
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #file-system-optimization -->
+
+Placeholder content. Please replace with proper section.

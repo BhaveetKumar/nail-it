@@ -1303,3 +1303,17 @@ Key skills for fintech backend engineers:
 - Ability to design fault-tolerant systems
 
 This guide provides a foundation for understanding fintech systems and preparing for fintech engineering interviews.
+
+
+## Real Time Processing
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #real-time-processing -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Data Analytics
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #data-analytics -->
+
+Placeholder content. Please replace with proper section.

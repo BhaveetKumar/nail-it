@@ -1179,3 +1179,17 @@ Understanding these concepts helps in:
 - Preparing for technical interviews
 
 This guide provides a comprehensive foundation for scalability patterns and their practical implementation in Go.
+
+
+## Event Driven Architecture
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #event-driven-architecture -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Go Implementation Examples
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #go-implementation-examples -->
+
+Placeholder content. Please replace with proper section.

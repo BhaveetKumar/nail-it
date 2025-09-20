@@ -913,3 +913,17 @@ func (sp *StreamProcessor) Start() {
 **🎉 Master these patterns to excel in system design interviews and build robust distributed systems!**
 
 **Good luck with your system design journey! 🚀**
+
+
+## Api Design Patterns
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #api-design-patterns -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Deployment Patterns
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #deployment-patterns -->
+
+Placeholder content. Please replace with proper section.

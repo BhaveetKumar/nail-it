@@ -758,3 +758,10 @@ A: Health checks include liveness probes (is container running?), readiness prob
 ---
 
 **Next**: [Serverless Architecture](serverless-architecture.md) | **Previous**: [Cloud Architecture](README.md) | **Up**: [Cloud Architecture](README.md)
+
+
+## Scaling Strategies
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #scaling-strategies -->
+
+Placeholder content. Please replace with proper section.

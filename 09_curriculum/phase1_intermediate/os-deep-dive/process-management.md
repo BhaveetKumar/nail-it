@@ -765,3 +765,17 @@ A: Use shared memory for high-performance communication between processes on the
 ---
 
 **Next**: [Memory Management](memory-management.md) | **Previous**: [OS Deep Dive](README.md) | **Up**: [OS Deep Dive](README.md)
+
+
+## Process Lifecycle
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #process-lifecycle -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Memory Management
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #memory-management -->
+
+Placeholder content. Please replace with proper section.

@@ -1168,3 +1168,10 @@ func (hcs *HealthCheckService) LivenessHandler(w http.ResponseWriter, r *http.Re
 ---
 
 **📊 Master these monitoring and observability patterns to build reliable, observable, and maintainable backend systems! 🚀**
+
+
+##  Observability Tools
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #-observability-tools -->
+
+Placeholder content. Please replace with proper section.

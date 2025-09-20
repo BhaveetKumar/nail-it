@@ -741,3 +741,17 @@ A: Use row-level locking for high-concurrency applications where different trans
 ---
 
 **Next**: [NoSQL Databases](nosql-databases.md) | **Previous**: [Database Systems](README.md) | **Up**: [Database Systems](README.md)
+
+
+## Transaction Isolation Levels
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #transaction-isolation-levels -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Deadlock Detection
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #deadlock-detection -->
+
+Placeholder content. Please replace with proper section.

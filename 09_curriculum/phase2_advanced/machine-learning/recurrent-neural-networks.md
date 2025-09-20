@@ -657,3 +657,10 @@ A: GRU combines the forget and input gates into a single update gate and merges 
 ---
 
 **Next**: [Transformers](../../../05_ai_ml/deep_learning/transformers.md) | **Previous**: [Machine Learning](README.md) | **Up**: [Machine Learning](README.md)
+
+
+## Gated Recurrent Units Grus
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #gated-recurrent-units-grus -->
+
+Placeholder content. Please replace with proper section.

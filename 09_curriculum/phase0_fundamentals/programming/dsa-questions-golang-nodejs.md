@@ -1206,3 +1206,24 @@ A: Average-case is the expected performance over all possible inputs, while wors
 
 **Next**: [Design Patterns](design-patterns.md) | **Previous**: [Node.js Fundamentals](nodejs-fundamentals.md) | **Up**: [Phase 0](README.md)
 
+
+
+## Graphs
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #graphs -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Sorting And Searching
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #sorting-and-searching -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Hash Tables
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #hash-tables -->
+
+Placeholder content. Please replace with proper section.

@@ -847,3 +847,10 @@ A: JWT tokens are stateless and contain user information, making them suitable f
 ---
 
 **Next**: [API Design](../../../README.md) | **Previous**: [Web Development](README.md) | **Up**: [Phase 1](README.md)
+
+
+## Deployment Strategies
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #deployment-strategies -->
+
+Placeholder content. Please replace with proper section.

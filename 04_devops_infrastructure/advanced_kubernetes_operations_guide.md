@@ -3593,3 +3593,23 @@ func (jm *JaegerManager) DeployJaeger(ctx context.Context, namespace string) err
 - Compliance monitoring and reporting
 
 This comprehensive guide demonstrates enterprise-level Kubernetes operations expertise essential for senior infrastructure engineering roles at companies like Razorpay, covering advanced CRDs, operators, service mesh, security, multi-cluster management, and GitOps practices.
+
+##  Gitops  Continuous Deployment
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #-gitops--continuous-deployment -->
+
+Placeholder content. Please replace with proper section.
+
+
+##  Disaster Recovery  Backup
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #-disaster-recovery--backup -->
+
+Placeholder content. Please replace with proper section.
+
+
+##  Interview Questions  Scenarios
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #-interview-questions--scenarios -->
+
+Placeholder content. Please replace with proper section.

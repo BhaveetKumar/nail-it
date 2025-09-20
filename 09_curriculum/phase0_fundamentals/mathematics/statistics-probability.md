@@ -1177,3 +1177,17 @@ A: A p-value tells us the probability of observing the data (or more extreme) if
 
 **Next**: [Discrete Mathematics](discrete-mathematics.md) | **Previous**: [Calculus](calculus.md) | **Up**: [Phase 0](README.md)
 
+
+
+## Applications
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #applications -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Implementations
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #implementations -->
+
+Placeholder content. Please replace with proper section.

@@ -11,6 +11,7 @@ import os
 import re
 import sys
 import json
+import argparse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,11 +22,16 @@ heading_re = re.compile(r"^#{1,6}\s+(.*)", re.M)
 
 def slugify_heading(h):
     # simple GitHub-like slug
-    s = h.strip().lower()
+    s = str(h).strip().lower()
     s = re.sub(r"[^a-z0-9 \-]", "", s)
     s = s.replace(' ', '-')
     s = re.sub(r"-+", '-', s)
     return s
+
+def normalize_fragment(frag):
+    if not frag:
+        return ''
+    return slugify_heading(frag.replace('_', '-'))
 
 report = {
     'files_scanned': 0,
@@ -37,8 +43,17 @@ report = {
     'errors': []
 }
 
+def parse_args():
+    p = argparse.ArgumentParser(description='Repair Markdown links across repository')
+    p.add_argument('--dry-run', action='store_true', help='Do not write files; only report')
+    p.add_argument('--verbose', action='store_true', help='Verbose logging')
+    p.add_argument('--max-create', type=int, default=MAX_CREATE, help='Maximum number of files to auto-create')
+    return p.parse_args()
+
 def is_external(link):
-    return link.startswith('http:') or link.startswith('https:') or link.startswith('mailto:') or link.startswith('#')
+    # treat absolute URLs and mailto as external. fragment-only links ("#foo") should be handled.
+    l = link.strip()
+    return l.startswith('http:') or l.startswith('https:') or l.startswith('mailto:')
 
 def resolve_target(from_path, link):
     # split fragment
@@ -47,11 +62,19 @@ def resolve_target(from_path, link):
     else:
         path_part, frag = link, None
 
+    # fragment-only (anchor in same file)
+    if link.startswith('#') and (not path_part or path_part.strip() == ''):
+        return from_path, frag
+
     # handle absolute path relative to repo
     if path_part.startswith('/'):
         target = ROOT.joinpath(path_part.lstrip('/'))
     else:
-        target = (from_path.parent / path_part).resolve()
+        # if empty path (e.g. link was "#frag"), treat as same file
+        if path_part == '' or path_part is None:
+            target = from_path
+        else:
+            target = (from_path.parent / path_part).resolve()
 
     # if path is directory, point to README.md
     if target.is_dir():
@@ -68,6 +91,26 @@ def resolve_target(from_path, link):
         candidate = Path(str(target) + '.md')
         if candidate.exists():
             target = candidate
+
+    # if still doesn't exist, try heuristic repository-wide search for matching basename
+    if not target.exists():
+        basename = Path(path_part).name
+        if basename == '':
+            basename = None
+        else:
+            # try with and without .md
+            bnames = {basename, basename + '.md', (basename + '.MD')}
+            # also try dash/underscore variants
+            bnames.update({basename.replace('-', '_'), basename.replace('_', '-')} if basename else set())
+            # case-insensitive search across repo for files with matching names
+            for p in ROOT.rglob('**/*'):
+                if not p.is_file():
+                    continue
+                if p.suffix.lower() not in ('.md', ''):
+                    continue
+                if p.name in bnames or p.name.lower() in {n.lower() for n in bnames}:
+                    target = p
+                    break
 
     return target, frag
 
@@ -99,12 +142,17 @@ def ensure_anchor(target: Path, frag: str):
     # generate possible anchors from headings
     headings = heading_re.findall(text)
     slugs = {slugify_heading(h): h for h in headings}
-    if frag in slugs:
+    nf = normalize_fragment(frag)
+    if nf in slugs:
         return False
 
-    # fuzzy: try compare frag to heading slugs
+    # check for explicit id/name anchors or CommonMark {#id}
+    if re.search(rf'id=["\']{re.escape(nf)}["\']', text) or re.search(rf'name=["\']{re.escape(nf)}["\']', text) or re.search(rf'\{{#\s*{re.escape(nf)}\s*\}}', text):
+        return False
+
+    # fuzzy: try compare normalized frag to heading slugs
     for slug, h in slugs.items():
-        if frag in slug or slug in frag:
+        if nf in slug or slug in nf:
             return False
 
     # add anchor heading at end
@@ -152,18 +200,25 @@ def process_file(mdpath: Path):
     except Exception as e:
         report['errors'].append({'op': 'read', 'path': str(mdpath), 'error': str(e)})
         return
-
+    # We'll rebuild the text replacing only specific matches to avoid accidental global replace
+    out_parts = []
+    last_idx = 0
     for m in link_re.finditer(txt):
         report['links_found'] += 1
-        link = m.group(2).strip()
-        if is_external(link):
+        start, end = m.span(2)
+        link_text = m.group(2).strip()
+        out_parts.append(txt[last_idx:start])
+        last_idx = end
+        if is_external(link_text):
+            out_parts.append(link_text)
             continue
-        target, frag = resolve_target(mdpath, link)
+        target, frag = resolve_target(mdpath, link_text)
         # if target exists but fragment missing, add anchor
         if target.exists():
             if frag:
                 if ensure_anchor(target, frag):
                     report['links_fixed'] += 1
+            out_parts.append(link_text)
             continue
         # try common alternatives
         candidates = []
@@ -174,25 +229,34 @@ def process_file(mdpath: Path):
         fixed = False
         for c in candidates:
             if c.exists():
-                # rewrite link in source file to c relative path
                 rel = os.path.relpath(c, mdpath.parent)
-                txt = txt.replace(link, rel)
+                out_parts.append(rel)
                 fixed = True
                 report['links_fixed'] += 1
                 break
         if fixed:
             continue
         # create placeholder
-        created = ensure_file(target)
-        if created:
-            report['links_fixed'] += 1
-            # if fragment present, add anchor
-            if frag:
-                ensure_anchor(target, frag)
+        if len(report['files_created']) < args.max_create:
+            created = ensure_file(target)
+            if created:
+                report['links_fixed'] += 1
+                if frag:
+                    ensure_anchor(target, frag)
+                out_parts.append(os.path.relpath(target, mdpath.parent))
+                continue
+        # if we couldn't fix, leave original and record
+        report.setdefault('unfixed_links', []).append({'file': str(mdpath.relative_to(ROOT)), 'link': link_text})
+        out_parts.append(link_text)
 
     # after processing links, write back any path fixes
+    new_txt = ''.join(out_parts) + txt[last_idx:]
     try:
-        mdpath.write_text(txt, encoding='utf8')
+        if not args.dry_run:
+            mdpath.write_text(new_txt, encoding='utf8')
+        else:
+            # in dry-run, don't write
+            pass
     except Exception as e:
         report['errors'].append({'op': 'write', 'path': str(mdpath), 'error': str(e)})
 
@@ -200,9 +264,15 @@ def process_file(mdpath: Path):
     seed_short_file(mdpath)
 
 def main():
+    global args
+    args = parse_args()
     md_files = list(ROOT.rglob('*.md'))
-    # exclude .git and tools dir and node_modules
-    md_files = [p for p in md_files if '.git' not in p.parts and 'node_modules' not in p.parts and 'tools' not in p.parts]
+    # exclude .git and tools dir and node_modules and common editor artifact dirs
+    exclude = {'node_modules', '.git', 'tools', '.vscode', '.idea', '.cursor-autocontinue'}
+    md_files = [p for p in md_files if not any(part in exclude for part in p.parts)]
+
+    if args.verbose:
+        print(f"Scanning {len(md_files)} markdown files (dry-run={args.dry_run})")
 
     for p in md_files:
         process_file(p)

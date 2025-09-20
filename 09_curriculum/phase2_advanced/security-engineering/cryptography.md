@@ -644,3 +644,10 @@ A: Authenticity (proves identity), integrity (detects tampering), non-repudiatio
 ---
 
 **Next**: [Network Security](network-security.md) | **Previous**: [Security Engineering](README.md) | **Up**: [Security Engineering](README.md)
+
+
+## Hash Functions
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #hash-functions -->
+
+Placeholder content. Please replace with proper section.

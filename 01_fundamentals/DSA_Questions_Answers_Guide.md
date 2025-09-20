@@ -1009,3 +1009,17 @@ func main() {
 ---
 
 _This comprehensive guide covers essential DSA problems with optimal Go implementations and real-world interview questions from top tech companies._
+
+
+## Greedy Algorithms
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #greedy-algorithms -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Backtracking
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #backtracking -->
+
+Placeholder content. Please replace with proper section.

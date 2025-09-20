@@ -908,3 +908,17 @@ A: Use lazy propagation for range updates, implement different aggregation funct
 ---
 
 **Next**: [Graph Algorithms](graph-algorithms.md) | **Previous**: [Advanced DSA](README.md) | **Up**: [Advanced DSA](README.md)
+
+
+## Fenwick Trees Binary Indexed Trees
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #fenwick-trees-binary-indexed-trees -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Tries
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #tries -->
+
+Placeholder content. Please replace with proper section.

@@ -1268,3 +1268,17 @@ Mastering these algorithms prepares you for complex geometric problems in techni
 - [Geometric Algorithms](https://www.geometricalgorithms.com/)
 - [Spatial Indexing](https://www.spatialindexing.com/)
 - [Geometric Optimization](https://www.geometricoptimization.com/)
+
+
+## Geometric Algorithms
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #geometric-algorithms -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Advanced Applications
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #advanced-applications -->
+
+Placeholder content. Please replace with proper section.
