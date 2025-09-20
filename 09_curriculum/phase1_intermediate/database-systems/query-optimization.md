@@ -981,4 +981,4 @@ A: Create composite indexes when queries frequently filter or sort by multiple c
 
 ---
 
-**Next**: [Transaction Management](transaction-management.md/) | **Previous**: [Database Systems](README.md/) | **Up**: [Database Systems](README.md/)
+**Next**: [Transaction Management](transaction-management.md) | **Previous**: [Database Systems](README.md) | **Up**: [Database Systems](README.md)

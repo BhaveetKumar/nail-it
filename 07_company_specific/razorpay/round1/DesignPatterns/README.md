@@ -6,43 +6,43 @@ This directory contains comprehensive design patterns commonly used in backend s
 
 ### Creational Patterns
 
-- [Singleton](Singleton.md/) - Ensure single instance with global access
-- [Factory](Factory.md/) - Create objects without specifying exact classes
-- [Builder](Builder.md/) - Construct complex objects step by step
-- [Prototype](Prototype.md/) - Clone objects for performance
-- [Abstract Factory](AbstractFactory.md/) - Create families of related objects
+- [Singleton](Singleton.md) - Ensure single instance with global access
+- [Factory](Factory.md) - Create objects without specifying exact classes
+- [Builder](Builder.md) - Construct complex objects step by step
+- [Prototype](Prototype.md) - Clone objects for performance
+- [Abstract Factory](AbstractFactory.md) - Create families of related objects
 
 ### Structural Patterns
 
-- [Adapter](Adapter.md/) - Make incompatible interfaces work together
-- [Bridge](Bridge.md/) - Separate abstraction from implementation
-- [Composite](Composite.md/) - Compose objects into tree structures
-- [Decorator](Decorator.md/) - Add behavior to objects dynamically
-- [Facade](Facade.md/) - Provide simplified interface to complex subsystem
-- [Flyweight](Flyweight.md/) - Share common state among many objects
-- [Proxy](Proxy.md/) - Provide placeholder for another object
+- [Adapter](Adapter.md) - Make incompatible interfaces work together
+- [Bridge](Bridge.md) - Separate abstraction from implementation
+- [Composite](Composite.md) - Compose objects into tree structures
+- [Decorator](Decorator.md) - Add behavior to objects dynamically
+- [Facade](Facade.md) - Provide simplified interface to complex subsystem
+- [Flyweight](Flyweight.md) - Share common state among many objects
+- [Proxy](Proxy.md) - Provide placeholder for another object
 
 ### Behavioral Patterns
 
-- [Observer](Observer.md/) - Define one-to-many dependency between objects
-- [Strategy](Strategy.md/) - Define family of algorithms and make them interchangeable
-- [Command](Command.md/) - Encapsulate requests as objects
-- [State](State.md/) - Allow object to alter behavior when internal state changes
-- [Template Method](TemplateMethod.md/) - Define skeleton of algorithm in base class
-- [Chain of Responsibility](ChainOfResponsibility.md/) - Pass requests along chain of handlers
-- [Iterator](Iterator.md/) - Provide way to access elements of aggregate object
-- [Mediator](Mediator.md/) - Define how objects interact with each other
-- [Memento](Memento.md/) - Capture and restore object's internal state
-- [Visitor](Visitor.md/) - Define new operations without changing classes
+- [Observer](Observer.md) - Define one-to-many dependency between objects
+- [Strategy](Strategy.md) - Define family of algorithms and make them interchangeable
+- [Command](Command.md) - Encapsulate requests as objects
+- [State](State.md) - Allow object to alter behavior when internal state changes
+- [Template Method](TemplateMethod.md) - Define skeleton of algorithm in base class
+- [Chain of Responsibility](ChainOfResponsibility.md) - Pass requests along chain of handlers
+- [Iterator](Iterator.md) - Provide way to access elements of aggregate object
+- [Mediator](Mediator.md) - Define how objects interact with each other
+- [Memento](Memento.md) - Capture and restore object's internal state
+- [Visitor](Visitor.md) - Define new operations without changing classes
 
 ### Backend-Specific Patterns
 
-- [Repository](Repository.md/) - Abstract data access layer
-- [Unit of Work](UnitOfWork.md/) - Maintain list of objects affected by business transaction
-- [Event Sourcing](EventSourcing.md/) - Store events instead of current state
-- [CQRS](CQRS.md/) - Separate read and write operations
-- [Saga](Saga.md/) - Manage distributed transactions
-- [Circuit Breaker](CircuitBreaker.md/) - Prevent cascading failures
+- [Repository](Repository.md) - Abstract data access layer
+- [Unit of Work](UnitOfWork.md) - Maintain list of objects affected by business transaction
+- [Event Sourcing](EventSourcing.md) - Store events instead of current state
+- [CQRS](CQRS.md) - Separate read and write operations
+- [Saga](Saga.md) - Manage distributed transactions
+- [Circuit Breaker](CircuitBreaker.md) - Prevent cascading failures
 
 ## Pattern Selection Guide
 
@@ -198,16 +198,16 @@ When adding new patterns:
 
 | Pattern                              | Category   | Use Case                      | Complexity |
 | ------------------------------------ | ---------- | ----------------------------- | ---------- |
-| [Singleton](Singleton.md/)            | Creational | Global configuration, logging | Low        |
-| [Factory](Factory.md/)                | Creational | Object creation abstraction   | Medium     |
-| [Repository](Repository.md/)          | Backend    | Data access abstraction       | Medium     |
-| [Observer](Observer.md/)              | Behavioral | Event-driven systems          | Medium     |
-| [Strategy](Strategy.md/)              | Behavioral | Algorithm selection           | Low        |
-| [Command](Command.md/)                | Behavioral | Undo/redo operations          | Medium     |
-| [State](State.md/)                    | Behavioral | State-dependent behavior      | Medium     |
-| [Saga](Saga.md/)                      | Backend    | Distributed transactions      | High       |
-| [Circuit Breaker](CircuitBreaker.md/) | Backend    | Fault tolerance               | Medium     |
-| [CQRS](CQRS.md/)                      | Backend    | Read/write separation         | High       |
+| [Singleton](Singleton.md)            | Creational | Global configuration, logging | Low        |
+| [Factory](Factory.md)                | Creational | Object creation abstraction   | Medium     |
+| [Repository](Repository.md)          | Backend    | Data access abstraction       | Medium     |
+| [Observer](Observer.md)              | Behavioral | Event-driven systems          | Medium     |
+| [Strategy](Strategy.md)              | Behavioral | Algorithm selection           | Low        |
+| [Command](Command.md)                | Behavioral | Undo/redo operations          | Medium     |
+| [State](State.md)                    | Behavioral | State-dependent behavior      | Medium     |
+| [Saga](Saga.md)                      | Backend    | Distributed transactions      | High       |
+| [Circuit Breaker](CircuitBreaker.md) | Backend    | Fault tolerance               | Medium     |
+| [CQRS](CQRS.md)                      | Backend    | Read/write separation         | High       |
 
 ## Quick Reference
 

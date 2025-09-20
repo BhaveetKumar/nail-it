@@ -13,19 +13,19 @@
 ## 📚 **Topics Covered**
 
 ### **🔢 Basic Operations**
-- [**Two Sum**](TwoSum.md/) - Hash map approach
-- [**Best Time to Buy and Sell Stock**](BestTimeToBuySellStock.md/) - Greedy algorithm
-- [**Contains Duplicate**](ContainsDuplicate.md/) - Set operations
-- [**Product of Array Except Self**](ProductOfArrayExceptSelf.md/) - Prefix/suffix products
+- [**Two Sum**](TwoSum.md) - Hash map approach
+- [**Best Time to Buy and Sell Stock**](BestTimeToBuySellStock.md) - Greedy algorithm
+- [**Contains Duplicate**](ContainsDuplicate.md) - Set operations
+- [**Product of Array Except Self**](ProductOfArrayExceptSelf.md) - Prefix/suffix products
 
 ### **🔄 Two Pointers**
-- [**Two Sum II**](TwoSumII.md/) - Sorted array two pointers
-- [**3Sum**](ThreeSum.md/) - Three pointer technique
-- [**Container With Most Water**](ContainerWithMostWater.md/) - Area maximization
+- [**Two Sum II**](TwoSumII.md) - Sorted array two pointers
+- [**3Sum**](ThreeSum.md) - Three pointer technique
+- [**Container With Most Water**](ContainerWithMostWater.md) - Area maximization
 - [**Remove Duplicates**](../../../algorithms/Arrays/RemoveDuplicates.md) - In-place deduplication
 
 ### **🪟 Sliding Window**
-- [**Maximum Subarray**](MaximumSubarray.md/) - Kadane's algorithm
+- [**Maximum Subarray**](MaximumSubarray.md) - Kadane's algorithm
 - [**Sliding Window Maximum**](../../../algorithms/SlidingWindow/SlidingWindowMaximum.md) - Deque technique
 - [**Longest Substring Without Repeating Characters**](../../../algorithms/Arrays/LongestSubstring.md) - Character frequency
 - [**Minimum Window Substring**](../../../algorithms/SlidingWindow/MinimumWindowSubstring.md) - Template matching
@@ -33,24 +33,24 @@
 ### **📈 Prefix Sum**
 - [**Range Sum Query**](../../../algorithms/Arrays/RangeSumQuery.md) - Immutable array
 - [**Subarray Sum Equals K**](../../../algorithms/Arrays/SubarraySumEqualsK.md) - Hash map + prefix sum
-- [**Continuous Subarray Sum**](ContinuousSubarraySum.md/) - Modulo arithmetic
-- [**Maximum Size Subarray Sum Equals K**](MaxSizeSubarraySumK.md/) - Size optimization
+- [**Continuous Subarray Sum**](ContinuousSubarraySum.md) - Modulo arithmetic
+- [**Maximum Size Subarray Sum Equals K**](MaxSizeSubarraySumK.md) - Size optimization
 
 ### **🗺️ Hash Maps**
 - [**Group Anagrams**](../../../algorithms/Strings/GroupAnagrams.md) - String sorting
 - [**Top K Frequent Elements**](../../../algorithms/Heap/TopKFrequentElements.md) - Frequency counting
-- [**Intersection of Two Arrays**](IntersectionOfTwoArrays.md/) - Set operations
+- [**Intersection of Two Arrays**](IntersectionOfTwoArrays.md) - Set operations
 - [**Valid Anagram**](../../../algorithms/Strings/ValidAnagram.md) - Character frequency
 
 ### **🔄 Rotation & Transformation**
-- [**Rotate Array**](RotateArray.md/) - In-place rotation
-- [**Search in Rotated Sorted Array**](SearchRotatedSortedArray.md/) - Binary search
-- [**Find Minimum in Rotated Sorted Array**](FindMinRotatedSortedArray.md/) - Pivot finding
+- [**Rotate Array**](RotateArray.md) - In-place rotation
+- [**Search in Rotated Sorted Array**](SearchRotatedSortedArray.md) - Binary search
+- [**Find Minimum in Rotated Sorted Array**](FindMinRotatedSortedArray.md) - Pivot finding
 - [**Spiral Matrix**](../../../algorithms/Arrays/SpiralMatrix.md) - Matrix traversal
 
 ### **🎯 Advanced Problems**
-- [**Merge Intervals**](MergeIntervals.md/) - Interval merging
-- [**Insert Interval**](InsertInterval.md/) - Interval insertion
+- [**Merge Intervals**](MergeIntervals.md) - Interval merging
+- [**Insert Interval**](InsertInterval.md) - Interval insertion
 - [**Meeting Rooms**](../../../algorithms/Greedy/MeetingRooms.md) - Scheduling problems
 - [**Trapping Rain Water**](../../../algorithms/Arrays/TrappingRainWater.md) - Water trapping
 

@@ -356,8 +356,8 @@ function maxProduct(nums) {
 
 ## 📚 **Related Problems**
 
-- [**Two Sum**](TwoSum.md/) - Two numbers that sum to target
-- [**3Sum**](ThreeSum.md/) - Three numbers that sum to target
+- [**Two Sum**](TwoSum.md) - Two numbers that sum to target
+- [**3Sum**](ThreeSum.md) - Three numbers that sum to target
 - [**Trapping Rain Water**](../../../algorithms/Arrays/TrappingRainWater.md) - Water trapping problem
 - [**Largest Rectangle in Histogram**](../../../algorithms/StackQueue/LargestRectangleInHistogram.md) - Rectangle area problem
 

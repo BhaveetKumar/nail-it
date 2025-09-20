@@ -1145,8 +1145,8 @@ class FeatureStore {
 ## 📚 Preparation Resources
 
 ### System Design Resources
-- [System Design Patterns](../shared/system-design-patterns.md/)
-- [System Design Videos](../shared/system-design-videos.md/)
+- [System Design Patterns](../shared/system-design-patterns.md)
+- [System Design Videos](../shared/system-design-videos.md)
 - [Meta Engineering Blog](https://engineering.fb.com/)
 
 ### Meta-Specific
@@ -1155,7 +1155,7 @@ class FeatureStore {
 - [Meta Open Source](https://opensource.fb.com/)
 
 ## 🔗 Related Content
-- [Coding Round 1](round1-coding.md/) - For coding problems
-- [Product Sense Round 3](round3-product-sense.md/) - For product thinking
-- [Behavioral Round 4](round4-behavioral.md/) - For behavioral questions
+- [Coding Round 1](round1-coding.md) - For coding problems
+- [Product Sense Round 3](round3-product-sense.md) - For product thinking
+- [Behavioral Round 4](round4-behavioral.md) - For behavioral questions
 

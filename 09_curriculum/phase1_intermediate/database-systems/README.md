@@ -1182,5 +1182,5 @@ A: In 2PL, locks can be released during the shrinking phase, while strict 2PL ho
 
 ---
 
-**Next**: [Web Development](../../../README.md) | **Previous**: [OS Deep Dive](../../../README.md) | **Up**: [Phase 1](README.md/)
+**Next**: [Web Development](../../../README.md) | **Previous**: [OS Deep Dive](../../../README.md) | **Up**: [Phase 1](README.md)
 

@@ -24,14 +24,14 @@ Benches:
 ```sh
 cargo bench -p dsa_library
 ```
-# Algorithms & Data Structures Library (Skeleton)
 
-Implement classic DS & algorithms with safe paths and optional unsafe optimizations (feature-gated), plus criterion benchmarks.
+## Milestones
 
-Milestones:
+Implement classic DS & algorithms with safe paths and optional unsafe optimizations (feature-gated), plus Criterion benchmarks.
 
 - Core structures: vector, list, stack, queue, deque, heap.
 - Trees: BST, AVL, Red-Black.
 - Graphs: BFS, DFS, Dijkstra, A*.
 - Sorting & searching.
+- Benchmarks with Criterion.
 - Benchmarks with Criterion.

@@ -958,4 +958,4 @@ A: Be authentic, show genuine interest, provide consistent support, maintain con
 
 ---
 
-**Next**: [Strategic Planning](../../../curriculum/phase3-expert/strategic-planning/strategic-planning.md) | **Previous**: [Innovation Research](../../../curriculum/phase3-expert/innovation-research/innovation-research.md) | **Up**: [Phase 3](README.md/)
+**Next**: [Strategic Planning](../../../curriculum/phase3-expert/strategic-planning/strategic-planning.md) | **Previous**: [Innovation Research](../../../curriculum/phase3-expert/innovation-research/innovation-research.md) | **Up**: [Phase 3](README.md)

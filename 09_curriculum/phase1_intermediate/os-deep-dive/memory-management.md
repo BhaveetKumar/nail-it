@@ -1017,4 +1017,4 @@ A: First-fit allocates the first suitable block found, which is faster but may l
 
 ---
 
-**Next**: [File Systems](file-systems.md/) | **Previous**: [OS Deep Dive](README.md/) | **Up**: [OS Deep Dive](README.md/)
+**Next**: [File Systems](file-systems.md) | **Previous**: [OS Deep Dive](README.md) | **Up**: [OS Deep Dive](README.md)

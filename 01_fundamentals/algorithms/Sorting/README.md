@@ -6,26 +6,26 @@
 
 ### **Basic Sorting**
 
-- [Quick Sort](QuickSort.md/) - Divide and conquer sorting
-- [Merge Sort](MergeSort.md/) - Stable divide and conquer sorting
-- [Heap Sort](HeapSort.md/) - In-place sorting using heap
-- [Insertion Sort](InsertionSort.md/) - Simple comparison-based sorting
-- [Selection Sort](SelectionSort.md/) - Simple in-place sorting
+- [Quick Sort](QuickSort.md) - Divide and conquer sorting
+- [Merge Sort](MergeSort.md) - Stable divide and conquer sorting
+- [Heap Sort](HeapSort.md) - In-place sorting using heap
+- [Insertion Sort](InsertionSort.md) - Simple comparison-based sorting
+- [Selection Sort](SelectionSort.md) - Simple in-place sorting
 
 ### **Advanced Sorting**
 
-- [Counting Sort](CountingSort.md/) - Non-comparison based sorting
-- [Radix Sort](RadixSort.md/) - Digit-based sorting
-- [Bucket Sort](BucketSort.md/) - Distribution-based sorting
-- [Shell Sort](ShellSort.md/) - Improved insertion sort
-- [Tim Sort](TimSort.md/) - Hybrid stable sorting
+- [Counting Sort](CountingSort.md) - Non-comparison based sorting
+- [Radix Sort](RadixSort.md) - Digit-based sorting
+- [Bucket Sort](BucketSort.md) - Distribution-based sorting
+- [Shell Sort](ShellSort.md) - Improved insertion sort
+- [Tim Sort](TimSort.md) - Hybrid stable sorting
 
 ### **Sorting Applications**
 
 - [Sort Colors](../Arrays/SortColors.md) - Dutch National Flag problem
-- [Wiggle Sort](WiggleSort.md/) - Alternating sort
-- [H-Index](HIndex.md/) - Citation-based sorting
-- [Largest Number](LargestNumber.md/) - Custom comparison sorting
+- [Wiggle Sort](WiggleSort.md) - Alternating sort
+- [H-Index](HIndex.md) - Citation-based sorting
+- [Largest Number](LargestNumber.md) - Custom comparison sorting
 - [Meeting Rooms](../Greedy/MeetingRooms.md) - Interval sorting
 
 ---

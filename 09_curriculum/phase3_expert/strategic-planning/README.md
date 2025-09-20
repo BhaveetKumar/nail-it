@@ -1035,4 +1035,4 @@ A: Clear vision/mission, specific goals, actionable strategies, resource allocat
 
 ---
 
-**Next**: [Advanced Specializations](../../../README.md) | **Previous**: [Mentoring & Coaching](../../../README.md) | **Up**: [Phase 3](README.md/)
+**Next**: [Advanced Specializations](../../../README.md) | **Previous**: [Mentoring & Coaching](../../../README.md) | **Up**: [Phase 3](README.md)

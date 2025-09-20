@@ -881,4 +881,4 @@ A: Raft needs at least 3 nodes to tolerate 1 failure. PBFT needs at least 3f+1 n
 
 ---
 
-**Next**: [Distributed Storage](distributed-storage.md/) | **Previous**: [Distributed Systems](README.md/) | **Up**: [Distributed Systems](README.md/)
+**Next**: [Distributed Storage](distributed-storage.md) | **Previous**: [Distributed Systems](README.md) | **Up**: [Distributed Systems](README.md)

@@ -148,4 +148,4 @@ After completing Phase 1, you'll be ready for:
 
 ---
 
-**Next**: [Phase 2: Advanced](../../README.md) | **Previous**: [Phase 0: Fundamentals](../../README.md) | **Up**: [Master Engineer Curriculum](README.md/)
+**Next**: [Phase 2: Advanced](../../README.md) | **Previous**: [Phase 0: Fundamentals](../../README.md) | **Up**: [Master Engineer Curriculum](README.md)

@@ -334,8 +334,8 @@ function maxSubarraySumCircular(nums) {
 ## 📚 **Related Problems**
 
 - [**Maximum Product Subarray**](../../../algorithms/Arrays/MaximumProductSubarray.md) - Product instead of sum
-- [**Circular Array Loop**](CircularArrayLoop.md/) - Circular array problems
-- [**Best Time to Buy and Sell Stock**](BestTimeToBuySellStock.md/) - Similar DP pattern
+- [**Circular Array Loop**](CircularArrayLoop.md) - Circular array problems
+- [**Best Time to Buy and Sell Stock**](BestTimeToBuySellStock.md) - Similar DP pattern
 - [**House Robber**](../../../algorithms/DynamicProgramming/HouseRobber.md) - Similar optimization problem
 
 ## 🎉 **Summary**

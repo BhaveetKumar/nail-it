@@ -360,7 +360,7 @@ paths.forEach((path, index) => {
 
 - [Fibonacci Number](../DynamicProgramming/Fibonacci.md)
 - [House Robber](../../../algorithms/DynamicProgramming/HouseRobber.md)
-- [Min Cost Climbing Stairs](MinCostClimbingStairs.md/)
+- [Min Cost Climbing Stairs](MinCostClimbingStairs.md)
 - [Decode Ways](../../../algorithms/Strings/DecodeWays.md)
 
 ## Interview Tips

@@ -944,5 +944,5 @@ A: Eigenvalues help identify the principal directions of variation in data (PCA)
 
 ---
 
-**Next**: [Calculus](calculus.md/) | **Previous**: [Mathematics](README.md/) | **Up**: [Phase 0](README.md/)
+**Next**: [Calculus](calculus.md) | **Previous**: [Mathematics](README.md) | **Up**: [Phase 0](README.md)
 

@@ -712,4 +712,4 @@ A: Use queries for read operations that don't modify data. Use mutations for ope
 
 ---
 
-**Next**: [API Documentation](api-documentation.md/) | **Previous**: [API Design](README.md/) | **Up**: [API Design](README.md/)
+**Next**: [API Documentation](api-documentation.md) | **Previous**: [API Design](README.md) | **Up**: [API Design](README.md)

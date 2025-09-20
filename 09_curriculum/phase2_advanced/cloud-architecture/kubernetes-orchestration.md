@@ -901,4 +901,4 @@ A: Use blue-green for immediate, complete switches with rollback capability. Use
 
 ---
 
-**Next**: [Container Orchestration](container-orchestration.md/) | **Previous**: [Cloud Architecture](README.md/) | **Up**: [Cloud Architecture](README.md/)
+**Next**: [Container Orchestration](container-orchestration.md) | **Previous**: [Cloud Architecture](README.md) | **Up**: [Cloud Architecture](README.md)

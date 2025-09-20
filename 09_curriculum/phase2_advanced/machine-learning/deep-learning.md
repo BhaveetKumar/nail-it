@@ -1107,4 +1107,4 @@ A: CNNs are more efficient, have fewer parameters, are translation invariant, an
 
 ---
 
-**Next**: [Recurrent Neural Networks](recurrent-neural-networks.md/) | **Previous**: [Machine Learning](README.md/) | **Up**: [Machine Learning](README.md/)
+**Next**: [Recurrent Neural Networks](recurrent-neural-networks.md) | **Previous**: [Machine Learning](README.md) | **Up**: [Machine Learning](README.md)

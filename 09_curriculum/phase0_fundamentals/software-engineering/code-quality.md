@@ -689,4 +689,4 @@ A: Coding standards ensure consistency, improve readability, reduce bugs, and ma
 
 ---
 
-**Next**: [Development Practices](development-practices.md/) | **Previous**: [Software Engineering](README.md/) | **Up**: [Software Engineering](README.md/)
+**Next**: [Development Practices](development-practices.md) | **Previous**: [Software Engineering](README.md) | **Up**: [Software Engineering](README.md)

@@ -6,27 +6,27 @@
 
 ### **Fixed Window Size**
 
-- [Maximum Sum Subarray of Size K](MaximumSumSubarrayOfSizeK.md/) - Find maximum sum of fixed window
-- [Average of Subarrays of Size K](AverageOfSubarraysOfSizeK.md/) - Calculate averages
-- [First Negative Number in Every Window](FirstNegativeNumberInEveryWindow.md/) - Find first negative in each window
-- [Count Anagrams](CountAnagrams.md/) - Count anagrams in string
-- [Maximum of All Subarrays of Size K](MaximumOfAllSubarraysOfSizeK.md/) - Find maximum in each window
+- [Maximum Sum Subarray of Size K](MaximumSumSubarrayOfSizeK.md) - Find maximum sum of fixed window
+- [Average of Subarrays of Size K](AverageOfSubarraysOfSizeK.md) - Calculate averages
+- [First Negative Number in Every Window](FirstNegativeNumberInEveryWindow.md) - Find first negative in each window
+- [Count Anagrams](CountAnagrams.md) - Count anagrams in string
+- [Maximum of All Subarrays of Size K](MaximumOfAllSubarraysOfSizeK.md) - Find maximum in each window
 
 ### **Variable Window Size**
 
-- [Longest Substring Without Repeating Characters](LongestSubstringWithoutRepeatingCharacters.md/) - Find longest unique substring
-- [Minimum Window Substring](MinimumWindowSubstring.md/) - Find minimum window containing all characters
-- [Longest Substring with At Most K Distinct Characters](LongestSubstringWithAtMostKDistinctCharacters.md/) - Find longest substring with K distinct chars
-- [Longest Repeating Character Replacement](LongestRepeatingCharacterReplacement.md/) - Replace characters to get longest substring
-- [Fruit Into Baskets](FruitIntoBaskets.md/) - Collect maximum fruits
+- [Longest Substring Without Repeating Characters](LongestSubstringWithoutRepeatingCharacters.md) - Find longest unique substring
+- [Minimum Window Substring](MinimumWindowSubstring.md) - Find minimum window containing all characters
+- [Longest Substring with At Most K Distinct Characters](LongestSubstringWithAtMostKDistinctCharacters.md) - Find longest substring with K distinct chars
+- [Longest Repeating Character Replacement](LongestRepeatingCharacterReplacement.md) - Replace characters to get longest substring
+- [Fruit Into Baskets](FruitIntoBaskets.md) - Collect maximum fruits
 
 ### **Advanced Sliding Window**
 
 - [Subarray Sum Equals K](../Arrays/SubarraySumEqualsK.md) - Find subarrays with sum K
 - [Permutation in String](../Strings/PermutationInString.md) - Check if permutation exists
-- [Find All Anagrams in a String](FindAllAnagramsInString.md/) - Find all anagram occurrences
-- [Sliding Window Maximum](SlidingWindowMaximum.md/) - Find maximum in sliding window
-- [Longest Subarray with Sum at Most K](LongestSubarrayWithSumAtMostK.md/) - Find longest subarray with sum ≤ K
+- [Find All Anagrams in a String](FindAllAnagramsInString.md) - Find all anagram occurrences
+- [Sliding Window Maximum](SlidingWindowMaximum.md) - Find maximum in sliding window
+- [Longest Subarray with Sum at Most K](LongestSubarrayWithSumAtMostK.md) - Find longest subarray with sum ≤ K
 
 ---
 

@@ -688,4 +688,4 @@ A: Database queries, network I/O, CPU-intensive computations, memory allocations
 
 ---
 
-**Next**: [Load Testing](load-testing.md/) | **Previous**: [Performance Engineering](README.md/) | **Up**: [Performance Engineering](README.md/)
+**Next**: [Load Testing](load-testing.md) | **Previous**: [Performance Engineering](README.md) | **Up**: [Performance Engineering](README.md)

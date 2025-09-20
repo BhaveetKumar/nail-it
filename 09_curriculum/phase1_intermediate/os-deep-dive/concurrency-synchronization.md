@@ -1143,4 +1143,4 @@ A: Mutual exclusion, hold and wait, no preemption, and circular wait. Deadlock c
 
 ---
 
-**Next**: [System Calls](system-calls.md/) | **Previous**: [OS Deep Dive](README.md/) | **Up**: [OS Deep Dive](README.md/)
+**Next**: [System Calls](system-calls.md) | **Previous**: [OS Deep Dive](README.md) | **Up**: [OS Deep Dive](README.md)

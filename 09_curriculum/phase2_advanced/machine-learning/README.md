@@ -1057,5 +1057,5 @@ A: The vanishing gradient problem occurs when gradients become very small during
 
 ---
 
-**Next**: [Cloud Architecture](../../../README.md) | **Previous**: [Distributed Systems](../../../README.md) | **Up**: [Phase 2](README.md/)
+**Next**: [Cloud Architecture](../../../README.md) | **Previous**: [Distributed Systems](../../../README.md) | **Up**: [Phase 2](README.md)
 

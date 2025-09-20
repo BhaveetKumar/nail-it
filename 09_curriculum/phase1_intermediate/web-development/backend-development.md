@@ -760,4 +760,4 @@ A: Dependency injection is a design pattern where objects receive their dependen
 
 ---
 
-**Next**: [Full-Stack Integration](fullstack-integration.md/) | **Previous**: [Web Development](README.md/) | **Up**: [Web Development](README.md/)
+**Next**: [Full-Stack Integration](fullstack-integration.md) | **Previous**: [Web Development](README.md) | **Up**: [Web Development](README.md)

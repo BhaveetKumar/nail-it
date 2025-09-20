@@ -883,4 +883,4 @@ A: Choose quorum-based replication when you need high availability and can toler
 
 ---
 
-**Next**: [Event Sourcing](event-sourcing.md/) | **Previous**: [Distributed Systems](README.md/) | **Up**: [Distributed Systems](README.md/)
+**Next**: [Event Sourcing](event-sourcing.md) | **Previous**: [Distributed Systems](README.md) | **Up**: [Distributed Systems](README.md)

@@ -6,27 +6,27 @@
 
 ### **Basic Bit Operations**
 
-- [Single Number](SingleNumber.md/) - Find unique element using XOR
-- [Single Number II](SingleNumberII.md/) - Find unique element with triplets
-- [Single Number III](SingleNumberIII.md/) - Find two unique elements
-- [Missing Number](MissingNumber.md/) - Find missing number using XOR
-- [Find the Difference](FindTheDifference.md/) - Find added character
+- [Single Number](SingleNumber.md) - Find unique element using XOR
+- [Single Number II](SingleNumberII.md) - Find unique element with triplets
+- [Single Number III](SingleNumberIII.md) - Find two unique elements
+- [Missing Number](MissingNumber.md) - Find missing number using XOR
+- [Find the Difference](FindTheDifference.md) - Find added character
 
 ### **Bit Counting and Manipulation**
 
-- [Number of 1 Bits](NumberOf1Bits.md/) - Count set bits (Hamming weight)
-- [Counting Bits](CountingBits.md/) - Count bits for all numbers
-- [Reverse Bits](ReverseBits.md/) - Reverse bits of a number
-- [Power of Two](PowerOfTwo.md/) - Check if number is power of 2
-- [Power of Four](PowerOfFour.md/) - Check if number is power of 4
+- [Number of 1 Bits](NumberOf1Bits.md) - Count set bits (Hamming weight)
+- [Counting Bits](CountingBits.md) - Count bits for all numbers
+- [Reverse Bits](ReverseBits.md) - Reverse bits of a number
+- [Power of Two](PowerOfTwo.md) - Check if number is power of 2
+- [Power of Four](PowerOfFour.md) - Check if number is power of 4
 
 ### **Advanced Bit Manipulation**
 
-- [Maximum XOR of Two Numbers](MaximumXOROfTwoNumbers.md/) - Find maximum XOR
-- [Subsets](Subsets.md/) - Generate subsets using bit manipulation
-- [Gray Code](GrayCode.md/) - Generate Gray code sequence
-- [UTF-8 Validation](UTF8Validation.md/) - Validate UTF-8 encoding
-- [Bitwise AND of Numbers Range](BitwiseANDOfNumbersRange.md/) - AND operation on range
+- [Maximum XOR of Two Numbers](MaximumXOROfTwoNumbers.md) - Find maximum XOR
+- [Subsets](Subsets.md) - Generate subsets using bit manipulation
+- [Gray Code](GrayCode.md) - Generate Gray code sequence
+- [UTF-8 Validation](UTF8Validation.md) - Validate UTF-8 encoding
+- [Bitwise AND of Numbers Range](BitwiseANDOfNumbersRange.md) - AND operation on range
 
 ---
 

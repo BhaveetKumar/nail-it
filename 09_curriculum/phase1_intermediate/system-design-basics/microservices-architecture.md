@@ -717,4 +717,4 @@ A: Service discovery provides dynamic service registration, automatic health che
 
 ---
 
-**Next**: [Phase 2 Advanced](../../../README.md) | **Previous**: [System Design Basics](README.md/) | **Up**: [Phase 1](README.md/)
+**Next**: [Phase 2 Advanced](../../../README.md) | **Previous**: [System Design Basics](README.md) | **Up**: [Phase 1](README.md)

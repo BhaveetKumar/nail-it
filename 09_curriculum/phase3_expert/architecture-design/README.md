@@ -1178,4 +1178,4 @@ A: Horizontal scaling (adding more servers) is generally preferred for better fa
 
 ---
 
-**Next**: [Innovation Research](../../../README.md) | **Previous**: [Technical Leadership](../../../README.md) | **Up**: [Phase 3](README.md/)
+**Next**: [Innovation Research](../../../README.md) | **Previous**: [Technical Leadership](../../../README.md) | **Up**: [Phase 3](README.md)

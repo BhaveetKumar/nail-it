@@ -782,4 +782,4 @@ A: Culture affects innovation through openness to change, risk tolerance, learni
 
 ---
 
-**Next**: [Mentoring Coaching](../../../README.md) | **Previous**: [Innovation Research](README.md/) | **Up**: [Phase 3 Expert](README.md/)
+**Next**: [Mentoring Coaching](../../../README.md) | **Previous**: [Innovation Research](README.md) | **Up**: [Phase 3 Expert](README.md)

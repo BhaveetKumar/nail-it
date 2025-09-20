@@ -854,4 +854,4 @@ A: The Euclidean algorithm has time complexity O(log min(a, b)), making it very 
 
 ---
 
-**Next**: [Graph Theory Algorithms](graph-theory-algorithms.md/) | **Previous**: [Advanced Algorithms](README.md/) | **Up**: [Advanced Algorithms](README.md/)
+**Next**: [Graph Theory Algorithms](graph-theory-algorithms.md) | **Previous**: [Advanced Algorithms](README.md) | **Up**: [Advanced Algorithms](README.md)

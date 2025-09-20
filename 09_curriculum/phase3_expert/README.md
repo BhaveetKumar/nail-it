@@ -236,4 +236,4 @@ After completing Phase 3, you'll be ready for:
 
 ---
 
-**Previous**: [Phase 2: Advanced](../../README.md) | **Next**: [Master Engineer Curriculum](README.md/) | **Up**: [Master Engineer Curriculum](README.md/)
+**Previous**: [Phase 2: Advanced](../../README.md) | **Next**: [Master Engineer Curriculum](README.md) | **Up**: [Master Engineer Curriculum](README.md)

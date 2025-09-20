@@ -605,4 +605,4 @@ A: Optimize space when the current solution uses O(n²) or more space but only n
 
 ---
 
-**Next**: [String Algorithms](string-algorithms.md/) | **Previous**: [Advanced DSA](README.md/) | **Up**: [Advanced DSA](README.md/)
+**Next**: [String Algorithms](string-algorithms.md) | **Previous**: [Advanced DSA](README.md) | **Up**: [Advanced DSA](README.md)

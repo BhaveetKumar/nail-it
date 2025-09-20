@@ -20,7 +20,7 @@ Dynamic Programming (DP) is a method for solving complex problems by breaking th
 
 ## Problems
 
-### 1. [Fibonacci Sequence](Fibonacci.md/)
+### 1. [Fibonacci Sequence](Fibonacci.md)
 Calculate the nth Fibonacci number using DP.
 
 ### 2. [Climbing Stairs](../../../algorithms/Arrays/ClimbingStairs.md)

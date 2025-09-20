@@ -1366,4 +1366,4 @@ CloudFunction:
 
 ---
 
-**Next**: [GCP Cloud SQL](GCP_CloudSQL.md/) - Managed databases, read replicas, backups
+**Next**: [GCP Cloud SQL](GCP_CloudSQL.md) - Managed databases, read replicas, backups

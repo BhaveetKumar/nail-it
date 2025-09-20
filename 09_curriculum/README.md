@@ -287,4 +287,4 @@ This curriculum is licensed under the MIT License. See the [LICENSE](../LICENSE)
 
 ---
 
-**Start Your Journey**: [Phase 0: Fundamentals](phase0_fundamentals/) | **Latest Updates**: [Changelog](CHANGELOG.md/) | **Community**: [Join Us](https://discord.gg/master-engineer/)
+**Start Your Journey**: [Phase 0: Fundamentals](phase0_fundamentals/) | **Latest Updates**: [Changelog](CHANGELOG.md) | **Community**: [Join Us](https://discord.gg/master-engineer/)

@@ -1187,5 +1187,5 @@ A: Inodes store metadata about files (permissions, size, timestamps) and pointer
 
 ---
 
-**Next**: [Database Systems](../../../README.md) | **Previous**: [Advanced DSA](../../../README.md) | **Up**: [Phase 1](README.md/)
+**Next**: [Database Systems](../../../README.md) | **Previous**: [Advanced DSA](../../../README.md) | **Up**: [Phase 1](README.md)
 

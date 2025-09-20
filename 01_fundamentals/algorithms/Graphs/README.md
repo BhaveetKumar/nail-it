@@ -6,39 +6,39 @@
 
 ### **BFS (Breadth-First Search)**
 
-- [Binary Tree Level Order Traversal](BinaryTreeLevelOrderTraversal.md/) - BFS on trees
-- [Word Ladder](WordLadder.md/) - Shortest path in word graph
-- [Rotting Oranges](RottingOranges.md/) - Multi-source BFS
-- [Open the Lock](OpenTheLock.md/) - BFS with state transitions
-- [Minimum Knight Moves](MinimumKnightMoves.md/) - BFS on chessboard
+- [Binary Tree Level Order Traversal](BinaryTreeLevelOrderTraversal.md) - BFS on trees
+- [Word Ladder](WordLadder.md) - Shortest path in word graph
+- [Rotting Oranges](RottingOranges.md) - Multi-source BFS
+- [Open the Lock](OpenTheLock.md) - BFS with state transitions
+- [Minimum Knight Moves](MinimumKnightMoves.md) - BFS on chessboard
 
 ### **DFS (Depth-First Search)**
 
-- [Number of Islands](NumberOfIslands.md/) - Connected components
-- [Course Schedule](CourseSchedule.md/) - Cycle detection
-- [Clone Graph](CloneGraph.md/) - Graph cloning
-- [Pacific Atlantic Water Flow](PacificAtlanticWaterFlow.md/) - Multi-source DFS
-- [All Paths From Source to Target](AllPathsFromSourceToTarget.md/) - Path finding
+- [Number of Islands](NumberOfIslands.md) - Connected components
+- [Course Schedule](CourseSchedule.md) - Cycle detection
+- [Clone Graph](CloneGraph.md) - Graph cloning
+- [Pacific Atlantic Water Flow](PacificAtlanticWaterFlow.md) - Multi-source DFS
+- [All Paths From Source to Target](AllPathsFromSourceToTarget.md) - Path finding
 
 ### **Shortest Path**
 
-- [Network Delay Time](NetworkDelayTime.md/) - Dijkstra's algorithm
-- [Cheapest Flights Within K Stops](CheapestFlightsWithinKStops.md/) - Modified Dijkstra
-- [Path With Minimum Effort](PathWithMinimumEffort.md/) - Binary search + BFS
-- [Swim in Rising Water](SwimInRisingWater.md/) - Union-Find + Binary search
+- [Network Delay Time](NetworkDelayTime.md) - Dijkstra's algorithm
+- [Cheapest Flights Within K Stops](CheapestFlightsWithinKStops.md) - Modified Dijkstra
+- [Path With Minimum Effort](PathWithMinimumEffort.md) - Binary search + BFS
+- [Swim in Rising Water](SwimInRisingWater.md) - Union-Find + Binary search
 
 ### **Topological Sort**
 
-- [Course Schedule II](CourseScheduleII.md/) - Topological ordering
-- [Alien Dictionary](AlienDictionary.md/) - Topological sort on characters
-- [Sequence Reconstruction](SequenceReconstruction.md/) - Unique topological order
+- [Course Schedule II](CourseScheduleII.md) - Topological ordering
+- [Alien Dictionary](AlienDictionary.md) - Topological sort on characters
+- [Sequence Reconstruction](SequenceReconstruction.md) - Unique topological order
 
 ### **Union-Find**
 
-- [Number of Connected Components](NumberOfConnectedComponents.md/) - Union-Find basics
-- [Redundant Connection](RedundantConnection.md/) - Cycle detection
-- [Accounts Merge](AccountsMerge.md/) - Connected components
-- [Most Stones Removed](MostStonesRemoved.md/) - Union-Find optimization
+- [Number of Connected Components](NumberOfConnectedComponents.md) - Union-Find basics
+- [Redundant Connection](RedundantConnection.md) - Cycle detection
+- [Accounts Merge](AccountsMerge.md) - Connected components
+- [Most Stones Removed](MostStonesRemoved.md) - Union-Find optimization
 
 ---
 

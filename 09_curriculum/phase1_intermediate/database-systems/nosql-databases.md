@@ -929,4 +929,4 @@ A: Column-family stores store data in columns rather than rows, which improves w
 
 ---
 
-**Next**: [Web Development](../../../README.md) | **Previous**: [Database Systems](README.md/) | **Up**: [Phase 1](README.md/)
+**Next**: [Web Development](../../../README.md) | **Previous**: [Database Systems](README.md) | **Up**: [Phase 1](README.md)

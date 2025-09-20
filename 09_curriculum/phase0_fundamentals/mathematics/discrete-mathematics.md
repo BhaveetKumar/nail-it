@@ -1292,5 +1292,5 @@ A: A path is a sequence of vertices where each consecutive pair is connected by 
 
 ---
 
-**Next**: [Programming Fundamentals](../../../README.md) | **Previous**: [Statistics & Probability](statistics-probability.md/) | **Up**: [Phase 0](README.md/)
+**Next**: [Programming Fundamentals](../../../README.md) | **Previous**: [Statistics & Probability](statistics-probability.md) | **Up**: [Phase 0](README.md)
 

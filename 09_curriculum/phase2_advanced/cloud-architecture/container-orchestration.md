@@ -757,4 +757,4 @@ A: Health checks include liveness probes (is container running?), readiness prob
 
 ---
 
-**Next**: [Serverless Architecture](serverless-architecture.md/) | **Previous**: [Cloud Architecture](README.md/) | **Up**: [Cloud Architecture](README.md/)
+**Next**: [Serverless Architecture](serverless-architecture.md) | **Previous**: [Cloud Architecture](README.md) | **Up**: [Cloud Architecture](README.md)

@@ -477,4 +477,4 @@ A: BDD focuses on behavior and user stories, using natural language, while TDD f
 
 ---
 
-**Next**: [Phase 1](../../../README.md) | **Previous**: [Version Control](version-control-git.md/) | **Up**: [Phase 0](README.md/)
+**Next**: [Phase 1](../../../README.md) | **Previous**: [Version Control](version-control-git.md) | **Up**: [Phase 0](README.md)

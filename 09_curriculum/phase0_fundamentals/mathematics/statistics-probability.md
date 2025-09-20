@@ -1175,5 +1175,5 @@ A: A p-value tells us the probability of observing the data (or more extreme) if
 
 ---
 
-**Next**: [Discrete Mathematics](discrete-mathematics.md/) | **Previous**: [Calculus](calculus.md/) | **Up**: [Phase 0](README.md/)
+**Next**: [Discrete Mathematics](discrete-mathematics.md) | **Previous**: [Calculus](calculus.md) | **Up**: [Phase 0](README.md)
 

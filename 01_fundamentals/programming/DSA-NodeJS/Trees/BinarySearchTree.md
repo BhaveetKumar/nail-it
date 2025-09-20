@@ -625,9 +625,9 @@ visualizeBST(bst.root);
 ## Related Problems
 
 - [Validate Binary Search Tree](../../../algorithms/Trees/ValidateBinarySearchTree.md)
-- [Convert Sorted Array to BST](ConvertSortedArrayToBST.md/)
+- [Convert Sorted Array to BST](ConvertSortedArrayToBST.md)
 - [Kth Smallest Element in BST](../../../algorithms/Trees/KthSmallestElementInBST.md)
-- [Lowest Common Ancestor of BST](LowestCommonAncestorOfBST.md/)
+- [Lowest Common Ancestor of BST](LowestCommonAncestorOfBST.md)
 
 ## Interview Tips
 

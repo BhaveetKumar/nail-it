@@ -6,27 +6,27 @@
 
 ### **Number Theory**
 
-- [Pow(x, n)](Pow.md/) - Calculate x raised to power n
-- [Sqrt(x)](Sqrt.md/) - Calculate square root
-- [Valid Perfect Square](ValidPerfectSquare.md/) - Check if number is perfect square
-- [Power of Three](PowerOfThree.md/) - Check if number is power of 3
-- [Roman to Integer](RomanToInteger.md/) - Convert Roman numerals to integer
+- [Pow(x, n)](Pow.md) - Calculate x raised to power n
+- [Sqrt(x)](Sqrt.md) - Calculate square root
+- [Valid Perfect Square](ValidPerfectSquare.md) - Check if number is perfect square
+- [Power of Three](PowerOfThree.md) - Check if number is power of 3
+- [Roman to Integer](RomanToInteger.md) - Convert Roman numerals to integer
 
 ### **Combinatorics**
 
-- [Pascal's Triangle](PascalsTriangle.md/) - Generate Pascal's triangle
-- [Pascal's Triangle II](PascalsTriangleII.md/) - Get specific row
+- [Pascal's Triangle](PascalsTriangle.md) - Generate Pascal's triangle
+- [Pascal's Triangle II](PascalsTriangleII.md) - Get specific row
 - [Unique Paths](../Arrays/UniquePaths.md) - Count paths in grid
 - [Unique Paths II](../Arrays/UniquePathsII.md) - Count paths with obstacles
 - [Climbing Stairs](../Arrays/ClimbingStairs.md) - Count ways to climb stairs
 
 ### **Arithmetic**
 
-- [Add Binary](AddBinary.md/) - Add two binary strings
-- [Multiply Strings](MultiplyStrings.md/) - Multiply two strings
-- [Plus One](PlusOne.md/) - Add one to number represented as array
-- [Factorial Trailing Zeroes](FactorialTrailingZeroes.md/) - Count trailing zeros in factorial
-- [Excel Sheet Column Title](ExcelSheetColumnTitle.md/) - Convert number to Excel column
+- [Add Binary](AddBinary.md) - Add two binary strings
+- [Multiply Strings](MultiplyStrings.md) - Multiply two strings
+- [Plus One](PlusOne.md) - Add one to number represented as array
+- [Factorial Trailing Zeroes](FactorialTrailingZeroes.md) - Count trailing zeros in factorial
+- [Excel Sheet Column Title](ExcelSheetColumnTitle.md) - Convert number to Excel column
 
 ---
 

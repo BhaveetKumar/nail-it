@@ -298,4 +298,4 @@ console.log(totalNQueens(8)); // 92
 - [N-Queens II](../../../algorithms/Backtracking/NQueensII.md) - Count solutions only
 - [Sudoku Solver](../../../algorithms/Backtracking/SudokuSolver.md) - Similar constraint satisfaction
 - [Word Search](../../../algorithms/Arrays/WordSearch.md) - Backtracking in 2D grid
-- [Generate Parentheses](GenerateParentheses.md/) - Backtracking with constraints
+- [Generate Parentheses](GenerateParentheses.md) - Backtracking with constraints

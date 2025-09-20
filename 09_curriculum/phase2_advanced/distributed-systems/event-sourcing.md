@@ -585,4 +585,4 @@ A: Use CQRS when you have different read and write requirements, need to scale r
 
 ---
 
-**Next**: [Service Mesh](service-mesh.md/) | **Previous**: [Distributed Systems](README.md/) | **Up**: [Distributed Systems](README.md/)
+**Next**: [Service Mesh](service-mesh.md) | **Previous**: [Distributed Systems](README.md) | **Up**: [Distributed Systems](README.md)

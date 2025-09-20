@@ -227,6 +227,6 @@ console.log(generateParenthesis(4).length); // 14 (4th Catalan number)
 ## Related Problems
 
 - [Valid Parentheses](../../../algorithms/Strings/ValidParentheses.md)
-- [Minimum Add to Make Parentheses Valid](StackQueue/MinimumAddToMakeParenthesesValid.md/)
+- [Minimum Add to Make Parentheses Valid](StackQueue/MinimumAddToMakeParenthesesValid.md)
 - [Remove Invalid Parentheses](../../../algorithms/Backtracking/RemoveInvalidParentheses.md)
-- [Longest Valid Parentheses](StackQueue/LongestValidParentheses.md/)
+- [Longest Valid Parentheses](StackQueue/LongestValidParentheses.md)

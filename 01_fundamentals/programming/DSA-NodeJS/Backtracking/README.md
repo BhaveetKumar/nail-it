@@ -43,13 +43,13 @@ function backtrack(path, choices) {
 
 ## Problems
 
-### 1. [Generate Parentheses](GenerateParentheses.md/)
+### 1. [Generate Parentheses](GenerateParentheses.md)
 Generate all valid combinations of n pairs of parentheses.
 
-### 2. [N-Queens](NQueens.md/)
+### 2. [N-Queens](NQueens.md)
 Place n queens on an n×n chessboard so no two queens attack each other.
 
-### 3. [Combination Sum](CombinationSum.md/)
+### 3. [Combination Sum](CombinationSum.md)
 Find all unique combinations that sum to a target value.
 
 ### 4. [Permutations](../../../algorithms/Backtracking/Permutations.md)

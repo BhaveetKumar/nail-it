@@ -6,42 +6,42 @@
 
 ### **Binary Tree Traversals**
 
-- [Binary Tree Inorder Traversal](BinaryTreeInorderTraversal.md/) - Left, Root, Right
-- [Binary Tree Preorder Traversal](BinaryTreePreorderTraversal.md/) - Root, Left, Right
-- [Binary Tree Postorder Traversal](BinaryTreePostorderTraversal.md/) - Left, Right, Root
-- [Binary Tree Level Order Traversal](BinaryTreeLevelOrderTraversal.md/) - BFS traversal
-- [Binary Tree Zigzag Level Order Traversal](BinaryTreeZigzagLevelOrderTraversal.md/) - Alternating directions
+- [Binary Tree Inorder Traversal](BinaryTreeInorderTraversal.md) - Left, Root, Right
+- [Binary Tree Preorder Traversal](BinaryTreePreorderTraversal.md) - Root, Left, Right
+- [Binary Tree Postorder Traversal](BinaryTreePostorderTraversal.md) - Left, Right, Root
+- [Binary Tree Level Order Traversal](BinaryTreeLevelOrderTraversal.md) - BFS traversal
+- [Binary Tree Zigzag Level Order Traversal](BinaryTreeZigzagLevelOrderTraversal.md) - Alternating directions
 
 ### **Binary Search Tree**
 
-- [Validate Binary Search Tree](ValidateBinarySearchTree.md/) - BST property validation
-- [Search in a Binary Search Tree](SearchInBinarySearchTree.md/) - BST search
-- [Insert into a Binary Search Tree](InsertIntoBinarySearchTree.md/) - BST insertion
-- [Delete Node in a BST](DeleteNodeInBST.md/) - BST deletion
-- [Kth Smallest Element in a BST](KthSmallestElementInBST.md/) - Inorder traversal
+- [Validate Binary Search Tree](ValidateBinarySearchTree.md) - BST property validation
+- [Search in a Binary Search Tree](SearchInBinarySearchTree.md) - BST search
+- [Insert into a Binary Search Tree](InsertIntoBinarySearchTree.md) - BST insertion
+- [Delete Node in a BST](DeleteNodeInBST.md) - BST deletion
+- [Kth Smallest Element in a BST](KthSmallestElementInBST.md) - Inorder traversal
 
 ### **Tree Construction**
 
-- [Construct Binary Tree from Preorder and Inorder Traversal](ConstructBinaryTreeFromPreorderAndInorder.md/) - Tree reconstruction
-- [Construct Binary Tree from Inorder and Postorder Traversal](ConstructBinaryTreeFromInorderAndPostorder.md/) - Tree reconstruction
-- [Serialize and Deserialize Binary Tree](SerializeAndDeserializeBinaryTree.md/) - Tree serialization
-- [Populating Next Right Pointers in Each Node](PopulatingNextRightPointers.md/) - Level connection
+- [Construct Binary Tree from Preorder and Inorder Traversal](ConstructBinaryTreeFromPreorderAndInorder.md) - Tree reconstruction
+- [Construct Binary Tree from Inorder and Postorder Traversal](ConstructBinaryTreeFromInorderAndPostorder.md) - Tree reconstruction
+- [Serialize and Deserialize Binary Tree](SerializeAndDeserializeBinaryTree.md) - Tree serialization
+- [Populating Next Right Pointers in Each Node](PopulatingNextRightPointers.md) - Level connection
 
 ### **Tree Properties**
 
-- [Maximum Depth of Binary Tree](MaximumDepthOfBinaryTree.md/) - Tree height
-- [Minimum Depth of Binary Tree](MinimumDepthOfBinaryTree.md/) - Minimum path length
-- [Balanced Binary Tree](BalancedBinaryTree.md/) - Height balance check
-- [Symmetric Tree](SymmetricTree.md/) - Mirror symmetry
-- [Same Tree](SameTree.md/) - Tree equality
+- [Maximum Depth of Binary Tree](MaximumDepthOfBinaryTree.md) - Tree height
+- [Minimum Depth of Binary Tree](MinimumDepthOfBinaryTree.md) - Minimum path length
+- [Balanced Binary Tree](BalancedBinaryTree.md) - Height balance check
+- [Symmetric Tree](SymmetricTree.md) - Mirror symmetry
+- [Same Tree](SameTree.md) - Tree equality
 
 ### **Advanced Tree Problems**
 
-- [Binary Tree Maximum Path Sum](BinaryTreeMaximumPathSum.md/) - Path optimization
-- [Lowest Common Ancestor of a Binary Tree](LowestCommonAncestor.md/) - LCA algorithm
-- [Path Sum](PathSum.md/) - Target sum in paths
-- [Path Sum II](PathSumII.md/) - All paths with target sum
-- [Binary Tree Right Side View](BinaryTreeRightSideView.md/) - Rightmost nodes
+- [Binary Tree Maximum Path Sum](BinaryTreeMaximumPathSum.md) - Path optimization
+- [Lowest Common Ancestor of a Binary Tree](LowestCommonAncestor.md) - LCA algorithm
+- [Path Sum](PathSum.md) - Target sum in paths
+- [Path Sum II](PathSumII.md) - All paths with target sum
+- [Binary Tree Right Side View](BinaryTreeRightSideView.md) - Rightmost nodes
 
 ---
 

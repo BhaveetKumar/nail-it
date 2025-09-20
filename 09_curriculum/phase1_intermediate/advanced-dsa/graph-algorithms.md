@@ -768,4 +768,4 @@ A: Use adjacency list for sparse graphs (space efficient, O(V+E) space). Use adj
 
 ---
 
-**Next**: [Dynamic Programming Advanced](dynamic-programming-advanced.md/) | **Previous**: [Advanced DSA](README.md/) | **Up**: [Advanced DSA](README.md/)
+**Next**: [Dynamic Programming Advanced](dynamic-programming-advanced.md) | **Previous**: [Advanced DSA](README.md) | **Up**: [Advanced DSA](README.md)

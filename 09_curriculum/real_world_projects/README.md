@@ -1415,4 +1415,4 @@ A: Start with MVP, iterate incrementally, use proven patterns, implement proper 
 
 ---
 
-**Next**: [Assessment Tools](../../README.md) | **Previous**: [Practice Exercises](../../README.md) | **Up**: [Real-World Projects](README.md/)
+**Next**: [Assessment Tools](../../README.md) | **Previous**: [Practice Exercises](../../README.md) | **Up**: [Real-World Projects](README.md)

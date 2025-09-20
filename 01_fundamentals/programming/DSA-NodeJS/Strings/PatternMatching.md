@@ -477,7 +477,7 @@ matches.forEach(match => {
 - [Find All Anagrams in String](../../../algorithms/SlidingWindow/FindAllAnagramsInString.md)
 - [Longest Common Subsequence](../../../algorithms/DynamicProgramming/LongestCommonSubsequence.md)
 - [Edit Distance](../../../algorithms/DynamicProgramming/EditDistance.md)
-- [Palindrome Substrings](PalindromeSubstrings.md/)
+- [Palindrome Substrings](PalindromeSubstrings.md)
 
 ## Interview Tips
 

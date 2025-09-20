@@ -13,36 +13,36 @@
 ## 📚 **Learning Path**
 
 ### **🔢 Foundations**
-- [**Math for ML**](Foundations/MathForML.md/) - Linear algebra, calculus, optimization
-- [**Python for ML**](Foundations/PythonForML.md/) - NumPy, Pandas, Scikit-learn
-- [**Probability & Statistics**](Foundations/ProbabilityAndStats.md/) - Statistical foundations for ML
+- [**Math for ML**](Foundations/MathForML.md) - Linear algebra, calculus, optimization
+- [**Python for ML**](Foundations/PythonForML.md) - NumPy, Pandas, Scikit-learn
+- [**Probability & Statistics**](Foundations/ProbabilityAndStats.md) - Statistical foundations for ML
 
 ### **🧠 Machine Learning**
 - [**Linear Regression**](../01_fundamentals/programming/AI-ML/MachineLearning/LinearRegression.md) - Mathematical foundations and implementation
 - [**Logistic Regression**](../01_fundamentals/programming/AI-ML/MachineLearning/LogisticRegression.md) - Classification algorithms
-- [**Decision Trees**](MachineLearning/DecisionTrees.md/) - Tree-based algorithms
-- [**Random Forest**](MachineLearning/RandomForest.md/) - Ensemble methods
-- [**SVM**](MachineLearning/SVM.md/) - Support Vector Machines
+- [**Decision Trees**](MachineLearning/DecisionTrees.md) - Tree-based algorithms
+- [**Random Forest**](MachineLearning/RandomForest.md) - Ensemble methods
+- [**SVM**](MachineLearning/SVM.md) - Support Vector Machines
 
 ### **🧠 Deep Learning**
-- [**Neural Networks**](DeepLearning/NeuralNetworks.md/) - Perceptrons, backpropagation, optimizers
-- [**CNNs**](DeepLearning/CNNs.md/) - Convolutional Neural Networks, ResNet, DenseNet
+- [**Neural Networks**](DeepLearning/NeuralNetworks.md) - Perceptrons, backpropagation, optimizers
+- [**CNNs**](DeepLearning/CNNs.md) - Convolutional Neural Networks, ResNet, DenseNet
 
 ### **🎨 Generative AI**
-- [**GPT**](GenerativeAI/GPT.md/) - Transformer architecture and attention mechanisms
-- [**Diffusion Models**](GenerativeAI/DiffusionModels.md/) - Mathematical foundations and implementation
-- [**LLM Training**](GenerativeAI/LLMTraining.md/) - Distributed training and optimization
-- [**Prompt Engineering**](GenerativeAI/PromptEngineering.md/) - Prompt design and techniques
-- [**Fine-tuning LLMs**](GenerativeAI/FineTuningLLMs.md/) - Fine-tuning strategies and considerations
+- [**GPT**](GenerativeAI/GPT.md) - Transformer architecture and attention mechanisms
+- [**Diffusion Models**](GenerativeAI/DiffusionModels.md) - Mathematical foundations and implementation
+- [**LLM Training**](GenerativeAI/LLMTraining.md) - Distributed training and optimization
+- [**Prompt Engineering**](GenerativeAI/PromptEngineering.md) - Prompt design and techniques
+- [**Fine-tuning LLMs**](GenerativeAI/FineTuningLLMs.md) - Fine-tuning strategies and considerations
 
 ### **⚙️ Backend for AI**
-- [**Model Serving**](BackendForAI/ModelServing.md/) - FastAPI, load balancing, auto-scaling
+- [**Model Serving**](BackendForAI/ModelServing.md) - FastAPI, load balancing, auto-scaling
 
 ### **🔄 MLOps**
-- [**Model Deployment**](MLOps/ModelDeployment.md/) - CI/CD, monitoring, model registry
+- [**Model Deployment**](MLOps/ModelDeployment.md) - CI/CD, monitoring, model registry
 
 ### **📊 Case Studies**
-- [**Meta AI Practices**](CaseStudies/MetaAIPractices.md/) - Meta's AI research and infrastructure
+- [**Meta AI Practices**](CaseStudies/MetaAIPractices.md) - Meta's AI research and infrastructure
 
 ### **📱 TinyML & Edge AI**
 - [**TinyML Complete Guide**](TinyML/) - Complete TinyML knowledge base

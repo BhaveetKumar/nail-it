@@ -130,4 +130,4 @@ After completing Phase 0, you'll be ready for:
 
 ---
 
-**Next**: [Phase 1: Intermediate](../../README.md) | **Previous**: [Master Engineer Curriculum](README.md/) | **Up**: [Master Engineer Curriculum](README.md/)
+**Next**: [Phase 1: Intermediate](../../README.md) | **Previous**: [Master Engineer Curriculum](README.md) | **Up**: [Master Engineer Curriculum](README.md)

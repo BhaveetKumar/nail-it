@@ -787,4 +787,4 @@ A: URL versioning is simple but clutters URLs. Header versioning keeps URLs clea
 
 ---
 
-**Next**: [GraphQL APIs](graphql-apis.md/) | **Previous**: [API Design](README.md/) | **Up**: [API Design](README.md/)
+**Next**: [GraphQL APIs](graphql-apis.md) | **Previous**: [API Design](README.md) | **Up**: [API Design](README.md)

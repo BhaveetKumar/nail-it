@@ -642,4 +642,4 @@ A: Binary search works on sorted arrays and finds exact values. Ternary search w
 
 ---
 
-**Next**: [Applications](applications.md/) | **Previous**: [Advanced DSA](README.md/) | **Up**: [Advanced DSA](README.md/)
+**Next**: [Applications](applications.md) | **Previous**: [Advanced DSA](README.md) | **Up**: [Advanced DSA](README.md)

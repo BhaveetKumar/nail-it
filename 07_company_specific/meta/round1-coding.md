@@ -706,7 +706,7 @@ if __name__ == '__main__':
 
 - [LeetCode](https://leetcode.com/) - Focus on Meta problems
 - [HackerRank](https://www.hackerrank.com/) - Algorithm practice
-- [DSA Questions](../shared/dsa-questions.md/) - Comprehensive guide
+- [DSA Questions](../shared/dsa-questions.md) - Comprehensive guide
 
 ### Meta-Specific
 
@@ -716,6 +716,6 @@ if __name__ == '__main__':
 
 ## 🔗 Related Content
 
-- [System Design Round 2](round2-system-design.md/) - For architecture discussions
-- [Product Sense Round 3](round3-product-sense.md/) - For product thinking
-- [Behavioral Round 4](round4-behavioral.md/) - For behavioral questions
+- [System Design Round 2](round2-system-design.md) - For architecture discussions
+- [Product Sense Round 3](round3-product-sense.md) - For product thinking
+- [Behavioral Round 4](round4-behavioral.md) - For behavioral questions

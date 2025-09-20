@@ -579,4 +579,4 @@ A: Use books for deep understanding, videos for visual learning, practice platfo
 
 ---
 
-**Next**: [Assessment Tools](../../README.md) | **Previous**: [Real-World Projects](../../README.md) | **Up**: [Learning Resources](README.md/)
+**Next**: [Assessment Tools](../../README.md) | **Previous**: [Real-World Projects](../../README.md) | **Up**: [Learning Resources](README.md)

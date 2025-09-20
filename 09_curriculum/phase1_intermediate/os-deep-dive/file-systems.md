@@ -837,4 +837,4 @@ A: Synchronous operations are simpler to implement and debug but can block the c
 
 ---
 
-**Next**: [I/O Systems](io-systems.md/) | **Previous**: [OS Deep Dive](README.md/) | **Up**: [OS Deep Dive](README.md/)
+**Next**: [I/O Systems](io-systems.md) | **Previous**: [OS Deep Dive](README.md) | **Up**: [OS Deep Dive](README.md)

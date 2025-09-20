@@ -494,4 +494,4 @@ A: Map video topics to curriculum modules, create cross-references, and ensure c
 
 ---
 
-**Next**: [Company-Specific Interview Prep](../../../README.md) | **Previous**: [Phase 3 Expert](../../../README.md) | **Up**: [Video Notes](README.md/)
+**Next**: [Company-Specific Interview Prep](../../../README.md) | **Previous**: [Phase 3 Expert](../../../README.md) | **Up**: [Video Notes](README.md)

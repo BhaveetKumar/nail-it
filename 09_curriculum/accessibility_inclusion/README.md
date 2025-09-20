@@ -1258,4 +1258,4 @@ A: Adapt examples, references, and formats based on user's cultural context, use
 
 ---
 
-**Next**: [Analytics Insights](../../README.md) | **Previous**: [Community Contributions](../../README.md) | **Up**: [Accessibility Inclusion](README.md/)
+**Next**: [Analytics Insights](../../README.md) | **Previous**: [Community Contributions](../../README.md) | **Up**: [Accessibility Inclusion](README.md)

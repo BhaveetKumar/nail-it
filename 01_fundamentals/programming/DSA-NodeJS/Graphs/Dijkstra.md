@@ -356,7 +356,7 @@ console.log(result); // { distance: 2, path: [0, 2, 3] }
 ## Related Problems
 
 - [Network Delay Time](../../../algorithms/Graphs/NetworkDelayTime.md) - Dijkstra with time constraints
-- [Cheapest Flights Within K Stops](CheapestFlights.md/) - Dijkstra with stop limit
+- [Cheapest Flights Within K Stops](CheapestFlights.md) - Dijkstra with stop limit
 - [Path With Minimum Effort](../../../algorithms/Graphs/PathWithMinimumEffort.md) - Dijkstra on 2D grid
-- [Bellman-Ford Algorithm](BellmanFord.md/) - For negative weights
-- [Floyd-Warshall Algorithm](FloydWarshall.md/) - All pairs shortest paths
+- [Bellman-Ford Algorithm](BellmanFord.md) - For negative weights
+- [Floyd-Warshall Algorithm](FloydWarshall.md) - All pairs shortest paths

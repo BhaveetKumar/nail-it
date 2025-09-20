@@ -867,4 +867,4 @@ A: Round-robin for equal capacity servers, least connections for varying request
 
 ---
 
-**Next**: [Microservices Architecture](microservices-architecture.md/) | **Previous**: [System Design Basics](README.md/) | **Up**: [System Design Basics](README.md/)
+**Next**: [Microservices Architecture](microservices-architecture.md) | **Previous**: [System Design Basics](README.md) | **Up**: [System Design Basics](README.md)

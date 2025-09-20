@@ -530,4 +530,4 @@ A: Service mesh provides cross-cutting concerns like service discovery, load bal
 
 ---
 
-**Next**: [Distributed Tracing](distributed-tracing.md/) | **Previous**: [Distributed Systems](README.md/) | **Up**: [Distributed Systems](README.md/)
+**Next**: [Distributed Tracing](distributed-tracing.md) | **Previous**: [Distributed Systems](README.md) | **Up**: [Distributed Systems](README.md)

@@ -1123,4 +1123,4 @@ A: Use rigorous assessment criteria, provide verification systems, include expir
 
 ---
 
-**Next**: [Real-World Projects](../../README.md) | **Previous**: [Practice Exercises](../../README.md) | **Up**: [Assessment Tools](README.md/)
+**Next**: [Real-World Projects](../../README.md) | **Previous**: [Practice Exercises](../../README.md) | **Up**: [Assessment Tools](README.md)

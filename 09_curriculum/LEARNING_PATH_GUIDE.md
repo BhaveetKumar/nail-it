@@ -16,21 +16,21 @@
 **Start Here**: [Phase 0: Fundamentals](phase0_fundamentals/)
 
 1. **Week 1-2**: Mathematics Foundations
-   - [Linear Algebra](phase0_fundamentals/mathematics/linear-algebra.md/)
-   - [Calculus](phase0_fundamentals/mathematics/calculus.md/)
+   - [Linear Algebra](phase0_fundamentals/mathematics/linear-algebra.md)
+   - [Calculus](phase0_fundamentals/mathematics/calculus.md)
 
 2. **Week 3-4**: Programming Fundamentals
-   - [Go Fundamentals](phase0_fundamentals/programming/go-fundamentals.md/)
-   - [Node.js Fundamentals](phase0_fundamentals/programming/nodejs-fundamentals.md/)
+   - [Go Fundamentals](phase0_fundamentals/programming/go-fundamentals.md)
+   - [Node.js Fundamentals](phase0_fundamentals/programming/nodejs-fundamentals.md)
 
 3. **Week 5-8**: Data Structures & Algorithms
-   - [DSA Questions](phase0_fundamentals/programming/dsa-questions-golang-nodejs.md/)
+   - [DSA Questions](phase0_fundamentals/programming/dsa-questions-golang-nodejs.md)
    - [Software Design Patterns](programming/software-design-patterns.md)
 
 4. **Week 9-12**: Computer Science Basics
-   - [Computer Organization](phase0_fundamentals/cs-basics/computer-organization.md/)
-   - [Operating Systems](phase0_fundamentals/cs-basics/operating-systems-concepts.md/)
-   - [Networks & Protocols](phase0_fundamentals/cs-basics/networks-protocols.md/)
+   - [Computer Organization](phase0_fundamentals/cs-basics/computer-organization.md)
+   - [Operating Systems](phase0_fundamentals/cs-basics/operating-systems-concepts.md)
+   - [Networks & Protocols](phase0_fundamentals/cs-basics/networks-protocols.md)
 
 ### 🎯 For Experienced Developers
 
@@ -75,7 +75,7 @@
 **Path**: Phase 0 → Phase 1 → Phase 2 (ML/AI) → Phase 3 (AI Research)
 
 **Key Modules**:
-- [Statistics & Probability](phase0_fundamentals/mathematics/statistics-probability.md/)
+- [Statistics & Probability](phase0_fundamentals/mathematics/statistics-probability.md)
 - [Machine Learning](phase2_advanced/machine-learning/)
 - [Advanced Algorithms](phase2_advanced/advanced-algorithms/)
 - [Innovation Research](phase3_expert/innovation-research/)
@@ -89,8 +89,8 @@
 **Path**: Phase 0 → Phase 1 → Phase 2 (DevOps) → Phase 3 (Platform)
 
 **Key Modules**:
-- [Operating Systems](phase0_fundamentals/cs-basics/operating-systems-concepts.md/)
-- [Networks & Protocols](phase0_fundamentals/cs-basics/networks-protocols.md/)
+- [Operating Systems](phase0_fundamentals/cs-basics/operating-systems-concepts.md)
+- [Networks & Protocols](phase0_fundamentals/cs-basics/networks-protocols.md)
 - [Cloud Architecture](phase2_advanced/cloud-architecture/)
 - [Security Engineering](phase2_advanced/security-engineering/)
 

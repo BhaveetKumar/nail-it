@@ -948,4 +948,4 @@ A: Use virtual scrolling for large lists, implement lazy loading for components,
 
 ---
 
-**Next**: [Backend Development](backend-development.md/) | **Previous**: [Web Development](README.md/) | **Up**: [Web Development](README.md/)
+**Next**: [Backend Development](backend-development.md) | **Previous**: [Web Development](README.md) | **Up**: [Web Development](README.md)

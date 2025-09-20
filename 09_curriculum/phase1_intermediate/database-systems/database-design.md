@@ -869,4 +869,4 @@ A: Consider query patterns, data distribution, update frequency, storage require
 
 ---
 
-**Next**: [Query Optimization](query-optimization.md/) | **Previous**: [Database Systems](README.md/) | **Up**: [Database Systems](README.md/)
+**Next**: [Query Optimization](query-optimization.md) | **Previous**: [Database Systems](README.md) | **Up**: [Database Systems](README.md)

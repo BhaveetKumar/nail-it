@@ -826,8 +826,8 @@ func (prs *PullRequestService) MergePullRequest(prID, userID string) error {
 
 ### System Design Resources
 
-- [System Design Patterns](../shared/system-design-patterns.md/)
-- [System Design Videos](../shared/system-design-videos.md/)
+- [System Design Patterns](../shared/system-design-patterns.md)
+- [System Design Videos](../shared/system-design-videos.md)
 - [Designing Data-Intensive Applications](https://dataintensive.net/)
 
 ### Atlassian-Specific
@@ -846,4 +846,4 @@ func (prs *PullRequestService) MergePullRequest(prID, userID string) error {
 
 - [Coding Round 1](../meta/round1-coding.md) - For coding problems
 - [Behavioral Round 3](round3-behavioral.md) - For behavioral questions
-- [Golang Patterns](../shared/golang-coding-patterns.md/) - For implementation details
+- [Golang Patterns](../shared/golang-coding-patterns.md) - For implementation details

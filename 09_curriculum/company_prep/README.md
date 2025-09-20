@@ -764,4 +764,4 @@ A: Start with requirements, estimate scale, identify components, design data flo
 
 ---
 
-**Next**: [Video Notes](../../README.md) | **Previous**: [Phase 3 Expert](../../README.md) | **Up**: [Company Prep](README.md/)
+**Next**: [Video Notes](../../README.md) | **Previous**: [Phase 3 Expert](../../README.md) | **Up**: [Company Prep](README.md)

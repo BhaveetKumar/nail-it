@@ -13,57 +13,57 @@
 ## 📚 **Patterns Covered**
 
 ### **🔢 Arrays & Strings**
-- [**Two Sum**](Arrays/TwoSum.md/) - Classic hash map approach with multiple solutions
-- [**Container With Most Water**](Arrays/ContainerWithMostWater.md/) - Two pointer technique
-- [**Maximum Subarray**](Arrays/MaximumSubarray.md/) - Kadane's algorithm implementation
-- [**Product of Array Except Self**](Arrays/ProductOfArrayExceptSelf.md/) - Prefix and suffix products
-- [**Three Sum**](Arrays/ThreeSum.md/) - Two pointer technique with sorting
-- [**4Sum**](Arrays/4Sum.md/) - **🚀 NEW** - Four sum with multiple approaches and optimizations
-- [**Climbing Stairs**](Arrays/ClimbingStairs.md/) - **🚀 NEW** - Fibonacci pattern with DP and advanced solutions
-- [**Find Peak Element**](Arrays/FindPeakElement.md/) - **🚀 NEW** - Binary search on unsorted array
-- [**Pattern Matching**](Strings/PatternMatching.md/) - **🚀 NEW** - KMP, Rabin-Karp, Boyer-Moore algorithms
+- [**Two Sum**](Arrays/TwoSum.md) - Classic hash map approach with multiple solutions
+- [**Container With Most Water**](Arrays/ContainerWithMostWater.md) - Two pointer technique
+- [**Maximum Subarray**](Arrays/MaximumSubarray.md) - Kadane's algorithm implementation
+- [**Product of Array Except Self**](Arrays/ProductOfArrayExceptSelf.md) - Prefix and suffix products
+- [**Three Sum**](Arrays/ThreeSum.md) - Two pointer technique with sorting
+- [**4Sum**](Arrays/4Sum.md) - **🚀 NEW** - Four sum with multiple approaches and optimizations
+- [**Climbing Stairs**](Arrays/ClimbingStairs.md) - **🚀 NEW** - Fibonacci pattern with DP and advanced solutions
+- [**Find Peak Element**](Arrays/FindPeakElement.md) - **🚀 NEW** - Binary search on unsorted array
+- [**Pattern Matching**](Strings/PatternMatching.md) - **🚀 NEW** - KMP, Rabin-Karp, Boyer-Moore algorithms
 
 ### **🔗 Linked Lists**
-- [**Linked List Operations**](LinkedLists/LinkedListOperations.md/) - **🚀 NEW** - Complete implementation with all operations
-- [**Two Pointers**](LinkedLists/TwoPointers.md/) - Fast and slow pointers
-- [**Merge Operations**](LinkedLists/MergeOperations.md/) - Merging and sorting
-- [**Cycle Detection**](LinkedLists/CycleDetection.md/) - Floyd's algorithm
+- [**Linked List Operations**](LinkedLists/LinkedListOperations.md) - **🚀 NEW** - Complete implementation with all operations
+- [**Two Pointers**](LinkedLists/TwoPointers.md) - Fast and slow pointers
+- [**Merge Operations**](LinkedLists/MergeOperations.md) - Merging and sorting
+- [**Cycle Detection**](LinkedLists/CycleDetection.md) - Floyd's algorithm
 
 ### **🌳 Trees**
-- [**Binary Tree Traversal**](Trees/BinaryTreeTraversal.md/) - **🚀 ENHANCED** - Complete traversal methods with all approaches
-- [**Binary Search Tree**](Trees/BinarySearchTree.md/) - **🚀 NEW** - Complete BST implementation with all operations
-- [**Tree Traversal**](Trees/TreeTraversal.md/) - DFS and BFS patterns
-- [**Tree Construction**](Trees/TreeConstruction.md/) - Building trees from data
+- [**Binary Tree Traversal**](Trees/BinaryTreeTraversal.md) - **🚀 ENHANCED** - Complete traversal methods with all approaches
+- [**Binary Search Tree**](Trees/BinarySearchTree.md) - **🚀 NEW** - Complete BST implementation with all operations
+- [**Tree Traversal**](Trees/TreeTraversal.md) - DFS and BFS patterns
+- [**Tree Construction**](Trees/TreeConstruction.md) - Building trees from data
 
 ### **🕸️ Graphs**
-- [**Breadth First Search**](Graphs/BreadthFirstSearch.md/) - **🚀 ENHANCED** - BFS with comprehensive examples
-- [**Graph Algorithms**](Graphs/GraphAlgorithms.md/) - **🚀 NEW** - Complete graph algorithms including shortest path, MST, cycle detection
-- [**BFS & DFS**](Graphs/BFS_DFS.md/) - Breadth-first and depth-first search
-- [**Shortest Path**](Graphs/ShortestPath.md/) - Dijkstra and Bellman-Ford
-- [**Topological Sort**](Graphs/TopologicalSort.md/) - DAG ordering
+- [**Breadth First Search**](Graphs/BreadthFirstSearch.md) - **🚀 ENHANCED** - BFS with comprehensive examples
+- [**Graph Algorithms**](Graphs/GraphAlgorithms.md) - **🚀 NEW** - Complete graph algorithms including shortest path, MST, cycle detection
+- [**BFS & DFS**](Graphs/BFS_DFS.md) - Breadth-first and depth-first search
+- [**Shortest Path**](Graphs/ShortestPath.md) - Dijkstra and Bellman-Ford
+- [**Topological Sort**](Graphs/TopologicalSort.md) - DAG ordering
 
 ### **💡 Dynamic Programming**
-- [**1D DP**](DynamicProgramming/1D_DP.md/) - One-dimensional problems
-- [**2D DP**](DynamicProgramming/2D_DP.md/) - Two-dimensional problems
+- [**1D DP**](DynamicProgramming/1D_DP.md) - One-dimensional problems
+- [**2D DP**](DynamicProgramming/2D_DP.md) - Two-dimensional problems
 - [**Knapsack Problems**](../../algorithms/DynamicProgramming/Knapsack.md) - Optimization problems
-- [**String DP**](DynamicProgramming/StringDP.md/) - String-based DP
+- [**String DP**](DynamicProgramming/StringDP.md) - String-based DP
 
 ### **🎯 Greedy Algorithms**
 - [**Activity Selection**](../../algorithms/Greedy/ActivitySelection.md) - Scheduling problems
 - [**Huffman Coding**](../../algorithms/Greedy/HuffmanCoding.md) - Compression algorithms
-- [**Minimum Spanning Tree**](Greedy/MST.md/) - Kruskal and Prim's algorithms
+- [**Minimum Spanning Tree**](Greedy/MST.md) - Kruskal and Prim's algorithms
 
 ### **🔍 Backtracking**
-- [**N-Queens**](Backtracking/NQueens.md/) - Classic backtracking problem
+- [**N-Queens**](Backtracking/NQueens.md) - Classic backtracking problem
 - [**Subset Generation**](../../algorithms/BitManipulation/Subsets.md) - Generating all subsets
 - [**Permutations**](../../algorithms/Backtracking/Permutations.md) - Arrangement problems
 - [**Sudoku Solver**](../../algorithms/Backtracking/SudokuSolver.md) - Constraint satisfaction
 
 ### **⚡ Bit Manipulation**
-- [**Basic Operations**](BitManipulation/BasicOperations.md/) - AND, OR, XOR, NOT
-- [**Bit Tricks**](BitManipulation/BitTricks.md/) - Common bit manipulation tricks
-- [**Bit Counting**](BitManipulation/BitCounting.md/) - Counting set bits
-- [**Bit Masks**](BitManipulation/BitMasks.md/) - Using bits as flags
+- [**Basic Operations**](BitManipulation/BasicOperations.md) - AND, OR, XOR, NOT
+- [**Bit Tricks**](BitManipulation/BitTricks.md) - Common bit manipulation tricks
+- [**Bit Counting**](BitManipulation/BitCounting.md) - Counting set bits
+- [**Bit Masks**](BitManipulation/BitMasks.md) - Using bits as flags
 
 ### **📊 Advanced Patterns**
 - [**Stack & Queue**](../../../README.md) - LIFO and FIFO data structures
@@ -86,7 +86,7 @@
 1. Start with [**Arrays**](Arrays/) - Basic array operations
 2. Learn [**Strings**](Strings/) - String manipulation
 3. Practice [**Two Pointers**](TwoPointers/) - Efficient algorithms
-4. Master [**Hash Maps**](Arrays/HashMaps.md/) - Lookup optimization
+4. Master [**Hash Maps**](Arrays/HashMaps.md) - Lookup optimization
 
 #### **Week 3-4: Data Structures**
 1. Study [**Linked Lists**](LinkedLists/) - Dynamic data structures

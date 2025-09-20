@@ -764,4 +764,4 @@ A: Use shared memory for high-performance communication between processes on the
 
 ---
 
-**Next**: [Memory Management](memory-management.md/) | **Previous**: [OS Deep Dive](README.md/) | **Up**: [OS Deep Dive](README.md/)
+**Next**: [Memory Management](memory-management.md) | **Previous**: [OS Deep Dive](README.md) | **Up**: [OS Deep Dive](README.md)

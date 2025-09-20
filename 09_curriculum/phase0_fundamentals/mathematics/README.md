@@ -6,10 +6,10 @@ This module covers the essential mathematical foundations required for software 
 
 ## Table of Contents
 
-1. [Linear Algebra](linear-algebra.md/)
-2. [Calculus](calculus.md/)
-3. [Statistics & Probability](statistics-probability.md/)
-4. [Discrete Mathematics](discrete-mathematics.md/)
+1. [Linear Algebra](linear-algebra.md)
+2. [Calculus](calculus.md)
+3. [Statistics & Probability](statistics-probability.md)
+4. [Discrete Mathematics](discrete-mathematics.md)
 
 ## Learning Objectives
 
@@ -73,4 +73,4 @@ This module covers the essential mathematical foundations required for software 
 
 ---
 
-**Next**: [Linear Algebra](linear-algebra.md/) | **Up**: [Phase 0](README.md/)
+**Next**: [Linear Algebra](linear-algebra.md) | **Up**: [Phase 0](README.md)

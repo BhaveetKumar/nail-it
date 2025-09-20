@@ -6,26 +6,26 @@
 
 ### **Pattern Matching**
 
-- [Valid Parentheses](ValidParentheses.md/) - Stack-based validation
-- [Longest Substring Without Repeating Characters](LongestSubstringWithoutRepeatingCharacters.md/) - Sliding window
-- [Longest Palindromic Substring](LongestPalindromicSubstring.md/) - Expand around centers
-- [Regular Expression Matching](RegularExpressionMatching.md/) - DP with wildcards
-- [Wildcard Matching](WildcardMatching.md/) - Advanced pattern matching
+- [Valid Parentheses](ValidParentheses.md) - Stack-based validation
+- [Longest Substring Without Repeating Characters](LongestSubstringWithoutRepeatingCharacters.md) - Sliding window
+- [Longest Palindromic Substring](LongestPalindromicSubstring.md) - Expand around centers
+- [Regular Expression Matching](RegularExpressionMatching.md) - DP with wildcards
+- [Wildcard Matching](WildcardMatching.md) - Advanced pattern matching
 
 ### **String Manipulation**
 
-- [String to Integer (atoi)](StringToInteger.md/) - Parsing with edge cases
+- [String to Integer (atoi)](StringToInteger.md) - Parsing with edge cases
 - [Roman to Integer](../Math/RomanToInteger.md) - Symbol to value conversion
-- [Integer to Roman](IntegerToRoman.md/) - Value to symbol conversion
-- [Valid Anagram](ValidAnagram.md/) - Character frequency comparison
-- [Group Anagrams](GroupAnagrams.md/) - Anagram grouping
+- [Integer to Roman](IntegerToRoman.md) - Value to symbol conversion
+- [Valid Anagram](ValidAnagram.md) - Character frequency comparison
+- [Group Anagrams](GroupAnagrams.md) - Anagram grouping
 
 ### **Advanced String Algorithms**
 
-- [Longest Common Prefix](LongestCommonPrefix.md/) - Prefix comparison
-- [Implement strStr()](ImplementStrStr.md/) - KMP algorithm
+- [Longest Common Prefix](LongestCommonPrefix.md) - Prefix comparison
+- [Implement strStr()](ImplementStrStr.md) - KMP algorithm
 - [Minimum Window Substring](../SlidingWindow/MinimumWindowSubstring.md) - Sliding window
-- [Permutation in String](PermutationInString.md/) - Sliding window with frequency
+- [Permutation in String](PermutationInString.md) - Sliding window with frequency
 - [Find All Anagrams in a String](../SlidingWindow/FindAllAnagramsInString.md) - Sliding window
 
 ---

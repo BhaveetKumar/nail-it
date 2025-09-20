@@ -1396,4 +1396,4 @@ A: Consider performance requirements, native feature needs, team expertise, deve
 
 ---
 
-**Next**: [Study Tracker](../../README.md) | **Previous**: [Learning Resources](../../README.md) | **Up**: [Mobile App](README.md/)
+**Next**: [Study Tracker](../../README.md) | **Previous**: [Learning Resources](../../README.md) | **Up**: [Mobile App](README.md)

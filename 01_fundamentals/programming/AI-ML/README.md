@@ -15,27 +15,27 @@
 ### **🔢 Foundations**
 
 - [**Math for ML**](../../../05_ai_ml/Foundations/MathForML.md) - Linear algebra, calculus, optimization
-- [**JavaScript for ML**](Foundations/JavaScriptForML.md/) - Node.js, TensorFlow.js, ML libraries
+- [**JavaScript for ML**](Foundations/JavaScriptForML.md) - Node.js, TensorFlow.js, ML libraries
 - [**Probability & Statistics**](../../../05_ai_ml/Foundations/ProbabilityAndStats.md) - Statistical foundations for ML
 
 ### **🧠 Machine Learning**
 
-- [**Linear Regression**](MachineLearning/LinearRegression.md/) - Mathematical foundations and implementation
-- [**Logistic Regression**](MachineLearning/LogisticRegression.md/) - Classification algorithms
+- [**Linear Regression**](MachineLearning/LinearRegression.md) - Mathematical foundations and implementation
+- [**Logistic Regression**](MachineLearning/LogisticRegression.md) - Classification algorithms
 - [**Decision Trees**](../../../05_ai_ml/MachineLearning/DecisionTrees.md) - Tree-based algorithms
 - [**Random Forest**](../../../05_ai_ml/MachineLearning/RandomForest.md) - Ensemble methods
 - [**SVM**](../../../05_ai_ml/MachineLearning/SVM.md) - Support Vector Machines
-- [**Clustering**](MachineLearning/Clustering.md/) - K-means, hierarchical clustering
-- [**Dimensionality Reduction**](MachineLearning/DimensionalityReduction.md/) - PCA, t-SNE
+- [**Clustering**](MachineLearning/Clustering.md) - K-means, hierarchical clustering
+- [**Dimensionality Reduction**](MachineLearning/DimensionalityReduction.md) - PCA, t-SNE
 
 ### **🧠 Deep Learning**
 
 - [**Neural Networks**](../../../05_ai_ml/DeepLearning/NeuralNetworks.md) - Perceptrons, backpropagation, optimizers
 - [**CNNs**](../../../05_ai_ml/DeepLearning/CNNs.md) - Convolutional Neural Networks, ResNet, DenseNet
-- [**RNNs**](DeepLearning/RNNs.md/) - Recurrent Neural Networks
-- [**LSTMs**](DeepLearning/LSTMs.md/) - Long Short-Term Memory networks
+- [**RNNs**](DeepLearning/RNNs.md) - Recurrent Neural Networks
+- [**LSTMs**](DeepLearning/LSTMs.md) - Long Short-Term Memory networks
 - [**Transformers**](../../../05_ai_ml/deep_learning/transformers.md) - Transformer architecture
-- [**Attention Mechanism**](DeepLearning/AttentionMechanism.md/) - Attention mechanisms
+- [**Attention Mechanism**](DeepLearning/AttentionMechanism.md) - Attention mechanisms
 
 ### **🎨 Generative AI**
 
@@ -48,36 +48,36 @@
 ### **⚙️ Backend for AI**
 
 - [**Model Serving**](../../../05_ai_ml/BackendForAI/ModelServing.md) - Express.js, load balancing, auto-scaling
-- [**APIs for AI**](BackendForAI/APIsForAI.md/) - REST, GraphQL, gRPC for AI models
-- [**Vector Databases**](BackendForAI/VectorDatabases.md/) - Pinecone, Weaviate, Chroma
-- [**Scaling AI**](BackendForAI/ScalingAI.md/) - Horizontal and vertical scaling
-- [**Caching and Latency**](BackendForAI/CachingAndLatency.md/) - Redis, CDN, optimization
+- [**APIs for AI**](BackendForAI/APIsForAI.md) - REST, GraphQL, gRPC for AI models
+- [**Vector Databases**](BackendForAI/VectorDatabases.md) - Pinecone, Weaviate, Chroma
+- [**Scaling AI**](BackendForAI/ScalingAI.md) - Horizontal and vertical scaling
+- [**Caching and Latency**](BackendForAI/CachingAndLatency.md) - Redis, CDN, optimization
 
 ### **🔄 MLOps**
 
 - [**Model Deployment**](../../../05_ai_ml/mlops/ModelDeployment.md) - CI/CD, monitoring, model registry
 - [**Data Pipelines**](../../../05_ai_ml/mlops/DataPipelines.md) - ETL/ELT, data validation, quality
 - [**Model Registry**](../../../05_ai_ml/mlops/ModelRegistry.md) - Versioning, metadata, lifecycle
-- [**Monitoring**](MLOps/Monitoring.md/) - Model performance, drift detection
+- [**Monitoring**](MLOps/Monitoring.md) - Model performance, drift detection
 
 ### **📊 Case Studies**
 
 - [**Meta AI Practices**](../../../05_ai_ml/CaseStudies/MetaAIPractices.md) - Meta's AI research and infrastructure
-- [**Google Brain Practices**](CaseStudies/GoogleBrainPractices.md/) - Google's AI research and production
-- [**OpenAI Practices**](CaseStudies/OpenAIPractices.md/) - OpenAI's AI safety and production
+- [**Google Brain Practices**](CaseStudies/GoogleBrainPractices.md) - Google's AI research and production
+- [**OpenAI Practices**](CaseStudies/OpenAIPractices.md) - OpenAI's AI safety and production
 
 ### **📱 TinyML & Edge AI**
 
 - [**TinyML Complete Guide**](TinyML/) - Complete TinyML knowledge base
-  - [**Introduction**](TinyML/Introduction.md/) - TinyML fundamentals and challenges
-  - [**Frameworks & Tools**](TinyML/FrameworksAndTools.md/) - TensorFlow Lite, Edge Impulse
-  - [**Optimization Techniques**](TinyML/OptimizationTechniques.md/) - Quantization, pruning, distillation
-  - [**Use Cases**](TinyML/UseCases.md/) - Healthcare, voice, gesture recognition
-  - [**Code Examples**](TinyML/CodeExamples.md/) - JavaScript training + Node.js inference
-  - [**Hardware & Deployment**](TinyML/HardwareAndDeployment.md/) - MCU programming, deployment
-  - [**System Design**](TinyML/SystemDesign.md/) - Architecture patterns, privacy-preserving ML
-  - [**Interview Questions**](TinyML/InterviewQuestions.md/) - FAANG-style questions
-  - [**Future of TinyML**](TinyML/FutureOfTinyML.md/) - Emerging trends and research
+  - [**Introduction**](TinyML/Introduction.md) - TinyML fundamentals and challenges
+  - [**Frameworks & Tools**](TinyML/FrameworksAndTools.md) - TensorFlow Lite, Edge Impulse
+  - [**Optimization Techniques**](TinyML/OptimizationTechniques.md) - Quantization, pruning, distillation
+  - [**Use Cases**](TinyML/UseCases.md) - Healthcare, voice, gesture recognition
+  - [**Code Examples**](TinyML/CodeExamples.md) - JavaScript training + Node.js inference
+  - [**Hardware & Deployment**](TinyML/HardwareAndDeployment.md) - MCU programming, deployment
+  - [**System Design**](TinyML/SystemDesign.md) - Architecture patterns, privacy-preserving ML
+  - [**Interview Questions**](TinyML/InterviewQuestions.md) - FAANG-style questions
+  - [**Future of TinyML**](TinyML/FutureOfTinyML.md) - Emerging trends and research
 
 ## 🚀 **Getting Started**
 
@@ -93,8 +93,8 @@
 
 1. Complete [**Foundations**](Foundations/) and [**Machine Learning**](MachineLearning/)
 2. Study [**TinyML Complete Guide**](TinyML/) - All 9 sections
-3. Practice with [**Code Examples**](TinyML/CodeExamples.md/)
-4. Review [**Interview Questions**](TinyML/InterviewQuestions.md/)
+3. Practice with [**Code Examples**](TinyML/CodeExamples.md)
+4. Review [**Interview Questions**](TinyML/InterviewQuestions.md)
 
 ### **For Research/Academic Roles**
 

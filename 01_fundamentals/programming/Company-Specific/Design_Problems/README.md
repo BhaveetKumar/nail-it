@@ -16,7 +16,7 @@ This folder contains detailed design problems commonly asked in technical interv
 
 ## 🎯 **Problems Covered**
 
-### 1. [Messaging API](01_MessagingAPI.md/)
+### 1. [Messaging API](01_MessagingAPI.md)
 **Real-time Communication System**
 - WebSocket connections for instant messaging
 - User management and authentication
@@ -27,7 +27,7 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: WebSocket, EventEmitter, Express.js, Real-time communication
 
-### 2. [Payment Gateway](02_PaymentGateway.md/)
+### 2. [Payment Gateway](02_PaymentGateway.md)
 **Financial Transaction System**
 - Multiple payment methods (cards, UPI, net banking)
 - Transaction lifecycle management
@@ -38,7 +38,7 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Express.js, EventEmitter, Payment providers, Webhook system
 
-### 3. [Rate Limiter](03_RateLimiter.md/)
+### 3. [Rate Limiter](03_RateLimiter.md)
 **API Throttling System**
 - Multiple algorithms (token bucket, sliding window, fixed window)
 - Distributed rate limiting with Redis
@@ -49,7 +49,7 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Redis, Express.js, Multiple algorithms, Distributed systems
 
-### 4. [URL Shortener](04_UrlShortener.md/)
+### 4. [URL Shortener](04_UrlShortener.md)
 **Link Management System**
 - URL shortening with Base62 encoding
 - Custom aliases and expiration support
@@ -60,7 +60,7 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Express.js, Redis, Analytics, Geolocation, Base62 encoding
 
-### 5. [Task Scheduler](05_TaskScheduler.md/)
+### 5. [Task Scheduler](05_TaskScheduler.md)
 **Job Management System**
 - Distributed task scheduling with cron support
 - Multiple worker nodes and load balancing
@@ -71,7 +71,7 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Node-cron, Express.js, Worker management, Fault tolerance, Monitoring
 
-### 6. [File Storage](06_FileStorage.md/)
+### 6. [File Storage](06_FileStorage.md)
 **Distributed File Management System**
 - Multi-node file storage with redundancy
 - File versioning and history tracking
@@ -82,7 +82,7 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Express.js, Multer, File system, CDN, Metadata search, Access control
 
-### 7. [Notification Service](07_NotificationService.md/)
+### 7. [Notification Service](07_NotificationService.md)
 **Multi-Channel Communication System**
 - Email, SMS, push notifications, and webhooks
 - Template-based message generation
@@ -93,7 +93,7 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Express.js, Multi-channel providers, Template engine, Queue system, Analytics
 
-### 8. [Cache System](08_CacheSystem.md/)
+### 8. [Cache System](08_CacheSystem.md)
 **Distributed Caching Solution**
 - Multiple eviction strategies (LRU, LFU, TTL, custom)
 - Distributed cache with consistency guarantees
@@ -104,7 +104,7 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Express.js, Redis, Multiple algorithms, Distributed systems, Performance monitoring
 
-### 9. [Social Media Feed](09_SocialMediaFeed.md/)
+### 9. [Social Media Feed](09_SocialMediaFeed.md)
 **News Feed System**
 - Personalized feed generation with ML-based ranking
 - Real-time content updates and social interactions
@@ -115,7 +115,7 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Express.js, WebSocket, ML algorithms, Caching, Real-time updates, Analytics
 
-### 10. [E-Commerce Platform](10_ECommercePlatform.md/)
+### 10. [E-Commerce Platform](10_ECommercePlatform.md)
 **Online Shopping System**
 - Comprehensive product catalog with search and filtering
 - Shopping cart functionality with persistence
@@ -126,7 +126,7 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Express.js, Payment integration, Inventory management, Search engine, Analytics
 
-### 11. [Load Balancer](11_LoadBalancer.md/)
+### 11. [Load Balancer](11_LoadBalancer.md)
 **Traffic Distribution System**
 - Multiple load balancing algorithms (round-robin, least connections, weighted, IP hash)
 - Health monitoring and automatic failover
@@ -137,7 +137,7 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Express.js, HTTP proxy, Health checking, Session management, SSL/TLS, Monitoring
 
-### 12. [Distributed Lock](12_DistributedLock.md/)
+### 12. [Distributed Lock](12_DistributedLock.md)
 **Coordination Service**
 - Mutual exclusion across multiple processes and machines
 - Multiple lock types (exclusive, shared, read-write)
@@ -148,7 +148,7 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Express.js, Redis, Lock algorithms, Queue management, High availability
 
-### 13. [Event Sourcing](13_EventSourcing.md/)
+### 13. [Event Sourcing](13_EventSourcing.md)
 **Event-Driven Architecture**
 - Event storage and retrieval with versioning
 - Event replay and state reconstruction
@@ -159,7 +159,7 @@ This folder contains detailed design problems commonly asked in technical interv
 
 **Key Technologies**: Express.js, Event store, CQRS, Projections, Snapshots, Event replay
 
-### 14. [Recommendation System](14_RecommendationSystem.md/)
+### 14. [Recommendation System](14_RecommendationSystem.md)
 **Content Discovery Engine**
 - Personalized recommendations with multiple algorithms
 - Collaborative filtering (user-based and item-based)

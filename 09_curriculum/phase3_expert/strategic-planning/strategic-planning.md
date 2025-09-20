@@ -883,4 +883,4 @@ A: Create detailed implementation plans, assign clear ownership, establish miles
 
 ---
 
-**Next**: [Advanced Specializations](../../../curriculum/phase3-expert/advanced-specializations/advanced-specializations.md) | **Previous**: [Mentoring Coaching](../../../curriculum/phase3-expert/mentoring-coaching/mentoring-coaching.md) | **Up**: [Phase 3](README.md/)
+**Next**: [Advanced Specializations](../../../curriculum/phase3-expert/advanced-specializations/advanced-specializations.md) | **Previous**: [Mentoring Coaching](../../../curriculum/phase3-expert/mentoring-coaching/mentoring-coaching.md) | **Up**: [Phase 3](README.md)

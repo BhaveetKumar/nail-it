@@ -180,7 +180,7 @@
 
 ### Behavioral Interview Resources
 
-- [Behavioral Questions Bank](../shared/behavioral-bank.md/)
+- [Behavioral Questions Bank](../shared/behavioral-bank.md)
 - [STAR Method Guide](https://www.indeed.com/career-advice/interviewing/how-to-use-the-star-interview-response-technique/)
 - [Atlassian Culture](https://www.atlassian.com/company/culture/)
 
@@ -192,6 +192,6 @@
 
 ## 🔗 Related Content
 
-- [Coding Round 1](round1-coding.md/) - For technical preparation
-- [System Design Round 2](round2-system-design.md/) - For architecture discussions
-- [Behavioral Questions Bank](../shared/behavioral-bank.md/) - For more examples
+- [Coding Round 1](round1-coding.md) - For technical preparation
+- [System Design Round 2](round2-system-design.md) - For architecture discussions
+- [Behavioral Questions Bank](../shared/behavioral-bank.md) - For more examples

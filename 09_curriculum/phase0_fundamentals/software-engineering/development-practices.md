@@ -675,4 +675,4 @@ A: Measure first, identify bottlenecks, optimize critical paths, use profiling t
 
 ---
 
-**Next**: [Phase 1 Intermediate](../../../README.md) | **Previous**: [Software Engineering](README.md/) | **Up**: [Phase 0 Fundamentals](README.md/)
+**Next**: [Phase 1 Intermediate](../../../README.md) | **Previous**: [Software Engineering](README.md) | **Up**: [Phase 0 Fundamentals](README.md)

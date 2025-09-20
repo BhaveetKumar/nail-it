@@ -988,4 +988,4 @@ A: Use TRIZ for technical problem solving and innovation, and Blue Ocean Strateg
 
 ---
 
-**Next**: [Mentoring & Coaching](../../../README.md) | **Previous**: [Architecture Design](../../../README.md) | **Up**: [Phase 3](README.md/)
+**Next**: [Mentoring & Coaching](../../../README.md) | **Previous**: [Architecture Design](../../../README.md) | **Up**: [Phase 3](README.md)

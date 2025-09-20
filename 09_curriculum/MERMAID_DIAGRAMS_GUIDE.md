@@ -184,4 +184,4 @@ All curriculum modules include Mermaid diagrams for:
 
 ---
 
-**Next**: [Phase 0 Fundamentals](phase0_fundamentals/README.md/) | **Previous**: [Curriculum Overview](README.md/) | **Up**: [Master Engineer Curriculum](README.md/)
+**Next**: [Phase 0 Fundamentals](phase0_fundamentals/README.md) | **Previous**: [Curriculum Overview](README.md) | **Up**: [Master Engineer Curriculum](README.md)

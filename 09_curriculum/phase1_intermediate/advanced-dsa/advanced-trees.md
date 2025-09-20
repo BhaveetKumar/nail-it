@@ -907,4 +907,4 @@ A: Use lazy propagation for range updates, implement different aggregation funct
 
 ---
 
-**Next**: [Graph Algorithms](graph-algorithms.md/) | **Previous**: [Advanced DSA](README.md/) | **Up**: [Advanced DSA](README.md/)
+**Next**: [Graph Algorithms](graph-algorithms.md) | **Previous**: [Advanced DSA](README.md) | **Up**: [Advanced DSA](README.md)

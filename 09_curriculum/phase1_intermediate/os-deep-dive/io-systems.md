@@ -1033,4 +1033,4 @@ A: Choose SCAN when you want to minimize disk head movement and improve throughp
 
 ---
 
-**Next**: [Concurrency and Synchronization](concurrency-synchronization.md/) | **Previous**: [OS Deep Dive](README.md/) | **Up**: [OS Deep Dive](README.md/)
+**Next**: [Concurrency and Synchronization](concurrency-synchronization.md) | **Previous**: [OS Deep Dive](README.md) | **Up**: [OS Deep Dive](README.md)

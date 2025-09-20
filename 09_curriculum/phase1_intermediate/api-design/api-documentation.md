@@ -907,4 +907,4 @@ A: OpenAPI specifications can generate client SDKs in multiple languages, server
 
 ---
 
-**Next**: [System Design Basics](../../../README.md) | **Previous**: [API Design](README.md/) | **Up**: [Phase 1](README.md/)
+**Next**: [System Design Basics](../../../README.md) | **Previous**: [API Design](README.md) | **Up**: [Phase 1](README.md)

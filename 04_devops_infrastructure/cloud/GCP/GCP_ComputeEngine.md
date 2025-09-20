@@ -942,4 +942,4 @@ PreemptibleInstanceTemplate:
 
 ---
 
-**Next**: [GCP Cloud Storage](GCP_CloudStorage.md/) - Object storage, versioning, lifecycle policies
+**Next**: [GCP Cloud Storage](GCP_CloudStorage.md) - Object storage, versioning, lifecycle policies

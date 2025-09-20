@@ -587,4 +587,4 @@ A: Provide growth opportunities, offer challenging projects, give regular feedba
 
 ---
 
-**Next**: [Innovation Research](../../../curriculum/phase3-expert/innovation-research/innovation-research.md) | **Previous**: [Phase 2](../../../README.md) | **Up**: [Phase 3](README.md/)
+**Next**: [Innovation Research](../../../curriculum/phase3-expert/innovation-research/innovation-research.md) | **Previous**: [Phase 2](../../../README.md) | **Up**: [Phase 3](README.md)

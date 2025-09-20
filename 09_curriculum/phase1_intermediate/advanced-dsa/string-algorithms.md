@@ -684,4 +684,4 @@ A: Tries provide prefix-based operations and ordered traversal but use more spac
 
 ---
 
-**Next**: [Mathematical Algorithms](mathematical-algorithms.md/) | **Previous**: [Advanced DSA](README.md/) | **Up**: [Advanced DSA](README.md/)
+**Next**: [Mathematical Algorithms](mathematical-algorithms.md) | **Previous**: [Advanced DSA](README.md) | **Up**: [Advanced DSA](README.md)

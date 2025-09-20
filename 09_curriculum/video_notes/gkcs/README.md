@@ -787,4 +787,4 @@ A: Map video topics to curriculum modules, create cross-references, and ensure c
 
 ---
 
-**Next**: [Asli Engineering](../../../README.md) | **Previous**: [Company Prep](../../../README.md) | **Up**: [Video Notes](README.md/)
+**Next**: [Asli Engineering](../../../README.md) | **Previous**: [Company Prep](../../../README.md) | **Up**: [Video Notes](README.md)

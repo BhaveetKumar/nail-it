@@ -888,5 +888,5 @@ A: Cache-aside requires application logic to manage cache, while write-through w
 
 ---
 
-**Next**: [Phase 2: Advanced](../../../README.md) | **Previous**: [API Design](../../../README.md) | **Up**: [Phase 1](README.md/)
+**Next**: [Phase 2: Advanced](../../../README.md) | **Previous**: [API Design](../../../README.md) | **Up**: [Phase 1](README.md)
 

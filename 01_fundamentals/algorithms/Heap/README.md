@@ -6,27 +6,27 @@
 
 ### **Basic Heap Operations**
 
-- [Kth Largest Element in an Array](KthLargestElementInArray.md/) - Find Kth largest element
+- [Kth Largest Element in an Array](KthLargestElementInArray.md) - Find Kth largest element
 - [Kth Smallest Element in a BST](../Trees/KthSmallestElementInBST.md) - Find Kth smallest in BST
-- [Find Median from Data Stream](FindMedianFromDataStream.md/) - Maintain median of stream
-- [Merge k Sorted Lists](MergeKSortedLists.md/) - Merge multiple sorted lists
-- [Top K Frequent Elements](TopKFrequentElements.md/) - Find most frequent elements
+- [Find Median from Data Stream](FindMedianFromDataStream.md) - Maintain median of stream
+- [Merge k Sorted Lists](MergeKSortedLists.md) - Merge multiple sorted lists
+- [Top K Frequent Elements](TopKFrequentElements.md) - Find most frequent elements
 
 ### **Heap Applications**
 
-- [Last Stone Weight](LastStoneWeight.md/) - Simulate stone crushing
-- [Minimum Cost to Connect Sticks](MinimumCostToConnectSticks.md/) - Connect sticks optimally
-- [Reorganize String](ReorganizeString.md/) - Rearrange string characters
-- [Task Scheduler](TaskScheduler.md/) - Schedule tasks with cooldown
-- [Maximum Performance of a Team](MaximumPerformanceOfTeam.md/) - Optimize team performance
+- [Last Stone Weight](LastStoneWeight.md) - Simulate stone crushing
+- [Minimum Cost to Connect Sticks](MinimumCostToConnectSticks.md) - Connect sticks optimally
+- [Reorganize String](ReorganizeString.md) - Rearrange string characters
+- [Task Scheduler](TaskScheduler.md) - Schedule tasks with cooldown
+- [Maximum Performance of a Team](MaximumPerformanceOfTeam.md) - Optimize team performance
 
 ### **Advanced Heap Problems**
 
-- [Sliding Window Median](SlidingWindowMedian.md/) - Find median in sliding window
-- [IPO](IPO.md/) - Initial Public Offering optimization
-- [Course Schedule III](CourseScheduleIII.md/) - Maximum courses to take
-- [Maximum Number of Events](MaximumNumberOfEvents.md/) - Attend maximum events
-- [Furthest Building You Can Reach](FurthestBuildingYouCanReach.md/) - Reach furthest building
+- [Sliding Window Median](SlidingWindowMedian.md) - Find median in sliding window
+- [IPO](IPO.md) - Initial Public Offering optimization
+- [Course Schedule III](CourseScheduleIII.md) - Maximum courses to take
+- [Maximum Number of Events](MaximumNumberOfEvents.md) - Attend maximum events
+- [Furthest Building You Can Reach](FurthestBuildingYouCanReach.md) - Reach furthest building
 
 ---
 

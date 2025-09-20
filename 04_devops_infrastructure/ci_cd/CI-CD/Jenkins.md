@@ -1030,4 +1030,4 @@ pipeline {
 
 ---
 
-**Next**: [GitLab CI](GitLabCI.md/) - Integrated CI/CD, container registry, security scanning
+**Next**: [GitLab CI](GitLabCI.md) - Integrated CI/CD, container registry, security scanning

@@ -584,4 +584,4 @@ test:integration:
 
 ---
 
-**Next**: [ArgoCD](ArgoCD.md/) - GitOps deployment, continuous delivery
+**Next**: [ArgoCD](ArgoCD.md) - GitOps deployment, continuous delivery

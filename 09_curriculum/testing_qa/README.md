@@ -695,4 +695,4 @@ A: Use load testing tools like k6 or JMeter to test under realistic load conditi
 
 ---
 
-**Next**: [Deployment DevOps](../../README.md) | **Previous**: [Mobile App](../../README.md) | **Up**: [Testing QA](README.md/)
+**Next**: [Deployment DevOps](../../README.md) | **Previous**: [Mobile App](../../README.md) | **Up**: [Testing QA](README.md)

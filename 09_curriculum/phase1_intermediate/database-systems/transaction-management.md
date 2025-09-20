@@ -740,4 +740,4 @@ A: Use row-level locking for high-concurrency applications where different trans
 
 ---
 
-**Next**: [NoSQL Databases](nosql-databases.md/) | **Previous**: [Database Systems](README.md/) | **Up**: [Database Systems](README.md/)
+**Next**: [NoSQL Databases](nosql-databases.md) | **Previous**: [Database Systems](README.md) | **Up**: [Database Systems](README.md)
