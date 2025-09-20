@@ -713,3 +713,17 @@ A: Use queries for read operations that don't modify data. Use mutations for ope
 ---
 
 **Next**: [API Documentation](api-documentation.md) | **Previous**: [API Design](README.md) | **Up**: [API Design](README.md)
+
+
+## Subscriptions
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #subscriptions -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Performance Optimization
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #performance-optimization -->
+
+Placeholder content. Please replace with proper section.

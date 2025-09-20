@@ -1011,3 +1011,17 @@ A: Create a culture of experimentation, provide resources for research, encourag
 ---
 
 **Next**: [Mentoring Coaching](../../../curriculum/phase3-expert/mentoring-coaching/mentoring-coaching.md) | **Previous**: [Technical Leadership](../../../curriculum/phase3-expert/technical-leadership/technical-leadership.md) | **Up**: [Phase 3](README.md)
+
+
+## Technology Evaluation
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #technology-evaluation -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Implementations
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #implementations -->
+
+Placeholder content. Please replace with proper section.

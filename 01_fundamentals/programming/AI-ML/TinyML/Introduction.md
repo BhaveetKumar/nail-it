@@ -868,3 +868,10 @@ TinyML is a field of machine learning that focuses on running ML models on resou
 ---
 
 **🎉 TinyML is revolutionizing edge AI with JavaScript and Node.js!**
+
+
+## Getting Started
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #getting-started -->
+
+Placeholder content. Please replace with proper section.

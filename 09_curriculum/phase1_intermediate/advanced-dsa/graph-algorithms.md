@@ -769,3 +769,10 @@ A: Use adjacency list for sparse graphs (space efficient, O(V+E) space). Use adj
 ---
 
 **Next**: [Dynamic Programming Advanced](dynamic-programming-advanced.md) | **Previous**: [Advanced DSA](README.md) | **Up**: [Advanced DSA](README.md)
+
+
+## Network Flow
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #network-flow -->
+
+Placeholder content. Please replace with proper section.

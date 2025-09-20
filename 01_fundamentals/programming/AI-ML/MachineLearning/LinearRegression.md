@@ -1068,3 +1068,17 @@ module.exports = { LinearRegressionAPI };
 ---
 
 **🎉 This comprehensive guide provides everything needed to implement and use Linear Regression in JavaScript/Node.js applications!**
+
+
+## Gradient Descent
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #gradient-descent -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Real World Applications
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #real-world-applications -->
+
+Placeholder content. Please replace with proper section.

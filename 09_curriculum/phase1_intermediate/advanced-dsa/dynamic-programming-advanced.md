@@ -606,3 +606,17 @@ A: Optimize space when the current solution uses O(n²) or more space but only n
 ---
 
 **Next**: [String Algorithms](string-algorithms.md) | **Previous**: [Advanced DSA](README.md) | **Up**: [Advanced DSA](README.md)
+
+
+## State Space Reduction
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #state-space-reduction -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Dp On Graphs
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #dp-on-graphs -->
+
+Placeholder content. Please replace with proper section.

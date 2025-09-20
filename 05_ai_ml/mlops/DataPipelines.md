@@ -728,3 +728,17 @@ if __name__ == "__main__":
 ---
 
 **🎉 Data pipelines are the backbone of reliable ML systems and require careful design and monitoring!**
+
+
+## Batch Processing
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #batch-processing -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Pipeline Orchestration
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #pipeline-orchestration -->
+
+Placeholder content. Please replace with proper section.

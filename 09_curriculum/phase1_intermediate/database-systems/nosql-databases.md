@@ -930,3 +930,17 @@ A: Column-family stores store data in columns rather than rows, which improves w
 ---
 
 **Next**: [Web Development](../../../README.md) | **Previous**: [Database Systems](README.md) | **Up**: [Phase 1](README.md)
+
+
+## Graph Databases
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #graph-databases -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Cap Theorem
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #cap-theorem -->
+
+Placeholder content. Please replace with proper section.

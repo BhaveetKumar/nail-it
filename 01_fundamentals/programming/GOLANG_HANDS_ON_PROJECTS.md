@@ -1338,3 +1338,38 @@ Each project includes:
 - Testing considerations
 
 **🚀 Start with Project 1 and work your way up to build your Go skills!**
+
+
+## Project 4 File Backup Tool
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #project-4-file-backup-tool -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Project 5 Weather Api Client
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #project-5-weather-api-client -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Project 6 Task Management System
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #project-6-task-management-system -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Project 7 Simple Web Server
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #project-7-simple-web-server -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Project 8 Log Analyzer
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #project-8-log-analyzer -->
+
+Placeholder content. Please replace with proper section.

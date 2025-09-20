@@ -677,8 +677,7 @@ class APIGateway {
     service.endpoints.push(endpoint);
 
     // Add route to express
-    this.app[method.toLowerCase()](
-      README.md)
+    this.app[method.toLowerCase()](README.md)
     );
   }
 

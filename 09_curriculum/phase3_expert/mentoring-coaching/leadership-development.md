@@ -836,3 +836,10 @@ A: Psychological safety enables open communication, risk-taking, learning from f
 ---
 
 **Next**: [Strategic Planning](../../../README.md) | **Previous**: [Mentoring Coaching](README.md) | **Up**: [Phase 3 Expert](README.md)
+
+
+## Performance Management
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #performance-management -->
+
+Placeholder content. Please replace with proper section.

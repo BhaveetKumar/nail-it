@@ -690,3 +690,10 @@ A: Coding standards ensure consistency, improve readability, reduce bugs, and ma
 ---
 
 **Next**: [Development Practices](development-practices.md) | **Previous**: [Software Engineering](README.md) | **Up**: [Software Engineering](README.md)
+
+
+## Refactoring
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #refactoring -->
+
+Placeholder content. Please replace with proper section.

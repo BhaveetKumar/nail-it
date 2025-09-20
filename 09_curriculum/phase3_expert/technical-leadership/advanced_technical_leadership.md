@@ -1185,3 +1185,45 @@ Mastering these competencies will prepare you for senior technical leadership ro
 - [Change Management](https://www.changemanagement.com/)
 - [Strategic Planning](https://www.strategicplanning.com/)
 - [Innovation Leadership](https://www.innovationleadership.com/)
+
+
+## Communication And Influence
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #communication-and-influence -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Change Management
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #change-management -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Innovation Leadership
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #innovation-leadership -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Strategic Thinking
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #strategic-thinking -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Performance Management
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #performance-management -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Crisis Leadership
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #crisis-leadership -->
+
+Placeholder content. Please replace with proper section.

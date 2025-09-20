@@ -1776,3 +1776,44 @@ var CodingInterviewTimeline = InterviewTimeline{
         },
     },
 }
+
+## Company Specific Preparation
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #company-specific-preparation -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Salary Negotiation Mastery
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #salary-negotiation-mastery -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Mock Interview Scenarios
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #mock-interview-scenarios -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Interview Day Execution
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #interview-day-execution -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Post Interview Strategy
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #post-interview-strategy -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Career Advancement Framework
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #career-advancement-framework -->
+
+Placeholder content. Please replace with proper section.

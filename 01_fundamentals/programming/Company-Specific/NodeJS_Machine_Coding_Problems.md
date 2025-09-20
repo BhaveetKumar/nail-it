@@ -2141,3 +2141,87 @@ This completes the first 3 problems. The file is getting quite large, so I'll co
 - Production-ready code with error handling
 
 Would you like me to continue with the remaining 12 problems?
+
+
+## 4 Payment Gateway Skeleton
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #4-payment-gateway-skeleton -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 5 Idempotent Payments
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #5-idempotent-payments -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 6 Order Matching Engine
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #6-order-matching-engine -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 7 Rate Limiter
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #7-rate-limiter -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 8 Batch Job Scheduler
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #8-batch-job-scheduler -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 9 Inventory Service
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #9-inventory-service -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 10 Notification Service
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #10-notification-service -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 11 File Upload Service
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #11-file-upload-service -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 12 Analytics Aggregator
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #12-analytics-aggregator -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 13 Shopping Cart
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #13-shopping-cart -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 14 Cache Invalidation
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #14-cache-invalidation -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 15 Transactional Saga
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #15-transactional-saga -->
+
+Placeholder content. Please replace with proper section.

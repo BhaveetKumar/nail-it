@@ -1024,3 +1024,38 @@ Mastering these competencies will prepare you for developing engineers and build
 - [Performance Coaching](https://www.performancecoaching.com/)
 - [Leadership Development](https://www.leadershipdevelopment.com/)
 - [Team Development](https://www.teamdevelopment.com/)
+
+
+## Skill Development
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #skill-development -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Career Guidance
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #career-guidance -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Performance Coaching
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #performance-coaching -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Leadership Development
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #leadership-development -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Team Development
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #team-development -->
+
+Placeholder content. Please replace with proper section.

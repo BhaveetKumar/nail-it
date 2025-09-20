@@ -1383,3 +1383,24 @@ analyticsAggregator.start(3011);
 ---
 
 This completes problems 10-12. Each implementation includes comprehensive error handling, real-time features, and production-ready code. Would you like me to continue with the final 3 problems?
+
+
+## 13 Shopping Cart
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #13-shopping-cart -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 14 Cache Invalidation
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #14-cache-invalidation -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 15 Transactional Saga
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #15-transactional-saga -->
+
+Placeholder content. Please replace with proper section.

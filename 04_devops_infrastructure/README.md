@@ -1,66 +1,128 @@
 # 04 Devops Infrastructure
 
-DevOps practices, cloud platforms, and infrastructure
-
-## 📚 Table of Contents
-
-### 📁 Directories
-
-- **[Ci Cd](ci_cd/)**
-- **[Cloud](cloud/)**
-- **[Cloud Architecture](cloud_architecture/)**
-- **[Containers](containers/)**
-- **[Monitoring](monitoring/)**
-- **[Performance](performance/)**
-- **[Security](security/)**
-
-### 📄 Files
-
-- **[Ci Cd Pipelines](ci_cd_pipelines.md)** - CI/CD Pipelines
-- **[Container Orchestration](container_orchestration.md)** - Container Orchestration - Kubernetes and Docker Swarm
-- **[Infrastructure As Code](infrastructure_as_code.md)** - Infrastructure as Code - Automated Infrastructure Management
-- **[Kubernetes](kubernetes.md)** - ☸️ **Kubernetes**
-- **[Monitoring Observability](monitoring_observability.md)** - 📊 **Monitoring & Observability**
-
-## 🚀 Quick Start
-
-### Explore Subdirectories
-1. **[Ci Cd](ci_cd/)** - Continuous integration and deployment
-1. **[Cloud](cloud/)** - Cloud platform services and architectures
-1. **[Cloud Architecture](cloud_architecture/)** - Explore this directory
-
-### Key Files
-1. **[Ci Cd Pipelines](ci_cd_pipelines.md)**
-1. **[Container Orchestration](container_orchestration.md)**
-
-## 🔗 Navigation
-
-- **← Back to Parent**: [../](../)
-- **🏠 Home**: [../../](../..)
-- **📋 Master Index**: [../../MASTER_INDEX.md](../..MASTER_INDEX.md)
-
-## 🤝 Contributing
-
-Found an issue or want to add content? Please see our [Contributing Guidelines](../CONTRIBUTING.md) for details.
-
----
-
-**Last Updated**: December 2024
-**Directory**: `04_devops_infrastructure`
-
-
----
-
-## AUTO-GENERATED: Starter Content
-
-<!-- AUTO-GENERATED - REVIEW REQUIRED -->
-
-This section seeds the document with a short introduction, learning objectives, and related links to code samples.
-
-**Learning objectives:**
-- Understand the core concepts.
-- See practical code examples.
-
-**Related files:**
-
-Please replace this auto-generated section with curated content.
+- [Readme](README.md)
+## Advanced
+- [Advanced Devops Patterns](advanced/advanced_devops_patterns.md)
+- [Advanced Devops Comprehensive](advanced_devops_comprehensive.md)
+- [Advanced Kubernetes Operations Guide](advanced_kubernetes_operations_guide.md)
+- [Advanced Monitoring Comprehensive](advanced_monitoring_comprehensive.md)
+## Ci Cd
+### Ci Cd
+- [Argocd](ci_cd/CI-CD/ArgoCD.md)
+- [Githubactions](ci_cd/CI-CD/GitHubActions.md)
+- [Gitlabci](ci_cd/CI-CD/GitLabCI.md)
+- [Jenkins](ci_cd/CI-CD/Jenkins.md)
+- [Readme](ci_cd/CI-CD/README.md)
+- [Readme](ci_cd/README.md)
+- [Ci Cd Pipelines](ci_cd_pipelines.md)
+## Cloud
+### Aws
+- [Aws Cloudformation](cloud/AWS/AWS_CloudFormation.md)
+- [Aws Ec2](cloud/AWS/AWS_EC2.md)
+- [Aws Iam](cloud/AWS/AWS_IAM.md)
+- [Aws Kubernetes Eks](cloud/AWS/AWS_Kubernetes_EKS.md)
+- [Aws Lambda](cloud/AWS/AWS_Lambda.md)
+- [Aws Rds](cloud/AWS/AWS_RDS.md)
+- [Aws S3](cloud/AWS/AWS_S3.md)
+- [Readme](cloud/AWS/README.md)
+- [Cloud Architecture Comprehensive Guide](cloud/CLOUD_ARCHITECTURE_COMPREHENSIVE_GUIDE.md)
+- [Cloud Native Architecture](cloud/CLOUD_NATIVE_ARCHITECTURE.md)
+### Gcp
+- [Gcp Bigquery](cloud/GCP/GCP_BigQuery.md)
+- [Gcp Cloudfunctions](cloud/GCP/GCP_CloudFunctions.md)
+- [Gcp Cloudsql](cloud/GCP/GCP_CloudSQL.md)
+- [Gcp Cloudstorage](cloud/GCP/GCP_CloudStorage.md)
+- [Gcp Computeengine](cloud/GCP/GCP_ComputeEngine.md)
+- [Gcp Iam](cloud/GCP/GCP_IAM.md)
+- [Gcp Kubernetes Gke](cloud/GCP/GCP_Kubernetes_GKE.md)
+- [Readme](cloud/GCP/README.md)
+- [Readme](cloud/README.md)
+## Cloud Architecture
+- [Readme](cloud_architecture/README.md)
+- [Cloud Architecture Comprehensive Guide](cloud_architecture/cloud_architecture_comprehensive_guide.md)
+- [Container Orchestration](container_orchestration.md)
+## Containers
+### Containers
+- [Dockerbasics](containers/Containers/DockerBasics.md)
+- [Dockercompose](containers/Containers/DockerCompose.md)
+- [Helmcharts](containers/Containers/HelmCharts.md)
+- [Kubernetesbasics](containers/Containers/KubernetesBasics.md)
+- [Readme](containers/Containers/README.md)
+- [Servicemesh Istio](containers/Containers/ServiceMesh_Istio.md)
+- [Readme](containers/README.md)
+- [Infrastructure As Code](infrastructure_as_code.md)
+- [Kubernetes](kubernetes.md)
+## Monitoring
+- [Monitoring Observability Guide](monitoring/MONITORING_OBSERVABILITY_GUIDE.md)
+### Observability
+- [Apmtools](monitoring/Observability/APMTools.md)
+- [Alerting](monitoring/Observability/Alerting.md)
+- [Centralizedlogging](monitoring/Observability/CentralizedLogging.md)
+- [Custommetrics](monitoring/Observability/CustomMetrics.md)
+- [Errortracking](monitoring/Observability/ErrorTracking.md)
+- [Jaeger](monitoring/Observability/Jaeger.md)
+- [Loganalysis](monitoring/Observability/LogAnalysis.md)
+- [Logretention](monitoring/Observability/LogRetention.md)
+- [Logging](monitoring/Observability/Logging.md)
+- [Monitoringprometheusgrafana](monitoring/Observability/MonitoringPrometheusGrafana.md)
+- [Opentelemetry](monitoring/Observability/OpenTelemetry.md)
+- [Performanceprofiling](monitoring/Observability/PerformanceProfiling.md)
+- [Prometheusgrafana](monitoring/Observability/PrometheusGrafana.md)
+- [Readme](monitoring/Observability/README.md)
+- [Slislosla](monitoring/Observability/SLISLOSLA.md)
+- [Structuredlogging](monitoring/Observability/StructuredLogging.md)
+- [Traceanalysis](monitoring/Observability/TraceAnalysis.md)
+- [Tracing](monitoring/Observability/Tracing.md)
+- [Userexperiencemonitoring](monitoring/Observability/UserExperienceMonitoring.md)
+- [Zipkin](monitoring/Observability/Zipkin.md)
+- [Apm Implementation](monitoring/Observability/apm_implementation.md)
+- [Distributed Tracing](monitoring/Observability/distributed_tracing.md)
+- [Logging Patterns](monitoring/Observability/logging_patterns.md)
+- [Metrics Monitoring](monitoring/Observability/metrics_monitoring.md)
+- [Readme](monitoring/README.md)
+### Advanced
+- [Readme](monitoring/advanced/README.md)
+- [Advanced Monitoring Observability](monitoring/advanced/advanced_monitoring_observability.md)
+- [Monitoring Observability Comprehensive](monitoring/monitoring_observability_comprehensive.md)
+- [Monitoring Observability Comprehensive Guide](monitoring/monitoring_observability_comprehensive_guide.md)
+- [Monitoring Observability](monitoring_observability.md)
+## Performance
+- [Performance Engineering Comprehensive Guide](performance/PERFORMANCE_ENGINEERING_COMPREHENSIVE_GUIDE.md)
+- [Performance Engineering Deep Dive](performance/PERFORMANCE_ENGINEERING_DEEP_DIVE.md)
+- [Readme](performance/README.md)
+- [Performance Optimization Comprehensive Guide](performance/performance_optimization_comprehensive_guide.md)
+## Security
+- [Readme](security/README.md)
+### Security
+- [Csrfprotection](security/Security/CSRFProtection.md)
+- [Certificatemanagement](security/Security/CertificateManagement.md)
+- [Containersecurity](security/Security/ContainerSecurity.md)
+- [Gdprcompliance](security/Security/GDPRCompliance.md)
+- [Incidentresponse](security/Security/IncidentResponse.md)
+- [Inputvalidation](security/Security/InputValidation.md)
+- [Intrusiondetection](security/Security/IntrusionDetection.md)
+- [Jwtoauth2](security/Security/JWTOAuth2.md)
+- [Multifactorauthentication](security/Security/MultiFactorAuthentication.md)
+- [Networksecurity](security/Security/NetworkSecurity.md)
+- [Pcidss](security/Security/PCIDSS.md)
+- [Rbacabac](security/Security/RBACABAC.md)
+- [Readme](security/Security/README.md)
+- [Soc2Compliance](security/Security/SOC2Compliance.md)
+- [Sqlinjectionprevention](security/Security/SQLInjectionPrevention.md)
+- [Secretsmanagement](security/Security/SecretsManagement.md)
+- [Secureapis](security/Security/SecureAPIs.md)
+- [Securityauditing](security/Security/SecurityAuditing.md)
+- [Securitylogging](security/Security/SecurityLogging.md)
+- [Sessionmanagement](security/Security/SessionManagement.md)
+- [Vulnerabilityscanning](security/Security/VulnerabilityScanning.md)
+- [Xssprotection](security/Security/XSSProtection.md)
+- [Zerotrustarchitecture](security/Security/ZeroTrustArchitecture.md)
+- [Web Security Comprehensive Guide](security/WEB_SECURITY_COMPREHENSIVE_GUIDE.md)
+### Advanced
+- [Readme](security/advanced/README.md)
+- [Advanced Security Cryptography](security/advanced/advanced_security_cryptography.md)
+### Authentication
+- [Readme](security/authentication/README.md)
+- [Jwt Implementation](security/authentication/jwt_implementation.md)
+- [Oauth2 Implementation](security/authentication/oauth2_implementation.md)
+- [Security Comprehensive Guide](security/security_comprehensive_guide.md)

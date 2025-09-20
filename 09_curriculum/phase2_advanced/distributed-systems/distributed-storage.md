@@ -884,3 +884,17 @@ A: Choose quorum-based replication when you need high availability and can toler
 ---
 
 **Next**: [Event Sourcing](event-sourcing.md) | **Previous**: [Distributed Systems](README.md) | **Up**: [Distributed Systems](README.md)
+
+
+## Data Partitioning
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #data-partitioning -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Cap Theorem
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #cap-theorem -->
+
+Placeholder content. Please replace with proper section.

@@ -1813,3 +1813,30 @@ func (dfs *DeviceFingerprintService) AnalyzeDevice(ctx context.Context, request 
 - Monitoring and alerting for webhook health
 
 This comprehensive Razorpay guide covers the critical technical areas, system design patterns, and interview scenarios specific to fintech and payment processing at scale.
+
+##  Microservices Architecture
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #-microservices-architecture -->
+
+Placeholder content. Please replace with proper section.
+
+
+##  Database Design  Scaling
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #-database-design--scaling -->
+
+Placeholder content. Please replace with proper section.
+
+
+##  Api Design  Rate Limiting
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #-api-design--rate-limiting -->
+
+Placeholder content. Please replace with proper section.
+
+
+##  Monitoring  Observability
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #-monitoring--observability -->
+
+Placeholder content. Please replace with proper section.

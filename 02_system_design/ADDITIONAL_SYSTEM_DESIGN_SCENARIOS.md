@@ -1225,3 +1225,122 @@ func (rtu *RealTimeUpdater) ProcessUpdates() {
 ---
 
 This covers the first 5 system design scenarios. The file is getting quite large, so I'll continue with the remaining scenarios in the next part. Would you like me to continue with the remaining 12 scenarios?
+
+
+## 1 Content Delivery Network Cdn
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #1-content-delivery-network-cdn -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 2 Code Collaboration Platform
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #2-code-collaboration-platform -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 3 Url Shortening Service
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #3-url-shortening-service -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 4 Traffic Control System
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #4-traffic-control-system -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 5 Search Typeahead System
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #5-search-typeahead-system -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 6 Web Crawler
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #6-web-crawler -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 7 Elevator System
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #7-elevator-system -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 8 Clustered Caching System
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #8-clustered-caching-system -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 9 Train Search Functionality For Irctc
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #9-train-search-functionality-for-irctc -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 10 Image Quality Analysis From Url
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #10-image-quality-analysis-from-url -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 11 Ridesharing Platform Like Uber
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #11-ridesharing-platform-like-uber -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 12 Lru Cache
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #12-lru-cache -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 13 Chat System For Amazon Returns
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #13-chat-system-for-amazon-returns -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 14 Modular Snake And Ladder Game
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #14-modular-snake-and-ladder-game -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 15 Yelp Like Review System
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #15-yelp-like-review-system -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 16 Whatsapp Like Messaging Service
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #16-whatsapp-like-messaging-service -->
+
+Placeholder content. Please replace with proper section.
+
+
+## 17 Class Diagram For Chess Board Game
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #17-class-diagram-for-chess-board-game -->
+
+Placeholder content. Please replace with proper section.

@@ -1359,3 +1359,24 @@ Mastering these areas will prepare you for building secure, resilient backend sy
 - [OWASP ZAP](https://owasp.org/www-project-zap/)
 - [Nessus](https://www.tenable.com/products/nessus/)
 - [Splunk](https://www.splunk.com/)
+
+
+## Incident Response
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #incident-response -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Compliance And Governance
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #compliance-and-governance -->
+
+Placeholder content. Please replace with proper section.
+
+
+## Security Automation
+
+<!-- AUTO-GENERATED ANCHOR: originally referenced as #security-automation -->
+
+Placeholder content. Please replace with proper section.
