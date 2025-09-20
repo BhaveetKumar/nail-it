@@ -1,10 +1,13 @@
 name: Deploy Yew Demo
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
     paths:
       - 'rust-curriculum/projects/wasm_yew_app/**'
+      - 'rust-curriculum/site_index.html'
+      - 'rust-curriculum/.github/workflows/gh-pages.yml'
 
 jobs:
   deploy:
@@ -23,9 +26,10 @@ jobs:
         run: wasm-pack build --target web
       - name: Prepare site
         run: |
-          mkdir -p site
-          cp rust-curriculum/projects/wasm_yew_app/index.html site/
-          cp -r rust-curriculum/projects/wasm_yew_app/pkg site/
+          mkdir -p site/yew
+          cp rust-curriculum/projects/wasm_yew_app/index.html site/yew/index.html
+          cp -r rust-curriculum/projects/wasm_yew_app/pkg site/yew/
+          cp rust-curriculum/site_index.html site/index.html
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
