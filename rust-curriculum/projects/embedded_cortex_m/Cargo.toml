@@ -1,0 +1,12 @@
+[package]
+name = "embedded_cortex_m"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+default = ["std"]
+std = []
+
+[lib]
+name = "embedded_cortex_m"
+path = "src/lib.rs"

@@ -4,7 +4,8 @@ members = [
     "projects/grpc_tonic_service",
     "projects/dsa_library",
     "projects/streaming_system",
-    "projects/toy_os_component"
+    "projects/toy_os_component",
+    "projects/embedded_cortex_m"
 ]
 resolver = "2"
 

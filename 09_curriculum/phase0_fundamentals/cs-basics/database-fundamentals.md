@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [Relational Database Design](#relational-database-design/)
-3. [SQL Queries and Optimization](#sql-queries-and-optimization/)
-4. [NoSQL Databases](#nosql-databases/)
-5. [ACID Properties and Transactions](#acid-properties-and-transactions/)
-6. [Implementations](#implementations/)
-7. [Follow-up Questions](#follow-up-questions/)
-8. [Sources](#sources/)
-9. [Projects](#projects/)
+1. [Overview](#overview)
+2. [Relational Database Design](#relational-database-design)
+3. [SQL Queries and Optimization](#sql-queries-and-optimization)
+4. [NoSQL Databases](#nosql-databases)
+5. [ACID Properties and Transactions](#acid-properties-and-transactions)
+6. [Implementations](#implementations)
+7. [Follow-up Questions](#follow-up-questions)
+8. [Sources](#sources)
+9. [Projects](#projects)
 
 ## Overview
 
@@ -1505,4 +1505,4 @@ A: Use NoSQL for unstructured data, high scalability needs, rapid development, a
 
 ---
 
-**Next**: [Software Engineering](software-engineering/) | **Previous**: [Networks & Protocols](networks-protocols.md/) | **Up**: [Phase 0](README.md/)
+**Next**: [Software Engineering](software-engineering.md) | **Previous**: [Networks & Protocols](networks-protocols.md) | **Up**: [Phase 0](README.md)

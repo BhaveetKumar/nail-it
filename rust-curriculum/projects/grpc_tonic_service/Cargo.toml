@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 tonic = { version = "0.12", features = ["transport"] }
-tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal"] }
 prost = "0.13"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }

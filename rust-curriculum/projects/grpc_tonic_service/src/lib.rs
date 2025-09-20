@@ -1,4 +1,5 @@
 use tonic::{transport::Server, Request, Response, Status};
+use std::future::Future;
 
 pub mod echo {
     tonic::include_proto!("echo");
@@ -22,5 +23,14 @@ impl echo::echo_server::Echo for EchoService {
 pub async fn start_server(addr: std::net::SocketAddr) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let svc = echo::echo_server::EchoServer::new(EchoService::default());
     Server::builder().add_service(svc).serve(addr).await?;
+    Ok(())
+}
+
+pub async fn start_server_with_shutdown<F>(addr: std::net::SocketAddr, shutdown: F) -> Result<(), Box<dyn std::error::Error + Send + Sync>>
+where
+    F: Future<Output = ()> + Send + 'static,
+{
+    let svc = echo::echo_server::EchoServer::new(EchoService::default());
+    Server::builder().add_service(svc).serve_with_shutdown(addr, shutdown).await?;
     Ok(())
 }

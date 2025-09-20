@@ -79,3 +79,93 @@ mod prop {
         }
     }
 }
+
+use std::collections::{VecDeque, BinaryHeap, HashMap};
+
+pub fn bfs(adj: &HashMap<usize, Vec<usize>>, start: usize) -> Vec<usize> {
+    let mut visited = vec![];
+    let mut seen = std::collections::HashSet::new();
+    let mut q = VecDeque::new();
+    q.push_back(start);
+    seen.insert(start);
+    while let Some(u) = q.pop_front() {
+        visited.push(u);
+        if let Some(neis) = adj.get(&u) {
+            for &v in neis {
+                if !seen.contains(&v) { seen.insert(v); q.push_back(v); }
+            }
+        }
+    }
+    visited
+}
+
+pub fn dfs(adj: &HashMap<usize, Vec<usize>>, start: usize) -> Vec<usize> {
+    fn rec(adj: &HashMap<usize, Vec<usize>>, u: usize, seen: &mut std::collections::HashSet<usize>, out: &mut Vec<usize>) {
+        seen.insert(u);
+        out.push(u);
+        if let Some(neis) = adj.get(&u) {
+            for &v in neis {
+                if !seen.contains(&v) { rec(adj, v, seen, out); }
+            }
+        }
+    }
+    let mut out = vec![];
+    let mut seen = std::collections::HashSet::new();
+    rec(adj, start, &mut seen, &mut out);
+    out
+}
+
+#[derive(Copy, Clone, Eq, PartialEq)]
+struct State { cost: i64, node: usize }
+
+impl Ord for State { fn cmp(&self, other: &Self) -> std::cmp::Ordering { other.cost.cmp(&self.cost).then(self.node.cmp(&other.node)) } }
+impl PartialOrd for State { fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> { Some(self.cmp(other)) } }
+
+pub fn dijkstra(adj: &HashMap<usize, Vec<(usize, i64)>>, start: usize) -> HashMap<usize, i64> {
+    let mut dist: HashMap<usize, i64> = HashMap::new();
+    let mut heap = BinaryHeap::new();
+    dist.insert(start, 0);
+    heap.push(State { cost: 0, node: start });
+    while let Some(State { cost, node }) = heap.pop() {
+        if let Some(&d) = dist.get(&node) { if cost > d { continue; } }
+        if let Some(neis) = adj.get(&node) {
+            for &(v, w) in neis {
+                let next = cost + w;
+                if dist.get(&v).map_or(true, |&cur| next < cur) {
+                    dist.insert(v, next);
+                    heap.push(State { cost: next, node: v });
+                }
+            }
+        }
+    }
+    dist
+}
+
+#[cfg(test)]
+mod graph_tests {
+    use super::*;
+    use std::collections::HashMap;
+
+    #[test]
+    fn bfs_dfs_basic() {
+        let mut g: HashMap<usize, Vec<usize>> = HashMap::new();
+        g.insert(0, vec![1,2]);
+        g.insert(1, vec![3]);
+        g.insert(2, vec![]);
+        g.insert(3, vec![]);
+        assert_eq!(bfs(&g, 0), vec![0,1,2,3]);
+        assert_eq!(dfs(&g, 0), vec![0,1,3,2]);
+    }
+
+    #[test]
+    fn dijkstra_basic() {
+        let mut g: HashMap<usize, Vec<(usize, i64)>> = HashMap::new();
+        g.insert(0, vec![(1, 2), (2, 5)]);
+        g.insert(1, vec![(2, 1)]);
+        g.insert(2, vec![]);
+        let d = dijkstra(&g, 0);
+        assert_eq!(d.get(&0).copied(), Some(0));
+        assert_eq!(d.get(&1).copied(), Some(2));
+        assert_eq!(d.get(&2).copied(), Some(3));
+    }
+}

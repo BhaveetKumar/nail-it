@@ -71,3 +71,15 @@ jobs:
       - name: Test toy_os_component
         working-directory: rust-curriculum
         run: cargo test -p toy_os_component --all-features
+  embedded-build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - name: Build embedded_cortex_m
+        working-directory: rust-curriculum
+        run: cargo build -p embedded_cortex_m --all-targets
+      - name: Test embedded_cortex_m (host)
+        working-directory: rust-curriculum
+        run: cargo test -p embedded_cortex_m --all-features

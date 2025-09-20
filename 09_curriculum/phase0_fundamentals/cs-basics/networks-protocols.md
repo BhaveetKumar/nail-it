@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview/)
-2. [TCP/IP Protocol Stack](#tcpip-protocol-stack/)
-3. [HTTP and Web Protocols](#http-and-web-protocols/)
-4. [Network Security](#network-security/)
-5. [Distributed Systems Basics](#distributed-systems-basics/)
-6. [Implementations](#implementations/)
-7. [Follow-up Questions](#follow-up-questions/)
-8. [Sources](#sources/)
-9. [Projects](#projects/)
+1. [Overview](#overview)
+2. [TCP/IP Protocol Stack](#tcpip-protocol-stack)
+3. [HTTP and Web Protocols](#http-and-web-protocols)
+4. [Network Security](#network-security)
+5. [Distributed Systems Basics](#distributed-systems-basics)
+6. [Implementations](#implementations)
+7. [Follow-up Questions](#follow-up-questions)
+8. [Sources](#sources)
+9. [Projects](#projects)
 
 ## Overview
 
@@ -1307,4 +1307,4 @@ A: Main threats include eavesdropping, man-in-the-middle attacks, denial of serv
 
 ---
 
-**Next**: [Database Fundamentals](database-fundamentals.md/) | **Previous**: [Operating Systems](operating-systems-concepts.md/) | **Up**: [Phase 0](README.md/)
+**Next**: [Database Fundamentals](database-fundamentals.md) | **Previous**: [Operating Systems](operating-systems-concepts.md) | **Up**: [Phase 0](README.md)
