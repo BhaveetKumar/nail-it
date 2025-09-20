@@ -1,290 +1,221 @@
-# Master Engineer Curriculum
-
-## Overview
-
-The Master Engineer Curriculum is a comprehensive, structured learning path designed to take you from a junior software engineer to a distinguished engineer. This curriculum is organized into four progressive phases, each building upon the previous one to develop both technical expertise and leadership capabilities.
-
-## Progress Status
-
-### ✅ Curriculum Completion: 100%
-
-All four phases of the Master Engineer Curriculum have been completed with comprehensive modules, implementations, and resources.
-
-- **Phase 0: Fundamentals** - ✅ Complete (6 modules)
-- **Phase 1: Intermediate** - ✅ Complete (6 modules)  
-- **Phase 2: Advanced** - ✅ Complete (6 modules)
-- **Phase 3: Expert** - ✅ Complete (6 modules)
-
-**Total Modules**: 24 comprehensive modules
-**Total Content**: 100+ detailed guides with implementations
-**Languages**: Go and Node.js throughout
-**Focus**: Theory + Practice + Real-world Applications
-
-## Curriculum Structure
-
-### 🎯 Learning Path Overview
-
-```
-Phase 0: Fundamentals → Phase 1: Intermediate → Phase 2: Advanced → Phase 3: Expert
-   (0-2 years)           (2-4 years)            (4-6 years)         (6+ years)
-```
-
-### 📚 Phase Breakdown
-
-#### [Phase 0: Fundamentals](phase0_fundamentals/)
-**Target Audience**: Junior Engineers (0-2 years experience)
-**Duration**: 6-12 months
-**Focus**: Core programming skills, computer science fundamentals, and basic system design
-
-**Key Modules**:
-- Programming Fundamentals (Go, Node.js)
-- Data Structures & Algorithms
-- Computer Science Basics
-- Database Fundamentals
-- Basic System Design
-- Testing Strategies
-
-#### [Phase 1: Intermediate](phase1_intermediate/)
-**Target Audience**: Mid-Level Engineers (2-4 years experience)
-**Duration**: 12-18 months
-**Focus**: Advanced technical skills, system design, and team collaboration
-
-**Key Modules**:
-- Advanced DSA & Dynamic Programming
-- Operating Systems Deep Dive
-- Database Systems & Optimization
-- Web Development & APIs
-- System Design Basics
-- Microservices Architecture
-
-#### [Phase 2: Advanced](phase2_advanced/)
-**Target Audience**: Senior Engineers (4-6 years experience)
-**Duration**: 18-24 months
-**Focus**: Complex system design, distributed systems, and technical leadership
-
-**Key Modules**:
-- Distributed Systems
-- Machine Learning & AI
-- Cloud Architecture
-- Advanced Algorithms
-- Performance Engineering
-- Security Engineering
-
-#### [Phase 3: Expert](phase3_expert/)
-**Target Audience**: Staff/Distinguished Engineers (6+ years experience)
-**Duration**: 24+ months
-**Focus**: Technical leadership, strategic thinking, and innovation
-
-**Key Modules**:
-- Technical Leadership
-- Architecture Design
-- Innovation Research
-- Mentoring & Coaching
-- Strategic Planning
-- Advanced Specializations
-
-## Learning Methodology
-
-### 🎓 Structured Learning Approach
-
-1. **Progressive Complexity**: Each phase builds upon previous knowledge
-2. **Hands-on Implementation**: Extensive coding examples in Go and Node.js
-3. **Real-world Applications**: Practical projects and case studies
-4. **Assessment & Feedback**: Regular evaluations and progress tracking
-5. **Community Engagement**: Peer learning and mentorship opportunities
-
-### 📖 Study Guidelines
-
-#### For Each Module:
-1. **Read & Understand**: Study the theoretical concepts
-2. **Implement**: Complete all coding exercises
-3. **Practice**: Work on suggested projects
-4. **Assess**: Take follow-up questions and self-evaluations
-5. **Apply**: Use knowledge in real projects
-
-#### Recommended Study Schedule:
-- **Phase 0**: 10-15 hours/week for 6-12 months
-- **Phase 1**: 15-20 hours/week for 12-18 months
-- **Phase 2**: 20-25 hours/week for 18-24 months
-- **Phase 3**: 25+ hours/week for 24+ months
-
-## Career Progression
-
-### 🚀 Engineering Career Levels
-
-| Level | Experience | Phase | Key Responsibilities |
-|-------|------------|-------|---------------------|
-| **Junior Engineer** | 0-2 years | Phase 0 | Code implementation, learning fundamentals |
-| **Mid-Level Engineer** | 2-4 years | Phase 1 | Feature development, system design |
-| **Senior Engineer** | 4-6 years | Phase 2 | Architecture decisions, technical leadership |
-| **Staff Engineer** | 6-8 years | Phase 3 | Strategic technical decisions, mentoring |
-| **Principal Engineer** | 8-10 years | Phase 3 | Technical vision, innovation leadership |
-| **Distinguished Engineer** | 10+ years | Phase 3 | Industry thought leadership, research |
-
-### 🎯 Learning Outcomes by Phase
-
-#### Phase 0 Outcomes:
-- Master programming fundamentals
-- Understand core data structures and algorithms
-- Design basic systems
-- Write clean, testable code
-- Collaborate effectively in teams
-
-#### Phase 1 Outcomes:
-- Solve complex algorithmic problems
-- Design scalable systems
-- Optimize database performance
-- Build robust APIs and services
-- Lead small technical initiatives
-
-#### Phase 2 Outcomes:
-- Architect distributed systems
-- Implement machine learning solutions
-- Design cloud-native applications
-- Optimize system performance
-- Lead technical teams
-
-#### Phase 3 Outcomes:
-- Drive technical strategy and vision
-- Mentor and develop other engineers
-- Lead research and innovation
-- Influence industry standards
-- Build and scale engineering organizations
-
-## Assessment & Certification
-
-### 📊 Evaluation Methods
-
-#### Continuous Assessment:
-- **Code Reviews**: Regular peer and mentor reviews
-- **Project Submissions**: Hands-on implementation projects
-- **Technical Interviews**: Mock interviews and assessments
-- **Peer Feedback**: 360-degree feedback from colleagues
-- **Self-Assessment**: Regular reflection and goal setting
-
-#### Phase Completion Criteria:
-- Complete all module exercises and projects
-- Pass technical assessments
-- Demonstrate practical application
-- Receive peer and mentor approval
-- Submit portfolio of work
-  
-## Resources & Support
-
-### 📚 Learning Resources
-
-#### Books:
-- **Phase 0**: "Clean Code", "Introduction to Algorithms"
-- **Phase 1**: "Designing Data-Intensive Applications", "System Design Interview"
-- **Phase 2**: "Building Microservices", "High Performance MySQL"
-- **Phase 3**: "The Lean Startup", "Good to Great"
-
-#### Online Platforms:
-- **LeetCode**: Algorithm practice
-- **AWS/Azure/GCP**: Cloud platforms
-- **GitHub**: Open source contributions
-- **Medium/Dev.to**: Technical articles
-- **YouTube**: Technical talks and tutorials
-
-#### Tools & Technologies:
-- **Programming**: Go, Node.js, Python, Java
-- **Databases**: PostgreSQL, MongoDB, Redis
-- **Cloud**: AWS, Azure, Google Cloud
-- **DevOps**: Docker, Kubernetes, Terraform
-- **Monitoring**: Prometheus, Grafana, ELK Stack
-
-### 🤝 Community & Support
-
-#### Learning Communities:
-- **Study Groups**: Regular meetups and discussions
-- **Mentorship Program**: Pairing with experienced engineers
-- **Peer Learning**: Collaborative projects and code reviews
-- **Online Forums**: Discussion boards and Q&A
-- **Conferences**: Industry events and workshops
-
-#### Support Channels:
-- **Technical Support**: Help with implementation challenges
-- **Career Guidance**: Advice on career progression
-- **Project Feedback**: Review of portfolio projects
-- **Interview Prep**: Mock interviews and preparation
-- **Networking**: Connections with industry professionals
-
-## Getting Started
-
-### 🚀 Quick Start Guide
-
-1. **Assess Your Level**: Take the placement assessment
-2. **Choose Your Phase**: Start with the appropriate phase
-3. **Set Goals**: Define your learning objectives
-4. **Create Schedule**: Plan your study time
-5. **Join Community**: Connect with other learners
-6. **Start Learning**: Begin with the first module
-
-### 📋 Prerequisites
-
-#### Phase 0:
-- Basic programming knowledge
-- High school mathematics
-- Computer science interest
-- 10-15 hours/week availability
-
-#### Phase 1:
-- Complete Phase 0 or equivalent experience
-- 1+ years programming experience
-- Basic system design knowledge
-- 15-20 hours/week availability
-
-#### Phase 2:
-- Complete Phase 1 or equivalent experience
-- 3+ years programming experience
-- System design experience
-- 20-25 hours/week availability
-
-#### Phase 3:
-- Complete Phase 2 or equivalent experience
-- 5+ years programming experience
-- Technical leadership experience
-- 25+ hours/week availability
-
-
-### 💼 Career Impact
-
-- **Average Salary Increase**: 40-60%
-- **Leadership Roles**: 70% of graduates
-- **Technical Excellence**: 90% receive top ratings
-- **Industry Recognition**: 30% become thought leaders
-- **Mentorship**: 80% mentor other engineers
-
-## Contributing
-
-### 🤝 How to Contribute
-
-We welcome contributions from the community to improve the curriculum:
-
-1. **Content Updates**: Keep materials current with industry trends
-2. **Bug Fixes**: Report and fix issues in code examples
-3. **New Modules**: Suggest and develop new learning modules
-4. **Case Studies**: Add real-world examples and projects
-5. **Feedback**: Provide suggestions for improvement
-
-### 📝 Contribution Guidelines
-
-- Follow the established format and structure
-- Ensure all code examples are tested and working
-- Include comprehensive documentation
-- Update related materials when making changes
-- Submit pull requests for review
-
-## License
-
-This curriculum is licensed under the MIT License. See the [LICENSE](../LICENSE) file for details.
-
-## Contact
-
-- **Email**: bhaveetkumar0@gmail.com
-- **GitHub**: [Master Engineer Curriculum](https://github.com/BhaveetKumar/nail-it/)
-- **LinkedIn**: (https://www.linkedin.com/in/bhaveet-yadav-7777a0147/)
-
----
-
-**Start Your Journey**: [Phase 0: Fundamentals](phase0_fundamentals/) | **Latest Updates**: [Changelog](CHANGELOG.md) | **Community**: [Join Us](https://discord.gg/master-engineer/)
+# 09 Curriculum
+
+- [Assessment Certification Guide](ASSESSMENT_CERTIFICATION_GUIDE.md)
+- [Changelog](CHANGELOG.md)
+- [Confluence Macros](CONFLUENCE_MACROS.md)
+- [Confluence Publication](CONFLUENCE_PUBLICATION.md)
+- [Confluence Publishing Guide](CONFLUENCE_PUBLISHING_GUIDE.md)
+- [Confluence Ready Content](CONFLUENCE_READY_CONTENT.md)
+- [Curriculum Completion Report](CURRICULUM_COMPLETION_REPORT.md)
+- [Curriculum Completion Summary](CURRICULUM_COMPLETION_SUMMARY.md)
+- [Curriculum Readme](CURRICULUM_README.md)
+- [Final Achievement Summary](FINAL_ACHIEVEMENT_SUMMARY.md)
+- [Interlinking Guide](INTERLINKING_GUIDE.md)
+- [Learning Path Guide](LEARNING_PATH_GUIDE.md)
+- [Master Engineer Curriculum](MASTER_ENGINEER_CURRICULUM.md)
+- [Mermaid Diagrams Guide](MERMAID_DIAGRAMS_GUIDE.md)
+- [Project Showcase Guide](PROJECT_SHOWCASE_GUIDE.md)
+- [Readme](README.md)
+## Accessibility Inclusion
+- [Readme](accessibility_inclusion/README.md)
+## Advanced
+- [Advanced Learning Paths](advanced/advanced_learning_paths.md)
+## Analytics Insights
+- [Readme](analytics_insights/README.md)
+## Assessment Tools
+- [Readme](assessment_tools/README.md)
+## Community Contributions
+- [Readme](community_contributions/README.md)
+## Company Prep
+- [Readme](company_prep/README.md)
+## Deployment Devops
+- [Readme](deployment_devops/README.md)
+## Documentation Api
+- [Readme](documentation_api/README.md)
+## Learning Resources
+- [Readme](learning_resources/README.md)
+## Maintenance Updates
+- [Readme](maintenance_updates/README.md)
+## Mobile App
+- [Readme](mobile_app/README.md)
+## Phase0 Fundamentals
+- [Readme](phase0_fundamentals/README.md)
+### Cs Basics
+- [Readme](phase0_fundamentals/cs-basics/README.md)
+- [Computer Organization](phase0_fundamentals/cs-basics/computer-organization.md)
+- [Database Fundamentals](phase0_fundamentals/cs-basics/database-fundamentals.md)
+- [Networks Protocols](phase0_fundamentals/cs-basics/networks-protocols.md)
+- [Operating Systems Concepts](phase0_fundamentals/cs-basics/operating-systems-concepts.md)
+- [Software Engineering](phase0_fundamentals/cs-basics/software-engineering.md)
+### Mathematics
+- [Readme](phase0_fundamentals/mathematics/README.md)
+- [Calculus](phase0_fundamentals/mathematics/calculus.md)
+- [Discrete Mathematics](phase0_fundamentals/mathematics/discrete-mathematics.md)
+- [Linear Algebra](phase0_fundamentals/mathematics/linear-algebra.md)
+- [Statistics Probability](phase0_fundamentals/mathematics/statistics-probability.md)
+### Programming
+- [Readme](phase0_fundamentals/programming/README.md)
+- [Design Patterns](phase0_fundamentals/programming/design-patterns.md)
+- [Dsa Questions Golang Nodejs](phase0_fundamentals/programming/dsa-questions-golang-nodejs.md)
+- [Go Fundamentals](phase0_fundamentals/programming/go-fundamentals.md)
+- [Nodejs Fundamentals](phase0_fundamentals/programming/nodejs-fundamentals.md)
+### Software Engineering
+- [Readme](phase0_fundamentals/software-engineering/README.md)
+- [Code Quality](phase0_fundamentals/software-engineering/code-quality.md)
+- [Development Practices](phase0_fundamentals/software-engineering/development-practices.md)
+- [Testing Strategies](phase0_fundamentals/software-engineering/testing-strategies.md)
+- [Version Control Git](phase0_fundamentals/software-engineering/version-control-git.md)
+## Phase1 Intermediate
+- [Readme](phase1_intermediate/README.md)
+### Advanced Dsa
+- [Readme](phase1_intermediate/advanced-dsa/README.md)
+- [Advanced Trees](phase1_intermediate/advanced-dsa/advanced-trees.md)
+- [Applications](phase1_intermediate/advanced-dsa/applications.md)
+- [Dynamic Programming Advanced](phase1_intermediate/advanced-dsa/dynamic-programming-advanced.md)
+- [Graph Algorithms](phase1_intermediate/advanced-dsa/graph-algorithms.md)
+- [Mathematical Algorithms](phase1_intermediate/advanced-dsa/mathematical-algorithms.md)
+- [String Algorithms](phase1_intermediate/advanced-dsa/string-algorithms.md)
+### Api Design
+- [Readme](phase1_intermediate/api-design/README.md)
+- [Api Documentation](phase1_intermediate/api-design/api-documentation.md)
+- [Graphql Apis](phase1_intermediate/api-design/graphql-apis.md)
+- [Restful Apis](phase1_intermediate/api-design/restful-apis.md)
+### Database Systems
+- [Readme](phase1_intermediate/database-systems/README.md)
+- [Database Design](phase1_intermediate/database-systems/database-design.md)
+- [Nosql Databases](phase1_intermediate/database-systems/nosql-databases.md)
+- [Query Optimization](phase1_intermediate/database-systems/query-optimization.md)
+- [Transaction Management](phase1_intermediate/database-systems/transaction-management.md)
+### Os Deep Dive
+- [Readme](phase1_intermediate/os-deep-dive/README.md)
+- [Concurrency Synchronization](phase1_intermediate/os-deep-dive/concurrency-synchronization.md)
+- [File Systems](phase1_intermediate/os-deep-dive/file-systems.md)
+- [Io Systems](phase1_intermediate/os-deep-dive/io-systems.md)
+- [Memory Management](phase1_intermediate/os-deep-dive/memory-management.md)
+- [Process Management](phase1_intermediate/os-deep-dive/process-management.md)
+- [System Calls](phase1_intermediate/os-deep-dive/system-calls.md)
+### System Design Basics
+- [Readme](phase1_intermediate/system-design-basics/README.md)
+- [Microservices Architecture](phase1_intermediate/system-design-basics/microservices-architecture.md)
+- [Scalability Patterns](phase1_intermediate/system-design-basics/scalability-patterns.md)
+### Web Development
+- [Readme](phase1_intermediate/web-development/README.md)
+- [Backend Development](phase1_intermediate/web-development/backend-development.md)
+- [Frontend Frameworks](phase1_intermediate/web-development/frontend-frameworks.md)
+- [Fullstack Integration](phase1_intermediate/web-development/fullstack-integration.md)
+## Phase2 Advanced
+- [Readme](phase2_advanced/README.md)
+### Advanced Algorithms
+- [Readme](phase2_advanced/advanced-algorithms/README.md)
+- [Computational Geometry](phase2_advanced/advanced-algorithms/computational-geometry.md)
+- [Graph Theory Algorithms](phase2_advanced/advanced-algorithms/graph-theory-algorithms.md)
+- [Number Theory Algorithms](phase2_advanced/advanced-algorithms/number-theory-algorithms.md)
+### Cloud Architecture
+- [Readme](phase2_advanced/cloud-architecture/README.md)
+- [Container Orchestration](phase2_advanced/cloud-architecture/container-orchestration.md)
+- [Kubernetes Orchestration](phase2_advanced/cloud-architecture/kubernetes-orchestration.md)
+- [Serverless Architecture](phase2_advanced/cloud-architecture/serverless-architecture.md)
+### Distributed Systems
+- [Readme](phase2_advanced/distributed-systems/README.md)
+- [Consensus Algorithms](phase2_advanced/distributed-systems/consensus-algorithms.md)
+- [Distributed Storage](phase2_advanced/distributed-systems/distributed-storage.md)
+- [Distributed Tracing](phase2_advanced/distributed-systems/distributed-tracing.md)
+- [Event Sourcing](phase2_advanced/distributed-systems/event-sourcing.md)
+- [Service Mesh](phase2_advanced/distributed-systems/service-mesh.md)
+### Machine Learning
+- [Readme](phase2_advanced/machine-learning/README.md)
+- [Deep Learning](phase2_advanced/machine-learning/deep-learning.md)
+- [Recurrent Neural Networks](phase2_advanced/machine-learning/recurrent-neural-networks.md)
+### Performance Engineering
+- [Readme](phase2_advanced/performance-engineering/README.md)
+- [Load Testing](phase2_advanced/performance-engineering/load-testing.md)
+- [Profiling Optimization](phase2_advanced/performance-engineering/profiling-optimization.md)
+### Security Engineering
+- [Readme](phase2_advanced/security-engineering/README.md)
+- [Cryptography](phase2_advanced/security-engineering/cryptography.md)
+- [Network Security](phase2_advanced/security-engineering/network-security.md)
+## Phase3 Expert
+- [Phase 3 Expert Curriculum](phase3_expert/PHASE_3_EXPERT_CURRICULUM.md)
+- [Readme](phase3_expert/README.md)
+### Advanced Specializations
+- [Readme](phase3_expert/advanced-specializations/README.md)
+- [Advanced Specializations](phase3_expert/advanced-specializations/advanced_specializations.md)
+- [Quantum Computing Specialization](phase3_expert/advanced-specializations/quantum_computing_specialization.md)
+- [Advanced Testing](phase3_expert/advanced_testing.md)
+### Architecture Design
+- [Readme](phase3_expert/architecture-design/README.md)
+- [Advanced Architecture Design](phase3_expert/architecture-design/advanced_architecture_design.md)
+- [Architecture Design](phase3_expert/architecture-design/architecture-design.md)
+- [Enterprise Architecture](phase3_expert/architecture-design/enterprise-architecture.md)
+- [Business Tech Alignment](phase3_expert/business_tech_alignment.md)
+- [Business Value](phase3_expert/business_value.md)
+- [Career Progression](phase3_expert/career_progression.md)
+- [Code Quality](phase3_expert/code_quality.md)
+- [Community Engagement](phase3_expert/community_engagement.md)
+- [Compliance Management](phase3_expert/compliance_management.md)
+- [Cqrs Event Sourcing](phase3_expert/cqrs_event_sourcing.md)
+- [Data Architecture](phase3_expert/data_architecture.md)
+- [Devops Practices](phase3_expert/devops_practices.md)
+- [Emerging Tech](phase3_expert/emerging_tech.md)
+- [Engineering Blogs](phase3_expert/engineering_blogs.md)
+- [Enterprise Patterns](phase3_expert/enterprise_patterns.md)
+- [Enterprise Security](phase3_expert/enterprise_security.md)
+- [Event Driven](phase3_expert/event_driven.md)
+- [Executive Communication](phase3_expert/executive_communication.md)
+- [Financial Management](phase3_expert/financial_management.md)
+### Innovation Research
+- [Readme](phase3_expert/innovation-research/README.md)
+- [Advanced Innovation Research](phase3_expert/innovation-research/advanced_innovation_research.md)
+- [Innovation Research](phase3_expert/innovation-research/innovation-research.md)
+- [Technology Trends](phase3_expert/innovation-research/technology-trends.md)
+- [Innovation Framework](phase3_expert/innovation_framework.md)
+- [Large Scale Design](phase3_expert/large_scale_design.md)
+- [Learning Paths](phase3_expert/learning_paths.md)
+### Mentoring Coaching
+- [Readme](phase3_expert/mentoring-coaching/README.md)
+- [Advanced Mentoring Coaching](phase3_expert/mentoring-coaching/advanced_mentoring_coaching.md)
+- [Leadership Development](phase3_expert/mentoring-coaching/leadership-development.md)
+- [Mentoring Coaching](phase3_expert/mentoring-coaching/mentoring-coaching.md)
+- [Mentoring Framework](phase3_expert/mentoring_framework.md)
+- [Mentoring Opportunities](phase3_expert/mentoring_opportunities.md)
+- [Microservices Patterns](phase3_expert/microservices_patterns.md)
+- [Organizational Influence](phase3_expert/organizational_influence.md)
+- [Performance Optimization](phase3_expert/performance_optimization.md)
+- [Professional Networks](phase3_expert/professional_networks.md)
+- [Research Methods](phase3_expert/research_methods.md)
+- [Research Papers](phase3_expert/research_papers.md)
+- [Security Operations](phase3_expert/security_operations.md)
+- [Skill Development](phase3_expert/skill_development.md)
+- [Strategic Planning](phase3_expert/strategic_planning.md)
+- [System Architecture Patterns](phase3_expert/system_architecture_patterns.md)
+- [Team Building](phase3_expert/team_building.md)
+- [Team Building Toolkit](phase3_expert/team_building_toolkit.md)
+- [Tech Evaluation](phase3_expert/tech_evaluation.md)
+### Technical Leadership
+- [Readme](phase3_expert/technical-leadership/README.md)
+- [Advanced Decision Making](phase3_expert/technical-leadership/advanced-decision-making.md)
+- [Advanced Technical Leadership](phase3_expert/technical-leadership/advanced_technical_leadership.md)
+- [Technical Leadership](phase3_expert/technical-leadership/technical-leadership.md)
+- [Technical Conferences](phase3_expert/technical_conferences.md)
+- [Technical Leadership Playbook](phase3_expert/technical_leadership_playbook.md)
+- [Technical Strategy Framework](phase3_expert/technical_strategy_framework.md)
+## Practice Exercises
+- [Readme](practice_exercises/README.md)
+## Programming
+- [Software Design Patterns](programming/software-design-patterns.md)
+## Real World Projects
+- [Readme](real_world_projects/README.md)
+## Relative
+### Path
+#### To
+- [File](relative/path/to/file.md)
+## Study Tracker
+- [Readme](study_tracker/README.md)
+## Testing Qa
+- [Readme](testing_qa/README.md)
+## Video Notes
+- [Readme](video_notes/README.md)
+### Asli Engineering
+- [Readme](video_notes/asli_engineering/README.md)
+### Gkcs
+- [Readme](video_notes/gkcs/README.md)

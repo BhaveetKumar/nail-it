@@ -1,62 +1,80 @@
 # 02 System Design
 
-System design patterns, architectures, and case studies
-
-## 📚 Table of Contents
-
-### 📁 Directories
-
-- **[Architectures](architectures/README.md)**
-- **[Case Studies](case_studies/README.md)**
-- **[Distributed Systems](distributed_systems/README.md)**
-- **[Patterns](patterns/README.md)**
-- **[Realtime](realtime/README.md)**
-- **[Scalability](scalability/README.md)**
-
-### 📄 Files
-
-- **[Arpit Bhyani System Design Concepts](ARPIT_BHYANI_SYSTEM_DESIGN_CONCEPTS.md)** - 🚀 **Arpit Bhyani System Design Concepts**
-- **[Arpit Harkirt System Design Notes](ARPIT_HARKIRT_SYSTEM_DESIGN_NOTES.md)** - 🚀 **Arpit Harkirt System Design Masterclass Notes**
-- **[Advanced System Design Scenarios](Advanced_System_Design_Scenarios.md)** - 🚀 **Advanced System Design Scenarios**
-- **[Bookmyshow System Design](BOOKMYSHOW_SYSTEM_DESIGN.md)** - 🎬 BookMyShow System Design
-- **[Real World System Design Case Studies](REAL_WORLD_SYSTEM_DESIGN_CASE_STUDIES.md)** - 🌍 **Real-World System Design Case Studies**
-- **[System Design Interview Mastery](SYSTEM_DESIGN_INTERVIEW_MASTERY.md)** - 🎯 **System Design Interview Mastery**
-- **[System Design Interview Preparation](SYSTEM_DESIGN_INTERVIEW_PREPARATION.md)** - 🎯 **System Design Interview Preparation - Complete Guide**
-- **[System Design Patterns Detailed Theory And Examples](SYSTEM_DESIGN_PATTERNS_DETAILED_THEORY_AND_EXAMPLES.md)** - 🏗️ **System Design Patterns - Detailed Theory & Examples**
-- **[System Design Patterns Complete Guide](System_Design_Patterns_Complete_Guide.md)** - 🏗️ System Design Patterns Complete Guide
-
-## 🚀 Quick Start
-
-### Explore Subdirectories
-
-1. **[Architectures](architectures/README.md)** - System architectures and design patterns
-1. **[Case Studies](case_studies/README.md)** - Real-world system design case studies
-1. **[Distributed Systems](distributed_systems/README.md)** - Distributed systems concepts and implementations
-
-### Key Files
-
-1. **[Arpit Bhyani System Design Concepts](ARPIT_BHYANI_SYSTEM_DESIGN_CONCEPTS.md)**
-1. **[Arpit Harkirt System Design Notes](ARPIT_HARKIRT_SYSTEM_DESIGN_NOTES.md)**
-1. **[Advanced System Design Scenarios](Advanced_System_Design_Scenarios.md)**
-
-## 🔗 Navigation
-
-- **← Back to Parent**: [../](../)
-- **🏠 Home**: [../](../)
-- **📋 Master Index**: [../MASTER_INDEX.md](../MASTER_INDEX.md)
-
-## 📖 Study Recommendations
-
-1. **Start with fundamentals** if you're new to the topic
-2. **Practice with examples** to reinforce learning
-3. **Review patterns** and their use cases
-4. **Implement solutions** to solidify understanding
-
-## 🤝 Contributing
-
-Found an issue or want to add content? Please see our [Contributing Guidelines](../CONTRIBUTING.md) for details.
-
----
-
-**Last Updated**: December 2024
-**Directory**: `02_system_design`
+- [Additional System Design Scenarios](ADDITIONAL_SYSTEM_DESIGN_SCENARIOS.md)
+- [Additional System Design Scenarios Part2](ADDITIONAL_SYSTEM_DESIGN_SCENARIOS_PART2.md)
+- [Arpit Bhyani System Design Concepts](ARPIT_BHYANI_SYSTEM_DESIGN_CONCEPTS.md)
+- [Arpit Harkirt System Design Notes](ARPIT_HARKIRT_SYSTEM_DESIGN_NOTES.md)
+- [Advanced System Design Scenarios](Advanced_System_Design_Scenarios.md)
+- [Bookmyshow System Design](BOOKMYSHOW_SYSTEM_DESIGN.md)
+- [Readme](README.md)
+- [Real World System Design Case Studies](REAL_WORLD_SYSTEM_DESIGN_CASE_STUDIES.md)
+- [System Design Interview Mastery](SYSTEM_DESIGN_INTERVIEW_MASTERY.md)
+- [System Design Interview Preparation](SYSTEM_DESIGN_INTERVIEW_PREPARATION.md)
+- [System Design Patterns Detailed Theory And Examples](SYSTEM_DESIGN_PATTERNS_DETAILED_THEORY_AND_EXAMPLES.md)
+- [System Design Patterns Complete Guide](System_Design_Patterns_Complete_Guide.md)
+## Advanced
+- [Advanced System Design Case Studies](advanced/advanced_system_design_case_studies.md)
+- [Advanced System Design Comprehensive](advanced/advanced_system_design_comprehensive.md)
+- [Advanced System Design Scenarios](advanced/advanced_system_design_scenarios.md)
+- [Advanced System Design Patterns Guide](advanced_system_design_patterns_guide.md)
+## Architectures
+- [Asli Engineering Distributed Systems](architectures/ASLI_ENGINEERING_DISTRIBUTED_SYSTEMS.md)
+- [Distributed Consensus Algorithms](architectures/DISTRIBUTED_CONSENSUS_ALGORITHMS.md)
+- [Distributed Systems Detailed Theory And Examples](architectures/DISTRIBUTED_SYSTEMS_DETAILED_THEORY_AND_EXAMPLES.md)
+- [Low Latency Trading Systems Golang](architectures/LOW_LATENCY_TRADING_SYSTEMS_GOLANG.md)
+- [Readme](architectures/README.md)
+- [Real Time Data Processing](architectures/REAL_TIME_DATA_PROCESSING.md)
+- [Real Time Systems Design](architectures/REAL_TIME_SYSTEMS_DESIGN.md)
+## Case Studies
+- [Bookmyshow System Design](case_studies/BOOKMYSHOW_SYSTEM_DESIGN.md)
+- [Readme](case_studies/README.md)
+- [Facebook Technical Architecture](case_studies/facebook_technical_architecture.md)
+- [Google Search Technical Architecture](case_studies/google_search_technical_architecture.md)
+- [Instagram Technical Architecture](case_studies/instagram_technical_architecture.md)
+- [Netflix Technical Architecture](case_studies/netflix_technical_architecture.md)
+- [Whatsapp Technical Architecture](case_studies/whatsapp_technical_architecture.md)
+## Distributed Systems
+- [Distributed Systems Guide](distributed_systems/DISTRIBUTED_SYSTEMS_GUIDE.md)
+- [Readme](distributed_systems/README.md)
+- [Distributed Systems Comprehensive Guide](distributed_systems/distributed_systems_comprehensive_guide.md)
+## Patterns
+- [Readme](patterns/README.md)
+### Advanced Patterns
+- [Advanced System Design Patterns](patterns/advanced_patterns/advanced_system_design_patterns.md)
+- [Event Sourcing Cqrs](patterns/advanced_patterns/event_sourcing_cqrs.md)
+- [Api Gateway](patterns/api_gateway.md)
+- [Api Gateway Service Mesh](patterns/api_gateway_service_mesh.md)
+### Book Based Patterns
+- [Readme](patterns/book_based_patterns/README.md)
+- [Designing Data Intensive Applications](patterns/book_based_patterns/designing_data_intensive_applications.md)
+- [Distributed Systems](patterns/distributed_systems.md)
+### Gaurav Sen Patterns
+- [Readme](patterns/gaurav_sen_patterns/README.md)
+- [System Design Interview Guide](patterns/gaurav_sen_patterns/system_design_interview_guide.md)
+- [Load Balancing](patterns/load_balancing.md)
+- [Microservices Architecture](patterns/microservices_architecture.md)
+### Patterns
+- [Readme](patterns/patterns/README.md)
+- [Bulkhead Pattern](patterns/patterns/bulkhead_pattern.md)
+- [Caching Patterns](patterns/patterns/caching_patterns.md)
+- [Circuit Breaker](patterns/patterns/circuit_breaker.md)
+- [Cqrs Pattern](patterns/patterns/cqrs_pattern.md)
+- [Event Driven Architecture](patterns/patterns/event_driven_architecture.md)
+- [Event Sourcing](patterns/patterns/event_sourcing.md)
+- [Rate Limiting](patterns/patterns/rate_limiting.md)
+- [Saga Pattern](patterns/patterns/saga_pattern.md)
+### Success In Tech Patterns
+- [Readme](patterns/success_in_tech_patterns/README.md)
+- [Database Design Patterns](patterns/success_in_tech_patterns/database_design_patterns.md)
+### Tech Dummies Patterns
+- [Readme](patterns/tech_dummies_patterns/README.md)
+- [Microservices Architecture Patterns](patterns/tech_dummies_patterns/microservices_architecture_patterns.md)
+## Realtime
+- [Readme](realtime/README.md)
+- [Realtime Systems Streaming](realtime/realtime_systems_streaming.md)
+## Scalability
+- [Readme](scalability/README.md)
+- [Scalability Patterns Deep Dive](scalability/SCALABILITY_PATTERNS_DEEP_DIVE.md)
+### Load Balancing
+- [Readme](scalability/load_balancing/README.md)
+- [Load Balancer Patterns](scalability/load_balancing/load_balancer_patterns.md)

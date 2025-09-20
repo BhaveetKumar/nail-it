@@ -1,73 +1,69 @@
 # 08 Interview Prep
 
-Comprehensive interview preparation materials and practice
-
-## 📚 Table of Contents
-
-### 📁 Directories
-
-- **[Checklists](checklists/)**
-- **[Guides](guides/)**
-- **[Mock Interviews](mock_interviews/)**
-- **[Practice](practice/)**
-
-### 📄 Files
-
-
-## 🚀 Quick Start
-
-### Explore Subdirectories
-1. **[Checklists](checklists/)** - Preparation checklists and templates
-1. **[Guides](guides/)** - Interview preparation guides and roadmaps
-1. **[Mock Interviews](mock_interviews/)** - Mock interview scenarios and practice
-
-### Key Files
-
-## 🔗 Navigation
-
-- **← Back to Parent**: [../](../)
-- **🏠 Home**: [../../](../..)
-- **📋 Master Index**: [../../MASTER_INDEX.md](../..MASTER_INDEX.md)
-
-## 🤝 Contributing
-
-Found an issue or want to add content? Please see our [Contributing Guidelines](../CONTRIBUTING.md) for details.
-
----
-
-**Last Updated**: December 2024
-**Directory**: `08_interview_prep`
-
-
----
-
-## AUTO-GENERATED: Starter Content
-
-<!-- AUTO-GENERATED - REVIEW REQUIRED -->
-
-This section seeds the document with a short introduction, learning objectives, and related links to code samples.
-
-**Learning objectives:**
-- Understand the core concepts.
-- See practical code examples.
-
-**Related files:**
-
-Please replace this auto-generated section with curated content.
-
-
----
-
-## AUTO-GENERATED: Starter Content
-
-<!-- AUTO-GENERATED - REVIEW REQUIRED -->
-
-This section seeds the document with a short introduction, learning objectives, and related links to code samples.
-
-**Learning objectives:**
-- Understand the core concepts.
-- See practical code examples.
-
-**Related files:**
-
-Please replace this auto-generated section with curated content.
+- [Readme](README.md)
+## Checklists
+- [Readme](checklists/README.md)
+- [Interview Preparation Checklists](checklists/interview_preparation_checklists.md)
+## Guides
+- [Advanced Backend Engineer Preparation](guides/Advanced_Backend_Engineer_Preparation.md)
+- [Behavioral Questions Complete Guide](guides/Behavioral_Questions_Complete_Guide.md)
+- [Discussion Questions Framework](guides/Discussion_Questions_Framework.md)
+- [Interview Preparation Complete Checklist](guides/Interview_Preparation_Complete_Checklist.md)
+- [Interview Preparation Complete Roadmap](guides/Interview_Preparation_Complete_Roadmap.md)
+- [Quick Reference Flashcards](guides/QUICK_REFERENCE_FLASHCARDS.md)
+- [Razorpay 2 Week Practice Schedule](guides/RAZORPAY_2_WEEK_PRACTICE_SCHEDULE.md)
+- [Razorpay Interview Experiences 2024](guides/RAZORPAY_INTERVIEW_EXPERIENCES_2024.md)
+- [Razorpay Latest Interview Insights 2024](guides/RAZORPAY_LATEST_INTERVIEW_INSIGHTS_2024.md)
+- [Readme](guides/README.md)
+- [System Design Interview Mastery](guides/SYSTEM_DESIGN_INTERVIEW_MASTERY.md)
+- [System Design Interview Preparation](guides/SYSTEM_DESIGN_INTERVIEW_PREPARATION.md)
+- [Interview Preparation Masterclass](interview_preparation_masterclass.md)
+## Mock Interviews
+- [Comprehensive Mock Interviews](mock_interviews/COMPREHENSIVE_MOCK_INTERVIEWS.md)
+- [Razorpay Mock Scenarios](mock_interviews/RAZORPAY_MOCK_SCENARIOS.md)
+- [Readme](mock_interviews/README.md)
+- [Advanced Mock Interview Scenarios](mock_interviews/advanced_mock_interview_scenarios.md)
+- [Advanced Technical Interviews](mock_interviews/advanced_technical_interviews.md)
+- [Mock Interview Scenarios Comprehensive](mock_interviews/mock_interview_scenarios_comprehensive.md)
+- [Razorpay Mock Interview Scenarios](mock_interviews/razorpay_mock_interview_scenarios.md)
+- [Senior Engineer Mock Interviews](mock_interviews/senior_engineer_mock_interviews.md)
+## Practice
+- [Advanced System Design Scenarios](practice/Advanced_System_Design_Scenarios.md)
+- [Readme](practice/README.md)
+- [Real World System Design Case Studies](practice/REAL_WORLD_SYSTEM_DESIGN_CASE_STUDIES.md)
+- [System Design Patterns Complete Guide](practice/System_Design_Patterns_Complete_Guide.md)
+- [Advanced Algorithm Interviews](practice/advanced_algorithm_interviews.md)
+- [Advanced Behavioral Questions](practice/advanced_behavioral_questions.md)
+- [Advanced Behavioral Scenarios](practice/advanced_behavioral_scenarios.md)
+- [Advanced Coding Challenges](practice/advanced_coding_challenges.md)
+- [Advanced Coding Challenges Comprehensive](practice/advanced_coding_challenges_comprehensive.md)
+- [Advanced Coding Challenges Enhanced](practice/advanced_coding_challenges_enhanced.md)
+- [Advanced Coding Interviews](practice/advanced_coding_interviews.md)
+- [Advanced Coding Interviews Comprehensive](practice/advanced_coding_interviews_comprehensive.md)
+- [Advanced Coding Patterns](practice/advanced_coding_patterns.md)
+- [Advanced Coding Problems](practice/advanced_coding_problems.md)
+- [Advanced Concurrency Interviews](practice/advanced_concurrency_interviews.md)
+- [Advanced Data Structure Interviews](practice/advanced_data_structure_interviews.md)
+- [Advanced Database Interviews](practice/advanced_database_interviews.md)
+- [Advanced Leetcode Problems](practice/advanced_leetcode_problems.md)
+- [Advanced Microservices Interviews](practice/advanced_microservices_interviews.md)
+- [Advanced Networking Interviews](practice/advanced_networking_interviews.md)
+- [Advanced Optimization Techniques](practice/advanced_optimization_techniques.md)
+- [Advanced Security Interviews](practice/advanced_security_interviews.md)
+- [Advanced System Design Coding](practice/advanced_system_design_coding.md)
+- [Advanced System Design Interviews](practice/advanced_system_design_interviews.md)
+- [Advanced System Design Patterns](practice/advanced_system_design_patterns.md)
+- [Advanced System Design Problems](practice/advanced_system_design_problems.md)
+- [Advanced Technical Interviews](practice/advanced_technical_interviews.md)
+- [Advanced Testing Comprehensive](practice/advanced_testing_comprehensive.md)
+- [Behavioral Leadership Scenarios](practice/behavioral_leadership_scenarios.md)
+- [Behavioral Scenarios Senior](practice/behavioral_scenarios_senior.md)
+- [Career Development Questions](practice/career_development_questions.md)
+- [Coding Patterns Comprehensive](practice/coding_patterns_comprehensive.md)
+- [Comprehensive Problem Sets](practice/comprehensive_problem_sets.md)
+- [Expert Coding Challenges](practice/expert_coding_challenges.md)
+- [Expert Coding Problems](practice/expert_coding_problems.md)
+- [Interview Practice Questions Comprehensive](practice/interview_practice_questions_comprehensive.md)
+- [Razorpay Specific Problems](practice/razorpay_specific_problems.md)
+- [Research Papers Insights](practice/research_papers_insights.md)
+- [System Design Coding Problems](practice/system_design_coding_problems.md)
