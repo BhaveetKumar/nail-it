@@ -1,46 +1,41 @@
-# Core dependencies
-torch>=2.0.0
-torchvision>=0.15.0
-torchaudio>=2.0.0
-transformers>=4.30.0
-diffusers>=0.20.0
-accelerate>=0.20.0
-
-# Video processing
-opencv-python>=4.8.0
-moviepy>=1.0.3
-imageio>=2.31.0
-imageio-ffmpeg>=0.4.8
-Pillow>=10.0.0
-
-# Audio processing
-TTS>=0.15.0
-librosa>=0.10.0
-soundfile>=0.12.0
-pydub>=0.25.0
-
-# Machine Learning
-numpy>=1.24.0
-scipy>=1.10.0
-scikit-learn>=1.3.0
-face-recognition>=1.3.0
-mediapipe>=0.10.0
-
-# Web interface
+# Core dependencies - simplified for testing
 flask>=2.3.0
 flask-cors>=4.0.0
-jinja2>=3.1.0
-werkzeug>=2.3.0
-
-# Utilities
 pyyaml>=6.0
 requests>=2.31.0
 tqdm>=4.65.0
 click>=8.1.0
 rich>=13.0.0
 
-# Optional GPU acceleration
-# Uncomment if you have CUDA
-# torch-audio>=2.0.0+cu118
-# torch-vision>=0.15.0+cu118
-# torch>=2.0.0+cu118
+# Basic image processing
+Pillow>=10.0.0
+
+# Basic video processing (without heavy dependencies)
+imageio>=2.31.0
+imageio-ffmpeg>=0.4.8
+
+# Audio processing (lightweight)
+pydub>=0.25.0
+
+# Basic ML (optional for testing)
+numpy>=1.24.0
+
+# Note: Heavy dependencies like torch, diffusers, TTS, opencv-python
+# are commented out for initial testing. They can be installed separately
+# when needed for full functionality.
+
+# torch>=2.0.0
+# torchvision>=0.15.0
+# torchaudio>=2.0.0
+# transformers>=4.30.0
+# diffusers>=0.20.0
+# accelerate>=0.20.0
+# opencv-python>=4.8.0
+# moviepy>=1.0.3
+# TTS>=0.15.0
+# librosa>=0.10.0
+# soundfile>=0.12.0
+# scipy>=1.10.0
+# scikit-learn>=1.3.0
+# face-recognition>=1.3.0
+# mediapipe>=0.10.0

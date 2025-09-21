@@ -1,6 +1,6 @@
 """
-Web Interface for AI Video Generator
-Simplified version for testing
+Real AI Video Generator Web Interface
+Uses actual AI models for video generation
 """
 
 from flask import Flask, render_template, request, jsonify, send_file, redirect, url_for
@@ -13,12 +13,10 @@ import tempfile
 import uuid
 from werkzeug.utils import secure_filename
 
-# Import core components
-from core.video_composer import VideoComposer, AdvancedVideoComposer
-from core.tts_engine import TTSEngine
-from core.avatar_generator import AvatarGenerator
-from core.talking_head import TalkingHead
-from core.scene_generator import SceneGenerator
+# Import real AI components
+from core.real_video_composer import RealVideoComposer
+from core.real_tts_engine import RealTTSEngine
+from core.real_avatar_generator import RealAvatarGenerator
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -50,39 +48,32 @@ except FileNotFoundError:
             'tts': {
                 'default_voice': 'female_professional',
                 'voices': {
-                    'female_professional': {'model': 'mock_model', 'speaker': 'default'},
-                    'male_deep': {'model': 'mock_model', 'speaker': 'p225'},
-                    'female_young': {'model': 'mock_model', 'speaker': 'p226'}
+                    'female_professional': {'model': 'microsoft/speecht5_tts', 'speaker': 'default'},
+                    'male_deep': {'model': 'microsoft/speecht5_tts', 'speaker': 'p225'},
+                    'female_young': {'model': 'microsoft/speecht5_tts', 'speaker': 'p226'}
                 }
             },
             'avatar': {
-                'default': 'mock_model',
+                'default': 'runwayml/stable-diffusion-v1-5',
                 'style': 'realistic',
                 'resolution': [512, 512]
             },
-            'talking_head': {
-                'model': 'mock_model',
-                'checkpoint': 'mock_checkpoint'
-            },
             'video': {
-                'model': 'mock_model',
-                'resolution': [1024, 576],
+                'resolution': [1280, 720],
                 'fps': 24
             }
         },
         'web': {
             'host': '0.0.0.0',
-            'port': 5000,
-            'debug': False
+            'port': 8080,
+            'debug': True
         }
     }
 
-# Initialize components
-video_composer = AdvancedVideoComposer(config)
-tts_engine = TTSEngine(config['models']['tts'])
-avatar_generator = AvatarGenerator(config['models']['avatar'])
-talking_head = TalkingHead(config['models']['talking_head'])
-scene_generator = SceneGenerator(config['models']['video'])
+# Initialize real AI components
+video_composer = RealVideoComposer(config)
+tts_engine = RealTTSEngine(config['models']['tts'])
+avatar_generator = RealAvatarGenerator(config['models']['avatar'])
 
 @app.route('/')
 def index():
@@ -91,7 +82,7 @@ def index():
 
 @app.route('/api/generate-video', methods=['POST'])
 def generate_video():
-    """Generate video from text"""
+    """Generate video from text using real AI models"""
     try:
         data = request.get_json()
         text = data.get('text', '')
@@ -103,9 +94,9 @@ def generate_video():
         if not text:
             return jsonify({'error': 'Text is required'}), 400
         
-        logger.info(f"Generating video: '{text[:50]}...' with style '{style}'")
+        logger.info(f"Generating real video: '{text[:50]}...' with style '{style}'")
         
-        # Generate video
+        # Generate video using real AI models
         if effects:
             video_path = video_composer.create_with_effects(text, effects)
         else:
@@ -118,94 +109,35 @@ def generate_video():
         output_filename = f"{uuid.uuid4()}.mp4"
         output_path = os.path.join(app.config['OUTPUT_FOLDER'], output_filename)
         
-        # Copy the mock file to output folder
-        with open(video_path, 'r') as f:
-            content = f.read()
-        with open(output_path, 'w') as f:
-            f.write(content)
+        # Copy the video file to output folder
+        import shutil
+        shutil.copy2(video_path, output_path)
         
         # Clean up original file
-        os.unlink(video_path)
+        if os.path.exists(video_path):
+            os.unlink(video_path)
         
         return jsonify({
             'success': True,
             'video_id': output_filename,
             'status': 'completed',
             'video_url': f'/download/{output_filename}',
-            'message': 'Video generated successfully'
+            'message': 'Real AI video generated successfully'
         })
         
     except Exception as e:
         logger.error(f"Error generating video: {e}")
         return jsonify({'error': str(e)}), 500
 
-@app.route('/api/generate-from-script', methods=['POST'])
-def generate_from_script():
-    """Generate video from uploaded script"""
-    try:
-        if 'file' not in request.files:
-            return jsonify({'error': 'No file uploaded'}), 400
-        
-        file = request.files['file']
-        if file.filename == '':
-            return jsonify({'error': 'No file selected'}), 400
-        
-        if file:
-            filename = secure_filename(file.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(file_path)
-            
-            logger.info(f"Generating video from script: {filename}")
-            
-            # Generate video from script
-            video_path = video_composer.create_from_script(file_path)
-            
-            if not video_path:
-                return jsonify({'error': 'Failed to generate video from script'}), 500
-            
-            # Move to output folder
-            output_filename = f"{uuid.uuid4()}.mp4"
-            output_path = os.path.join(app.config['OUTPUT_FOLDER'], output_filename)
-            
-            # Copy the mock file to output folder
-            with open(video_path, 'r') as f:
-                content = f.read()
-            with open(output_path, 'w') as f:
-                f.write(content)
-            
-            # Clean up files
-            os.unlink(file_path)
-            os.unlink(video_path)
-            
-            return jsonify({
-                'success': True,
-                'video_url': f'/download/{output_filename}',
-                'message': 'Video generated from script successfully'
-            })
-        
-    except Exception as e:
-        logger.error(f"Error generating video from script: {e}")
-        return jsonify({'error': str(e)}), 500
-
-@app.route('/api/voices', methods=['GET'])
-def get_voices():
-    """Get available voices"""
-    try:
-        voices = tts_engine.get_available_voices()
-        return jsonify({'voices': voices})
-    except Exception as e:
-        logger.error(f"Error getting voices: {e}")
-        return jsonify({'error': str(e)}), 500
-
 @app.route('/api/avatar', methods=['POST'])
 def generate_avatar():
-    """Generate avatar image"""
+    """Generate avatar image using real AI models"""
     try:
         data = request.get_json()
         prompt = data.get('prompt', 'professional person')
         style = data.get('style', 'realistic')
         
-        logger.info(f"Generating avatar: '{prompt}' with style '{style}'")
+        logger.info(f"Generating real avatar: '{prompt}' with style '{style}'")
         
         avatar = avatar_generator.generate_avatar(prompt, style)
         if not avatar:
@@ -219,7 +151,7 @@ def generate_avatar():
         return jsonify({
             'success': True,
             'avatar_url': f'/download/{avatar_filename}',
-            'message': 'Avatar generated successfully'
+            'message': 'Real AI avatar generated successfully'
         })
         
     except Exception as e:
@@ -228,7 +160,7 @@ def generate_avatar():
 
 @app.route('/api/preview-audio', methods=['POST'])
 def preview_audio():
-    """Generate audio preview"""
+    """Generate audio preview using real TTS"""
     try:
         data = request.get_json()
         text = data.get('text', '')
@@ -237,9 +169,9 @@ def preview_audio():
         if not text:
             return jsonify({'error': 'Text is required'}), 400
         
-        logger.info(f"Generating audio preview: '{text[:50]}...'")
+        logger.info(f"Generating real audio preview: '{text[:50]}...'")
         
-        # Generate audio
+        # Generate audio using real TTS
         audio_path = tts_engine.generate_speech(text, voice)
         if not audio_path:
             return jsonify({'error': 'Failed to generate audio'}), 500
@@ -248,19 +180,18 @@ def preview_audio():
         audio_filename = f"{uuid.uuid4()}.wav"
         output_path = os.path.join(app.config['OUTPUT_FOLDER'], audio_filename)
         
-        # Copy the mock file to output folder
-        with open(audio_path, 'r') as f:
-            content = f.read()
-        with open(output_path, 'w') as f:
-            f.write(content)
+        # Copy the audio file to output folder
+        import shutil
+        shutil.copy2(audio_path, output_path)
         
         # Clean up original file
-        os.unlink(audio_path)
+        if os.path.exists(audio_path):
+            os.unlink(audio_path)
         
         return jsonify({
             'success': True,
             'audio_url': f'/download/{audio_filename}',
-            'message': 'Audio preview generated successfully'
+            'message': 'Real AI audio preview generated successfully'
         })
         
     except Exception as e:
@@ -283,7 +214,7 @@ def download_file(filename):
 @app.route('/health', methods=['GET'])
 def health_check():
     """Health check endpoint"""
-    return jsonify({'status': 'healthy', 'message': 'AI Video Generator is running'})
+    return jsonify({'status': 'healthy', 'message': 'Real AI Video Generator is running'})
 
 @app.route('/api/status', methods=['GET'])
 def get_status():
@@ -292,13 +223,23 @@ def get_status():
         status = {
             'tts_engine': 'loaded' if tts_engine else 'not loaded',
             'avatar_generator': 'loaded' if avatar_generator else 'not loaded',
-            'talking_head': 'loaded' if talking_head else 'not loaded',
-            'scene_generator': 'loaded' if scene_generator else 'not loaded',
-            'video_composer': 'loaded' if video_composer else 'not loaded'
+            'video_composer': 'loaded' if video_composer else 'not loaded',
+            'ai_models': 'real_ai_models',
+            'device': 'cuda' if tts_engine.device == 'cuda' else 'cpu'
         }
         return jsonify(status)
     except Exception as e:
         logger.error(f"Error getting status: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/voices', methods=['GET'])
+def get_voices():
+    """Get available voices"""
+    try:
+        voices = tts_engine.get_available_voices()
+        return jsonify({'voices': voices})
+    except Exception as e:
+        logger.error(f"Error getting voices: {e}")
         return jsonify({'error': str(e)}), 500
 
 @app.route('/api/templates', methods=['GET'])
@@ -349,34 +290,22 @@ def internal_error(e):
     return jsonify({'error': 'Internal server error'}), 500
 
 if __name__ == '__main__':
-    # Load models on startup
-    logger.info("Loading AI models...")
+    # Load real AI models on startup
+    logger.info("Loading real AI models...")
     
     try:
         tts_engine.load_model('female_professional')
-        logger.info("TTS engine loaded")
+        logger.info("Real TTS engine loaded")
     except Exception as e:
         logger.error(f"Failed to load TTS engine: {e}")
     
     try:
         avatar_generator.load_model()
-        logger.info("Avatar generator loaded")
+        logger.info("Real avatar generator loaded")
     except Exception as e:
         logger.error(f"Failed to load avatar generator: {e}")
     
-    try:
-        talking_head.load_model()
-        logger.info("Talking head loaded")
-    except Exception as e:
-        logger.error(f"Failed to load talking head: {e}")
-    
-    try:
-        scene_generator.load_model()
-        logger.info("Scene generator loaded")
-    except Exception as e:
-        logger.error(f"Failed to load scene generator: {e}")
-    
-    logger.info("Starting AI Video Generator web interface...")
+    logger.info("Starting Real AI Video Generator web interface...")
     app.run(
         host='0.0.0.0',
         port=8080,

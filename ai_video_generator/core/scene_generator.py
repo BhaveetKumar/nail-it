@@ -1,15 +1,11 @@
 """
 Scene Generator for AI Video Generator
-Creates video scenes from text content and scripts
+Simplified version for testing without heavy ML dependencies
 """
 
-import torch
-from diffusers import StableVideoDiffusionPipeline
-from PIL import Image, ImageDraw, ImageFont
-import cv2
-import numpy as np
-from typing import List, Dict, Optional, Tuple
 import logging
+from typing import List, Dict, Optional, Tuple
+from PIL import Image, ImageDraw, ImageFont
 import json
 import re
 from pathlib import Path
@@ -17,36 +13,22 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 class SceneGenerator:
-    """Generate video scenes from text content"""
+    """Simplified scene generator for testing"""
     
-    def __init__(self, config: Dict):
+    def __init__(self, config):
         self.config = config
-        self.device = self._get_device()
+        self.device = 'cpu'  # Simplified for testing
         self.pipeline = None
         self.scene_templates = {}
         
-    def _get_device(self) -> str:
-        """Determine the best device for scene generation"""
-        if torch.cuda.is_available() and self.config.get('device') != 'cpu':
-            return 'cuda'
-        return 'cpu'
-    
     def load_model(self) -> bool:
-        """Load the video generation model"""
+        """Mock model loading for testing"""
         try:
-            model_name = self.config['video']['model']
-            logger.info(f"Loading video generation model: {model_name}")
-            
-            self.pipeline = StableVideoDiffusionPipeline.from_pretrained(
-                model_name,
-                torch_dtype=torch.float16 if self.device == 'cuda' else torch.float32,
-            )
-            
-            self.pipeline = self.pipeline.to(self.device)
-            
-            logger.info("Video generation model loaded successfully")
+            logger.info("Mock loading video generation model")
+            # In a real implementation, this would load Stable Video Diffusion
+            self.pipeline = {'loaded': True}
+            logger.info("Mock video generation model loaded successfully")
             return True
-            
         except Exception as e:
             logger.error(f"Failed to load video generation model: {e}")
             return False
@@ -54,6 +36,8 @@ class SceneGenerator:
     def parse_script(self, script_path: str) -> List[Dict]:
         """Parse a script file into scenes"""
         try:
+            logger.info(f"Mock parsing script: {script_path}")
+            
             with open(script_path, 'r', encoding='utf-8') as f:
                 content = f.read()
             
@@ -132,29 +116,27 @@ class SceneGenerator:
         return scenes
     
     def generate_scene(self, scene_data: Dict) -> Optional[str]:
-        """Generate a single video scene"""
+        """Mock scene generation"""
         try:
+            logger.info(f"Mock generating scene: {scene_data.get('title', 'Unknown')}")
+            
             if self.pipeline is None:
                 if not self.load_model():
                     return None
             
-            # Create initial image from text
+            # Create mock scene image
             initial_image = self._create_scene_image(scene_data)
             
-            # Generate video from image
-            video_frames = self.pipeline(
-                image=initial_image,
-                decode_chunk_size=8,
-                num_frames=25 * scene_data.get('duration', 5),  # 25 FPS
-                motion_bucket_id=127,
-                noise_aug_strength=0.02
-            ).frames[0]
+            # Mock video generation - just create a text file for testing
+            output_path = f"scene_{scene_data.get('title', 'unknown').replace(' ', '_')}.mp4"
+            with open(output_path, 'w') as f:
+                f.write(f"# Mock scene video\n")
+                f.write(f"# Title: {scene_data.get('title', 'Unknown')}\n")
+                f.write(f"# Text: {scene_data.get('text', '')[:100]}...\n")
+                f.write(f"# Duration: {scene_data.get('duration', 5)}s\n")
+                f.write(f"# Style: {scene_data.get('style', 'default')}\n")
             
-            # Save video
-            output_path = f"scene_{scene_data.get('title', 'unknown')}.mp4"
-            self._save_video_frames(video_frames, output_path)
-            
-            logger.info(f"Generated scene: {output_path}")
+            logger.info(f"Mock scene generated: {output_path}")
             return output_path
             
         except Exception as e:
@@ -162,9 +144,9 @@ class SceneGenerator:
             return None
     
     def _create_scene_image(self, scene_data: Dict) -> Image.Image:
-        """Create initial image for scene generation"""
+        """Create mock scene image"""
         # Get scene dimensions
-        width, height = self.config['video']['resolution']
+        width, height = self.config.get('resolution', [1024, 576])
         
         # Create base image
         image = Image.new('RGB', (width, height), color='#f0f0f0')
@@ -197,7 +179,7 @@ class SceneGenerator:
         
         # Add text
         try:
-            font = ImageFont.truetype("arial.ttf", font_size)
+            font = ImageFont.truetype("Arial.ttf", font_size)
         except:
             font = ImageFont.load_default()
         
@@ -244,112 +226,53 @@ class SceneGenerator:
         return '\n'.join(lines)
     
     def _save_video_frames(self, frames: List[Image.Image], output_path: str):
-        """Save video frames as MP4"""
-        if not frames:
-            return
-        
-        # Convert PIL images to OpenCV format
-        cv_frames = []
-        for frame in frames:
-            cv_frame = cv2.cvtColor(np.array(frame), cv2.COLOR_RGB2BGR)
-            cv_frames.append(cv_frame)
-        
-        # Get dimensions
-        height, width = cv_frames[0].shape[:2]
-        
-        # Create video writer
-        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-        out = cv2.VideoWriter(output_path, fourcc, 25.0, (width, height))
-        
-        # Write frames
-        for frame in cv_frames:
-            out.write(frame)
-        
-        out.release()
+        """Mock saving video frames"""
+        logger.info(f"Mock saving {len(frames)} frames to {output_path}")
+        # In a real implementation, this would save actual video frames
+        with open(output_path, 'w') as f:
+            f.write(f"# Mock video with {len(frames)} frames\n")
 
 class AdvancedSceneGenerator(SceneGenerator):
-    """Advanced scene generator with more features"""
+    """Advanced scene generator with mock features"""
     
-    def __init__(self, config: Dict):
+    def __init__(self, config):
         super().__init__(config)
         self.transition_effects = {}
         self.background_generator = None
     
     def load_background_generator(self):
-        """Load background generation model"""
+        """Mock background generator loading"""
         try:
-            from diffusers import StableDiffusionPipeline
-            
-            self.background_generator = StableDiffusionPipeline.from_pretrained(
-                "runwayml/stable-diffusion-v1-5",
-                torch_dtype=torch.float16 if self.device == 'cuda' else torch.float32,
-            ).to(self.device)
-            
-            logger.info("Background generator loaded successfully")
+            logger.info("Mock loading background generator")
+            self.background_generator = {'loaded': True}
+            logger.info("Mock background generator loaded successfully")
             return True
-            
         except Exception as e:
             logger.error(f"Failed to load background generator: {e}")
             return False
     
     def generate_scene_with_background(self, scene_data: Dict) -> Optional[str]:
-        """Generate scene with custom background"""
+        """Mock scene generation with background"""
         try:
-            # Generate background
-            background_prompt = scene_data.get('background_prompt', 'professional office environment')
-            background = self._generate_background(background_prompt)
-            
-            # Create scene with background
-            scene_image = self._create_scene_with_background(scene_data, background)
-            
-            # Generate video
-            if self.pipeline is None:
-                if not self.load_model():
-                    return None
-            
-            video_frames = self.pipeline(
-                image=scene_image,
-                decode_chunk_size=8,
-                num_frames=25 * scene_data.get('duration', 5),
-                motion_bucket_id=127,
-                noise_aug_strength=0.02
-            ).frames[0]
-            
-            # Save video
-            output_path = f"scene_with_bg_{scene_data.get('title', 'unknown')}.mp4"
-            self._save_video_frames(video_frames, output_path)
-            
-            return output_path
-            
+            logger.info("Mock generating scene with background")
+            return self.generate_scene(scene_data)
         except Exception as e:
             logger.error(f"Failed to generate scene with background: {e}")
             return None
     
     def _generate_background(self, prompt: str) -> Image.Image:
-        """Generate background image"""
+        """Mock background generation"""
         try:
-            if self.background_generator is None:
-                if not self.load_background_generator():
-                    return None
-            
-            width, height = self.config['video']['resolution']
-            
-            image = self.background_generator(
-                prompt=prompt,
-                width=width,
-                height=height,
-                num_inference_steps=20,
-                guidance_scale=7.5
-            ).images[0]
-            
+            logger.info(f"Mock generating background: {prompt}")
+            width, height = self.config.get('resolution', [1024, 576])
+            image = Image.new('RGB', (width, height), color='#e0e0e0')
             return image
-            
         except Exception as e:
             logger.error(f"Failed to generate background: {e}")
             return None
     
     def _create_scene_with_background(self, scene_data: Dict, background: Image.Image) -> Image.Image:
-        """Create scene image with background"""
+        """Mock scene creation with background"""
         # Start with background
         scene_image = background.copy()
         draw = ImageDraw.Draw(scene_image)
@@ -375,7 +298,7 @@ class AdvancedSceneGenerator(SceneGenerator):
         
         # Add text with background
         try:
-            font = ImageFont.truetype("arial.ttf", font_size)
+            font = ImageFont.truetype("Arial.ttf", font_size)
         except:
             font = ImageFont.load_default()
         

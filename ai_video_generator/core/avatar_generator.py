@@ -1,89 +1,100 @@
 """
 AI Avatar Generator for AI Video Generator
-Creates realistic avatars using local diffusion models
+Simplified version for testing without heavy ML dependencies
 """
 
-import torch
-from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
-from PIL import Image, ImageDraw, ImageFont
-import numpy as np
-from typing import Optional, Dict, List, Tuple
 import logging
-from pathlib import Path
+from typing import Optional, Dict, List, Tuple
+from PIL import Image, ImageDraw, ImageFont
+import os
 
 logger = logging.getLogger(__name__)
 
 class AvatarGenerator:
-    """AI Avatar generator using Stable Diffusion"""
+    """Simplified AI Avatar generator for testing"""
     
-    def __init__(self, config: Dict):
+    def __init__(self, config):
         self.config = config
-        self.device = self._get_device()
+        self.device = 'cpu'  # Simplified for testing
         self.pipeline = None
         self.avatar_cache = {}
         
-    def _get_device(self) -> str:
-        """Determine the best device for avatar generation"""
-        if torch.cuda.is_available() and self.config.get('device') != 'cpu':
-            return 'cuda'
-        return 'cpu'
-    
     def load_model(self) -> bool:
-        """Load the Stable Diffusion model"""
+        """Mock model loading for testing"""
         try:
-            model_name = self.config['avatar']['default']
-            logger.info(f"Loading avatar model: {model_name}")
-            
-            self.pipeline = StableDiffusionPipeline.from_pretrained(
-                model_name,
-                torch_dtype=torch.float16 if self.device == 'cuda' else torch.float32,
-                safety_checker=None,
-                requires_safety_checker=False
-            )
-            
-            self.pipeline.scheduler = DPMSolverMultistepScheduler.from_config(
-                self.pipeline.scheduler.config
-            )
-            
-            self.pipeline = self.pipeline.to(self.device)
-            self.pipeline.enable_attention_slicing()
-            
-            logger.info("Avatar model loaded successfully")
+            logger.info("Mock loading avatar generation model")
+            # In a real implementation, this would load Stable Diffusion
+            self.pipeline = {'loaded': True}
+            logger.info("Mock avatar model loaded successfully")
             return True
-            
         except Exception as e:
             logger.error(f"Failed to load avatar model: {e}")
             return False
     
     def generate_avatar(self, prompt: str, style: str = "realistic", 
                        seed: Optional[int] = None) -> Optional[Image.Image]:
-        """Generate an avatar image"""
+        """Mock avatar generation for testing"""
         try:
-            if self.pipeline is None:
-                if not self.load_model():
-                    return None
+            logger.info(f"Mock generating avatar: '{prompt}' with style '{style}'")
             
-            # Enhance prompt based on style
-            enhanced_prompt = self._enhance_prompt(prompt, style)
+            # Get target resolution
+            width, height = self.config.get('resolution', [512, 512])
             
-            # Generate image
-            generator = torch.Generator(device=self.device)
-            if seed is not None:
-                generator.manual_seed(seed)
+            # Create a simple mock avatar image
+            image = Image.new('RGB', (width, height), color='#f0f0f0')
+            draw = ImageDraw.Draw(image)
             
-            image = self.pipeline(
-                prompt=enhanced_prompt,
-                negative_prompt="blurry, low quality, distorted, deformed",
-                num_inference_steps=20,
-                guidance_scale=7.5,
-                generator=generator
-            ).images[0]
+            # Draw a simple face
+            face_width = width // 2
+            face_height = height // 2
+            face_x = (width - face_width) // 2
+            face_y = (height - face_height) // 2
             
-            # Resize to target resolution
-            target_size = tuple(self.config['avatar']['resolution'])
-            image = image.resize(target_size, Image.Resampling.LANCZOS)
+            # Face circle
+            draw.ellipse([face_x, face_y, face_x + face_width, face_y + face_height], 
+                        fill='#ffdbac', outline='#000000', width=2)
             
-            logger.info(f"Generated avatar: {prompt}")
+            # Eyes
+            eye_y = face_y + face_height // 3
+            left_eye_x = face_x + face_width // 3
+            right_eye_x = face_x + 2 * face_width // 3
+            eye_size = face_width // 8
+            
+            draw.ellipse([left_eye_x - eye_size, eye_y - eye_size, 
+                         left_eye_x + eye_size, eye_y + eye_size], 
+                        fill='#000000')
+            draw.ellipse([right_eye_x - eye_size, eye_y - eye_size, 
+                         right_eye_x + eye_size, eye_y + eye_size], 
+                        fill='#000000')
+            
+            # Nose
+            nose_x = face_x + face_width // 2
+            nose_y = face_y + face_height // 2
+            draw.ellipse([nose_x - 5, nose_y - 5, nose_x + 5, nose_y + 5], 
+                        fill='#ffb6c1')
+            
+            # Mouth
+            mouth_y = face_y + 2 * face_height // 3
+            mouth_width = face_width // 4
+            draw.arc([nose_x - mouth_width, mouth_y - 10, 
+                     nose_x + mouth_width, mouth_y + 10], 
+                    start=0, end=180, fill='#000000', width=3)
+            
+            # Add text overlay
+            try:
+                font = ImageFont.truetype("Arial.ttf", 20)
+            except:
+                font = ImageFont.load_default()
+            
+            text = f"Mock Avatar\n{prompt[:20]}..."
+            text_bbox = draw.textbbox((0, 0), text, font=font)
+            text_width = text_bbox[2] - text_bbox[0]
+            text_x = (width - text_width) // 2
+            text_y = height - 40
+            
+            draw.text((text_x, text_y), text, font=font, fill='#000000')
+            
+            logger.info(f"Mock avatar generated: {prompt}")
             return image
             
         except Exception as e:
@@ -120,7 +131,7 @@ class AvatarGenerator:
             bg_colors = {
                 "professional": "#f8f9fa",
                 "modern": "#1a1a1a",
-                "gradient": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                "gradient": "#667eea",
                 "white": "#ffffff",
                 "dark": "#2c3e50"
             }
@@ -152,14 +163,14 @@ class AvatarGenerator:
             
             # Try to load a font, fallback to default
             try:
-                font = ImageFont.truetype("arial.ttf", 24)
+                font = ImageFont.truetype("Arial.ttf", 24)
             except:
                 font = ImageFont.load_default()
             
             # Calculate text position
-            bbox = draw.textbbox((0, 0), text, font=font)
-            text_width = bbox[2] - bbox[0]
-            text_height = bbox[3] - bbox[1]
+            text_bbox = draw.textbbox((0, 0), text, font=font)
+            text_width = text_bbox[2] - text_bbox[0]
+            text_height = text_bbox[3] - text_bbox[1]
             
             img_width, img_height = img_with_text.size
             
@@ -187,58 +198,34 @@ class AvatarGenerator:
             return image
 
 class AdvancedAvatarGenerator(AvatarGenerator):
-    """Advanced avatar generator with more features"""
+    """Advanced avatar generator with mock features"""
     
-    def __init__(self, config: Dict):
+    def __init__(self, config):
         super().__init__(config)
         self.face_detector = None
         self.face_landmarks = None
     
     def load_face_models(self):
-        """Load face detection and landmark models"""
+        """Mock face model loading"""
         try:
-            import mediapipe as mp
-            
-            self.face_detector = mp.solutions.face_detection.FaceDetection(
-                model_selection=0, min_detection_confidence=0.5
-            )
-            self.face_landmarks = mp.solutions.face_mesh.FaceMesh(
-                static_image_mode=True,
-                max_num_faces=1,
-                refine_landmarks=True,
-                min_detection_confidence=0.5,
-                min_tracking_confidence=0.5
-            )
-            
-            logger.info("Face models loaded successfully")
+            logger.info("Mock loading face detection models")
+            self.face_detector = {'loaded': True}
+            self.face_landmarks = {'loaded': True}
+            logger.info("Mock face models loaded successfully")
             return True
-            
         except Exception as e:
             logger.error(f"Failed to load face models: {e}")
             return False
     
     def detect_face_landmarks(self, image: Image.Image) -> Optional[Dict]:
-        """Detect face landmarks in the image"""
+        """Mock face landmark detection"""
         try:
-            if self.face_landmarks is None:
-                if not self.load_face_models():
-                    return None
-            
-            # Convert PIL to numpy array
-            img_array = np.array(image)
-            
-            # Process image
-            results = self.face_landmarks.process(img_array)
-            
-            if results.multi_face_landmarks:
-                landmarks = results.multi_face_landmarks[0]
-                return {
-                    'landmarks': landmarks,
-                    'face_count': len(results.multi_face_landmarks)
-                }
-            
-            return None
-            
+            logger.info("Mock detecting face landmarks")
+            # Return mock landmarks
+            return {
+                'landmarks': 'mock_landmarks',
+                'face_count': 1
+            }
         except Exception as e:
             logger.error(f"Failed to detect face landmarks: {e}")
             return None
@@ -247,8 +234,6 @@ class AdvancedAvatarGenerator(AvatarGenerator):
                                  variations: int = 4) -> List[Image.Image]:
         """Generate consistent avatars with slight variations"""
         avatars = []
-        base_seed = 42  # Fixed base seed for consistency
-        
         for i in range(variations):
             # Slight variations in prompt
             variation_prompts = [
@@ -259,7 +244,7 @@ class AdvancedAvatarGenerator(AvatarGenerator):
             ]
             
             prompt = variation_prompts[i % len(variation_prompts)]
-            avatar = self.generate_avatar(prompt, seed=base_seed + i)
+            avatar = self.generate_avatar(prompt)
             
             if avatar:
                 avatars.append(avatar)
