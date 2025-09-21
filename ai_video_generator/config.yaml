@@ -1,0 +1,84 @@
+# AI Video Generator Configuration
+
+# Model settings
+models:
+  tts:
+    default: "tts_models/en/ljspeech/tacotron2-DDC"
+    voices:
+      - name: "female_professional"
+        model: "tts_models/en/ljspeech/tacotron2-DDC"
+        speaker: "default"
+      - name: "male_deep"
+        model: "tts_models/en/vctk/vits"
+        speaker: "p225"
+      - name: "female_young"
+        model: "tts_models/en/vctk/vits"
+        speaker: "p226"
+  
+  avatar:
+    default: "stabilityai/stable-diffusion-xl-base-1.0"
+    style: "realistic"
+    resolution: [512, 512]
+  
+  talking_head:
+    model: "wav2lip"
+    checkpoint: "models/talking_head/wav2lip_gan.pth"
+  
+  video:
+    model: "stabilityai/stable-video-diffusion"
+    resolution: [1024, 576]
+    fps: 24
+
+# Processing settings
+processing:
+  device: "auto"  # auto, cpu, cuda
+  batch_size: 1
+  max_workers: 4
+  memory_limit: "8GB"
+  
+# Output settings
+output:
+  format: "mp4"
+  quality: "high"  # low, medium, high
+  fps: 24
+  resolution: [1920, 1080]
+  bitrate: "5000k"
+  
+# Templates
+templates:
+  professional:
+    background: "#ffffff"
+    text_color: "#333333"
+    font_family: "Arial"
+    font_size: 24
+    layout: "center"
+  
+  modern:
+    background: "#1a1a1a"
+    text_color: "#ffffff"
+    font_family: "Helvetica"
+    font_size: 28
+    layout: "left"
+  
+  creative:
+    background: "gradient"
+    text_color: "#ffffff"
+    font_family: "Georgia"
+    font_size: 26
+    layout: "dynamic"
+
+# Web interface
+web:
+  host: "0.0.0.0"
+  port: 5000
+  debug: false
+  upload_folder: "uploads"
+  output_folder: "outputs"
+  max_file_size: "100MB"
+
+# Logging
+logging:
+  level: "INFO"
+  file: "logs/ai_video_generator.log"
+  max_size: "10MB"
+  backup_count: 5

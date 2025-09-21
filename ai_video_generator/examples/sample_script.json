@@ -1,0 +1,34 @@
+{
+  "title": "AI Video Generator Demo",
+  "description": "A sample script demonstrating the AI Video Generator capabilities",
+  "scenes": [
+    {
+      "title": "Introduction",
+      "text": "Welcome to the AI Video Generator! This powerful tool can create professional videos from text using local AI models.",
+      "duration": 8,
+      "style": "professional",
+      "background_prompt": "modern office environment with clean white background"
+    },
+    {
+      "title": "Features",
+      "text": "Our AI Video Generator offers multiple features including text-to-speech, avatar generation, talking head animation, and scene creation.",
+      "duration": 10,
+      "style": "modern",
+      "background_prompt": "futuristic technology lab with holographic displays"
+    },
+    {
+      "title": "Benefits",
+      "text": "With this tool, you can create engaging videos without expensive equipment or professional video editing skills. Everything runs locally on your machine for complete privacy.",
+      "duration": 12,
+      "style": "creative",
+      "background_prompt": "creative workspace with colorful design elements"
+    },
+    {
+      "title": "Conclusion",
+      "text": "Start creating amazing videos today! The AI Video Generator is your gateway to professional video content creation.",
+      "duration": 8,
+      "style": "professional",
+      "background_prompt": "professional conference room with city view"
+    }
+  ]
+}

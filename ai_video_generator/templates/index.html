@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Video Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .tab.active {
+            border-bottom-color: #667eea;
+            color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .file-upload {
+            border: 2px dashed #e0e0e0;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload:hover {
+            border-color: #667eea;
+            background-color: #f8f9ff;
+        }
+
+        .file-upload.dragover {
+            border-color: #667eea;
+            background-color: #f0f4ff;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-success {
+            background: #28a745;
+        }
+
+        .preview-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .preview-section.show {
+            display: block;
+        }
+
+        .preview-video {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .preview-audio {
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status.show {
+            display: block;
+        }
+
+        .effects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .effect-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .effect-item:hover {
+            border-color: #667eea;
+            background-color: #f8f9ff;
+        }
+
+        .effect-item.selected {
+            border-color: #667eea;
+            background-color: #f0f4ff;
+        }
+
+        .effect-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .voice-preview {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .voice-preview.show {
+            display: block;
+        }
+
+        .download-section {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .download-section.show {
+            display: block;
+        }
+
+        .download-btn {
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 AI Video Generator</h1>
+            <p>Create professional videos from text using local AI models</p>
+        </div>
+
+        <div class="main-content">
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('text')">Text to Video</div>
+                <div class="tab" onclick="switchTab('script')">Script to Video</div>
+                <div class="tab" onclick="switchTab('avatar')">Avatar Generator</div>
+                <div class="tab" onclick="switchTab('settings')">Settings</div>
+            </div>
+
+            <!-- Text to Video Tab -->
+            <div id="text-tab" class="tab-content active">
+                <form id="text-form">
+                    <div class="form-group">
+                        <label for="text-input">Enter your text:</label>
+                        <textarea id="text-input" placeholder="Enter the text you want to convert to video..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="style-select">Video Style:</label>
+                        <select id="style-select">
+                            <option value="professional">Professional</option>
+                            <option value="modern">Modern</option>
+                            <option value="creative">Creative</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="voice-select">Voice:</label>
+                        <select id="voice-select">
+                            <option value="">Default Voice</option>
+                        </select>
+                        <div id="voice-preview" class="voice-preview">
+                            <button type="button" class="btn btn-secondary" onclick="previewVoice()">Preview Voice</button>
+                            <audio id="voice-audio" controls style="display: none; width: 100%; margin-top: 10px;"></audio>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Duration (seconds):</label>
+                        <input type="number" id="duration-input" value="10" min="5" max="60">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Special Effects:</label>
+                        <div class="effects-grid">
+                            <div class="effect-item" onclick="toggleEffect(this)">
+                                <input type="checkbox" id="effect-zoom" value="zoom">
+                                <label for="effect-zoom">Zoom Effect</label>
+                            </div>
+                            <div class="effect-item" onclick="toggleEffect(this)">
+                                <input type="checkbox" id="effect-pan" value="pan">
+                                <label for="effect-pan">Pan Effect</label>
+                            </div>
+                            <div class="effect-item" onclick="toggleEffect(this)">
+                                <input type="checkbox" id="effect-fade" value="fade">
+                                <label for="effect-fade">Fade Transition</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn">Generate Video</button>
+                </form>
+            </div>
+
+            <!-- Script to Video Tab -->
+            <div id="script-tab" class="tab-content">
+                <form id="script-form">
+                    <div class="form-group">
+                        <label>Upload Script File:</label>
+                        <div class="file-upload" onclick="document.getElementById('script-file').click()">
+                            <input type="file" id="script-file" accept=".txt,.md,.json" style="display: none;">
+                            <p>Click to upload or drag and drop your script file</p>
+                            <p><small>Supported formats: .txt, .md, .json</small></p>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn">Generate Video from Script</button>
+                </form>
+            </div>
+
+            <!-- Avatar Generator Tab -->
+            <div id="avatar-tab" class="tab-content">
+                <form id="avatar-form">
+                    <div class="form-group">
+                        <label for="avatar-prompt">Avatar Description:</label>
+                        <input type="text" id="avatar-prompt" placeholder="e.g., professional businesswoman, friendly teacher, etc.">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="avatar-style">Style:</label>
+                        <select id="avatar-style">
+                            <option value="realistic">Realistic</option>
+                            <option value="cartoon">Cartoon</option>
+                            <option value="anime">Anime</option>
+                            <option value="professional">Professional</option>
+                            <option value="casual">Casual</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn">Generate Avatar</button>
+                </form>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="settings-tab" class="tab-content">
+                <div class="form-group">
+                    <label>System Status:</label>
+                    <div id="system-status">
+                        <p>Loading system status...</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Available Templates:</label>
+                    <div id="templates-list">
+                        <p>Loading templates...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading Section -->
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Generating your video... This may take a few minutes.</p>
+            </div>
+
+            <!-- Status Messages -->
+            <div id="status" class="status"></div>
+
+            <!-- Preview Section -->
+            <div id="preview" class="preview-section">
+                <h3>Preview</h3>
+                <video id="preview-video" class="preview-video" controls style="display: none;">
+                    Your browser does not support the video tag.
+                </video>
+                <audio id="preview-audio" class="preview-audio" controls style="display: none;">
+                    Your browser does not support the audio tag.
+                </audio>
+            </div>
+
+            <!-- Download Section -->
+            <div id="download" class="download-section">
+                <h3>Your video is ready!</h3>
+                <a id="download-link" class="download-btn" href="#" download>Download Video</a>
+                <a id="download-audio-link" class="download-btn" href="#" download style="display: none;">Download Audio</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentTab = 'text';
+        let selectedEffects = [];
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            loadVoices();
+            loadSystemStatus();
+            loadTemplates();
+            setupEventListeners();
+        });
+
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+            currentTab = tabName;
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Text form
+            document.getElementById('text-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                generateVideoFromText();
+            });
+
+            // Script form
+            document.getElementById('script-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                generateVideoFromScript();
+            });
+
+            // Avatar form
+            document.getElementById('avatar-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                generateAvatar();
+            });
+
+            // File upload drag and drop
+            const fileUpload = document.querySelector('.file-upload');
+            fileUpload.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('dragover');
+            });
+
+            fileUpload.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                this.classList.remove('dragover');
+            });
+
+            fileUpload.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    document.getElementById('script-file').files = files;
+                }
+            });
+        }
+
+        // Load available voices
+        async function loadVoices() {
+            try {
+                const response = await fetch('/api/voices');
+                const data = await response.json();
+                
+                const voiceSelect = document.getElementById('voice-select');
+                voiceSelect.innerHTML = '<option value="">Default Voice</option>';
+                
+                data.voices.forEach(voice => {
+                    const option = document.createElement('option');
+                    option.value = voice;
+                    option.textContent = voice.replace('_', ' ').toUpperCase();
+                    voiceSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading voices:', error);
+            }
+        }
+
+        // Load system status
+        async function loadSystemStatus() {
+            try {
+                const response = await fetch('/api/status');
+                const data = await response.json();
+                
+                const statusDiv = document.getElementById('system-status');
+                statusDiv.innerHTML = '';
+                
+                Object.entries(data).forEach(([component, status]) => {
+                    const statusElement = document.createElement('p');
+                    statusElement.innerHTML = `<strong>${component}:</strong> <span style="color: ${status === 'loaded' ? 'green' : 'red'}">${status}</span>`;
+                    statusDiv.appendChild(statusElement);
+                });
+            } catch (error) {
+                console.error('Error loading system status:', error);
+            }
+        }
+
+        // Load templates
+        async function loadTemplates() {
+            try {
+                const response = await fetch('/api/templates');
+                const data = await response.json();
+                
+                const templatesDiv = document.getElementById('templates-list');
+                templatesDiv.innerHTML = '';
+                
+                Object.entries(data.templates).forEach(([name, template]) => {
+                    const templateElement = document.createElement('div');
+                    templateElement.innerHTML = `<strong>${name}:</strong> ${template.background} background, ${template.font_family} font`;
+                    templatesDiv.appendChild(templateElement);
+                });
+            } catch (error) {
+                console.error('Error loading templates:', error);
+            }
+        }
+
+        // Toggle effect selection
+        function toggleEffect(element) {
+            element.classList.toggle('selected');
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.checked) {
+                selectedEffects.push(checkbox.value);
+            } else {
+                selectedEffects = selectedEffects.filter(effect => effect !== checkbox.value);
+            }
+        }
+
+        // Preview voice
+        async function previewVoice() {
+            const text = document.getElementById('text-input').value;
+            const voice = document.getElementById('voice-select').value;
+            
+            if (!text) {
+                showStatus('Please enter some text first', 'error');
+                return;
+            }
+            
+            showLoading(true);
+            
+            try {
+                const response = await fetch('/api/preview-audio', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text, voice })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const audio = document.getElementById('voice-audio');
+                    audio.src = data.audio_url;
+                    audio.style.display = 'block';
+                    document.getElementById('voice-preview').classList.add('show');
+                } else {
+                    showStatus(data.error, 'error');
+                }
+            } catch (error) {
+                showStatus('Error generating audio preview', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Generate video from text
+        async function generateVideoFromText() {
+            const text = document.getElementById('text-input').value;
+            const style = document.getElementById('style-select').value;
+            const voice = document.getElementById('voice-select').value;
+            const duration = parseInt(document.getElementById('duration-input').value);
+            
+            if (!text) {
+                showStatus('Please enter some text', 'error');
+                return;
+            }
+            
+            showLoading(true);
+            hideStatus();
+            
+            try {
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        text,
+                        style,
+                        voice,
+                        duration,
+                        effects: selectedEffects
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showStatus('Video generated successfully!', 'success');
+                    showVideoPreview(data.video_url);
+                } else {
+                    showStatus(data.error, 'error');
+                }
+            } catch (error) {
+                showStatus('Error generating video', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Generate video from script
+        async function generateVideoFromScript() {
+            const fileInput = document.getElementById('script-file');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                showStatus('Please select a script file', 'error');
+                return;
+            }
+            
+            showLoading(true);
+            hideStatus();
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            try {
+                const response = await fetch('/api/generate-from-script', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showStatus('Video generated from script successfully!', 'success');
+                    showVideoPreview(data.video_url);
+                } else {
+                    showStatus(data.error, 'error');
+                }
+            } catch (error) {
+                showStatus('Error generating video from script', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Generate avatar
+        async function generateAvatar() {
+            const prompt = document.getElementById('avatar-prompt').value;
+            const style = document.getElementById('avatar-style').value;
+            
+            if (!prompt) {
+                showStatus('Please enter an avatar description', 'error');
+                return;
+            }
+            
+            showLoading(true);
+            hideStatus();
+            
+            try {
+                const response = await fetch('/api/avatar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ prompt, style })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showStatus('Avatar generated successfully!', 'success');
+                    showImagePreview(data.avatar_url);
+                } else {
+                    showStatus(data.error, 'error');
+                }
+            } catch (error) {
+                showStatus('Error generating avatar', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Show video preview
+        function showVideoPreview(videoUrl) {
+            const preview = document.getElementById('preview');
+            const video = document.getElementById('preview-video');
+            const download = document.getElementById('download');
+            const downloadLink = document.getElementById('download-link');
+            
+            video.src = videoUrl;
+            video.style.display = 'block';
+            downloadLink.href = videoUrl;
+            
+            preview.classList.add('show');
+            download.classList.add('show');
+        }
+
+        // Show image preview
+        function showImagePreview(imageUrl) {
+            const preview = document.getElementById('preview');
+            const download = document.getElementById('download');
+            const downloadLink = document.getElementById('download-link');
+            
+            // Create image element
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.style.maxWidth = '100%';
+            img.style.borderRadius = '10px';
+            img.style.margin = '20px 0';
+            
+            // Clear previous content
+            preview.innerHTML = '<h3>Preview</h3>';
+            preview.appendChild(img);
+            
+            downloadLink.href = imageUrl;
+            downloadLink.textContent = 'Download Avatar';
+            
+            preview.classList.add('show');
+            download.classList.add('show');
+        }
+
+        // Show loading state
+        function showLoading(show) {
+            const loading = document.getElementById('loading');
+            if (show) {
+                loading.classList.add('show');
+            } else {
+                loading.classList.remove('show');
+            }
+        }
+
+        // Show status message
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type} show`;
+        }
+
+        // Hide status message
+        function hideStatus() {
+            const status = document.getElementById('status');
+            status.classList.remove('show');
+        }
+    </script>
+</body>
+</html>

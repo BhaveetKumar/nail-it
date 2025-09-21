@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  ai-video-generator:
+    build: .
+    container_name: ai-video-generator
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./models:/app/models
+      - ./outputs:/app/outputs
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+    environment:
+      - PYTHONPATH=/app
+      - TORCH_HOME=/app/models
+      - CUDA_VISIBLE_DEVICES=""
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Add a reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: ai-video-generator-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - ai-video-generator
+    restart: unless-stopped
+
+  # Optional: Add a database for storing video metadata
+  postgres:
+    image: postgres:13-alpine
+    container_name: ai-video-generator-db
+    environment:
+      - POSTGRES_DB=ai_video_generator
+      - POSTGRES_USER=video_user
+      - POSTGRES_PASSWORD=video_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # Optional: Add Redis for caching
+  redis:
+    image: redis:6-alpine
+    container_name: ai-video-generator-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  default:
+    name: ai-video-generator-network
