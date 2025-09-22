@@ -6,13 +6,13 @@ Performance engineering and optimization
 
 ### 📄 Files
 
-- **[Performance Engineering Deep Dive](PERFORMANCE_ENGINEERING_DEEP_DIVE.md)** - 🚀 **Performance Engineering Deep Dive**
+- **[Performance Engineering Comprehensive Guide](PERFORMANCE_ENGINEERING_COMPREHENSIVE_GUIDE.md)** - 🚀 **Performance Engineering Comprehensive Guide**
 - **[Performance Optimization Comprehensive Guide](performance_optimization_comprehensive_guide.md)** - ⚡ **Performance Optimization Comprehensive Guide**
 
 ## 🚀 Quick Start
 
 ### Key Files
-1. **[Performance Engineering Deep Dive](PERFORMANCE_ENGINEERING_DEEP_DIVE.md)**
+1. **[Performance Engineering Comprehensive Guide](PERFORMANCE_ENGINEERING_COMPREHENSIVE_GUIDE.md)**
 1. **[Performance Optimization Comprehensive Guide](performance_optimization_comprehensive_guide.md)**
 
 ## 🔗 Navigation
