@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Strategic Planning
+LastUpdated: 2025-11-06T20:45:58.474738
+Tags: []
+Status: draft
+---
+
 # Advanced Strategic Planning
 
 ## Table of Contents

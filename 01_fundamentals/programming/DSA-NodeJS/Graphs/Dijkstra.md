@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Dijkstra
+LastUpdated: 2025-11-06T20:45:58.795944
+Tags: []
+Status: draft
+---
+
 # Dijkstra's Algorithm
 
 ## Problem Statement

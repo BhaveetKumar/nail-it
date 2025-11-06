@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Heapsort
+LastUpdated: 2025-11-06T20:45:58.732544
+Tags: []
+Status: draft
+---
+
 # Heap Sort
 
 ### Problem

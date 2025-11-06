@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Numberof1Bits
+LastUpdated: 2025-11-06T20:45:58.689712
+Tags: []
+Status: draft
+---
+
 # Number of 1 Bits
 
 ### Problem

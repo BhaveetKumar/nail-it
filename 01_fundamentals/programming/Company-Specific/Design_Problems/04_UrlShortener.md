@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 04 Urlshortener
+LastUpdated: 2025-11-06T20:45:58.772954
+Tags: []
+Status: draft
+---
+
 # 04. URL Shortener - Link Management System
 
 ## Title & Summary

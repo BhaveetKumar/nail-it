@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Minstack
+LastUpdated: 2025-11-06T20:45:58.705014
+Tags: []
+Status: draft
+---
+
 # Min Stack
 
 ### Problem

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Linearregression
+LastUpdated: 2025-11-06T20:45:59.073733
+Tags: []
+Status: draft
+---
+
 # 📈 Linear Regression - JavaScript Implementation
 
 > **Comprehensive guide to Linear Regression with JavaScript/Node.js implementations**

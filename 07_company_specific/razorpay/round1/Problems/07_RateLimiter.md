@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 07 Ratelimiter
+LastUpdated: 2025-11-06T20:45:58.501177
+Tags: []
+Status: draft
+---
+
 # 07. Rate Limiter - API Throttling System
 
 ## Title & Summary

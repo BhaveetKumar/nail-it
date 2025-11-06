@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 06 02 Hash Maps Sets
+LastUpdated: 2025-11-06T20:45:58.124784
+Tags: []
+Status: draft
+---
+
 # 06 02 Hash Maps Sets
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

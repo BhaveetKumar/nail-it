@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Cloud Native Architecture
+LastUpdated: 2025-11-06T20:45:58.669184
+Tags: []
+Status: draft
+---
+
 # Cloud Native Architecture Guide
 
 ## Table of Contents

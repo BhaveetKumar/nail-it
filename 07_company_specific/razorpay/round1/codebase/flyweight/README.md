@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.590747
+Tags: []
+Status: draft
+---
+
 # Flyweight Pattern Implementation
 
 This microservice demonstrates the **Flyweight Pattern** implementation in Go, providing an efficient way to handle large numbers of similar objects by sharing common intrinsic state and storing extrinsic state separately.

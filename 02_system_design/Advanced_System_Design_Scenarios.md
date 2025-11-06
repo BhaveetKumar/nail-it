@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced System Design Scenarios
+LastUpdated: 2025-11-06T20:45:57.697548
+Tags: []
+Status: draft
+---
+
 # Advanced System Design Scenarios
 
 Comprehensive system design scenarios for senior engineering interviews.

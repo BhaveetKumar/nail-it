@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Round1-Coding
+LastUpdated: 2025-11-06T20:45:58.496210
+Tags: []
+Status: draft
+---
+
 # Atlassian Round 1: Coding Interview
 
 ## 📋 Interview Format

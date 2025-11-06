@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Insertionsort
+LastUpdated: 2025-11-06T20:45:58.734406
+Tags: []
+Status: draft
+---
+
 # Insertion Sort
 
 ### Problem

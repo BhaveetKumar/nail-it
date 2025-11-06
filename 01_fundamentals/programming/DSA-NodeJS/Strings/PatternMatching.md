@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Patternmatching
+LastUpdated: 2025-11-06T20:45:58.780224
+Tags: []
+Status: draft
+---
+
 # 🔍 Pattern Matching - String Algorithms
 
 ## Problem Statement

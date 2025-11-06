@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Razorpay Lead Sde Interview Preparation Plan
+LastUpdated: 2025-11-06T20:45:58.489525
+Tags: []
+Status: draft
+---
+
 # Razorpay Lead Software Development Engineer - Interview Preparation Plan
 
 ## 📅 5-Day Study Schedule (Monday Interview)

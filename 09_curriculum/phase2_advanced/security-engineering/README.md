@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.430852
+Tags: []
+Status: draft
+---
+
 # Security Engineering
 
 ## Table of Contents

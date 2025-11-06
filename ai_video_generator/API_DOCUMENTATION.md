@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Api Documentation
+LastUpdated: 2025-11-06T20:45:57.736356
+Tags: []
+Status: draft
+---
+
 # 📚 AI Video Generator - API Documentation
 
 ## Overview

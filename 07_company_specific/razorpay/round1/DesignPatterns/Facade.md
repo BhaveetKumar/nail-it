@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Facade
+LastUpdated: 2025-11-06T20:45:58.519709
+Tags: []
+Status: draft
+---
+
 # Facade Pattern
 
 ## Pattern Name & Intent

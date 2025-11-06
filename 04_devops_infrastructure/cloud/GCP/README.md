@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:59.145727
+Tags: []
+Status: draft
+---
+
 # Gcp
 
 ## 📚 Table of Contents

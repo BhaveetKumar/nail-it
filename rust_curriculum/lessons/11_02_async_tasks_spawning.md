@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 11 02 Async Tasks Spawning
+LastUpdated: 2025-11-06T20:45:58.125672
+Tags: []
+Status: draft
+---
+
 # 11 02 Async Tasks Spawning
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

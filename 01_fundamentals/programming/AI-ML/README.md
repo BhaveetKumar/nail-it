@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:59.018005
+Tags: []
+Status: draft
+---
+
 # 🤖 **AI/ML Complete Learning Path with Node.js**
 
 > **Comprehensive AI/ML knowledge base: from fundamentals to production deployment with Node.js**

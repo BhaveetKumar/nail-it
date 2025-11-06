@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:59.171016
+Tags: []
+Status: draft
+---
+
 # Cloud Architecture
 
 ## 📚 Table of Contents

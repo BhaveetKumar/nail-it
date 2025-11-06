@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Sqrt
+LastUpdated: 2025-11-06T20:45:58.714829
+Tags: []
+Status: draft
+---
+
 # Sqrt(x)
 
 ### Problem

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Quicksort
+LastUpdated: 2025-11-06T20:45:58.735739
+Tags: []
+Status: draft
+---
+
 # Quick Sort
 
 ### Problem

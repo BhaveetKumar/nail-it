@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Event Sourcing
+LastUpdated: 2025-11-06T20:45:57.712166
+Tags: []
+Status: draft
+---
+
 # Event Sourcing Pattern
 
 ## 📘 Theory

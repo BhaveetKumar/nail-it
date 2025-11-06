@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Google Interview 3 Month Plan
+LastUpdated: 2025-11-06T20:45:58.768439
+Tags: []
+Status: draft
+---
+
 # 🚀 Google Interview 3-Month Preparation Plan
 
 > **Complete roadmap to ace Google technical interviews with Node.js**

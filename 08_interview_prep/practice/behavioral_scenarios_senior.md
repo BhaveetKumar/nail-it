@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Behavioral Scenarios Senior
+LastUpdated: 2025-11-06T20:45:58.347233
+Tags: []
+Status: draft
+---
+
 # Senior Behavioral Scenarios
 
 Behavioral interview scenarios for senior engineering roles.

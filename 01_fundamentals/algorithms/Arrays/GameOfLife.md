@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Gameoflife
+LastUpdated: 2025-11-06T20:45:58.727047
+Tags: []
+Status: draft
+---
+
 # Game of Life
 
 ### Problem

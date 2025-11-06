@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 04 01 Structs Basics
+LastUpdated: 2025-11-06T20:45:58.119617
+Tags: []
+Status: draft
+---
+
 # Lesson 4.1: Structs Basics
 
 > **Module**: 4 - Structs, Enums & Pattern Matching  

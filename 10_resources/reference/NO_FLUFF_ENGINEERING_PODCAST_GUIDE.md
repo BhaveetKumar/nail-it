@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: No Fluff Engineering Podcast Guide
+LastUpdated: 2025-11-06T20:45:58.637133
+Tags: []
+Status: draft
+---
+
 # 🎙️ **No-Fluff Engineering Podcast - Complete Guide**
 
 ## 📊 **Comprehensive System Design Insights from No-Fluff Engineering**

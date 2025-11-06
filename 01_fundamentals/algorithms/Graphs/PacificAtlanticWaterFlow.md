@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Pacificatlanticwaterflow
+LastUpdated: 2025-11-06T20:45:58.742141
+Tags: []
+Status: draft
+---
+
 # Pacific Atlantic Water Flow
 
 ### Problem

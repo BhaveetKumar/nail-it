@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.487573
+Tags: []
+Status: draft
+---
+
 # 🎯 **Company-Specific Preparation**
 
 > **Tailored preparation materials for specific companies and roles**

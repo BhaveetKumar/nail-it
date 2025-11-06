@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Templatemethod
+LastUpdated: 2025-11-06T20:45:58.520159
+Tags: []
+Status: draft
+---
+
 # Template Method Pattern
 
 ## Pattern Name & Intent

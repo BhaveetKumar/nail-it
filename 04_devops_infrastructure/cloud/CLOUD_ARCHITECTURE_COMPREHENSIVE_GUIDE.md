@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Cloud Architecture Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:59.143930
+Tags: []
+Status: draft
+---
+
 # ☁️ Cloud Architecture Comprehensive Guide
 
 > **Complete guide to cloud architecture patterns, best practices, and implementation strategies**

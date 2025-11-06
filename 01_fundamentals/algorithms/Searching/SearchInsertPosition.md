@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Searchinsertposition
+LastUpdated: 2025-11-06T20:45:58.706059
+Tags: []
+Status: draft
+---
+
 # Search Insert Position
 
 ### Problem

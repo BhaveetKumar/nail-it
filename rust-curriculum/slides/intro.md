@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Intro
+LastUpdated: 2025-11-06T20:45:58.264582
+Tags: []
+Status: draft
+---
+
 # Slides: Rust Intro
 
 - What is Rust? Memory safety without GC

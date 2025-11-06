@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Observer
+LastUpdated: 2025-11-06T20:45:58.522099
+Tags: []
+Status: draft
+---
+
 # Observer Pattern
 
 ## Pattern Name & Intent

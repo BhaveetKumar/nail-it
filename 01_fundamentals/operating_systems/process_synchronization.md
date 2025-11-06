@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Process Synchronization
+LastUpdated: 2025-11-06T20:45:58.756387
+Tags: []
+Status: draft
+---
+
 # Process Synchronization - Concurrency Control and Mutual Exclusion
 
 ## Overview

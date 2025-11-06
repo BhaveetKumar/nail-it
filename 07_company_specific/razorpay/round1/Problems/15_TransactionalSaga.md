@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 15 Transactionalsaga
+LastUpdated: 2025-11-06T20:45:58.504706
+Tags: []
+Status: draft
+---
+
 # 15. Transactional Saga - Distributed Transaction Management System
 
 ## Title & Summary

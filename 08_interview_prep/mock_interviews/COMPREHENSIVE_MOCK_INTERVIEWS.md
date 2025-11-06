@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Comprehensive Mock Interviews
+LastUpdated: 2025-11-06T20:45:58.368672
+Tags: []
+Status: draft
+---
+
 # 🎯 Comprehensive Mock Interview Scenarios
 
 > **Realistic interview scenarios for Razorpay and top tech companies**

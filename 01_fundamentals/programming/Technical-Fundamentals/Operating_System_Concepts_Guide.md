@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Operating System Concepts Guide
+LastUpdated: 2025-11-06T20:45:59.103032
+Tags: []
+Status: draft
+---
+
 # 🖥️ Operating System Concepts Guide - Node.js Perspective
 
 > **Comprehensive guide to operating system concepts with Node.js examples and implementations**

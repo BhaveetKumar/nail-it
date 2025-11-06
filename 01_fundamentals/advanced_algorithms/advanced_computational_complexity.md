@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Computational Complexity
+LastUpdated: 2025-11-06T20:45:59.115460
+Tags: []
+Status: draft
+---
+
 # Advanced Computational Complexity
 
 Comprehensive guide to computational complexity theory for advanced algorithms.

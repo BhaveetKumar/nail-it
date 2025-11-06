@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Binarysearchtree
+LastUpdated: 2025-11-06T20:45:58.784050
+Tags: []
+Status: draft
+---
+
 # 🌳 Binary Search Tree - Complete Implementation
 
 ## Problem Statement

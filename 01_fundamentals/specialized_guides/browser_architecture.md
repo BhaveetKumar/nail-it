@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Browser Architecture
+LastUpdated: 2025-11-06T20:45:58.676734
+Tags: []
+Status: draft
+---
+
 # How Browsers Work - Complete Technical Architecture
 
 ## 🎯 Overview

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Distributed Systems
+LastUpdated: 2025-11-06T20:45:58.669623
+Tags: []
+Status: draft
+---
+
 # Advanced Distributed Systems
 
 Comprehensive guide to advanced distributed systems for senior backend engineers.

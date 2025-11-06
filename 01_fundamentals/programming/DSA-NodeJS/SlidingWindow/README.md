@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.788100
+Tags: []
+Status: draft
+---
+
 # Sliding Window Problems
 
 The sliding window technique is used to solve problems involving arrays or strings where we need to find a subarray or substring that satisfies certain conditions. It's particularly useful for problems involving:

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Prometheusgrafana
+LastUpdated: 2025-11-06T20:45:59.164370
+Tags: []
+Status: draft
+---
+
 # Prometheus & Grafana
 
 *Placeholder file auto-generated to heal internal links.*

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Chainofresponsibility
+LastUpdated: 2025-11-06T20:45:58.518107
+Tags: []
+Status: draft
+---
+
 # Chain of Responsibility Pattern
 
 ## Pattern Name & Intent

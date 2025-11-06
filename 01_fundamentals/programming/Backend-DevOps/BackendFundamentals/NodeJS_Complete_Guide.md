@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Nodejs Complete Guide
+LastUpdated: 2025-11-06T20:45:58.802697
+Tags: []
+Status: draft
+---
+
 # [Auto-Created Placeholder]
 
 This file was auto-generated because a link pointed here.

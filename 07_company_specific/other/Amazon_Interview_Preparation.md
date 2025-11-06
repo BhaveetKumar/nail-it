@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Amazon Interview Preparation
+LastUpdated: 2025-11-06T20:45:58.486480
+Tags: []
+Status: draft
+---
+
 # 🛒 Amazon Interview Preparation Guide
 
 > **Complete preparation strategy for Amazon software engineering interviews**

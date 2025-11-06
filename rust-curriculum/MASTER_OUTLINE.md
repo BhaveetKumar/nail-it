@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Master Outline
+LastUpdated: 2025-11-06T20:45:58.131518
+Tags: []
+Status: draft
+---
+
 # Rust Curriculum Master Outline
 
 Status: DRAFT

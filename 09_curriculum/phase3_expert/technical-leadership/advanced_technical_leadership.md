@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Technical Leadership
+LastUpdated: 2025-11-06T20:45:58.469411
+Tags: []
+Status: draft
+---
+
 # Advanced Technical Leadership
 
 ## Table of Contents

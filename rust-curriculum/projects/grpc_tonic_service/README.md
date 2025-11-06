@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.262334
+Tags: []
+Status: draft
+---
+
 # gRPC Service with Tonic
 
 - Prereqs: `protoc` installed (CI uses arduino/setup-protoc).

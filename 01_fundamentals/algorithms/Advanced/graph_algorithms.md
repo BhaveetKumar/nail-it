@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Graph Algorithms
+LastUpdated: 2025-11-06T20:45:58.683047
+Tags: []
+Status: draft
+---
+
 # Graph Algorithms - Advanced Graph Processing
 
 ## Overview

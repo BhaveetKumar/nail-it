@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Maximumxoroftwonumbersinarray
+LastUpdated: 2025-11-06T20:45:58.690843
+Tags: []
+Status: draft
+---
+
 # Maximum XOR of Two Numbers in an Array
 
 ### Problem

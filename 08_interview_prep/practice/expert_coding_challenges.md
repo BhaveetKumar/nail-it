@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Expert Coding Challenges
+LastUpdated: 2025-11-06T20:45:58.353264
+Tags: []
+Status: draft
+---
+
 # Expert Coding Challenges
 
 Comprehensive expert-level coding challenges for senior engineering interviews.

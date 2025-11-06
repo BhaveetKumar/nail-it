@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Singleton Pattern
+LastUpdated: 2025-11-06T20:45:58.544356
+Tags: []
+Status: draft
+---
+
 # Singleton Pattern
 
 Comprehensive guide to the Singleton pattern for Razorpay interviews.

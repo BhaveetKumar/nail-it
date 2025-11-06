@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Arpit Bhyani System Design Concepts
+LastUpdated: 2025-11-06T20:45:57.701267
+Tags: []
+Status: draft
+---
+
 # 🚀 **Arpit Bhyani System Design Concepts**
 
 ## 📊 **Based on Arpit Bhyani's "Asli Engineering" Channel & Courses**

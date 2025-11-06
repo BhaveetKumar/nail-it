@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Lemonadechange
+LastUpdated: 2025-11-06T20:45:58.728398
+Tags: []
+Status: draft
+---
+
 # Lemonade Change
 
 ### Problem

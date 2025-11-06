@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Resources Tools
+LastUpdated: 2025-11-06T20:45:58.619391
+Tags: []
+Status: draft
+---
+
 # Advanced Resources & Tools
 
 Comprehensive resources and tools for senior engineering roles.

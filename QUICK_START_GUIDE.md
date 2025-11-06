@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Quick Start Guide
+LastUpdated: 2025-11-06T20:45:57.680855
+Tags: []
+Status: draft
+---
+
 # 🚀 Quick Start Guide - Razorpay Interview Preparation
 
 > **Get started with your interview preparation in 5 minutes!**

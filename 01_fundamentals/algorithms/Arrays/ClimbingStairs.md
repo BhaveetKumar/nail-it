@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Climbingstairs
+LastUpdated: 2025-11-06T20:45:58.726449
+Tags: []
+Status: draft
+---
+
 # Climbing Stairs
 
 ### Problem

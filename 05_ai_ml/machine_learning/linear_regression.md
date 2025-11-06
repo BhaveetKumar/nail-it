@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Linear Regression
+LastUpdated: 2025-11-06T20:45:58.317214
+Tags: []
+Status: draft
+---
+
 # Linear Regression
 
 ## 📘 Theory

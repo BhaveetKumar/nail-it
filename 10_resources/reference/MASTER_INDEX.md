@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Master Index
+LastUpdated: 2025-11-06T20:45:58.633261
+Tags: []
+Status: draft
+---
+
 # 📚 Master Index - Razorpay Interview Preparation (Reorganized Structure)
 
 ## 🎯 Quick Navigation

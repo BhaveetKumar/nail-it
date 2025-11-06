@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Confluence Summary
+LastUpdated: 2025-11-06T20:45:58.131279
+Tags: []
+Status: draft
+---
+
 # Confluence Summary: Rust Curriculum
 
 Status: DRAFT (2025-09-19)

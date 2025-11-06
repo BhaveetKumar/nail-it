@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Razorpay Latest Updates 2024
+LastUpdated: 2025-11-06T20:45:58.500153
+Tags: []
+Status: draft
+---
+
 # 🚀 Razorpay Latest Updates 2024
 
 > **Recent product launches, technical insights, and company developments**

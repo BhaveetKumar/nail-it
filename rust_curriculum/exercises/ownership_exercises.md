@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Ownership Exercises
+LastUpdated: 2025-11-06T20:45:58.112294
+Tags: []
+Status: draft
+---
+
 # Ownership Exercises
 
 > **Module**: 3 - Ownership and Borrowing  

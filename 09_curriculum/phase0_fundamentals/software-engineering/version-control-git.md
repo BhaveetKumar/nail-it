@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Version-Control-Git
+LastUpdated: 2025-11-06T20:45:58.420545
+Tags: []
+Status: draft
+---
+
 # Version Control with Git
 
 ## Table of Contents

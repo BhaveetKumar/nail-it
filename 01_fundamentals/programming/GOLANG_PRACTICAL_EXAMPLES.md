@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Golang Practical Examples
+LastUpdated: 2025-11-06T20:45:58.761521
+Tags: []
+Status: draft
+---
+
 # 🚀 Go Practical Examples with Detailed Explanations
 
 > **Real-world Go code examples with step-by-step explanations for beginners**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Gcp Computeengine
+LastUpdated: 2025-11-06T20:45:59.145423
+Tags: []
+Status: draft
+---
+
 # 🖥️ GCP Compute Engine: Virtual Machines, Instance Groups, and Auto-Scaling
 
 > **Master Google Cloud Compute Engine for scalable virtual machine deployments**

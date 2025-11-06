@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Implementation Plan
+LastUpdated: 2025-11-06T20:45:58.680895
+Tags: []
+Status: draft
+---
+
 # 🚀 DSA-Golang Implementation Plan
 
 > **Comprehensive roadmap for implementing all LeetCode problems with Go solutions**

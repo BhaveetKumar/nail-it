@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Restful-Apis
+LastUpdated: 2025-11-06T20:45:58.440342
+Tags: []
+Status: draft
+---
+
 # RESTful APIs
 
 ## Overview

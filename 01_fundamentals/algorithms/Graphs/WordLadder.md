@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Wordladder
+LastUpdated: 2025-11-06T20:45:58.737849
+Tags: []
+Status: draft
+---
+
 # Word Ladder
 
 ### Problem

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Singleton
+LastUpdated: 2025-11-06T20:45:58.512476
+Tags: []
+Status: draft
+---
+
 # Singleton Pattern
 
 ## Pattern Name & Intent

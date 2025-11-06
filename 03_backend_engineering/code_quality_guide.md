@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Code Quality Guide
+LastUpdated: 2025-11-06T20:45:58.275968
+Tags: []
+Status: draft
+---
+
 # 📋 Code Quality & Review Guide
 
 > **Comprehensive guide to code quality, review practices, and engineering best practices**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 02 02 Control Flow
+LastUpdated: 2025-11-06T20:45:58.123223
+Tags: []
+Status: draft
+---
+
 # 02 02 Control Flow
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

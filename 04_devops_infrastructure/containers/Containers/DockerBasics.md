@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Dockerbasics
+LastUpdated: 2025-11-06T20:45:59.155886
+Tags: []
+Status: draft
+---
+
 # 🐳 Docker Basics: Containerization and Image Management
 
 > **Master Docker for containerization, image management, and application packaging**

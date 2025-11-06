@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.567024
+Tags: []
+Status: draft
+---
+
 # Saga Pattern Implementation
 
 This microservice demonstrates the Saga pattern, which is used to manage distributed transactions across multiple services. The Saga pattern ensures data consistency in distributed systems by breaking down complex transactions into a series of local transactions, each with its own compensation action.

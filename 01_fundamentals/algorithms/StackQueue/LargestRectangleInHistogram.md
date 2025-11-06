@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Largestrectangleinhistogram
+LastUpdated: 2025-11-06T20:45:58.704633
+Tags: []
+Status: draft
+---
+
 # Largest Rectangle in Histogram
 
 ### Problem

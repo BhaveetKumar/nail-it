@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Consensus-Algorithms
+LastUpdated: 2025-11-06T20:45:58.425128
+Tags: []
+Status: draft
+---
+
 # Consensus Algorithms
 
 ## Overview

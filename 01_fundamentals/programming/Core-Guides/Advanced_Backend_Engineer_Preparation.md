@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Backend Engineer Preparation
+LastUpdated: 2025-11-06T20:45:58.764881
+Tags: []
+Status: draft
+---
+
 # 🚀 Advanced Backend Engineer Preparation - Node.js
 
 > **Comprehensive preparation guide for senior backend engineering roles with Node.js expertise**

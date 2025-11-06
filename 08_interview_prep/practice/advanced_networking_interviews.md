@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Networking Interviews
+LastUpdated: 2025-11-06T20:45:58.346827
+Tags: []
+Status: draft
+---
+
 # Advanced Networking Interviews
 
 ## Table of Contents

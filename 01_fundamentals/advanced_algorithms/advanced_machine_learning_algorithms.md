@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Machine Learning Algorithms
+LastUpdated: 2025-11-06T20:45:59.117155
+Tags: []
+Status: draft
+---
+
 # Advanced Machine Learning Algorithms
 
 Comprehensive guide to advanced machine learning algorithms for backend engineers.

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Foursum
+LastUpdated: 2025-11-06T20:45:58.699497
+Tags: []
+Status: draft
+---
+
 # 4Sum
 
 ### Problem

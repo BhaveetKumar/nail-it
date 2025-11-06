@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 03 02 References Borrowing
+LastUpdated: 2025-11-06T20:45:58.113225
+Tags: []
+Status: draft
+---
+
 # 03 02 References Borrowing
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

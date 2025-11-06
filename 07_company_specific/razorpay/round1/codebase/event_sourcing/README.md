@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.552854
+Tags: []
+Status: draft
+---
+
 # Event Sourcing Pattern Implementation
 
 This microservice demonstrates the Event Sourcing design pattern in a real-world fintech application, specifically for managing domain events and aggregate state changes.

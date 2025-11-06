@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Validanagram
+LastUpdated: 2025-11-06T20:45:58.684600
+Tags: []
+Status: draft
+---
+
 # Valid Anagram
 
 ### Problem

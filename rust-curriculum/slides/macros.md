@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Macros
+LastUpdated: 2025-11-06T20:45:58.264457
+Tags: []
+Status: draft
+---
+
 # Macros in Rust (Slides)
 
 - `macro_rules!`

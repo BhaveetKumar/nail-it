@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Performance Engineering
+LastUpdated: 2025-11-06T20:45:58.670752
+Tags: []
+Status: draft
+---
+
 # Performance Engineering
 
 ## Table of Contents

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Razorpay Mock Scenarios
+LastUpdated: 2025-11-06T20:45:58.369276
+Tags: []
+Status: draft
+---
+
 # 🎯 Razorpay Mock Interview Scenarios
 
 > **Realistic interview scenarios for comprehensive practice**

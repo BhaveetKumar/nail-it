@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Maximumproductsubarray
+LastUpdated: 2025-11-06T20:45:58.723232
+Tags: []
+Status: draft
+---
+
 # Maximum Product Subarray
 
 ### Problem

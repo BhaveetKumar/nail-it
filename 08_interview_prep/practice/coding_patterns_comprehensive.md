@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Coding Patterns Comprehensive
+LastUpdated: 2025-11-06T20:45:58.352206
+Tags: []
+Status: draft
+---
+
 # Coding Patterns Comprehensive
 
 Essential coding patterns for technical interviews.

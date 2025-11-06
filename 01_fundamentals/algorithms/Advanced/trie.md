@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Trie
+LastUpdated: 2025-11-06T20:45:58.682098
+Tags: []
+Status: draft
+---
+
 # Trie (Prefix Tree) - String Search Data Structure
 
 ## Overview

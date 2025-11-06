@@ -1,0 +1,44 @@
+project:
+  name: realtime_collab_service
+  goal: "Provide real-time presence, document editing conflict resolution, and event broadcasting"
+  tech_stack:
+    languages: [nodejs, go]
+    protocols: [websocket]
+    storage: [postgres, redis]
+    infra: [docker, kubernetes]
+  features:
+    - presence_tracking
+    - optimistic_edit_conflict_resolution
+    - versioning
+    - broadcast_channels
+    - offline_reconciliation
+  collaboration_model:
+    conflict_strategy: "operational transform"
+    max_concurrent_editors: 50
+    persistence: "periodic snapshot + delta log"
+  data_model:
+    tables:
+      documents: [id, owner_id, title, created_at]
+      document_snapshots: [id, document_id, version, content_blob, created_at]
+      document_deltas: [id, document_id, version, delta_json, created_at]
+      presence: [id, user_id, document_id, status, last_seen]
+  apis:
+    - GET /documents/{id}
+    - POST /documents
+    - WS /documents/{id}/channel
+  performance_targets:
+    latency_ws_event_ms_p99: 120
+    cold_load_time_ms: 500
+  resilience_patterns:
+    - backpressure_queue_ws
+    - rate_limit_user_events
+    - retry_snapshot_persist
+  testing_strategy:
+    unit: 30
+    integration: ["simultaneous edits", "conflict scenarios", "presence timeouts"]
+    load_test:
+      simulated_edit_events_per_sec: 300
+  ai_generation_prompts:
+    - "Generate Node.js WebSocket server handling presence and OT deltas"
+    - "Produce Go service for snapshot persistence and delta compaction"
+    - "Create k6 script simulating 300 edit events per second"

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 10 Ecommerceplatform
+LastUpdated: 2025-11-06T20:45:58.777635
+Tags: []
+Status: draft
+---
+
 # 10. E-Commerce Platform - Online Shopping System
 
 ## Title & Summary

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Countcompletetreenodes
+LastUpdated: 2025-11-06T20:45:58.698788
+Tags: []
+Status: draft
+---
+
 # Count Complete Tree Nodes
 
 ### Problem

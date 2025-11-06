@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Behavioral Questions Complete Guide
+LastUpdated: 2025-11-06T20:45:58.764461
+Tags: []
+Status: draft
+---
+
 # 🎭 Behavioral Questions Complete Guide - Node.js Context
 
 > **Comprehensive guide to behavioral interview questions with Node.js-specific examples and frameworks**

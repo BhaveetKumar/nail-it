@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Poweroftwo
+LastUpdated: 2025-11-06T20:45:58.715598
+Tags: []
+Status: draft
+---
+
 # Power of Two
 
 ### Problem

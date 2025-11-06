@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Longestcommonsubsequence
+LastUpdated: 2025-11-06T20:45:58.746529
+Tags: []
+Status: draft
+---
+
 # Longest Common Subsequence
 
 ### Problem

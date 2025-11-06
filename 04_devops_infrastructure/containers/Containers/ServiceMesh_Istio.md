@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Servicemesh Istio
+LastUpdated: 2025-11-06T20:45:59.154613
+Tags: []
+Status: draft
+---
+
 # 🕸️ Service Mesh - Istio: Microservices Communication and Security
 
 > **Master Istio for microservices communication, security, and observability**

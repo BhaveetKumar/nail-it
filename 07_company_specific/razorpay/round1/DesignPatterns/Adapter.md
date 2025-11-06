@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Adapter
+LastUpdated: 2025-11-06T20:45:58.525011
+Tags: []
+Status: draft
+---
+
 # Adapter Pattern
 
 ## Pattern Name & Intent

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Edge Computing Iot Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:58.759858
+Tags: []
+Status: draft
+---
+
 # 🌐 Edge Computing & IoT Comprehensive Guide
 
 ## Table of Contents

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Faang Interview Patterns
+LastUpdated: 2025-11-06T20:45:58.495210
+Tags: []
+Status: draft
+---
+
 # FAANG Interview Patterns and Strategies
 
 ## Table of Contents

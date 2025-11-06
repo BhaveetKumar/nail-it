@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.577640
+Tags: []
+Status: draft
+---
+
 # Singleton Pattern Implementation
 
 This is a complete microservice implementation demonstrating the Singleton design pattern in Go, with full integration of MongoDB, MySQL, Redis, REST API, WebSockets, and Kafka.

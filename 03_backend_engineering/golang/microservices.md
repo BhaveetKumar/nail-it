@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Microservices
+LastUpdated: 2025-11-06T20:45:58.293120
+Tags: []
+Status: draft
+---
+
 # 🏗️ **Microservices Architecture**
 
 ## 📘 **Theory**

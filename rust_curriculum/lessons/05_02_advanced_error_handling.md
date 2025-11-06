@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 05 02 Advanced Error Handling
+LastUpdated: 2025-11-06T20:45:58.124899
+Tags: []
+Status: draft
+---
+
 # 05 02 Advanced Error Handling
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

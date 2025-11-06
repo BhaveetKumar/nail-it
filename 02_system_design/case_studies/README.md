@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:57.732474
+Tags: []
+Status: draft
+---
+
 # Case Studies
 
 Real-world system design case studies

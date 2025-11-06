@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 04 02 Enums Pattern Matching
+LastUpdated: 2025-11-06T20:45:58.114704
+Tags: []
+Status: draft
+---
+
 # 04 02 Enums Pattern Matching
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

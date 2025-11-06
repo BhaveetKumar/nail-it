@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Io-Systems
+LastUpdated: 2025-11-06T20:45:58.451386
+Tags: []
+Status: draft
+---
+
 # I/O Systems
 
 ## Overview

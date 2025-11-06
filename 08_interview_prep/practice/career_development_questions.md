@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Career Development Questions
+LastUpdated: 2025-11-06T20:45:58.350808
+Tags: []
+Status: draft
+---
+
 # Career Development Questions & Answers
 
 ## Table of Contents

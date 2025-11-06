@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Iterator
+LastUpdated: 2025-11-06T20:45:58.513637
+Tags: []
+Status: draft
+---
+
 # Iterator Pattern
 
 ## Pattern Name & Intent

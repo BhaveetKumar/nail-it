@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Dsa-Questions
+LastUpdated: 2025-11-06T20:45:58.494616
+Tags: []
+Status: draft
+---
+
 # Data Structures and Algorithms Questions
 
 ## 📚 Table of Contents

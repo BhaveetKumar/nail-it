@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.679434
+Tags: []
+Status: draft
+---
+
 # 🚀 DSA-Golang: Complete LeetCode Solutions in Go
 
 > **Master Data Structures and Algorithms with idiomatic Go implementations for ICPC and FAANG interviews**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.496046
+Tags: []
+Status: draft
+---
+
 # Atlassian
 
 Atlassian interview preparation materials

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Custommetrics
+LastUpdated: 2025-11-06T20:45:59.162758
+Tags: []
+Status: draft
+---
+
 # Custom Metrics
 
 *Placeholder file auto-generated to heal internal links.*

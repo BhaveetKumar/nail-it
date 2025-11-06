@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Fibonacci
+LastUpdated: 2025-11-06T20:45:58.796424
+Tags: []
+Status: draft
+---
+
 # Fibonacci Sequence
 
 ## Problem Statement

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Linear-Algebra
+LastUpdated: 2025-11-06T20:45:58.415943
+Tags: []
+Status: draft
+---
+
 # Linear Algebra for Engineers
 
 ## Table of Contents

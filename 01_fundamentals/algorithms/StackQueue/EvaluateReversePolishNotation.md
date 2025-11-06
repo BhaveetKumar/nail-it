@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Evaluatereversepolishnotation
+LastUpdated: 2025-11-06T20:45:58.703656
+Tags: []
+Status: draft
+---
+
 # Evaluate Reverse Polish Notation
 
 ### Problem

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Streaming Media Backend
+LastUpdated: 2025-11-06T20:45:58.671563
+Tags: []
+Status: draft
+---
+
 # Streaming Media Backend Systems
 
 ## Table of Contents

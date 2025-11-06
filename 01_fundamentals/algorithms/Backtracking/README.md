@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.709038
+Tags: []
+Status: draft
+---
+
 # Backtracking Pattern
 
 > **Master backtracking algorithms and recursive problem solving with Go implementations**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Asli Engineering Database Internals
+LastUpdated: 2025-11-06T20:45:58.286572
+Tags: []
+Status: draft
+---
+
 # 🗄️ **Database Internals - Asli Engineering Deep Dive**
 
 ## 📊 **Based on Arpit Bhyani's Database Internals Videos**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Query Optimization
+LastUpdated: 2025-11-06T20:45:58.288009
+Tags: []
+Status: draft
+---
+
 # 🚀 **Database Query Optimization**
 
 ## 📘 **Theory**

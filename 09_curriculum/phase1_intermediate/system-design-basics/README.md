@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.440057
+Tags: []
+Status: draft
+---
+
 # System Design Basics
 
 ## Table of Contents

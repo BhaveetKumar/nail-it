@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Productofarrayexceptself
+LastUpdated: 2025-11-06T20:45:58.793388
+Tags: []
+Status: draft
+---
+
 # 📊 Product of Array Except Self
 
 > **Classic array problem using prefix and suffix products**

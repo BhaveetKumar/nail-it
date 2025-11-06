@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 32 02 Observability Patterns
+LastUpdated: 2025-11-06T20:45:58.127477
+Tags: []
+Status: draft
+---
+
 # 32 02 Observability Patterns
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

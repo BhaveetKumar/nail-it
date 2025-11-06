@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Rate Limiting
+LastUpdated: 2025-11-06T20:45:57.711229
+Tags: []
+Status: draft
+---
+
 # 🚦 **Rate Limiting Patterns**
 
 ## 📘 **Theory**

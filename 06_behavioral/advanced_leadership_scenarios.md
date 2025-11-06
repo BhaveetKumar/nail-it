@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Leadership Scenarios
+LastUpdated: 2025-11-06T20:45:58.646821
+Tags: []
+Status: draft
+---
+
 # Advanced Leadership Scenarios
 
 Comprehensive leadership scenarios for senior engineering roles.

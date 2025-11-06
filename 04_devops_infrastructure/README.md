@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:59.128977
+Tags: []
+Status: draft
+---
+
 # 04 Devops Infrastructure
 
 - [Readme](README.md)

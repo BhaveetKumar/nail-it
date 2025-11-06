@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Validatebinarysearchtree
+LastUpdated: 2025-11-06T20:45:58.698336
+Tags: []
+Status: draft
+---
+
 # Validate Binary Search Tree
 
 ### Problem

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: System-Design-Videos
+LastUpdated: 2025-11-06T20:45:58.494035
+Tags: []
+Status: draft
+---
+
 # System Design Video Notes - Asli Engineering Channel
 
 ## 📚 Playlist Overview

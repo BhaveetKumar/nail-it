@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 03 Cabbooking
+LastUpdated: 2025-11-06T20:45:58.505065
+Tags: []
+Status: draft
+---
+
 # 03. Cab Booking - Ride-Hailing System
 
 ## Title & Summary

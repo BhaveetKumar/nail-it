@@ -1,0 +1,66 @@
+project:
+  name: payment_gateway_service
+  goal: "High-throughput payment processing with idempotency, retry, observability, and ledger consistency"
+  tech_stack:
+    languages: [go, nodejs]
+    storage: [postgres, redis]
+    messaging: [kafka]
+    infra: [docker, kubernetes]
+  domains:
+    - transaction_lifecycle
+    - fraud_precheck
+    - ledger_write_consistency
+    - idempotency_management
+  functional_requirements:
+    process_payment:
+      latency_p99_ms: 250
+      availability_sla: "99.95%"
+    refund_payment:
+      latency_p99_ms: 400
+    idempotency_key_support: true
+  non_functional:
+    reliability:
+      sla: "99.9%"
+      error_budget_month_minutes: 43
+    throughput_target_tps: 500
+    scaling_strategy: "stateless + horizontal autoscale"
+    observability:
+      metrics: ["payment_success_total", "payment_latency_seconds_bucket", "db_write_duration_ms"]
+      tracing: "OpenTelemetry spans per payment"
+  data_model:
+    tables:
+      payments: [id, user_id, amount, currency, status, idempotency_key, created_at]
+      ledger_events: [id, payment_id, type, payload_json, created_at]
+      refunds: [id, payment_id, status, created_at]
+  apis:
+    - POST /payments {idempotency_key}
+    - GET /payments/{id}
+    - POST /payments/{id}/refund
+  workflow_sequence:
+    - validate_request
+    - check_idempotency
+    - fraud_precheck
+    - reserve_funds
+    - write_ledger_event
+    - emit_kafka_event
+    - confirm_response
+  resilience_patterns:
+    - retry_with_exponential_jitter
+    - circuit_breaker_downstream
+    - idempotency_keys
+    - dead_letter_queue
+  testing_strategy:
+    unit: 50
+    integration: ["payment lifecycle", "race conditions", "idempotency replays"]
+    load_test:
+      tool: k6
+      ramp_sequence_tps: [50,100,250,500]
+      metrics: [p50, p95, p99, error_rate]
+  benchmarks_expected_latency_ms:
+    p50: 60
+    p95: 180
+    p99: 250
+  ai_generation_prompts:
+    - "Generate Go handler for POST /payments with idempotency validation and Kafka emission"
+    - "Produce k6 script to load test payment creation scaling to 500 TPS"
+    - "Create SQL schema migrations for payments and ledger_events tables"

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: File-Systems
+LastUpdated: 2025-11-06T20:45:58.450851
+Tags: []
+Status: draft
+---
+
 # File Systems
 
 ## Overview

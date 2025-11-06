@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.535986
+Tags: []
+Status: draft
+---
+
 # Circuit Breaker Pattern Implementation
 
 This microservice demonstrates the Circuit Breaker pattern, which is used to prevent cascading failures in distributed systems. The Circuit Breaker pattern monitors the success/failure rate of operations and opens the circuit when the failure rate exceeds a threshold, preventing further calls to the failing service.

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced String Algorithms
+LastUpdated: 2025-11-06T20:45:59.117864
+Tags: []
+Status: draft
+---
+
 # Advanced String Algorithms
 
 ## Table of Contents

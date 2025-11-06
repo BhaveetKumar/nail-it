@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Flyweight
+LastUpdated: 2025-11-06T20:45:58.529194
+Tags: []
+Status: draft
+---
+
 # Flyweight Pattern
 
 ## Pattern Name & Intent

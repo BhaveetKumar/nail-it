@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Removeduplicatesfromsortedlistii
+LastUpdated: 2025-11-06T20:45:58.748797
+Tags: []
+Status: draft
+---
+
 # Remove Duplicates from Sorted List II
 
 ### Problem

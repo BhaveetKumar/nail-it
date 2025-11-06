@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Enterprise-Architecture
+LastUpdated: 2025-11-06T20:45:58.471091
+Tags: []
+Status: draft
+---
+
 # Enterprise Architecture
 
 ## Overview

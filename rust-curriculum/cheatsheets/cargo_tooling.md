@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Cargo Tooling
+LastUpdated: 2025-11-06T20:45:58.270266
+Tags: []
+Status: draft
+---
+
 # Cargo & Toolchain Quick Reference
 
 - rustup: install toolchains, add components (`rustfmt`, `clippy`)

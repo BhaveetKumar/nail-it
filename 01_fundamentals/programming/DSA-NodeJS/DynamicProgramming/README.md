@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.796711
+Tags: []
+Status: draft
+---
+
 # Dynamic Programming Problems
 
 Dynamic Programming (DP) is a method for solving complex problems by breaking them down into simpler subproblems. It's particularly useful for optimization problems where we need to find the best solution among many possibilities.

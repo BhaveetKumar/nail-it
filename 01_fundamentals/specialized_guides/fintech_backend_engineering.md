@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Fintech Backend Engineering
+LastUpdated: 2025-11-06T20:45:58.671868
+Tags: []
+Status: draft
+---
+
 # Fintech Backend Engineering Specialized Guide
 
 ## Table of Contents

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Datapipelines
+LastUpdated: 2025-11-06T20:45:58.319229
+Tags: []
+Status: draft
+---
+
 # 🔄 Data Pipelines: Building Robust ML Data Infrastructure
 
 > **Complete guide to designing and implementing data pipelines for machine learning**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Observer Pattern
+LastUpdated: 2025-11-06T20:45:58.543791
+Tags: []
+Status: draft
+---
+
 # Observer Pattern
 
 Comprehensive guide to the Observer pattern for Razorpay interviews.

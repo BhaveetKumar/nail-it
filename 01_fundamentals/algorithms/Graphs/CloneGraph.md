@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Clonegraph
+LastUpdated: 2025-11-06T20:45:58.739134
+Tags: []
+Status: draft
+---
+
 # Clone Graph
 
 ### Problem

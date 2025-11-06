@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Kubernetes Operations Guide
+LastUpdated: 2025-11-06T20:45:59.123533
+Tags: []
+Status: draft
+---
+
 # ⚙️ **Advanced Kubernetes Operations Guide**
 
 > Comprehensive guide to advanced Kubernetes patterns, operators, service mesh, and cloud-native infrastructure for senior backend engineers

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Performance Optimization Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:59.167503
+Tags: []
+Status: draft
+---
+
 # ⚡ **Performance Optimization Comprehensive Guide**
 
 > **Learning Path: From Beginner to Expert**

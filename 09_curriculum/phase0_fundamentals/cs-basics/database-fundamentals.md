@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Database-Fundamentals
+LastUpdated: 2025-11-06T20:45:58.418228
+Tags: []
+Status: draft
+---
+
 # Database Fundamentals
 
 ## Table of Contents

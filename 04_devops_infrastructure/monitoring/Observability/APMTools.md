@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Apmtools
+LastUpdated: 2025-11-06T20:45:59.160625
+Tags: []
+Status: draft
+---
+
 # APM Tools
 
 *Placeholder file auto-generated to heal internal links.*

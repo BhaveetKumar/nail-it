@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.779611
+Tags: []
+Status: draft
+---
+
 # 📊 **DSA-NodeJS: Complete Data Structures & Algorithms Guide**
 
 > **Master Data Structures and Algorithms with Node.js for FAANG interviews**

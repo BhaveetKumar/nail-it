@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Confluence Ready Content
+LastUpdated: 2025-11-06T20:45:58.409180
+Tags: []
+Status: draft
+---
+
 # Master Engineer Curriculum - Ready for Confluence
 *Copy and paste this content directly into Confluence Smart Publisher*
 

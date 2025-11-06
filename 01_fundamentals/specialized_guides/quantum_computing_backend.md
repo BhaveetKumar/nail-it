@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Quantum Computing Backend
+LastUpdated: 2025-11-06T20:45:58.668712
+Tags: []
+Status: draft
+---
+
 # Quantum Computing for Backend Engineers
 
 ## Table of Contents

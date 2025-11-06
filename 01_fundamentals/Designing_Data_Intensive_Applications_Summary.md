@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Designing Data Intensive Applications Summary
+LastUpdated: 2025-11-06T20:45:58.654030
+Tags: []
+Status: draft
+---
+
 # 📚 Designing Data-Intensive Applications - Comprehensive Summary
 
 > **Complete guide to Martin Kleppmann's seminal work on building reliable, scalable, and maintainable data systems**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 40 02 Embedded Systems
+LastUpdated: 2025-11-06T20:45:58.125811
+Tags: []
+Status: draft
+---
+
 # 40 02 Embedded Systems
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Longestincreasingsubsequence
+LastUpdated: 2025-11-06T20:45:58.745967
+Tags: []
+Status: draft
+---
+
 # Longest Increasing Subsequence (LIS)
 
 ### Problem

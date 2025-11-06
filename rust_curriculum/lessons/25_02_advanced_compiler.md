@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 25 02 Advanced Compiler
+LastUpdated: 2025-11-06T20:45:58.128854
+Tags: []
+Status: draft
+---
+
 # 25 02 Advanced Compiler
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

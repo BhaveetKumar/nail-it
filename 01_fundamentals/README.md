@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.656938
+Tags: []
+Status: draft
+---
+
 # 01 Fundamentals
 
 - [Advanced Algorithms And Data Structures](ADVANCED_ALGORITHMS_AND_DATA_STRUCTURES.md)

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Nodejs Expertise Complete Guide
+LastUpdated: 2025-11-06T20:45:59.107699
+Tags: []
+Status: draft
+---
+
 # 🚀 Node.js Expertise: From Zero to Production-Ready
 
 > **Complete guide to mastering Node.js for backend engineering roles**

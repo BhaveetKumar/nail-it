@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Factory
+LastUpdated: 2025-11-06T20:45:58.523870
+Tags: []
+Status: draft
+---
+
 # Factory Pattern
 
 ## Pattern Name & Intent

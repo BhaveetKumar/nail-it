@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Installation Guide
+LastUpdated: 2025-11-06T20:45:57.737815
+Tags: []
+Status: draft
+---
+
 # 🚀 AI Video Generator - Installation Guide
 
 ## Prerequisites

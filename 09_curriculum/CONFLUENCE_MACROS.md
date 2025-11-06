@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Confluence Macros
+LastUpdated: 2025-11-06T20:45:58.405508
+Tags: []
+Status: draft
+---
+
 # Confluence Macros for Master Engineer Curriculum
 
 ## Page Structure Macros

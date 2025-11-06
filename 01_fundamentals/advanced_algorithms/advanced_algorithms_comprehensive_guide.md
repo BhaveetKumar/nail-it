@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Algorithms Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:59.117455
+Tags: []
+Status: draft
+---
+
 # 🧮 Advanced Algorithms Comprehensive Guide
 
 ## Table of Contents

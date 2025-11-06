@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 40 03 Compiler Techniques
+LastUpdated: 2025-11-06T20:45:58.124663
+Tags: []
+Status: draft
+---
+
 # 40 03 Compiler Techniques
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

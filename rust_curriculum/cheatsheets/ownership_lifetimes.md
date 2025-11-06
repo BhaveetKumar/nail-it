@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Ownership Lifetimes
+LastUpdated: 2025-11-06T20:45:58.130359
+Tags: []
+Status: draft
+---
+
 # 🦀 Rust Ownership & Lifetimes Cheat Sheet
 
 > **Quick Reference for Rust's Memory Management System**  

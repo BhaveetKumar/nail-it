@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Apm Implementation
+LastUpdated: 2025-11-06T20:45:59.164878
+Tags: []
+Status: draft
+---
+
 # APM (Application Performance Monitoring) Implementation
 
 ## Table of Contents

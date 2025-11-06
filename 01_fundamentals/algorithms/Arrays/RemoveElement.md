@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Removeelement
+LastUpdated: 2025-11-06T20:45:58.725136
+Tags: []
+Status: draft
+---
+
 # Remove Element
 
 ### Problem

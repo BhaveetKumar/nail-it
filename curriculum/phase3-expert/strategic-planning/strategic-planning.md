@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Strategic-Planning
+LastUpdated: 2025-11-06T20:45:58.100758
+Tags: []
+Status: draft
+---
+
 # Strategic Planning
 
 ## Table of Contents

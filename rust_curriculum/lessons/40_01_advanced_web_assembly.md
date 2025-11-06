@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 40 01 Advanced Web Assembly
+LastUpdated: 2025-11-06T20:45:58.123568
+Tags: []
+Status: draft
+---
+
 # Lesson 40.1: Advanced WebAssembly Development
 
 > **Module**: 40 - Advanced WebAssembly Development  

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Cqrs
+LastUpdated: 2025-11-06T20:45:58.527385
+Tags: []
+Status: draft
+---
+
 # CQRS (Command Query Responsibility Segregation) Pattern
 
 ## Pattern Name & Intent

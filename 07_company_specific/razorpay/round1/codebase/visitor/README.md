@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.576586
+Tags: []
+Status: draft
+---
+
 # Visitor Pattern Implementation
 
 This microservice demonstrates the Visitor design pattern in a real-world fintech application, specifically for document processing, data validation, and analytics operations.

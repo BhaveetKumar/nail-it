@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Razorpay Quick Reference
+LastUpdated: 2025-11-06T20:45:58.499622
+Tags: []
+Status: draft
+---
+
 # ⚡ Razorpay Interview Quick Reference
 
 > **Essential concepts and patterns for Round 2 and Round 3 interviews**

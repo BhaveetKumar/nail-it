@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Dsa Questions Answers Guide
+LastUpdated: 2025-11-06T20:45:59.106381
+Tags: []
+Status: draft
+---
+
 # 🧮 DSA Questions and Answers Guide - Node.js
 
 > **Comprehensive Data Structures and Algorithms guide with Node.js implementations**

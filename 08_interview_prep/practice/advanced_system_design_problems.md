@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced System Design Problems
+LastUpdated: 2025-11-06T20:45:58.355663
+Tags: []
+Status: draft
+---
+
 # Advanced System Design Problems
 
 ## Table of Contents

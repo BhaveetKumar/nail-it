@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Real Time Systems Design
+LastUpdated: 2025-11-06T20:45:57.719808
+Tags: []
+Status: draft
+---
+
 # ⚡ **Real-Time Systems Design - Complete Guide**
 
 ## 📊 **Comprehensive Guide to Building Low-Latency Real-Time Systems**

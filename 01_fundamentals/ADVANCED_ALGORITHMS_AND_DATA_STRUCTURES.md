@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Algorithms And Data Structures
+LastUpdated: 2025-11-06T20:45:58.653662
+Tags: []
+Status: draft
+---
+
 # 🧮 **Advanced Algorithms and Data Structures**
 
 ## 📊 **Complete Guide to Advanced CS Concepts**

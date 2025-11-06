@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Copylistwithrandompointer
+LastUpdated: 2025-11-06T20:45:58.749931
+Tags: []
+Status: draft
+---
+
 # Copy List with Random Pointer
 
 ### Problem

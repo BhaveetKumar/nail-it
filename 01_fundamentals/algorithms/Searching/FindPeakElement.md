@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Findpeakelement
+LastUpdated: 2025-11-06T20:45:58.705658
+Tags: []
+Status: draft
+---
+
 # Find Peak Element
 
 ### Problem

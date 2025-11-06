@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Transformers
+LastUpdated: 2025-11-06T20:45:58.321601
+Tags: []
+Status: draft
+---
+
 # 🤖 **Transformers Architecture**
 
 ## 📘 **Theory**

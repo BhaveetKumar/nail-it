@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:59.130602
+Tags: []
+Status: draft
+---
+
 # Ci Cd
 
 Continuous integration and deployment

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Kubernetes Config Secrets
+LastUpdated: 2025-11-06T20:45:58.806945
+Tags: []
+Status: draft
+---
+
 # [Auto-Created Placeholder]
 
 This file was auto-generated because a link pointed here.

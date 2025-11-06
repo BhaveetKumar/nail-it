@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 12 01 Macros Basics
+LastUpdated: 2025-11-06T20:45:58.117526
+Tags: []
+Status: draft
+---
+
 # Lesson 12.1: Macros Basics
 
 > **Module**: 12 - Macros  

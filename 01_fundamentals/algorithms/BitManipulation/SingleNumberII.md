@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Singlenumberii
+LastUpdated: 2025-11-06T20:45:58.692701
+Tags: []
+Status: draft
+---
+
 # Single Number II
 
 ### Problem

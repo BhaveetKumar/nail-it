@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: String-Algorithms
+LastUpdated: 2025-11-06T20:45:58.432918
+Tags: []
+Status: draft
+---
+
 # String Algorithms
 
 ## Overview

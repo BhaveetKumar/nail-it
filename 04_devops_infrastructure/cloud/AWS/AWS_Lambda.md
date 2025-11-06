@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Aws Lambda
+LastUpdated: 2025-11-06T20:45:59.150337
+Tags: []
+Status: draft
+---
+
 # ⚡ AWS Lambda: Serverless Functions and Event-Driven Architecture
 
 > **Master AWS Lambda for serverless computing and event-driven applications**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 02 01 Data Types
+LastUpdated: 2025-11-06T20:45:58.123054
+Tags: []
+Status: draft
+---
+
 # Lesson 2.1: Data Types
 
 > **Module**: 2 - Basic Syntax and Data Types  

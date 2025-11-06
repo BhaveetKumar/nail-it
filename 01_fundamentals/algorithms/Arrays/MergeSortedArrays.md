@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Mergesortedarrays
+LastUpdated: 2025-11-06T20:45:58.720564
+Tags: []
+Status: draft
+---
+
 # Merge Sorted Array
 
 ### Problem

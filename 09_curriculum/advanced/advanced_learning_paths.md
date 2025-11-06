@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Learning Paths
+LastUpdated: 2025-11-06T20:45:58.411305
+Tags: []
+Status: draft
+---
+
 # Advanced Learning Paths
 
 Comprehensive learning paths for senior engineering roles.

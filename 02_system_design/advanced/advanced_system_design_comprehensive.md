@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced System Design Comprehensive
+LastUpdated: 2025-11-06T20:45:57.703228
+Tags: []
+Status: draft
+---
+
 # Advanced System Design Comprehensive
 
 Comprehensive system design patterns and architectures for senior engineering interviews.

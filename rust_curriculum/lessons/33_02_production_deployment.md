@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 33 02 Production Deployment
+LastUpdated: 2025-11-06T20:45:58.114816
+Tags: []
+Status: draft
+---
+
 # 33 02 Production Deployment
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

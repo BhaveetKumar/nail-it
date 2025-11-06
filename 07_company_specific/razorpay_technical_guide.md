@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Razorpay Technical Guide
+LastUpdated: 2025-11-06T20:45:58.478828
+Tags: []
+Status: draft
+---
+
 # 💳 **Razorpay Technical Deep Dive & Interview Guide**
 
 *Complete preparation guide for backend engineering roles at Razorpay - covering fintech systems, payment gateways, compliance, and scalability challenges*

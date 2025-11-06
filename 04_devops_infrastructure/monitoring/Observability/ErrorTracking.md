@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Errortracking
+LastUpdated: 2025-11-06T20:45:59.161074
+Tags: []
+Status: draft
+---
+
 # Error Tracking
 
 *Placeholder file auto-generated to heal internal links.*

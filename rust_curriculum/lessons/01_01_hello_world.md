@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 01 01 Hello World
+LastUpdated: 2025-11-06T20:45:58.127717
+Tags: []
+Status: draft
+---
+
 # Lesson 1.1: Hello, World! - Your First Rust Program
 
 > **Module**: 1 - Introduction to Rust  

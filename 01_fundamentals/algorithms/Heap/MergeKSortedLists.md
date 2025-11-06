@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Mergeksortedlists
+LastUpdated: 2025-11-06T20:45:58.716314
+Tags: []
+Status: draft
+---
+
 # Merge k Sorted Lists
 
 ### Problem

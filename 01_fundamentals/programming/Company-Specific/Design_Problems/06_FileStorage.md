@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 06 Filestorage
+LastUpdated: 2025-11-06T20:45:58.773841
+Tags: []
+Status: draft
+---
+
 # 06. File Storage - Distributed File Management System
 
 ## Title & Summary

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: System Design Interview Mastery
+LastUpdated: 2025-11-06T20:45:58.334108
+Tags: []
+Status: draft
+---
+
 # 🎯 **System Design Interview Mastery**
 
 ## 📊 **Complete Guide to System Design Interviews**

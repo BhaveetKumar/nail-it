@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.551920
+Tags: []
+Status: draft
+---
+
 # Bridge Pattern Implementation
 
 This microservice demonstrates the **Bridge Pattern** implementation in Go, providing a flexible architecture for handling multiple payment gateways and notification channels.

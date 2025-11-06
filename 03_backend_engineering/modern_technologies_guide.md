@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Modern Technologies Guide
+LastUpdated: 2025-11-06T20:45:58.280824
+Tags: []
+Status: draft
+---
+
 # 🚀 Modern Technologies Guide
 
 > **Essential modern backend technologies: GraphQL, gRPC, Event Streaming, and more**

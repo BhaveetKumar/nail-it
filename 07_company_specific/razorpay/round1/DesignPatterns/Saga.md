@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Saga
+LastUpdated: 2025-11-06T20:45:58.518587
+Tags: []
+Status: draft
+---
+
 # Saga Pattern
 
 ## Pattern Name & Intent

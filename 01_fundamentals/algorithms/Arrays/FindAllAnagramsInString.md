@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Findallanagramsinstring
+LastUpdated: 2025-11-06T20:45:58.726202
+Tags: []
+Status: draft
+---
+
 # Find All Anagrams in a String
 
 ### Problem

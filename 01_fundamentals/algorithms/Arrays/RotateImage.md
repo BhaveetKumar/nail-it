@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Rotateimage
+LastUpdated: 2025-11-06T20:45:58.724525
+Tags: []
+Status: draft
+---
+
 # Rotate Image
 
 ### Problem

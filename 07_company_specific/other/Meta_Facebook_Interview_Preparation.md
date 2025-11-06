@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Meta Facebook Interview Preparation
+LastUpdated: 2025-11-06T20:45:58.484583
+Tags: []
+Status: draft
+---
+
 # 📘 Meta (Facebook) Interview Preparation Guide
 
 > **Complete preparation strategy for Meta (Facebook) software engineering interviews**

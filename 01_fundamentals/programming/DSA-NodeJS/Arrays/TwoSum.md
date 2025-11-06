@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Twosum
+LastUpdated: 2025-11-06T20:45:58.789730
+Tags: []
+Status: draft
+---
+
 # 🔢 Two Sum - Array Problem
 
 > **Find two numbers in an array that add up to a target value**

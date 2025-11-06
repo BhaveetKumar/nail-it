@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Generateparentheses
+LastUpdated: 2025-11-06T20:45:58.785555
+Tags: []
+Status: draft
+---
+
 # Generate Parentheses
 
 ## Problem Statement

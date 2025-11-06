@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Specialized Guides
+LastUpdated: 2025-11-06T20:45:58.676101
+Tags: []
+Status: draft
+---
+
 # Advanced Specialized Guides
 
 Comprehensive specialized guides for advanced engineering roles.

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Code-Quality
+LastUpdated: 2025-11-06T20:45:58.420278
+Tags: []
+Status: draft
+---
+
 # Code Quality
 
 ## Overview

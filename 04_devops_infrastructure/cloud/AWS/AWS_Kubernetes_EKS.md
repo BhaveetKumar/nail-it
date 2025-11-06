@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Aws Kubernetes Eks
+LastUpdated: 2025-11-06T20:45:59.149304
+Tags: []
+Status: draft
+---
+
 # ☸️ AWS EKS: Elastic Kubernetes Service
 
 > **Master AWS EKS for managed Kubernetes clusters in the cloud**

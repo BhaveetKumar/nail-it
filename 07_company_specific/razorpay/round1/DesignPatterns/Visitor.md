@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Visitor
+LastUpdated: 2025-11-06T20:45:58.514942
+Tags: []
+Status: draft
+---
+
 # Visitor Pattern
 
 ## Pattern Name & Intent

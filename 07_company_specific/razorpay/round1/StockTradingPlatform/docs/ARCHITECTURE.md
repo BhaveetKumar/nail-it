@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Architecture
+LastUpdated: 2025-11-06T20:45:58.605573
+Tags: []
+Status: draft
+---
+
 # Stock Trading Platform Architecture
 
 ## System Overview

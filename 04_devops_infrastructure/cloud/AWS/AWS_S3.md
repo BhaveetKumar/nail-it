@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Aws S3
+LastUpdated: 2025-11-06T20:45:59.149633
+Tags: []
+Status: draft
+---
+
 # 🗄️ AWS S3: Object Storage, Versioning, and Lifecycle Policies
 
 > **Master Amazon S3 for scalable object storage and data management**

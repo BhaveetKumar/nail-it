@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Red Black Tree
+LastUpdated: 2025-11-06T20:45:58.683304
+Tags: []
+Status: draft
+---
+
 # Red-Black Tree - Self-Balancing Binary Search Tree
 
 ## Overview

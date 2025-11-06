@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Designing Data Intensive Applications
+LastUpdated: 2025-11-06T20:45:57.717262
+Tags: []
+Status: draft
+---
+
 # Designing Data-Intensive Applications - Martin Kleppmann Patterns
 
 ## Table of Contents

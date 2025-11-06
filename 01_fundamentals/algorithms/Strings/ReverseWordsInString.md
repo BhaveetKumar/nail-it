@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Reversewordsinstring
+LastUpdated: 2025-11-06T20:45:58.689402
+Tags: []
+Status: draft
+---
+
 # Reverse Words in a String
 
 ### Problem

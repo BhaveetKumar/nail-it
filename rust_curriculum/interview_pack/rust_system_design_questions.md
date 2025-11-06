@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Rust System Design Questions
+LastUpdated: 2025-11-06T20:45:58.110571
+Tags: []
+Status: draft
+---
+
 # Rust System Design Interview Questions
 
 > **Level**: Expert  

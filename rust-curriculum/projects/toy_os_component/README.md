@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.263300
+Tags: []
+Status: draft
+---
+
 # Toy OS Component (Skeleton)
 
 Build a tiny kernel module-like component in Rust (userspace mock) documenting safety and invariants. Reference: writing a Rust OS component and safety notes.

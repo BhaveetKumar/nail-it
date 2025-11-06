@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Microservices Architecture Deep Dive
+LastUpdated: 2025-11-06T20:45:58.283208
+Tags: []
+Status: draft
+---
+
 # 🏗️ **Microservices Architecture Deep Dive**
 
 ## 📊 **Complete Guide to Building Scalable Microservices**

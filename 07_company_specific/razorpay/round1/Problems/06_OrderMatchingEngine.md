@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 06 Ordermatchingengine
+LastUpdated: 2025-11-06T20:45:58.502096
+Tags: []
+Status: draft
+---
+
 # 06. Order Matching Engine - Trading System Core
 
 ## Title & Summary

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Invertbinarytree
+LastUpdated: 2025-11-06T20:45:58.698042
+Tags: []
+Status: draft
+---
+
 # Invert Binary Tree
 
 ### Problem

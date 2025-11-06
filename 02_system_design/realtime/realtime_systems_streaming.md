@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Realtime Systems Streaming
+LastUpdated: 2025-11-06T20:45:57.728184
+Tags: []
+Status: draft
+---
+
 # ⚡ Real-time Systems & Streaming
 
 ## Table of Contents

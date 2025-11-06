@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Operating System Concepts Guide
+LastUpdated: 2025-11-06T20:45:58.655516
+Tags: []
+Status: draft
+---
+
 # 🖥️ Operating System Concepts - Complete Guide
 
 > **Comprehensive guide to OS concepts with Go code examples and real-world implementations**

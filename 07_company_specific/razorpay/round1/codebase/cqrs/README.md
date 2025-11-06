@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.530144
+Tags: []
+Status: draft
+---
+
 # CQRS (Command Query Responsibility Segregation) Pattern Implementation
 
 This microservice demonstrates the CQRS (Command Query Responsibility Segregation) pattern, which separates the read and write operations of a data store. This pattern is particularly useful in complex systems where read and write operations have different performance requirements, scalability needs, or data consistency requirements.

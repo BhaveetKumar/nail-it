@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Graphvalidtree
+LastUpdated: 2025-11-06T20:45:58.736995
+Tags: []
+Status: draft
+---
+
 # Graph Valid Tree
 
 ### Problem

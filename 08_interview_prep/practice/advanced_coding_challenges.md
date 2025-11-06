@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Coding Challenges
+LastUpdated: 2025-11-06T20:45:58.337643
+Tags: []
+Status: draft
+---
+
 # Advanced Coding Challenges for Backend Engineers
 
 ## Table of Contents

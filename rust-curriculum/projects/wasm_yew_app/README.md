@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.262894
+Tags: []
+Status: draft
+---
+
 # WASM App with Yew (Skeleton)
 
 Prereqs: `wasm-pack` installed.

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Concurrency Patterns
+LastUpdated: 2025-11-06T20:45:58.757742
+Tags: []
+Status: draft
+---
+
 # ⚡ Concurrency and Parallelism in Go
 
 ## Table of Contents

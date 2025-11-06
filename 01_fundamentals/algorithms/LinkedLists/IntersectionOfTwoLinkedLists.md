@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Intersectionoftwolinkedlists
+LastUpdated: 2025-11-06T20:45:58.753012
+Tags: []
+Status: draft
+---
+
 # Intersection of Two Linked Lists
 
 ### Problem

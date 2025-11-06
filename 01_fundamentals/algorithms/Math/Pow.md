@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Pow
+LastUpdated: 2025-11-06T20:45:58.715328
+Tags: []
+Status: draft
+---
+
 # Pow(x, n)
 
 ### Problem

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Gcp Kubernetes Gke
+LastUpdated: 2025-11-06T20:45:59.148448
+Tags: []
+Status: draft
+---
+
 # ☸️ GCP GKE: Google Kubernetes Engine
 
 > **Master GCP GKE for managed Kubernetes clusters in the cloud**

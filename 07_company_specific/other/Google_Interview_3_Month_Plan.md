@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Google Interview 3 Month Plan
+LastUpdated: 2025-11-06T20:45:58.488073
+Tags: []
+Status: draft
+---
+
 # 🚀 Google Interview 3-Month Preparation Plan
 
 > **Comprehensive roadmap to clear Google Software Engineer interviews in 2-3 months**

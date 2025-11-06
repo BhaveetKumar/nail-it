@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.406122
+Tags: []
+Status: draft
+---
+
 # 09 Curriculum
 
 - [Assessment Certification Guide](ASSESSMENT_CERTIFICATION_GUIDE.md)

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Technology-Strategy
+LastUpdated: 2025-11-06T20:45:58.475630
+Tags: []
+Status: draft
+---
+
 # Technology Strategy
 
 ## Overview

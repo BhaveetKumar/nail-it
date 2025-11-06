@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 01 02 Variables Mutability
+LastUpdated: 2025-11-06T20:45:58.123846
+Tags: []
+Status: draft
+---
+
 # Lesson 1.2: Variables and Mutability
 
 > **Module**: 1 - Introduction to Rust  

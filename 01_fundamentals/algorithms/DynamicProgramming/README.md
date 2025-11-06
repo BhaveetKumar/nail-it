@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.746362
+Tags: []
+Status: draft
+---
+
 # Dynamic Programming Pattern
 
 > **Master dynamic programming techniques with Go implementations**

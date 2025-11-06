@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.600508
+Tags: []
+Status: draft
+---
+
 # Mediator Pattern Microservice
 
 A complete microservice implementation demonstrating the Mediator design pattern with MongoDB, MySQL, REST API, WebSockets, and Kafka integration.

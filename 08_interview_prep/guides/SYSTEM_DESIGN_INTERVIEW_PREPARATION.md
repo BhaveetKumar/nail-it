@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: System Design Interview Preparation
+LastUpdated: 2025-11-06T20:45:58.336796
+Tags: []
+Status: draft
+---
+
 # 🎯 **System Design Interview Preparation - Complete Guide**
 
 ## 📊 **Comprehensive Guide to Ace System Design Interviews**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Leadership Scenarios
+LastUpdated: 2025-11-06T20:45:58.645229
+Tags: []
+Status: draft
+---
+
 # 👥 **Leadership Scenarios**
 
 ## 📘 **Theory**

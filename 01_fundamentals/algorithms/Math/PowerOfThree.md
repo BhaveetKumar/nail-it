@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Powerofthree
+LastUpdated: 2025-11-06T20:45:58.715739
+Tags: []
+Status: draft
+---
+
 # Power of Three
 
 ### Problem

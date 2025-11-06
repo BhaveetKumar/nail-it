@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: File Location Mapping
+LastUpdated: 2025-11-06T20:45:57.686106
+Tags: []
+Status: draft
+---
+
 # 📍 **File Location Mapping - All Files Restored**
 
 ## ✅ **All Files Are Safe and Organized**

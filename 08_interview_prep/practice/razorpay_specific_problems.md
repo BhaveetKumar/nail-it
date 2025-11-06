@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Razorpay Specific Problems
+LastUpdated: 2025-11-06T20:45:58.343891
+Tags: []
+Status: draft
+---
+
 # Razorpay-Specific Interview Problems
 
 ## Table of Contents

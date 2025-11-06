@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Production Rust Guide
+LastUpdated: 2025-11-06T20:45:58.130045
+Tags: []
+Status: draft
+---
+
 # Production Rust Quick Reference Guide
 
 > **Level**: Expert  

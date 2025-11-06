@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 11 01 Async Await Basics
+LastUpdated: 2025-11-06T20:45:58.115567
+Tags: []
+Status: draft
+---
+
 # Lesson 11.1: Async/Await Basics
 
 > **Module**: 11 - Async Programming  

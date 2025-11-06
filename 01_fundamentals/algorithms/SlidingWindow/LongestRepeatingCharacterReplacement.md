@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Longestrepeatingcharacterreplacement
+LastUpdated: 2025-11-06T20:45:58.711068
+Tags: []
+Status: draft
+---
+
 # Longest Repeating Character Replacement
 
 ### Problem

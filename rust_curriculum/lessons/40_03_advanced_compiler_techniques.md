@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 40 03 Advanced Compiler Techniques
+LastUpdated: 2025-11-06T20:45:58.120397
+Tags: []
+Status: draft
+---
+
 # Lesson 40.3: Advanced Compiler Techniques
 
 > **Module**: 40 - Advanced Compiler Techniques  

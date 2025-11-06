@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Blockchain Decentralized Systems
+LastUpdated: 2025-11-06T20:45:58.673845
+Tags: []
+Status: draft
+---
+
 # Blockchain and Decentralized Systems Guide
 
 ## Table of Contents

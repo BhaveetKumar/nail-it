@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Compiler Design Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:59.120290
+Tags: []
+Status: draft
+---
+
 # 🔧 Compiler Design & Language Implementation
 
 ## Table of Contents

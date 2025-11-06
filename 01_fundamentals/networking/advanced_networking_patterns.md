@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Networking Patterns
+LastUpdated: 2025-11-06T20:45:58.666744
+Tags: []
+Status: draft
+---
+
 # Advanced Networking Patterns
 
 Advanced networking patterns and practices for distributed systems.

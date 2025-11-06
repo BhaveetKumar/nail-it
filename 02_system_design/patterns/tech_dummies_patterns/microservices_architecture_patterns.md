@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Microservices Architecture Patterns
+LastUpdated: 2025-11-06T20:45:57.716075
+Tags: []
+Status: draft
+---
+
 # Microservices Architecture Patterns - Tech Dummies Methodology
 
 ## Table of Contents

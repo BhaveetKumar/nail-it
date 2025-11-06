@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Google Interview Advanced Topics
+LastUpdated: 2025-11-06T20:45:58.486890
+Tags: []
+Status: draft
+---
+
 # 🚀 Google Interview Advanced Topics - Complete Guide
 
 > **Master the advanced concepts that Google interviews emphasize - Distributed Systems, Advanced Algorithms, and System Design Patterns**

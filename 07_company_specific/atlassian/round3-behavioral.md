@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Round3-Behavioral
+LastUpdated: 2025-11-06T20:45:58.495841
+Tags: []
+Status: draft
+---
+
 # Atlassian Round 3: Behavioral Interview
 
 ## 📋 Interview Format

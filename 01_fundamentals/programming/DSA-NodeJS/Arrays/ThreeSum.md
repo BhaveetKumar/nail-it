@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Threesum
+LastUpdated: 2025-11-06T20:45:58.792814
+Tags: []
+Status: draft
+---
+
 # 🔢 Three Sum
 
 > **Classic array problem using two pointers technique**

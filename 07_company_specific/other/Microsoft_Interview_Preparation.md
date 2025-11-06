@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Microsoft Interview Preparation
+LastUpdated: 2025-11-06T20:45:58.485992
+Tags: []
+Status: draft
+---
+
 # 🪟 Microsoft Interview Preparation Guide
 
 > **Complete preparation strategy for Microsoft software engineering interviews**

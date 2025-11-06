@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Metaaipractices
+LastUpdated: 2025-11-06T20:45:58.313980
+Tags: []
+Status: draft
+---
+
 # [Auto-Created Placeholder]
 
 This file was auto-generated because a link pointed here.

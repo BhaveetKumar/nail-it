@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 18 01 Embedded Rust Basics
+LastUpdated: 2025-11-06T20:45:58.118283
+Tags: []
+Status: draft
+---
+
 # Lesson 18.1: Embedded Rust Basics
 
 > **Module**: 18 - Embedded Programming  

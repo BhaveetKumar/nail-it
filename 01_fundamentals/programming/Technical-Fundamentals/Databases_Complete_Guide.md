@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Databases Complete Guide
+LastUpdated: 2025-11-06T20:45:59.098589
+Tags: []
+Status: draft
+---
+
 # 🗄️ Databases Complete Guide - Node.js Perspective
 
 > **Comprehensive guide to database systems with Node.js implementations and best practices**

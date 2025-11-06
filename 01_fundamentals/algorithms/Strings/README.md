@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.686929
+Tags: []
+Status: draft
+---
+
 # Strings Pattern
 
 > **Master string manipulation and pattern matching with Go implementations**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Reversebits
+LastUpdated: 2025-11-06T20:45:58.689836
+Tags: []
+Status: draft
+---
+
 # Reverse Bits
 
 ### Problem

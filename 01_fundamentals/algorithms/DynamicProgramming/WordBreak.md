@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Wordbreak
+LastUpdated: 2025-11-06T20:45:58.748044
+Tags: []
+Status: draft
+---
+
 # Word Break
 
 ### Problem

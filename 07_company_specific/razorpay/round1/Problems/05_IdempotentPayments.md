@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 05 Idempotentpayments
+LastUpdated: 2025-11-06T20:45:58.510805
+Tags: []
+Status: draft
+---
+
 # 05. Idempotent Payments - Reliable Payment Processing
 
 ## Title & Summary

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Fenwick Tree
+LastUpdated: 2025-11-06T20:45:58.683624
+Tags: []
+Status: draft
+---
+
 # Fenwick Tree (Binary Indexed Tree) - Efficient Range Queries
 
 ## Overview

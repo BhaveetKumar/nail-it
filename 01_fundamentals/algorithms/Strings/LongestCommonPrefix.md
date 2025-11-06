@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Longestcommonprefix
+LastUpdated: 2025-11-06T20:45:58.688478
+Tags: []
+Status: draft
+---
+
 # Longest Common Prefix
 
 ### Problem

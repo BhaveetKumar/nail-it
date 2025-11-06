@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Traceanalysis
+LastUpdated: 2025-11-06T20:45:59.158768
+Tags: []
+Status: draft
+---
+
 # Trace Analysis
 
 *Placeholder file auto-generated to heal internal links.*

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Findfirstandlastposition
+LastUpdated: 2025-11-06T20:45:58.724401
+Tags: []
+Status: draft
+---
+
 # Find First and Last Position of Element in Sorted Array
 
 ### Problem

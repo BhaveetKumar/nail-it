@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:59.091329
+Tags: []
+Status: draft
+---
+
 # Foundations
 
 ## 📚 Table of Contents

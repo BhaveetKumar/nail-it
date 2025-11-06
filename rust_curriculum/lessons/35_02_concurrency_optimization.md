@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 35 02 Concurrency Optimization
+LastUpdated: 2025-11-06T20:45:58.115741
+Tags: []
+Status: draft
+---
+
 # 35 02 Concurrency Optimization
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

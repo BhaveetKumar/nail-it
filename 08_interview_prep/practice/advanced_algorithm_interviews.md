@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Algorithm Interviews
+LastUpdated: 2025-11-06T20:45:58.345709
+Tags: []
+Status: draft
+---
+
 # Advanced Algorithm Interviews
 
 ## Table of Contents

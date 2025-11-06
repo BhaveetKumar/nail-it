@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Razorpay Machine Coding Problems
+LastUpdated: 2025-11-06T20:45:58.771484
+Tags: []
+Status: draft
+---
+
 # 💻 Razorpay Machine Coding Problems
 
 > **Comprehensive machine coding problems with detailed implementations and discussions**

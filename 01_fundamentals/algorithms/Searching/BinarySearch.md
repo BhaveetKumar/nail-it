@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Binarysearch
+LastUpdated: 2025-11-06T20:45:58.706431
+Tags: []
+Status: draft
+---
+
 # Binary Search
 
 ### Problem

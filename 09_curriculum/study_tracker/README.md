@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.412669
+Tags: []
+Status: draft
+---
+
 # Study Tracker & Progress Monitoring
 
 ## Table of Contents

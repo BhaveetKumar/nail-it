@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Minimumpathsum
+LastUpdated: 2025-11-06T20:45:58.719908
+Tags: []
+Status: draft
+---
+
 # Minimum Path Sum
 
 ### Problem

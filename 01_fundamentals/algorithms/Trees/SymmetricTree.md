@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Symmetrictree
+LastUpdated: 2025-11-06T20:45:58.693716
+Tags: []
+Status: draft
+---
+
 # Symmetric Tree
 
 ### Problem

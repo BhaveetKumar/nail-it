@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Quantum Computing Specialization
+LastUpdated: 2025-11-06T20:45:58.467899
+Tags: []
+Status: draft
+---
+
 # Quantum Computing Specialization
 
 Advanced quantum computing concepts for backend engineers.

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Gitlabci
+LastUpdated: 2025-11-06T20:45:59.131705
+Tags: []
+Status: draft
+---
+
 # 🦊 GitLab CI: Integrated CI/CD and Container Registry
 
 > **Master GitLab CI for integrated CI/CD pipelines and container management**

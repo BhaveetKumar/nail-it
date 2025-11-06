@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Substringwithconcatenationofallwords
+LastUpdated: 2025-11-06T20:45:58.713156
+Tags: []
+Status: draft
+---
+
 # Substring with Concatenation of All Words
 
 ### Problem

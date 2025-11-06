@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Dockercompose
+LastUpdated: 2025-11-06T20:45:59.155590
+Tags: []
+Status: draft
+---
+
 # 🐳 Docker Compose: Multi-Container Applications and Orchestration
 
 > **Master Docker Compose for multi-container applications and local development**

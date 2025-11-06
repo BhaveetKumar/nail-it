@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.573023
+Tags: []
+Status: draft
+---
+
 # Chain of Responsibility Pattern Implementation
 
 This microservice demonstrates the **Chain of Responsibility Pattern** implementation in Go, providing a way to pass requests along a chain of handlers, where each handler decides either to process the request or pass it to the next handler in the chain.

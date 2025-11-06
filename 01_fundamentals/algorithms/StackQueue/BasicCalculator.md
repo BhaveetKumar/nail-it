@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Basiccalculator
+LastUpdated: 2025-11-06T20:45:58.702420
+Tags: []
+Status: draft
+---
+
 # Basic Calculator
 
 ### Problem

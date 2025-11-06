@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Behavioral Interviews Comprehensive
+LastUpdated: 2025-11-06T20:45:58.647648
+Tags: []
+Status: draft
+---
+
 # Behavioral Interviews Comprehensive
 
 Comprehensive behavioral interview preparation with STAR method and examples.

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:57.736833
+Tags: []
+Status: draft
+---
+
 # 🎬 Local AI Video Generator
 
 A comprehensive local AI video generation tool that combines multiple approaches for creating videos from text content, similar to Synthesia, D-ID, Lumen5, and Pictory.

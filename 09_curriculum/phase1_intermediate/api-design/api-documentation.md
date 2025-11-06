@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Api-Documentation
+LastUpdated: 2025-11-06T20:45:58.440624
+Tags: []
+Status: draft
+---
+
 # API Documentation
 
 ## Overview

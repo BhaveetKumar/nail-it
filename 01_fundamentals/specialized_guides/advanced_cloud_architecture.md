@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Cloud Architecture
+LastUpdated: 2025-11-06T20:45:58.678676
+Tags: []
+Status: draft
+---
+
 # Advanced Cloud Architecture
 
 ## Table of Contents

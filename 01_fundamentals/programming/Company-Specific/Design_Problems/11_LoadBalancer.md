@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 11 Loadbalancer
+LastUpdated: 2025-11-06T20:45:58.773243
+Tags: []
+Status: draft
+---
+
 # 11. Load Balancer - Traffic Distribution System
 
 ## Title & Summary

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Comprehensive Problem Sets
+LastUpdated: 2025-11-06T20:45:58.342293
+Tags: []
+Status: draft
+---
+
 # Comprehensive Problem Sets for Backend Engineers
 
 ## Table of Contents

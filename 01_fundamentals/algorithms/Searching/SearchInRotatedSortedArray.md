@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Searchinrotatedsortedarray
+LastUpdated: 2025-11-06T20:45:58.705835
+Tags: []
+Status: draft
+---
+
 # Search in Rotated Sorted Array
 
 ### Problem

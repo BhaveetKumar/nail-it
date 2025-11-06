@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Reverselinkedlistii
+LastUpdated: 2025-11-06T20:45:58.752839
+Tags: []
+Status: draft
+---
+
 # Reverse Linked List II
 
 ### Problem

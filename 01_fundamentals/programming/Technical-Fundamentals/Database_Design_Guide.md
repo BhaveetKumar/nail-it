@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Database Design Guide
+LastUpdated: 2025-11-06T20:45:59.094906
+Tags: []
+Status: draft
+---
+
 # 🗄️ Node.js Database Design Complete Guide
 
 > **Master database design, optimization, and integration with Node.js applications**

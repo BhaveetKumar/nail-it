@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: System Design Interview Guide
+LastUpdated: 2025-11-06T20:45:57.708886
+Tags: []
+Status: draft
+---
+
 # System Design Interview Guide - Gaurav Sen Methodology
 
 ## Table of Contents

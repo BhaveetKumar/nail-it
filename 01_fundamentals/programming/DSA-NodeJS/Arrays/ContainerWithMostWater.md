@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Containerwithmostwater
+LastUpdated: 2025-11-06T20:45:58.792421
+Tags: []
+Status: draft
+---
+
 # 🏺 Container With Most Water
 
 > **Classic two pointers problem for finding maximum area**

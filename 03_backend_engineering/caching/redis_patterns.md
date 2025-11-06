@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Redis Patterns
+LastUpdated: 2025-11-06T20:45:58.308231
+Tags: []
+Status: draft
+---
+
 # Redis Caching Patterns - High-Performance Caching
 
 ## Overview

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Container Orchestration
+LastUpdated: 2025-11-06T20:45:59.129352
+Tags: []
+Status: draft
+---
+
 # Container Orchestration - Kubernetes and Docker Swarm
 
 ## Overview

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Nextgreaterelement
+LastUpdated: 2025-11-06T20:45:58.704354
+Tags: []
+Status: draft
+---
+
 # Next Greater Element
 
 ### Problem

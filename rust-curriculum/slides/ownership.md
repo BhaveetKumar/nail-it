@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Ownership
+LastUpdated: 2025-11-06T20:45:58.264822
+Tags: []
+Status: draft
+---
+
 # Slides: Ownership & Borrowing
 
 - Moves, copies, borrows

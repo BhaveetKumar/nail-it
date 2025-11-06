@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.369967
+Tags: []
+Status: draft
+---
+
 # Mock Interviews
 
 Mock interview scenarios and practice

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Kubernetes-Orchestration
+LastUpdated: 2025-11-06T20:45:58.426952
+Tags: []
+Status: draft
+---
+
 # Kubernetes Orchestration
 
 ## Overview

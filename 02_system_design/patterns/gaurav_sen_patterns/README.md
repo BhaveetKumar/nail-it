@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:57.709159
+Tags: []
+Status: draft
+---
+
 # Gaurav Sen Patterns
 
 ## 📚 Table of Contents

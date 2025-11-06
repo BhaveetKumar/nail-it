@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.538400
+Tags: []
+Status: draft
+---
+
 # Proxy Pattern Implementation
 
 This microservice demonstrates the **Proxy Pattern** implementation in Go, providing a comprehensive API gateway and proxy service with advanced features like load balancing, circuit breaking, rate limiting, caching, and monitoring.

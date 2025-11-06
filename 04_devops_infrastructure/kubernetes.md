@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Kubernetes
+LastUpdated: 2025-11-06T20:45:59.125225
+Tags: []
+Status: draft
+---
+
 # ☸️ **Kubernetes**
 
 ## 📘 **Theory**

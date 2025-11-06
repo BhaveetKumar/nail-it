@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.469103
+Tags: []
+Status: draft
+---
+
 # Technical Leadership
 
 ## Table of Contents

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Google Interview Best Resources
+LastUpdated: 2025-11-06T20:45:58.487224
+Tags: []
+Status: draft
+---
+
 # 🎯 Google Interview Best Resources
 
 > **Curated collection of the best YouTube channels, blogs, and resources for Google interview preparation**

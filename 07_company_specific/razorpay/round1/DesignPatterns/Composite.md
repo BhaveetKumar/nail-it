@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Composite
+LastUpdated: 2025-11-06T20:45:58.512084
+Tags: []
+Status: draft
+---
+
 # Composite Pattern
 
 ## Pattern Name & Intent

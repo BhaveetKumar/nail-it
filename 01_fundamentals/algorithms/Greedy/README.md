@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.729979
+Tags: []
+Status: draft
+---
+
 # Greedy Pattern
 
 > **Master greedy algorithms and optimization strategies with Go implementations**

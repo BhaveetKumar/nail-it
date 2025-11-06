@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Binarytreemaximumpathsum
+LastUpdated: 2025-11-06T20:45:58.698656
+Tags: []
+Status: draft
+---
+
 # Binary Tree Maximum Path Sum
 
 ### Problem

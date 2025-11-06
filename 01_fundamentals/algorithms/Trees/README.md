@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.695808
+Tags: []
+Status: draft
+---
+
 # Trees Pattern
 
 > **Master tree algorithms and traversals with Go implementations**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Logisticregression
+LastUpdated: 2025-11-06T20:45:59.089694
+Tags: []
+Status: draft
+---
+
 # Logistic Regression in JavaScript
 
 ## Overview

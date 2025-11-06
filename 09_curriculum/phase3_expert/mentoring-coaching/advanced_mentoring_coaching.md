@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Mentoring Coaching
+LastUpdated: 2025-11-06T20:45:58.461698
+Tags: []
+Status: draft
+---
+
 # Advanced Mentoring & Coaching
 
 ## Table of Contents

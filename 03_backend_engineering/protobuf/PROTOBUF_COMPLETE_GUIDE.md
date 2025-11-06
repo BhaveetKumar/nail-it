@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Protobuf Complete Guide
+LastUpdated: 2025-11-06T20:45:58.308838
+Tags: []
+Status: draft
+---
+
 # 🚀 Protocol Buffers Complete Guide
 
 > **Comprehensive guide to Protocol Buffers for efficient data serialization and API development**

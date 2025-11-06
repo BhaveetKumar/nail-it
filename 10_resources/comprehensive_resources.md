@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Comprehensive Resources
+LastUpdated: 2025-11-06T20:45:58.618986
+Tags: []
+Status: draft
+---
+
 # 📚 Comprehensive Resources
 
 ## 📖 Essential Books

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: System Design Coding Problems
+LastUpdated: 2025-11-06T20:45:58.354431
+Tags: []
+Status: draft
+---
+
 # System Design Coding Problems
 
 ## Table of Contents

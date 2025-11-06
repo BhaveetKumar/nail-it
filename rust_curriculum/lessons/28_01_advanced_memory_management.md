@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 28 01 Advanced Memory Management
+LastUpdated: 2025-11-06T20:45:58.128110
+Tags: []
+Status: draft
+---
+
 # Lesson 28.1: Advanced Memory Management
 
 > **Module**: 28 - Advanced Memory Management  

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Logging Patterns
+LastUpdated: 2025-11-06T20:45:59.165690
+Tags: []
+Status: draft
+---
+
 # Logging Patterns and Best Practices
 
 ## Table of Contents

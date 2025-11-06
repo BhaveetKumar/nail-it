@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 12 Distributedlock
+LastUpdated: 2025-11-06T20:45:58.772322
+Tags: []
+Status: draft
+---
+
 # 12. Distributed Lock - Coordination Service
 
 ## Title & Summary

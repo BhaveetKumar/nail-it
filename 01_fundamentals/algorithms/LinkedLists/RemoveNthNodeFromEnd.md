@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Removenthnodefromend
+LastUpdated: 2025-11-06T20:45:58.750054
+Tags: []
+Status: draft
+---
+
 # Remove Nth Node From End of List
 
 ### Problem

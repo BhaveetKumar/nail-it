@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Sample Script
+LastUpdated: 2025-11-06T20:45:57.739009
+Tags: []
+Status: draft
+---
+
 # AI Video Generator Demo Script
 
 ## Scene 1: Introduction

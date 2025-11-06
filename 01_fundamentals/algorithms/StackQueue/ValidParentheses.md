@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Validparentheses
+LastUpdated: 2025-11-06T20:45:58.702851
+Tags: []
+Status: draft
+---
+
 # Valid Parentheses
 
 ### Problem

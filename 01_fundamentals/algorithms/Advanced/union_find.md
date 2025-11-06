@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Union Find
+LastUpdated: 2025-11-06T20:45:58.681748
+Tags: []
+Status: draft
+---
+
 # 🔗 **Union-Find (Disjoint Set Union)**
 
 ## 📘 **Theory**

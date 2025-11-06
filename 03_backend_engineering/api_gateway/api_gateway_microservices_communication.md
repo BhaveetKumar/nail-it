@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Api Gateway Microservices Communication
+LastUpdated: 2025-11-06T20:45:58.294594
+Tags: []
+Status: draft
+---
+
 # 🌐 API Gateway & Microservices Communication
 
 ## Table of Contents

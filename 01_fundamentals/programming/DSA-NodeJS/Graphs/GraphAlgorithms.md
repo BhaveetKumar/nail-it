@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Graphalgorithms
+LastUpdated: 2025-11-06T20:45:58.794892
+Tags: []
+Status: draft
+---
+
 # 🕸️ Graph Algorithms - Complete Implementation
 
 ## Problem Statement

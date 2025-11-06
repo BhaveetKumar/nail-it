@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Maximumdepthofbinarytree
+LastUpdated: 2025-11-06T20:45:58.696570
+Tags: []
+Status: draft
+---
+
 # Maximum Depth of Binary Tree
 
 ### Problem

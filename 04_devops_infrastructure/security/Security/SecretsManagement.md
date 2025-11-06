@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Secretsmanagement
+LastUpdated: 2025-11-06T20:45:59.137366
+Tags: []
+Status: draft
+---
+
 # 🔐 Secrets Management: Secure Storage and Access Control
 
 > **Master secrets management for secure storage, rotation, and access control of sensitive data**

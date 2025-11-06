@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Courseschedule
+LastUpdated: 2025-11-06T20:45:58.743860
+Tags: []
+Status: draft
+---
+
 # Course Schedule
 
 ### Problem

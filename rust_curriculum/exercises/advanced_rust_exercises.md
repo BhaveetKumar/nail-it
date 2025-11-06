@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Rust Exercises
+LastUpdated: 2025-11-06T20:45:58.111442
+Tags: []
+Status: draft
+---
+
 # Advanced Rust Exercises
 
 > **Modules**: 25-30 (Expert Level)  

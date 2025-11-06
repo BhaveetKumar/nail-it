@@ -1,4 +1,31 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:57.697940
+Tags: []
+Status: draft
+---
+
 # 02 System Design
+> This section is being transitioned to a streamlined taxonomy (`frameworks/`, `patterns/`, `architecture_case_studies/`, `deep_dives/`). Legacy listing below will be progressively migrated. New content will emphasize: repeatable design process, performance & capacity reasoning, and production-ready trade-off articulation.
+## New Structure (In Progress)
+- `frameworks/` – Stepwise design method: clarify → constraints → capacity → architecture → trade-offs → evolution roadmap.
+- `patterns/` – Resilience (circuit breaker, bulkhead), data (CQRS, event sourcing), scalability (sharding, rate limiting), multi-tenancy.
+- `architecture_case_studies/` – Payment gateway, feature flag platform, streaming analytics pipeline, real-time notifications fan-out.
+- `deep_dives/` – Multi-region failover, distributed transactions, consistency vs availability, performance engineering, latency budgeting.
+---
+# 02 System Design
+
+> This section is being transitioned to a streamlined taxonomy (`frameworks/`, `patterns/`, `architecture_case_studies/`, `deep_dives/`). Legacy listing below will be progressively migrated. New content will emphasize: repeatable design process, performance & capacity reasoning, and production-ready trade-off articulation.
+
+## New Structure (In Progress)
+
+- `frameworks/` – Stepwise design method: clarify → constraints → capacity → architecture → trade-offs → evolution roadmap.
+- `patterns/` – Resilience (circuit breaker, bulkhead), data (CQRS, event sourcing), scalability (sharding, rate limiting), multi-tenancy.
+- `architecture_case_studies/` – Payment gateway, feature flag system, streaming analytics pipeline, real-time notifications fan-out.
+- `deep_dives/` – Multi-region failover, distributed transactions, consistency vs availability, performance engineering, latency budgeting.
+
+---
 
 - [Additional System Design Scenarios](ADDITIONAL_SYSTEM_DESIGN_SCENARIOS.md)
 - [Additional System Design Scenarios Part2](ADDITIONAL_SYSTEM_DESIGN_SCENARIOS_PART2.md)
@@ -78,3 +105,17 @@
 ### Load Balancing
 - [Readme](scalability/load_balancing/README.md)
 - [Load Balancer Patterns](scalability/load_balancing/load_balancer_patterns.md)
+
+---
+
+### Migration Notes
+
+Existing subdirectories such as `advanced/`, `case_studies/`, `patterns/` will be consolidated. Duplicated pattern files will be deduplicated with canonical versions placed under `patterns/`. Case studies retained if they add unique trade-off analysis; otherwise merged into the new architecture case studies.
+### Next Steps
+
+### Next Steps
+
+1. Tag each legacy file with front matter (title, tags, last_updated).
+2. Produce capacity planning templates in `frameworks/`.
+3. Backfill missing deep dives (multi-region, latency budgets) into `deep_dives/`.
+4. Archive superseded duplicates after verification.

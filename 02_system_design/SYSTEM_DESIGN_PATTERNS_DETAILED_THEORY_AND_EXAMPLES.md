@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: System Design Patterns Detailed Theory And Examples
+LastUpdated: 2025-11-06T20:45:57.695594
+Tags: []
+Status: draft
+---
+
 # 🏗️ **System Design Patterns - Detailed Theory & Examples**
 
 ## 📊 **Comprehensive Guide with Theory, Examples, and Practical Implementations**

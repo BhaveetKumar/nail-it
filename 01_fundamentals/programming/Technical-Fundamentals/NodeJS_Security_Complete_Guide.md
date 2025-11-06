@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Nodejs Security Complete Guide
+LastUpdated: 2025-11-06T20:45:59.112532
+Tags: []
+Status: draft
+---
+
 # Node.js Security Complete Guide
 
 ## Table of Contents

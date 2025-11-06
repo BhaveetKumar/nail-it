@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Performanceprofiling
+LastUpdated: 2025-11-06T20:45:59.159048
+Tags: []
+Status: draft
+---
+
 # Performance Profiling
 
 *Placeholder file auto-generated to heal internal links.*

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Binarytreerightsideview
+LastUpdated: 2025-11-06T20:45:58.696901
+Tags: []
+Status: draft
+---
+
 # Binary Tree Right Side View
 
 ### Problem

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Coding Interviews Comprehensive
+LastUpdated: 2025-11-06T20:45:58.351648
+Tags: []
+Status: draft
+---
+
 # Advanced Coding Interviews Comprehensive
 
 ## Table of Contents

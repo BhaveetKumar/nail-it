@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Security Cryptography
+LastUpdated: 2025-11-06T20:45:59.134312
+Tags: []
+Status: draft
+---
+
 # 🔐 Advanced Security & Cryptography Guide
 
 ## Table of Contents

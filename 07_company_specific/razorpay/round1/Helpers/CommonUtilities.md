@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Commonutilities
+LastUpdated: 2025-11-06T20:45:58.616528
+Tags: []
+Status: draft
+---
+
 # Common Utilities for Go Backend Services
 
 This guide provides reusable utility functions and patterns commonly used in Go backend services, with a focus on fintech and payment applications.

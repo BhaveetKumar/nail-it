@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Lowestcommonancestorofbinarytree
+LastUpdated: 2025-11-06T20:45:58.697251
+Tags: []
+Status: draft
+---
+
 # Lowest Common Ancestor of a Binary Tree
 
 ### Problem

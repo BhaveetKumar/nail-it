@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Topkfrequentelements
+LastUpdated: 2025-11-06T20:45:58.718758
+Tags: []
+Status: draft
+---
+
 # Top K Frequent Elements
 
 ### Problem

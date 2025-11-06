@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Razorpay Advanced Interview Scenarios
+LastUpdated: 2025-11-06T20:45:58.484217
+Tags: []
+Status: draft
+---
+
 # 🎯 Razorpay Advanced Interview Scenarios
 
 > **Real-world interview questions and scenarios for 10+ years experienced backend engineers**

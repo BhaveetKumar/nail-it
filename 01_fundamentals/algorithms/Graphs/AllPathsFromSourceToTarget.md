@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Allpathsfromsourcetotarget
+LastUpdated: 2025-11-06T20:45:58.744284
+Tags: []
+Status: draft
+---
+
 # All Paths From Source to Target
 
 ### Problem

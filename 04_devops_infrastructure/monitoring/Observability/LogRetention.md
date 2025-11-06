@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Logretention
+LastUpdated: 2025-11-06T20:45:59.160475
+Tags: []
+Status: draft
+---
+
 # Log Retention
 
 *Placeholder file auto-generated to heal internal links.*

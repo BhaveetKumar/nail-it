@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Sumoftwointegers
+LastUpdated: 2025-11-06T20:45:58.691411
+Tags: []
+Status: draft
+---
+
 # Sum of Two Integers
 
 ### Problem

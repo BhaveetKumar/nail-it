@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Findkclosestelements
+LastUpdated: 2025-11-06T20:45:58.716975
+Tags: []
+Status: draft
+---
+
 # Find K Closest Elements
 
 ### Problem

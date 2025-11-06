@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.336016
+Tags: []
+Status: draft
+---
+
 # 📖 **Core Preparation Guides**
 
 > **Essential guides for comprehensive interview preparation**

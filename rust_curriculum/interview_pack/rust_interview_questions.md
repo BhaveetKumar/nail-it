@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Rust Interview Questions
+LastUpdated: 2025-11-06T20:45:58.111058
+Tags: []
+Status: draft
+---
+
 # 🦀 Rust Interview Questions & Answers
 
 > **Comprehensive Interview Preparation for Rust Developers**  

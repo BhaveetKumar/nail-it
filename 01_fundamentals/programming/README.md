@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.762659
+Tags: []
+Status: draft
+---
+
 # 🚀 **Node.js Complete Interview Preparation Repository**
 
 > **Comprehensive Node.js preparation for Backend Engineering, System Design, and AI/ML roles at top tech companies**

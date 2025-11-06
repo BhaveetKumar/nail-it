@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 05 01 Error Handling Basics
+LastUpdated: 2025-11-06T20:45:58.112905
+Tags: []
+Status: draft
+---
+
 # Lesson 5.1: Error Handling Basics
 
 > **Module**: 5 - Error Handling  

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Countingsort
+LastUpdated: 2025-11-06T20:45:58.734941
+Tags: []
+Status: draft
+---
+
 # Counting Sort
 
 ### Problem

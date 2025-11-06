@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.103513
+Tags: []
+Status: draft
+---
+
 # Rust Microservices Platform
 
 > **Project Level**: Expert  

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Nodejs Content Location
+LastUpdated: 2025-11-06T20:45:57.689006
+Tags: []
+Status: draft
+---
+
 # 📍 **NodeJS Content Location - Successfully Restored**
 
 ## ✅ **NodeJS Content Has Been Restored!**

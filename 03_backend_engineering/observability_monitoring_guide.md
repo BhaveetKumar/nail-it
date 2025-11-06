@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Observability Monitoring Guide
+LastUpdated: 2025-11-06T20:45:58.275286
+Tags: []
+Status: draft
+---
+
 # 📊 **Observability and Monitoring Engineering Guide**
 
 ## **Table of Contents**

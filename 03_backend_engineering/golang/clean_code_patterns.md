@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Clean Code Patterns
+LastUpdated: 2025-11-06T20:45:58.292655
+Tags: []
+Status: draft
+---
+
 # Clean Code Patterns - Robert C. Martin Principles
 
 ## Table of Contents

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Houserobber
+LastUpdated: 2025-11-06T20:45:58.745755
+Tags: []
+Status: draft
+---
+
 # House Robber
 
 ### Problem

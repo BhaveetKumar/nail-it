@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Minimumdepthofbinarytree
+LastUpdated: 2025-11-06T20:45:58.697552
+Tags: []
+Status: draft
+---
+
 # Minimum Depth of Binary Tree
 
 ### Problem

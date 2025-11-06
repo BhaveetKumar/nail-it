@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Quantum Computing Algorithms
+LastUpdated: 2025-11-06T20:45:59.118523
+Tags: []
+Status: draft
+---
+
 # Quantum Computing Algorithms for Backend Engineers
 
 ## Table of Contents

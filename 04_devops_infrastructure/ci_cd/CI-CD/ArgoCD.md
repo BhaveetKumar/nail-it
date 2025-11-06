@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Argocd
+LastUpdated: 2025-11-06T20:45:59.131427
+Tags: []
+Status: draft
+---
+
 # 🚀 ArgoCD: GitOps Deployment and Continuous Delivery
 
 > **Master ArgoCD for GitOps-based deployment and continuous delivery**

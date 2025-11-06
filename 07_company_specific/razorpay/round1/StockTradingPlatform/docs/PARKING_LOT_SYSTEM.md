@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Parking Lot System
+LastUpdated: 2025-11-06T20:45:58.606416
+Tags: []
+Status: draft
+---
+
 # Parking Lot Management System
 
 ## Overview

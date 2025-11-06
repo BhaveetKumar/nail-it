@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Javascriptforml
+LastUpdated: 2025-11-06T20:45:59.090769
+Tags: []
+Status: draft
+---
+
 # 🚀 JavaScript for Machine Learning: Complete Guide
 
 > **Master JavaScript and Node.js for AI/ML development and production systems**

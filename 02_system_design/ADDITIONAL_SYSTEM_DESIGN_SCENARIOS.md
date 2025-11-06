@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Additional System Design Scenarios
+LastUpdated: 2025-11-06T20:45:57.694378
+Tags: []
+Status: draft
+---
+
 # 🏗️ Additional System Design Scenarios
 
 > **Comprehensive system design scenarios for technical interviews**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 36 01 Advanced Compiler Techniques
+LastUpdated: 2025-11-06T20:45:58.116185
+Tags: []
+Status: draft
+---
+
 # Lesson 36.1: Advanced Compiler Techniques
 
 > **Module**: 36 - Advanced Compiler Techniques  

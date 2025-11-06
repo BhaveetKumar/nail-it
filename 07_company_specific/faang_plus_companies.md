@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Faang Plus Companies
+LastUpdated: 2025-11-06T20:45:58.479462
+Tags: []
+Status: draft
+---
+
 # FAANG+ Companies Interview Preparation
 
 ## Table of Contents

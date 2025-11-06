@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Removelinkedlistelements
+LastUpdated: 2025-11-06T20:45:58.753170
+Tags: []
+Status: draft
+---
+
 # Remove Linked List Elements
 
 ### Problem

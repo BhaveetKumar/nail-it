@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Microservices Interviews
+LastUpdated: 2025-11-06T20:45:58.349607
+Tags: []
+Status: draft
+---
+
 # Advanced Microservices Interviews
 
 ## Table of Contents

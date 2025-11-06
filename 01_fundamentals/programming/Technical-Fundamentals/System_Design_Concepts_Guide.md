@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: System Design Concepts Guide
+LastUpdated: 2025-11-06T20:45:59.108682
+Tags: []
+Status: draft
+---
+
 # 🏗️ System Design Concepts: Complete Guide with Node.js
 
 > **Master system design for large-scale applications with Node.js**

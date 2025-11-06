@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Computational-Geometry
+LastUpdated: 2025-11-06T20:45:58.429388
+Tags: []
+Status: draft
+---
+
 # Computational Geometry
 
 ## Overview

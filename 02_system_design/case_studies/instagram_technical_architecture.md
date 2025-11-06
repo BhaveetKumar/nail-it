@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Instagram Technical Architecture
+LastUpdated: 2025-11-06T20:45:57.733011
+Tags: []
+Status: draft
+---
+
 # Instagram Technical Architecture - Complete Case Study
 
 ## 🎯 Overview

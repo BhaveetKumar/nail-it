@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Benchmarkingprofiling
+LastUpdated: 2025-11-06T20:45:58.614176
+Tags: []
+Status: draft
+---
+
 # Go Benchmarking and Profiling Guide
 
 This guide provides comprehensive strategies for benchmarking and profiling Go applications, with a focus on backend services and fintech applications.

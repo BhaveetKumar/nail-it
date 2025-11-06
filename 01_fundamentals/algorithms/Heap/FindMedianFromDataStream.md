@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Findmedianfromdatastream
+LastUpdated: 2025-11-06T20:45:58.718184
+Tags: []
+Status: draft
+---
+
 # Find Median from Data Stream
 
 ### Problem

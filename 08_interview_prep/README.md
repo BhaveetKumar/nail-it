@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.329358
+Tags: []
+Status: draft
+---
+
 # 08 Interview Prep
 
 - [Readme](README.md)

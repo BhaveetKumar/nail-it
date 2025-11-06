@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 05 Taskscheduler
+LastUpdated: 2025-11-06T20:45:58.778780
+Tags: []
+Status: draft
+---
+
 # 05. Task Scheduler - Job Management System
 
 ## Title & Summary

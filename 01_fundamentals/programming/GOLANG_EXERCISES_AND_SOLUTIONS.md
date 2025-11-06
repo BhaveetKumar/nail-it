@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Golang Exercises And Solutions
+LastUpdated: 2025-11-06T20:45:58.763894
+Tags: []
+Status: draft
+---
+
 # 🏋️ Go Exercises and Solutions
 
 > **Practice exercises with detailed solutions to master Go programming**

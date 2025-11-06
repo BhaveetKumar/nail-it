@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Productofarrayexceptself
+LastUpdated: 2025-11-06T20:45:58.727836
+Tags: []
+Status: draft
+---
+
 # Product of Array Except Self
 
 ### Problem

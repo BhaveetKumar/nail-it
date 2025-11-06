@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 12 02 Procedural Macros
+LastUpdated: 2025-11-06T20:45:58.126918
+Tags: []
+Status: draft
+---
+
 # 12 02 Procedural Macros
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Breadthfirstsearch
+LastUpdated: 2025-11-06T20:45:58.794313
+Tags: []
+Status: draft
+---
+
 # 🔍 Breadth-First Search (BFS) - Graph Problem
 
 > **Master BFS algorithm for graph traversal and shortest path problems**

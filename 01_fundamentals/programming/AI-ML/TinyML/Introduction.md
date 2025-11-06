@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Introduction
+LastUpdated: 2025-11-06T20:45:59.065636
+Tags: []
+Status: draft
+---
+
 # 🤖 TinyML Introduction: Complete Guide with Node.js
 
 > **Master TinyML fundamentals for edge AI applications with JavaScript and Node.js**

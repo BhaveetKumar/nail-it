@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.791570
+Tags: []
+Status: draft
+---
+
 # 📊 **Arrays: Complete Guide with Node.js**
 
 > **Master array algorithms and data structures for technical interviews**

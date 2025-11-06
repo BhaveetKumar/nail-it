@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Api Design Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:58.301713
+Tags: []
+Status: draft
+---
+
 # 🌐 **API Design Comprehensive Guide**
 
 ## 📘 **Theory**

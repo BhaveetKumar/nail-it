@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Interview Preparation Masterclass
+LastUpdated: 2025-11-06T20:45:58.330223
+Tags: []
+Status: draft
+---
+
 # Interview Preparation Masterclass - Complete Guide
 
 ## 🏆 Introduction

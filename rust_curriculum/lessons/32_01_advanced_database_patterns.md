@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 32 01 Advanced Database Patterns
+LastUpdated: 2025-11-06T20:45:58.120912
+Tags: []
+Status: draft
+---
+
 # Lesson 32.1: Advanced Database Patterns
 
 > **Module**: 32 - Advanced Database Patterns  

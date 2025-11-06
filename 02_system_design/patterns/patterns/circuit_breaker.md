@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Circuit Breaker
+LastUpdated: 2025-11-06T20:45:57.710348
+Tags: []
+Status: draft
+---
+
 # Circuit Breaker Pattern - Fault Tolerance and Resilience
 
 ## Overview

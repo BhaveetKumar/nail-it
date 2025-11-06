@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Aws Iam
+LastUpdated: 2025-11-06T20:45:59.153424
+Tags: []
+Status: draft
+---
+
 # 🔐 AWS IAM: Identity and Access Management
 
 > **Master AWS IAM for secure access control and identity management**

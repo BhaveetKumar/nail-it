@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Designing Data Intensive Applications Summary
+LastUpdated: 2025-11-06T20:45:59.095685
+Tags: []
+Status: draft
+---
+
 # 📊 Designing Data Intensive Applications - Node.js Summary
 
 > **Comprehensive summary of "Designing Data-Intensive Applications" with Node.js implementations**

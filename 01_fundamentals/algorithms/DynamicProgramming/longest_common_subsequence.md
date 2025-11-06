@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Longest Common Subsequence
+LastUpdated: 2025-11-06T20:45:58.747406
+Tags: []
+Status: draft
+---
+
 # 🔗 **Longest Common Subsequence (LCS)**
 
 ## 📘 **Theory**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Process Scheduling
+LastUpdated: 2025-11-06T20:45:58.755709
+Tags: []
+Status: draft
+---
+
 # ⏰ **Process Scheduling**
 
 ## 📘 **Theory**

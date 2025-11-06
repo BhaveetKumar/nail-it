@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Implementstrstr
+LastUpdated: 2025-11-06T20:45:58.688298
+Tags: []
+Status: draft
+---
+
 # Implement strStr()
 
 ### Problem

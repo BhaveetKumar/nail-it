@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Nodejs Security Guide
+LastUpdated: 2025-11-06T20:45:59.094020
+Tags: []
+Status: draft
+---
+
 # 🔒 Node.js Security: Complete Guide
 
 > **Master Node.js security best practices for production applications**

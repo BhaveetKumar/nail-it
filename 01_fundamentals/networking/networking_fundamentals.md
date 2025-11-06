@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Networking Fundamentals
+LastUpdated: 2025-11-06T20:45:58.668352
+Tags: []
+Status: draft
+---
+
 # 🌐 Networking Fundamentals for Backend Engineers
 
 ## Table of Contents

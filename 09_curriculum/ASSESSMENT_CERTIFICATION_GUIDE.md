@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Assessment Certification Guide
+LastUpdated: 2025-11-06T20:45:58.404874
+Tags: []
+Status: draft
+---
+
 # 📊 Assessment & Certification Guide
 
 ## Table of Contents

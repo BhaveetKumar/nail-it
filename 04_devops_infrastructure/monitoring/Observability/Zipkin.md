@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Zipkin
+LastUpdated: 2025-11-06T20:45:59.164667
+Tags: []
+Status: draft
+---
+
 # Zipkin
 
 *Placeholder file auto-generated to heal internal links.*

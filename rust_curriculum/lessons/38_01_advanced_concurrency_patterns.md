@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 38 01 Advanced Concurrency Patterns
+LastUpdated: 2025-11-06T20:45:58.122540
+Tags: []
+Status: draft
+---
+
 # Lesson 38.1: Advanced Concurrency Patterns
 
 > **Module**: 38 - Advanced Concurrency Patterns  

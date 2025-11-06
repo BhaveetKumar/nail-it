@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 30 01 Rust Ecosystem Mastery
+LastUpdated: 2025-11-06T20:45:58.119962
+Tags: []
+Status: draft
+---
+
 # Lesson 30.1: Rust Ecosystem Mastery
 
 > **Module**: 30 - Rust Ecosystem Mastery  

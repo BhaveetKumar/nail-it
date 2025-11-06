@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Cap Theorem
+LastUpdated: 2025-11-06T20:45:58.288332
+Tags: []
+Status: draft
+---
+
 # CAP Theorem - Distributed System Trade-offs
 
 ## Overview

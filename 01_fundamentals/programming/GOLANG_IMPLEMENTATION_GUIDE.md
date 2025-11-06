@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Golang Implementation Guide
+LastUpdated: 2025-11-06T20:45:58.762222
+Tags: []
+Status: draft
+---
+
 # 🚀 **Golang Implementation Guide for System Design**
 
 ## 📊 **Complete Go Code Examples for System Design Interviews**

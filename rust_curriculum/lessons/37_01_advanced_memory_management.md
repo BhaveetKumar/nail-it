@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 37 01 Advanced Memory Management
+LastUpdated: 2025-11-06T20:45:58.127272
+Tags: []
+Status: draft
+---
+
 # Lesson 37.1: Advanced Memory Management
 
 > **Module**: 37 - Advanced Memory Management  

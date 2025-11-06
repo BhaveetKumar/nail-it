@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Observability Monitoring
+LastUpdated: 2025-11-06T20:45:58.674452
+Tags: []
+Status: draft
+---
+
 # Observability and Monitoring Systems
 
 ## Table of Contents

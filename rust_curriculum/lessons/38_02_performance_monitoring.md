@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 38 02 Performance Monitoring
+LastUpdated: 2025-11-06T20:45:58.128624
+Tags: []
+Status: draft
+---
+
 # 38 02 Performance Monitoring
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

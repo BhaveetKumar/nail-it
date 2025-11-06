@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Google Advanced Algorithms Guide
+LastUpdated: 2025-11-06T20:45:58.488508
+Tags: []
+Status: draft
+---
+
 # 🚀 Google Advanced Algorithms & Data Structures Guide
 
 > **Master the advanced algorithms and data structures that Google interviews emphasize**

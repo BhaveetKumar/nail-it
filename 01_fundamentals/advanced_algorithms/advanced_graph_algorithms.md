@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Graph Algorithms
+LastUpdated: 2025-11-06T20:45:59.119882
+Tags: []
+Status: draft
+---
+
 # Advanced Graph Algorithms for Backend Engineers
 
 ## Table of Contents

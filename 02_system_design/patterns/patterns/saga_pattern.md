@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Saga Pattern
+LastUpdated: 2025-11-06T20:45:57.709470
+Tags: []
+Status: draft
+---
+
 # Saga Pattern - Distributed Transaction Management
 
 ## Overview

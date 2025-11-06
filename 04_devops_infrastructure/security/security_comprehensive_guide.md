@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Security Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:59.133576
+Tags: []
+Status: draft
+---
+
 # 🔒 **Security Comprehensive Guide**
 
 ## 📘 **Theory**

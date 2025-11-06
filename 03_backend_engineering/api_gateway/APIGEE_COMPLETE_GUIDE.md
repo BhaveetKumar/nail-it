@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Apigee Complete Guide
+LastUpdated: 2025-11-06T20:45:58.294052
+Tags: []
+Status: draft
+---
+
 # 🚀 Apigee Complete Guide
 
 > **Comprehensive guide to Google Apigee for API management and microservices governance**

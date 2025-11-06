@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Kubernetes Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:59.166446
+Tags: []
+Status: draft
+---
+
 # Kubernetes and Container Orchestration - Comprehensive Guide
 
 ## 🎯 Overview

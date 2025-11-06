@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Curriculum Readme
+LastUpdated: 2025-11-06T20:45:58.638561
+Tags: []
+Status: draft
+---
+
 # 🚀 Master Engineer Curriculum
 
 ## Overview

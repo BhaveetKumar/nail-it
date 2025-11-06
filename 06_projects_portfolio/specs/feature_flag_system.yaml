@@ -1,0 +1,51 @@
+project:
+  name: feature_flag_system
+  goal: "Dynamic feature rollout, targeting, experimentation, auditability"
+  tech_stack:
+    languages: [go]
+    storage: [postgres, redis]
+    messaging: [kafka]
+    infra: [docker, kubernetes]
+  capabilities:
+    - flag_definition
+    - targeting_rules
+    - variant_experiments
+    - exposure_logging
+    - realtime_cache_invalidation
+  non_functional:
+    latency_read_ms_p99: 50
+    write_latency_ms_p99: 120
+    availability_sla: "99.9%"
+    consistency_model: "eventual for cache, strong for writes"
+  data_model:
+    tables:
+      flags: [id, key, status, created_at]
+      variants: [id, flag_id, name, weight]
+      targeting_rules: [id, flag_id, rule_type, rule_json]
+      exposures: [id, user_id, flag_id, variant_id, timestamp]
+  apis:
+    - GET /flags/{key}
+    - POST /flags
+    - POST /flags/{key}/variants
+    - POST /flags/{key}/rules
+    - GET /flags/{key}/exposures
+  caching:
+    layer: redis
+    strategy: key-based invalidation + pub/sub channel for cache bust
+  resilience_patterns:
+    - circuit_breaker_db
+    - bulkhead_isolation_cache
+    - retry_jitter_rules_fetch
+  experimentation:
+    allocation_algorithm: "weighted random with guardrails"
+    metrics: [exposure_count, variant_conversion_rate]
+  testing_strategy:
+    unit: 40
+    integration: ["cache invalidation", "rule evaluation edge cases"]
+    load_test:
+      read_rps_target: 2000
+      write_rps_target: 200
+  ai_generation_prompts:
+    - "Generate Go code for flag evaluation engine with rule JSON parsing"
+    - "Create SQL migration for flags, variants, targeting_rules tables"
+    - "Produce k6 script for 2k RPS GET /flags/{key}"

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Arpit Harkirt System Design Notes
+LastUpdated: 2025-11-06T20:45:58.640862
+Tags: []
+Status: draft
+---
+
 # 🚀 **Arpit Harkirt System Design Masterclass Notes**
 
 ## 📊 **Based on Arpit Harkirt's System Design Session - Complete Analysis**

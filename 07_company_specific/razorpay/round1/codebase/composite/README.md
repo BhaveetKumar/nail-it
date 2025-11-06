@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.567887
+Tags: []
+Status: draft
+---
+
 # Composite Pattern Implementation
 
 This microservice demonstrates the **Composite Pattern** implementation in Go, providing a way to compose objects into tree structures to represent part-whole hierarchies, allowing clients to treat individual objects and compositions uniformly.

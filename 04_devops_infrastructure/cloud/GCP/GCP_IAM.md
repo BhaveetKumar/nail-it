@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Gcp Iam
+LastUpdated: 2025-11-06T20:45:59.145075
+Tags: []
+Status: draft
+---
+
 # 🔐 GCP IAM: Identity and Access Management
 
 > **Master GCP IAM for secure access control and identity management**

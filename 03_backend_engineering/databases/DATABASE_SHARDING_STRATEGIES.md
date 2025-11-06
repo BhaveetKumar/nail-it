@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Database Sharding Strategies
+LastUpdated: 2025-11-06T20:45:58.287335
+Tags: []
+Status: draft
+---
+
 # 🗄️ **Database Sharding Strategies - Complete Guide**
 
 ## 📊 **Comprehensive Guide to Database Sharding and Partitioning**

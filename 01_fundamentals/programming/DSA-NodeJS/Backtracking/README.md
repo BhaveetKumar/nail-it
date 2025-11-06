@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.785989
+Tags: []
+Status: draft
+---
+
 # Backtracking Problems
 
 Backtracking is a systematic way to iterate through all possible configurations of a search space. It's particularly useful for problems involving:

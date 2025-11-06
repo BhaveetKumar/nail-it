@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Netflix Technical Architecture
+LastUpdated: 2025-11-06T20:45:57.732208
+Tags: []
+Status: draft
+---
+
 # Netflix Technical Architecture - Complete Case Study
 
 ## 🎯 Overview

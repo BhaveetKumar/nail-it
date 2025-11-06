@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Jumpgame
+LastUpdated: 2025-11-06T20:45:58.730771
+Tags: []
+Status: draft
+---
+
 # Jump Game
 
 ### Problem

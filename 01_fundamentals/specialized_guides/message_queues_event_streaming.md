@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Message Queues Event Streaming
+LastUpdated: 2025-11-06T20:45:58.672296
+Tags: []
+Status: draft
+---
+
 # Advanced Message Queue Systems and Event Streaming - Comprehensive Guide
 
 ## 🎯 Overview

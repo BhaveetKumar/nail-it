@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Caching Patterns
+LastUpdated: 2025-11-06T20:45:57.710651
+Tags: []
+Status: draft
+---
+
 # 🗄️ **Caching Patterns**
 
 ## 📘 **Theory**

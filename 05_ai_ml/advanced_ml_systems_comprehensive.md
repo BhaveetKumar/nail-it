@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Ml Systems Comprehensive
+LastUpdated: 2025-11-06T20:45:58.313180
+Tags: []
+Status: draft
+---
+
 # Advanced ML Systems Comprehensive
 
 Comprehensive guide to advanced machine learning systems for senior backend engineers.

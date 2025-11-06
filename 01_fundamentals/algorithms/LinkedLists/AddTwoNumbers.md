@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Addtwonumbers
+LastUpdated: 2025-11-06T20:45:58.750963
+Tags: []
+Status: draft
+---
+
 # Add Two Numbers
 
 ### Problem

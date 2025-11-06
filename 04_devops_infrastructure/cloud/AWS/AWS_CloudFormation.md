@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Aws Cloudformation
+LastUpdated: 2025-11-06T20:45:59.152752
+Tags: []
+Status: draft
+---
+
 # ☁️ AWS CloudFormation: Infrastructure as Code
 
 > **Master AWS CloudFormation for declarative infrastructure management**

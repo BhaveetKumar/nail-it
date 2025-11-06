@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Behavioral Questions Complete Guide
+LastUpdated: 2025-11-06T20:45:58.332768
+Tags: []
+Status: draft
+---
+
 # 🎯 Behavioral Questions - Complete Guide
 
 > **Comprehensive guide to behavioral interview questions with STAR method examples and FAANG company insights**

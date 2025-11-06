@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.587386
+Tags: []
+Status: draft
+---
+
 # Abstract Factory Pattern Implementation
 
 This microservice demonstrates the Abstract Factory pattern, which provides an interface for creating families of related objects without specifying their concrete classes. This pattern is particularly useful when you need to create objects that belong to the same family but have different implementations.

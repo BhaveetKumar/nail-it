@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Database Internals Detailed Theory And Examples
+LastUpdated: 2025-11-06T20:45:58.286150
+Tags: []
+Status: draft
+---
+
 # 🗄️ **Database Internals - Detailed Theory & Examples**
 
 ## 📊 **Comprehensive Guide with Theory, Examples, and Practical Implementations**

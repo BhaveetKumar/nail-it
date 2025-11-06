@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Binarytreeinordertraversal
+LastUpdated: 2025-11-06T20:45:58.694983
+Tags: []
+Status: draft
+---
+
 # Binary Tree Inorder Traversal
 
 ### Problem

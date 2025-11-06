@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Tracing
+LastUpdated: 2025-11-06T20:45:59.163620
+Tags: []
+Status: draft
+---
+
 # 🔍 Distributed Tracing: OpenTelemetry and Jaeger
 
 > **Master distributed tracing for microservices observability and performance analysis**

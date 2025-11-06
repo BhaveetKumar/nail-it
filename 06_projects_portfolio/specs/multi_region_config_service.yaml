@@ -1,0 +1,46 @@
+project:
+  name: multi_region_config_service
+  goal: "Low-latency global read-mostly config distribution with eventual consistency and admin strong writes"
+  tech_stack:
+    languages: [go]
+    storage: [postgres, redis]
+    replication: [read replicas, async propagation]
+    infra: [docker, kubernetes]
+  regions:
+    primary: ap-south-1
+    secondary: eu-central-1
+    tertiary: us-east-1
+  performance_targets:
+    read_latency_ms_p99: 70
+    write_latency_ms_p99: 180
+    replication_lag_s_p95: 5
+  data_model:
+    tables:
+      config_items: [id, key, value_json, version, updated_at]
+      config_audit: [id, key, old_value_json, new_value_json, changed_by, changed_at]
+  APIs:
+    - GET /config/{key}
+    - GET /config?prefix=feature.
+    - POST /config/{key}
+    - GET /config/{key}/audit
+  caching:
+    distributed_cache: redis global keyspace; fallback local LRU
+    invalidation_strategy: version-based + pub/sub propagation
+  consistency_strategy:
+    model: "strong in primary region, eventual in others"
+    conflict_resolution: "last-write-wins with audit trail"
+  resilience_patterns:
+    - circuit_breaker_replica_reads
+    - retry_replication_events
+    - bulkhead_admin_writes
+  observability:
+    metrics: ["replication_lag_seconds", "read_latency_ms", "cache_hit_ratio"]
+    tracing: "Mutation trace spans across replication fan-out"
+  testing_strategy:
+    unit: 30
+    integration: ["cache invalidation", "replica lag behavior"]
+    chaos: ["replica down", "cache miss storm"]
+  ai_generation_prompts:
+    - "Generate Go HTTP handlers for config CRUD with versioning"
+    - "Create Redis pub/sub propagation code for config invalidation"
+    - "Produce SQL migrations for config_items and config_audit"

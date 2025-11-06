@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Leadership Communication
+LastUpdated: 2025-11-06T20:45:58.644660
+Tags: []
+Status: draft
+---
+
 # Leadership Communication - Effective Communication Strategies
 
 ## Overview

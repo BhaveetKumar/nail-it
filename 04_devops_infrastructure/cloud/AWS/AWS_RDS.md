@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Aws Rds
+LastUpdated: 2025-11-06T20:45:59.153083
+Tags: []
+Status: draft
+---
+
 # 🗄️ AWS RDS: Relational Database Service
 
 > **Master AWS RDS for scalable, managed relational databases**

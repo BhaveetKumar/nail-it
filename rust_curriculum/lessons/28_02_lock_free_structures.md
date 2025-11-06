@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 28 02 Lock Free Structures
+LastUpdated: 2025-11-06T20:45:58.125454
+Tags: []
+Status: draft
+---
+
 # 28 02 Lock Free Structures
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

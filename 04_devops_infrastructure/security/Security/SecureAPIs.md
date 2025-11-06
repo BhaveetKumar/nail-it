@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Secureapis
+LastUpdated: 2025-11-06T20:45:59.136681
+Tags: []
+Status: draft
+---
+
 # 🔒 Secure APIs: Authentication, Authorization, and Rate Limiting
 
 > **Master API security for comprehensive protection of REST and GraphQL APIs**

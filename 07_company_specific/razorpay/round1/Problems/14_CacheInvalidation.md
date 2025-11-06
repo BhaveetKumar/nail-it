@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 14 Cacheinvalidation
+LastUpdated: 2025-11-06T20:45:58.510139
+Tags: []
+Status: draft
+---
+
 # 14. Cache Invalidation - Intelligent Cache Management System
 
 ## Title & Summary

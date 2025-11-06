@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Behavioral Scenarios
+LastUpdated: 2025-11-06T20:45:58.641824
+Tags: []
+Status: draft
+---
+
 # Advanced Behavioral Scenarios
 
 Comprehensive behavioral interview scenarios for senior engineering roles.

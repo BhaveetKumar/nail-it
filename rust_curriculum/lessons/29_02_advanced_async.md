@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 29 02 Advanced Async
+LastUpdated: 2025-11-06T20:45:58.115205
+Tags: []
+Status: draft
+---
+
 # 29 02 Advanced Async
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

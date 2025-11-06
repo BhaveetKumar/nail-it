@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Expert Coding Problems
+LastUpdated: 2025-11-06T20:45:58.340937
+Tags: []
+Status: draft
+---
+
 # Expert Coding Problems
 
 Comprehensive expert-level coding problems for senior engineering interviews.

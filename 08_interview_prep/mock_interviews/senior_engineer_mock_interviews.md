@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Senior Engineer Mock Interviews
+LastUpdated: 2025-11-06T20:45:58.370331
+Tags: []
+Status: draft
+---
+
 # Senior Engineer Mock Interviews
 
 Comprehensive mock interview scenarios for senior engineering roles.

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Concurrency-Synchronization
+LastUpdated: 2025-11-06T20:45:58.444369
+Tags: []
+Status: draft
+---
+
 # Concurrency and Synchronization
 
 ## Overview

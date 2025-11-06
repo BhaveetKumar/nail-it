@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: System-Design-Patterns
+LastUpdated: 2025-11-06T20:45:58.493342
+Tags: []
+Status: draft
+---
+
 # System Design Patterns
 
 ## 📚 Table of Contents

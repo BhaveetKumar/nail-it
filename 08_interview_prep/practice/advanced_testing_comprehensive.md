@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Testing Comprehensive
+LastUpdated: 2025-11-06T20:45:58.358132
+Tags: []
+Status: draft
+---
+
 # Advanced Testing Comprehensive
 
 Comprehensive guide to advanced testing strategies for senior backend engineers.

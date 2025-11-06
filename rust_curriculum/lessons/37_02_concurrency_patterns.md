@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 37 02 Concurrency Patterns
+LastUpdated: 2025-11-06T20:45:58.112525
+Tags: []
+Status: draft
+---
+
 # 37 02 Concurrency Patterns
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

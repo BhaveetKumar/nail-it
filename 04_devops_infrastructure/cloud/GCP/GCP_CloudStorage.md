@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Gcp Cloudstorage
+LastUpdated: 2025-11-06T20:45:59.144751
+Tags: []
+Status: draft
+---
+
 # 🗄️ GCP Cloud Storage: Object Storage, Versioning, and Lifecycle Policies
 
 > **Master Google Cloud Storage for scalable object storage and data management**

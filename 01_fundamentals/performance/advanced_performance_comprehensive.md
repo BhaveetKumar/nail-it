@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Performance Comprehensive
+LastUpdated: 2025-11-06T20:45:59.120871
+Tags: []
+Status: draft
+---
+
 # Advanced Performance Comprehensive
 
 Comprehensive guide to advanced performance optimization for senior backend engineers.

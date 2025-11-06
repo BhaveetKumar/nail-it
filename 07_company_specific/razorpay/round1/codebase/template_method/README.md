@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.532420
+Tags: []
+Status: draft
+---
+
 # Template Method Pattern Implementation
 
 This microservice demonstrates the Template Method design pattern in a real-world fintech application, specifically for document processing workflows.

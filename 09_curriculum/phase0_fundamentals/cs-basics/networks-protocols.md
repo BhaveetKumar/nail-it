@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Networks-Protocols
+LastUpdated: 2025-11-06T20:45:58.417062
+Tags: []
+Status: draft
+---
+
 # Networks & Protocols
 
 ## Table of Contents

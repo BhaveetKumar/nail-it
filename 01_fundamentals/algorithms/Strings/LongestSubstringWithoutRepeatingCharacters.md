@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Longestsubstringwithoutrepeatingcharacters
+LastUpdated: 2025-11-06T20:45:58.685716
+Tags: []
+Status: draft
+---
+
 # Longest Substring Without Repeating Characters
 
 ### Problem

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Learning Path Guide
+LastUpdated: 2025-11-06T20:45:58.408849
+Tags: []
+Status: draft
+---
+
 # 🛤️ Master Engineer Learning Path Guide
 
 ## Table of Contents

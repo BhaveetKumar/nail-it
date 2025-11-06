@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Async
+LastUpdated: 2025-11-06T20:45:58.264703
+Tags: []
+Status: draft
+---
+
 # Async in Rust (Slides)
 
 - Futures and executors

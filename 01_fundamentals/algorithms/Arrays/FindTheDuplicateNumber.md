@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Findtheduplicatenumber
+LastUpdated: 2025-11-06T20:45:58.727372
+Tags: []
+Status: draft
+---
+
 # Find the Duplicate Number
 
 ### Problem

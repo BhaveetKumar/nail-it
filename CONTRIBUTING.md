@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Contributing
+LastUpdated: 2025-11-06T20:45:57.687454
+Tags: []
+Status: draft
+---
+
 # Contributing to Ultimate Backend Engineering Interview Preparation
 
 Thank you for your interest in contributing to this repository! This guide will help you get started.

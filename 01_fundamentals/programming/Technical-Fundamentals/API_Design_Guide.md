@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Api Design Guide
+LastUpdated: 2025-11-06T20:45:59.111036
+Tags: []
+Status: draft
+---
+
 # 🌐 Node.js API Design Complete Guide
 
 > **Master REST, GraphQL, and gRPC API design with Node.js best practices**

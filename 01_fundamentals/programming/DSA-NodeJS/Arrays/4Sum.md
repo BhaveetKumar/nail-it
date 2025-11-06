@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 4Sum
+LastUpdated: 2025-11-06T20:45:58.789099
+Tags: []
+Status: draft
+---
+
 # 🔢 4Sum - LeetCode Problem 18
 
 ## Problem Statement

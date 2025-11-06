@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Razorpay Interview Experiences 2024
+LastUpdated: 2025-11-06T20:45:58.336316
+Tags: []
+Status: draft
+---
+
 # 🎯 **Razorpay Interview Experiences Compilation 2024**
 
 ## 📊 **Real Interview Experiences & Success Stories**

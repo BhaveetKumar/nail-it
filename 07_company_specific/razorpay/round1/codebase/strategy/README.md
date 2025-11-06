@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.603840
+Tags: []
+Status: draft
+---
+
 # Strategy Pattern Implementation
 
 This is a complete microservice implementation demonstrating the Strategy design pattern in Go, with full integration of MongoDB, MySQL, Redis, REST API, WebSockets, and Kafka.

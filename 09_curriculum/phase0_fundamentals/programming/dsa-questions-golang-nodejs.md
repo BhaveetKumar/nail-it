@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Dsa-Questions-Golang-Nodejs
+LastUpdated: 2025-11-06T20:45:58.419325
+Tags: []
+Status: draft
+---
+
 # Data Structures & Algorithms - Golang & Node.js
 
 ## Table of Contents

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Testing Guide
+LastUpdated: 2025-11-06T20:45:58.278271
+Tags: []
+Status: draft
+---
+
 # 🧪 Advanced Testing Strategy Guide
 
 > **Comprehensive testing approaches for modern backend engineering interviews**

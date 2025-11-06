@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Assigncookies
+LastUpdated: 2025-11-06T20:45:58.728596
+Tags: []
+Status: draft
+---
+
 # Assign Cookies
 
 ### Problem

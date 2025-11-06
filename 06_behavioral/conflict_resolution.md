@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Conflict Resolution
+LastUpdated: 2025-11-06T20:45:58.646150
+Tags: []
+Status: draft
+---
+
 # 🤝 **Conflict Resolution**
 
 ## 📘 **Theory**

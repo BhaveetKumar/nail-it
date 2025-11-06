@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Database-Design
+LastUpdated: 2025-11-06T20:45:58.443332
+Tags: []
+Status: draft
+---
+
 # Database Design
 
 ## Overview

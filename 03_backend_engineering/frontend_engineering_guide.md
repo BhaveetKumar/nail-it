@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Frontend Engineering Guide
+LastUpdated: 2025-11-06T20:45:58.279991
+Tags: []
+Status: draft
+---
+
 # 🎨 Frontend Engineering Complete Guide
 
 > **Comprehensive frontend knowledge for backend engineers interviewing for full-stack roles**

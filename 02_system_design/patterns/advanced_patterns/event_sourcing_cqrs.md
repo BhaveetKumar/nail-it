@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Event Sourcing Cqrs
+LastUpdated: 2025-11-06T20:45:57.713307
+Tags: []
+Status: draft
+---
+
 # Event Sourcing & CQRS Patterns
 
 Advanced patterns for building event-driven systems with command-query responsibility segregation.

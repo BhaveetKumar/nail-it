@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Technical Leadership
+LastUpdated: 2025-11-06T20:45:58.650843
+Tags: []
+Status: draft
+---
+
 # Technical Leadership - Leading Engineering Teams
 
 ## Overview

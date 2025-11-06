@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 13 Shoppingcart
+LastUpdated: 2025-11-06T20:45:58.501699
+Tags: []
+Status: draft
+---
+
 # 13. Shopping Cart - E-commerce Cart Management System
 
 ## Title & Summary

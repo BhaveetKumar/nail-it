@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Api Design Guide
+LastUpdated: 2025-11-06T20:45:58.299767
+Tags: []
+Status: draft
+---
+
 # 🌐 API Design Guide
 
 > **Essential guide to designing and building RESTful and GraphQL APIs**

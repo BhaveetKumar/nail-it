@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Master Engineer Curriculum
+LastUpdated: 2025-11-06T20:45:58.631265
+Tags: []
+Status: draft
+---
+
 # 🚀 Master Engineer Curriculum
 
 ## From Zero to Distinguished Engineer (20+ Years Experience)

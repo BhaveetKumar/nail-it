@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.734069
+Tags: []
+Status: draft
+---
+
 # Sorting Pattern
 
 > **Master sorting algorithms and their applications with Go implementations**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Pathsum
+LastUpdated: 2025-11-06T20:45:58.696052
+Tags: []
+Status: draft
+---
+
 # Path Sum
 
 ### Problem

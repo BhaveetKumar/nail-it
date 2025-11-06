@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Cybersecurity Backend
+LastUpdated: 2025-11-06T20:45:58.669994
+Tags: []
+Status: draft
+---
+
 # Cybersecurity Backend Systems
 
 ## Table of Contents

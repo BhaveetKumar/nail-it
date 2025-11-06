@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Findkthlargestelementinarray
+LastUpdated: 2025-11-06T20:45:58.719192
+Tags: []
+Status: draft
+---
+
 # Find Kth Largest Element in an Array
 
 ### Problem

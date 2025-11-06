@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Web Development Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:58.664919
+Tags: []
+Status: draft
+---
+
 # 🌐 Web Development Comprehensive Guide
 
 ## Table of Contents

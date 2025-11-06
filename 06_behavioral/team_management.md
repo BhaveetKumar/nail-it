@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Team Management
+LastUpdated: 2025-11-06T20:45:58.650142
+Tags: []
+Status: draft
+---
+
 # Team Management - Leading High-Performance Teams
 
 ## Overview

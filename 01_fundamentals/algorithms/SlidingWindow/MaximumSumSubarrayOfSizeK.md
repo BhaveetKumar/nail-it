@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Maximumsumsubarrayofsizek
+LastUpdated: 2025-11-06T20:45:58.711434
+Tags: []
+Status: draft
+---
+
 # Maximum Sum Subarray of Size K
 
 ### Problem

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Razorpay System Design Questions
+LastUpdated: 2025-11-06T20:45:58.767658
+Tags: []
+Status: draft
+---
+
 # 🏦 Razorpay System Design Questions & Machine Coding
 
 > **Comprehensive system design and machine coding problems for Razorpay interviews**

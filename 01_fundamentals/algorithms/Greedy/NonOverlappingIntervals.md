@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Nonoverlappingintervals
+LastUpdated: 2025-11-06T20:45:58.730242
+Tags: []
+Status: draft
+---
+
 # Non-overlapping Intervals
 
 ### Problem

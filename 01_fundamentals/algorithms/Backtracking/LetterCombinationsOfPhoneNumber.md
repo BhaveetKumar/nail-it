@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Lettercombinationsofphonenumber
+LastUpdated: 2025-11-06T20:45:58.710520
+Tags: []
+Status: draft
+---
+
 # Letter Combinations of a Phone Number
 
 ### Problem

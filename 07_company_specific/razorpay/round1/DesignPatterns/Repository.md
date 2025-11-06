@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Repository
+LastUpdated: 2025-11-06T20:45:58.516359
+Tags: []
+Status: draft
+---
+
 # Repository Pattern
 
 ## Pattern Name & Intent

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.598486
+Tags: []
+Status: draft
+---
+
 # Builder Pattern Implementation
 
 This microservice demonstrates the Builder pattern, which provides a way to construct complex objects step by step. This pattern is particularly useful when you need to create objects with many optional parameters or when the construction process is complex.

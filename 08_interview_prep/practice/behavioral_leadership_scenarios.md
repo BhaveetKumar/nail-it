@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Behavioral Leadership Scenarios
+LastUpdated: 2025-11-06T20:45:58.352865
+Tags: []
+Status: draft
+---
+
 # Behavioral and Leadership Scenarios
 
 ## Table of Contents

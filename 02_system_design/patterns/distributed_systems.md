@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Distributed Systems
+LastUpdated: 2025-11-06T20:45:57.707343
+Tags: []
+Status: draft
+---
+
 # 🌐 **Distributed Systems**
 
 ## 📘 **Theory**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Gcp Cloudsql
+LastUpdated: 2025-11-06T20:45:59.148115
+Tags: []
+Status: draft
+---
+
 # 🗄️ GCP Cloud SQL: Managed Database Service
 
 > **Master GCP Cloud SQL for scalable, managed relational databases**

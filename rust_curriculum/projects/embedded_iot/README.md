@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.104229
+Tags: []
+Status: draft
+---
+
 # Embedded IoT Device Project
 
 > **Project Level**: Advanced  

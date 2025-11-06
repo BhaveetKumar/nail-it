@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Maximumsubarray
+LastUpdated: 2025-11-06T20:45:58.791080
+Tags: []
+Status: draft
+---
+
 # 📈 Maximum Subarray (Kadane's Algorithm)
 
 > **Classic dynamic programming problem for finding maximum sum subarray**

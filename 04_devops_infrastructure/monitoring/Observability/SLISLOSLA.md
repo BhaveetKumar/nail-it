@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Slislosla
+LastUpdated: 2025-11-06T20:45:59.160027
+Tags: []
+Status: draft
+---
+
 # SLI/SLO/SLA
 
 *Placeholder file auto-generated to heal internal links.*

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Leadership Interviews
+LastUpdated: 2025-11-06T20:45:58.649763
+Tags: []
+Status: draft
+---
+
 # Advanced Leadership Interviews
 
 Comprehensive advanced leadership interview scenarios for senior engineering roles.

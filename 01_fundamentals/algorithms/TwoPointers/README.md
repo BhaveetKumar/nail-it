@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.699884
+Tags: []
+Status: draft
+---
+
 # Two Pointers Pattern
 
 > **Master two pointers technique for array and string problems with Go implementations**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Razorpay 2 Week Practice Schedule
+LastUpdated: 2025-11-06T20:45:58.335745
+Tags: []
+Status: draft
+---
+
 # 🚀 Razorpay 2-Week Intensive Practice Schedule
 
 > **Comprehensive daily practice plan for Razorpay interview preparation**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Company Interviews
+LastUpdated: 2025-11-06T20:45:58.490142
+Tags: []
+Status: draft
+---
+
 # Advanced Company Interviews
 
 Comprehensive interview preparation for top-tier technology companies.

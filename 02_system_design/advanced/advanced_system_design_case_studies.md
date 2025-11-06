@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced System Design Case Studies
+LastUpdated: 2025-11-06T20:45:57.704956
+Tags: []
+Status: draft
+---
+
 # Advanced System Design Case Studies
 
 Comprehensive advanced system design case studies for senior engineering roles.

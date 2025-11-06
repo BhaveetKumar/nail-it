@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.264296
+Tags: []
+Status: draft
+---
+
 # Solutions Index (Draft)
 
 Solutions are provided per lesson with code, commentary, and complexity. Expand as exercises are added.

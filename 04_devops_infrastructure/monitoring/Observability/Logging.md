@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Logging
+LastUpdated: 2025-11-06T20:45:59.161610
+Tags: []
+Status: draft
+---
+
 # 📝 Logging: Centralized Log Management and Analysis
 
 > **Master logging strategies, log aggregation, and log analysis for production systems**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 34 01 Advanced Security Patterns
+LastUpdated: 2025-11-06T20:45:58.117874
+Tags: []
+Status: draft
+---
+
 # Lesson 34.1: Advanced Security Patterns
 
 > **Module**: 34 - Advanced Security Patterns  

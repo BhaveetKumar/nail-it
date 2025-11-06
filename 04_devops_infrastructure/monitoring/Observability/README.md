@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:59.160897
+Tags: []
+Status: draft
+---
+
 # 📊 Observability: Monitoring, Logging, and Tracing
 
 > **Complete guide to observability for modern backend systems**

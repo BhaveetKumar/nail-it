@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Sumroottoleafnumbers
+LastUpdated: 2025-11-06T20:45:58.695551
+Tags: []
+Status: draft
+---
+
 # Sum Root to Leaf Numbers
 
 ### Problem

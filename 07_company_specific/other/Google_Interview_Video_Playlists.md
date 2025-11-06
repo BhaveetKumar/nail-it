@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Google Interview Video Playlists
+LastUpdated: 2025-11-06T20:45:58.487754
+Tags: []
+Status: draft
+---
+
 # 📺 Google Interview Video Playlists
 
 > **Curated playlists and specific video links for Google interview preparation**

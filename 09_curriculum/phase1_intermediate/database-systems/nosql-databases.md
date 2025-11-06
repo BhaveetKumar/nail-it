@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Nosql-Databases
+LastUpdated: 2025-11-06T20:45:58.442562
+Tags: []
+Status: draft
+---
+
 # NoSQL Databases
 
 ## Overview

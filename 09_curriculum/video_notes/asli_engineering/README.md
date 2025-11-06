@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.414367
+Tags: []
+Status: draft
+---
+
 # Asli Engineering Video Notes
 
 ## Table of Contents

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Round2-System-Design
+LastUpdated: 2025-11-06T20:45:58.491198
+Tags: []
+Status: draft
+---
+
 # Meta Round 2: System Design Interview
 
 ## 📋 Interview Format

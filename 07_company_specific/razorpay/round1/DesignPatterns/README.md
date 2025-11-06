@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.516925
+Tags: []
+Status: draft
+---
+
 # Design Patterns for Backend Systems
 
 This directory contains comprehensive design patterns commonly used in backend systems, with a focus on Go implementations and fintech/payment system use cases.

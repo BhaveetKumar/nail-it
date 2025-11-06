@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Gradient Descent
+LastUpdated: 2025-11-06T20:45:58.317707
+Tags: []
+Status: draft
+---
+
 # Gradient Descent - Optimization Algorithm
 
 ## Overview

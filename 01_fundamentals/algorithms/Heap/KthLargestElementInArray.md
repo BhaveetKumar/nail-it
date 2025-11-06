@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Kthlargestelementinarray
+LastUpdated: 2025-11-06T20:45:58.716183
+Tags: []
+Status: draft
+---
+
 # Kth Largest Element in an Array
 
 ### Problem

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Kafka Complete Guide
+LastUpdated: 2025-11-06T20:45:58.291434
+Tags: []
+Status: draft
+---
+
 # 🚀 Apache Kafka Complete Guide
 
 > **Comprehensive guide to Apache Kafka for event streaming and real-time data processing**

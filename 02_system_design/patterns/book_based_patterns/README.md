@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:57.717561
+Tags: []
+Status: draft
+---
+
 # Book Based Patterns
 
 ## 📚 Table of Contents

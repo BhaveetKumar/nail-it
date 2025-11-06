@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Razorpay One Day Prep Plan
+LastUpdated: 2025-11-06T20:45:58.499132
+Tags: []
+Status: draft
+---
+
 # 🚀 Razorpay One-Day Interview Preparation Plan
 
 > **Focused preparation for Round 2 (System Design) and Round 3 (Technical Deep Dive + Leadership)**

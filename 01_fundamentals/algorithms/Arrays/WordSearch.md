@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Wordsearch
+LastUpdated: 2025-11-06T20:45:58.723097
+Tags: []
+Status: draft
+---
+
 # Word Search
 
 ### Problem

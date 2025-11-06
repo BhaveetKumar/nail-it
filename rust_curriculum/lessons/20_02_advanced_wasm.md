@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 20 02 Advanced Wasm
+LastUpdated: 2025-11-06T20:45:58.124502
+Tags: []
+Status: draft
+---
+
 # 20 02 Advanced Wasm
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Jwt Implementation
+LastUpdated: 2025-11-06T20:45:59.141729
+Tags: []
+Status: draft
+---
+
 # JWT Implementation - JSON Web Tokens for Authentication
 
 ## Overview

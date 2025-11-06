@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Security Engineering Guide
+LastUpdated: 2025-11-06T20:45:58.274100
+Tags: []
+Status: draft
+---
+
 # 🔐 Security Engineering Guide
 
 > **Comprehensive security engineering for backend systems and interview preparation**

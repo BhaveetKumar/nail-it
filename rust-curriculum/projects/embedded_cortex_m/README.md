@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.262705
+Tags: []
+Status: draft
+---
+
 # Embedded Firmware (Cortex-M, Skeleton)
 
 This is a skeleton for a `no_std` embedded project using `cortex-m` and RTIC.

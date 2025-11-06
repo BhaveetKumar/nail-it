@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Githubactions
+LastUpdated: 2025-11-06T20:45:59.132377
+Tags: []
+Status: draft
+---
+
 # 🚀 GitHub Actions: CI/CD Automation and Workflow Orchestration
 
 > **Master GitHub Actions for automated CI/CD pipelines and workflow orchestration**

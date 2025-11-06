@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Microservices Architecture Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:58.282082
+Tags: []
+Status: draft
+---
+
 # 🏗️ Microservices Architecture Comprehensive Guide
 
 > **Complete guide to microservices design, implementation, and best practices for scalable systems**

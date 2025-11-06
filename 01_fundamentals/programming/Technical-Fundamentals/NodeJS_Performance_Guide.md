@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Nodejs Performance Guide
+LastUpdated: 2025-11-06T20:45:59.110327
+Tags: []
+Status: draft
+---
+
 # ⚡ Node.js Performance Optimization: Complete Guide
 
 > **Master Node.js performance optimization for production applications**

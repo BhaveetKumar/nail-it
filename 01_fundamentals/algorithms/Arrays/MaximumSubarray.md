@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Maximumsubarray
+LastUpdated: 2025-11-06T20:45:58.723897
+Tags: []
+Status: draft
+---
+
 # Maximum Subarray (Kadane's Algorithm)
 
 ### Problem

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Ci Cd Pipelines
+LastUpdated: 2025-11-06T20:45:59.125856
+Tags: []
+Status: draft
+---
+
 # CI/CD Pipelines
 
 ## 📘 Theory

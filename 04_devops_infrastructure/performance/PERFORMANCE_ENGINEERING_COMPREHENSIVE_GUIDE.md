@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Performance Engineering Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:59.169653
+Tags: []
+Status: draft
+---
+
 # ⚡ Performance Engineering Comprehensive Guide
 
 > **Complete guide to performance optimization, monitoring, and scaling for backend systems**

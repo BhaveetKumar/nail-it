@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Interview Preparation Summary
+LastUpdated: 2025-11-06T20:45:57.686745
+Tags: []
+Status: draft
+---
+
 # 🎯 Razorpay Interview Preparation - Complete Summary
 
 > **Comprehensive overview of your interview preparation materials and next steps**

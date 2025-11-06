@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Devops Patterns
+LastUpdated: 2025-11-06T20:45:59.130274
+Tags: []
+Status: draft
+---
+
 # Advanced DevOps Patterns
 
 Advanced DevOps patterns and practices for senior engineering roles.

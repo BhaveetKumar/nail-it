@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Minimumwindowsubstring
+LastUpdated: 2025-11-06T20:45:58.711184
+Tags: []
+Status: draft
+---
+
 # Minimum Window Substring
 
 ### Problem

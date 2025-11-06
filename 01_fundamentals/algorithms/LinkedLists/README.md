@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.751686
+Tags: []
+Status: draft
+---
+
 # Linked Lists Pattern
 
 > **Master linked list manipulation and algorithms with Go implementations**

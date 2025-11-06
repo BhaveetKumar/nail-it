@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Mediator
+LastUpdated: 2025-11-06T20:45:58.527931
+Tags: []
+Status: draft
+---
+
 # Mediator Pattern
 
 ## Pattern Name & Intent

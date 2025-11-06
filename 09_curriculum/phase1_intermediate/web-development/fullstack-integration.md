@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Fullstack-Integration
+LastUpdated: 2025-11-06T20:45:58.452144
+Tags: []
+Status: draft
+---
+
 # Full-Stack Integration
 
 ## Overview

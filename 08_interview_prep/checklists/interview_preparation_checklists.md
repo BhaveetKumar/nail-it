@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Interview Preparation Checklists
+LastUpdated: 2025-11-06T20:45:58.331152
+Tags: []
+Status: draft
+---
+
 # ✅ Interview Preparation Checklists
 
 > **Comprehensive checklists for different interview types and experience levels**

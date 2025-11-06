@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Bookmyshow System Design
+LastUpdated: 2025-11-06T20:45:57.731699
+Tags: []
+Status: draft
+---
+
 # 🎬 BookMyShow System Design
 
 > **Complete system design for a movie ticketing platform like BookMyShow**

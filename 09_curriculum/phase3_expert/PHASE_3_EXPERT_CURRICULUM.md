@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Phase 3 Expert Curriculum
+LastUpdated: 2025-11-06T20:45:58.459190
+Tags: []
+Status: draft
+---
+
 # 🎓 Phase 3: Expert Level Curriculum
 
 > **Advanced curriculum for senior engineers, staff engineers, and technical leaders**

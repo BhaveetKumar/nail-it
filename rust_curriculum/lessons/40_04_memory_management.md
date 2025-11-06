@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 40 04 Memory Management
+LastUpdated: 2025-11-06T20:45:58.114977
+Tags: []
+Status: draft
+---
+
 # 40 04 Memory Management
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

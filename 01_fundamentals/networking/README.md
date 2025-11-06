@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.667246
+Tags: []
+Status: draft
+---
+
 # Networking
 
 ## 📚 Table of Contents

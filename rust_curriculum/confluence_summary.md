@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Confluence Summary
+LastUpdated: 2025-11-06T20:45:58.102043
+Tags: []
+Status: draft
+---
+
 # 🦀 Complete Rust Learning Curriculum - Confluence Summary
 
 > **One-Page Executive Summary for Confluence**  

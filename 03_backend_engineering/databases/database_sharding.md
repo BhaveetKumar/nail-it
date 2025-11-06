@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Database Sharding
+LastUpdated: 2025-11-06T20:45:58.288670
+Tags: []
+Status: draft
+---
+
 # 🗄️ **Database Sharding**
 
 ## 📘 **Theory**

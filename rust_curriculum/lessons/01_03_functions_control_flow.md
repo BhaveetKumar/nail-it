@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 01 03 Functions Control Flow
+LastUpdated: 2025-11-06T20:45:58.113361
+Tags: []
+Status: draft
+---
+
 # 01 03 Functions Control Flow
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

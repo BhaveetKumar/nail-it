@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Swapnodesinpairs
+LastUpdated: 2025-11-06T20:45:58.753975
+Tags: []
+Status: draft
+---
+
 # Swap Nodes in Pairs
 
 ### Problem

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Convertsortedarraytobinarysearchtree
+LastUpdated: 2025-11-06T20:45:58.697104
+Tags: []
+Status: draft
+---
+
 # Convert Sorted Array to Binary Search Tree
 
 ### Problem

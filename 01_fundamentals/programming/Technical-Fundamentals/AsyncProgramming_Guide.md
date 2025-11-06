@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Asyncprogramming Guide
+LastUpdated: 2025-11-06T20:45:59.096620
+Tags: []
+Status: draft
+---
+
 # ⚡ Node.js Async Programming Complete Guide
 
 > **Master asynchronous programming in Node.js with Promises, async/await, and event loops**

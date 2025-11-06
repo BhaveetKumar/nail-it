@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Findallduplicatesinarray
+LastUpdated: 2025-11-06T20:45:58.726585
+Tags: []
+Status: draft
+---
+
 # Find All Duplicates in an Array
 
 ### Problem

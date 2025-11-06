@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.425415
+Tags: []
+Status: draft
+---
+
 # Distributed Systems
 
 ## Table of Contents

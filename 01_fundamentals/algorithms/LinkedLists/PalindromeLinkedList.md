@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Palindromelinkedlist
+LastUpdated: 2025-11-06T20:45:58.753407
+Tags: []
+Status: draft
+---
+
 # Palindrome Linked List
 
 ### Problem

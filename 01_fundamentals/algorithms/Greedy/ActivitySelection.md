@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Activityselection
+LastUpdated: 2025-11-06T20:45:58.728895
+Tags: []
+Status: draft
+---
+
 # Activity Selection Problem
 
 ### Problem

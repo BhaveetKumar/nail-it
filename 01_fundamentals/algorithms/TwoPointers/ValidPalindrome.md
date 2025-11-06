@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Validpalindrome
+LastUpdated: 2025-11-06T20:45:58.698958
+Tags: []
+Status: draft
+---
+
 # Valid Palindrome
 
 ### Problem

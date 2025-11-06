@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Decision Trees
+LastUpdated: 2025-11-06T20:45:58.318010
+Tags: []
+Status: draft
+---
+
 # Decision Trees
 
 ## 📘 Theory

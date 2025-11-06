@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Builder
+LastUpdated: 2025-11-06T20:45:58.512846
+Tags: []
+Status: draft
+---
+
 # Builder Pattern
 
 ## Pattern Name & Intent

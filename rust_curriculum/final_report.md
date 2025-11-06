@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Final Report
+LastUpdated: 2025-11-06T20:45:58.101475
+Tags: []
+Status: draft
+---
+
 # 🦀 Complete Rust Learning Curriculum - Final Report
 
 > **Generated**: December 19, 2024  

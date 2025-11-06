@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Cargo Commands
+LastUpdated: 2025-11-06T20:45:58.129255
+Tags: []
+Status: draft
+---
+
 # Cargo Commands Cheat Sheet
 
 > **Quick Reference for Rust Package Manager**  

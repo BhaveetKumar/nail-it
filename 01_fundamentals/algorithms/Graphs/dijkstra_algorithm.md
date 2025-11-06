@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Dijkstra Algorithm
+LastUpdated: 2025-11-06T20:45:58.741422
+Tags: []
+Status: draft
+---
+
 # 🚀 **Dijkstra's Algorithm**
 
 ## 📘 **Theory**

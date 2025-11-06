@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Grpc Complete Guide
+LastUpdated: 2025-11-06T20:45:58.290719
+Tags: []
+Status: draft
+---
+
 # 🚀 gRPC Complete Guide
 
 > **Comprehensive guide to gRPC for microservices communication and API development**

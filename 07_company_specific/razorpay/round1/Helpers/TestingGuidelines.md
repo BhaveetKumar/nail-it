@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Testingguidelines
+LastUpdated: 2025-11-06T20:45:58.615936
+Tags: []
+Status: draft
+---
+
 # Go Testing Guidelines
 
 This guide provides comprehensive testing strategies and best practices for Go applications, with a focus on backend services and fintech applications.

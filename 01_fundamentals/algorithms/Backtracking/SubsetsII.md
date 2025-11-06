@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Subsetsii
+LastUpdated: 2025-11-06T20:45:58.708773
+Tags: []
+Status: draft
+---
+
 # Subsets II
 
 ### Problem

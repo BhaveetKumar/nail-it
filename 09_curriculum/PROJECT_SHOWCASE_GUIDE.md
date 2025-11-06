@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Project Showcase Guide
+LastUpdated: 2025-11-06T20:45:58.404368
+Tags: []
+Status: draft
+---
+
 # 🚀 Master Engineer Project Showcase Guide
 
 ## Table of Contents

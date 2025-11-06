@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 25 01 Compiler Internals
+LastUpdated: 2025-11-06T20:45:58.119171
+Tags: []
+Status: draft
+---
+
 # Lesson 25.1: Compiler Internals
 
 > **Module**: 25 - Contributing to Rust  

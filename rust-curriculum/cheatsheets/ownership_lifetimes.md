@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Ownership Lifetimes
+LastUpdated: 2025-11-06T20:45:58.270139
+Tags: []
+Status: draft
+---
+
 # Ownership & Lifetimes Cheat-sheet
 
 - Moves vs Copies; `Copy` trait

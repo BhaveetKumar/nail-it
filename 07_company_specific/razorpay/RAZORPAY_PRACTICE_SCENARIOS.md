@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Razorpay Practice Scenarios
+LastUpdated: 2025-11-06T20:45:58.498260
+Tags: []
+Status: draft
+---
+
 # 🎯 Razorpay Practice Scenarios & Solutions
 
 > **Focused practice scenarios for Round 2 and Round 3 with detailed solutions**

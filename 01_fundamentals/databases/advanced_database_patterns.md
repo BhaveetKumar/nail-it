@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Database Patterns
+LastUpdated: 2025-11-06T20:45:58.663823
+Tags: []
+Status: draft
+---
+
 # Advanced Database Patterns
 
 Advanced database patterns and practices for backend systems.

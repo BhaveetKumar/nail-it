@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced System Design Interviews
+LastUpdated: 2025-11-06T20:45:58.348066
+Tags: []
+Status: draft
+---
+
 # Advanced System Design Interviews
 
 ## Table of Contents

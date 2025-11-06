@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Searchin2Dmatrix
+LastUpdated: 2025-11-06T20:45:58.706968
+Tags: []
+Status: draft
+---
+
 # Search a 2D Matrix
 
 ### Problem

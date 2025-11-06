@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Razorpay Leadership Behavioral 2024
+LastUpdated: 2025-11-06T20:45:58.496870
+Tags: []
+Status: draft
+---
+
 # 🎯 **Razorpay Leadership & Behavioral Interview Guide 2024**
 
 ## 📊 **Comprehensive Preparation for Round 3 Interviews**

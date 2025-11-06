@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Google System Design Advanced
+LastUpdated: 2025-11-06T20:45:58.485571
+Tags: []
+Status: draft
+---
+
 # 🏗️ Google System Design Advanced Patterns
 
 > **Advanced system design patterns and architectures for Google-level interviews**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Design-Patterns
+LastUpdated: 2025-11-06T20:45:58.419679
+Tags: []
+Status: draft
+---
+
 # [Auto-Created Placeholder]
 
 This file was auto-generated because a link pointed here.

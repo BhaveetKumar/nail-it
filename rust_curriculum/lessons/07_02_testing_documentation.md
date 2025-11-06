@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 07 02 Testing Documentation
+LastUpdated: 2025-11-06T20:45:58.125563
+Tags: []
+Status: draft
+---
+
 # 07 02 Testing Documentation
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

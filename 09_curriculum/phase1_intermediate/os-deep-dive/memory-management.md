@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Memory-Management
+LastUpdated: 2025-11-06T20:45:58.449028
+Tags: []
+Status: draft
+---
+
 # Memory Management
 
 ## Overview

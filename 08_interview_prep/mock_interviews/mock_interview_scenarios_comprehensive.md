@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Mock Interview Scenarios Comprehensive
+LastUpdated: 2025-11-06T20:45:58.370931
+Tags: []
+Status: draft
+---
+
 # 🎭 **Mock Interview Scenarios Comprehensive Guide**
 
 ## 📘 **Theory**

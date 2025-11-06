@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.562840
+Tags: []
+Status: draft
+---
+
 # Adapter Pattern Implementation
 
 This is a complete microservice implementation demonstrating the Adapter design pattern in Go, with full integration of MongoDB, MySQL, Redis, REST API, WebSockets, and Kafka.

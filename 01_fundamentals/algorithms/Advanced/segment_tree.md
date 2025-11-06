@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Segment Tree
+LastUpdated: 2025-11-06T20:45:58.681311
+Tags: []
+Status: draft
+---
+
 # Segment Tree - Advanced Data Structure for Range Queries
 
 ## Overview

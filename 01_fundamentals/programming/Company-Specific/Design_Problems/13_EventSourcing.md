@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 13 Eventsourcing
+LastUpdated: 2025-11-06T20:45:58.778093
+Tags: []
+Status: draft
+---
+
 # 13. Event Sourcing - Event-Driven Architecture
 
 ## Title & Summary

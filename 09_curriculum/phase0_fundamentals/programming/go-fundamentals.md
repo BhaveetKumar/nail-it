@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Go-Fundamentals
+LastUpdated: 2025-11-06T20:45:58.419958
+Tags: []
+Status: draft
+---
+
 # Go Fundamentals
 
 ## Table of Contents

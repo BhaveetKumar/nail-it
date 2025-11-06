@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Medianoftwosortedarrays
+LastUpdated: 2025-11-06T20:45:58.725009
+Tags: []
+Status: draft
+---
+
 # Median of Two Sorted Arrays
 
 ### Problem

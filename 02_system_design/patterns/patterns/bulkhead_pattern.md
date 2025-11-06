@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Bulkhead Pattern
+LastUpdated: 2025-11-06T20:45:57.709876
+Tags: []
+Status: draft
+---
+
 # Bulkhead Pattern - Resource Isolation and Fault Containment
 
 ## Overview

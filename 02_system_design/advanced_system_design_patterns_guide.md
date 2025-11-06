@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced System Design Patterns Guide
+LastUpdated: 2025-11-06T20:45:57.700413
+Tags: []
+Status: draft
+---
+
 # 🏗️ **Advanced System Design Patterns Guide**
 
 ## **Table of Contents**

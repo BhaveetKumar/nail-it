@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Removeduplicatesfromsortedarray
+LastUpdated: 2025-11-06T20:45:58.700424
+Tags: []
+Status: draft
+---
+
 # Remove Duplicates from Sorted Array
 
 ### Problem

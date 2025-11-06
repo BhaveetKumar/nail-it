@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Binarytreetraversal
+LastUpdated: 2025-11-06T20:45:58.782918
+Tags: []
+Status: draft
+---
+
 # 🌳 Binary Tree Traversal - Tree Problem
 
 > **Master all types of binary tree traversals with iterative and recursive approaches**

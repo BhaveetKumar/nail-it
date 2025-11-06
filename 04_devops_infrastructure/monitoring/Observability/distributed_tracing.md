@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Distributed Tracing
+LastUpdated: 2025-11-06T20:45:59.161287
+Tags: []
+Status: draft
+---
+
 # Distributed Tracing Deep Dive
 
 ## Table of Contents

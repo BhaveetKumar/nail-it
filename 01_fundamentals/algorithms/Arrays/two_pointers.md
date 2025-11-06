@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Two Pointers
+LastUpdated: 2025-11-06T20:45:58.720954
+Tags: []
+Status: draft
+---
+
 # 👆 **Two Pointers Technique**
 
 ## 📘 **Theory**

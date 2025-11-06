@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Canplaceflowers
+LastUpdated: 2025-11-06T20:45:58.731538
+Tags: []
+Status: draft
+---
+
 # Can Place Flowers
 
 ### Problem

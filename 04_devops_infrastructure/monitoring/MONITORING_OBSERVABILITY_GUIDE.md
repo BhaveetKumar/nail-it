@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Monitoring Observability Guide
+LastUpdated: 2025-11-06T20:45:59.157390
+Tags: []
+Status: draft
+---
+
 # 📊 Monitoring & Observability Guide
 
 > **Complete guide to monitoring, logging, and observability for backend systems**

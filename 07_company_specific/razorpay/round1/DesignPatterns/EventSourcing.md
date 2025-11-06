@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Eventsourcing
+LastUpdated: 2025-11-06T20:45:58.516632
+Tags: []
+Status: draft
+---
+
 # Event Sourcing Pattern
 
 ## Pattern Name & Intent

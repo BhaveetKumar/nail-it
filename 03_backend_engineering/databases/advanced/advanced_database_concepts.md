@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Database Concepts
+LastUpdated: 2025-11-06T20:45:58.290304
+Tags: []
+Status: draft
+---
+
 # 🗄️ Advanced Database Concepts & Optimization
 
 ## Table of Contents

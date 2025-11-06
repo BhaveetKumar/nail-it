@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:57.726538
+Tags: []
+Status: draft
+---
+
 # Distributed Systems
 
 Distributed systems concepts and implementations

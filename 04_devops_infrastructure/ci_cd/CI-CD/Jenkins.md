@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Jenkins
+LastUpdated: 2025-11-06T20:45:59.131072
+Tags: []
+Status: draft
+---
+
 # 🔧 Jenkins: Self-Hosted CI/CD and Pipeline Automation
 
 > **Master Jenkins for self-hosted CI/CD pipelines and advanced automation**

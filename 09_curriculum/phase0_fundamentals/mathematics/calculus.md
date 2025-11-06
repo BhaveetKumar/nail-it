@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Calculus
+LastUpdated: 2025-11-06T20:45:58.416211
+Tags: []
+Status: draft
+---
+
 # Calculus for Engineers
 
 ## Table of Contents

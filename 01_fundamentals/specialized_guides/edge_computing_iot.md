@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Edge Computing Iot
+LastUpdated: 2025-11-06T20:45:58.672764
+Tags: []
+Status: draft
+---
+
 # Edge Computing and IoT Systems Guide
 
 ## Table of Contents

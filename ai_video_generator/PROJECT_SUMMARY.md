@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Project Summary
+LastUpdated: 2025-11-06T20:45:57.735835
+Tags: []
+Status: draft
+---
+
 # 🎬 AI Video Generator - Project Summary
 
 ## 🌟 Overview

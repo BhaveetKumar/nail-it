@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Acid Properties
+LastUpdated: 2025-11-06T20:45:58.286834
+Tags: []
+Status: draft
+---
+
 # ACID Properties - Database Transaction Guarantees
 
 ## Overview

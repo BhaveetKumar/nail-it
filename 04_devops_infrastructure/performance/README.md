@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:59.168303
+Tags: []
+Status: draft
+---
+
 # Performance
 
 Performance engineering and optimization

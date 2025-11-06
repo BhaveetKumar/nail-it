@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Nqueens
+LastUpdated: 2025-11-06T20:45:58.709818
+Tags: []
+Status: draft
+---
+
 # N-Queens
 
 ### Problem

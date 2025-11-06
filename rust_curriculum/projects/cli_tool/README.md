@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.103031
+Tags: []
+Status: draft
+---
+
 # CLI Tool with Plugin System
 
 > **Project Level**: Intermediate  

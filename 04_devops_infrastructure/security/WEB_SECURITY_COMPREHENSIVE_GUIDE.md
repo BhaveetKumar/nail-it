@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Web Security Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:59.133148
+Tags: []
+Status: draft
+---
+
 # 🔒 Web Security Comprehensive Guide
 
 > **Complete guide to web security policies and practices with implementations in Node.js, Go, and Rust**

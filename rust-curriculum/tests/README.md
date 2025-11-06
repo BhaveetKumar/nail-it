@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.264101
+Tags: []
+Status: draft
+---
+
 # Exercises & Assessments Harness
 
 - Place per-lesson exercises under `lessons/` and reference them here.

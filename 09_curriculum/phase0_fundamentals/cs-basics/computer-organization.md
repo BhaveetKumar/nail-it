@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Computer-Organization
+LastUpdated: 2025-11-06T20:45:58.417627
+Tags: []
+Status: draft
+---
+
 # Computer Organization
 
 ## Table of Contents

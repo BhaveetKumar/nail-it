@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Repository Pattern
+LastUpdated: 2025-11-06T20:45:58.542736
+Tags: []
+Status: draft
+---
+
 # Repository Pattern
 
 Comprehensive guide to the Repository pattern for Razorpay interviews.

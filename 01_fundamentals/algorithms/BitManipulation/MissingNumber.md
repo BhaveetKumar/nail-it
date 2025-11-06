@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Missingnumber
+LastUpdated: 2025-11-06T20:45:58.690349
+Tags: []
+Status: draft
+---
+
 # Missing Number
 
 ### Problem

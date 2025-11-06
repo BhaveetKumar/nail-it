@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: System Architecture Patterns
+LastUpdated: 2025-11-06T20:45:58.453454
+Tags: []
+Status: draft
+---
+
 # [Auto-Created Placeholder]
 
 This file was auto-generated because a link pointed here.

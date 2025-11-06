@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Asli Engineering Complete Guide
+LastUpdated: 2025-11-06T20:45:58.634712
+Tags: []
+Status: draft
+---
+
 # 🚀 **Asli Engineering Complete System Design Guide**
 
 ## 📊 **Based on Arpit Bhyani's Asli Engineering YouTube Channel**

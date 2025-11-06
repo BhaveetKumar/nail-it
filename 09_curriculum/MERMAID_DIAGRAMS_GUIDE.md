@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Mermaid Diagrams Guide
+LastUpdated: 2025-11-06T20:45:58.405845
+Tags: []
+Status: draft
+---
+
 # Mermaid Diagrams Guide
 
 ## Overview

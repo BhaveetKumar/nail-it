@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Database Interviews
+LastUpdated: 2025-11-06T20:45:58.351145
+Tags: []
+Status: draft
+---
+
 # Advanced Database Interviews
 
 ## Table of Contents

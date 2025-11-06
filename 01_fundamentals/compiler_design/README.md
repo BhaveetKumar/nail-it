@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:59.120595
+Tags: []
+Status: draft
+---
+
 # Compiler Design
 
 ## 📚 Table of Contents

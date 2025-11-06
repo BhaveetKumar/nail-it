@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Study Tracker
+LastUpdated: 2025-11-06T20:45:58.619958
+Tags: []
+Status: draft
+---
+
 # 📊 Master Engineer Study Tracker
 
 ## 🎯 Current Phase: Phase 3 - Expert (COMPLETED)

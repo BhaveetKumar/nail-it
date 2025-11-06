@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Backend Engineer Preparation
+LastUpdated: 2025-11-06T20:45:58.333685
+Tags: []
+Status: draft
+---
+
 # 🚀 Advanced Backend Engineer Preparation Guide - Razorpay Lead SDE
 
 > **Comprehensive preparation for 10+ years experienced backend engineers targeting Razorpay Lead SDE role**

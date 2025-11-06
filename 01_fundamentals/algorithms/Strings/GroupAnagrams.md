@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Groupanagrams
+LastUpdated: 2025-11-06T20:45:58.687829
+Tags: []
+Status: draft
+---
+
 # Group Anagrams
 
 ### Problem

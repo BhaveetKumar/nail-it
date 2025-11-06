@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Transaction-Management
+LastUpdated: 2025-11-06T20:45:58.443085
+Tags: []
+Status: draft
+---
+
 # Transaction Management
 
 ## Overview

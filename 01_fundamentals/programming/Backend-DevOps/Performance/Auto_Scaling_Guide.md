@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Auto Scaling Guide
+LastUpdated: 2025-11-06T20:45:59.016216
+Tags: []
+Status: draft
+---
+
 # [Auto-Created Placeholder]
 
 This file was auto-generated because a link pointed here.

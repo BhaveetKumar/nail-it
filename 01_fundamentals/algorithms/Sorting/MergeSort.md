@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Mergesort
+LastUpdated: 2025-11-06T20:45:58.732930
+Tags: []
+Status: draft
+---
+
 # Merge Sort
 
 ### Problem

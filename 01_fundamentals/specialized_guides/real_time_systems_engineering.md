@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Real Time Systems Engineering
+LastUpdated: 2025-11-06T20:45:58.677157
+Tags: []
+Status: draft
+---
+
 # Real-Time Systems Engineering Guide
 
 ## Table of Contents

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: System Design Patterns Complete Guide
+LastUpdated: 2025-11-06T20:45:57.701961
+Tags: []
+Status: draft
+---
+
 # 🏗️ System Design Patterns Complete Guide
 
 > **Master essential system design patterns for building scalable, fault-tolerant distributed systems**

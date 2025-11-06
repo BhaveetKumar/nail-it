@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Infrastructure As Code
+LastUpdated: 2025-11-06T20:45:59.126180
+Tags: []
+Status: draft
+---
+
 # Infrastructure as Code - Automated Infrastructure Management
 
 ## Overview

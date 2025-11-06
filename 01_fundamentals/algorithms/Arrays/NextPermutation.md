@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Nextpermutation
+LastUpdated: 2025-11-06T20:45:58.725582
+Tags: []
+Status: draft
+---
+
 # Next Permutation
 
 ### Problem

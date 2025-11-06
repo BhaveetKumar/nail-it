@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Go Concurrency
+LastUpdated: 2025-11-06T20:45:58.662201
+Tags: []
+Status: draft
+---
+
 # 🚀 **Advanced Go Concurrency**
 
 ## 📊 **Complete Guide to Go Concurrency Patterns**

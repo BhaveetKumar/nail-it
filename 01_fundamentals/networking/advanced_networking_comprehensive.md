@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Networking Comprehensive
+LastUpdated: 2025-11-06T20:45:58.667713
+Tags: []
+Status: draft
+---
+
 # Advanced Networking Comprehensive
 
 Comprehensive guide to advanced networking for senior backend engineers.

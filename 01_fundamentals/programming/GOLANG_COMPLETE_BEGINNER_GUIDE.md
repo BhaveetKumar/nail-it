@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Golang Complete Beginner Guide
+LastUpdated: 2025-11-06T20:45:58.761046
+Tags: []
+Status: draft
+---
+
 # 🚀 Go (Golang) Complete Beginner's Guide
 
 > **Learn Go from scratch with comprehensive examples and hands-on projects**

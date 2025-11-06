@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Asli Engineering Distributed Systems
+LastUpdated: 2025-11-06T20:45:57.725442
+Tags: []
+Status: draft
+---
+
 # 🌐 **Distributed Systems - Asli Engineering Deep Dive**
 
 ## 📊 **Based on Arpit Bhyani's Distributed Systems Videos**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Google Specific Interview Content
+LastUpdated: 2025-11-06T20:45:58.485114
+Tags: []
+Status: draft
+---
+
 # 🎯 Google-Specific Interview Content
 
 > **Essential Google interview questions, system design scenarios, and coding patterns**

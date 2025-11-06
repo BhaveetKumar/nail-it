@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Rust Ecosystem Guide
+LastUpdated: 2025-11-06T20:45:58.129627
+Tags: []
+Status: draft
+---
+
 # Rust Ecosystem Quick Reference Guide
 
 > **Level**: Expert  

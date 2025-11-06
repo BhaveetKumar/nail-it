@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Load Balancer Patterns
+LastUpdated: 2025-11-06T20:45:57.729647
+Tags: []
+Status: draft
+---
+
 # Load Balancer Patterns - Scaling Applications
 
 ## Overview

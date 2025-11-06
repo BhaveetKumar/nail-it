@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Monitoring Comprehensive
+LastUpdated: 2025-11-06T20:45:59.129746
+Tags: []
+Status: draft
+---
+
 # Advanced Monitoring Comprehensive
 
 Comprehensive guide to advanced monitoring and observability for senior backend engineers.

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Mergetwosortedlists
+LastUpdated: 2025-11-06T20:45:58.749682
+Tags: []
+Status: draft
+---
+
 # Merge Two Sorted Lists
 
 ### Problem

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Database Optimization Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:58.285006
+Tags: []
+Status: draft
+---
+
 # 🗄️ Database Optimization Comprehensive Guide
 
 > **Complete guide to database performance optimization, scaling, and best practices**

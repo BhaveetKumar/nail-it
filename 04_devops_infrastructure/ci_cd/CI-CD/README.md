@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:59.131969
+Tags: []
+Status: draft
+---
+
 # Ci Cd
 
 ## 📚 Table of Contents

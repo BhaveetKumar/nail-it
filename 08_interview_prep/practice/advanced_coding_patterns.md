@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Coding Patterns
+LastUpdated: 2025-11-06T20:45:58.354157
+Tags: []
+Status: draft
+---
+
 # Advanced Coding Patterns
 
 ## Table of Contents

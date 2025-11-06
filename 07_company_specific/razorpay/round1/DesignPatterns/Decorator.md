@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Decorator
+LastUpdated: 2025-11-06T20:45:58.524275
+Tags: []
+Status: draft
+---
+
 # Decorator Pattern
 
 ## Pattern Name & Intent

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Netflix Interview Preparation
+LastUpdated: 2025-11-06T20:45:58.490456
+Tags: []
+Status: draft
+---
+
 # 🎬 Netflix Interview Preparation Guide
 
 > **Complete preparation strategy for Netflix software engineering interviews**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced System Design Patterns
+LastUpdated: 2025-11-06T20:45:57.712774
+Tags: []
+Status: draft
+---
+
 # Advanced System Design Patterns
 
 Comprehensive advanced system design patterns for senior engineering roles.

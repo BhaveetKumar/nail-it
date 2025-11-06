@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Dsa Questions Answers Guide
+LastUpdated: 2025-11-06T20:45:58.657613
+Tags: []
+Status: draft
+---
+
 # 🧮 Data Structures & Algorithms - Complete Guide
 
 > **Comprehensive DSA guide with Go implementations, optimal solutions, and FAANG interview questions**

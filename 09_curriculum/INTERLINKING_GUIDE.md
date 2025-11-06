@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Interlinking Guide
+LastUpdated: 2025-11-06T20:45:58.402841
+Tags: []
+Status: draft
+---
+
 # 🔗 Content Interlinking Guide
 
 ## Table of Contents

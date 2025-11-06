@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Circuitbreaker
+LastUpdated: 2025-11-06T20:45:58.523001
+Tags: []
+Status: draft
+---
+
 # Circuit Breaker Pattern
 
 ## Pattern Name & Intent

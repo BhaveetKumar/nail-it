@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 20 01 Wasm Basics
+LastUpdated: 2025-11-06T20:45:58.114532
+Tags: []
+Status: draft
+---
+
 # Lesson 20.1: WebAssembly (WASM) Basics
 
 > **Module**: 20 - WebAssembly  

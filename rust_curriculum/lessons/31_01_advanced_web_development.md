@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 31 01 Advanced Web Development
+LastUpdated: 2025-11-06T20:45:58.121422
+Tags: []
+Status: draft
+---
+
 # Lesson 31.1: Advanced Web Development
 
 > **Module**: 31 - Advanced Web Development  

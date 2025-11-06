@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Singlenumber
+LastUpdated: 2025-11-06T20:45:58.692083
+Tags: []
+Status: draft
+---
+
 # Single Number
 
 ### Problem

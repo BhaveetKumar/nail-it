@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Uniquepaths
+LastUpdated: 2025-11-06T20:45:58.727680
+Tags: []
+Status: draft
+---
+
 # Unique Paths
 
 ### Problem

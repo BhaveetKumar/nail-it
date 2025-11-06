@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Rust Ecosystem Exercises
+LastUpdated: 2025-11-06T20:45:58.111960
+Tags: []
+Status: draft
+---
+
 # Rust Ecosystem Exercises
 
 > **Modules**: 30-35 (Ecosystem Mastery, Advanced Web Development, Database Patterns)  

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Razorpay Technical Deep Dive 2024
+LastUpdated: 2025-11-06T20:45:58.500541
+Tags: []
+Status: draft
+---
+
 # 🎯 **Razorpay Technical Deep Dive Guide 2024**
 
 ## 📊 **Comprehensive Go Runtime, System Design & Performance Engineering**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Proxy
+LastUpdated: 2025-11-06T20:45:58.525549
+Tags: []
+Status: draft
+---
+
 # Proxy Pattern
 
 ## Pattern Name & Intent

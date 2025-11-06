@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Threesumclosest
+LastUpdated: 2025-11-06T20:45:58.722310
+Tags: []
+Status: draft
+---
+
 # 3Sum Closest
 
 ### Problem

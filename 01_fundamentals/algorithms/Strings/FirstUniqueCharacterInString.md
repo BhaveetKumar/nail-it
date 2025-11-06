@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Firstuniquecharacterinstring
+LastUpdated: 2025-11-06T20:45:58.686034
+Tags: []
+Status: draft
+---
+
 # First Unique Character in a String
 
 ### Problem

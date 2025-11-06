@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 01 Messagingapi
+LastUpdated: 2025-11-06T20:45:58.509769
+Tags: []
+Status: draft
+---
+
 # 01. Messaging API - Real-time Communication System
 
 ## Title & Summary

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.559279
+Tags: []
+Status: draft
+---
+
 # Memento Pattern Microservice
 
 A complete microservice implementation demonstrating the Memento design pattern with MongoDB, MySQL, REST API, WebSockets, and Kafka integration.

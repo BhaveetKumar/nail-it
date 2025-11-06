@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Database Performance Guide
+LastUpdated: 2025-11-06T20:45:58.273428
+Tags: []
+Status: draft
+---
+
 # 🚀 Database Performance Optimization Guide
 
 > **Advanced database performance tuning and optimization for senior backend engineers**

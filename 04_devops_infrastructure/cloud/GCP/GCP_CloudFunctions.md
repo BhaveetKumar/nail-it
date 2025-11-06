@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Gcp Cloudfunctions
+LastUpdated: 2025-11-06T20:45:59.147327
+Tags: []
+Status: draft
+---
+
 # ⚡ GCP Cloud Functions: Serverless Functions and Event-Driven Architecture
 
 > **Master Google Cloud Functions for serverless computing and event-driven applications**

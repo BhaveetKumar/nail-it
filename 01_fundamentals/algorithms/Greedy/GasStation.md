@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Gasstation
+LastUpdated: 2025-11-06T20:45:58.732006
+Tags: []
+Status: draft
+---
+
 # Gas Station
 
 ### Problem

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Algorithms Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:58.680513
+Tags: []
+Status: draft
+---
+
 # 🧮 Advanced Algorithms Comprehensive Guide
 
 > **Master advanced algorithms and data structures for technical interviews and real-world applications**

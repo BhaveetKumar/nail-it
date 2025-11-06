@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Graph Algorithms Comprehensive
+LastUpdated: 2025-11-06T20:45:59.114933
+Tags: []
+Status: draft
+---
+
 # Advanced Graph Algorithms Comprehensive
 
 ## Table of Contents

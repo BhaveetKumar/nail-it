@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Longestsubstringwithatmostkdistinctcharacters
+LastUpdated: 2025-11-06T20:45:58.711590
+Tags: []
+Status: draft
+---
+
 # Longest Substring with At Most K Distinct Characters
 
 ### Problem

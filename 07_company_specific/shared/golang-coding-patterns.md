@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Golang-Coding-Patterns
+LastUpdated: 2025-11-06T20:45:58.492644
+Tags: []
+Status: draft
+---
+
 # Golang Coding Patterns for Interviews
 
 ## 📚 Table of Contents

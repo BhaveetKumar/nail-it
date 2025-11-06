@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Processes
+LastUpdated: 2025-11-06T20:45:58.755373
+Tags: []
+Status: draft
+---
+
 # 🔄 **Processes**
 
 ## 📘 **Theory**

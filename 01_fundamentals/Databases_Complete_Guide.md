@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Databases Complete Guide
+LastUpdated: 2025-11-06T20:45:58.655009
+Tags: []
+Status: draft
+---
+
 # 🗄️ Databases Complete Guide - From Fundamentals to Advanced
 
 ## 📋 Table of Contents

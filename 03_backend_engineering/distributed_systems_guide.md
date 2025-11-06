@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Distributed Systems Guide
+LastUpdated: 2025-11-06T20:45:58.281492
+Tags: []
+Status: draft
+---
+
 # 🌐 Distributed Systems Engineering Guide
 
 > **Advanced distributed systems patterns and implementations for senior backend engineers**

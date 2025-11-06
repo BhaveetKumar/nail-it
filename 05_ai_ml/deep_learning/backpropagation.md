@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Backpropagation
+LastUpdated: 2025-11-06T20:45:58.320887
+Tags: []
+Status: draft
+---
+
 # Backpropagation - Neural Network Training Algorithm
 
 ## Overview

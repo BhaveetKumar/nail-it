@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Longestsubstring
+LastUpdated: 2025-11-06T20:45:58.722468
+Tags: []
+Status: draft
+---
+
 # [Auto-Created Placeholder]
 
 This file was auto-generated because a link pointed here.

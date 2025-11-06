@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 07 01 Modules Packages
+LastUpdated: 2025-11-06T20:45:58.126632
+Tags: []
+Status: draft
+---
+
 # Lesson 7.1: Modules and Packages
 
 > **Module**: 7 - Modules and Crates  

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Monitoringprometheusgrafana
+LastUpdated: 2025-11-06T20:45:59.165201
+Tags: []
+Status: draft
+---
+
 # 📊 Monitoring with Prometheus and Grafana: Metrics Collection and Visualization
 
 > **Master Prometheus for metrics collection and Grafana for visualization and alerting**

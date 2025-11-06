@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Number-Theory-Algorithms
+LastUpdated: 2025-11-06T20:45:58.428587
+Tags: []
+Status: draft
+---
+
 # Number Theory Algorithms
 
 ## Overview

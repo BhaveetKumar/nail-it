@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Numberofconnectedcomponentsinundirectedgraph
+LastUpdated: 2025-11-06T20:45:58.744814
+Tags: []
+Status: draft
+---
+
 # Number of Connected Components in an Undirected Graph
 
 ### Problem

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Longestpalindromicsubstring
+LastUpdated: 2025-11-06T20:45:58.684403
+Tags: []
+Status: draft
+---
+
 # Longest Palindromic Substring
 
 ### Problem

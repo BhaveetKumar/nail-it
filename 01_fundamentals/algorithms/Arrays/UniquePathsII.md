@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Uniquepathsii
+LastUpdated: 2025-11-06T20:45:58.719649
+Tags: []
+Status: draft
+---
+
 # Unique Paths II
 
 ### Problem

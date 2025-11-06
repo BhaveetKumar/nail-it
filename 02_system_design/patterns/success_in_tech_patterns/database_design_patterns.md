@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Database Design Patterns
+LastUpdated: 2025-11-06T20:45:57.714241
+Tags: []
+Status: draft
+---
+
 # Database Design Patterns - Success in Tech Methodology
 
 ## Table of Contents

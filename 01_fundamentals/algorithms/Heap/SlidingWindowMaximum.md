@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Slidingwindowmaximum
+LastUpdated: 2025-11-06T20:45:58.717244
+Tags: []
+Status: draft
+---
+
 # Sliding Window Maximum
 
 ### Problem

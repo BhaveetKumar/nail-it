@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Fintech Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:58.481625
+Tags: []
+Status: draft
+---
+
 # 💰 Fintech Comprehensive Guide for Backend Engineers
 
 ## Table of Contents

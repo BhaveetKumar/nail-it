@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Goprojectlayout
+LastUpdated: 2025-11-06T20:45:58.612572
+Tags: []
+Status: draft
+---
+
 # Go Project Layout Guide
 
 This guide provides recommended project layouts for Go applications, with a focus on backend services and fintech applications.

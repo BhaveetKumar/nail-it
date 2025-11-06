@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Movezeroes
+LastUpdated: 2025-11-06T20:45:58.722954
+Tags: []
+Status: draft
+---
+
 # Move Zeroes
 
 ### Problem

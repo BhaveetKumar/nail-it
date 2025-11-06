@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Coinchange
+LastUpdated: 2025-11-06T20:45:58.745640
+Tags: []
+Status: draft
+---
+
 # Coin Change
 
 ### Problem

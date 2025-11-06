@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Api Gateway
+LastUpdated: 2025-11-06T20:45:57.708012
+Tags: []
+Status: draft
+---
+
 # 🌐 **API Gateway**
 
 ## 📘 **Theory**

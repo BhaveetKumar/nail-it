@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Low Latency Trading Systems Golang
+LastUpdated: 2025-11-06T20:45:57.719172
+Tags: []
+Status: draft
+---
+
 # 🚀 **Low Latency Trading Systems in Go**
 
 ## 📊 **Based on C++ Low Latency Trading System Talk - Go Implementation**

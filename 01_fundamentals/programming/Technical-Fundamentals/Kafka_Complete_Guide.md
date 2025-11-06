@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Kafka Complete Guide
+LastUpdated: 2025-11-06T20:45:59.100346
+Tags: []
+Status: draft
+---
+
 # 🚀 Apache Kafka Complete Guide - Theory, Practice & Production
 
 ## Table of Contents

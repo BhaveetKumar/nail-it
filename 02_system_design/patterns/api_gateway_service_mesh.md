@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Api Gateway Service Mesh
+LastUpdated: 2025-11-06T20:45:57.705743
+Tags: []
+Status: draft
+---
+
 # API Gateway and Service Mesh Patterns - Comprehensive Guide
 
 ## 🎯 Overview

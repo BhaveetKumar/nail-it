@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Jaeger
+LastUpdated: 2025-11-06T20:45:59.159831
+Tags: []
+Status: draft
+---
+
 # Jaeger
 
 *Placeholder file auto-generated to heal internal links.*

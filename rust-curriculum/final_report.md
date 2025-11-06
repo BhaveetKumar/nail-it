@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Final Report
+LastUpdated: 2025-11-06T20:45:58.131140
+Tags: []
+Status: draft
+---
+
 # Final Validation Report
 
 Generated: 2025-09-19

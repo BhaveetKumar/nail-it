@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Blockchain Cryptocurrency Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:58.758870
+Tags: []
+Status: draft
+---
+
 # ⛓️ Blockchain & Cryptocurrency Comprehensive Guide
 
 ## Table of Contents

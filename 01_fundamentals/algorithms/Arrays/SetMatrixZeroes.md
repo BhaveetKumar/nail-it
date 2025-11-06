@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Setmatrixzeroes
+LastUpdated: 2025-11-06T20:45:58.720188
+Tags: []
+Status: draft
+---
+
 # Set Matrix Zeroes
 
 ### Problem

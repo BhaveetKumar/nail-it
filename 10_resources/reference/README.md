@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.637935
+Tags: []
+Status: draft
+---
+
 # 🚀 Razorpay Interview Preparation Repository
 
 A comprehensive collection of technical materials for software engineering interview preparation, with focus on Razorpay and fintech companies.

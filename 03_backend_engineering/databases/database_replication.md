@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Database Replication
+LastUpdated: 2025-11-06T20:45:58.288939
+Tags: []
+Status: draft
+---
+
 # Database Replication - High Availability and Scalability
 
 ## Overview

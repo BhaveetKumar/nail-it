@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Data Structure Interviews
+LastUpdated: 2025-11-06T20:45:58.354818
+Tags: []
+Status: draft
+---
+
 # Advanced Data Structure Interviews
 
 ## Table of Contents

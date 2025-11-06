@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 39 01 Final Project
+LastUpdated: 2025-11-06T20:45:58.125241
+Tags: []
+Status: draft
+---
+
 # Lesson 39.1: Final Project - Building a Production-Ready System
 
 > **Module**: 39 - Final Project  

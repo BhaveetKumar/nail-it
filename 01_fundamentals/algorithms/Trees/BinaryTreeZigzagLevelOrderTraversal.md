@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Binarytreezigzaglevelordertraversal
+LastUpdated: 2025-11-06T20:45:58.696736
+Tags: []
+Status: draft
+---
+
 # Binary Tree Zigzag Level Order Traversal
 
 ### Problem

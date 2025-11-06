@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Serializeanddeserializebinarytree
+LastUpdated: 2025-11-06T20:45:58.694249
+Tags: []
+Status: draft
+---
+
 # Serialize and Deserialize Binary Tree
 
 ### Problem

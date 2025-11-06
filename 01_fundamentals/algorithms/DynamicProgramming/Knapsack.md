@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Knapsack
+LastUpdated: 2025-11-06T20:45:58.748276
+Tags: []
+Status: draft
+---
+
 # [Auto-Created Placeholder]
 
 This file was auto-generated because a link pointed here.

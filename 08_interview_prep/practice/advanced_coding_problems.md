@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Coding Problems
+LastUpdated: 2025-11-06T20:45:58.338088
+Tags: []
+Status: draft
+---
+
 # Advanced Coding Problems
 
 Comprehensive advanced coding problems for senior engineering interviews.

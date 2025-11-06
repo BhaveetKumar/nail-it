@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Go Programming Language Patterns
+LastUpdated: 2025-11-06T20:45:58.293590
+Tags: []
+Status: draft
+---
+
 # Go Programming Language Patterns - Donovan & Kernighan
 
 ## Table of Contents

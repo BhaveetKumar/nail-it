@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Queuereconstructionbyheight
+LastUpdated: 2025-11-06T20:45:58.730574
+Tags: []
+Status: draft
+---
+
 # Queue Reconstruction by Height
 
 ### Problem

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Longestsubstringwithatmosttwodistinctcharacters
+LastUpdated: 2025-11-06T20:45:58.712028
+Tags: []
+Status: draft
+---
+
 # Longest Substring with At Most Two Distinct Characters
 
 ### Problem

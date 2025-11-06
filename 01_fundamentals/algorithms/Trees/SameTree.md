@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Sametree
+LastUpdated: 2025-11-06T20:45:58.693578
+Tags: []
+Status: draft
+---
+
 # [Auto-Created Placeholder]
 
 This file was auto-generated because a link pointed here.

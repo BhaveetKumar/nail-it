@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Razorpay Specific Questions 2024
+LastUpdated: 2025-11-06T20:45:58.497202
+Tags: []
+Status: draft
+---
+
 # 🎯 **Razorpay-Specific Interview Questions 2024**
 
 ## 📊 **Based on Latest Interview Experiences & Company Focus Areas**

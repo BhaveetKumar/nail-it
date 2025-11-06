@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Reorganization Plan
+LastUpdated: 2025-11-06T20:45:58.634173
+Tags: []
+Status: draft
+---
+
 # 🔄 Repository Reorganization Plan
 
 ## 📋 **Current Issues Identified**

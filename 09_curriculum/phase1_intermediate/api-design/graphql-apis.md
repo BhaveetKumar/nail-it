@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Graphql-Apis
+LastUpdated: 2025-11-06T20:45:58.441345
+Tags: []
+Status: draft
+---
+
 # GraphQL APIs
 
 ## Overview

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 02 Pricecomparison
+LastUpdated: 2025-11-06T20:45:58.509099
+Tags: []
+Status: draft
+---
+
 # 02. Price Comparison - Multi-Vendor Price Aggregation Service
 
 ## Title & Summary

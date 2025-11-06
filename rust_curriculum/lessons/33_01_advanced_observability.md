@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 33 01 Advanced Observability
+LastUpdated: 2025-11-06T20:45:58.124316
+Tags: []
+Status: draft
+---
+
 # Lesson 33.1: Advanced Observability
 
 > **Module**: 33 - Advanced Observability  

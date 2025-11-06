@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Gcp Bigquery
+LastUpdated: 2025-11-06T20:45:59.148901
+Tags: []
+Status: draft
+---
+
 # 📊 GCP BigQuery: Serverless Data Warehouse
 
 > **Master GCP BigQuery for scalable data analytics and business intelligence**

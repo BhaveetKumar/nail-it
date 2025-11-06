@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Facebook Technical Architecture
+LastUpdated: 2025-11-06T20:45:57.730691
+Tags: []
+Status: draft
+---
+
 # Facebook Technical Architecture - Complete Case Study
 
 ## 🎯 Overview

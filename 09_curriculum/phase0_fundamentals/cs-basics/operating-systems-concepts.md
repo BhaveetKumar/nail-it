@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Operating-Systems-Concepts
+LastUpdated: 2025-11-06T20:45:58.417904
+Tags: []
+Status: draft
+---
+
 # Operating Systems Concepts
 
 ## Table of Contents

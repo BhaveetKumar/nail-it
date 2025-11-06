@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Linkedlistoperations
+LastUpdated: 2025-11-06T20:45:58.797366
+Tags: []
+Status: draft
+---
+
 # 🔗 Linked List Operations - Complete Guide
 
 ## Problem Statement

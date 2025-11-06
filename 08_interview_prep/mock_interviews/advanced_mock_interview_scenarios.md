@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Mock Interview Scenarios
+LastUpdated: 2025-11-06T20:45:58.371367
+Tags: []
+Status: draft
+---
+
 # Advanced Mock Interview Scenarios
 
 Comprehensive mock interview scenarios for senior engineering roles.

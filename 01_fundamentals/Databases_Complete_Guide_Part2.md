@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Databases Complete Guide Part2
+LastUpdated: 2025-11-06T20:45:58.660670
+Tags: []
+Status: draft
+---
+
 # 🗄️ Databases Complete Guide - Part 2
 
 ## ⏰ Time Series Databases

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Aws Ec2
+LastUpdated: 2025-11-06T20:45:59.149953
+Tags: []
+Status: draft
+---
+
 # 🖥️ AWS EC2: Virtual Machines, Auto-Scaling, and Spot Instances
 
 > **Master Amazon EC2 for scalable virtual machine deployments**

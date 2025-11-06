@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Open Source Projects
+LastUpdated: 2025-11-06T20:45:58.617693
+Tags: []
+Status: draft
+---
+
 # Open Source Projects for Resume Enhancement
 
 ## Table of Contents

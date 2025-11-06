@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Neural Networks
+LastUpdated: 2025-11-06T20:45:58.309765
+Tags: []
+Status: draft
+---
+
 # 🧠 **Neural Networks**
 
 ## 📘 **Theory**

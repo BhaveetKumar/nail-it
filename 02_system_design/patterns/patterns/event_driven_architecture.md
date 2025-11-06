@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Event Driven Architecture
+LastUpdated: 2025-11-06T20:45:57.711829
+Tags: []
+Status: draft
+---
+
 # Event-Driven Architecture - Asynchronous Communication Pattern
 
 ## Overview

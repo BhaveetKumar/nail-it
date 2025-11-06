@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Executive Leadership Scenarios
+LastUpdated: 2025-11-06T20:45:58.648463
+Tags: []
+Status: draft
+---
+
 # Executive Leadership Scenarios
 
 Comprehensive executive leadership scenarios for senior engineering roles.

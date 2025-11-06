@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Reversenodesinkgroup
+LastUpdated: 2025-11-06T20:45:58.752411
+Tags: []
+Status: draft
+---
+
 # Reverse Nodes in k-Group
 
 ### Problem

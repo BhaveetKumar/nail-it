@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Distributed Systems Guide
+LastUpdated: 2025-11-06T20:45:57.727533
+Tags: []
+Status: draft
+---
+
 # 🌐 Distributed Systems Guide
 
 > **Essential guide to distributed systems concepts and patterns**

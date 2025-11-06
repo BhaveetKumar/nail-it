@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Quick Reference Flashcards
+LastUpdated: 2025-11-06T20:45:58.335351
+Tags: []
+Status: draft
+---
+
 # 🎯 Quick Reference Flashcards - Razorpay Interview
 
 > **Essential concepts and formulas for quick review during interview preparation**

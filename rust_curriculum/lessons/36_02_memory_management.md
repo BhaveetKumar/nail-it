@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 36 02 Memory Management
+LastUpdated: 2025-11-06T20:45:58.121606
+Tags: []
+Status: draft
+---
+
 # 36 02 Memory Management
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

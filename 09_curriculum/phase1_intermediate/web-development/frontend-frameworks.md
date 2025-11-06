@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Frontend-Frameworks
+LastUpdated: 2025-11-06T20:45:58.452981
+Tags: []
+Status: draft
+---
+
 # Frontend Frameworks
 
 ## Overview

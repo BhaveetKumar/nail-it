@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Rabbitmq Patterns
+LastUpdated: 2025-11-06T20:45:58.292074
+Tags: []
+Status: draft
+---
+
 # RabbitMQ Patterns - Message Queue Implementation
 
 ## Overview

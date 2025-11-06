@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Nodejs Machine Coding Problems Part2
+LastUpdated: 2025-11-06T20:45:58.770690
+Tags: []
+Status: draft
+---
+
 # 💻 Node.js Machine Coding Problems - Part 2
 
 > **Continuation of comprehensive machine coding problems with detailed Node.js implementations**

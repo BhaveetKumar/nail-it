@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Alerting
+LastUpdated: 2025-11-06T20:45:59.159366
+Tags: []
+Status: draft
+---
+
 # 🚨 Alerting: Intelligent Alert Management and Notification Systems
 
 > **Master alerting strategies, notification channels, and escalation policies for production systems**

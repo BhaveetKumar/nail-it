@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Master Outline
+LastUpdated: 2025-11-06T20:45:58.102452
+Tags: []
+Status: draft
+---
+
 # 🦀 Complete Rust Learning Curriculum
 ## From Zero to Expert: A Comprehensive Learning Path
 

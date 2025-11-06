@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Bridge
+LastUpdated: 2025-11-06T20:45:58.523424
+Tags: []
+Status: draft
+---
+
 # Bridge Pattern
 
 ## Pattern Name & Intent

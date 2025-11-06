@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Discrete-Mathematics
+LastUpdated: 2025-11-06T20:45:58.415302
+Tags: []
+Status: draft
+---
+
 # Discrete Mathematics for Engineers
 
 ## Table of Contents

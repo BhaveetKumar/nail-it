@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Discussion Questions Framework
+LastUpdated: 2025-11-06T20:45:58.337118
+Tags: []
+Status: draft
+---
+
 # 🎯 Discussion Questions & Answers Framework
 
 > **Standardized framework for creating comprehensive discussion questions and answers across all preparation content**

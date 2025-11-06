@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Userexperiencemonitoring
+LastUpdated: 2025-11-06T20:45:59.163094
+Tags: []
+Status: draft
+---
+
 # User Experience Monitoring
 
 *Placeholder file auto-generated to heal internal links.*

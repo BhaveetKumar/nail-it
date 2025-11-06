@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Confluence Publication
+LastUpdated: 2025-11-06T20:45:58.406921
+Tags: []
+Status: draft
+---
+
 # Master Engineer Curriculum - Confluence Publication
 
 ## Overview

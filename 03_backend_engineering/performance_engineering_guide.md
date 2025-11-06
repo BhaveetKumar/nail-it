@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Performance Engineering Guide
+LastUpdated: 2025-11-06T20:45:58.272245
+Tags: []
+Status: draft
+---
+
 # ⚡ Performance Engineering Guide
 
 > **Advanced performance optimization techniques and profiling for senior backend engineers**

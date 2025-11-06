@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Trappingrainwater
+LastUpdated: 2025-11-06T20:45:58.725769
+Tags: []
+Status: draft
+---
+
 # Trapping Rain Water
 
 ### Problem

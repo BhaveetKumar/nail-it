@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Engineering   Lead Software Development Engineer   Interview Prep Guide
+LastUpdated: 2025-11-06T20:45:58.625818
+Tags: []
+Status: draft
+---
+
  
  
  

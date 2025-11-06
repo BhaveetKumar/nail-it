@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Constructbinarytreefrompreorderandinordertraversal
+LastUpdated: 2025-11-06T20:45:58.695414
+Tags: []
+Status: draft
+---
+
 # Construct Binary Tree from Preorder and Inorder Traversal
 
 ### Problem

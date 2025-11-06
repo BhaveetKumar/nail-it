@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 40 02 Advanced Embedded Systems
+LastUpdated: 2025-11-06T20:45:58.117084
+Tags: []
+Status: draft
+---
+
 # Lesson 40.2: Advanced Embedded Systems
 
 > **Module**: 40 - Advanced Embedded Systems  

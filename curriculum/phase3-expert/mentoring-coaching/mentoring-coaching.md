@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Mentoring-Coaching
+LastUpdated: 2025-11-06T20:45:58.097271
+Tags: []
+Status: draft
+---
+
 # Mentoring & Coaching
 
 ## Table of Contents

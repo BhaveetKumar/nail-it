@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Isomorphicstrings
+LastUpdated: 2025-11-06T20:45:58.688798
+Tags: []
+Status: draft
+---
+
 # Isomorphic Strings
 
 ### Problem

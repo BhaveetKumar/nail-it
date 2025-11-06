@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 18 02 Rtos Embedded
+LastUpdated: 2025-11-06T20:45:58.113576
+Tags: []
+Status: draft
+---
+
 # 18 02 Rtos Embedded
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

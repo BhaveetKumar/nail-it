@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Findminimuminrotatedsortedarray
+LastUpdated: 2025-11-06T20:45:58.721910
+Tags: []
+Status: draft
+---
+
 # Find Minimum in Rotated Sorted Array
 
 ### Problem

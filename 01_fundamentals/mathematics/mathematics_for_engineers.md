@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Mathematics For Engineers
+LastUpdated: 2025-11-06T20:45:58.754876
+Tags: []
+Status: draft
+---
+
 # 🧮 Mathematics for Software Engineers
 
 ## Table of Contents

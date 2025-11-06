@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 15 01 Web Development Basics
+LastUpdated: 2025-11-06T20:45:58.118785
+Tags: []
+Status: draft
+---
+
 # Lesson 15.1: Web Development Basics
 
 > **Module**: 15 - Web Development  

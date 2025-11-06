@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 30 02 Contribution Workflows
+LastUpdated: 2025-11-06T20:45:58.126320
+Tags: []
+Status: draft
+---
+
 # 30 02 Contribution Workflows
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

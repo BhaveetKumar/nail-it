@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Nodejs Backend Engineering
+LastUpdated: 2025-11-06T20:45:58.284313
+Tags: []
+Status: draft
+---
+
 # Node.js Backend Engineering
 
 Comprehensive Node.js backend engineering guide for senior developers.

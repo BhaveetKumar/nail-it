@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Sliding Window
+LastUpdated: 2025-11-06T20:45:58.725373
+Tags: []
+Status: draft
+---
+
 # 🪟 **Sliding Window Pattern**
 
 ## 📘 **Theory**

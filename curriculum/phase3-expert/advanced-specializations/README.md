@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.097998
+Tags: []
+Status: draft
+---
+
 # Advanced Specializations
 
 ## 📚 Table of Contents

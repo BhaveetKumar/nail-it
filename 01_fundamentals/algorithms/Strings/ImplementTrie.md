@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Implementtrie
+LastUpdated: 2025-11-06T20:45:58.686331
+Tags: []
+Status: draft
+---
+
 # Implement Trie (Prefix Tree)
 
 ### Problem

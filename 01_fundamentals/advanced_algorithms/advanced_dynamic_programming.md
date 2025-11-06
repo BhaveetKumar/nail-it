@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Dynamic Programming
+LastUpdated: 2025-11-06T20:45:59.118871
+Tags: []
+Status: draft
+---
+
 # Advanced Dynamic Programming
 
 ## Table of Contents

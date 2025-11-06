@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Reorderlist
+LastUpdated: 2025-11-06T20:45:58.753287
+Tags: []
+Status: draft
+---
+
 # Reorder List
 
 ### Problem

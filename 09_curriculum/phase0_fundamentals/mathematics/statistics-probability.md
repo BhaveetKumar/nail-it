@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Statistics-Probability
+LastUpdated: 2025-11-06T20:45:58.416486
+Tags: []
+Status: draft
+---
+
 # Statistics & Probability for Engineers
 
 ## Table of Contents

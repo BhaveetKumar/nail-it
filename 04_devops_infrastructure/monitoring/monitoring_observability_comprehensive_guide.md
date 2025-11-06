@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Monitoring Observability Comprehensive Guide
+LastUpdated: 2025-11-06T20:45:59.157984
+Tags: []
+Status: draft
+---
+
 # 📊 **Monitoring & Observability Comprehensive Guide**
 
 ## 📘 **Theory**

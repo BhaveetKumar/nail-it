@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Profiling-Optimization
+LastUpdated: 2025-11-06T20:45:58.428074
+Tags: []
+Status: draft
+---
+
 # Profiling and Optimization
 
 ## Overview

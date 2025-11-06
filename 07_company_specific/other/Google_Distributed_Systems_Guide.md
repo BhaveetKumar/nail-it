@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Google Distributed Systems Guide
+LastUpdated: 2025-11-06T20:45:58.483733
+Tags: []
+Status: draft
+---
+
 # 🌐 Google Distributed Systems Guide
 
 > **Master distributed systems concepts and patterns for Google-level interviews**

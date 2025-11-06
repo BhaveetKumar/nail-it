@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 15 02 Database Integration
+LastUpdated: 2025-11-06T20:45:58.128740
+Tags: []
+Status: draft
+---
+
 # 15 02 Database Integration
 
 <!-- AUTO-GENERATED - REVIEW REQUIRED -->

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 06 01 Collections Vectors
+LastUpdated: 2025-11-06T20:45:58.126144
+Tags: []
+Status: draft
+---
+
 # Lesson 6.1: Collections - Vectors
 
 > **Module**: 6 - Collections and Iterators  

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Network Protocols Comprehensive
+LastUpdated: 2025-11-06T20:45:58.666404
+Tags: []
+Status: draft
+---
+
 # Network Protocols and Communication Systems - Comprehensive Guide
 
 ## 🎯 Overview

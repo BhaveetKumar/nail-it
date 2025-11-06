@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Generative Ai Backend Systems
+LastUpdated: 2025-11-06T20:45:58.322183
+Tags: []
+Status: draft
+---
+
 # Generative AI Backend Systems
 
 Comprehensive guide to building backend systems for generative AI applications.

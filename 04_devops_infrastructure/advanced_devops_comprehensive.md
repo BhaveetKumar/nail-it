@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Devops Comprehensive
+LastUpdated: 2025-11-06T20:45:59.128703
+Tags: []
+Status: draft
+---
+
 # Advanced DevOps Comprehensive
 
 Comprehensive guide to advanced DevOps and infrastructure for senior backend engineers.

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.548619
+Tags: []
+Status: draft
+---
+
 # Unit of Work Pattern Implementation
 
 This microservice demonstrates the Unit of Work design pattern in a real-world fintech application, specifically for managing database transactions and entity state changes.

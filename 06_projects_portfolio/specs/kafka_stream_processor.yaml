@@ -1,0 +1,50 @@
+project:
+  name: kafka_stream_processor
+  goal: "Real-time enrichment and aggregation of transaction events with exactly-once semantics simulation"
+  tech_stack:
+    languages: [go]
+    messaging: [kafka]
+    storage: [postgres]
+    infra: [docker, kubernetes]
+  stream_characteristics:
+    input_topic: transactions.raw
+    output_topic: transactions.enriched
+    avg_events_per_sec: 2000
+    peak_events_per_sec: 5000
+  enrichment_sources:
+    - user_profile_cache
+    - risk_scoring_service
+  processing_pipeline:
+    steps:
+      - deserialize_protobuf
+      - validate_schema
+      - fetch_enrichment
+      - risk_score_compute
+      - aggregate_metrics_window
+      - produce_enriched_event
+  non_functional:
+    latency_per_event_ms_p99: 180
+    throughput_sustained_eps: 5000
+    failure_recovery_time_s: 30
+  resilience_patterns:
+    - idempotent_producer
+    - consumer_rebalance_handling
+    - dead_letter_topic
+    - exponential_backoff_enrichment
+  data_model:
+    db_tables:
+      enrichment_failures: [id, event_id, reason, created_at]
+      risk_scores: [id, user_id, score, computed_at]
+  testing_strategy:
+    unit: 35
+    integration: ["rebalance recovery", "enrichment timeouts", "window aggregation correctness"]
+    load_test:
+      tool: custom_go_benchmark
+      scenarios: ["steady_state", "peak_burst", "enrichment_slow"]
+  observability:
+    metrics: ["events_processed_total", "processing_latency_ms", "enrichment_failures_total"]
+    tracing: "Span per event with enrichment sub-spans"
+  ai_generation_prompts:
+    - "Generate Go Kafka consumer with window aggregation and enrichment stub"
+    - "Produce SQL schema for risk_scores and enrichment_failures"
+    - "Create Go benchmark simulating 5k EPS with latency measurement"

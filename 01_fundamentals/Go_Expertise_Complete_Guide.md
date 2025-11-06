@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Go Expertise Complete Guide
+LastUpdated: 2025-11-06T20:45:58.651608
+Tags: []
+Status: draft
+---
+
 # 🚀 Go Expertise: From Scratch to Super Duper Pro
 
 > **Complete guide to mastering Go (Golang) from fundamentals to advanced concepts with real-world examples and FAANG interview questions**

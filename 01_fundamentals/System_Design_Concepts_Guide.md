@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: System Design Concepts Guide
+LastUpdated: 2025-11-06T20:45:58.659513
+Tags: []
+Status: draft
+---
+
 # 🏗️ System Design Concepts - Complete Guide
 
 > **Comprehensive guide to system design with Go implementations and FAANG interview questions**

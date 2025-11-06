@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Climbingstairs
+LastUpdated: 2025-11-06T20:45:58.792038
+Tags: []
+Status: draft
+---
+
 # 🪜 Climbing Stairs - LeetCode Problem 70
 
 ## Problem Statement

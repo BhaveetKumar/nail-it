@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Dynamic Programming
+LastUpdated: 2025-11-06T20:45:58.682417
+Tags: []
+Status: draft
+---
+
 # Dynamic Programming - Advanced Problem Solving
 
 ## Overview

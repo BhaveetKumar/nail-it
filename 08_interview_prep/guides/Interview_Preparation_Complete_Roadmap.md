@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Interview Preparation Complete Roadmap
+LastUpdated: 2025-11-06T20:45:58.332028
+Tags: []
+Status: draft
+---
+
 # Complete Interview Preparation Roadmap
 
 ## Table of Contents

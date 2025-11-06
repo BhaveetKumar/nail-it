@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Findallnumbersdisappearedinarray
+LastUpdated: 2025-11-06T20:45:58.720039
+Tags: []
+Status: draft
+---
+
 # Find All Numbers Disappeared in an Array
 
 ### Problem

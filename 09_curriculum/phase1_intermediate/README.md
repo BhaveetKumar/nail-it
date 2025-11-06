@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.432522
+Tags: []
+Status: draft
+---
+
 # Phase 1: Intermediate Engineering
 
 ## Overview

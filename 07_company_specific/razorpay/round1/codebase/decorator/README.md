@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme
+LastUpdated: 2025-11-06T20:45:58.546201
+Tags: []
+Status: draft
+---
+
 # Decorator Pattern Implementation
 
 This microservice demonstrates the **Decorator Pattern** implementation in Go, providing a flexible and extensible architecture for adding cross-cutting concerns to components without modifying their core functionality.

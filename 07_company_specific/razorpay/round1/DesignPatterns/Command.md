@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Command
+LastUpdated: 2025-11-06T20:45:58.517648
+Tags: []
+Status: draft
+---
+
 # Command Pattern
 
 ## Pattern Name & Intent

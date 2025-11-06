@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Engineering Context Guide
+LastUpdated: 2025-11-06T20:45:58.271118
+Tags: []
+Status: draft
+---
+
 # 🏢 Engineering Context Guide
 
 > **Understanding different engineering environments and their impact on technical decisions**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Database Systems Comprehensive
+LastUpdated: 2025-11-06T20:45:58.663268
+Tags: []
+Status: draft
+---
+
 # Advanced Database Systems Comprehensive
 
 Comprehensive guide to advanced database systems for senior backend engineers.

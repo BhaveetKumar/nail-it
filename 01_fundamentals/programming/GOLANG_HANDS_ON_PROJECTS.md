@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Golang Hands On Projects
+LastUpdated: 2025-11-06T20:45:58.763103
+Tags: []
+Status: draft
+---
+
 # 🚀 Go Hands-on Projects for Learning
 
 > **Complete projects to build your Go programming skills from beginner to advanced**

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Abc
+LastUpdated: 2025-11-06T20:45:58.627466
+Tags: []
+Status: draft
+---
+
 # 📚 **Comprehensive Technical Deep-Dive Guide**
 
 > **Complete preparation materials for software engineering interviews**

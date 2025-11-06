@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Decodeways
+LastUpdated: 2025-11-06T20:45:58.684874
+Tags: []
+Status: draft
+---
+
 # Decode Ways
 
 ### Problem

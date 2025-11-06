@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Readme New Structure
+LastUpdated: 2025-11-06T20:45:58.629496
+Tags: []
+Status: draft
+---
+
 # 🚀 Razorpay Interview Preparation Repository - Reorganized Structure
 
 A comprehensive, well-organized collection of technical materials for software engineering interview preparation, with focus on Razorpay and fintech companies.

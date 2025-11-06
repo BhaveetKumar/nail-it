@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Async Patterns
+LastUpdated: 2025-11-06T20:45:58.130736
+Tags: []
+Status: draft
+---
+
 # Async Patterns Cheat Sheet
 
 > **Quick Reference for Async Programming in Rust**  

@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Security Comprehensive
+LastUpdated: 2025-11-06T20:45:58.665528
+Tags: []
+Status: draft
+---
+
 # Advanced Security Comprehensive
 
 Comprehensive guide to advanced security for senior backend engineers.

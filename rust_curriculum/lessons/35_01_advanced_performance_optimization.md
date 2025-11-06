@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 35 01 Advanced Performance Optimization
+LastUpdated: 2025-11-06T20:45:58.114107
+Tags: []
+Status: draft
+---
+
 # Lesson 35.1: Advanced Performance Optimization
 
 > **Module**: 35 - Advanced Performance Optimization  

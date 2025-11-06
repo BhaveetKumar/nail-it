@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced System Design Coding
+LastUpdated: 2025-11-06T20:45:58.349886
+Tags: []
+Status: draft
+---
+
 # Advanced System Design Coding Problems
 
 ## Table of Contents

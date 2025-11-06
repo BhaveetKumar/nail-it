@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Pci Dss Guide
+LastUpdated: 2025-11-06T20:45:58.800740
+Tags: []
+Status: draft
+---
+
 # [Auto-Created Placeholder]
 
 This file was auto-generated because a link pointed here.

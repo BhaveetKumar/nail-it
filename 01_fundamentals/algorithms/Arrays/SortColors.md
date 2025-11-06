@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Sortcolors
+LastUpdated: 2025-11-06T20:45:58.723655
+Tags: []
+Status: draft
+---
+
 # Sort Colors
 
 ### Problem

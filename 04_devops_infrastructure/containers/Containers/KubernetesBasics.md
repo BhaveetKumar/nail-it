@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Kubernetesbasics
+LastUpdated: 2025-11-06T20:45:59.155075
+Tags: []
+Status: draft
+---
+
 # ☸️ Kubernetes Basics: Container Orchestration and Scaling
 
 > **Master Kubernetes for container orchestration, scaling, and management**

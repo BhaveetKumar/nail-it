@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Game Development Backend
+LastUpdated: 2025-11-06T20:45:58.675103
+Tags: []
+Status: draft
+---
+
 # Game Development Backend Systems
 
 ## Table of Contents

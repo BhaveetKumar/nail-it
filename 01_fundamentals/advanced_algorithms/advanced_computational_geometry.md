@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: Advanced Computational Geometry
+LastUpdated: 2025-11-06T20:45:59.116332
+Tags: []
+Status: draft
+---
+
 # Advanced Computational Geometry
 
 ## Table of Contents

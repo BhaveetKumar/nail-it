@@ -1,3 +1,11 @@
+---
+# Auto-generated front matter
+Title: 03 01 Ownership Basics
+LastUpdated: 2025-11-06T20:45:58.122044
+Tags: []
+Status: draft
+---
+
 # Lesson 3.1: Ownership Basics
 
 > **Module**: 3 - Ownership and Borrowing  
